@@ -1,0 +1,49 @@
+{
+  "id": "skill-video-assembler",
+  "name": "Video Assembler Skill",
+  "component_type": "skill",
+  "purpose": "Automated render execution, low-memory profile management on Apple Silicon, multi-track FFmpeg multiplexing, and 5-gate QA verification.",
+  "capabilities": [
+    "Headless Chromium render execution (--low-memory-mode)",
+    "Multi-track audio-video multiplexing (FFmpeg amix filter complex)",
+    "Automated QA gate auditing (run-qa-gates.sh)",
+    "Loudness normalization and black screen gap detection"
+  ],
+  "location": ".agents/skills/video-assembler",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-hyperframes",
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Pins Chromium worker count to 1 for 8 GB RAM stability."
+  },
+  "documentation_urls": [
+    ".agents/skills/video-assembler/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Renders videos and runs local ffmpeg commands."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 6, Stage 8, and Stage 9 QA gates.",
+  "architecture_ref": "ARCHITECTURE.md#s8",
+  "last_verified": "2026-10-30",
+  "tags": ["render", "ffmpeg", "assembly", "multiplexing", "qa-gates"]
+}

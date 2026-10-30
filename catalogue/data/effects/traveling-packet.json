@@ -1,0 +1,36 @@
+{
+  "id": "traveling-packet",
+  "name": "Animated Signal / Packet Travel",
+  "category": "data_flow",
+  "visual_intent": "Illustrates discrete data packets, tokens, or network messages traversing connections between system nodes with destination arrival pulses.",
+  "status": "approved",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "data-flow",
+    "packet",
+    "signal",
+    "network",
+    "node-graph",
+    "pulse"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "<10 SVG nodes",
+    "memory_profile": "Negligible (<15MB)"
+  },
+  "recipes": [
+    "node-network-signal-transfer"
+  ],
+  "implementation_summary": "Animates SVG circle coordinates (cx, cy) along connections, triggering a scale-pulse deformation on the destination node upon arrival.",
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

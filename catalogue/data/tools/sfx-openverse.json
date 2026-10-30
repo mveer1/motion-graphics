@@ -1,0 +1,45 @@
+{
+  "id": "tool-sfx-openverse",
+  "name": "Openverse SFX Asset Sourcing CLI",
+  "component_type": "tool",
+  "purpose": "Queries Openverse REST API to retrieve free, Creative Commons CC0 / CC BY audio assets without API keys.",
+  "capabilities": [
+    "Search Creative Commons audio by keyword (whoosh, click, impact)",
+    "Automatic ingestion into assets/audio/sfx/",
+    "Public CDN preview retrieval avoiding authenticated API restrictions"
+  ],
+  "location": "scripts/sfx-openverse.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via python3 scripts/sfx-openverse.py <query> --download."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Uses standard library urllib / requests."
+  },
+  "documentation_urls": [
+    "scripts/sfx-openverse.py"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool sourcing CC0/CC BY assets."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Outbound HTTP GET to public Openverse API; downloads saved to assets/audio/sfx/."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4B audio pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s4b",
+  "last_verified": "2026-10-30",
+  "tags": ["sfx", "openverse", "audio", "sourcing", "cc0"]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "integration-openverse-api",
+  "name": "Openverse Audio Catalog Integration",
+  "component_type": "integration",
+  "purpose": "REST integration querying WordPress Openverse catalog for CC0 / CC BY audio assets with direct CDN asset retrieval.",
+  "capabilities": [
+    "Unauthenticated REST audio search API endpoint access",
+    "Creative Commons metadata filtering (CC0, CC-BY)",
+    "Direct CDN audio asset streaming and download"
+  ],
+  "location": "https://api.openverse.org/v1/audio/",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Integrated via scripts/sfx-openverse.py. No API key required."
+  },
+  "dependencies": [
+    "tool-sfx-openverse"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Public HTTPS REST API."
+  },
+  "documentation_urls": [
+    "https://api.openverse.org"
+  ],
+  "licensing": {
+    "spdx_identifier": "CC0-1.0",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Openverse public catalog provides verified CC0 and CC-BY audio assets."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Requires public outbound HTTPS access; zero credential or token requirements."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4B audio asset retrieval.",
+  "architecture_ref": "ARCHITECTURE.md#s4b",
+  "last_verified": "2026-10-30",
+  "tags": ["integration", "openverse", "api", "cc0", "audio"]
+}

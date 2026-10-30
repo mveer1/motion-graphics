@@ -1,0 +1,49 @@
+{
+  "id": "tool-build-project",
+  "name": "Project Build Automation CLI",
+  "component_type": "tool",
+  "purpose": "Executes end-to-end explainer build pipeline for a project (TTS synthesis, audio concat, visual render, multi-track mux, QA gates).",
+  "capabilities": [
+    "Full pipeline execution from narration.json to final MP4",
+    "Stage orchestration (audio, visuals, multiplexing, QA gates)",
+    "Directory artifact structure setup"
+  ],
+  "location": "scripts/build-project.sh",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via ./scripts/build-project.sh <project_name>."
+  },
+  "dependencies": [
+    "tool-tts-pipeline",
+    "tool-hyperframes",
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Orchestrates full production lifecycle."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#s4"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace build utility."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Orchestrates local build processes."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified across all 3 benchmark explainers.",
+  "architecture_ref": "ARCHITECTURE.md#s8",
+  "last_verified": "2026-10-30",
+  "tags": ["build", "pipeline", "orchestration", "bash"]
+}

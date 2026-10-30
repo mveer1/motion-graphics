@@ -1,0 +1,50 @@
+{
+  "id": "skill-motion-library-guide",
+  "name": "Motion Library Guide Skill",
+  "component_type": "skill",
+  "purpose": "Scalable capability catalogue navigation, dependency vetting, approval state enforcement, and deterministic GSAP animation recipe retrieval.",
+  "capabilities": [
+    "Catalogue search by intent, tags, and hardware compatibility",
+    "Approval state evaluation (approved/proposed/blocked)",
+    "Licensing verification audit",
+    "Recipe retrieval and timeline requirements guidance"
+  ],
+  "location": ".agents/skills/motion-library-guide",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-motion-catalogue",
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Integrates with scripts/motion-catalogue.py."
+  },
+  "documentation_urls": [
+    ".agents/skills/motion-library-guide/SKILL.md",
+    "catalogue/README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Read-only inspection of catalogue records and local schemas."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Validated via 16 automated test suites in tests/test-motion-catalogue.py.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": ["catalogue", "motion", "recipes", "dependencies", "governance"]
+}

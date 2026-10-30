@@ -1,0 +1,49 @@
+{
+  "id": "tool-workspace-governance",
+  "name": "Workspace Governance & Drift Detection CLI",
+  "component_type": "tool",
+  "purpose": "Automated governance audit command verifying component placement, schema conformity, reference integrity, and disk drift detection.",
+  "capabilities": [
+    "Full catalogue schema validation across all component categories",
+    "Missing or unlinked workspace file detection",
+    "Unregistered active skill/tool/template detection",
+    "Architecture documentation reference verification",
+    "Approval and licensing policy enforcement"
+  ],
+  "location": "scripts/workspace-governance.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via python3 scripts/workspace-governance.py."
+  },
+  "dependencies": [
+    "tool-motion-catalogue"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Executes in sub-second time on local machine."
+  },
+  "documentation_urls": [
+    ".agents/skills/workspace-steward/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Read-only workspace scanning and integrity checks."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Validated via automated governance test suites.",
+  "architecture_ref": "ARCHITECTURE.md#governance",
+  "last_verified": "2026-10-30",
+  "tags": ["governance", "drift-detection", "audit", "validation", "cli"]
+}

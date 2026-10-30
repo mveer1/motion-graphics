@@ -1,0 +1,45 @@
+{
+  "id": "agent-image-generator-subagent",
+  "name": "Image Generator Subagent",
+  "component_type": "agent",
+  "purpose": "Generates or edits static images from a prompt brief and replies with saved file paths.",
+  "capabilities": [
+    "Diagram schematic sketch generation",
+    "Asset thumbnail creation",
+    "Visual storyboard concept rendering"
+  ],
+  "location": "system_prompt:image-generator",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Invoked via invoke_subagent with TypeName 'image-generator'."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Executes on external multimodal generation host."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#s1"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace subagent specification."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Saves image outputs to assets/ or projects/<name>/."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production certified for supplementary visual asset generation.",
+  "architecture_ref": "ARCHITECTURE.md#s1",
+  "last_verified": "2026-10-30",
+  "tags": ["subagent", "image", "concept", "assets"]
+}

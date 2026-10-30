@@ -1,0 +1,128 @@
+{
+  "$schema": "../specs/research-spec.json",
+  "metadata": {
+    "topic_id": "topic-slug-kebab-case",
+    "title": "Title of the Technical Explainer",
+    "domain": "computer_systems",
+    "difficulty": "intermediate",
+    "target_duration_sec": {
+      "min": 25.0,
+      "max": 45.0,
+      "target": 35.0
+    },
+    "canonical_sources": [
+      {
+        "title": "Canonical Reference Paper or Specification",
+        "authors": "First Last, Author Two",
+        "year": 2024,
+        "source_type": "academic_paper",
+        "url": "https://example.com/canonical-paper"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "What core technical tension, bottleneck, or question is being resolved?",
+    "core_thesis": "The central mechanical truth explained by the video in 1-2 sentences.",
+    "mental_model": "Intuitive physical or spatial metaphor connecting abstract mechanics to intuition.",
+    "key_takeaway": "The single actionable conclusion the viewer should retain.",
+    "verified_claims": [
+      "Atomic factual assertion verified against primary documentation.",
+      "Second verified mechanical claim."
+    ],
+    "anti_patterns": [
+      "Common misconception or misleading analogy to avoid."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "entity_id",
+        "symbol_latex": "E \\in \\mathbb{R}",
+        "name": "Entity Name",
+        "type_or_domain": "vector",
+        "role": "Role within the system or algorithm."
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_core",
+        "latex": "y = f(x)",
+        "spoken_form": "y equals f of x",
+        "context": "Core transformation."
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Initialization",
+        "mathematical_operation": "s_0 = Init()",
+        "state_effect": "System begins in default state."
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Execution",
+        "mathematical_operation": "s_{t+1} = Step(s_t)",
+        "state_effect": "State transitions to next epoch."
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "entity_id",
+      "abstract_concept": "Description of abstract concept",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["circle", "line", "text"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Staggered entrance with scale pulse",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "process_id",
+      "abstract_concept": "Data or signal flow",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["path", "circle"],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "Dashoffset stroke traversal",
+      "color_token": "accent_secondary_teal"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 0.95,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "JargonTerm",
+        "phonetic_respelling": "JAR-gun",
+        "rationale": "Ensures accurate pronunciation in Kokoro TTS"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The Problem",
+      "target_duration_sec": 8.0,
+      "pedagogical_objective": "State the problem and establish initial context.",
+      "visual_action": "Initial diagram setup and elements enter.",
+      "active_entities": ["entity_id"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "The Mechanism",
+      "target_duration_sec": 12.0,
+      "pedagogical_objective": "Explain the core transformation.",
+      "visual_action": "Transformation animates across the canvas.",
+      "active_entities": ["entity_id"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Resolution",
+      "target_duration_sec": 10.0,
+      "pedagogical_objective": "Conclude with convergence or output state.",
+      "visual_action": "System reaches stable target state.",
+      "active_entities": ["entity_id"]
+    }
+  ]
+}
+

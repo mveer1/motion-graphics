@@ -1,0 +1,51 @@
+{
+  "id": "skill-workspace-steward",
+  "name": "Workspace Steward Skill",
+  "component_type": "skill",
+  "purpose": "Workspace-wide governance over component discovery, placement policy, registration, licensing audit, architecture documentation, and drift detection.",
+  "capabilities": [
+    "Component placement policy enforcement across 7 workspace domains",
+    "Catalogue record registration and schema validation",
+    "10-stage component lifecycle management",
+    "Automated drift detection and unregistered component auditing",
+    "Architecture documentation synchronization"
+  ],
+  "location": ".agents/skills/workspace-steward",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace governance skill."
+  },
+  "dependencies": [
+    "tool-workspace-governance",
+    "tool-motion-catalogue"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Directs workspace governance and registry integrity."
+  },
+  "documentation_urls": [
+    ".agents/skills/workspace-steward/SKILL.md",
+    "catalogue/README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace governance skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Audits catalogue records; strictly enforces zero secrets in repo."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Validated via automated governance test suites.",
+  "architecture_ref": "ARCHITECTURE.md#governance",
+  "last_verified": "2026-10-30",
+  "tags": ["governance", "steward", "placement", "registration", "drift-detection"]
+}

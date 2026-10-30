@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080c14; width: 1280px; height: 720px; overflow: hidden; font-family: 'SF Pro Display', sans-serif; }
+    #root { position: relative; width: 1280px; height: 720px; }
+
+    .scene-pane {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+    }
+
+    .title {
+      position: absolute;
+      top: 140px; left: 0; right: 0;
+      text-align: center;
+      font-size: 48px;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 210px; left: 0; right: 0;
+      text-align: center;
+      font-size: 20px;
+      color: #8b949e;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="10">
+  <div class="scene-pane" id="scene-a">
+    <div class="title" id="title-a">Deterministic Scene Architecture</div>
+    <div class="subtitle" id="subtitle-a">GSAP 3 + HyperFrames Reference</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script>
+  // 1. Deterministic Mulberry32 PRNG (never use Math.random)
+  let seed = 0x12345678;
+  const rand = () => {
+    seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5;
+    return ((seed >>> 0) / 0xffffffff);
+  };
+
+  // 2. Paused timeline registered to HyperFrames
+  const tl = gsap.timeline({ paused: true });
+
+  tl.to('#scene-a', { opacity: 1, duration: 0.01 }, 0);
+  tl.fromTo('#title-a', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 0.3);
+  tl.fromTo('#subtitle-a', { opacity: 0 }, { opacity: 1, duration: 0.5 }, 0.8);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['root'] = tl;
+</script>
+</body>
+</html>
+

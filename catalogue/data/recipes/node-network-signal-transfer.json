@@ -1,0 +1,76 @@
+{
+  "id": "node-network-signal-transfer",
+  "name": "Node Network Signal Travel & Target Pulse",
+  "effect_id": "traveling-packet",
+  "status": "approved",
+  "visual_intent": "Shows communication packet or gradient signal propagating between two nodes on an architecture graph with arrival deformation.",
+  "parameters": [
+    {
+      "name": "packetSelector",
+      "type": "string",
+      "default": "#signal-dot",
+      "description": "Selector for traveling SVG circle element."
+    },
+    {
+      "name": "targetSelector",
+      "type": "string",
+      "description": "Selector for destination node element to pulse upon arrival."
+    },
+    {
+      "name": "fromCoords",
+      "type": "object",
+      "description": "Origin coordinates { x: number, y: number }."
+    },
+    {
+      "name": "toCoords",
+      "type": "object",
+      "description": "Destination coordinates { x: number, y: number }."
+    },
+    {
+      "name": "startTime",
+      "type": "number",
+      "description": "Timestamp in seconds to begin transmission."
+    },
+    {
+      "name": "travelDuration",
+      "type": "number",
+      "default": 0.6,
+      "description": "Transit time in seconds."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Anchored to voice narration describing packet transfer or dispatch.",
+    "easing_standard": "power1.inOut for travel, power2.out for arrival pulse.",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<svg viewBox=\"0 0 1280 720\">\n  <circle id=\"signal-dot\" cx=\"0\" cy=\"0\" r=\"5\" fill=\"#58a6ff\" opacity=\"0\"/>\n  <g id=\"target-node\">\n    <rect x=\"800\" y=\"320\" width=\"120\" height=\"80\" rx=\"8\" fill=\"#161b22\" stroke=\"#30363d\"/>\n  </g>\n</svg>",
+    "css": "#signal-dot { filter: drop-shadow(0 0 6px #58a6ff); }",
+    "javascript": "// Register dot position\ntl.set('#signal-dot', { opacity: 0, attr: { cx: fromCoords.x, cy: fromCoords.y } }, startTime);\ntl.to('#signal-dot', { opacity: 1, duration: 0.15 }, startTime);\n\n// Travel along edge\ntl.to('#signal-dot', {\n  attr: { cx: toCoords.x, cy: toCoords.y },\n  duration: travelDuration,\n  ease: 'power1.inOut'\n}, startTime + 0.15);\n\n// Pulse target node on arrival\ntl.to(targetSelector, {\n  scale: 1.25,\n  transformOrigin: '50% 50%',\n  duration: 0.2,\n  yoyo: true,\n  repeat: 1,\n  ease: 'power2.out'\n}, startTime + 0.15 + travelDuration);\n\ntl.to('#signal-dot', { opacity: 0, duration: 0.15 }, startTime + 0.15 + travelDuration + 0.1);"
+  },
+  "fallbacks": "Instant line highlight (stroke-color pulse) if dot tween is not desired.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.5,
+    "memory_impact": "Negligible (<2MB)"
+  },
+  "validation_steps": [
+    "Snapshot at startTime + 0.15 + (travelDuration / 2) to confirm dot midway between coordinates.",
+    "Snapshot at startTime + 0.15 + travelDuration + 0.1 to confirm target node scale deformation."
+  ],
+  "tags": [
+    "data-flow",
+    "signal",
+    "packet",
+    "node-graph",
+    "pulse",
+    "network"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

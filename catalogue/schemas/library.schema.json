@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLibraryRecord",
+  "description": "Schema defining a library or runtime capability in the Motion Graphics Capability Catalogue.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "category",
+    "status",
+    "licensing",
+    "documentation_urls",
+    "runtime_environment",
+    "rendering_constraints",
+    "compatibility",
+    "justification"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique kebab-case slug identifying the library or capability."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name of the library."
+    },
+    "version": {
+      "type": "string",
+      "description": "Exact version verified/installed (e.g. '3.12.5') or 'native' for browser primitives."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "animation_engine",
+        "vector_graphics",
+        "raster_canvas",
+        "media_element",
+        "webgl_3d",
+        "physics_engine",
+        "charting",
+        "utility"
+      ],
+      "description": "Functional domain classification."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "experimental",
+        "approved",
+        "deprecated",
+        "blocked"
+      ],
+      "description": "Catalogue approval state governing production use."
+    },
+    "licensing": {
+      "type": "object",
+      "required": ["spdx_identifier", "status", "commercial_use"],
+      "additionalProperties": false,
+      "properties": {
+        "spdx_identifier": {
+          "type": "string",
+          "description": "SPDX short identifier or exact license name."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["verified", "unverified"],
+          "description": "Whether licensing terms have been human- or audit-verified."
+        },
+        "commercial_use": {
+          "type": "boolean",
+          "description": "Whether license permits commercial distribution without royalty."
+        },
+        "attribution_required": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether credits or attribution are required."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Specific license terms, restrictions, or exceptions."
+        }
+      }
+    },
+    "documentation_urls": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "description": "Official documentation, API references, or repository links."
+    },
+    "runtime_environment": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "browser_script",
+            "browser_module",
+            "browser_native",
+            "node_cli",
+            "external_service"
+          ],
+          "description": "How the library executes within HyperFrames / Chromium."
+        },
+        "cdn_url": {
+          "type": "string",
+          "description": "Preferred CDN URL for headless browser injection."
+        },
+        "npm_package": {
+          "type": "string",
+          "description": "NPM package name if bundled via bundler."
+        },
+        "bundle_size_kb": {
+          "type": "number",
+          "description": "Minified bundle size in kilobytes."
+        }
+      }
+    },
+    "rendering_constraints": {
+      "type": "object",
+      "required": [
+        "max_memory_mb",
+        "target_fps",
+        "headless_chromium_compatible",
+        "deterministic_mode_supported"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "max_memory_mb": {
+          "type": "number",
+          "description": "Peak memory ceiling during frame capture (must stay <=1500 for M2 8GB)."
+        },
+        "target_fps": {
+          "type": "integer",
+          "default": 30,
+          "description": "Validated frames per second target."
+        },
+        "headless_chromium_compatible": {
+          "type": "boolean",
+          "description": "Whether library renders reliably in HyperFrames headless Chrome without GPU stalls."
+        },
+        "deterministic_mode_supported": {
+          "type": "boolean",
+          "description": "Whether library supports frame-stepping without drift or unseeded RNG."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Critical rendering gotchas or constraints."
+        }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "required": [
+        "apple_silicon_tested",
+        "hyperframes_compatible",
+        "low_memory_mode_compatible"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "apple_silicon_tested": {
+          "type": "boolean",
+          "description": "Tested on macOS Apple Silicon (M-series)."
+        },
+        "hyperframes_compatible": {
+          "type": "boolean",
+          "description": "Compatible with HyperFrames window.__timelines registration."
+        },
+        "low_memory_mode_compatible": {
+          "type": "boolean",
+          "description": "Tested under hyperframes render --low-memory-mode."
+        }
+      }
+    },
+    "justification": {
+      "type": "string",
+      "description": "Architectural rationale explaining why this capability is approved, proposed, or blocked."
+    },
+    "effects_provided": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "description": "Effect IDs enabled by or utilizing this library."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
+

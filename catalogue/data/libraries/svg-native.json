@@ -1,0 +1,47 @@
+{
+  "id": "svg-native",
+  "name": "Native Scalable Vector Graphics (SVG 1.1 / 2.0)",
+  "version": "native",
+  "category": "vector_graphics",
+  "status": "approved",
+  "licensing": {
+    "spdx_identifier": "W3C-Software-Notice",
+    "status": "verified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "Open web standard implemented natively inside Chromium/Blink engine."
+  },
+  "documentation_urls": [
+    "https://www.w3.org/TR/SVG2/",
+    "https://developer.mozilla.org/en-US/docs/Web/SVG"
+  ],
+  "runtime_environment": {
+    "type": "browser_native"
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 150,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": true,
+    "notes": "Vector elements rasterize on GPU via ANGLE Metal. Highly performant when DOM node count remains under 500."
+  },
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "hyperframes_compatible": true,
+    "low_memory_mode_compatible": true
+  },
+  "justification": "Approved core technology. Standard 2D vector format ensuring crisp, non-blurry line work, typography, and mathematical diagrams across 720p and 1080p outputs.",
+  "effects_provided": [
+    "traveling-packet",
+    "marching-dashed-stroke",
+    "clip-path-reveal",
+    "glow-pulse"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": ["vector", "svg", "dom", "browser-native", "gpu-rasterized"]
+  }
+}
+

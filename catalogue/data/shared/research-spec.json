@@ -1,0 +1,44 @@
+{
+  "id": "shared-research-spec",
+  "name": "Research Dossier JSON Schema Specification",
+  "component_type": "shared_asset",
+  "purpose": "Authoritative Draft-07 JSON Schema enforcing the 6 core pillars of technical explainer research dossiers.",
+  "capabilities": [
+    "Machine validation of metadata, pedagogy, ground truth, visual metaphors, acoustic guidance, and scene blueprint",
+    "Formula verification gating and anti-hallucination fact checking"
+  ],
+  "location": "specs/research-spec.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Referenced directly by scripts/validate-research.py."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "json-schema",
+    "notes": "Draft-07 standard schema."
+  },
+  "documentation_urls": [
+    "specs/research-spec.json"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace schema specification."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static schema definition."
+  },
+  "owner": "pedagogy",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 0 QA gate.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["schema", "spec", "research", "json-schema", "draft-07"]
+}

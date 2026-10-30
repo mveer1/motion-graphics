@@ -1,0 +1,24 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Problem",
+      "text": "In distributed systems, independent servers must agree on a single shared state, even when nodes fail."
+    },
+    {
+      "id": "s2",
+      "title": "Leader Election",
+      "text": "Raft solves this by electing a leader. If a node times out, it requests votes until it wins a majority quorum."
+    },
+    {
+      "id": "s3",
+      "title": "Log Replication",
+      "text": "The leader accepts client commands and broadcasts them across the cluster through heartbeat messages."
+    },
+    {
+      "id": "s4",
+      "title": "Quorum Commitment",
+      "text": "Once a majority of followers acknowledge the entry, it commits permanently. The cluster reaches consensus."
+    }
+  ]
+}

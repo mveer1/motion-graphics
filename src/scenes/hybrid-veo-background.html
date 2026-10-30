@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080c14; width: 1280px; height: 720px; overflow: hidden; font-family: 'SF Pro Display', sans-serif; }
+    #root { position: relative; width: 1280px; height: 720px; }
+
+    /* Layer 0: External AI / Veo cinematic video background */
+    #veo-bg {
+      position: absolute;
+      inset: 0;
+      width: 1280px;
+      height: 720px;
+      object-fit: cover;
+      opacity: 0.28;
+      filter: blur(1.5px) saturate(1.2);
+      z-index: 0;
+    }
+
+    /* Layer 1: Subtle vignette overlay */
+    #vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(8,12,20,0.85) 100%);
+      z-index: 1;
+    }
+
+    /* Layer 2: Sharp vector SVG overlay (programmatic precision) */
+    #vector-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="10">
+  <!-- Ingested with ./scripts/ingest-asset.sh -->
+  <video id="veo-bg" src="../../assets/generated/sample-veo-normalized.mp4" muted loop></video>
+  <div id="vignette"></div>
+
+  <svg id="vector-stage" viewBox="0 0 1280 720">
+    <!-- Mathematical / Vector elements render razor-sharp on top of cinematic background -->
+    <text x="640" y="240" text-anchor="middle" fill="#f0f6fc" font-size="44" font-weight="700">
+      Hybrid Cinematic Explainer
+    </text>
+    <text x="640" y="300" text-anchor="middle" fill="#8b949e" font-size="18">
+      Veo Atmospheric Background + Pixel-Perfect Vector Overlay
+    </text>
+  </svg>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script>
+  const tl = gsap.timeline({ paused: true });
+  tl.from('#vector-stage text', { opacity: 0, y: 20, duration: 0.8, stagger: 0.2 }, 0.5);
+  window.__timelines = window.__timelines || {};
+  window.__timelines['root'] = tl;
+</script>
+</body>
+</html>
+

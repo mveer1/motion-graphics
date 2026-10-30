@@ -1,0 +1,48 @@
+{
+  "id": "skill-earshot",
+  "name": "Earshot Acoustic Verification Skill",
+  "component_type": "skill",
+  "purpose": "Acoustic verification, audio measurement, loudness/spectral checks, and procedural sound synthesis.",
+  "capabilities": [
+    "True peak and integrated loudness measurement (EBU R128)",
+    "Spectral bandwidth and noise floor audit",
+    "Procedural micro-SFX synthesis (clicks, thocks, pops, risers)",
+    "Acoustic quality auditing for Gate 5 signoff"
+  ],
+  "location": ".agents/skills/earshot",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. CLI available in .venv/bin/earshot."
+  },
+  "dependencies": [
+    "tool-earshot-cli"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Integrates with vendored tools/earshot and .venv/bin/earshot."
+  },
+  "documentation_urls": [
+    ".agents/skills/earshot/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace skill wrapping open-source earshot toolkit."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Zero network traffic; procedural synthesis and local audio analysis only."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 9 Gate 5 acoustic verification.",
+  "architecture_ref": "ARCHITECTURE.md#s9",
+  "last_verified": "2026-10-30",
+  "tags": ["audio", "acoustic", "earshot", "synthesis", "qa-gate"]
+}

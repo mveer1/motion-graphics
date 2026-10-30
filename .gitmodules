@@ -1,0 +1,6 @@
+[submodule "tools/earshot"]
+	path = tools/earshot
+	url = https://github.com/Leonxlnx/earshot.git
+[submodule "tools/clipwing-skills"]
+	path = tools/clipwing-skills
+	url = https://github.com/Clipwing/skills.git

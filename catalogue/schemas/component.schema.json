@@ -1,0 +1,197 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WorkspaceComponentRecord",
+  "description": "Schema defining a registered workspace component (skill, tool, agent, integration, shared_asset) in the Workspace Governance Catalogue.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "component_type",
+    "purpose",
+    "location",
+    "version",
+    "status",
+    "owner",
+    "licensing",
+    "security",
+    "last_verified"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Stable unique kebab-case slug identifying the component."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name of the component."
+    },
+    "component_type": {
+      "type": "string",
+      "enum": [
+        "skill",
+        "tool",
+        "agent",
+        "integration",
+        "shared_asset"
+      ],
+      "description": "Classification of the workspace component."
+    },
+    "purpose": {
+      "type": "string",
+      "description": "Primary role, purpose, and capability summary."
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Key capabilities or services provided."
+    },
+    "location": {
+      "type": "string",
+      "description": "Relative workspace file path or package/system identifier."
+    },
+    "version": {
+      "type": "string",
+      "description": "Version string or semantic release constraint."
+    },
+    "version_constraints": {
+      "type": "string",
+      "description": "Permitted version range or runtime requirements."
+    },
+    "installation": {
+      "type": "object",
+      "required": ["required", "instructions"],
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean",
+          "description": "Whether explicit manual or automated installation is needed."
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Command or instructions to setup/install."
+        }
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of component IDs or system packages required."
+    },
+    "compatibility": {
+      "type": "object",
+      "required": ["apple_silicon_tested", "runtime"],
+      "additionalProperties": false,
+      "properties": {
+        "apple_silicon_tested": {
+          "type": "boolean",
+          "description": "Verified on Apple Silicon macOS (M-series)."
+        },
+        "runtime": {
+          "type": "string",
+          "description": "Target runtime environment (e.g. 'python3.12', 'node', 'bash', 'agent-host')."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Compatibility notes or restrictions."
+        }
+      }
+    },
+    "documentation_urls": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Official documentation links, reference guides, or upstream repositories."
+    },
+    "licensing": {
+      "type": "object",
+      "required": ["spdx_identifier", "status", "commercial_use"],
+      "additionalProperties": false,
+      "properties": {
+        "spdx_identifier": {
+          "type": "string",
+          "description": "SPDX short identifier or license name."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["verified", "unverified"],
+          "description": "Audit verification state of license terms."
+        },
+        "commercial_use": {
+          "type": "boolean",
+          "description": "Whether commercial use is permitted without royalties."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Specific license terms, restrictions, or exceptions."
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "required": [
+        "requires_filesystem_write",
+        "requires_network",
+        "requires_execution",
+        "sensitive_data_exposure",
+        "notes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "requires_filesystem_write": {
+          "type": "boolean",
+          "description": "Whether component modifies files in workspace."
+        },
+        "requires_network": {
+          "type": "boolean",
+          "description": "Whether component makes outbound network requests."
+        },
+        "requires_execution": {
+          "type": "boolean",
+          "description": "Whether component executes shell processes or binaries."
+        },
+        "sensitive_data_exposure": {
+          "type": "boolean",
+          "description": "Must be false. True indicates security violation."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Security considerations, sandboxing, and permission boundaries."
+        }
+      }
+    },
+    "owner": {
+      "type": "string",
+      "description": "Responsible subsystem, team, or agent skill."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "experimental",
+        "approved",
+        "deprecated",
+        "blocked"
+      ],
+      "description": "Catalogue lifecycle approval state."
+    },
+    "approval_evidence": {
+      "type": "string",
+      "description": "Evidence supporting the approval status (e.g. QA gates passed, code review, benchmark)."
+    },
+    "architecture_ref": {
+      "type": "string",
+      "description": "Reference to relevant section in ARCHITECTURE.md or AGENTS.md."
+    },
+    "last_verified": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "ISO 8601 date of last audit verification (YYYY-MM-DD)."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Searchable classification tags."
+    }
+  }
+}

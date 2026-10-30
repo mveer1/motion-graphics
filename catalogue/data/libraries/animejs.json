@@ -1,0 +1,42 @@
+{
+  "id": "animejs",
+  "name": "Anime.js Animation Engine",
+  "version": "3.2.2",
+  "category": "animation_engine",
+  "status": "blocked",
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "Standard MIT license."
+  },
+  "documentation_urls": [
+    "https://animejs.com/documentation/"
+  ],
+  "runtime_environment": {
+    "type": "browser_script",
+    "bundle_size_kb": 17.0
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 200,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": false,
+    "notes": "Anime.js lacks first-class integration with HyperFrames window.__timelines registration and would conflict with the established GSAP pipeline."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "hyperframes_compatible": false,
+    "low_memory_mode_compatible": false
+  },
+  "justification": "BLOCKED: Redundant dependency. The repository standardized on GSAP 3 which provides proven, deterministic timeline management for HyperFrames headless capture. Introducing Anime.js creates cognitive overhead, dual timeline conflicts, and violates the repository's dependency minimization policy.",
+  "effects_provided": [],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": ["animation", "blocked", "redundant"]
+  }
+}
+

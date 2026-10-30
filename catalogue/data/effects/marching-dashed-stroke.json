@@ -1,0 +1,35 @@
+{
+  "id": "marching-dashed-stroke",
+  "name": "Marching Dashed Flow Arrow",
+  "category": "data_flow",
+  "visual_intent": "Displays continuous directional gradient or error backpropagation flow along connectors without visual strobe.",
+  "status": "approved",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "data-flow",
+    "flow",
+    "dashed",
+    "backpropagation",
+    "gradient",
+    "vector-edge"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "1-5 SVG path/line nodes",
+    "memory_profile": "Negligible (<10MB)"
+  },
+  "recipes": [
+    "backpropagation-flow"
+  ],
+  "implementation_summary": "Linearly shifts strokeDashoffset on dashed SVG paths across timeline intervals.",
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Problem",
+      "text": "A neural network is a system that learns from examples. Given an input, it produces a prediction."
+    },
+    {
+      "id": "s2",
+      "title": "The Network",
+      "text": "Information flows forward through layers of connected nodes, each applying a simple transformation."
+    },
+    {
+      "id": "s3",
+      "title": "Learning",
+      "text": "The network compares its prediction to the correct answer. The difference — the loss — tells it how to adjust every weight."
+    },
+    {
+      "id": "s4",
+      "title": "Improvement",
+      "text": "Repeat this across many examples, and the loss falls. The network learns."
+    }
+  ]
+}

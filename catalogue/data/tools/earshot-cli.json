@@ -1,0 +1,45 @@
+{
+  "id": "tool-earshot-cli",
+  "name": "Earshot Acoustic & SFX Synthesis CLI",
+  "component_type": "tool",
+  "purpose": "Acoustic intelligence CLI for objective audio measurements and procedural sound synthesis.",
+  "capabilities": [
+    "Procedural micro-SFX rendering (earshot sfx render)",
+    "True peak, integrated loudness, and spectral bandwidth measurement (earshot measure)",
+    "Sound design synthesis in code (earshot forge)"
+  ],
+  "location": ".venv/bin/earshot",
+  "version": "0.4.0",
+  "installation": {
+    "required": true,
+    "instructions": "Installed inside local .venv via pip install -e tools/earshot."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Native execution inside local .venv environment."
+  },
+  "documentation_urls": [
+    "tools/earshot/README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Open-source MIT toolkit vendored under tools/earshot."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Offline local signal processing."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4B foley and Stage 9 Gate 5 audit.",
+  "architecture_ref": "ARCHITECTURE.md#s9",
+  "last_verified": "2026-10-30",
+  "tags": ["audio", "earshot", "sfx", "synthesis", "spectral"]
+}

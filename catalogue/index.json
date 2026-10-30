@@ -1,0 +1,2691 @@
+{
+  "libraries": {
+    "animejs": {
+      "id": "animejs",
+      "name": "Anime.js Animation Engine",
+      "version": "3.2.2",
+      "category": "animation_engine",
+      "status": "blocked",
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Standard MIT license."
+      },
+      "documentation_urls": [
+        "https://animejs.com/documentation/"
+      ],
+      "runtime_environment": {
+        "type": "browser_script",
+        "bundle_size_kb": 17.0
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 200,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": false,
+        "notes": "Anime.js lacks first-class integration with HyperFrames window.__timelines registration and would conflict with the established GSAP pipeline."
+      },
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "hyperframes_compatible": false,
+        "low_memory_mode_compatible": false
+      },
+      "justification": "BLOCKED: Redundant dependency. The repository standardized on GSAP 3 which provides proven, deterministic timeline management for HyperFrames headless capture. Introducing Anime.js creates cognitive overhead, dual timeline conflicts, and violates the repository's dependency minimization policy.",
+      "effects_provided": [],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "animation",
+          "blocked",
+          "redundant"
+        ]
+      }
+    },
+    "canvas2d-native": {
+      "id": "canvas2d-native",
+      "name": "HTML5 Canvas 2D Rendering Context",
+      "version": "native",
+      "category": "raster_canvas",
+      "status": "approved",
+      "licensing": {
+        "spdx_identifier": "WHATWG-HTML",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Native web standard supported natively across all modern browser engines."
+      },
+      "documentation_urls": [
+        "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D"
+      ],
+      "runtime_environment": {
+        "type": "browser_native"
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 300,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Canvas drawing routines must bind to timeline progress callbacks and use seeded PRNG (mulberry32) rather than unseeded Math.random."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Approved core technology. Used when procedural particle simulations, field lines, or function plots exceed SVG DOM performance ceilings (>1000 nodes).",
+      "effects_provided": [],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "canvas",
+          "2d",
+          "raster",
+          "particles",
+          "browser-native"
+        ]
+      }
+    },
+    "gsap": {
+      "id": "gsap",
+      "name": "GreenSock Animation Platform (GSAP 3)",
+      "version": "3.12.5",
+      "category": "animation_engine",
+      "status": "approved",
+      "licensing": {
+        "spdx_identifier": "Standard 'No Charge' GreenSock License",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Verified for motion graphic video renders and digital media explainer productions. Standard license covers commercial usage unless end users are charged directly for software bundling GSAP."
+      },
+      "documentation_urls": [
+        "https://gsap.com/docs/v3/"
+      ],
+      "runtime_environment": {
+        "type": "browser_script",
+        "cdn_url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "npm_package": "gsap",
+        "bundle_size_kb": 67.5
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 250,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Must instantiate timeline paused: true and mount to window.__timelines['root']. HyperFrames steps time deterministically."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Approved core dependency. GSAP 3 is the foundational animation timeline engine for this repository. It guarantees frame-accurate deterministic stepping and integrates directly with HyperFrames capture without DOM thrashing.",
+      "effects_provided": [
+        "crossfade-dissolve",
+        "traveling-packet",
+        "marching-dashed-stroke",
+        "clip-path-reveal",
+        "glow-pulse"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "timeline",
+          "tweening",
+          "core",
+          "deterministic",
+          "gsap3"
+        ]
+      }
+    },
+    "html5-video": {
+      "id": "html5-video",
+      "name": "HTML5 Video Media Element",
+      "version": "native",
+      "category": "media_element",
+      "status": "approved",
+      "licensing": {
+        "spdx_identifier": "WHATWG-HTML",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Native HTML media element supported natively in Chromium."
+      },
+      "documentation_urls": [
+        "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"
+      ],
+      "runtime_environment": {
+        "type": "browser_native"
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 400,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Video assets must be pre-normalized via scripts/ingest-asset.sh to 1280x720 @ 30fps silent H.264. Must specify muted and loop attributes."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Approved core technology. Used for hybrid cinematic layering (Veo/3D background underlays) placed beneath vector SVG stages.",
+      "effects_provided": [
+        "hybrid-video-underlay"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "video",
+          "html5",
+          "media",
+          "veo",
+          "cinematic",
+          "browser-native"
+        ]
+      }
+    },
+    "svg-native": {
+      "id": "svg-native",
+      "name": "Native Scalable Vector Graphics (SVG 1.1 / 2.0)",
+      "version": "native",
+      "category": "vector_graphics",
+      "status": "approved",
+      "licensing": {
+        "spdx_identifier": "W3C-Software-Notice",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Open web standard implemented natively inside Chromium/Blink engine."
+      },
+      "documentation_urls": [
+        "https://www.w3.org/TR/SVG2/",
+        "https://developer.mozilla.org/en-US/docs/Web/SVG"
+      ],
+      "runtime_environment": {
+        "type": "browser_native"
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 150,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Vector elements rasterize on GPU via ANGLE Metal. Highly performant when DOM node count remains under 500."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Approved core technology. Standard 2D vector format ensuring crisp, non-blurry line work, typography, and mathematical diagrams across 720p and 1080p outputs.",
+      "effects_provided": [
+        "traveling-packet",
+        "marching-dashed-stroke",
+        "clip-path-reveal",
+        "glow-pulse"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "vector",
+          "svg",
+          "dom",
+          "browser-native",
+          "gpu-rasterized"
+        ]
+      }
+    },
+    "threejs": {
+      "id": "threejs",
+      "name": "Three.js 3D WebGL Library",
+      "version": "0.160.0",
+      "category": "webgl_3d",
+      "status": "proposed",
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Standard MIT license allows commercial use and modification."
+      },
+      "documentation_urls": [
+        "https://threejs.org/docs/"
+      ],
+      "runtime_environment": {
+        "type": "browser_module",
+        "bundle_size_kb": 650.0
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 2200,
+        "target_fps": 30,
+        "headless_chromium_compatible": false,
+        "deterministic_mode_supported": false,
+        "notes": "Headless Chromium WebGL context creation with ANGLE Metal on 8GB Apple Silicon risks exceeding memory budgets (>2GB) and frame-capture synchronization is unverified without custom RAF interception."
+      },
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "hyperframes_compatible": false,
+        "low_memory_mode_compatible": false
+      },
+      "justification": "PROPOSED ONLY: Candidate for true 3D spatial models. NOT currently approved for production because WebGL context management on 8GB Unified RAM exceeds the 1.5 GB memory budget and lacks verified HyperFrames timeline synchronization hooks.",
+      "effects_provided": [],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "3d",
+          "webgl",
+          "proposed",
+          "mesh",
+          "camera"
+        ]
+      }
+    }
+  },
+  "effects": {
+    "clip-path-reveal": {
+      "id": "clip-path-reveal",
+      "name": "Clip-Path Geometric Reveal",
+      "category": "chart_reveal",
+      "visual_intent": "Progressively discloses mathematical curves, loss graphs, or geometric structures from left to right matching narration pace.",
+      "status": "approved",
+      "library_dependencies": [
+        "gsap",
+        "svg-native"
+      ],
+      "rendering_engine": "svg_dom",
+      "tags": [
+        "chart",
+        "reveal",
+        "clip-path",
+        "graph",
+        "curve",
+        "loss"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "low",
+        "dom_node_count": "1 clipPath rect, 1 path",
+        "memory_profile": "Negligible (<15MB)"
+      },
+      "recipes": [
+        "metric-curve-draw"
+      ],
+      "implementation_summary": "Tweens the width attribute of a clipping rectangle inside an SVG clipPath definition.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "crossfade-dissolve": {
+      "id": "crossfade-dissolve",
+      "name": "Zero-Dip Scene Crossfade Transition",
+      "category": "transition",
+      "visual_intent": "Provides seamless visual handoff between consecutive scenes without dropping into black or causing cognitive disruption.",
+      "status": "approved",
+      "library_dependencies": [
+        "gsap"
+      ],
+      "rendering_engine": "css_dom",
+      "tags": [
+        "transition",
+        "crossfade",
+        "zero-dip",
+        "opacity",
+        "scene-change"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "low",
+        "dom_node_count": "2 containers",
+        "memory_profile": "Negligible (<10MB)"
+      },
+      "recipes": [
+        "zero-dip-scene-transition"
+      ],
+      "implementation_summary": "Simultaneously animates the opacity of the outgoing container to 0 and the incoming container to 1 with midpoint alignment at the exact measured audio timestamp.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "glow-pulse": {
+      "id": "glow-pulse",
+      "name": "Active Entity Glow Pulse",
+      "category": "lighting_atmosphere",
+      "visual_intent": "Draws viewer focus to active computational entities, leader nodes, or focused terms via synchronized luminous breathing.",
+      "status": "approved",
+      "library_dependencies": [
+        "gsap",
+        "svg-native"
+      ],
+      "rendering_engine": "svg_dom",
+      "tags": [
+        "glow",
+        "pulse",
+        "highlight",
+        "attention",
+        "leader",
+        "filter"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "medium",
+        "dom_node_count": "1-3 SVG elements",
+        "memory_profile": "Low (<25MB)"
+      },
+      "recipes": [
+        "active-entity-glow"
+      ],
+      "implementation_summary": "Tweens CSS filter drop-shadow, box-shadow, or SVG feDropShadow with yoyo easing.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "hybrid-video-underlay": {
+      "id": "hybrid-video-underlay",
+      "name": "Hybrid Cinematic Video Underlay",
+      "category": "lighting_atmosphere",
+      "visual_intent": "Blends subtle cinematic video motion underneath crisp vector diagrams and text overlays, adding physical texture without sacrificing algorithmic clarity.",
+      "status": "approved",
+      "library_dependencies": [
+        "html5-video",
+        "svg-native",
+        "gsap"
+      ],
+      "rendering_engine": "video_layer",
+      "tags": [
+        "cinematic",
+        "video",
+        "veo",
+        "background",
+        "underlay",
+        "hybrid"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "medium",
+        "gpu_intensity": "medium",
+        "dom_node_count": "1 video, 1 vignette, 1 SVG stage",
+        "memory_profile": "Moderate (250-400MB)"
+      },
+      "recipes": [
+        "cinematic-backdrop-blend"
+      ],
+      "implementation_summary": "Layers ingested 720p 30fps silent MP4 beneath vignette overlay and SVG stage with synchronized GSAP text reveals.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "marching-dashed-stroke": {
+      "id": "marching-dashed-stroke",
+      "name": "Marching Dashed Flow Arrow",
+      "category": "data_flow",
+      "visual_intent": "Displays continuous directional gradient or error backpropagation flow along connectors without visual strobe.",
+      "status": "approved",
+      "library_dependencies": [
+        "gsap",
+        "svg-native"
+      ],
+      "rendering_engine": "svg_dom",
+      "tags": [
+        "data-flow",
+        "flow",
+        "dashed",
+        "backpropagation",
+        "gradient",
+        "vector-edge"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "low",
+        "dom_node_count": "1-5 SVG path/line nodes",
+        "memory_profile": "Negligible (<10MB)"
+      },
+      "recipes": [
+        "backpropagation-flow"
+      ],
+      "implementation_summary": "Linearly shifts strokeDashoffset on dashed SVG paths across timeline intervals.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "traveling-packet": {
+      "id": "traveling-packet",
+      "name": "Animated Signal / Packet Travel",
+      "category": "data_flow",
+      "visual_intent": "Illustrates discrete data packets, tokens, or network messages traversing connections between system nodes with destination arrival pulses.",
+      "status": "approved",
+      "library_dependencies": [
+        "gsap",
+        "svg-native"
+      ],
+      "rendering_engine": "svg_dom",
+      "tags": [
+        "data-flow",
+        "packet",
+        "signal",
+        "network",
+        "node-graph",
+        "pulse"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "low",
+        "dom_node_count": "<10 SVG nodes",
+        "memory_profile": "Negligible (<15MB)"
+      },
+      "recipes": [
+        "node-network-signal-transfer"
+      ],
+      "implementation_summary": "Animates SVG circle coordinates (cx, cy) along connections, triggering a scale-pulse deformation on the destination node upon arrival.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    }
+  },
+  "recipes": {
+    "active-entity-glow": {
+      "id": "active-entity-glow",
+      "name": "Active Entity Glow Breathing Pulse",
+      "effect_id": "glow-pulse",
+      "status": "approved",
+      "visual_intent": "Draws viewer visual focus to a specific server, leader node, or memory cell during state transition.",
+      "parameters": [
+        {
+          "name": "targetSelector",
+          "type": "string",
+          "description": "CSS selector for node or card to glow (e.g. '#leader-node')."
+        },
+        {
+          "name": "glowColor",
+          "type": "string",
+          "default": "#3fb950",
+          "description": "Hex or rgba color for glow luminescence."
+        },
+        {
+          "name": "startTime",
+          "type": "number",
+          "description": "Timestamp in seconds to begin glow pulse."
+        },
+        {
+          "name": "pulseDuration",
+          "type": "number",
+          "default": 0.8,
+          "description": "Duration per breathing pulse cycle."
+        },
+        {
+          "name": "repeatCount",
+          "type": "integer",
+          "default": 2,
+          "description": "Number of yoyo repeat cycles."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Anchored to leader election, quorum consensus, or state transition trigger.",
+        "easing_standard": "power1.inOut with yoyo: true",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<div id=\"leader-node\" class=\"server-card\">\n  <div class=\"node-title\">Leader: Node 1</div>\n</div>",
+        "css": ".server-card {\n  position: absolute;\n  width: 140px;\n  height: 90px;\n  background: #161b22;\n  border: 1px solid #30363d;\n  border-radius: 8px;\n  transition: box-shadow 0.2s;\n}",
+        "javascript": "tl.to(targetSelector, {\n  boxShadow: `0 0 24px ${glowColor}`,\n  scale: 1.05,\n  duration: pulseDuration / 2,\n  yoyo: true,\n  repeat: repeatCount,\n  ease: 'power1.inOut'\n}, startTime);"
+      },
+      "fallbacks": "Stroke width and color flash if box-shadow or SVG filter is constrained.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 3.0,
+        "memory_impact": "Low (<10MB)"
+      },
+      "validation_steps": [
+        "Snapshot at startTime + (pulseDuration / 4) to verify peak luminous radius.",
+        "Verify no frame drops or GPU memory leaks on repeated pulses."
+      ],
+      "tags": [
+        "glow",
+        "pulse",
+        "highlight",
+        "attention",
+        "leader"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "backpropagation-flow": {
+      "id": "backpropagation-flow",
+      "name": "Continuous Marching Dashed Flow",
+      "effect_id": "marching-dashed-stroke",
+      "status": "approved",
+      "visual_intent": "Shows reverse error flow through weight matrices or feedback loops without abrupt visual snapping.",
+      "parameters": [
+        {
+          "name": "containerSelector",
+          "type": "string",
+          "description": "Group element wrapping backprop vector connections."
+        },
+        {
+          "name": "lineSelector",
+          "type": "string",
+          "description": "SVG line or path elements with stroke-dasharray styling."
+        },
+        {
+          "name": "startTime",
+          "type": "number",
+          "description": "Timestamp in seconds to begin backprop flow."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 3.0,
+          "description": "Total duration of active marching flow."
+        },
+        {
+          "name": "dashOffsetShift",
+          "type": "number",
+          "default": -60,
+          "description": "Pixel distance to shift stroke-dashoffset (negative for backward flow)."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Spans the mathematical voice explanation of loss computation and chain rule.",
+        "easing_standard": "none (linear constant velocity).",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<svg viewBox=\"0 0 1280 720\">\n  <g id=\"backprop-arrows\" opacity=\"0\">\n    <line x1=\"600\" y1=\"300\" x2=\"200\" y2=\"300\" stroke=\"#f85149\" stroke-width=\"2.5\" stroke-dasharray=\"6,4\"/>\n  </g>\n</svg>",
+        "css": "#backprop-arrows line { stroke-linecap: round; }",
+        "javascript": "// Reveal backprop layer\ntl.to('#backprop-arrows', { opacity: 1, duration: 0.4 }, startTime);\n\n// Shift stroke-dashoffset backward smoothly\ntl.fromTo('#backprop-arrows line',\n  { strokeDashoffset: 0 },\n  { strokeDashoffset: -60, duration: 3.0, ease: 'none' },\n  startTime + 0.1\n);"
+      },
+      "fallbacks": "Static dashed stroke with opacity blink if continuous dashoffset is not supported.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 1.8,
+        "memory_impact": "Negligible (<1MB)"
+      },
+      "validation_steps": [
+        "Snapshot at startTime + 0.5s and startTime + 2.0s to confirm strokeDashoffset progression.",
+        "Confirm no visual hitching or frame drop during continuous linear tween."
+      ],
+      "tags": [
+        "data-flow",
+        "flow",
+        "dashed",
+        "backpropagation",
+        "vector",
+        "linear-easing"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "cinematic-backdrop-blend": {
+      "id": "cinematic-backdrop-blend",
+      "name": "Cinematic Video Underlay with Vector Overlay",
+      "effect_id": "hybrid-video-underlay",
+      "status": "approved",
+      "visual_intent": "Provides atmospheric background motion beneath high-contrast vector charts and text without distracting from pedagogical focus.",
+      "parameters": [
+        {
+          "name": "videoSelector",
+          "type": "string",
+          "default": "#veo-bg",
+          "description": "Selector for underlying video element."
+        },
+        {
+          "name": "vignetteSelector",
+          "type": "string",
+          "default": "#vignette",
+          "description": "Selector for gradient vignette overlay."
+        },
+        {
+          "name": "stageSelector",
+          "type": "string",
+          "default": "#vector-stage",
+          "description": "Selector for sharp SVG vector stage on top."
+        },
+        {
+          "name": "startTime",
+          "type": "number",
+          "default": 0.0,
+          "description": "Start time in seconds."
+        },
+        {
+          "name": "fadeInDuration",
+          "type": "number",
+          "default": 1.0,
+          "description": "Fade in duration for video underlay."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Starts at scene introduction (T=0.0s) and loops or spans scene duration.",
+        "easing_standard": "power1.inOut",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<!-- Ingested via scripts/ingest-asset.sh -->\n<video id=\"veo-bg\" src=\"../../assets/generated/sample-veo-normalized.mp4\" muted loop></video>\n<div id=\"vignette\"></div>\n<svg id=\"vector-stage\" viewBox=\"0 0 1280 720\">\n  <text x=\"640\" y=\"240\" text-anchor=\"middle\" fill=\"#f0f6fc\" font-size=\"44\" font-weight=\"700\">\n    Algorithmic Geometry\n  </text>\n</svg>",
+        "css": "#veo-bg {\n  position: absolute;\n  inset: 0;\n  width: 1280px;\n  height: 720px;\n  object-fit: cover;\n  opacity: 0.28;\n  filter: blur(1.5px) saturate(1.2);\n  z-index: 0;\n}\n#vignette {\n  position: absolute;\n  inset: 0;\n  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(8,12,20,0.85) 100%);\n  z-index: 1;\n}\n#vector-stage {\n  position: absolute;\n  inset: 0;\n  z-index: 10;\n}",
+        "javascript": "tl.fromTo('#veo-bg', { opacity: 0 }, { opacity: 0.28, duration: fadeInDuration, ease: 'power1.inOut' }, startTime);\ntl.from('#vector-stage text', { opacity: 0, y: 20, duration: 0.8, stagger: 0.2 }, startTime + 0.5);"
+      },
+      "fallbacks": "High-resolution static gradient background if external video asset is absent.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 12.0,
+        "memory_impact": "Moderate (250-400MB, well below 1.5GB cap)"
+      },
+      "validation_steps": [
+        "Verify video asset has been normalized via scripts/ingest-asset.sh (silent H.264 1280x720 30fps).",
+        "Snapshot at startTime + 1.5s to verify vector legibility against atmospheric video background."
+      ],
+      "tags": [
+        "cinematic",
+        "video",
+        "veo",
+        "underlay",
+        "background",
+        "hybrid"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "metric-curve-draw": {
+      "id": "metric-curve-draw",
+      "name": "Progressive ClipPath Curve Drawing",
+      "effect_id": "clip-path-reveal",
+      "status": "approved",
+      "visual_intent": "Progressively discloses complex mathematical curves, loss gradients, or metric graphs cleanly from left to right.",
+      "parameters": [
+        {
+          "name": "clipRectSelector",
+          "type": "string",
+          "default": "#clip-rect",
+          "description": "Selector for rectangle element inside SVG <clipPath>."
+        },
+        {
+          "name": "chartWidth",
+          "type": "number",
+          "description": "Final target width of clipping mask in pixels."
+        },
+        {
+          "name": "startTime",
+          "type": "number",
+          "description": "Timestamp in seconds to begin curve revelation."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 2.2,
+          "description": "Revelation duration in seconds."
+        },
+        {
+          "name": "easing",
+          "type": "string",
+          "default": "power1.inOut",
+          "description": "GSAP easing curve."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Synchronized with voice narration explaining model convergence or metric trend.",
+        "easing_standard": "power1.inOut",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<svg viewBox=\"0 0 1280 720\">\n  <defs>\n    <clipPath id=\"chart-clip\">\n      <rect id=\"clip-rect\" x=\"70\" y=\"0\" width=\"0\" height=\"400\" />\n    </clipPath>\n  </defs>\n  <path d=\"M 70 380 Q 250 350, 400 180 T 700 80\" stroke=\"#3fb950\" stroke-width=\"3\" clip-path=\"url(#chart-clip)\" fill=\"none\" />\n</svg>",
+        "css": "#clip-rect { transform-origin: 0% 0%; }",
+        "javascript": "// Animate width of clipping rectangle to reveal graph\ntl.fromTo('#clip-rect',\n  { attr: { width: 0 } },\n  { attr: { width: chartWidth }, duration: duration, ease: 'power1.inOut' },\n  startTime\n);"
+      },
+      "fallbacks": "Stroke-dashoffset reveal on path element if clipPath is unsupported.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 2.0,
+        "memory_impact": "Negligible (<3MB)"
+      },
+      "validation_steps": [
+        "Snapshot at startTime + (duration / 2) to confirm partial curve disclosure.",
+        "Snapshot at startTime + duration to confirm complete curve rendering without clipping."
+      ],
+      "tags": [
+        "chart",
+        "curve",
+        "clip-path",
+        "reveal",
+        "loss",
+        "graph"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "node-network-signal-transfer": {
+      "id": "node-network-signal-transfer",
+      "name": "Node Network Signal Travel & Target Pulse",
+      "effect_id": "traveling-packet",
+      "status": "approved",
+      "visual_intent": "Shows communication packet or gradient signal propagating between two nodes on an architecture graph with arrival deformation.",
+      "parameters": [
+        {
+          "name": "packetSelector",
+          "type": "string",
+          "default": "#signal-dot",
+          "description": "Selector for traveling SVG circle element."
+        },
+        {
+          "name": "targetSelector",
+          "type": "string",
+          "description": "Selector for destination node element to pulse upon arrival."
+        },
+        {
+          "name": "fromCoords",
+          "type": "object",
+          "description": "Origin coordinates { x: number, y: number }."
+        },
+        {
+          "name": "toCoords",
+          "type": "object",
+          "description": "Destination coordinates { x: number, y: number }."
+        },
+        {
+          "name": "startTime",
+          "type": "number",
+          "description": "Timestamp in seconds to begin transmission."
+        },
+        {
+          "name": "travelDuration",
+          "type": "number",
+          "default": 0.6,
+          "description": "Transit time in seconds."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Anchored to voice narration describing packet transfer or dispatch.",
+        "easing_standard": "power1.inOut for travel, power2.out for arrival pulse.",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<svg viewBox=\"0 0 1280 720\">\n  <circle id=\"signal-dot\" cx=\"0\" cy=\"0\" r=\"5\" fill=\"#58a6ff\" opacity=\"0\"/>\n  <g id=\"target-node\">\n    <rect x=\"800\" y=\"320\" width=\"120\" height=\"80\" rx=\"8\" fill=\"#161b22\" stroke=\"#30363d\"/>\n  </g>\n</svg>",
+        "css": "#signal-dot { filter: drop-shadow(0 0 6px #58a6ff); }",
+        "javascript": "// Register dot position\ntl.set('#signal-dot', { opacity: 0, attr: { cx: fromCoords.x, cy: fromCoords.y } }, startTime);\ntl.to('#signal-dot', { opacity: 1, duration: 0.15 }, startTime);\n\n// Travel along edge\ntl.to('#signal-dot', {\n  attr: { cx: toCoords.x, cy: toCoords.y },\n  duration: travelDuration,\n  ease: 'power1.inOut'\n}, startTime + 0.15);\n\n// Pulse target node on arrival\ntl.to(targetSelector, {\n  scale: 1.25,\n  transformOrigin: '50% 50%',\n  duration: 0.2,\n  yoyo: true,\n  repeat: 1,\n  ease: 'power2.out'\n}, startTime + 0.15 + travelDuration);\n\ntl.to('#signal-dot', { opacity: 0, duration: 0.15 }, startTime + 0.15 + travelDuration + 0.1);"
+      },
+      "fallbacks": "Instant line highlight (stroke-color pulse) if dot tween is not desired.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 2.5,
+        "memory_impact": "Negligible (<2MB)"
+      },
+      "validation_steps": [
+        "Snapshot at startTime + 0.15 + (travelDuration / 2) to confirm dot midway between coordinates.",
+        "Snapshot at startTime + 0.15 + travelDuration + 0.1 to confirm target node scale deformation."
+      ],
+      "tags": [
+        "data-flow",
+        "signal",
+        "packet",
+        "node-graph",
+        "pulse",
+        "network"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "zero-dip-scene-transition": {
+      "id": "zero-dip-scene-transition",
+      "name": "Zero-Dip Scene Crossfade Transition",
+      "effect_id": "crossfade-dissolve",
+      "status": "approved",
+      "visual_intent": "Prevents black frames between scene handoffs by aligning midpoints of fade-out and fade-in.",
+      "parameters": [
+        {
+          "name": "outSelector",
+          "type": "string",
+          "description": "CSS selector for outgoing scene container (e.g. '#scene1')."
+        },
+        {
+          "name": "inSelector",
+          "type": "string",
+          "description": "CSS selector for incoming scene container (e.g. '#scene2')."
+        },
+        {
+          "name": "atTime",
+          "type": "number",
+          "description": "Exact scene boundary timestamp in seconds measured via ffprobe."
+        },
+        {
+          "name": "fade",
+          "type": "number",
+          "default": 0.5,
+          "description": "Crossfade duration in seconds."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Anchored to measured audio scene transition timestamp T_scene.",
+        "easing_standard": "power1.inOut",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<!-- Scene containers with initial absolute stacking -->\n<div class=\"scene\" id=\"scene1\" style=\"opacity: 1;\">...</div>\n<div class=\"scene\" id=\"scene2\" style=\"opacity: 0;\">...</div>",
+        "css": ".scene {\n  position: absolute;\n  inset: 0;\n  width: 1280px;\n  height: 720px;\n}",
+        "javascript": "const FADE = 0.5;\nfunction sceneCrossfade(outSelector, inSelector, atTime, fade = FADE) {\n  tl.to(outSelector, { opacity: 0, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);\n  tl.to(inSelector,  { opacity: 1, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);\n}"
+      },
+      "fallbacks": "Instant cut (duration: 0.01s) at exact timestamp if crossfade causes layout overlap.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 1.2,
+        "memory_impact": "Negligible (<1MB)"
+      },
+      "validation_steps": [
+        "Run .agents/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
+        "Verify black_start is null across scene transition boundaries.",
+        "Snapshot at atTime - 0.2s and atTime + 0.2s to confirm both layers render smoothly without dark dip."
+      ],
+      "tags": [
+        "transition",
+        "crossfade",
+        "zero-dip",
+        "scenes"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    }
+  },
+  "skills": {
+    "skill-earshot": {
+      "id": "skill-earshot",
+      "name": "Earshot Acoustic Verification Skill",
+      "component_type": "skill",
+      "purpose": "Acoustic verification, audio measurement, loudness/spectral checks, and procedural sound synthesis.",
+      "capabilities": [
+        "True peak and integrated loudness measurement (EBU R128)",
+        "Spectral bandwidth and noise floor audit",
+        "Procedural micro-SFX synthesis (clicks, thocks, pops, risers)",
+        "Acoustic quality auditing for Gate 5 signoff"
+      ],
+      "location": ".agents/skills/earshot",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. CLI available in .venv/bin/earshot."
+      },
+      "dependencies": [
+        "tool-earshot-cli"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Integrates with vendored tools/earshot and .venv/bin/earshot."
+      },
+      "documentation_urls": [
+        ".agents/skills/earshot/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace skill wrapping open-source earshot toolkit."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Zero network traffic; procedural synthesis and local audio analysis only."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 9 Gate 5 acoustic verification.",
+      "architecture_ref": "ARCHITECTURE.md#s9",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "audio",
+        "acoustic",
+        "earshot",
+        "synthesis",
+        "qa-gate"
+      ]
+    },
+    "skill-motion-graphics-designer": {
+      "id": "skill-motion-graphics-designer",
+      "name": "Motion Graphics Designer Skill",
+      "component_type": "skill",
+      "purpose": "Aesthetic design system, calibrated color palettes, 720p/1080p layout geometry, and GSAP 3 animation choreography for technical explainers.",
+      "capabilities": [
+        "Technical color palette tokens (Dark Tech, Cyber Cyan, Quantum Violet)",
+        "Resolution-independent typography and 720p canvas grid rules",
+        "Paused GSAP root timeline authoring",
+        "Deterministic mulberry32 PRNG enforcement"
+      ],
+      "location": ".agents/skills/motion-graphics-designer",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "gsap",
+        "svg-native"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Generates HTML5 + SVG + GSAP compositions."
+      },
+      "documentation_urls": [
+        ".agents/skills/motion-graphics-designer/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Writes static HTML/SVG source to projects/<project_name>/src/index.html."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4 pipeline across benchmark, raft, and btree compositions.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "design",
+        "palettes",
+        "typography",
+        "layout",
+        "gsap3",
+        "stage-4"
+      ]
+    },
+    "skill-motion-library-guide": {
+      "id": "skill-motion-library-guide",
+      "name": "Motion Library Guide Skill",
+      "component_type": "skill",
+      "purpose": "Scalable capability catalogue navigation, dependency vetting, approval state enforcement, and deterministic GSAP animation recipe retrieval.",
+      "capabilities": [
+        "Catalogue search by intent, tags, and hardware compatibility",
+        "Approval state evaluation (approved/proposed/blocked)",
+        "Licensing verification audit",
+        "Recipe retrieval and timeline requirements guidance"
+      ],
+      "location": ".agents/skills/motion-library-guide",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-motion-catalogue",
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Integrates with scripts/motion-catalogue.py."
+      },
+      "documentation_urls": [
+        ".agents/skills/motion-library-guide/SKILL.md",
+        "catalogue/README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Read-only inspection of catalogue records and local schemas."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Validated via 16 automated test suites in tests/test-motion-catalogue.py.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "catalogue",
+        "motion",
+        "recipes",
+        "dependencies",
+        "governance"
+      ]
+    },
+    "skill-real-sfx": {
+      "id": "skill-real-sfx",
+      "name": "Real SFX Sound Design Skill",
+      "component_type": "skill",
+      "purpose": "Frame-accurate sound design and foley placement; extracts visual cues from HyperFrames compositions and mixes balanced SFX audio tracks.",
+      "capabilities": [
+        "Visual moment extraction from index.html (bursts, scales, cuts)",
+        "Foley cue suggestion and role mapping",
+        "Multi-track audio bed rendering with ducking under voice",
+        "Acoustic self-critique scoreboard generation"
+      ],
+      "location": ".agents/skills/real-sfx",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-earshot-cli",
+        "tool-sfx-openverse"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Executes Python audio scripts in .venv/."
+      },
+      "documentation_urls": [
+        ".agents/skills/real-sfx/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Downloads CC assets via public APIs and generates audio files in renders/."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4B foley pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s4b",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "sfx",
+        "foley",
+        "sound-design",
+        "cues",
+        "stage-4b"
+      ]
+    },
+    "skill-technical-researcher": {
+      "id": "skill-technical-researcher",
+      "name": "Technical Researcher Skill",
+      "component_type": "skill",
+      "purpose": "Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and research.json schema validation.",
+      "capabilities": [
+        "Literature and canonical source retrieval",
+        "Mathematical formula derivation and fact-checking",
+        "Visual metaphor formulation",
+        "research.json dossier generation and validation"
+      ],
+      "location": ".agents/skills/technical-researcher",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-validate-research"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Native markdown and JSON schema instructions."
+      },
+      "documentation_urls": [
+        ".agents/skills/technical-researcher/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Web searches are read-only; dossier writes are restricted to projects/<project_name>/."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 0 pipeline; validated against specs/research-spec.json.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "research",
+        "pedagogy",
+        "math",
+        "metaphors",
+        "stage-0"
+      ]
+    },
+    "skill-video-assembler": {
+      "id": "skill-video-assembler",
+      "name": "Video Assembler Skill",
+      "component_type": "skill",
+      "purpose": "Automated render execution, low-memory profile management on Apple Silicon, multi-track FFmpeg multiplexing, and 5-gate QA verification.",
+      "capabilities": [
+        "Headless Chromium render execution (--low-memory-mode)",
+        "Multi-track audio-video multiplexing (FFmpeg amix filter complex)",
+        "Automated QA gate auditing (run-qa-gates.sh)",
+        "Loudness normalization and black screen gap detection"
+      ],
+      "location": ".agents/skills/video-assembler",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-hyperframes",
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Pins Chromium worker count to 1 for 8 GB RAM stability."
+      },
+      "documentation_urls": [
+        ".agents/skills/video-assembler/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Renders videos and runs local ffmpeg commands."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 6, Stage 8, and Stage 9 QA gates.",
+      "architecture_ref": "ARCHITECTURE.md#s8",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "render",
+        "ffmpeg",
+        "assembly",
+        "multiplexing",
+        "qa-gates"
+      ]
+    },
+    "skill-voice-director": {
+      "id": "skill-voice-director",
+      "name": "Voice Director Skill",
+      "component_type": "skill",
+      "purpose": "Pedagogical voice script authoring, Kokoro persona selection, speech pacing, silence buffer insertion, and phonetic respelling for technical terms.",
+      "capabilities": [
+        "Conversational narration scriptwriting",
+        "Phonetic lexicon substitution for technical symbols and acronyms",
+        "Kokoro voice persona assignment (am_adam, af_bella, etc.)",
+        "Millisecond duration timeline mapping"
+      ],
+      "location": ".agents/skills/voice-director",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-tts-pipeline"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Directs Kokoro 0.9.4 TTS synthesis."
+      },
+      "documentation_urls": [
+        ".agents/skills/voice-director/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Generates narration.json and triggers local audio synthesis."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 2/3 audio pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s2",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "narration",
+        "tts",
+        "voice",
+        "phonetics",
+        "stage-2"
+      ]
+    },
+    "skill-workspace-steward": {
+      "id": "skill-workspace-steward",
+      "name": "Workspace Steward Skill",
+      "component_type": "skill",
+      "purpose": "Workspace-wide governance over component discovery, placement policy, registration, licensing audit, architecture documentation, and drift detection.",
+      "capabilities": [
+        "Component placement policy enforcement across 7 workspace domains",
+        "Catalogue record registration and schema validation",
+        "10-stage component lifecycle management",
+        "Automated drift detection and unregistered component auditing",
+        "Architecture documentation synchronization"
+      ],
+      "location": ".agents/skills/workspace-steward",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace governance skill."
+      },
+      "dependencies": [
+        "tool-workspace-governance",
+        "tool-motion-catalogue"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Directs workspace governance and registry integrity."
+      },
+      "documentation_urls": [
+        ".agents/skills/workspace-steward/SKILL.md",
+        "catalogue/README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace governance skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Audits catalogue records; strictly enforces zero secrets in repo."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Validated via automated governance test suites.",
+      "architecture_ref": "ARCHITECTURE.md#governance",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "governance",
+        "steward",
+        "placement",
+        "registration",
+        "drift-detection"
+      ]
+    }
+  },
+  "tools": {
+    "tool-build-all": {
+      "id": "tool-build-all",
+      "name": "Full Showcase Portfolio Build CLI",
+      "component_type": "tool",
+      "purpose": "Batch renders all explainer projects in projects/ sequentially without memory collisions and updates out/index.html.",
+      "capabilities": [
+        "Batch execution across all explainer projects",
+        "Sequential render isolation preventing memory spikes on Apple Silicon 8GB",
+        "Portfolio index update"
+      ],
+      "location": "scripts/build-all.sh",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via ./scripts/build-all.sh."
+      },
+      "dependencies": [
+        "tool-build-project"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Executes sequentially."
+      },
+      "documentation_urls": [
+        "README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace build script."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Local batch build operations."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified for showcase distribution.",
+      "architecture_ref": "ARCHITECTURE.md#s8",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "build",
+        "batch",
+        "portfolio",
+        "bash"
+      ]
+    },
+    "tool-build-audio": {
+      "id": "tool-build-audio",
+      "name": "Audio Pipeline Batch Synthesizer CLI",
+      "component_type": "tool",
+      "purpose": "Batch processes scene narration text from narration.json through Kokoro TTS and generates audio timeline manifests.",
+      "capabilities": [
+        "Batch TTS synthesis from scene text",
+        "Audio duration extraction and timeline anchor generation",
+        "Pause buffer concatenation"
+      ],
+      "location": "scripts/build-audio.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via python3 scripts/build-audio.py <project_name>."
+      },
+      "dependencies": [
+        "tool-tts-pipeline"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Native Python 3.12 execution."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#s3"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace audio pipeline utility."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Offline local TTS batch processing."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 3 speech synthesis.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "audio",
+        "tts",
+        "batch",
+        "synthesis",
+        "stage-3"
+      ]
+    },
+    "tool-build-project": {
+      "id": "tool-build-project",
+      "name": "Project Build Automation CLI",
+      "component_type": "tool",
+      "purpose": "Executes end-to-end explainer build pipeline for a project (TTS synthesis, audio concat, visual render, multi-track mux, QA gates).",
+      "capabilities": [
+        "Full pipeline execution from narration.json to final MP4",
+        "Stage orchestration (audio, visuals, multiplexing, QA gates)",
+        "Directory artifact structure setup"
+      ],
+      "location": "scripts/build-project.sh",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via ./scripts/build-project.sh <project_name>."
+      },
+      "dependencies": [
+        "tool-tts-pipeline",
+        "tool-hyperframes",
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Orchestrates full production lifecycle."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#s4"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace build utility."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Orchestrates local build processes."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified across all 3 benchmark explainers.",
+      "architecture_ref": "ARCHITECTURE.md#s8",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "build",
+        "pipeline",
+        "orchestration",
+        "bash"
+      ]
+    },
+    "tool-earshot-cli": {
+      "id": "tool-earshot-cli",
+      "name": "Earshot Acoustic & SFX Synthesis CLI",
+      "component_type": "tool",
+      "purpose": "Acoustic intelligence CLI for objective audio measurements and procedural sound synthesis.",
+      "capabilities": [
+        "Procedural micro-SFX rendering (earshot sfx render)",
+        "True peak, integrated loudness, and spectral bandwidth measurement (earshot measure)",
+        "Sound design synthesis in code (earshot forge)"
+      ],
+      "location": ".venv/bin/earshot",
+      "version": "0.4.0",
+      "installation": {
+        "required": true,
+        "instructions": "Installed inside local .venv via pip install -e tools/earshot."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Native execution inside local .venv environment."
+      },
+      "documentation_urls": [
+        "tools/earshot/README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT toolkit vendored under tools/earshot."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Offline local signal processing."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4B foley and Stage 9 Gate 5 audit.",
+      "architecture_ref": "ARCHITECTURE.md#s9",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "audio",
+        "earshot",
+        "sfx",
+        "synthesis",
+        "spectral"
+      ]
+    },
+    "tool-ffmpeg": {
+      "id": "tool-ffmpeg",
+      "name": "FFmpeg Multimedia Processing Suite",
+      "component_type": "tool",
+      "purpose": "Comprehensive CLI utility for video normalization, audio stream concatenation, multi-track multiplexing, and filter-based QA auditing.",
+      "capabilities": [
+        "Lossless video/audio multiplexing with stream copying",
+        "Audio mixing with volume ducking (amix filter complex)",
+        "EBU R128 integrated loudness auditing",
+        "blackdetect filter for seamless crossfade gap verification"
+      ],
+      "location": "/opt/homebrew/bin/ffmpeg",
+      "version": "7.1",
+      "installation": {
+        "required": true,
+        "instructions": "Installed globally via brew install ffmpeg."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "binary",
+        "notes": "Hardware-accelerated encoding supported via Apple VideoToolbox if needed."
+      },
+      "documentation_urls": [
+        "https://ffmpeg.org/documentation.html"
+      ],
+      "licensing": {
+        "spdx_identifier": "GPL-2.0-or-later",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Standard GPL build used as external CLI tool without linking."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Executes local media processing commands."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 8 multiplexing and Stage 9 QA gates.",
+      "architecture_ref": "ARCHITECTURE.md#s8",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "ffmpeg",
+        "mux",
+        "video",
+        "audio",
+        "ebur128"
+      ]
+    },
+    "tool-hyperframes": {
+      "id": "tool-hyperframes",
+      "name": "HyperFrames Headless Video Renderer",
+      "component_type": "tool",
+      "purpose": "Deterministic HTML5/SVG/Canvas frame-by-frame video rendering engine powered by headless Chromium and ANGLE Metal GPU acceleration.",
+      "capabilities": [
+        "Deterministic frame-by-frame browser stepping via window.__timelines",
+        "Static syntax and tween overlap preflight linting (hyperframes lint)",
+        "High-speed H.264 video rendering with screenshot capture",
+        "Multimodal frame snapshot inspection (hyperframes snapshot)"
+      ],
+      "location": "/opt/homebrew/bin/hyperframes",
+      "version": "0.8.216",
+      "installation": {
+        "required": true,
+        "instructions": "Installed globally via npm install -g hyperframes."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "node",
+        "notes": "Must pass --low-memory-mode to pin worker pool to 1 on Apple Silicon 8GB."
+      },
+      "documentation_urls": [
+        "https://hyperframes.org"
+      ],
+      "licensing": {
+        "spdx_identifier": "Commercial-or-Open",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Verified CLI binary installed on host."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Headless Chromium sandbox; renders local HTML files."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 5, Stage 6, and Stage 9.",
+      "architecture_ref": "ARCHITECTURE.md#s6",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "render",
+        "hyperframes",
+        "chromium",
+        "headless",
+        "gpu"
+      ]
+    },
+    "tool-ingest-asset": {
+      "id": "tool-ingest-asset",
+      "name": "Cinematic Asset Ingestion CLI",
+      "component_type": "tool",
+      "purpose": "Normalizes external video footage (Veo / stock / 3D) to silent H.264 1280x720 @ 30fps stored in assets/generated/.",
+      "capabilities": [
+        "Resolution scaling to exactly 1280x720",
+        "Framerate normalization to 30.00 fps constant framerate",
+        "Audio stream stripping for pure silent video layer",
+        "Fast re-encoding with libx264 pix_fmt yuv420p"
+      ],
+      "location": "scripts/ingest-asset.sh",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via ./scripts/ingest-asset.sh <input_file> [slug]."
+      },
+      "dependencies": [
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Requires ffmpeg binary in PATH."
+      },
+      "documentation_urls": [
+        "specs/veo-integration.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace shell utility."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Local ffmpeg transcode writing to assets/generated/."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 7 hybrid Veo pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s7",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "ingest",
+        "ffmpeg",
+        "transcode",
+        "video",
+        "veo"
+      ]
+    },
+    "tool-motion-catalogue": {
+      "id": "tool-motion-catalogue",
+      "name": "Motion Graphics Capability Catalogue CLI",
+      "component_type": "tool",
+      "purpose": "Lightweight CLI for searching, querying, inspecting, validating, and exporting capability catalogue records.",
+      "capabilities": [
+        "Search across libraries, effects, recipes, and workspace components",
+        "Detailed inspection of recipes, parameters, code snippets, and QA steps",
+        "JSON Schema Draft-07 validation and cross-reference checks",
+        "Aggregated index.json manifest compilation"
+      ],
+      "location": "scripts/motion-catalogue.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Directly executable via python3 scripts/motion-catalogue.py."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Auto-delegates to python3.12 for jsonschema support."
+      },
+      "documentation_urls": [
+        "catalogue/README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace tool."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Local file operations within catalogue/."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Validated via tests/test-motion-catalogue.py.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "cli",
+        "catalogue",
+        "search",
+        "validation",
+        "export"
+      ]
+    },
+    "tool-new-project": {
+      "id": "tool-new-project",
+      "name": "Project Workspace Scaffolding CLI",
+      "component_type": "tool",
+      "purpose": "Scaffolds a new explainer project workspace with research templates, src structure, audio, and render directories.",
+      "capabilities": [
+        "Project directory initialization under projects/<name>/",
+        "Template instantiation from templates/research-template.json and templates/research-template.md",
+        "Starter src/index.html and narration.json scaffolding"
+      ],
+      "location": "scripts/new-project.sh",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via ./scripts/new-project.sh <project_slug> [title]."
+      },
+      "dependencies": [
+        "shared-research-template"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Native bash shell script."
+      },
+      "documentation_urls": [
+        "README.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace scaffolding script."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Creates project directory structures."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Production certified across all initialized projects.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "scaffolding",
+        "project",
+        "init",
+        "bash"
+      ]
+    },
+    "tool-render-script": {
+      "id": "tool-render-script",
+      "name": "HyperFrames Low-Memory Render Wrapper",
+      "component_type": "tool",
+      "purpose": "Executes HyperFrames render with mandatory --low-memory-mode flag pinning Chromium worker pool to 1 on Apple Silicon.",
+      "capabilities": [
+        "Headless Chromium execution with ANGLE Metal GPU acceleration",
+        "Single worker constraint keeping memory under 1.5 GB RAM",
+        "Silent video track output generation"
+      ],
+      "location": "scripts/render.sh",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via ./scripts/render.sh <project_name>."
+      },
+      "dependencies": [
+        "tool-hyperframes"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Guarantees M2 8GB RAM safety."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#s6"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace shell wrapper."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Runs local hyperframes render."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 6 visual track rendering.",
+      "architecture_ref": "ARCHITECTURE.md#s6",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "render",
+        "hyperframes",
+        "low-memory",
+        "chromium"
+      ]
+    },
+    "tool-sfx-openverse": {
+      "id": "tool-sfx-openverse",
+      "name": "Openverse SFX Asset Sourcing CLI",
+      "component_type": "tool",
+      "purpose": "Queries Openverse REST API to retrieve free, Creative Commons CC0 / CC BY audio assets without API keys.",
+      "capabilities": [
+        "Search Creative Commons audio by keyword (whoosh, click, impact)",
+        "Automatic ingestion into assets/audio/sfx/",
+        "Public CDN preview retrieval avoiding authenticated API restrictions"
+      ],
+      "location": "scripts/sfx-openverse.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via python3 scripts/sfx-openverse.py <query> --download."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Uses standard library urllib / requests."
+      },
+      "documentation_urls": [
+        "scripts/sfx-openverse.py"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace tool sourcing CC0/CC BY assets."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Outbound HTTP GET to public Openverse API; downloads saved to assets/audio/sfx/."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4B audio pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s4b",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "sfx",
+        "openverse",
+        "audio",
+        "sourcing",
+        "cc0"
+      ]
+    },
+    "tool-tts-pipeline": {
+      "id": "tool-tts-pipeline",
+      "name": "Kokoro Neural TTS Synthesis Wrapper",
+      "component_type": "tool",
+      "purpose": "Verified wrapper script invoking local Kokoro 0.9.4 neural speech synthesis, handling generator return types cleanly.",
+      "capabilities": [
+        "24 kHz mono PCM WAV speech generation",
+        "Multi-persona voice selection (am_adam, af_bella, am_michael, etc.)",
+        "Configurable speech pacing (default 1.15x)",
+        "Exact ffprobe duration measurement integration"
+      ],
+      "location": "src/pipeline/tts.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via python3.12 src/pipeline/tts.py --text <text> --out <out.wav>."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Requires kokoro and torch in Python 3.12 environment."
+      },
+      "documentation_urls": [
+        "AGENTS.md#tts"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace python wrapper over Apache-2.0 Kokoro engine."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Offline local model inference; zero external network requests."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 3 speech synthesis pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "tts",
+        "kokoro",
+        "speech",
+        "synthesis",
+        "audio"
+      ]
+    },
+    "tool-validate-research": {
+      "id": "tool-validate-research",
+      "name": "Research Dossier Validation CLI",
+      "component_type": "tool",
+      "purpose": "Validates research.json dossiers against specs/research-spec.json ensuring all technical, mathematical, and pedagogical constraints are verified.",
+      "capabilities": [
+        "JSON Schema Draft-07 validation for research dossiers",
+        "Pillar verification (pedagogy, math entities, equations, visual metaphors, scene blueprints)",
+        "Gate enforcement before voice script or motion coding begins"
+      ],
+      "location": "scripts/validate-research.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via python3 scripts/validate-research.py <path>."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Auto-delegates to python3.12 if default python lacks jsonschema."
+      },
+      "documentation_urls": [
+        "specs/research-spec.json",
+        "templates/research-template.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace tool."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Read-only dossier validation."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 0 QA gate.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "research",
+        "validation",
+        "schema",
+        "stage-0",
+        "cli"
+      ]
+    },
+    "tool-workspace-governance": {
+      "id": "tool-workspace-governance",
+      "name": "Workspace Governance & Drift Detection CLI",
+      "component_type": "tool",
+      "purpose": "Automated governance audit command verifying component placement, schema conformity, reference integrity, and disk drift detection.",
+      "capabilities": [
+        "Full catalogue schema validation across all component categories",
+        "Missing or unlinked workspace file detection",
+        "Unregistered active skill/tool/template detection",
+        "Architecture documentation reference verification",
+        "Approval and licensing policy enforcement"
+      ],
+      "location": "scripts/workspace-governance.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Execute via python3 scripts/workspace-governance.py."
+      },
+      "dependencies": [
+        "tool-motion-catalogue"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Executes in sub-second time on local machine."
+      },
+      "documentation_urls": [
+        ".agents/skills/workspace-steward/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace tool."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Read-only workspace scanning and integrity checks."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Validated via automated governance test suites.",
+      "architecture_ref": "ARCHITECTURE.md#governance",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "governance",
+        "drift-detection",
+        "audit",
+        "validation",
+        "cli"
+      ]
+    }
+  },
+  "agents": {
+    "agent-image-generator-subagent": {
+      "id": "agent-image-generator-subagent",
+      "name": "Image Generator Subagent",
+      "component_type": "agent",
+      "purpose": "Generates or edits static images from a prompt brief and replies with saved file paths.",
+      "capabilities": [
+        "Diagram schematic sketch generation",
+        "Asset thumbnail creation",
+        "Visual storyboard concept rendering"
+      ],
+      "location": "system_prompt:image-generator",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Invoked via invoke_subagent with TypeName 'image-generator'."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Executes on external multimodal generation host."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#s1"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace subagent specification."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Saves image outputs to assets/ or projects/<name>/."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production certified for supplementary visual asset generation.",
+      "architecture_ref": "ARCHITECTURE.md#s1",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "subagent",
+        "image",
+        "concept",
+        "assets"
+      ]
+    },
+    "agent-motion-engineer": {
+      "id": "agent-motion-engineer",
+      "name": "Motion Graphics Engineer Agent Role",
+      "component_type": "agent",
+      "purpose": "Primary LLM persona driving Stage 4 visual choreography, SVG layout coding, and GSAP timeline authoring.",
+      "capabilities": [
+        "Capability catalogue recipe selection via motion-library-guide",
+        "Scene markup authoring with SVG primitives and CSS tokens",
+        "GSAP 3 timeline synchronization anchored to measured audio durations",
+        "Mulberry32 PRNG integration"
+      ],
+      "location": "role:motion-engineer",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Defined as the operational persona for Stage 4."
+      },
+      "dependencies": [
+        "skill-motion-library-guide",
+        "skill-motion-graphics-designer"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Executes in parent conversation context."
+      },
+      "documentation_urls": [
+        "AGENTS.md#hyperframes-coding"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace agent specification."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes and lints projects/<project_name>/src/index.html."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "agent-role",
+        "engineer",
+        "motion",
+        "gsap",
+        "stage-4"
+      ]
+    },
+    "agent-research-subagent": {
+      "id": "agent-research-subagent",
+      "name": "Research Subagent",
+      "component_type": "agent",
+      "purpose": "Read-only research subagent with tools for exploring the codebase, searching the web, and reading files.",
+      "capabilities": [
+        "Codebase exploration and file reading",
+        "Web search and literature retrieval",
+        "Anti-hallucination verification"
+      ],
+      "location": "system_prompt:research",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Invoked via invoke_subagent with TypeName 'research'."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Runs in read-only sandbox with no local write access."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#s0"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace subagent specification."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": true,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Read-only access; cannot write to workspace."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 0 technical investigation.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "subagent",
+        "research",
+        "read-only",
+        "literature",
+        "stage-0"
+      ]
+    },
+    "agent-technical-analyst": {
+      "id": "agent-technical-analyst",
+      "name": "Technical Analyst Agent Role",
+      "component_type": "agent",
+      "purpose": "Primary LLM persona driving Stage 0 research, algorithm verification, and visual metaphor formulation.",
+      "capabilities": [
+        "Whitepaper and specification parsing",
+        "State machine tracing and edge-case verification",
+        "KaTeX equation authoring and phonetics derivation"
+      ],
+      "location": "role:technical-analyst",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Defined as the operational persona for Stage 0."
+      },
+      "dependencies": [
+        "skill-technical-researcher"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Executes in parent conversation context."
+      },
+      "documentation_urls": [
+        "AGENTS.md#lifecycle"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace agent specification."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Operates within defined workspace boundaries."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 0.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "agent-role",
+        "analyst",
+        "research",
+        "math",
+        "stage-0"
+      ]
+    }
+  },
+  "integrations": {
+    "integration-kokoro-tts-engine": {
+      "id": "integration-kokoro-tts-engine",
+      "name": "Kokoro 0.9.4 Neural Speech Synthesis Engine",
+      "component_type": "integration",
+      "purpose": "Local deep learning speech synthesis integration using PyTorch, misaki, and espeak-ng producing 24 kHz mono PCM audio.",
+      "capabilities": [
+        "High-speed local neural TTS inference on Apple Silicon",
+        "82M parameter lightweight transformer model",
+        "Zero cloud API latency and zero per-character cost"
+      ],
+      "location": "src/pipeline/tts.py",
+      "version": "0.9.4",
+      "installation": {
+        "required": true,
+        "instructions": "Installed in local environment with weights cached locally."
+      },
+      "dependencies": [
+        "tool-tts-pipeline"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Executes on Apple Silicon M-series using PyTorch MPS/CPU."
+      },
+      "documentation_urls": [
+        "https://huggingface.co/hexgrad/Kokoro-82M"
+      ],
+      "licensing": {
+        "spdx_identifier": "Apache-2.0",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Apache-2.0 licensed neural TTS model."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Local neural model execution; no audio data leaves the local machine."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 3 speech synthesis.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "integration",
+        "kokoro",
+        "tts",
+        "neural",
+        "apache-2.0"
+      ]
+    },
+    "integration-openverse-api": {
+      "id": "integration-openverse-api",
+      "name": "Openverse Audio Catalog Integration",
+      "component_type": "integration",
+      "purpose": "REST integration querying WordPress Openverse catalog for CC0 / CC BY audio assets with direct CDN asset retrieval.",
+      "capabilities": [
+        "Unauthenticated REST audio search API endpoint access",
+        "Creative Commons metadata filtering (CC0, CC-BY)",
+        "Direct CDN audio asset streaming and download"
+      ],
+      "location": "https://api.openverse.org/v1/audio/",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Integrated via scripts/sfx-openverse.py. No API key required."
+      },
+      "dependencies": [
+        "tool-sfx-openverse"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12",
+        "notes": "Public HTTPS REST API."
+      },
+      "documentation_urls": [
+        "https://api.openverse.org"
+      ],
+      "licensing": {
+        "spdx_identifier": "CC0-1.0",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Openverse public catalog provides verified CC0 and CC-BY audio assets."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Requires public outbound HTTPS access; zero credential or token requirements."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 4B audio asset retrieval.",
+      "architecture_ref": "ARCHITECTURE.md#s4b",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "integration",
+        "openverse",
+        "api",
+        "cc0",
+        "audio"
+      ]
+    },
+    "integration-veo-cinematic-ingest": {
+      "id": "integration-veo-cinematic-ingest",
+      "name": "Google Veo Cinematic Video Ingest Pipeline",
+      "component_type": "integration",
+      "purpose": "Ingestion protocol for external generative video clips (Google Veo / Flow Web UI), normalizing them to 1280x720 30fps silent backgrounds.",
+      "capabilities": [
+        "External generative AI video ingestion",
+        "Automated resolution and framerate normalization via ingest-asset.sh",
+        "Layering under SVG vector stage with vignette blending"
+      ],
+      "location": "specs/veo-integration.md",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Place raw mp4 in assets/generated/ and run ./scripts/ingest-asset.sh <file>."
+      },
+      "dependencies": [
+        "tool-ingest-asset"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "bash",
+        "notes": "Produces silent H.264 MP4s compatible with HyperFrames."
+      },
+      "documentation_urls": [
+        "specs/veo-integration.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Generated video assets under user license."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Local file normalization and asset placement."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 7 cinematic blending.",
+      "architecture_ref": "ARCHITECTURE.md#s7",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "integration",
+        "veo",
+        "video",
+        "cinematic",
+        "stage-7"
+      ]
+    }
+  },
+  "shared": {
+    "shared-research-spec": {
+      "id": "shared-research-spec",
+      "name": "Research Dossier JSON Schema Specification",
+      "component_type": "shared_asset",
+      "purpose": "Authoritative Draft-07 JSON Schema enforcing the 6 core pillars of technical explainer research dossiers.",
+      "capabilities": [
+        "Machine validation of metadata, pedagogy, ground truth, visual metaphors, acoustic guidance, and scene blueprint",
+        "Formula verification gating and anti-hallucination fact checking"
+      ],
+      "location": "specs/research-spec.json",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Referenced directly by scripts/validate-research.py."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "json-schema",
+        "notes": "Draft-07 standard schema."
+      },
+      "documentation_urls": [
+        "specs/research-spec.json"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace schema specification."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Static schema definition."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in Stage 0 QA gate.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "schema",
+        "spec",
+        "research",
+        "json-schema",
+        "draft-07"
+      ]
+    },
+    "shared-research-template": {
+      "id": "shared-research-template",
+      "name": "Research Dossier Scaffolding Template",
+      "component_type": "shared_asset",
+      "purpose": "Standardized starting templates (JSON data model and Markdown narrative dossier) for Stage 0 research.",
+      "capabilities": [
+        "Pre-structured 6-pillar JSON scaffold conforming to research-spec.json",
+        "Markdown narrative dossier template formatted with KaTeX math and metaphor tables"
+      ],
+      "location": "templates/research-template.json",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Copied into projects/<name>/research.json via scripts/new-project.sh."
+      },
+      "dependencies": [
+        "shared-research-spec"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "json",
+        "notes": "Standard JSON and Markdown text assets."
+      },
+      "documentation_urls": [
+        "templates/research-template.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace template."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Static scaffolding templates."
+      },
+      "owner": "pedagogy",
+      "status": "approved",
+      "approval_evidence": "Production certified in project scaffolding.",
+      "architecture_ref": "ARCHITECTURE.md#s0",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "template",
+        "research",
+        "scaffold",
+        "json",
+        "markdown"
+      ]
+    },
+    "shared-scene-starter-template": {
+      "id": "shared-scene-starter-template",
+      "name": "Deterministic Scene HTML Starter Template",
+      "component_type": "shared_asset",
+      "purpose": "Reference starter HTML composition demonstrating 1280x720 canvas, centered layout, mulberry32 PRNG, and paused GSAP timeline.",
+      "capabilities": [
+        "Verified 1280x720 canvas grid starter markup",
+        "Pre-wired window.__timelines['root'] mounting",
+        "mulberry32 seeded PRNG implementation"
+      ],
+      "location": ".agents/skills/motion-graphics-designer/examples/scene-template.html",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Copied or inspected from .agents/skills/motion-graphics-designer/examples/."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "html5",
+        "notes": "Renders with HyperFrames in low-memory mode."
+      },
+      "documentation_urls": [
+        ".agents/skills/motion-graphics-designer/examples/scene-template.html"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace template."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Static HTML starter template."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production certified reference composition.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "template",
+        "html",
+        "starter",
+        "gsap",
+        "hyperframes"
+      ]
+    },
+    "shared-video-spec": {
+      "id": "shared-video-spec",
+      "name": "Motion Graphics Video Composition Specification",
+      "component_type": "shared_asset",
+      "purpose": "JSON Schema specification defining video resolution, fps, theme tokens, narration settings, and scene outlines.",
+      "capabilities": [
+        "Machine validation for video project configurations",
+        "Standardized resolution and theme tokens"
+      ],
+      "location": "specs/video-spec.json",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Stored in specs/video-spec.json."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "json-schema",
+        "notes": "Draft-07 standard schema."
+      },
+      "documentation_urls": [
+        "specs/video-spec.json"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace schema specification."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Static schema definition."
+      },
+      "owner": "video-production",
+      "status": "approved",
+      "approval_evidence": "Production certified in project specifications.",
+      "architecture_ref": "ARCHITECTURE.md#video-spec",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "schema",
+        "spec",
+        "video",
+        "json-schema",
+        "draft-07"
+      ]
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "project": "btree-database-indexing",
+  "voice": "am_adam",
+  "speed": 1.15,
+  "pause_sec": 0.5,
+  "total_duration_sec": 46.475,
+  "target_fps": 30,
+  "total_frames": 1395,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Disk I/O Bottleneck",
+      "text": "In database engines, reading a disk block is a hundred thousand times slower than system memory. If an index requires dozens of random seeks per query, throughput collapses.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 10.425,
+      "start_time_sec": 0.0,
+      "end_time_sec": 10.425
+    },
+    {
+      "id": "s2",
+      "title": "Binary Tree vs B-Tree Fan-out",
+      "text": "A binary tree stores one key per node. For a billion rows, searching down thirty levels demands thirty disk round-trips. But a B-Tree packs hundreds of keys per node, crushing tree depth to three levels.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 11.65,
+      "start_time_sec": 10.925,
+      "end_time_sec": 22.575
+    },
+    {
+      "id": "s3",
+      "title": "Page Alignment & Traversal",
+      "text": "Each B-Tree node matches a physical storage block, like an eight-kilobyte page. Fetching one page loads dozens of sorted keys into memory at once, routing queries to the target leaf in single hops.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 11.75,
+      "start_time_sec": 23.075,
+      "end_time_sec": 34.825
+    },
+    {
+      "id": "s4",
+      "title": "Balanced Growth: Node Split",
+      "text": "When insertions fill a page to capacity, it splits and promotes the median key upward. The tree grows from the bottom up, guaranteeing balanced logarithmic access across billions of records.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 11.15,
+      "start_time_sec": 35.325,
+      "end_time_sec": 46.475
+    }
+  ]
+}

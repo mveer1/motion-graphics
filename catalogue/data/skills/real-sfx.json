@@ -1,0 +1,49 @@
+{
+  "id": "skill-real-sfx",
+  "name": "Real SFX Sound Design Skill",
+  "component_type": "skill",
+  "purpose": "Frame-accurate sound design and foley placement; extracts visual cues from HyperFrames compositions and mixes balanced SFX audio tracks.",
+  "capabilities": [
+    "Visual moment extraction from index.html (bursts, scales, cuts)",
+    "Foley cue suggestion and role mapping",
+    "Multi-track audio bed rendering with ducking under voice",
+    "Acoustic self-critique scoreboard generation"
+  ],
+  "location": ".agents/skills/real-sfx",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-earshot-cli",
+    "tool-sfx-openverse"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Executes Python audio scripts in .venv/."
+  },
+  "documentation_urls": [
+    ".agents/skills/real-sfx/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Downloads CC assets via public APIs and generates audio files in renders/."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4B foley pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s4b",
+  "last_verified": "2026-10-30",
+  "tags": ["sfx", "foley", "sound-design", "cues", "stage-4b"]
+}

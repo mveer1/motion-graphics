@@ -1,0 +1,41 @@
+{
+  "id": "canvas2d-native",
+  "name": "HTML5 Canvas 2D Rendering Context",
+  "version": "native",
+  "category": "raster_canvas",
+  "status": "approved",
+  "licensing": {
+    "spdx_identifier": "WHATWG-HTML",
+    "status": "verified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "Native web standard supported natively across all modern browser engines."
+  },
+  "documentation_urls": [
+    "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D"
+  ],
+  "runtime_environment": {
+    "type": "browser_native"
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 300,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": true,
+    "notes": "Canvas drawing routines must bind to timeline progress callbacks and use seeded PRNG (mulberry32) rather than unseeded Math.random."
+  },
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "hyperframes_compatible": true,
+    "low_memory_mode_compatible": true
+  },
+  "justification": "Approved core technology. Used when procedural particle simulations, field lines, or function plots exceed SVG DOM performance ceilings (>1000 nodes).",
+  "effects_provided": [],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": ["canvas", "2d", "raster", "particles", "browser-native"]
+  }
+}
+

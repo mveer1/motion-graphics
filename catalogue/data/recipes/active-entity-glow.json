@@ -1,0 +1,71 @@
+{
+  "id": "active-entity-glow",
+  "name": "Active Entity Glow Breathing Pulse",
+  "effect_id": "glow-pulse",
+  "status": "approved",
+  "visual_intent": "Draws viewer visual focus to a specific server, leader node, or memory cell during state transition.",
+  "parameters": [
+    {
+      "name": "targetSelector",
+      "type": "string",
+      "description": "CSS selector for node or card to glow (e.g. '#leader-node')."
+    },
+    {
+      "name": "glowColor",
+      "type": "string",
+      "default": "#3fb950",
+      "description": "Hex or rgba color for glow luminescence."
+    },
+    {
+      "name": "startTime",
+      "type": "number",
+      "description": "Timestamp in seconds to begin glow pulse."
+    },
+    {
+      "name": "pulseDuration",
+      "type": "number",
+      "default": 0.8,
+      "description": "Duration per breathing pulse cycle."
+    },
+    {
+      "name": "repeatCount",
+      "type": "integer",
+      "default": 2,
+      "description": "Number of yoyo repeat cycles."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Anchored to leader election, quorum consensus, or state transition trigger.",
+    "easing_standard": "power1.inOut with yoyo: true",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<div id=\"leader-node\" class=\"server-card\">\n  <div class=\"node-title\">Leader: Node 1</div>\n</div>",
+    "css": ".server-card {\n  position: absolute;\n  width: 140px;\n  height: 90px;\n  background: #161b22;\n  border: 1px solid #30363d;\n  border-radius: 8px;\n  transition: box-shadow 0.2s;\n}",
+    "javascript": "tl.to(targetSelector, {\n  boxShadow: `0 0 24px ${glowColor}`,\n  scale: 1.05,\n  duration: pulseDuration / 2,\n  yoyo: true,\n  repeat: repeatCount,\n  ease: 'power1.inOut'\n}, startTime);"
+  },
+  "fallbacks": "Stroke width and color flash if box-shadow or SVG filter is constrained.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 3.0,
+    "memory_impact": "Low (<10MB)"
+  },
+  "validation_steps": [
+    "Snapshot at startTime + (pulseDuration / 4) to verify peak luminous radius.",
+    "Verify no frame drops or GPU memory leaks on repeated pulses."
+  ],
+  "tags": [
+    "glow",
+    "pulse",
+    "highlight",
+    "attention",
+    "leader"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

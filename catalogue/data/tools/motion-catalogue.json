@@ -1,0 +1,46 @@
+{
+  "id": "tool-motion-catalogue",
+  "name": "Motion Graphics Capability Catalogue CLI",
+  "component_type": "tool",
+  "purpose": "Lightweight CLI for searching, querying, inspecting, validating, and exporting capability catalogue records.",
+  "capabilities": [
+    "Search across libraries, effects, recipes, and workspace components",
+    "Detailed inspection of recipes, parameters, code snippets, and QA steps",
+    "JSON Schema Draft-07 validation and cross-reference checks",
+    "Aggregated index.json manifest compilation"
+  ],
+  "location": "scripts/motion-catalogue.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Directly executable via python3 scripts/motion-catalogue.py."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Auto-delegates to python3.12 for jsonschema support."
+  },
+  "documentation_urls": [
+    "catalogue/README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Local file operations within catalogue/."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Validated via tests/test-motion-catalogue.py.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": ["cli", "catalogue", "search", "validation", "export"]
+}

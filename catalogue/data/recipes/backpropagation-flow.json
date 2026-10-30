@@ -1,0 +1,70 @@
+{
+  "id": "backpropagation-flow",
+  "name": "Continuous Marching Dashed Flow",
+  "effect_id": "marching-dashed-stroke",
+  "status": "approved",
+  "visual_intent": "Shows reverse error flow through weight matrices or feedback loops without abrupt visual snapping.",
+  "parameters": [
+    {
+      "name": "containerSelector",
+      "type": "string",
+      "description": "Group element wrapping backprop vector connections."
+    },
+    {
+      "name": "lineSelector",
+      "type": "string",
+      "description": "SVG line or path elements with stroke-dasharray styling."
+    },
+    {
+      "name": "startTime",
+      "type": "number",
+      "description": "Timestamp in seconds to begin backprop flow."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": 3.0,
+      "description": "Total duration of active marching flow."
+    },
+    {
+      "name": "dashOffsetShift",
+      "type": "number",
+      "default": -60,
+      "description": "Pixel distance to shift stroke-dashoffset (negative for backward flow)."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Spans the mathematical voice explanation of loss computation and chain rule.",
+    "easing_standard": "none (linear constant velocity).",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<svg viewBox=\"0 0 1280 720\">\n  <g id=\"backprop-arrows\" opacity=\"0\">\n    <line x1=\"600\" y1=\"300\" x2=\"200\" y2=\"300\" stroke=\"#f85149\" stroke-width=\"2.5\" stroke-dasharray=\"6,4\"/>\n  </g>\n</svg>",
+    "css": "#backprop-arrows line { stroke-linecap: round; }",
+    "javascript": "// Reveal backprop layer\ntl.to('#backprop-arrows', { opacity: 1, duration: 0.4 }, startTime);\n\n// Shift stroke-dashoffset backward smoothly\ntl.fromTo('#backprop-arrows line',\n  { strokeDashoffset: 0 },\n  { strokeDashoffset: -60, duration: 3.0, ease: 'none' },\n  startTime + 0.1\n);"
+  },
+  "fallbacks": "Static dashed stroke with opacity blink if continuous dashoffset is not supported.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.8,
+    "memory_impact": "Negligible (<1MB)"
+  },
+  "validation_steps": [
+    "Snapshot at startTime + 0.5s and startTime + 2.0s to confirm strokeDashoffset progression.",
+    "Confirm no visual hitching or frame drop during continuous linear tween."
+  ],
+  "tags": [
+    "data-flow",
+    "flow",
+    "dashed",
+    "backpropagation",
+    "vector",
+    "linear-easing"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "metadata": {
+    "topic_id": "distributed-consensus-raft",
+    "title": "How Does Raft Reach Consensus?",
+    "domain": "distributed_systems",
+    "difficulty": "intermediate",
+    "target_duration_sec": {
+      "min": 22.0,
+      "max": 28.0,
+      "target": 25.0
+    },
+    "canonical_sources": [
+      {
+        "title": "In Search of an Understandable Consensus Algorithm",
+        "authors": "Diego Ongaro, John Ousterhout",
+        "year": 2014,
+        "source_type": "academic_paper",
+        "url": "https://raft.github.io/raft.pdf"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "In a distributed network where servers can crash and messages can be delayed or lost, how do multiple independent nodes agree on a single, shared, sequential history of state?",
+    "core_thesis": "Raft achieves consensus by decomposing the problem into leader election and log replication: a single leader elected by a majority quorum broadcasts append-only log entries to followers.",
+    "mental_model": "A parliamentary committee where members elect a temporary chairperson; no policy can be enacted into law unless a strict majority of members sign the exact same ledger entry.",
+    "key_takeaway": "Consensus requires a stable leader and majority log commitment across terms.",
+    "verified_claims": [
+      "At most one leader can be elected in any given term (Election Safety).",
+      "A leader never overwrites or truncates its own log entries; it only appends.",
+      "An entry is committed once replicated across a majority quorum of nodes.",
+      "If a server applies an entry at a given index, no other server will ever apply a different entry for that index."
+    ],
+    "anti_patterns": [
+      "Do not imply all nodes must agree simultaneously; a majority quorum (N/2 + 1) is sufficient.",
+      "Do not show followers accepting writes directly from clients; all mutations must route through the leader.",
+      "Do not confuse consensus with simple gossip protocols; log ordering is strictly linear and verified."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "node_cluster",
+        "symbol_latex": "S = \\{S_1, \\dots, S_N\\}",
+        "name": "Server Node Cluster",
+        "type_or_domain": "state_machine_set",
+        "role": "Distributed nodes maintaining identical replicated state machines"
+      },
+      {
+        "id": "term_number",
+        "symbol_latex": "t \\in \\mathbb{N}",
+        "name": "Current Term Counter",
+        "type_or_domain": "integer",
+        "role": "Logical clock dividing time into discrete election terms"
+      },
+      {
+        "id": "quorum_threshold",
+        "symbol_latex": "Q = \\lfloor N/2 \\rfloor + 1",
+        "name": "Majority Quorum Bound",
+        "type_or_domain": "integer",
+        "role": "Minimum votes required to elect a leader or commit an entry"
+      },
+      {
+        "id": "log_entry",
+        "symbol_latex": "e = (t, i, \\text{cmd})",
+        "name": "Append-Only Log Entry",
+        "type_or_domain": "tuple",
+        "role": "State mutation carrying term, index, and state machine command"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_quorum",
+        "latex": "V_{\\text{votes}} \\ge \\left\\lfloor \\frac{N}{2} \\right\\rfloor + 1",
+        "spoken_form": "Votes received must be greater than or equal to floor of N divided by two, plus one",
+        "context": "Strict majority quorum condition"
+      },
+      {
+        "id": "eq_election_timeout",
+        "latex": "T_{\\text{timeout}} \\sim U(150\\text{ms}, 300\\text{ms})",
+        "spoken_form": "Election timeout sampled uniformly between one hundred fifty and three hundred milliseconds",
+        "context": "Randomized timeout preventing split votes"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Election Trigger",
+        "mathematical_operation": "t <- t + 1; vote_self()",
+        "state_effect": "A follower's heartbeat timer elapses, transitioning to Candidate in a new term"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Quorum Election",
+        "mathematical_operation": "count(votes) >= Q",
+        "state_effect": "Candidate gathers majority votes and transitions to Leader"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Log Replication",
+        "mathematical_operation": "broadcast(AppendEntries, e)",
+        "state_effect": "Leader transmits log entry to followers via heartbeat waves"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Commit & State Application",
+        "mathematical_operation": "commit_index <- max(replicated_index >= Q)",
+        "state_effect": "Majority acknowledgement commits the entry into local state machines"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "cluster_topology",
+      "abstract_concept": "Decentralized cluster nodes",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["circle", "text", "path"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Radial pentagonal cluster layout with state ring status",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "leader_authority",
+      "abstract_concept": "Elected cluster coordinator",
+      "visual_archetype": "state_machine_transition",
+      "svg_primitives": ["circle", "rect", "text"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Node transitions from blue follower to glowing amber leader with crown badge",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "heartbeat_wave",
+      "abstract_concept": "Periodic append entries / presence ping",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["circle", "line"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Concentric ripple rings expanding outward from leader to all followers",
+      "color_token": "accent_secondary_teal"
+    },
+    {
+      "concept_id": "quorum_commitment",
+      "abstract_concept": "Majority log entry consensus",
+      "visual_archetype": "ring_buffer_pipeline",
+      "svg_primitives": ["rect", "text"],
+      "spatial_anchor": "bottom_dock_timeline",
+      "motion_pattern": "Log slots turn from uncommitted amber to committed emerald green",
+      "color_token": "state_active_emerald"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "Raft",
+        "phonetic_respelling": "raft",
+        "rationale": "Standard English noun pronunciation"
+      },
+      {
+        "term": "quorum",
+        "phonetic_respelling": "KWOR-um",
+        "rationale": "Accurate Latinate legal term pronunciation in Kokoro"
+      },
+      {
+        "term": "RPC",
+        "phonetic_respelling": "R-P-C",
+        "rationale": "Spell out remote procedure call acronym"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The Consensus Problem",
+      "target_duration_sec": 6.2,
+      "pedagogical_objective": "Establish the distributed challenge: independent nodes must agree on an ordered log despite network delays and crashes.",
+      "visual_action": "5-node pentagon cluster materializes; question badge appears over desynchronized nodes.",
+      "active_entities": ["node_cluster", "term_number"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Leader Election",
+      "target_duration_sec": 6.5,
+      "pedagogical_objective": "Demonstrate leader election: a timeout triggers a candidate, requesting votes until a majority quorum is reached.",
+      "visual_action": "Node S1 timeout fires; vote request beams travel to peers; 3 of 5 vote yes; S1 crowns as Leader.",
+      "active_entities": ["leader_authority", "quorum_threshold"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Log Replication",
+      "target_duration_sec": 6.8,
+      "pedagogical_objective": "Show log replication: the leader receives client writes, broadcasts AppendEntries heartbeats, and followers replicate.",
+      "visual_action": "Client write arrives at leader; heartbeat waves broadcast entries; follower logs illuminate in parallel.",
+      "active_entities": ["heartbeat_wave", "log_entry"]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Quorum Commitment",
+      "target_duration_sec": 5.5,
+      "pedagogical_objective": "Explain consensus commitment: once written to a majority quorum, the entry is committed permanently and applied.",
+      "visual_action": "Majority acknowledgement count hits 3/5; log slots turn solid emerald green; cluster reaches consensus.",
+      "active_entities": ["quorum_commitment", "node_cluster"]
+    }
+  ]
+}

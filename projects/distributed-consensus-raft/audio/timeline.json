@@ -1,0 +1,47 @@
+{
+  "project": "distributed-consensus-raft",
+  "voice": "am_adam",
+  "speed": 1.15,
+  "pause_sec": 0.5,
+  "total_duration_sec": 26.725,
+  "target_fps": 30,
+  "total_frames": 802,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Problem",
+      "text": "In distributed systems, independent servers must agree on a single shared state, even when nodes fail.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 6.35,
+      "start_time_sec": 0.0,
+      "end_time_sec": 6.35
+    },
+    {
+      "id": "s2",
+      "title": "Leader Election",
+      "text": "Raft solves this by electing a leader. If a node times out, it requests votes until it wins a majority quorum.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 6.7,
+      "start_time_sec": 6.85,
+      "end_time_sec": 13.55
+    },
+    {
+      "id": "s3",
+      "title": "Log Replication",
+      "text": "The leader accepts client commands and broadcasts them across the cluster through heartbeat messages.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 5.825,
+      "start_time_sec": 14.05,
+      "end_time_sec": 19.875
+    },
+    {
+      "id": "s4",
+      "title": "Quorum Commitment",
+      "text": "Once a majority of followers acknowledge the entry, it commits permanently. The cluster reaches consensus.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 6.35,
+      "start_time_sec": 20.375,
+      "end_time_sec": 26.725
+    }
+  ]
+}

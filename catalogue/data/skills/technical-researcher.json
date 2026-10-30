@@ -1,0 +1,48 @@
+{
+  "id": "skill-technical-researcher",
+  "name": "Technical Researcher Skill",
+  "component_type": "skill",
+  "purpose": "Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and research.json schema validation.",
+  "capabilities": [
+    "Literature and canonical source retrieval",
+    "Mathematical formula derivation and fact-checking",
+    "Visual metaphor formulation",
+    "research.json dossier generation and validation"
+  ],
+  "location": ".agents/skills/technical-researcher",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-validate-research"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Native markdown and JSON schema instructions."
+  },
+  "documentation_urls": [
+    ".agents/skills/technical-researcher/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Web searches are read-only; dossier writes are restricted to projects/<project_name>/."
+  },
+  "owner": "pedagogy",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 0 pipeline; validated against specs/research-spec.json.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["research", "pedagogy", "math", "metaphors", "stage-0"]
+}

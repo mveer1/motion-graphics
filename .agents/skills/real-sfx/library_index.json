@@ -1,0 +1,80 @@
+{
+ "count": 2,
+ "libraries": [
+  {
+   "name": "main",
+   "path": "/Users/mahavir/Downloads/Repo/motion graphics/assets/audio/sfx",
+   "tier": "main",
+   "files": 2,
+   "catalog": false
+  }
+ ],
+ "sounds": [
+  {
+   "library": "main",
+   "tier": "main",
+   "path": "/Users/mahavir/Downloads/Repo/motion graphics/assets/audio/sfx/freesound_Deep_Whoosh__1_eab8a6e2.mp3",
+   "folder": "",
+   "name": "freesound Deep Whoosh  1 eab8a6e2",
+   "role": "whoosh",
+   "roles": [
+    "whoosh"
+   ],
+   "duration": 3.156,
+   "peak_db": -1.9,
+   "mean_db": -24.6,
+   "peak_time": 0.49,
+   "lr_corr": 0.04,
+   "attack_ms": 320,
+   "decay_ms": 580,
+   "centroid": 179,
+   "rolloff": 250,
+   "low": 0.827,
+   "high": 0.001,
+   "flat": 0.019,
+   "bumps": 9.9,
+   "active_dur": 1.9,
+   "words": [
+    "swelling",
+    "dark",
+    "heavy",
+    "tonal",
+    "long",
+    "pulsing"
+   ],
+   "id": 0
+  },
+  {
+   "library": "main",
+   "tier": "main",
+   "path": "/Users/mahavir/Downloads/Repo/motion graphics/assets/audio/sfx/freesound_Swosh_swoosh_whoosh_air_sound__f1dc6045.mp3",
+   "folder": "",
+   "name": "freesound Swosh swoosh whoosh air sound  f1dc6045",
+   "role": "whoosh",
+   "roles": [
+    "whoosh"
+   ],
+   "duration": 0.49,
+   "peak_db": -7.3,
+   "mean_db": -22.5,
+   "peak_time": 0.07,
+   "lr_corr": 0.83,
+   "attack_ms": 40,
+   "decay_ms": 300,
+   "centroid": 273,
+   "rolloff": 296,
+   "low": 0.242,
+   "high": 0.001,
+   "flat": 0.005,
+   "bumps": 3.3,
+   "active_dur": 0.49,
+   "words": [
+    "soft-attack",
+    "dark",
+    "tonal",
+    "short"
+   ],
+   "id": 1
+  }
+ ]
+}

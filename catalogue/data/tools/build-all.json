@@ -1,0 +1,47 @@
+{
+  "id": "tool-build-all",
+  "name": "Full Showcase Portfolio Build CLI",
+  "component_type": "tool",
+  "purpose": "Batch renders all explainer projects in projects/ sequentially without memory collisions and updates out/index.html.",
+  "capabilities": [
+    "Batch execution across all explainer projects",
+    "Sequential render isolation preventing memory spikes on Apple Silicon 8GB",
+    "Portfolio index update"
+  ],
+  "location": "scripts/build-all.sh",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via ./scripts/build-all.sh."
+  },
+  "dependencies": [
+    "tool-build-project"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Executes sequentially."
+  },
+  "documentation_urls": [
+    "README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace build script."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Local batch build operations."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified for showcase distribution.",
+  "architecture_ref": "ARCHITECTURE.md#s8",
+  "last_verified": "2026-10-30",
+  "tags": ["build", "batch", "portfolio", "bash"]
+}

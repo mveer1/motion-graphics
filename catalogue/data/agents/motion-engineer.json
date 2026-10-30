@@ -1,0 +1,49 @@
+{
+  "id": "agent-motion-engineer",
+  "name": "Motion Graphics Engineer Agent Role",
+  "component_type": "agent",
+  "purpose": "Primary LLM persona driving Stage 4 visual choreography, SVG layout coding, and GSAP timeline authoring.",
+  "capabilities": [
+    "Capability catalogue recipe selection via motion-library-guide",
+    "Scene markup authoring with SVG primitives and CSS tokens",
+    "GSAP 3 timeline synchronization anchored to measured audio durations",
+    "Mulberry32 PRNG integration"
+  ],
+  "location": "role:motion-engineer",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Defined as the operational persona for Stage 4."
+  },
+  "dependencies": [
+    "skill-motion-library-guide",
+    "skill-motion-graphics-designer"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Executes in parent conversation context."
+  },
+  "documentation_urls": [
+    "AGENTS.md#hyperframes-coding"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace agent specification."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes and lints projects/<project_name>/src/index.html."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": ["agent-role", "engineer", "motion", "gsap", "stage-4"]
+}

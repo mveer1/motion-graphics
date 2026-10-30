@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionAnimationRecipeRecord",
+  "description": "Schema defining a deterministic animation recipe in the Motion Graphics Capability Catalogue.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "effect_id",
+    "status",
+    "visual_intent",
+    "parameters",
+    "timeline_requirements",
+    "code_snippet",
+    "fallbacks",
+    "performance_characteristics",
+    "validation_steps",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Unique kebab-case slug identifying the animation recipe."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name of the recipe."
+    },
+    "effect_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Parent effect record ID implemented by this recipe."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "experimental",
+        "approved",
+        "deprecated",
+        "blocked"
+      ],
+      "description": "Approval state governing production use."
+    },
+    "visual_intent": {
+      "type": "string",
+      "description": "What specific visual communication requirement this recipe achieves."
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "default": {},
+          "description": { "type": "string" }
+        }
+      },
+      "description": "Configurable parameters accepted by the recipe."
+    },
+    "timeline_requirements": {
+      "type": "object",
+      "required": [
+        "gsap_instance",
+        "timing_anchors",
+        "easing_standard",
+        "prng_required"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "gsap_instance": {
+          "type": "string",
+          "description": "Timeline instance requirement (e.g. window.__timelines['root'] or sub-timeline)."
+        },
+        "timing_anchors": {
+          "type": "string",
+          "description": "How the recipe aligns to speech narration or audio timestamps."
+        },
+        "easing_standard": {
+          "type": "string",
+          "description": "Prescribed GSAP easing curve (e.g. 'power1.inOut', 'none')."
+        },
+        "prng_required": {
+          "type": "boolean",
+          "description": "Whether seeded mulberry32 PRNG is required for variation."
+        }
+      }
+    },
+    "code_snippet": {
+      "type": "object",
+      "required": ["javascript"],
+      "additionalProperties": false,
+      "properties": {
+        "html": {
+          "type": "string",
+          "description": "HTML/SVG element markup."
+        },
+        "css": {
+          "type": "string",
+          "description": "CSS rules."
+        },
+        "javascript": {
+          "type": "string",
+          "description": "JavaScript / GSAP timeline execution code."
+        }
+      }
+    },
+    "fallbacks": {
+      "type": "string",
+      "description": "Graceful degradation strategy if the primary technique fails or is constrained."
+    },
+    "performance_characteristics": {
+      "type": "object",
+      "required": [
+        "tested_fps",
+        "frame_budget_ms",
+        "memory_impact"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "tested_fps": {
+          "type": "integer",
+          "default": 30,
+          "description": "Tested playback and render frames per second."
+        },
+        "frame_budget_ms": {
+          "type": "number",
+          "description": "Estimated CPU/GPU rendering time per frame in milliseconds."
+        },
+        "memory_impact": {
+          "type": "string",
+          "description": "Estimated memory overhead on Apple Silicon 8GB."
+        }
+      }
+    },
+    "validation_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Deterministic steps to verify the effect in snapshot frames or automated QA."
+    },
+    "tags": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Searchable tags and visual classifications."
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "author": { "type": "string" },
+        "created_at": { "type": "string" },
+        "updated_at": { "type": "string" }
+      }
+    }
+  }
+}
+

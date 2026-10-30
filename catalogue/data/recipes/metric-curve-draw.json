@@ -1,0 +1,72 @@
+{
+  "id": "metric-curve-draw",
+  "name": "Progressive ClipPath Curve Drawing",
+  "effect_id": "clip-path-reveal",
+  "status": "approved",
+  "visual_intent": "Progressively discloses complex mathematical curves, loss gradients, or metric graphs cleanly from left to right.",
+  "parameters": [
+    {
+      "name": "clipRectSelector",
+      "type": "string",
+      "default": "#clip-rect",
+      "description": "Selector for rectangle element inside SVG <clipPath>."
+    },
+    {
+      "name": "chartWidth",
+      "type": "number",
+      "description": "Final target width of clipping mask in pixels."
+    },
+    {
+      "name": "startTime",
+      "type": "number",
+      "description": "Timestamp in seconds to begin curve revelation."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": 2.2,
+      "description": "Revelation duration in seconds."
+    },
+    {
+      "name": "easing",
+      "type": "string",
+      "default": "power1.inOut",
+      "description": "GSAP easing curve."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Synchronized with voice narration explaining model convergence or metric trend.",
+    "easing_standard": "power1.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<svg viewBox=\"0 0 1280 720\">\n  <defs>\n    <clipPath id=\"chart-clip\">\n      <rect id=\"clip-rect\" x=\"70\" y=\"0\" width=\"0\" height=\"400\" />\n    </clipPath>\n  </defs>\n  <path d=\"M 70 380 Q 250 350, 400 180 T 700 80\" stroke=\"#3fb950\" stroke-width=\"3\" clip-path=\"url(#chart-clip)\" fill=\"none\" />\n</svg>",
+    "css": "#clip-rect { transform-origin: 0% 0%; }",
+    "javascript": "// Animate width of clipping rectangle to reveal graph\ntl.fromTo('#clip-rect',\n  { attr: { width: 0 } },\n  { attr: { width: chartWidth }, duration: duration, ease: 'power1.inOut' },\n  startTime\n);"
+  },
+  "fallbacks": "Stroke-dashoffset reveal on path element if clipPath is unsupported.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Negligible (<3MB)"
+  },
+  "validation_steps": [
+    "Snapshot at startTime + (duration / 2) to confirm partial curve disclosure.",
+    "Snapshot at startTime + duration to confirm complete curve rendering without clipping."
+  ],
+  "tags": [
+    "chart",
+    "curve",
+    "clip-path",
+    "reveal",
+    "loss",
+    "graph"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

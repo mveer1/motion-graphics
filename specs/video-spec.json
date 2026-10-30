@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabVideoSpec",
+  "type": "object",
+  "required": ["title", "resolution", "fps", "narration", "scenes"],
+  "properties": {
+    "title": { "type": "string" },
+    "resolution": {
+      "type": "object",
+      "properties": {
+        "width": { "type": "integer", "default": 1280 },
+        "height": { "type": "integer", "default": 720 }
+      },
+      "required": ["width", "height"]
+    },
+    "fps": { "type": "integer", "default": 30 },
+    "theme": {
+      "type": "object",
+      "properties": {
+        "backgroundColor": { "type": "string", "default": "#080c14" },
+        "accentPrimary": { "type": "string", "default": "#58a6ff" },
+        "accentSuccess": { "type": "string", "default": "#3fb950" },
+        "accentWarning": { "type": "string", "default": "#e3b341" },
+        "accentError": { "type": "string", "default": "#f85149" }
+      }
+    },
+    "narration": {
+      "type": "object",
+      "properties": {
+        "voice": { "type": "string", "default": "am_adam" },
+        "speed": { "type": "number", "default": 0.95 },
+        "lang": { "type": "string", "default": "a" },
+        "interScenePauseSeconds": { "type": "number", "default": 0.5 }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "script"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "script": { "type": "string" },
+          "visualType": {
+            "type": "string",
+            "enum": ["procedural_svg", "diagram", "chart", "cinematic_external"]
+          },
+          "cinematicAsset": {
+            "type": "object",
+            "description": "Optional external video asset (e.g. Veo, pre-rendered 3D, stock)",
+            "properties": {
+              "source": { "type": "string" },
+              "blendMode": { "type": "string", "enum": ["replace", "background_overlay", "pip"] },
+              "opacity": { "type": "number", "default": 0.35 }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

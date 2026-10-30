@@ -1,0 +1,47 @@
+{
+  "id": "tool-render-script",
+  "name": "HyperFrames Low-Memory Render Wrapper",
+  "component_type": "tool",
+  "purpose": "Executes HyperFrames render with mandatory --low-memory-mode flag pinning Chromium worker pool to 1 on Apple Silicon.",
+  "capabilities": [
+    "Headless Chromium execution with ANGLE Metal GPU acceleration",
+    "Single worker constraint keeping memory under 1.5 GB RAM",
+    "Silent video track output generation"
+  ],
+  "location": "scripts/render.sh",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via ./scripts/render.sh <project_name>."
+  },
+  "dependencies": [
+    "tool-hyperframes"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Guarantees M2 8GB RAM safety."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#s6"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace shell wrapper."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs local hyperframes render."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 6 visual track rendering.",
+  "architecture_ref": "ARCHITECTURE.md#s6",
+  "last_verified": "2026-10-30",
+  "tags": ["render", "hyperframes", "low-memory", "chromium"]
+}

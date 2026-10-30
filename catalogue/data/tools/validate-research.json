@@ -1,0 +1,46 @@
+{
+  "id": "tool-validate-research",
+  "name": "Research Dossier Validation CLI",
+  "component_type": "tool",
+  "purpose": "Validates research.json dossiers against specs/research-spec.json ensuring all technical, mathematical, and pedagogical constraints are verified.",
+  "capabilities": [
+    "JSON Schema Draft-07 validation for research dossiers",
+    "Pillar verification (pedagogy, math entities, equations, visual metaphors, scene blueprints)",
+    "Gate enforcement before voice script or motion coding begins"
+  ],
+  "location": "scripts/validate-research.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via python3 scripts/validate-research.py <path>."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Auto-delegates to python3.12 if default python lacks jsonschema."
+  },
+  "documentation_urls": [
+    "specs/research-spec.json",
+    "templates/research-template.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Read-only dossier validation."
+  },
+  "owner": "pedagogy",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 0 QA gate.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["research", "validation", "schema", "stage-0", "cli"]
+}

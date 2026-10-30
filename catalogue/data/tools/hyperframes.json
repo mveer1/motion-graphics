@@ -1,0 +1,46 @@
+{
+  "id": "tool-hyperframes",
+  "name": "HyperFrames Headless Video Renderer",
+  "component_type": "tool",
+  "purpose": "Deterministic HTML5/SVG/Canvas frame-by-frame video rendering engine powered by headless Chromium and ANGLE Metal GPU acceleration.",
+  "capabilities": [
+    "Deterministic frame-by-frame browser stepping via window.__timelines",
+    "Static syntax and tween overlap preflight linting (hyperframes lint)",
+    "High-speed H.264 video rendering with screenshot capture",
+    "Multimodal frame snapshot inspection (hyperframes snapshot)"
+  ],
+  "location": "/opt/homebrew/bin/hyperframes",
+  "version": "0.8.216",
+  "installation": {
+    "required": true,
+    "instructions": "Installed globally via npm install -g hyperframes."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "node",
+    "notes": "Must pass --low-memory-mode to pin worker pool to 1 on Apple Silicon 8GB."
+  },
+  "documentation_urls": [
+    "https://hyperframes.org"
+  ],
+  "licensing": {
+    "spdx_identifier": "Commercial-or-Open",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Verified CLI binary installed on host."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Headless Chromium sandbox; renders local HTML files."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 5, Stage 6, and Stage 9.",
+  "architecture_ref": "ARCHITECTURE.md#s6",
+  "last_verified": "2026-10-30",
+  "tags": ["render", "hyperframes", "chromium", "headless", "gpu"]
+}

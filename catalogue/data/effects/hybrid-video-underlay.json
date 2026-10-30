@@ -1,0 +1,37 @@
+{
+  "id": "hybrid-video-underlay",
+  "name": "Hybrid Cinematic Video Underlay",
+  "category": "lighting_atmosphere",
+  "visual_intent": "Blends subtle cinematic video motion underneath crisp vector diagrams and text overlays, adding physical texture without sacrificing algorithmic clarity.",
+  "status": "approved",
+  "library_dependencies": [
+    "html5-video",
+    "svg-native",
+    "gsap"
+  ],
+  "rendering_engine": "video_layer",
+  "tags": [
+    "cinematic",
+    "video",
+    "veo",
+    "background",
+    "underlay",
+    "hybrid"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "medium",
+    "gpu_intensity": "medium",
+    "dom_node_count": "1 video, 1 vignette, 1 SVG stage",
+    "memory_profile": "Moderate (250-400MB)"
+  },
+  "recipes": [
+    "cinematic-backdrop-blend"
+  ],
+  "implementation_summary": "Layers ingested 720p 30fps silent MP4 beneath vignette overlay and SVG stage with synchronized GSAP text reveals.",
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

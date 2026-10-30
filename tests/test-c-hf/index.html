@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { background: #0d1117; width: 1280px; height: 720px; overflow: hidden; font-family: 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif; }
+
+    #root { width: 1280px; height: 720px; position: relative; }
+
+    /* Dark background */
+    #bg { width: 100%; height: 100%; background: #0d1117; position: absolute; }
+
+    /* Circle node */
+    #node {
+      position: absolute;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #58a6ff, #1158c7);
+      box-shadow: 0 0 24px rgba(88, 166, 255, 0.6);
+      left: 240px; top: 320px;
+      opacity: 0;
+    }
+
+    /* Label */
+    #label {
+      position: absolute;
+      left: 209px; top: 420px;
+      color: #c9d1d9;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      width: 142px;
+      text-align: center;
+    }
+
+    /* Connector line */
+    #line {
+      position: absolute;
+      left: 320px; top: 358px;
+      width: 0px; height: 3px;
+      background: linear-gradient(90deg, #58a6ff, #3fb950);
+      border-radius: 2px;
+      transform-origin: left center;
+      opacity: 0;
+    }
+
+    /* Moving dot */
+    #dot {
+      position: absolute;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: #3fb950;
+      box-shadow: 0 0 12px rgba(63, 185, 80, 0.8);
+      left: 312px; top: 351px;
+      opacity: 0;
+    }
+
+    /* Title text */
+    #title {
+      position: absolute;
+      left: 0; top: 60px; width: 100%;
+      text-align: center;
+      color: #f0f6fc;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="6">
+    <div id="bg"></div>
+    <div id="title">Motion Graphics Lab — Smoke Test</div>
+    <div id="node"></div>
+    <div id="label">Node A</div>
+    <div id="line"></div>
+    <div id="dot"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    // Title fades in
+    tl.to("#title", { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.3);
+
+    // Node fades in with slight scale
+    tl.fromTo("#node", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 1.0);
+
+    // Label appears
+    tl.to("#label", { opacity: 1, duration: 0.4 }, 1.4);
+
+    // Line extends (width from 0 -> 380px)
+    tl.fromTo("#line", { opacity: 1, width: 0 }, { opacity: 1, width: 380, duration: 0.6, ease: "power2.inOut" }, 1.8);
+
+    // Dot appears and travels along line
+    tl.to("#dot", { opacity: 1, duration: 0.2 }, 2.4);
+    tl.to("#dot", { x: 380, duration: 1.2, ease: "power1.inOut" }, 2.4);
+
+    // Dot fades, then everything pulses
+    tl.to("#dot", { opacity: 0, duration: 0.3 }, 3.8);
+    tl.to("#node", { boxShadow: "0 0 48px rgba(88,166,255,0.95)", duration: 0.4, yoyo: true, repeat: 1 }, 3.8);
+
+    // Hold then fade all
+    tl.to(["#title", "#node", "#label", "#line"], { opacity: 0, duration: 0.5, stagger: 0.08 }, 5.2);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

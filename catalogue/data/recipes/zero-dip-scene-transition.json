@@ -1,0 +1,64 @@
+{
+  "id": "zero-dip-scene-transition",
+  "name": "Zero-Dip Scene Crossfade Transition",
+  "effect_id": "crossfade-dissolve",
+  "status": "approved",
+  "visual_intent": "Prevents black frames between scene handoffs by aligning midpoints of fade-out and fade-in.",
+  "parameters": [
+    {
+      "name": "outSelector",
+      "type": "string",
+      "description": "CSS selector for outgoing scene container (e.g. '#scene1')."
+    },
+    {
+      "name": "inSelector",
+      "type": "string",
+      "description": "CSS selector for incoming scene container (e.g. '#scene2')."
+    },
+    {
+      "name": "atTime",
+      "type": "number",
+      "description": "Exact scene boundary timestamp in seconds measured via ffprobe."
+    },
+    {
+      "name": "fade",
+      "type": "number",
+      "default": 0.5,
+      "description": "Crossfade duration in seconds."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Anchored to measured audio scene transition timestamp T_scene.",
+    "easing_standard": "power1.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<!-- Scene containers with initial absolute stacking -->\n<div class=\"scene\" id=\"scene1\" style=\"opacity: 1;\">...</div>\n<div class=\"scene\" id=\"scene2\" style=\"opacity: 0;\">...</div>",
+    "css": ".scene {\n  position: absolute;\n  inset: 0;\n  width: 1280px;\n  height: 720px;\n}",
+    "javascript": "const FADE = 0.5;\nfunction sceneCrossfade(outSelector, inSelector, atTime, fade = FADE) {\n  tl.to(outSelector, { opacity: 0, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);\n  tl.to(inSelector,  { opacity: 1, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);\n}"
+  },
+  "fallbacks": "Instant cut (duration: 0.01s) at exact timestamp if crossfade causes layout overlap.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.2,
+    "memory_impact": "Negligible (<1MB)"
+  },
+  "validation_steps": [
+    "Run .agents/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
+    "Verify black_start is null across scene transition boundaries.",
+    "Snapshot at atTime - 0.2s and atTime + 0.2s to confirm both layers render smoothly without dark dip."
+  ],
+  "tags": [
+    "transition",
+    "crossfade",
+    "zero-dip",
+    "scenes"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

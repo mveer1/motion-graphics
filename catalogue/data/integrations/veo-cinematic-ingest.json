@@ -1,0 +1,47 @@
+{
+  "id": "integration-veo-cinematic-ingest",
+  "name": "Google Veo Cinematic Video Ingest Pipeline",
+  "component_type": "integration",
+  "purpose": "Ingestion protocol for external generative video clips (Google Veo / Flow Web UI), normalizing them to 1280x720 30fps silent backgrounds.",
+  "capabilities": [
+    "External generative AI video ingestion",
+    "Automated resolution and framerate normalization via ingest-asset.sh",
+    "Layering under SVG vector stage with vignette blending"
+  ],
+  "location": "specs/veo-integration.md",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Place raw mp4 in assets/generated/ and run ./scripts/ingest-asset.sh <file>."
+  },
+  "dependencies": [
+    "tool-ingest-asset"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Produces silent H.264 MP4s compatible with HyperFrames."
+  },
+  "documentation_urls": [
+    "specs/veo-integration.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Generated video assets under user license."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Local file normalization and asset placement."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 7 cinematic blending.",
+  "architecture_ref": "ARCHITECTURE.md#s7",
+  "last_verified": "2026-10-30",
+  "tags": ["integration", "veo", "video", "cinematic", "stage-7"]
+}

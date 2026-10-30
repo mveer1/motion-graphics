@@ -1,0 +1,74 @@
+{
+  "id": "cinematic-backdrop-blend",
+  "name": "Cinematic Video Underlay with Vector Overlay",
+  "effect_id": "hybrid-video-underlay",
+  "status": "approved",
+  "visual_intent": "Provides atmospheric background motion beneath high-contrast vector charts and text without distracting from pedagogical focus.",
+  "parameters": [
+    {
+      "name": "videoSelector",
+      "type": "string",
+      "default": "#veo-bg",
+      "description": "Selector for underlying video element."
+    },
+    {
+      "name": "vignetteSelector",
+      "type": "string",
+      "default": "#vignette",
+      "description": "Selector for gradient vignette overlay."
+    },
+    {
+      "name": "stageSelector",
+      "type": "string",
+      "default": "#vector-stage",
+      "description": "Selector for sharp SVG vector stage on top."
+    },
+    {
+      "name": "startTime",
+      "type": "number",
+      "default": 0.0,
+      "description": "Start time in seconds."
+    },
+    {
+      "name": "fadeInDuration",
+      "type": "number",
+      "default": 1.0,
+      "description": "Fade in duration for video underlay."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Starts at scene introduction (T=0.0s) and loops or spans scene duration.",
+    "easing_standard": "power1.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<!-- Ingested via scripts/ingest-asset.sh -->\n<video id=\"veo-bg\" src=\"../../assets/generated/sample-veo-normalized.mp4\" muted loop></video>\n<div id=\"vignette\"></div>\n<svg id=\"vector-stage\" viewBox=\"0 0 1280 720\">\n  <text x=\"640\" y=\"240\" text-anchor=\"middle\" fill=\"#f0f6fc\" font-size=\"44\" font-weight=\"700\">\n    Algorithmic Geometry\n  </text>\n</svg>",
+    "css": "#veo-bg {\n  position: absolute;\n  inset: 0;\n  width: 1280px;\n  height: 720px;\n  object-fit: cover;\n  opacity: 0.28;\n  filter: blur(1.5px) saturate(1.2);\n  z-index: 0;\n}\n#vignette {\n  position: absolute;\n  inset: 0;\n  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(8,12,20,0.85) 100%);\n  z-index: 1;\n}\n#vector-stage {\n  position: absolute;\n  inset: 0;\n  z-index: 10;\n}",
+    "javascript": "tl.fromTo('#veo-bg', { opacity: 0 }, { opacity: 0.28, duration: fadeInDuration, ease: 'power1.inOut' }, startTime);\ntl.from('#vector-stage text', { opacity: 0, y: 20, duration: 0.8, stagger: 0.2 }, startTime + 0.5);"
+  },
+  "fallbacks": "High-resolution static gradient background if external video asset is absent.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 12.0,
+    "memory_impact": "Moderate (250-400MB, well below 1.5GB cap)"
+  },
+  "validation_steps": [
+    "Verify video asset has been normalized via scripts/ingest-asset.sh (silent H.264 1280x720 30fps).",
+    "Snapshot at startTime + 1.5s to verify vector legibility against atmospheric video background."
+  ],
+  "tags": [
+    "cinematic",
+    "video",
+    "veo",
+    "underlay",
+    "background",
+    "hybrid"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

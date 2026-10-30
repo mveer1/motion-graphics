@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>How Does Raft Reach Consensus?</title>
+  <style>
+    /* ─── RESET & CANVAS ─────────────────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #080c14;
+      width: 1280px; height: 720px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #f0f6fc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      position: relative;
+      width: 1280px; height: 720px;
+      background: radial-gradient(circle at 50% 35%, #0e1a33 0%, #080c14 80%);
+    }
+
+    /* Ambient background grid */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ─── TYPOGRAPHY HIERARCHY ───────────────────────────────────── */
+    .header-group {
+      position: absolute;
+      top: 32px; left: 0; right: 0;
+      text-align: center;
+      z-index: 10;
+    }
+    .header-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 14px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(88, 166, 255, 0.35);
+      background: rgba(88, 166, 255, 0.08);
+      color: #58a6ff;
+    }
+    .main-title {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f0f6fc;
+      line-height: 1.15;
+    }
+    .sub-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: #8b949e;
+      margin-top: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── STAGE CONTAINERS ───────────────────────────────────────── */
+    .stage-svg {
+      position: absolute;
+      top: 145px; left: 0;
+      width: 1280px; height: 550px;
+    }
+
+    /* Floating Status Cards */
+    .side-card {
+      position: absolute;
+      background: rgba(13, 21, 39, 0.75);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+      z-index: 15;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="26.730">
+
+  <div class="bg-grid"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 1: The Consensus Problem (0.00s -> 6.85s)                -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene1">
+    <div class="header-group" id="s1-header">
+      <div class="header-tag">Distributed Fault Tolerance</div>
+      <div class="main-title">The Challenge of Distributed Consensus</div>
+      <div class="sub-title">Multiple independent servers must agree on a single shared state, even when nodes crash or packets drop</div>
+    </div>
+    <svg class="stage-svg" id="s1-svg" viewBox="0 0 1280 550"></svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 2: Leader Election & Quorum (6.85s -> 14.05s)             -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene2">
+    <div class="header-group" id="s2-header">
+      <div class="header-tag" style="border-color: rgba(227,179,65,0.4); background: rgba(227,179,65,0.1); color: #e3b341;">
+        Leader Election & Quorum
+      </div>
+      <div class="main-title">Nodes Elect a Single Coordinator</div>
+      <div class="sub-title">When an election timer expires, a candidate requests votes until winning a majority quorum (N/2 + 1)</div>
+    </div>
+    <svg class="stage-svg" id="s2-svg" viewBox="0 0 1280 550"></svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 3: Log Replication (14.05s -> 20.38s)                    -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene3">
+    <div class="header-group" id="s3-header">
+      <div class="header-tag" style="border-color: rgba(88,166,255,0.4); background: rgba(88,166,255,0.1); color: #58a6ff;">
+        Log Replication
+      </div>
+      <div class="main-title">Leader Broadcasts Append-Only Log Entries</div>
+      <div class="sub-title">Client mutations enter the leader and propagate across the cluster via periodic heartbeat messages</div>
+    </div>
+    <svg class="stage-svg" id="s3-svg" viewBox="0 0 1280 550"></svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 4: Quorum Commitment & Consensus (20.38s -> 26.73s)      -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene4">
+    <div class="header-group" id="s4-header">
+      <div class="header-tag" style="border-color: rgba(63,185,80,0.4); background: rgba(63,185,80,0.1); color: #3fb950;">
+        Consensus Commitment
+      </div>
+      <div class="main-title">Majority Acknowledgement Finalizes the State</div>
+      <div class="sub-title">Once stored on a majority quorum, the entry is committed permanently and applied to state machines</div>
+    </div>
+    <svg class="stage-svg" id="s4-svg" viewBox="0 0 1280 550"></svg>
+  </div>
+
+</div><!-- #root -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// DETERMINISTIC PSEUDO-RANDOM NUMBER GENERATOR (mulberry32)
+// ─────────────────────────────────────────────────────────────────
+function mulberry32(a) {
+  return function() {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const rng = mulberry32(2024);
+
+// ─────────────────────────────────────────────────────────────────
+// MEASURED TIMELINE (from scripts/build-audio.py @ 1.15x speed)
+// ─────────────────────────────────────────────────────────────────
+const T = {
+  s1: 0.000,
+  s2: 6.850,
+  s3: 14.050,
+  s4: 20.380,
+  end: 26.730
+};
+const FADE = 0.40;
+
+// Universal Pentagonal Topology Coordinates (5 Nodes)
+// Center at (640, 260), Radius = 220px
+const CX = 640, CY = 260, CR = 220;
+const NODE_COORDS = Array.from({length: 5}, (_, i) => {
+  // Start from top (-90 deg) and rotate clockwise
+  const angle = (-Math.PI / 2) + i * (2 * Math.PI / 5);
+  return {
+    id: `S${i+1}`,
+    x: Math.round(CX + CR * Math.cos(angle)),
+    y: Math.round(CY + CR * Math.sin(angle))
+  };
+});
+
+// Helper: Build Full Mesh Network Lines
+function buildMeshLines(svg, prefix, strokeColor = 'rgba(255,255,255,0.12)') {
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.createElementNS(ns, 'g');
+  g.setAttribute('id', `${prefix}-mesh`);
+  for (let i = 0; i < 5; i++) {
+    for (let j = i + 1; j < 5; j++) {
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', NODE_COORDS[i].x);
+      line.setAttribute('y1', NODE_COORDS[i].y);
+      line.setAttribute('x2', NODE_COORDS[j].x);
+      line.setAttribute('y2', NODE_COORDS[j].y);
+      line.setAttribute('stroke', strokeColor);
+      line.setAttribute('stroke-width', '1.5');
+      line.setAttribute('id', `${prefix}-line-${i}-${j}`);
+      g.appendChild(line);
+    }
+  }
+  svg.appendChild(g);
+  return g;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 1 SVG BUILDER: Decentralized Cluster & Fault
+// ─────────────────────────────────────────────────────────────────
+(function buildScene1() {
+  const svg = document.getElementById('s1-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+
+  buildMeshLines(svg, 's1');
+
+  // Nodes
+  NODE_COORDS.forEach((n, i) => {
+    const nodeG = document.createElementNS(ns, 'g');
+    nodeG.setAttribute('id', `s1-node-g-${i}`);
+    nodeG.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', '32');
+    circle.setAttribute('fill', '#0d1527');
+    circle.setAttribute('stroke', '#58a6ff');
+    circle.setAttribute('stroke-width', '2.5');
+    circle.setAttribute('id', `s1-node-circle-${i}`);
+    nodeG.appendChild(circle);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('y', '6');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('fill', '#f0f6fc');
+    txt.setAttribute('font-size', '16');
+    txt.setAttribute('font-weight', '700');
+    txt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    txt.textContent = n.id;
+    nodeG.appendChild(txt);
+
+    // Follower Tag
+    const tag = document.createElementNS(ns, 'text');
+    tag.setAttribute('y', '50');
+    tag.setAttribute('text-anchor', 'middle');
+    tag.setAttribute('fill', '#8b949e');
+    tag.setAttribute('font-size', '12');
+    tag.setAttribute('font-weight', '600');
+    tag.textContent = 'FOLLOWER';
+    tag.setAttribute('id', `s1-tag-${i}`);
+    nodeG.appendChild(tag);
+
+    svg.appendChild(nodeG);
+  });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 2 SVG BUILDER: Leader Election & Quorum
+// ─────────────────────────────────────────────────────────────────
+(function buildScene2() {
+  const svg = document.getElementById('s2-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+
+  buildMeshLines(svg, 's2');
+
+  // Vote beams group
+  const beamsG = document.createElementNS(ns, 'g');
+  beamsG.setAttribute('id', 's2-beams-group');
+  svg.appendChild(beamsG);
+
+  // Nodes
+  NODE_COORDS.forEach((n, i) => {
+    const nodeG = document.createElementNS(ns, 'g');
+    nodeG.setAttribute('id', `s2-node-g-${i}`);
+    nodeG.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+    // Status Glow
+    const glow = document.createElementNS(ns, 'circle');
+    glow.setAttribute('r', '44');
+    glow.setAttribute('fill', i === 0 ? 'rgba(227,179,65,0.2)' : 'rgba(88,166,255,0.15)');
+    glow.setAttribute('opacity', '0');
+    glow.setAttribute('id', `s2-glow-${i}`);
+    nodeG.appendChild(glow);
+
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', '32');
+    circle.setAttribute('fill', '#0d1527');
+    circle.setAttribute('stroke', i === 0 ? '#e3b341' : '#58a6ff');
+    circle.setAttribute('stroke-width', '2.5');
+    circle.setAttribute('id', `s2-node-circle-${i}`);
+    nodeG.appendChild(circle);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('y', '6');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('fill', '#f0f6fc');
+    txt.setAttribute('font-size', '16');
+    txt.setAttribute('font-weight', '700');
+    txt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    txt.textContent = n.id;
+    nodeG.appendChild(txt);
+
+    // Role Tag
+    const tag = document.createElementNS(ns, 'text');
+    tag.setAttribute('y', '50');
+    tag.setAttribute('text-anchor', 'middle');
+    tag.setAttribute('fill', i === 0 ? '#e3b341' : '#8b949e');
+    tag.setAttribute('font-size', '12');
+    tag.setAttribute('font-weight', '700');
+    tag.textContent = i === 0 ? 'CANDIDATE' : 'FOLLOWER';
+    tag.setAttribute('id', `s2-role-${i}`);
+    nodeG.appendChild(tag);
+
+    svg.appendChild(nodeG);
+  });
+
+  // Quorum Status Pill (Center Stage)
+  const qPill = document.createElementNS(ns, 'g');
+  qPill.setAttribute('id', 's2-quorum-card');
+  qPill.setAttribute('transform', 'translate(640, 260)');
+  qPill.setAttribute('opacity', '0');
+
+  const pillRect = document.createElementNS(ns, 'rect');
+  pillRect.setAttribute('x', '-110');
+  pillRect.setAttribute('y', '-32');
+  pillRect.setAttribute('width', '220');
+  pillRect.setAttribute('height', '64');
+  pillRect.setAttribute('rx', '32');
+  pillRect.setAttribute('fill', 'rgba(13,21,39,0.9)');
+  pillRect.setAttribute('stroke', '#e3b341');
+  pillRect.setAttribute('stroke-width', '2');
+  qPill.appendChild(pillRect);
+
+  const qTxt = document.createElementNS(ns, 'text');
+  qTxt.setAttribute('y', '-4');
+  qTxt.setAttribute('text-anchor', 'middle');
+  qTxt.setAttribute('fill', '#8b949e');
+  qTxt.setAttribute('font-size', '12');
+  qTxt.setAttribute('font-weight', '700');
+  qTxt.setAttribute('letter-spacing', '0.08em');
+  qTxt.textContent = 'QUORUM VOTING';
+  qPill.appendChild(qTxt);
+
+  const qCount = document.createElementNS(ns, 'text');
+  qCount.setAttribute('y', '20');
+  qCount.setAttribute('text-anchor', 'middle');
+  qCount.setAttribute('fill', '#e3b341');
+  qCount.setAttribute('font-size', '20');
+  qCount.setAttribute('font-weight', '800');
+  qCount.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+  qCount.setAttribute('id', 's2-vote-count');
+  qCount.textContent = 'VOTES: 1 / 5';
+  qPill.appendChild(qCount);
+
+  svg.appendChild(qPill);
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 3 SVG BUILDER: Log Replication & Heartbeat Waves
+// ─────────────────────────────────────────────────────────────────
+(function buildScene3() {
+  const svg = document.getElementById('s3-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+
+  buildMeshLines(svg, 's3');
+
+  // Heartbeat Ripple Rings from Leader S1 (0, top node)
+  const leaderPos = NODE_COORDS[0];
+  const rippleG = document.createElementNS(ns, 'g');
+  rippleG.setAttribute('id', 's3-ripples');
+  for (let r = 1; r <= 3; r++) {
+    const ring = document.createElementNS(ns, 'circle');
+    ring.setAttribute('cx', leaderPos.x);
+    ring.setAttribute('cy', leaderPos.y);
+    ring.setAttribute('r', '32');
+    ring.setAttribute('fill', 'none');
+    ring.setAttribute('stroke', '#58a6ff');
+    ring.setAttribute('stroke-width', '2');
+    ring.setAttribute('opacity', '0');
+    ring.setAttribute('id', `s3-ripple-${r}`);
+    rippleG.appendChild(ring);
+  }
+  svg.appendChild(rippleG);
+
+  // Nodes & Log Ledger Blocks
+  NODE_COORDS.forEach((n, i) => {
+    const nodeG = document.createElementNS(ns, 'g');
+    nodeG.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', '32');
+    circle.setAttribute('fill', '#0d1527');
+    circle.setAttribute('stroke', i === 0 ? '#e3b341' : '#58a6ff');
+    circle.setAttribute('stroke-width', i === 0 ? '3.5' : '2.5');
+    nodeG.appendChild(circle);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('y', '6');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('fill', '#f0f6fc');
+    txt.setAttribute('font-size', '16');
+    txt.setAttribute('font-weight', '700');
+    txt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    txt.textContent = n.id;
+    nodeG.appendChild(txt);
+
+    // Mini Log Slot below node
+    const logSlot = document.createElementNS(ns, 'rect');
+    logSlot.setAttribute('x', '-38');
+    logSlot.setAttribute('y', '42');
+    logSlot.setAttribute('width', '76');
+    logSlot.setAttribute('height', '24');
+    logSlot.setAttribute('rx', '6');
+    logSlot.setAttribute('fill', 'rgba(13,21,39,0.85)');
+    logSlot.setAttribute('stroke', '#8b949e');
+    logSlot.setAttribute('stroke-width', '1.5');
+    logSlot.setAttribute('id', `s3-log-slot-${i}`);
+    nodeG.appendChild(logSlot);
+
+    const logTxt = document.createElementNS(ns, 'text');
+    logTxt.setAttribute('y', '58');
+    logTxt.setAttribute('text-anchor', 'middle');
+    logTxt.setAttribute('fill', '#8b949e');
+    logTxt.setAttribute('font-size', '11');
+    logTxt.setAttribute('font-weight', '700');
+    logTxt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    logTxt.textContent = 'LOG: Ø';
+    logTxt.setAttribute('id', `s3-log-txt-${i}`);
+    nodeG.appendChild(logTxt);
+
+    svg.appendChild(nodeG);
+  });
+
+  // Client Write Request Banner (Left)
+  const clientCard = document.createElementNS(ns, 'g');
+  clientCard.setAttribute('id', 's3-client-card');
+  clientCard.setAttribute('transform', 'translate(140, 100)');
+  clientCard.setAttribute('opacity', '0');
+
+  const cRect = document.createElementNS(ns, 'rect');
+  cRect.setAttribute('width', '200');
+  cRect.setAttribute('height', '60');
+  cRect.setAttribute('rx', '12');
+  cRect.setAttribute('fill', 'rgba(13,21,39,0.9)');
+  cRect.setAttribute('stroke', '#e3b341');
+  cRect.setAttribute('stroke-width', '1.5');
+  clientCard.appendChild(cRect);
+
+  const cLabel = document.createElementNS(ns, 'text');
+  cLabel.setAttribute('x', '100'); cLabel.setAttribute('y', '24');
+  cLabel.setAttribute('text-anchor', 'middle');
+  cLabel.setAttribute('fill', '#8b949e');
+  cLabel.setAttribute('font-size', '11');
+  cLabel.setAttribute('font-weight', '700');
+  cLabel.textContent = 'CLIENT MUTATION';
+  clientCard.appendChild(cLabel);
+
+  const cVal = document.createElementNS(ns, 'text');
+  cVal.setAttribute('x', '100'); cVal.setAttribute('y', '46');
+  cVal.setAttribute('text-anchor', 'middle');
+  cVal.setAttribute('fill', '#e3b341');
+  cVal.setAttribute('font-size', '15');
+  cVal.setAttribute('font-weight', '700');
+  cVal.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+  cVal.textContent = 'SET val = 42';
+  clientCard.appendChild(cVal);
+
+  svg.appendChild(clientCard);
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 4 SVG BUILDER: Quorum Commitment & Consensus
+// ─────────────────────────────────────────────────────────────────
+(function buildScene4() {
+  const svg = document.getElementById('s4-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+
+  buildMeshLines(svg, 's4', 'rgba(63,185,80,0.25)');
+
+  // Nodes with final committed status
+  NODE_COORDS.forEach((n, i) => {
+    const nodeG = document.createElementNS(ns, 'g');
+    nodeG.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+    const circle = document.createElementNS(ns, 'circle');
+    circle.setAttribute('r', '32');
+    circle.setAttribute('fill', '#0d1527');
+    circle.setAttribute('stroke', '#3fb950');
+    circle.setAttribute('stroke-width', '3');
+    nodeG.appendChild(circle);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('y', '6');
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('fill', '#f0f6fc');
+    txt.setAttribute('font-size', '16');
+    txt.setAttribute('font-weight', '700');
+    txt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    txt.textContent = n.id;
+    nodeG.appendChild(txt);
+
+    // Committed Log Pill below node
+    const pill = document.createElementNS(ns, 'rect');
+    pill.setAttribute('x', '-46');
+    pill.setAttribute('y', '42');
+    pill.setAttribute('width', '92');
+    pill.setAttribute('height', '26');
+    pill.setAttribute('rx', '8');
+    pill.setAttribute('fill', 'rgba(63,185,80,0.15)');
+    pill.setAttribute('stroke', '#3fb950');
+    pill.setAttribute('stroke-width', '1.5');
+    nodeG.appendChild(pill);
+
+    const lTxt = document.createElementNS(ns, 'text');
+    lTxt.setAttribute('y', '59');
+    lTxt.setAttribute('text-anchor', 'middle');
+    lTxt.setAttribute('fill', '#3fb950');
+    lTxt.setAttribute('font-size', '11');
+    lTxt.setAttribute('font-weight', '800');
+    lTxt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    lTxt.textContent = 'COMMITTED';
+    nodeG.appendChild(lTxt);
+
+    svg.appendChild(nodeG);
+  });
+
+  // Center Consensus Certificate Card
+  const certCard = document.createElementNS(ns, 'g');
+  certCard.setAttribute('id', 's4-cert-card');
+  certCard.setAttribute('transform', 'translate(640, 260)');
+  certCard.setAttribute('opacity', '0');
+
+  const certRect = document.createElementNS(ns, 'rect');
+  certRect.setAttribute('x', '-115');
+  certRect.setAttribute('y', '-38');
+  certRect.setAttribute('width', '230');
+  certRect.setAttribute('height', '76');
+  certRect.setAttribute('rx', '18');
+  certRect.setAttribute('fill', 'rgba(13,21,39,0.95)');
+  certRect.setAttribute('stroke', '#3fb950');
+  certRect.setAttribute('stroke-width', '2');
+  certCard.appendChild(certRect);
+
+  const certTag = document.createElementNS(ns, 'text');
+  certTag.setAttribute('y', '-12');
+  certTag.setAttribute('text-anchor', 'middle');
+  certTag.setAttribute('fill', '#3fb950');
+  certTag.setAttribute('font-size', '11');
+  certTag.setAttribute('font-weight', '800');
+  certTag.setAttribute('letter-spacing', '0.1em');
+  certTag.textContent = 'CONSENSUS CERTIFIED';
+  certCard.appendChild(certTag);
+
+  const certMain = document.createElementNS(ns, 'text');
+  certMain.setAttribute('y', '14');
+  certMain.setAttribute('text-anchor', 'middle');
+  certMain.setAttribute('fill', '#f0f6fc');
+  certMain.setAttribute('font-size', '15');
+  certMain.setAttribute('font-weight', '700');
+  certMain.textContent = 'Strict Quorum: 5/5 Replicated';
+  certCard.appendChild(certMain);
+
+  svg.appendChild(certCard);
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// GSAP 3 MASTER TIMELINE ORCHESTRATION
+// ─────────────────────────────────────────────────────────────────
+const tl = gsap.timeline({ paused: true });
+
+function sceneTransition(outId, inId, atTime) {
+  tl.to(`#${outId}`, { opacity: 0, duration: FADE, ease: 'power1.inOut' }, atTime - FADE / 2);
+  tl.to(`#${inId}`,  { opacity: 1, duration: FADE, ease: 'power1.inOut' }, atTime - FADE / 2);
+}
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 1 TIMELINE: The Problem (0.00s -> 6.85s)
+// ═════════════════════════════════════════════════════════════════
+tl.to('#scene1', { opacity: 1, duration: 0.01 }, T.s1);
+
+tl.fromTo('#s1-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+  T.s1 + 0.1);
+
+tl.fromTo('#s1-mesh',
+  { opacity: 0 },
+  { opacity: 1, duration: 0.6 },
+  T.s1 + 0.3);
+
+// Nodes enter in a radial clockwise stagger
+[0, 1, 2, 3, 4].forEach(i => {
+  tl.fromTo(`#s1-node-g-${i}`,
+    { scale: 0.3, opacity: 0 },
+    { scale: 1.0, opacity: 1, duration: 0.45, ease: 'back.out(1.3)' },
+    T.s1 + 0.4 + i * 0.15);
+});
+
+// Simulate Node S4 fault (turns coral red)
+tl.to('#s1-node-circle-3', { stroke: '#f85149', duration: 0.5 }, T.s1 + 2.8);
+tl.to('#s1-tag-3', { fill: '#f85149', textContent: 'OFFLINE / DELAYED', duration: 0.5 }, T.s1 + 2.8);
+
+// Ambient cluster breathing
+tl.to('#s1-svg', { y: -3, duration: 1.5, yoyo: true, repeat: 1, ease: 'sine.inOut' }, T.s1 + 3.8);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S1 -> S2 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene1', 'scene2', T.s2);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 2 TIMELINE: Leader Election (6.85s -> 14.05s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s2-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s2 + 0.1);
+
+// Quorum Card appears in center
+tl.fromTo('#s2-quorum-card',
+  { opacity: 0, scale: 0.8 },
+  { opacity: 1, scale: 1.0, duration: 0.5, ease: 'back.out(1.3)' },
+  T.s2 + 0.3);
+
+// S1 election timeout triggers -> transitions to Candidate
+tl.to('#s2-node-circle-0', { stroke: '#e3b341', strokeWidth: 4, duration: 0.4 }, T.s2 + 1.2);
+tl.to('#s2-glow-0', { opacity: 0.9, duration: 0.4 }, T.s2 + 1.2);
+
+// S1 casts vote for self: Votes 1/5
+tl.set('#s2-vote-count', { textContent: 'VOTES: 1 / 5 (Self)' }, T.s2 + 1.2);
+
+// Vote request lines to S2 and S3 illuminate
+tl.to('#s2-line-0-1', { stroke: '#e3b341', strokeWidth: 3.5, duration: 0.4 }, T.s2 + 1.8);
+tl.to('#s2-node-circle-1', { stroke: '#e3b341', duration: 0.3 }, T.s2 + 2.2);
+tl.set('#s2-vote-count', { textContent: 'VOTES: 2 / 5' }, T.s2 + 2.4);
+
+tl.to('#s2-line-0-2', { stroke: '#e3b341', strokeWidth: 3.5, duration: 0.4 }, T.s2 + 2.8);
+tl.to('#s2-node-circle-2', { stroke: '#e3b341', duration: 0.3 }, T.s2 + 3.2);
+tl.set('#s2-vote-count', { textContent: 'VOTES: 3 / 5 (MAJORITY!)', fill: '#3fb950' }, T.s2 + 3.4);
+
+// S1 crowned LEADER!
+tl.to('#s2-role-0', { textContent: 'LEADER ★', fill: '#e3b341', scale: 1.2, duration: 0.4 }, T.s2 + 4.0);
+tl.to('#s2-node-circle-0', { stroke: '#e3b341', strokeWidth: 5, fill: '#16233b', duration: 0.5 }, T.s2 + 4.0);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S2 -> S3 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene2', 'scene3', T.s3);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 3 TIMELINE: Log Replication (14.05s -> 20.38s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s3-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s3 + 0.1);
+
+// Client card slides in
+tl.fromTo('#s3-client-card',
+  { opacity: 0, x: -30 },
+  { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.2)' },
+  T.s3 + 0.3);
+
+// Mutation enters Leader S1
+tl.to('#s3-log-slot-0', { stroke: '#e3b341', fill: 'rgba(227,179,65,0.2)', duration: 0.4 }, T.s3 + 1.2);
+tl.set('#s3-log-txt-0', { textContent: 'val=42 [1]', fill: '#e3b341' }, T.s3 + 1.2);
+
+// Heartbeat wave ripple expands from Leader S1
+[1, 2, 3].forEach((r, idx) => {
+  tl.fromTo(`#s3-ripple-${r}`,
+    { attr: { r: 32 }, opacity: 0.8 },
+    { attr: { r: 280 }, opacity: 0.0, duration: 1.2, ease: 'power1.out' },
+    T.s3 + 1.6 + idx * 0.4);
+});
+
+// Followers receive log entry in parallel
+[1, 2, 4].forEach(fi => {
+  tl.to(`#s3-log-slot-${fi}`, { stroke: '#e3b341', fill: 'rgba(227,179,65,0.2)', duration: 0.4 }, T.s3 + 2.8 + fi * 0.2);
+  tl.set(`#s3-log-txt-${fi}`, { textContent: 'val=42 [1]', fill: '#e3b341' }, T.s3 + 2.8 + fi * 0.2);
+});
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S3 -> S4 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene3', 'scene4', T.s4);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 4 TIMELINE: Quorum Commitment (20.38s -> 26.73s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s4-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s4 + 0.1);
+
+// Certificate card reveals
+tl.fromTo('#s4-cert-card',
+  { opacity: 0, scale: 0.8 },
+  { opacity: 1, scale: 1.0, duration: 0.6, ease: 'back.out(1.4)' },
+  T.s4 + 0.4);
+
+// Mesh lines glow green
+tl.to('#s4-mesh line', { stroke: 'rgba(63,185,80,0.4)', duration: 0.8 }, T.s4 + 1.2);
+
+// Holds clean through to video end (no premature black screen cut)
+window.__timelines = window.__timelines || {};
+window.__timelines['root'] = tl;
+</script>
+</body>
+</html>

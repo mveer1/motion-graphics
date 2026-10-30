@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Why Do Databases Use B-Trees?</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #080c14;
+      width: 1280px; height: 720px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #f0f6fc;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      position: relative;
+      width: 1280px; height: 720px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, #0d1527 0%, #080c14 70%);
+    }
+
+    /* Grid overlay */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(88, 166, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 166, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* Scene Containers */
+    .scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Standardized Header System */
+    .header-group {
+      position: absolute;
+      top: 28px;
+      left: 80px;
+      right: 80px;
+      text-align: center;
+    }
+    .topic-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(88, 166, 255, 0.1);
+      border: 1px solid rgba(88, 166, 255, 0.25);
+      border-radius: 100px;
+      font-family: 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: #58a6ff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .scene-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .scene-subtitle {
+      font-size: 15px;
+      font-weight: 400;
+      color: #8b949e;
+      margin-top: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    /* Diagram Stage */
+    .diagram-stage {
+      position: absolute;
+      top: 145px;
+      left: 60px;
+      right: 60px;
+      bottom: 40px;
+    }
+
+    /* UI Cards & Panels */
+    .card-panel {
+      background: rgba(13, 17, 23, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Font Monospace */
+    .mono {
+      font-family: 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="46.5">
+
+  <div class="bg-grid"></div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 1: The Disk I/O Bottleneck (0.00s - 10.43s)              -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene1">
+    <div class="header-group">
+      <div class="topic-tag">Database Storage Engines • Hardware Hierarchy</div>
+      <div class="scene-title">The Disk I/O Bottleneck</div>
+      <div class="scene-subtitle">RAM access is nanoseconds • Random disk seeks are 100,000× slower</div>
+    </div>
+
+    <div class="diagram-stage">
+      <svg width="1160" height="520" viewBox="0 0 1160 520">
+        <!-- Left: RAM Access Tier -->
+        <g id="s1-ram-box" transform="translate(60, 40)">
+          <rect width="440" height="230" rx="14" fill="#0d1527" stroke="#58a6ff" stroke-width="2" />
+          <rect x="20" y="20" width="14" height="14" rx="3" fill="#58a6ff" />
+          <text x="44" y="32" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="14" font-weight="700" letter-spacing="0.05em">SYSTEM RAM (VOLATILE)</text>
+          
+          <text x="24" y="80" fill="#f0f6fc" font-size="28" font-weight="700">~100 Nanoseconds</text>
+          <text x="24" y="105" fill="#8b949e" font-size="14">Direct electronic byte-addressable access</text>
+
+          <!-- RAM Memory chips graphic -->
+          <g transform="translate(24, 130)">
+            <rect width="392" height="60" rx="8" fill="#080c14" stroke="rgba(88,166,255,0.2)" />
+            <rect id="s1-ram-chip1" x="20" y="15" width="65" height="30" rx="4" fill="rgba(88,166,255,0.25)" stroke="#58a6ff" stroke-width="1.5" />
+            <rect id="s1-ram-chip2" x="115" y="15" width="65" height="30" rx="4" fill="rgba(88,166,255,0.25)" stroke="#58a6ff" stroke-width="1.5" />
+            <rect id="s1-ram-chip3" x="210" y="15" width="65" height="30" rx="4" fill="rgba(88,166,255,0.25)" stroke="#58a6ff" stroke-width="1.5" />
+            <rect id="s1-ram-chip4" x="305" y="15" width="65" height="30" rx="4" fill="rgba(88,166,255,0.25)" stroke="#58a6ff" stroke-width="1.5" />
+          </g>
+        </g>
+
+        <!-- Right: Block Storage Tier -->
+        <g id="s1-disk-box" transform="translate(660, 40)">
+          <rect width="440" height="230" rx="14" fill="#160e14" stroke="#f85149" stroke-width="2" />
+          <rect x="20" y="20" width="14" height="14" rx="3" fill="#f85149" />
+          <text x="44" y="32" fill="#f85149" font-family="'SF Mono', monospace" font-size="14" font-weight="700" letter-spacing="0.05em">BLOCK STORAGE (SSD / HDD)</text>
+          
+          <text x="24" y="80" fill="#f0f6fc" font-size="28" font-weight="700">~10 Milliseconds</text>
+          <text x="24" y="105" fill="#8b949e" font-size="14">Physical sector seek + 4KB block transfer</text>
+
+          <!-- Disk platter graphic -->
+          <g transform="translate(24, 130)">
+            <rect width="392" height="60" rx="8" fill="#080c14" stroke="rgba(248,81,73,0.2)" />
+            <!-- Storage block cells -->
+            <rect x="20" y="15" width="45" height="30" rx="4" fill="rgba(248,81,73,0.15)" stroke="#f85149" stroke-width="1" />
+            <rect x="75" y="15" width="45" height="30" rx="4" fill="rgba(248,81,73,0.15)" stroke="#f85149" stroke-width="1" />
+            <rect x="130" y="15" width="45" height="30" rx="4" fill="rgba(248,81,73,0.15)" stroke="#f85149" stroke-width="1" />
+            <rect x="185" y="15" width="45" height="30" rx="4" fill="rgba(248,81,73,0.15)" stroke="#f85149" stroke-width="1" />
+            <text x="250" y="34" fill="#8b949e" font-family="'SF Mono', monospace" font-size="12">PAGE SIZE: 4KB - 16KB</text>
+          </g>
+        </g>
+
+        <!-- Center Disparity Callout -->
+        <g id="s1-vs-badge" transform="translate(580, 155)">
+          <circle cx="0" cy="0" r="38" fill="#080c14" stroke="#e3b341" stroke-width="2" />
+          <text x="0" y="-6" text-anchor="middle" fill="#e3b341" font-size="12" font-weight="800">RATIO</text>
+          <text x="0" y="14" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="15" font-weight="700">100,000×</text>
+        </g>
+
+        <!-- Bottom: Bottleneck Timeline Meter -->
+        <g id="s1-latency-bar-group" transform="translate(60, 310)">
+          <rect width="1040" height="150" rx="14" fill="#0d1117" stroke="rgba(255,255,255,0.08)" />
+          
+          <text x="30" y="40" fill="#f0f6fc" font-size="17" font-weight="600">The Query Pipeline Impact</text>
+          <text x="30" y="65" fill="#8b949e" font-size="13">Multiple random seeks stall the database engine thread</text>
+
+          <!-- Latency progress tracks -->
+          <g transform="translate(30, 85)">
+            <!-- Fast RAM trace -->
+            <rect width="980" height="12" rx="6" fill="#161b22" />
+            <rect id="s1-ram-meter" width="4" height="12" rx="6" fill="#58a6ff" />
+            <text x="15" y="-6" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="11">RAM SEEK (Instantaneous)</text>
+
+            <!-- Slow Disk seek trace -->
+            <g transform="translate(0, 32)">
+              <rect width="980" height="12" rx="6" fill="#161b22" />
+              <rect id="s1-disk-meter" width="0" height="12" rx="6" fill="#f85149" />
+              <text x="15" y="-6" fill="#f85149" font-family="'SF Mono', monospace" font-size="11">30 RANDOM DISK SEEKS (I/O Stall: 300 ms)</text>
+            </g>
+          </g>
+
+          <g id="s1-warning-tag" transform="translate(860, 25)" opacity="0">
+            <rect width="150" height="30" rx="6" fill="rgba(248,81,73,0.15)" stroke="#f85149" />
+            <text x="75" y="20" text-anchor="middle" fill="#f85149" font-family="'SF Mono', monospace" font-size="12" font-weight="700">I/O BOTTLENECK</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 2: Binary Tree vs B-Tree Fan-out (10.93s - 22.58s)       -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene2">
+    <div class="header-group">
+      <div class="topic-tag">Algorithmic Geometry • Branching Factor</div>
+      <div class="scene-title">Binary Tree vs. B-Tree Fan-out</div>
+      <div class="scene-subtitle">Searching 1,000,000,000 rows • 30 disk seeks vs. only 3 disk seeks</div>
+    </div>
+
+    <div class="diagram-stage">
+      <svg width="1160" height="520" viewBox="0 0 1160 520">
+        <!-- Left: Binary Search Tree (B=2) -->
+        <g id="s2-bst-group" transform="translate(60, 20)">
+          <rect width="490" height="460" rx="14" fill="#0d1117" stroke="rgba(248,81,73,0.3)" stroke-width="1.5" />
+          
+          <rect x="20" y="20" width="10" height="10" rx="2" fill="#f85149" />
+          <text x="38" y="30" fill="#f85149" font-family="'SF Mono', monospace" font-size="13" font-weight="700">BINARY TREE (FAN-OUT = 2)</text>
+          <text x="380" y="30" fill="#8b949e" font-family="'SF Mono', monospace" font-size="12">1 Key / Node</text>
+
+          <!-- Tree Visual: Narrow deep branching -->
+          <g id="s2-bst-tree" transform="translate(245, 70)">
+            <!-- Level 0 (Root) -->
+            <circle cx="0" cy="0" r="16" fill="#161b22" stroke="#f85149" stroke-width="2" />
+            <text x="0" y="5" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="11">50</text>
+
+            <!-- Level 1 -->
+            <line x1="-12" y1="12" x2="-60" y2="48" stroke="rgba(248,81,73,0.5)" stroke-width="2" />
+            <line x1="12" y1="12" x2="60" y2="48" stroke="rgba(248,81,73,0.5)" stroke-width="2" />
+            <circle cx="-60" cy="55" r="14" fill="#161b22" stroke="#f85149" stroke-width="1.5" />
+            <circle cx="60" cy="55" r="14" fill="#161b22" stroke="#f85149" stroke-width="1.5" />
+
+            <!-- Level 2 -->
+            <line x1="-68" y1="65" x2="-100" y2="105" stroke="rgba(248,81,73,0.3)" stroke-width="1.5" />
+            <line x1="-52" y1="65" x2="-25" y2="105" stroke="rgba(248,81,73,0.3)" stroke-width="1.5" />
+            <line x1="52" y1="65" x2="25" y2="105" stroke="rgba(248,81,73,0.3)" stroke-width="1.5" />
+            <line x1="68" y1="65" x2="100" y2="105" stroke="rgba(248,81,73,0.3)" stroke-width="1.5" />
+            <circle cx="-100" cy="115" r="12" fill="#161b22" stroke="#f85149" stroke-width="1" />
+            <circle cx="-25" cy="115" r="12" fill="#161b22" stroke="#f85149" stroke-width="1" />
+            <circle cx="25" cy="115" r="12" fill="#161b22" stroke="#f85149" stroke-width="1" />
+            <circle cx="100" cy="115" r="12" fill="#161b22" stroke="#f85149" stroke-width="1" />
+
+            <!-- Dashed arrows indicating 30 levels deep -->
+            <g transform="translate(0, 140)">
+              <line x1="0" y1="0" x2="0" y2="70" stroke="#f85149" stroke-dasharray="4 4" stroke-width="2" />
+              <polygon points="0,75 -5,65 5,65" fill="#f85149" />
+              <text x="15" y="42" fill="#f85149" font-family="'SF Mono', monospace" font-size="12" font-weight="700">30 LEVELS DEEP</text>
+            </g>
+          </g>
+
+          <!-- Binary Tree Stats Footer -->
+          <g transform="translate(24, 340)">
+            <rect width="442" height="96" rx="8" fill="#160e14" stroke="rgba(248,81,73,0.2)" />
+            <text x="20" y="30" fill="#8b949e" font-size="12" font-family="'SF Mono', monospace">HEIGHT FOR 10⁹ KEYS:</text>
+            <text x="20" y="60" fill="#f85149" font-size="24" font-weight="700" font-family="'SF Mono', monospace">h ≈ log₂(10⁹) = 30 Levels</text>
+            <text x="20" y="82" fill="#f85149" font-size="13">30 random disk seeks ≈ 300 ms latency</text>
+          </g>
+        </g>
+
+        <!-- Right: B-Tree (B=500) -->
+        <g id="s2-btree-group" transform="translate(610, 20)">
+          <rect width="490" height="460" rx="14" fill="#0d1117" stroke="rgba(63,185,80,0.3)" stroke-width="1.5" />
+          
+          <rect x="20" y="20" width="10" height="10" rx="2" fill="#3fb950" />
+          <text x="38" y="30" fill="#3fb950" font-family="'SF Mono', monospace" font-size="13" font-weight="700">B-TREE (FAN-OUT B ≈ 500)</text>
+          <text x="350" y="30" fill="#8b949e" font-family="'SF Mono', monospace" font-size="12">Hundreds of Keys / Page</text>
+
+          <!-- B-Tree Visual: Wide shallow tiered hierarchy -->
+          <g id="s2-btree-tree" transform="translate(245, 65)">
+            <!-- Level 0 (Root Page) -->
+            <g transform="translate(-140, 0)">
+              <rect width="280" height="34" rx="6" fill="#0d1527" stroke="#3fb950" stroke-width="1.8" />
+              <!-- Keys slots -->
+              <rect x="10" y="6" width="55" height="22" rx="3" fill="rgba(63,185,80,0.15)" />
+              <text x="37" y="21" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="10">K₁</text>
+              <rect x="75" y="6" width="55" height="22" rx="3" fill="rgba(63,185,80,0.15)" />
+              <text x="102" y="21" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="10">K₂</text>
+              <text x="145" y="22" fill="#3fb950" font-family="'SF Mono', monospace" font-size="11">•••</text>
+              <rect x="175" y="6" width="55" height="22" rx="3" fill="rgba(63,185,80,0.15)" />
+              <text x="202" y="21" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="10">K₄₉₉</text>
+              <text x="248" y="21" fill="#8b949e" font-family="'SF Mono', monospace" font-size="10">p₅₀₀</text>
+            </g>
+
+            <!-- Wide fan-out connection beams -->
+            <path d="M -80 34 L -180 95" stroke="rgba(63,185,80,0.5)" stroke-width="1.5" />
+            <path d="M -30 34 L -60 95" stroke="rgba(63,185,80,0.3)" stroke-width="1.5" />
+            <path d="M 30 34 L 60 95" stroke="rgba(63,185,80,0.3)" stroke-width="1.5" />
+            <path d="M 80 34 L 180 95" stroke="rgba(63,185,80,0.5)" stroke-width="1.5" />
+
+            <!-- Level 1 (Internal Pages) -->
+            <g transform="translate(-230, 95)">
+              <rect width="100" height="28" rx="4" fill="#080c14" stroke="#3fb950" stroke-width="1.2" />
+              <text x="50" y="18" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="10">Page L1-A</text>
+            </g>
+            <g transform="translate(-105, 95)">
+              <rect width="100" height="28" rx="4" fill="#080c14" stroke="#3fb950" stroke-width="1" />
+              <text x="50" y="18" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="10">Page L1-B</text>
+            </g>
+            <text x="0" y="112" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="12">••••</text>
+            <g transform="translate(130, 95)">
+              <rect width="100" height="28" rx="4" fill="#080c14" stroke="#3fb950" stroke-width="1.2" />
+              <text x="50" y="18" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="10">Page L1-N</text>
+            </g>
+
+            <!-- Level 2 (Leaves) -->
+            <path d="M -180 123 L -200 170" stroke="rgba(63,185,80,0.4)" stroke-width="1" />
+            <path d="M 180 123 L 200 170" stroke="rgba(63,185,80,0.4)" stroke-width="1" />
+
+            <g transform="translate(-235, 170)">
+              <rect width="470" height="30" rx="5" fill="#0d1527" stroke="rgba(63,185,80,0.3)" stroke-width="1" />
+              <text x="235" y="19" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="11" font-weight="600">LEAF LAYER: 1,000,000,000 KEYS LOCATED AT DEPTH 3</text>
+            </g>
+          </g>
+
+          <!-- B-Tree Stats Footer -->
+          <g transform="translate(24, 340)">
+            <rect width="442" height="96" rx="8" fill="#0c1712" stroke="rgba(63,185,80,0.2)" />
+            <text x="20" y="30" fill="#8b949e" font-size="12" font-family="'SF Mono', monospace">HEIGHT FOR 10⁹ KEYS:</text>
+            <text x="20" y="60" fill="#3fb950" font-size="24" font-weight="700" font-family="'SF Mono', monospace">h ≤ log₅₀₀(10⁹) = 3 Levels</text>
+            <text x="20" y="82" fill="#3fb950" font-size="13">Only 3 disk seeks total (Top levels cached in RAM!)</text>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 3: Page Alignment & Traversal (23.08s - 34.83s)          -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene3">
+    <div class="header-group">
+      <div class="topic-tag">Hardware Page Geometry • Query Routing</div>
+      <div class="scene-title">Page Alignment & Traversal</div>
+      <div class="scene-subtitle">One 8 KB disk read fetches hundreds of keys • Routing queries in a single hop</div>
+    </div>
+
+    <div class="diagram-stage">
+      <svg width="1160" height="520" viewBox="0 0 1160 520">
+        <!-- Search Query Capsule Header -->
+        <g id="s3-query-capsule" transform="translate(430, 15)">
+          <rect width="300" height="38" rx="19" fill="#161b22" stroke="#e3b341" stroke-width="1.8" />
+          <circle cx="22" cy="19" r="7" fill="#e3b341" />
+          <text x="42" y="24" fill="#8b949e" font-family="'SF Mono', monospace" font-size="12">QUERY KEY:</text>
+          <text x="135" y="24" fill="#e3b341" font-family="'SF Mono', monospace" font-size="14" font-weight="800">TARGET = 62</text>
+        </g>
+
+        <!-- Root Page 8KB Block -->
+        <g id="s3-root-page" transform="translate(230, 80)">
+          <!-- Page Box -->
+          <rect width="700" height="100" rx="12" fill="#0d1527" stroke="#58a6ff" stroke-width="2" />
+          <rect x="20" y="12" width="10" height="10" rx="2" fill="#58a6ff" />
+          <text x="38" y="22" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="12" font-weight="700">ROOT PAGE (PAGE ID: 0x01 • 8192 BYTES)</text>
+          
+          <!-- Key Cells and Pointer Conduits -->
+          <g transform="translate(25, 40)">
+            <!-- P0 -->
+            <rect x="0" y="0" width="35" height="42" rx="4" fill="#161b22" stroke="rgba(255,255,255,0.1)" />
+            <text x="17" y="25" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">P₀</text>
+
+            <!-- Key 20 -->
+            <rect x="42" y="0" width="105" height="42" rx="6" fill="#162235" stroke="#58a6ff" stroke-width="1.2" />
+            <text x="94" y="26" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="16" font-weight="700">20</text>
+
+            <!-- P1 -->
+            <rect x="154" y="0" width="35" height="42" rx="4" fill="#161b22" stroke="rgba(255,255,255,0.1)" />
+            <text x="171" y="25" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">P₁</text>
+
+            <!-- Key 50 -->
+            <rect id="s3-cell-50" x="196" y="0" width="105" height="42" rx="6" fill="#162235" stroke="#58a6ff" stroke-width="1.2" />
+            <text x="248" y="26" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="16" font-weight="700">50</text>
+
+            <!-- P2 (TARGET POINTER: 50 <= K < 75) -->
+            <rect id="s3-target-pointer" x="308" y="0" width="35" height="42" rx="4" fill="#161b22" stroke="#e3b341" stroke-width="1.5" />
+            <text x="325" y="25" text-anchor="middle" fill="#e3b341" font-family="'SF Mono', monospace" font-size="12" font-weight="700">P₂</text>
+
+            <!-- Key 75 -->
+            <rect id="s3-cell-75" x="350" y="0" width="105" height="42" rx="6" fill="#162235" stroke="#58a6ff" stroke-width="1.2" />
+            <text x="402" y="26" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="16" font-weight="700">75</text>
+
+            <!-- P3 -->
+            <rect x="462" y="0" width="35" height="42" rx="4" fill="#161b22" stroke="rgba(255,255,255,0.1)" />
+            <text x="479" y="25" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">P₃</text>
+
+            <!-- Key 95 -->
+            <rect x="504" y="0" width="105" height="42" rx="6" fill="#162235" stroke="#58a6ff" stroke-width="1.2" />
+            <text x="556" y="26" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="16" font-weight="700">95</text>
+
+            <!-- P4 -->
+            <rect x="615" y="0" width="35" height="42" rx="4" fill="#161b22" stroke="rgba(255,255,255,0.1)" />
+            <text x="632" y="25" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">P₄</text>
+          </g>
+        </g>
+
+        <!-- Downward Pointer Conduit Path -->
+        <g id="s3-path-group">
+          <path id="s3-descent-line" d="M 553 180 L 553 250 L 580 280" fill="none" stroke="#e3b341" stroke-width="3" stroke-dasharray="6 6" />
+          <circle id="s3-query-pulse" cx="553" cy="180" r="8" fill="#e3b341" />
+        </g>
+
+        <!-- Child Leaf Page (Page ID: 0x4B) -->
+        <g id="s3-child-page" transform="translate(230, 280)">
+          <rect width="700" height="110" rx="12" fill="#0c1712" stroke="#3fb950" stroke-width="2" />
+          <rect x="20" y="12" width="10" height="10" rx="2" fill="#3fb950" />
+          <text x="38" y="22" fill="#3fb950" font-family="'SF Mono', monospace" font-size="12" font-weight="700">CHILD LEAF PAGE (PAGE ID: 0x4B • KEYS IN RANGE [50, 75))</text>
+
+          <g transform="translate(25, 42)">
+            <!-- Leaf Key 52 -->
+            <rect x="20" y="0" width="120" height="48" rx="6" fill="#162235" stroke="rgba(255,255,255,0.1)" />
+            <text x="80" y="22" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">KEY: 52</text>
+            <text x="80" y="38" text-anchor="middle" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="10">RowPtr #102</text>
+
+            <!-- Leaf Key 58 -->
+            <rect x="170" y="0" width="120" height="48" rx="6" fill="#162235" stroke="rgba(255,255,255,0.1)" />
+            <text x="230" y="22" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">KEY: 58</text>
+            <text x="230" y="38" text-anchor="middle" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="10">RowPtr #109</text>
+
+            <!-- MATCH TARGET: Key 62 -->
+            <rect id="s3-match-box" x="320" y="0" width="150" height="48" rx="6" fill="#0d2e1c" stroke="#3fb950" stroke-width="2" />
+            <text x="395" y="22" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="13" font-weight="800">MATCH: 62</text>
+            <text x="395" y="38" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="11" font-weight="600">RowPtr #8841 ✓</text>
+
+            <!-- Leaf Key 71 -->
+            <rect x="500" y="0" width="120" height="48" rx="6" fill="#162235" stroke="rgba(255,255,255,0.1)" />
+            <text x="560" y="22" text-anchor="middle" fill="#8b949e" font-family="'SF Mono', monospace" font-size="11">KEY: 71</text>
+            <text x="560" y="38" text-anchor="middle" fill="#58a6ff" font-family="'SF Mono', monospace" font-size="10">RowPtr #144</text>
+          </g>
+        </g>
+
+        <!-- Bottom Status Banner -->
+        <g id="s3-status-banner" transform="translate(230, 415)">
+          <rect width="700" height="50" rx="8" fill="#161b22" stroke="rgba(255,255,255,0.08)" />
+          <text x="30" y="30" fill="#f0f6fc" font-size="14" font-weight="600">Search Result Verified:</text>
+          <text x="190" y="30" fill="#3fb950" font-family="'SF Mono', monospace" font-size="13" font-weight="700">1 Root Seek + 1 Leaf Seek = 2 Total Disk I/Os</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 4: Balanced Growth: Node Split (35.33s - 46.48s)         -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene4">
+    <div class="header-group">
+      <div class="topic-tag">In-Memory Balancing • Split Mechanics</div>
+      <div class="scene-title">Balanced Growth: The Page Split</div>
+      <div class="scene-subtitle">Overflow promotes median key upward • Strict logarithmic depth preserved</div>
+    </div>
+
+    <div class="diagram-stage">
+      <svg width="1160" height="520" viewBox="0 0 1160 520">
+        <!-- New Root Created from Median Promotion -->
+        <g id="s4-new-root" transform="translate(480, 25)" opacity="0">
+          <rect width="200" height="60" rx="8" fill="#0d1527" stroke="#e3b341" stroke-width="2" />
+          <text x="100" y="22" text-anchor="middle" fill="#e3b341" font-family="'SF Mono', monospace" font-size="11" font-weight="700">NEW ROOT PAGE</text>
+          <rect x="60" y="28" width="80" height="26" rx="4" fill="rgba(227,179,65,0.2)" stroke="#e3b341" />
+          <text x="100" y="46" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="14" font-weight="700">34 ★</text>
+        </g>
+
+        <!-- Promotion Arrow -->
+        <g id="s4-promote-arrow" transform="translate(580, 95)" opacity="0">
+          <line x1="0" y1="45" x2="0" y2="0" stroke="#e3b341" stroke-width="2.5" stroke-dasharray="4 4" />
+          <polygon points="0,-5 -5,5 5,5" fill="#e3b341" />
+          <text x="15" y="26" fill="#e3b341" font-family="'SF Mono', monospace" font-size="11" font-weight="700">MEDIAN PROMOTES</text>
+        </g>
+
+        <!-- Initial Full Node (Overflowing with 5 keys) -->
+        <g id="s4-full-node" transform="translate(230, 150)">
+          <rect id="s4-overflow-box" width="700" height="85" rx="10" fill="#0d1117" stroke="#e3b341" stroke-width="2" />
+          <text x="25" y="24" fill="#e3b341" font-family="'SF Mono', monospace" font-size="12" font-weight="700">CAPACITY EXCEEDED (m = 5 KEYS) → TRIGGER SPLIT</text>
+
+          <g transform="translate(25, 34)">
+            <!-- Key 12 -->
+            <rect id="s4-k1" x="0" y="0" width="115" height="38" rx="5" fill="#162235" stroke="#58a6ff" />
+            <text x="57" y="24" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="15" font-weight="700">12</text>
+
+            <!-- Key 25 -->
+            <rect id="s4-k2" x="130" y="0" width="115" height="38" rx="5" fill="#162235" stroke="#58a6ff" />
+            <text x="187" y="24" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="15" font-weight="700">25</text>
+
+            <!-- MEDIAN KEY 34 -->
+            <rect id="s4-k-median" x="260" y="0" width="125" height="38" rx="5" fill="#2d2010" stroke="#e3b341" stroke-width="2" />
+            <text x="322" y="24" text-anchor="middle" fill="#e3b341" font-family="'SF Mono', monospace" font-size="16" font-weight="800">34 ★</text>
+
+            <!-- Key 48 -->
+            <rect id="s4-k4" x="400" y="0" width="115" height="38" rx="5" fill="#162235" stroke="#58a6ff" />
+            <text x="457" y="24" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="15" font-weight="700">48</text>
+
+            <!-- Key 65 -->
+            <rect id="s4-k5" x="530" y="0" width="115" height="38" rx="5" fill="#162235" stroke="#58a6ff" />
+            <text x="587" y="24" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="15" font-weight="700">65</text>
+          </g>
+        </g>
+
+        <!-- Post-Split Result Subtrees -->
+        <g id="s4-split-subtrees" transform="translate(180, 205)" opacity="0">
+          <!-- Parent pointers down to children -->
+          <path d="M 400 -120 L 180 0" stroke="#e3b341" stroke-width="2" />
+          <path d="M 400 -120 L 620 0" stroke="#e3b341" stroke-width="2" />
+
+          <!-- Left Split Child -->
+          <g transform="translate(0, 0)">
+            <rect width="360" height="75" rx="8" fill="#0d1527" stroke="#3fb950" stroke-width="1.8" />
+            <text x="18" y="22" fill="#3fb950" font-family="'SF Mono', monospace" font-size="11" font-weight="700">LEFT CHILD PAGE (&lt; 34)</text>
+            <g transform="translate(20, 30)">
+              <rect x="0" y="0" width="140" height="34" rx="4" fill="#162235" stroke="rgba(63,185,80,0.4)" />
+              <text x="70" y="22" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="14" font-weight="700">12</text>
+              <rect x="160" y="0" width="140" height="34" rx="4" fill="#162235" stroke="rgba(63,185,80,0.4)" />
+              <text x="230" y="22" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="14" font-weight="700">25</text>
+            </g>
+          </g>
+
+          <!-- Right Split Child -->
+          <g transform="translate(440, 0)">
+            <rect width="360" height="75" rx="8" fill="#0d1527" stroke="#3fb950" stroke-width="1.8" />
+            <text x="18" y="22" fill="#3fb950" font-family="'SF Mono', monospace" font-size="11" font-weight="700">RIGHT CHILD PAGE (&gt; 34)</text>
+            <g transform="translate(20, 30)">
+              <rect x="0" y="0" width="140" height="34" rx="4" fill="#162235" stroke="rgba(63,185,80,0.4)" />
+              <text x="70" y="22" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="14" font-weight="700">48</text>
+              <rect x="160" y="0" width="140" height="34" rx="4" fill="#162235" stroke="rgba(63,185,80,0.4)" />
+              <text x="230" y="22" text-anchor="middle" fill="#f0f6fc" font-family="'SF Mono', monospace" font-size="14" font-weight="700">65</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Final Takeaway Badge -->
+        <g id="s4-takeaway-badge" transform="translate(230, 350)" opacity="0">
+          <rect width="700" height="74" rx="10" fill="#0c1712" stroke="#3fb950" stroke-width="2" />
+          <text x="350" y="30" text-anchor="middle" fill="#3fb950" font-family="'SF Mono', monospace" font-size="13" font-weight="700">PERFECT BOTTOM-UP BALANCING</text>
+          <text x="350" y="54" text-anchor="middle" fill="#f0f6fc" font-size="15" font-weight="500">Every leaf stays at identical depth • Guarantees 3–4 seeks across billions of rows</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<!-- GSAP 3 Motion Orchestration -->
+<script>
+// Deterministic mulberry32 PRNG (NO Math.random)
+function mulberry32(a) {
+  return function() {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tl = gsap.timeline({ paused: true });
+  window.__timelines = { root: tl };
+
+  // ==============================================================
+  // EXACT MEASURED TIMESTAMPS FROM timeline.json:
+  // s1: 0.00s  -> 10.425s
+  // s2: 10.925s -> 22.575s
+  // s3: 23.075s -> 34.825s
+  // s4: 35.325s -> 46.475s
+  // ==============================================================
+
+  // Scene transition helper: seamless synchronous crossfade without dipping to black
+  function sceneTransition(outId, inId, atTime, fade = 0.40) {
+    tl.to(`#${outId}`, { opacity: 0, duration: fade, ease: "power2.inOut" }, atTime);
+    tl.to(`#${inId}`,  { opacity: 1, duration: fade, ease: "power2.inOut" }, atTime);
+  }
+
+  // --------------------------------------------------------------
+  // SCENE 1: The Disk I/O Bottleneck (0.00s - 10.425s)
+  // --------------------------------------------------------------
+  tl.set('#scene1', { opacity: 1 }, 0);
+
+  // Initial reveal of memory & disk cards
+  tl.from('#s1-ram-box', { opacity: 0, x: -30, duration: 0.8, ease: "power2.out" }, 0.2);
+  tl.from('#s1-disk-box', { opacity: 0, x: 30, duration: 0.8, ease: "power2.out" }, 0.5);
+  tl.from('#s1-vs-badge', { opacity: 0, scale: 0.5, duration: 0.6, ease: "back.out(1.7)" }, 1.0);
+
+  // RAM pulses instantaneously
+  tl.to('#s1-ram-meter', { width: 120, duration: 0.4, ease: "power1.out" }, 1.5);
+  tl.to('#s1-ram-chip1, #s1-ram-chip2, #s1-ram-chip3, #s1-ram-chip4', {
+    fill: "rgba(88,166,255,0.7)",
+    stagger: 0.08,
+    duration: 0.2,
+    yoyo: true,
+    repeat: 3
+  }, 1.6);
+
+  // Disk seek bar crawls slowly across the screen, depicting severe latency
+  tl.to('#s1-disk-meter', { width: 980, duration: 5.5, ease: "linear" }, 2.8);
+
+  // Warning tag pops when seek drags on
+  tl.to('#s1-warning-tag', { opacity: 1, scale: 1.05, duration: 0.4, ease: "back.out(1.5)" }, 6.2);
+  tl.to('#s1-warning-tag', { scale: 1, duration: 0.2 }, 6.6);
+
+  // --------------------------------------------------------------
+  // TRANSITION S1 -> S2 (10.65s)
+  // --------------------------------------------------------------
+  sceneTransition('scene1', 'scene2', 10.65);
+
+  // --------------------------------------------------------------
+  // SCENE 2: Binary Tree vs B-Tree Fan-out (10.925s - 22.575s)
+  // --------------------------------------------------------------
+  tl.from('#s2-bst-group', { opacity: 0, x: -40, duration: 0.7, ease: "power2.out" }, 11.0);
+  tl.from('#s2-btree-group', { opacity: 0, x: 40, duration: 0.7, ease: "power2.out" }, 11.4);
+
+  // Binary Tree deep descent animation
+  tl.from('#s2-bst-tree circle', {
+    scale: 0,
+    stagger: 0.12,
+    duration: 0.4,
+    transformOrigin: "center center",
+    ease: "back.out(1.5)"
+  }, 12.0);
+
+  // B-Tree wide fanout illumination
+  tl.from('#s2-btree-tree rect', {
+    opacity: 0,
+    y: -10,
+    stagger: 0.08,
+    duration: 0.5,
+    ease: "power2.out"
+  }, 13.0);
+
+  // Highlight the comparison: 30 levels vs 3 levels
+  tl.to('#s2-bst-group', { borderColor: "rgba(248,81,73,0.8)", duration: 0.5 }, 16.0);
+  tl.to('#s2-btree-group', { borderColor: "rgba(63,185,80,0.8)", duration: 0.5 }, 18.0);
+
+  // --------------------------------------------------------------
+  // TRANSITION S2 -> S3 (22.80s)
+  // --------------------------------------------------------------
+  sceneTransition('scene2', 'scene3', 22.80);
+
+  // --------------------------------------------------------------
+  // SCENE 3: Page Alignment & Traversal (23.075s - 34.825s)
+  // --------------------------------------------------------------
+  tl.from('#s3-query-capsule', { opacity: 0, y: -20, duration: 0.6, ease: "power2.out" }, 23.2);
+  tl.from('#s3-root-page', { opacity: 0, y: 30, duration: 0.7, ease: "power2.out" }, 23.6);
+
+  // Root key evaluation: 50 < 62 < 75
+  tl.to('#s3-cell-50', { fill: "rgba(227,179,65,0.35)", stroke: "#e3b341", duration: 0.4 }, 25.0);
+  tl.to('#s3-cell-75', { fill: "rgba(227,179,65,0.35)", stroke: "#e3b341", duration: 0.4 }, 25.4);
+  tl.to('#s3-target-pointer', { fill: "rgba(227,179,65,0.5)", scale: 1.1, transformOrigin: "center center", duration: 0.3 }, 26.0);
+
+  // Pulse packet descends along pointer path to child page
+  tl.from('#s3-child-page', { opacity: 0, y: 30, duration: 0.6, ease: "power2.out" }, 26.6);
+  tl.to('#s3-query-pulse', { cx: 580, cy: 300, duration: 1.2, ease: "power1.inOut" }, 26.8);
+
+  // Target Key 62 match confirmation
+  tl.from('#s3-match-box', {
+    scale: 0.8,
+    fill: "rgba(63,185,80,0.4)",
+    duration: 0.5,
+    ease: "back.out(2)"
+  }, 28.5);
+  tl.from('#s3-status-banner', { opacity: 0, y: 15, duration: 0.5, ease: "power2.out" }, 29.5);
+
+  // --------------------------------------------------------------
+  // TRANSITION S3 -> S4 (35.05s)
+  // --------------------------------------------------------------
+  sceneTransition('scene3', 'scene4', 35.05);
+
+  // --------------------------------------------------------------
+  // SCENE 4: Balanced Growth: Node Split (35.325s - 46.475s)
+  // --------------------------------------------------------------
+  tl.from('#s4-full-node', { opacity: 0, scale: 0.95, duration: 0.7, ease: "power2.out" }, 35.4);
+
+  // Capacity breach glow
+  tl.to('#s4-overflow-box', { stroke: "#f85149", duration: 0.4, repeat: 2, yoyo: true }, 36.2);
+
+  // Highlight median key 34
+  tl.to('#s4-k-median', {
+    scale: 1.15,
+    fill: "rgba(227,179,65,0.6)",
+    transformOrigin: "center center",
+    duration: 0.5,
+    ease: "back.out(1.8)"
+  }, 37.0);
+
+  // Promote median key upward
+  tl.to('#s4-promote-arrow', { opacity: 1, duration: 0.4 }, 38.0);
+  tl.to('#s4-new-root', { opacity: 1, y: 15, duration: 0.7, ease: "back.out(1.5)" }, 38.4);
+
+  // Clean fade of overflowing node and reveal of split children
+  tl.to('#s4-full-node, #s4-promote-arrow', { opacity: 0, duration: 0.4, ease: "power2.in" }, 39.4);
+  tl.to('#s4-split-subtrees', { opacity: 1, y: 185, duration: 0.7, ease: "power2.out" }, 39.8);
+
+  // Final takeaway badge
+  tl.to('#s4-takeaway-badge', { opacity: 1, y: 340, duration: 0.8, ease: "back.out(1.4)" }, 42.0);
+});
+</script>
+</body>
+</html>

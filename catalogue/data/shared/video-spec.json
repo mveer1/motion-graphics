@@ -1,0 +1,44 @@
+{
+  "id": "shared-video-spec",
+  "name": "Motion Graphics Video Composition Specification",
+  "component_type": "shared_asset",
+  "purpose": "JSON Schema specification defining video resolution, fps, theme tokens, narration settings, and scene outlines.",
+  "capabilities": [
+    "Machine validation for video project configurations",
+    "Standardized resolution and theme tokens"
+  ],
+  "location": "specs/video-spec.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Stored in specs/video-spec.json."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "json-schema",
+    "notes": "Draft-07 standard schema."
+  },
+  "documentation_urls": [
+    "specs/video-spec.json"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace schema specification."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static schema definition."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in project specifications.",
+  "architecture_ref": "ARCHITECTURE.md#video-spec",
+  "last_verified": "2026-10-30",
+  "tags": ["schema", "spec", "video", "json-schema", "draft-07"]
+}

@@ -1,0 +1,25 @@
+{
+  "project": "distributed-systems-consensus",
+  "voice": "am_adam",
+  "speed": 0.95,
+  "lang": "a",
+  "interScenePauseSeconds": 0.5,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Problem of Consensus",
+      "script": "In a distributed system, multiple independent computers must agree on a single source of truth, even when the network is unreliable."
+    },
+    {
+      "id": "s2",
+      "title": "The Raft Protocol",
+      "script": "The Raft algorithm solves this by electing a single leader, who manages the replication of log entries across follower nodes."
+    },
+    {
+      "id": "s3",
+      "title": "Handling Partitions",
+      "script": "When a network partition occurs, only the majority partition can make progress, ensuring safety and preventing split-brain states."
+    }
+  ]
+}
+

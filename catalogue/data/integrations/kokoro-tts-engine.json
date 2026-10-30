@@ -1,0 +1,47 @@
+{
+  "id": "integration-kokoro-tts-engine",
+  "name": "Kokoro 0.9.4 Neural Speech Synthesis Engine",
+  "component_type": "integration",
+  "purpose": "Local deep learning speech synthesis integration using PyTorch, misaki, and espeak-ng producing 24 kHz mono PCM audio.",
+  "capabilities": [
+    "High-speed local neural TTS inference on Apple Silicon",
+    "82M parameter lightweight transformer model",
+    "Zero cloud API latency and zero per-character cost"
+  ],
+  "location": "src/pipeline/tts.py",
+  "version": "0.9.4",
+  "installation": {
+    "required": true,
+    "instructions": "Installed in local environment with weights cached locally."
+  },
+  "dependencies": [
+    "tool-tts-pipeline"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Executes on Apple Silicon M-series using PyTorch MPS/CPU."
+  },
+  "documentation_urls": [
+    "https://huggingface.co/hexgrad/Kokoro-82M"
+  ],
+  "licensing": {
+    "spdx_identifier": "Apache-2.0",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Apache-2.0 licensed neural TTS model."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Local neural model execution; no audio data leaves the local machine."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 3 speech synthesis.",
+  "architecture_ref": "ARCHITECTURE.md#s3",
+  "last_verified": "2026-10-30",
+  "tags": ["integration", "kokoro", "tts", "neural", "apache-2.0"]
+}

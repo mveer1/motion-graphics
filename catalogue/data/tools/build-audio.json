@@ -1,0 +1,47 @@
+{
+  "id": "tool-build-audio",
+  "name": "Audio Pipeline Batch Synthesizer CLI",
+  "component_type": "tool",
+  "purpose": "Batch processes scene narration text from narration.json through Kokoro TTS and generates audio timeline manifests.",
+  "capabilities": [
+    "Batch TTS synthesis from scene text",
+    "Audio duration extraction and timeline anchor generation",
+    "Pause buffer concatenation"
+  ],
+  "location": "scripts/build-audio.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via python3 scripts/build-audio.py <project_name>."
+  },
+  "dependencies": [
+    "tool-tts-pipeline"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Native Python 3.12 execution."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#s3"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace audio pipeline utility."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Offline local TTS batch processing."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 3 speech synthesis.",
+  "architecture_ref": "ARCHITECTURE.md#s3",
+  "last_verified": "2026-10-30",
+  "tags": ["audio", "tts", "batch", "synthesis", "stage-3"]
+}

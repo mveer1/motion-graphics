@@ -1,0 +1,49 @@
+{
+  "id": "skill-motion-graphics-designer",
+  "name": "Motion Graphics Designer Skill",
+  "component_type": "skill",
+  "purpose": "Aesthetic design system, calibrated color palettes, 720p/1080p layout geometry, and GSAP 3 animation choreography for technical explainers.",
+  "capabilities": [
+    "Technical color palette tokens (Dark Tech, Cyber Cyan, Quantum Violet)",
+    "Resolution-independent typography and 720p canvas grid rules",
+    "Paused GSAP root timeline authoring",
+    "Deterministic mulberry32 PRNG enforcement"
+  ],
+  "location": ".agents/skills/motion-graphics-designer",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Generates HTML5 + SVG + GSAP compositions."
+  },
+  "documentation_urls": [
+    ".agents/skills/motion-graphics-designer/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Writes static HTML/SVG source to projects/<project_name>/src/index.html."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 4 pipeline across benchmark, raft, and btree compositions.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": ["design", "palettes", "typography", "layout", "gsap3", "stage-4"]
+}

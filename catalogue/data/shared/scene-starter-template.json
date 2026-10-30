@@ -1,0 +1,47 @@
+{
+  "id": "shared-scene-starter-template",
+  "name": "Deterministic Scene HTML Starter Template",
+  "component_type": "shared_asset",
+  "purpose": "Reference starter HTML composition demonstrating 1280x720 canvas, centered layout, mulberry32 PRNG, and paused GSAP timeline.",
+  "capabilities": [
+    "Verified 1280x720 canvas grid starter markup",
+    "Pre-wired window.__timelines['root'] mounting",
+    "mulberry32 seeded PRNG implementation"
+  ],
+  "location": ".agents/skills/motion-graphics-designer/examples/scene-template.html",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Copied or inspected from .agents/skills/motion-graphics-designer/examples/."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "html5",
+    "notes": "Renders with HyperFrames in low-memory mode."
+  },
+  "documentation_urls": [
+    ".agents/skills/motion-graphics-designer/examples/scene-template.html"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace template."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static HTML starter template."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production certified reference composition.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": ["template", "html", "starter", "gsap", "hyperframes"]
+}

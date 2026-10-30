@@ -1,0 +1,48 @@
+{
+  "id": "tool-ingest-asset",
+  "name": "Cinematic Asset Ingestion CLI",
+  "component_type": "tool",
+  "purpose": "Normalizes external video footage (Veo / stock / 3D) to silent H.264 1280x720 @ 30fps stored in assets/generated/.",
+  "capabilities": [
+    "Resolution scaling to exactly 1280x720",
+    "Framerate normalization to 30.00 fps constant framerate",
+    "Audio stream stripping for pure silent video layer",
+    "Fast re-encoding with libx264 pix_fmt yuv420p"
+  ],
+  "location": "scripts/ingest-asset.sh",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via ./scripts/ingest-asset.sh <input_file> [slug]."
+  },
+  "dependencies": [
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Requires ffmpeg binary in PATH."
+  },
+  "documentation_urls": [
+    "specs/veo-integration.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace shell utility."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Local ffmpeg transcode writing to assets/generated/."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 7 hybrid Veo pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s7",
+  "last_verified": "2026-10-30",
+  "tags": ["ingest", "ffmpeg", "transcode", "video", "veo"]
+}

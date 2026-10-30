@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>How Does a Neural Network Learn? (V2)</title>
+  <style>
+    /* ─── RESET & CANVAS ─────────────────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #080c14;
+      width: 1280px; height: 720px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #f0f6fc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      position: relative;
+      width: 1280px; height: 720px;
+      background: radial-gradient(circle at 50% 30%, #0d1527 0%, #080c14 75%);
+    }
+
+    /* Ambient background grid */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      pointer-events: none;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ─── TYPOGRAPHY HIERARCHY ───────────────────────────────────── */
+    .header-group {
+      position: absolute;
+      top: 32px; left: 0; right: 0;
+      text-align: center;
+      z-index: 10;
+    }
+    .header-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(88, 166, 255, 0.3);
+      background: rgba(88, 166, 255, 0.08);
+      color: #58a6ff;
+    }
+    .main-title {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #f0f6fc;
+      line-height: 1.15;
+    }
+    .sub-title {
+      font-size: 16px;
+      font-weight: 400;
+      color: #8b949e;
+      margin-top: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── SCENE 1: Pipeline Flow ─────────────────────────────────── */
+    .s1-stage {
+      position: absolute;
+      top: 240px; left: 50%; transform: translateX(-50%);
+      width: 1080px; height: 320px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .pipeline-card {
+      background: rgba(13, 21, 39, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      width: 290px;
+      height: 240px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+    .pipeline-card.card-input {
+      border-color: rgba(88, 166, 255, 0.4);
+      background: linear-gradient(180deg, rgba(88,166,255,0.08) 0%, rgba(13,21,39,0.7) 100%);
+    }
+    .pipeline-card.card-net {
+      border-color: rgba(227, 179, 65, 0.4);
+      background: linear-gradient(180deg, rgba(227,179,65,0.08) 0%, rgba(13,21,39,0.7) 100%);
+      width: 320px;
+    }
+    .pipeline-card.card-output {
+      border-color: rgba(63, 185, 80, 0.4);
+      background: linear-gradient(180deg, rgba(63,185,80,0.08) 0%, rgba(13,21,39,0.7) 100%);
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #8b949e;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .card-badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .badge-blue { background: rgba(88,166,255,0.2); color: #58a6ff; }
+    .badge-amber { background: rgba(227,179,65,0.2); color: #e3b341; }
+    .badge-green { background: rgba(63,185,80,0.2); color: #3fb950; }
+
+    .vector-preview {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 16px;
+      color: #58a6ff;
+    }
+    .vector-row {
+      display: flex; justify-content: space-between; margin-bottom: 4px;
+    }
+    .vector-row:last-child { margin-bottom: 0; }
+    .vector-label { color: #8b949e; }
+
+    .connector-arrow {
+      width: 60px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .arrow-line {
+      width: 50px; height: 3px;
+      background: rgba(255, 255, 255, 0.15);
+      position: relative;
+    }
+    .arrow-head {
+      width: 0; height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 10px solid rgba(255, 255, 255, 0.15);
+      position: absolute; right: -8px; top: -4.5px;
+    }
+    .flow-packet {
+      width: 10px; height: 10px; border-radius: 50%;
+      position: absolute; top: -3.5px; left: 0;
+      background: #58a6ff;
+      opacity: 0;
+    }
+
+    /* ─── SCENE 2: The Network Full View ─────────────────────────── */
+    #s2-network-svg {
+      position: absolute;
+      top: 155px; left: 0;
+      width: 1280px; height: 540px;
+    }
+
+    /* ─── SCENE 3: The Learning Feedback Loop ─────────────────────── */
+    .s3-container {
+      position: absolute;
+      top: 155px; left: 60px; right: 60px; bottom: 25px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .s3-left-panel {
+      width: 520px; height: 510px;
+      background: rgba(13, 21, 39, 0.5);
+      border: 1.5px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+    }
+    .s3-right-panel {
+      width: 590px; height: 510px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .compare-container {
+      background: rgba(13, 21, 39, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 24px;
+    }
+    .compare-row {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .metric-box {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      border: 1.5px solid transparent;
+    }
+    .metric-box.pred-box { border-color: rgba(88, 166, 255, 0.4); }
+    .metric-box.target-box { border-color: rgba(63, 185, 80, 0.4); }
+    .metric-num {
+      font-size: 32px;
+      font-weight: 700;
+      font-family: 'SF Mono', Consolas, monospace;
+      margin-top: 4px;
+    }
+    .delta-badge {
+      padding: 8px 16px;
+      background: rgba(248, 81, 73, 0.15);
+      border: 1.5px solid rgba(248, 81, 73, 0.4);
+      color: #f85149;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      margin: 0 16px;
+    }
+
+    .loss-meter-card {
+      background: rgba(13, 21, 39, 0.7);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 24px;
+    }
+    .progress-track {
+      width: 100%; height: 26px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 13px;
+      overflow: hidden;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #e3b341, #f85149);
+      border-radius: 13px;
+    }
+
+    .weight-card {
+      background: rgba(13, 21, 39, 0.7);
+      border: 1.5px solid rgba(227, 179, 65, 0.3);
+      border-radius: 16px;
+      padding: 18px 24px;
+    }
+    .formula-display {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 22px;
+      font-weight: 600;
+      color: #e3b341;
+      margin: 8px 0 6px;
+      letter-spacing: 0.02em;
+    }
+    .formula-desc {
+      font-size: 13.5px;
+      color: #8b949e;
+      line-height: 1.45;
+    }
+
+    /* ─── SCENE 4: Convergence ───────────────────────────────────── */
+    .s4-container {
+      position: absolute;
+      top: 155px; left: 60px; right: 60px; bottom: 25px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .s4-model-status {
+      width: 380px; height: 510px;
+      background: rgba(13, 21, 39, 0.6);
+      border: 1.5px solid rgba(63, 185, 80, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .s4-chart-stage {
+      width: 730px; height: 510px;
+      background: rgba(13, 21, 39, 0.6);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid rgba(63, 185, 80, 0.4);
+      color: #3fb950;
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .status-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #3fb950;
+      box-shadow: 0 0 8px #3fb950;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="24.750">
+
+  <div class="bg-grid"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 1: The Problem (0.00s -> 6.55s)                          -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene1">
+    <div class="header-group" id="s1-header">
+      <div class="header-tag">Foundational Premise</div>
+      <div class="main-title">How Does a Neural Network Learn?</div>
+      <div class="sub-title">A mechanical explanation of forward prediction, error feedback, and weight convergence</div>
+    </div>
+
+    <div class="s1-stage">
+      <!-- Input Card -->
+      <div class="pipeline-card card-input" id="s1-card-in">
+        <div>
+          <div class="card-title">
+            <span>Input Vector</span>
+            <span class="card-badge badge-blue">x ∈ ℝ²</span>
+          </div>
+          <div style="font-size: 13px; color: #8b949e; margin-top: 6px;">Sensory or feature signals</div>
+        </div>
+        <div class="vector-preview">
+          <div class="vector-row"><span class="vector-label">x₁ [feature]:</span> <span>0.85</span></div>
+          <div class="vector-row"><span class="vector-label">x₂ [context]:</span> <span>0.30</span></div>
+        </div>
+        <div style="font-size: 12px; color: #58a6ff; font-weight: 600;">Propagates into Layer 0</div>
+      </div>
+
+      <!-- Arrow 1 -->
+      <div class="connector-arrow">
+        <div class="arrow-line" id="arrow-line-1">
+          <div class="arrow-head"></div>
+          <div class="flow-packet" id="packet-1"></div>
+        </div>
+      </div>
+
+      <!-- Network Core Card -->
+      <div class="pipeline-card card-net" id="s1-card-net">
+        <div>
+          <div class="card-title">
+            <span>Network Layers</span>
+            <span class="card-badge badge-amber">W, b</span>
+          </div>
+          <div style="font-size: 13px; color: #8b949e; margin-top: 6px;">Affine dot products & activation</div>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; height: 95px;">
+          <svg width="220" height="90" viewBox="0 0 220 90" id="s1-mini-net">
+            <!-- Drawn via SVG -->
+          </svg>
+        </div>
+        <div style="font-size: 12px; color: #e3b341; font-weight: 600; text-align: center;">z = W·a + b &nbsp;→&nbsp; σ(z)</div>
+      </div>
+
+      <!-- Arrow 2 -->
+      <div class="connector-arrow">
+        <div class="arrow-line" id="arrow-line-2">
+          <div class="arrow-head"></div>
+          <div class="flow-packet" id="packet-2"></div>
+        </div>
+      </div>
+
+      <!-- Output Card -->
+      <div class="pipeline-card card-output" id="s1-card-out">
+        <div>
+          <div class="card-title">
+            <span>Prediction</span>
+            <span class="card-badge badge-green">ŷ</span>
+          </div>
+          <div style="font-size: 13px; color: #8b949e; margin-top: 6px;">System hypothesis</div>
+        </div>
+        <div class="vector-preview" style="text-align: center; border-color: rgba(63,185,80,0.3);">
+          <div style="font-size: 12px; color: #8b949e; margin-bottom: 4px;">PREDICTED VALUE</div>
+          <div style="font-size: 32px; font-weight: 700; color: #3fb950;" id="s1-pred-val">0.42</div>
+        </div>
+        <div style="font-size: 12px; color: #3fb950; font-weight: 600; text-align: center;">Ready for evaluation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 2: The Network (6.55s -> 13.08s)                         -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene2">
+    <div class="header-group" id="s2-header">
+      <div class="header-tag">Forward Propagation</div>
+      <div class="main-title">Information Flows Through Connected Layers</div>
+      <div class="sub-title">Each neuron performs a weighted linear combination followed by a non-linear activation</div>
+    </div>
+    <svg id="s2-network-svg" viewBox="0 0 1280 570"></svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 3: The Learning Feedback Loop (13.08s -> 20.18s)         -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene3">
+    <div class="header-group" id="s3-header">
+      <div class="header-tag" style="border-color: rgba(248,81,73,0.4); background: rgba(248,81,73,0.1); color: #f85149;">
+        Error Feedback & Weight Adjustment
+      </div>
+      <div class="main-title">Measuring Loss & Updating Synaptic Weights</div>
+      <div class="sub-title">Prediction discrepancy triggers a backward gradient wave adjusting every trainable parameter</div>
+    </div>
+
+    <div class="s3-container">
+      <!-- Left Panel: Responsive Network Architecture -->
+      <div class="s3-left-panel" id="s3-left-box">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8b949e; margin-bottom: 8px;">
+          Gradient Backpropagation
+        </div>
+        <svg id="s3-network-svg" width="480" height="460" viewBox="0 0 480 460"></svg>
+      </div>
+
+      <!-- Right Panel: Quantitative Feedback -->
+      <div class="s3-right-panel" id="s3-right-box">
+        <!-- 1. Compare Card -->
+        <div class="compare-container" id="s3-compare-card">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8b949e; margin-bottom: 12px;">
+            Output Discrepancy Evaluation
+          </div>
+          <div class="compare-row">
+            <div class="metric-box pred-box">
+              <div style="font-size: 12px; color: #58a6ff; font-weight: 700; text-transform: uppercase;">Prediction (ŷ)</div>
+              <div class="metric-num" style="color: #58a6ff;">0.42</div>
+            </div>
+            <div class="delta-badge" id="s3-delta-tag">Δ = +0.58</div>
+            <div class="metric-box target-box">
+              <div style="font-size: 12px; color: #3fb950; font-weight: 700; text-transform: uppercase;">Ground Truth (y)</div>
+              <div class="metric-num" style="color: #3fb950;">1.00</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Loss Bar Card -->
+        <div class="loss-meter-card" id="s3-loss-card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8b949e;">
+              Quantified Scalar Loss: L(ŷ, y)
+            </span>
+            <span style="font-family: 'SF Mono', monospace; font-size: 18px; font-weight: 700; color: #f85149;" id="s3-loss-number">
+              0.58
+            </span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="s3-loss-bar"></div>
+          </div>
+        </div>
+
+        <!-- 3. Mathematical Weight Update Card -->
+        <div class="weight-card" id="s3-weight-card">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #e3b341;">
+            Parameter Adaptation Rule
+          </div>
+          <div class="formula-display">
+            W ← W − η · ∇_W L
+          </div>
+          <div class="formula-desc">
+            The partial derivative (gradient) indicates the direction of steepest error increase. Subtracting the gradient shifts each weight toward lower loss.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- SCENE 4: Convergence (20.18s -> 24.75s)                        -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <div class="scene" id="scene4">
+    <div class="header-group" id="s4-header">
+      <div class="header-tag" style="border-color: rgba(63,185,80,0.4); background: rgba(63,185,80,0.1); color: #3fb950;">
+        Training Convergence
+      </div>
+      <div class="main-title">Iterative Optimization Minimizes Loss</div>
+      <div class="sub-title">Across thousands of training examples, parameters settle into an optimal low-error configuration</div>
+    </div>
+
+    <div class="s4-container">
+      <!-- Left: Converged Model Status -->
+      <div class="s4-model-status" id="s4-status-box">
+        <div>
+          <div class="status-pill">
+            <span class="status-dot"></span>
+            <span>Converged State</span>
+          </div>
+          <div style="font-size: 22px; font-weight: 700; color: #f0f6fc; margin-top: 18px;">
+            Calibrated Model
+          </div>
+          <div style="font-size: 14px; color: #8b949e; margin-top: 6px; line-height: 1.5;">
+            Weights successfully configured to capture the data manifold.
+          </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div>
+          <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 14px 18px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 12px; color: #8b949e; text-transform: uppercase; font-weight: 600;">Final Prediction</div>
+            <div style="font-size: 28px; font-weight: 700; color: #3fb950; font-family: 'SF Mono', monospace;" id="s4-final-pred">
+              0.99
+            </div>
+            <div style="font-size: 11px; color: #3fb950; margin-top: 2px;">Ground truth target: 1.00</div>
+          </div>
+
+          <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 14px 18px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 12px; color: #8b949e; text-transform: uppercase; font-weight: 600;">Residual Loss</div>
+            <div style="font-size: 28px; font-weight: 700; color: #58a6ff; font-family: 'SF Mono', monospace;">
+              0.02
+            </div>
+            <div style="font-size: 11px; color: #58a6ff; margin-top: 2px;">Global minimum reached</div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: #6e7681; text-align: center;">
+          300 Epochs · Stochastic Gradient Descent
+        </div>
+      </div>
+
+      <!-- Right: Polished Empirical Loss Curve -->
+      <div class="s4-chart-stage" id="s4-chart-box">
+        <svg id="s4-loss-chart-svg" width="680" height="480" viewBox="0 0 680 480" style="overflow: visible;"></svg>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #root -->
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// DETERMINISTIC PSEUDO-RANDOM NUMBER GENERATOR (mulberry32)
+// ─────────────────────────────────────────────────────────────────
+function mulberry32(a) {
+  return function() {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+const rng = mulberry32(1337);
+
+// ─────────────────────────────────────────────────────────────────
+// MEASURED TIMELINE MAP (from scripts/build-audio.py @ 1.15x speed)
+// ─────────────────────────────────────────────────────────────────
+const T = {
+  s1: 0.000,
+  s2: 6.550,
+  s3: 13.075,
+  s4: 20.175,
+  end: 24.750
+};
+const FADE = 0.40; // seamless cross-dissolve duration
+
+// ─────────────────────────────────────────────────────────────────
+// SVG BUILDER: Scene 1 Micro-Network Preview
+// ─────────────────────────────────────────────────────────────────
+(function buildS1MiniNet() {
+  const svg = document.getElementById('s1-mini-net');
+  const ns = 'http://www.w3.org/2000/svg';
+  const cols = [30, 110, 190];
+  const layerNodes = [
+    [25, 65],
+    [15, 45, 75],
+    [45]
+  ];
+
+  // Edges
+  for (let l = 0; l < 2; l++) {
+    for (let i = 0; i < layerNodes[l].length; i++) {
+      for (let j = 0; j < layerNodes[l+1].length; j++) {
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', cols[l]);
+        line.setAttribute('y1', layerNodes[l][i]);
+        line.setAttribute('x2', cols[l+1]);
+        line.setAttribute('y2', layerNodes[l+1][j]);
+        line.setAttribute('stroke', 'rgba(227,179,65,0.25)');
+        line.setAttribute('stroke-width', '1.5');
+        svg.appendChild(line);
+      }
+    }
+  }
+
+  // Nodes
+  layerNodes.forEach((nodes, l) => {
+    const col = cols[l];
+    const fillCol = l === 0 ? '#58a6ff' : (l === 1 ? '#e3b341' : '#3fb950');
+    nodes.forEach(y => {
+      const circle = document.createElementNS(ns, 'circle');
+      circle.setAttribute('cx', col);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', '9');
+      circle.setAttribute('fill', 'rgba(13,21,39,0.9)');
+      circle.setAttribute('stroke', fillCol);
+      circle.setAttribute('stroke-width', '2');
+      circle.setAttribute('class', `s1-mini-node-${l}`);
+      svg.appendChild(circle);
+    });
+  });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SVG BUILDER: Scene 2 Full Network Architecture
+// ─────────────────────────────────────────────────────────────────
+(function buildS2Network() {
+  const svg = document.getElementById('s2-network-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const W = 1280, H = 570;
+
+  const layers = [
+    { name: 'INPUT (x)', x: 220, count: 3, color: '#58a6ff', pill: 'Layer 0' },
+    { name: 'HIDDEN LAYER 1', x: 500, count: 5, color: '#e3b341', pill: 'Layer 1' },
+    { name: 'HIDDEN LAYER 2', x: 780, count: 5, color: '#e3b341', pill: 'Layer 2' },
+    { name: 'OUTPUT (ŷ)', x: 1060, count: 2, color: '#3fb950', pill: 'Layer 3' }
+  ];
+  const R = 24;
+  const nodeY = (idx, total) => 295 + (idx - (total-1)/2) * 86;
+
+  // 1. Defs & Gradient Markers
+  const defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML = `
+    <radialGradient id="node-glow-blue" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#58a6ff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="node-glow-amber" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e3b341" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#e3b341" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="node-glow-green" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#3fb950" stop-opacity="0"/>
+    </radialGradient>
+  `;
+  svg.appendChild(defs);
+
+  // 2. Synaptic Connections Group
+  const edgeGroup = document.createElementNS(ns, 'g');
+  edgeGroup.setAttribute('id', 's2-edges-group');
+  svg.appendChild(edgeGroup);
+
+  const edgeWeights = [];
+  layers.forEach((layerFrom, li) => {
+    if (li === layers.length - 1) return;
+    const layerTo = layers[li + 1];
+    for (let i = 0; i < layerFrom.count; i++) {
+      for (let j = 0; j < layerTo.count; j++) {
+        const line = document.createElementNS(ns, 'line');
+        const y1 = nodeY(i, layerFrom.count);
+        const y2 = nodeY(j, layerTo.count);
+        line.setAttribute('x1', layerFrom.x);
+        line.setAttribute('y1', y1);
+        line.setAttribute('x2', layerTo.x);
+        line.setAttribute('y2', y2);
+        
+        // Deterministic varied weight strengths
+        const weightVal = 0.2 + rng() * 0.8;
+        const strokeW = 1.0 + weightVal * 2.2;
+        const opacity = 0.12 + weightVal * 0.25;
+        
+        line.setAttribute('stroke', '#8b949e');
+        line.setAttribute('stroke-width', strokeW.toFixed(1));
+        line.setAttribute('stroke-opacity', opacity.toFixed(2));
+        line.setAttribute('class', `s2-edge s2-edge-${li}`);
+        edgeGroup.appendChild(line);
+
+        edgeWeights.push({ fromL: li, toL: li+1, i, j, x1: layerFrom.x, y1, x2: layerTo.x, y2 });
+      }
+    }
+  });
+
+  // 3. Nodes Group
+  const nodeGroup = document.createElementNS(ns, 'g');
+  nodeGroup.setAttribute('id', 's2-nodes-group');
+  svg.appendChild(nodeGroup);
+
+  layers.forEach((layer, li) => {
+    for (let i = 0; i < layer.count; i++) {
+      const cy = nodeY(i, layer.count);
+
+      // Outer Glow
+      const glow = document.createElementNS(ns, 'circle');
+      glow.setAttribute('cx', layer.x);
+      glow.setAttribute('cy', cy);
+      glow.setAttribute('r', R + 14);
+      glow.setAttribute('fill', li === 0 ? 'url(#node-glow-blue)' : (li === 3 ? 'url(#node-glow-green)' : 'url(#node-glow-amber)'));
+      glow.setAttribute('class', `s2-glow s2-glow-${li}-${i}`);
+      glow.setAttribute('opacity', '0.2');
+      nodeGroup.appendChild(glow);
+
+      // Main Circle
+      const node = document.createElementNS(ns, 'circle');
+      node.setAttribute('cx', layer.x);
+      node.setAttribute('cy', cy);
+      node.setAttribute('r', R);
+      node.setAttribute('fill', '#0d1527');
+      node.setAttribute('stroke', layer.color);
+      node.setAttribute('stroke-width', '2.5');
+      node.setAttribute('class', `s2-node s2-node-${li}-${i}`);
+      nodeGroup.appendChild(node);
+
+      // Label Inside Node (e.g. a1, z1, etc.)
+      const text = document.createElementNS(ns, 'text');
+      text.setAttribute('x', layer.x);
+      text.setAttribute('y', cy + 5);
+      text.setAttribute('text-anchor', 'middle');
+      text.setAttribute('fill', '#c9d1d9');
+      text.setAttribute('font-size', '13');
+      text.setAttribute('font-weight', '700');
+      text.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+      const symbol = li === 0 ? `x${i+1}` : (li === 3 ? `ŷ${i+1}` : `h${i+1}`);
+      text.textContent = symbol;
+      nodeGroup.appendChild(text);
+    }
+  });
+
+  // 4. Layer Badges & Headers
+  const labelGroup = document.createElementNS(ns, 'g');
+  labelGroup.setAttribute('id', 's2-labels-group');
+  svg.appendChild(labelGroup);
+
+  layers.forEach(layer => {
+    const topY = 24;
+    // Layer Pill
+    const pill = document.createElementNS(ns, 'rect');
+    pill.setAttribute('x', layer.x - 70);
+    pill.setAttribute('y', topY - 18);
+    pill.setAttribute('width', 140);
+    pill.setAttribute('height', 34);
+    pill.setAttribute('rx', 17);
+    pill.setAttribute('fill', 'rgba(13, 21, 39, 0.85)');
+    pill.setAttribute('stroke', layer.color);
+    pill.setAttribute('stroke-width', '1.5');
+    labelGroup.appendChild(pill);
+
+    const txt = document.createElementNS(ns, 'text');
+    txt.setAttribute('x', layer.x);
+    txt.setAttribute('y', topY + 4);
+    txt.setAttribute('text-anchor', 'middle');
+    txt.setAttribute('fill', '#f0f6fc');
+    txt.setAttribute('font-size', '13');
+    txt.setAttribute('font-weight', '700');
+    txt.setAttribute('letter-spacing', '0.06em');
+    txt.textContent = layer.name;
+    labelGroup.appendChild(txt);
+  });
+
+  // 5. Signal Photons Group (Dynamic Forward Flow)
+  const pulseGroup = document.createElementNS(ns, 'g');
+  pulseGroup.setAttribute('id', 's2-pulse-group');
+  svg.appendChild(pulseGroup);
+
+  window._s2Edges = edgeWeights;
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SVG BUILDER: Scene 3 Backpropagation Architecture
+// ─────────────────────────────────────────────────────────────────
+(function buildS3Network() {
+  const svg = document.getElementById('s3-network-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const layers = [
+    { x: 70, count: 2, color: '#58a6ff', label: 'Inputs' },
+    { x: 240, count: 3, color: '#e3b341', label: 'Hidden' },
+    { x: 410, count: 1, color: '#3fb950', label: 'Output' }
+  ];
+  const R = 22;
+  const H = 460;
+  const nodeY = (idx, total) => H/2 + (idx - (total-1)/2) * 110;
+
+  // Connections
+  const edgeG = document.createElementNS(ns, 'g');
+  edgeG.setAttribute('id', 's3-edge-group');
+  svg.appendChild(edgeG);
+
+  for (let l = 0; l < 2; l++) {
+    for (let i = 0; i < layers[l].count; i++) {
+      for (let j = 0; j < layers[l+1].count; j++) {
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', layers[l].x);
+        line.setAttribute('y1', nodeY(i, layers[l].count));
+        line.setAttribute('x2', layers[l+1].x);
+        line.setAttribute('y2', nodeY(j, layers[l+1].count));
+        line.setAttribute('stroke', 'rgba(255,255,255,0.18)');
+        line.setAttribute('stroke-width', '2.5');
+        line.setAttribute('id', `s3-edge-${l}-${i}-${j}`);
+        edgeG.appendChild(line);
+      }
+    }
+  }
+
+  // Reverse Gradient Arrows Group (Backpropagation)
+  const backpropG = document.createElementNS(ns, 'g');
+  backpropG.setAttribute('id', 's3-backprop-group');
+  backpropG.setAttribute('opacity', '0');
+  svg.appendChild(backpropG);
+
+  for (let l = 1; l >= 0; l--) {
+    for (let i = 0; i < layers[l+1].count; i++) {
+      for (let j = 0; j < layers[l].count; j++) {
+        const bpLine = document.createElementNS(ns, 'line');
+        const x1 = layers[l+1].x - R - 2;
+        const y1 = nodeY(i, layers[l+1].count);
+        const x2 = layers[l].x + R + 2;
+        const y2 = nodeY(j, layers[l].count);
+        bpLine.setAttribute('x1', x1);
+        bpLine.setAttribute('y1', y1);
+        bpLine.setAttribute('x2', x2);
+        bpLine.setAttribute('y2', y2);
+        bpLine.setAttribute('stroke', '#f85149');
+        bpLine.setAttribute('stroke-width', '3');
+        bpLine.setAttribute('stroke-dasharray', '8, 6');
+        bpLine.setAttribute('class', `s3-bp-line s3-bp-stage-${l}`);
+        backpropG.appendChild(bpLine);
+      }
+    }
+  }
+
+  // Nodes
+  layers.forEach((layer, li) => {
+    for (let i = 0; i < layer.count; i++) {
+      const cy = nodeY(i, layer.count);
+      const circle = document.createElementNS(ns, 'circle');
+      circle.setAttribute('cx', layer.x);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r', R);
+      circle.setAttribute('fill', '#0d1527');
+      circle.setAttribute('stroke', layer.color);
+      circle.setAttribute('stroke-width', '2.5');
+      circle.setAttribute('id', `s3-node-${li}-${i}`);
+      svg.appendChild(circle);
+
+      const txt = document.createElementNS(ns, 'text');
+      txt.setAttribute('x', layer.x);
+      txt.setAttribute('y', cy + 5);
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('fill', '#f0f6fc');
+      txt.setAttribute('font-size', '13');
+      txt.setAttribute('font-weight', '700');
+      txt.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+      txt.textContent = li === 0 ? `x${i+1}` : (li === 2 ? `ŷ` : `w${i+1}`);
+      svg.appendChild(txt);
+    }
+  });
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SVG BUILDER: Scene 4 Empirical Loss Curve
+// ─────────────────────────────────────────────────────────────────
+(function buildS4LossChart() {
+  const svg = document.getElementById('s4-loss-chart-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const W = 680, H = 460;
+  const PAD = { left: 75, right: 30, top: 40, bottom: 65 };
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+
+  // Background Grid Lines
+  const gridG = document.createElementNS(ns, 'g');
+  for (let yStep = 0; yStep <= 4; yStep++) {
+    const yPos = PAD.top + (cH / 4) * yStep;
+    const gridLine = document.createElementNS(ns, 'line');
+    gridLine.setAttribute('x1', PAD.left);
+    gridLine.setAttribute('y1', yPos);
+    gridLine.setAttribute('x2', PAD.left + cW);
+    gridLine.setAttribute('y2', yPos);
+    gridLine.setAttribute('stroke', 'rgba(255,255,255,0.06)');
+    gridLine.setAttribute('stroke-dasharray', '4, 4');
+    gridG.appendChild(gridLine);
+
+    // Y Axis labels
+    const val = (1.0 - yStep * 0.25).toFixed(2);
+    const yLabel = document.createElementNS(ns, 'text');
+    yLabel.setAttribute('x', PAD.left - 14);
+    yLabel.setAttribute('y', yPos + 4);
+    yLabel.setAttribute('text-anchor', 'end');
+    yLabel.setAttribute('fill', '#8b949e');
+    yLabel.setAttribute('font-size', '12');
+    yLabel.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+    yLabel.textContent = val;
+    gridG.appendChild(yLabel);
+  }
+  svg.appendChild(gridG);
+
+  // Axes
+  const axisG = document.createElementNS(ns, 'g');
+  const yAxis = document.createElementNS(ns, 'line');
+  yAxis.setAttribute('x1', PAD.left); yAxis.setAttribute('y1', PAD.top);
+  yAxis.setAttribute('x2', PAD.left); yAxis.setAttribute('y2', PAD.top + cH);
+  yAxis.setAttribute('stroke', 'rgba(255,255,255,0.25)'); yAxis.setAttribute('stroke-width', '2');
+  axisG.appendChild(yAxis);
+
+  const xAxis = document.createElementNS(ns, 'line');
+  xAxis.setAttribute('x1', PAD.left); xAxis.setAttribute('y1', PAD.top + cH);
+  xAxis.setAttribute('x2', PAD.left + cW); xAxis.setAttribute('y2', PAD.top + cH);
+  xAxis.setAttribute('stroke', 'rgba(255,255,255,0.25)'); xAxis.setAttribute('stroke-width', '2');
+  axisG.appendChild(xAxis);
+
+  // Axis Titles
+  const xTitle = document.createElementNS(ns, 'text');
+  xTitle.setAttribute('x', PAD.left + cW / 2);
+  xTitle.setAttribute('y', PAD.top + cH + 48);
+  xTitle.setAttribute('text-anchor', 'middle');
+  xTitle.setAttribute('fill', '#8b949e');
+  xTitle.setAttribute('font-size', '14');
+  xTitle.setAttribute('font-weight', '600');
+  xTitle.textContent = 'Training Iterations (Epochs 0 → 1,000)';
+  axisG.appendChild(xTitle);
+
+  const yTitle = document.createElementNS(ns, 'text');
+  yTitle.setAttribute('x', -(PAD.top + cH / 2));
+  yTitle.setAttribute('y', 22);
+  yTitle.setAttribute('transform', 'rotate(-90)');
+  yTitle.setAttribute('text-anchor', 'middle');
+  yTitle.setAttribute('fill', '#8b949e');
+  yTitle.setAttribute('font-size', '14');
+  yTitle.setAttribute('font-weight', '600');
+  yTitle.textContent = 'Loss Metric L(ŷ, y)';
+  axisG.appendChild(yTitle);
+  svg.appendChild(axisG);
+
+  // Generate Deterministic Realistic Empirical Loss Curve Points
+  const N = 75;
+  const curveRng = mulberry32(999);
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    const progress = i / (N - 1);
+    // Smooth exponential decay + micro variance
+    const noise = (curveRng() - 0.5) * 0.03 * Math.exp(-progress * 2.5);
+    const loss = 0.94 * Math.exp(-3.8 * progress) + 0.04 + noise;
+    const px = PAD.left + progress * cW;
+    const py = PAD.top + (1.0 - Math.max(0.02, loss)) * cH;
+    pts.push([px, py]);
+  }
+
+  const dStr = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ');
+
+  // Defs & ClipPath for animated reveal
+  const defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML = `
+    <clipPath id="s4-curve-clip">
+      <rect id="s4-clip-rect" x="${PAD.left}" y="0" width="0" height="${H}" />
+    </clipPath>
+    <linearGradient id="curve-area-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3fb950" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#3fb950" stop-opacity="0.0"/>
+    </linearGradient>
+  `;
+  svg.appendChild(defs);
+
+  // Shaded Area Under Curve
+  const areaD = `${dStr} L ${(PAD.left + cW).toFixed(1)} ${(PAD.top + cH).toFixed(1)} L ${PAD.left} ${(PAD.top + cH).toFixed(1)} Z`;
+  const areaPath = document.createElementNS(ns, 'path');
+  areaPath.setAttribute('d', areaD);
+  areaPath.setAttribute('fill', 'url(#curve-area-gradient)');
+  areaPath.setAttribute('clip-path', 'url(#s4-curve-clip)');
+  svg.appendChild(areaPath);
+
+  // Stroke Path
+  const curvePath = document.createElementNS(ns, 'path');
+  curvePath.setAttribute('d', dStr);
+  curvePath.setAttribute('fill', 'none');
+  curvePath.setAttribute('stroke', '#3fb950');
+  curvePath.setAttribute('stroke-width', '3.5');
+  curvePath.setAttribute('stroke-linecap', 'round');
+  curvePath.setAttribute('clip-path', 'url(#s4-curve-clip)');
+  svg.appendChild(curvePath);
+
+  // Minimum Point Marker Beacon
+  const lastPt = pts[pts.length - 1];
+  const beaconG = document.createElementNS(ns, 'g');
+  beaconG.setAttribute('id', 's4-beacon');
+  beaconG.setAttribute('transform', `translate(${lastPt[0]}, ${lastPt[1]})`);
+  beaconG.setAttribute('opacity', '0');
+
+  const beaconRing = document.createElementNS(ns, 'circle');
+  beaconRing.setAttribute('r', '14');
+  beaconRing.setAttribute('fill', 'none');
+  beaconRing.setAttribute('stroke', '#3fb950');
+  beaconRing.setAttribute('stroke-width', '2');
+  beaconRing.setAttribute('class', 'beacon-pulse');
+  beaconG.appendChild(beaconRing);
+
+  const beaconDot = document.createElementNS(ns, 'circle');
+  beaconDot.setAttribute('r', '6');
+  beaconDot.setAttribute('fill', '#3fb950');
+  beaconG.appendChild(beaconDot);
+
+  const beaconLabel = document.createElementNS(ns, 'text');
+  beaconLabel.setAttribute('x', '-16');
+  beaconLabel.setAttribute('y', '-18');
+  beaconLabel.setAttribute('text-anchor', 'end');
+  beaconLabel.setAttribute('fill', '#3fb950');
+  beaconLabel.setAttribute('font-size', '13');
+  beaconLabel.setAttribute('font-weight', '700');
+  beaconLabel.setAttribute('font-family', 'SF Mono, Consolas, monospace');
+  beaconLabel.textContent = 'MINIMUM LOSS (0.02)';
+  beaconG.appendChild(beaconLabel);
+
+  svg.appendChild(beaconG);
+
+  window._s4ClipW = cW;
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// GSAP 3 MASTER TIMELINE ORCHESTRATION
+// ─────────────────────────────────────────────────────────────────
+const tl = gsap.timeline({ paused: true });
+
+// Universal zero-dip crossfade
+function sceneTransition(outId, inId, atTime) {
+  tl.to(`#${outId}`, { opacity: 0, duration: FADE, ease: 'power1.inOut' }, atTime - FADE / 2);
+  tl.to(`#${inId}`,  { opacity: 1, duration: FADE, ease: 'power1.inOut' }, atTime - FADE / 2);
+}
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 1 TIMELINE: The Problem (0.00s -> 6.55s)
+// ═════════════════════════════════════════════════════════════════
+tl.to('#scene1', { opacity: 1, duration: 0.01 }, T.s1);
+
+// Title & premise slide in
+tl.fromTo('#s1-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+  T.s1 + 0.1);
+
+// Staggered entrance of pipeline cards
+tl.fromTo('#s1-card-in',
+  { opacity: 0, x: -30 },
+  { opacity: 1, x: 0, duration: 0.55, ease: 'back.out(1.2)' },
+  T.s1 + 0.4);
+
+tl.fromTo('#s1-card-net',
+  { opacity: 0, scale: 0.9 },
+  { opacity: 1, scale: 1, duration: 0.55, ease: 'back.out(1.2)' },
+  T.s1 + 0.65);
+
+tl.fromTo('#s1-card-out',
+  { opacity: 0, x: 30 },
+  { opacity: 1, x: 0, duration: 0.55, ease: 'back.out(1.2)' },
+  T.s1 + 0.9);
+
+// Data packet 1 flow: Input -> Network
+tl.set('#packet-1', { opacity: 1, x: 0 }, T.s1 + 1.8);
+tl.to('#packet-1', { x: 50, duration: 0.6, ease: 'power1.inOut' }, T.s1 + 1.8);
+tl.to('#packet-1', { opacity: 0, duration: 0.15 }, T.s1 + 2.4);
+
+// Mini network processes (nodes pulse)
+tl.to('.s1-mini-node-0', { stroke: '#58a6ff', fill: 'rgba(88,166,255,0.4)', duration: 0.25, yoyo: true, repeat: 1 }, T.s1 + 2.3);
+tl.to('.s1-mini-node-1', { stroke: '#e3b341', fill: 'rgba(227,179,65,0.4)', duration: 0.25, yoyo: true, repeat: 1 }, T.s1 + 2.6);
+tl.to('.s1-mini-node-2', { stroke: '#3fb950', fill: 'rgba(63,185,80,0.5)', duration: 0.25, yoyo: true, repeat: 1 }, T.s1 + 2.9);
+
+// Data packet 2 flow: Network -> Output
+tl.set('#packet-2', { opacity: 1, x: 0 }, T.s1 + 3.0);
+tl.to('#packet-2', { x: 50, duration: 0.6, ease: 'power1.inOut' }, T.s1 + 3.0);
+tl.to('#packet-2', { opacity: 0, duration: 0.15 }, T.s1 + 3.6);
+
+// Prediction value reveals and highlights
+tl.fromTo('#s1-pred-val',
+  { scale: 0.7, color: '#f0f6fc' },
+  { scale: 1.0, color: '#3fb950', duration: 0.45, ease: 'back.out(1.5)' },
+  T.s1 + 3.6);
+
+// Ambient pulse maintaining engagement
+tl.to('#s1-card-net', { y: -4, duration: 1.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, T.s1 + 4.2);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S1 -> S2 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene1', 'scene2', T.s2);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 2 TIMELINE: The Network Architecture (6.55s -> 13.08s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s2-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s2 + 0.1);
+
+// Connections illuminate first
+tl.fromTo('#s2-edges-group',
+  { opacity: 0 },
+  { opacity: 1, duration: 0.6 },
+  T.s2 + 0.2);
+
+// Staggered node entrance layer-by-layer
+[0, 1, 2, 3].forEach(li => {
+  tl.fromTo(`.s2-node-${li}-0, .s2-node-${li}-1, .s2-node-${li}-2, .s2-node-${li}-3, .s2-node-${li}-4`,
+    { scale: 0.3, opacity: 0, transformOrigin: '50% 50%' },
+    { scale: 1.0, opacity: 1, duration: 0.4, ease: 'back.out(1.3)', stagger: 0.05 },
+    T.s2 + 0.3 + li * 0.22);
+});
+
+// Layer labels enter
+tl.fromTo('#s2-labels-group',
+  { opacity: 0, y: -8 },
+  { opacity: 1, y: 0, duration: 0.4 },
+  T.s2 + 1.2);
+
+// Forward Propagation Wave (Layer 0 -> Layer 1 -> Layer 2 -> Layer 3)
+const waveTimes = [T.s2 + 1.8, T.s2 + 3.8];
+waveTimes.forEach((startW, wIdx) => {
+  // Layer 0 excitation
+  tl.to('.s2-glow-0-0, .s2-glow-0-1, .s2-glow-0-2',
+    { opacity: 0.8, duration: 0.3, yoyo: true, repeat: 1 },
+    startW);
+
+  // Layer 0->1 edges
+  tl.to('.s2-edge-0',
+    { stroke: '#58a6ff', strokeOpacity: 0.6, duration: 0.3, yoyo: true, repeat: 1 },
+    startW + 0.2);
+
+  // Layer 1 excitation
+  tl.to('.s2-glow-1-0, .s2-glow-1-1, .s2-glow-1-2, .s2-glow-1-3, .s2-glow-1-4',
+    { opacity: 0.8, duration: 0.3, yoyo: true, repeat: 1 },
+    startW + 0.4);
+
+  // Layer 1->2 edges
+  tl.to('.s2-edge-1',
+    { stroke: '#e3b341', strokeOpacity: 0.6, duration: 0.3, yoyo: true, repeat: 1 },
+    startW + 0.6);
+
+  // Layer 2 excitation
+  tl.to('.s2-glow-2-0, .s2-glow-2-1, .s2-glow-2-2, .s2-glow-2-3, .s2-glow-2-4',
+    { opacity: 0.8, duration: 0.3, yoyo: true, repeat: 1 },
+    startW + 0.8);
+
+  // Layer 2->3 edges
+  tl.to('.s2-edge-2',
+    { stroke: '#3fb950', strokeOpacity: 0.7, duration: 0.3, yoyo: true, repeat: 1 },
+    startW + 1.0);
+
+  // Output excitation
+  tl.to('.s2-glow-3-0, .s2-glow-3-1',
+    { opacity: 1.0, duration: 0.4, yoyo: true, repeat: 1 },
+    startW + 1.2);
+});
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S2 -> S3 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene2', 'scene3', T.s3);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 3 TIMELINE: The Learning Feedback Loop (13.08s -> 20.18s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s3-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s3 + 0.1);
+
+// Panels enter smoothly
+tl.fromTo('#s3-left-box',
+  { opacity: 0, x: -24 },
+  { opacity: 1, x: 0, duration: 0.55, ease: 'power2.out' },
+  T.s3 + 0.2);
+
+tl.fromTo('#s3-right-box',
+  { opacity: 0, x: 24 },
+  { opacity: 1, x: 0, duration: 0.55, ease: 'power2.out' },
+  T.s3 + 0.3);
+
+// 1. Prediction vs Target comparison
+tl.fromTo('#s3-delta-tag',
+  { scale: 0.4, opacity: 0 },
+  { scale: 1.0, opacity: 1, duration: 0.45, ease: 'back.out(1.4)' },
+  T.s3 + 1.0);
+
+// 2. Loss Bar expands to show 58% error
+tl.fromTo('#s3-loss-bar',
+  { width: '0%' },
+  { width: '58%', duration: 0.7, ease: 'power2.out' },
+  T.s3 + 1.6);
+
+// 3. Backpropagation Reverse Pulse (Output -> Hidden -> Input)
+tl.to('#s3-backprop-group', { opacity: 1, duration: 0.3 }, T.s3 + 2.5);
+
+// Pulse backwards stage 1 (Output -> Hidden)
+tl.fromTo('.s3-bp-stage-1',
+  { strokeDashoffset: 0 },
+  { strokeDashoffset: -56, duration: 1.8, ease: 'none', repeat: 1 },
+  T.s3 + 2.6);
+
+// Pulse backwards stage 0 (Hidden -> Input)
+tl.fromTo('.s3-bp-stage-0',
+  { strokeDashoffset: 0 },
+  { strokeDashoffset: -56, duration: 1.8, ease: 'none', repeat: 1 },
+  T.s3 + 3.0);
+
+// 4. Mathematical Weight Update Card highlights
+tl.fromTo('#s3-weight-card',
+  { borderColor: 'rgba(227,179,65,0.3)', boxShadow: 'none' },
+  { borderColor: '#e3b341', boxShadow: '0 0 24px rgba(227,179,65,0.25)', duration: 0.5 },
+  T.s3 + 3.8);
+
+// 5. Weights in the left network physically adapt (lines thicken/thin)
+tl.to('#s3-edge-1-1-0', { stroke: '#3fb950', strokeWidth: 5.0, duration: 0.8 }, T.s3 + 4.2);
+tl.to('#s3-edge-1-0-0', { stroke: '#8b949e', strokeWidth: 1.2, duration: 0.8 }, T.s3 + 4.4);
+tl.to('#s3-edge-0-0-1', { stroke: '#3fb950', strokeWidth: 4.5, duration: 0.8 }, T.s3 + 4.6);
+
+// 6. As weights adapt, error diminishes
+const s3LossObj = { val: 0.58 };
+const s3LossElem = document.getElementById('s3-loss-number');
+tl.to(s3LossObj, {
+  val: 0.24,
+  duration: 1.1,
+  ease: 'power2.out',
+  onUpdate: () => {
+    s3LossElem.textContent = s3LossObj.val.toFixed(2);
+  }
+}, T.s3 + 4.8);
+tl.to('#s3-loss-bar', { width: '24%', duration: 1.1, ease: 'power2.out' }, T.s3 + 4.8);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S3 -> S4 (Synchronous Cross-Dissolve)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene3', 'scene4', T.s4);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 4 TIMELINE: Convergence (20.18s -> 24.75s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s4-header',
+  { opacity: 0, y: 16 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s4 + 0.1);
+
+tl.fromTo('#s4-status-box',
+  { opacity: 0, x: -20 },
+  { opacity: 1, x: 0, duration: 0.5 },
+  T.s4 + 0.2);
+
+tl.fromTo('#s4-chart-box',
+  { opacity: 0, x: 20 },
+  { opacity: 1, x: 0, duration: 0.5 },
+  T.s4 + 0.3);
+
+// Loss curve draws smoothly left-to-right via clip rect width
+tl.fromTo('#s4-clip-rect',
+  { attr: { width: 0 } },
+  { attr: { width: window._s4ClipW }, duration: 2.4, ease: 'power1.inOut' },
+  T.s4 + 0.5);
+
+// Synchronously, final prediction counter eases from 0.42 to 0.99
+const predObj = { val: 0.42 };
+const predElem = document.getElementById('s4-final-pred');
+tl.to(predObj, {
+  val: 0.99,
+  duration: 2.2,
+  ease: 'power2.out',
+  onUpdate: () => {
+    predElem.textContent = predObj.val.toFixed(2);
+  }
+}, T.s4 + 0.7);
+
+// Beacon at minimum lights up upon completion
+tl.to('#s4-beacon',
+  { opacity: 1, duration: 0.4, ease: 'back.out(1.5)' },
+  T.s4 + 2.7);
+
+// Hold cleanly until duration completion without cutting to black early!
+// Registered timeline
+window.__timelines = window.__timelines || {};
+window.__timelines['root'] = tl;
+</script>
+</body>
+</html>

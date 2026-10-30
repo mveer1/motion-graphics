@@ -1,0 +1,46 @@
+{
+  "id": "tool-ffmpeg",
+  "name": "FFmpeg Multimedia Processing Suite",
+  "component_type": "tool",
+  "purpose": "Comprehensive CLI utility for video normalization, audio stream concatenation, multi-track multiplexing, and filter-based QA auditing.",
+  "capabilities": [
+    "Lossless video/audio multiplexing with stream copying",
+    "Audio mixing with volume ducking (amix filter complex)",
+    "EBU R128 integrated loudness auditing",
+    "blackdetect filter for seamless crossfade gap verification"
+  ],
+  "location": "/opt/homebrew/bin/ffmpeg",
+  "version": "7.1",
+  "installation": {
+    "required": true,
+    "instructions": "Installed globally via brew install ffmpeg."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "binary",
+    "notes": "Hardware-accelerated encoding supported via Apple VideoToolbox if needed."
+  },
+  "documentation_urls": [
+    "https://ffmpeg.org/documentation.html"
+  ],
+  "licensing": {
+    "spdx_identifier": "GPL-2.0-or-later",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Standard GPL build used as external CLI tool without linking."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Executes local media processing commands."
+  },
+  "owner": "video-production",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 8 multiplexing and Stage 9 QA gates.",
+  "architecture_ref": "ARCHITECTURE.md#s8",
+  "last_verified": "2026-10-30",
+  "tags": ["ffmpeg", "mux", "video", "audio", "ebur128"]
+}

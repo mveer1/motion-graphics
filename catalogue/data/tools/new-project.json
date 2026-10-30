@@ -1,0 +1,47 @@
+{
+  "id": "tool-new-project",
+  "name": "Project Workspace Scaffolding CLI",
+  "component_type": "tool",
+  "purpose": "Scaffolds a new explainer project workspace with research templates, src structure, audio, and render directories.",
+  "capabilities": [
+    "Project directory initialization under projects/<name>/",
+    "Template instantiation from templates/research-template.json and templates/research-template.md",
+    "Starter src/index.html and narration.json scaffolding"
+  ],
+  "location": "scripts/new-project.sh",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via ./scripts/new-project.sh <project_slug> [title]."
+  },
+  "dependencies": [
+    "shared-research-template"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "bash",
+    "notes": "Native bash shell script."
+  },
+  "documentation_urls": [
+    "README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace scaffolding script."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Creates project directory structures."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Production certified across all initialized projects.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["scaffolding", "project", "init", "bash"]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "skill-voice-director",
+  "name": "Voice Director Skill",
+  "component_type": "skill",
+  "purpose": "Pedagogical voice script authoring, Kokoro persona selection, speech pacing, silence buffer insertion, and phonetic respelling for technical terms.",
+  "capabilities": [
+    "Conversational narration scriptwriting",
+    "Phonetic lexicon substitution for technical symbols and acronyms",
+    "Kokoro voice persona assignment (am_adam, af_bella, etc.)",
+    "Millisecond duration timeline mapping"
+  ],
+  "location": ".agents/skills/voice-director",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-tts-pipeline"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Directs Kokoro 0.9.4 TTS synthesis."
+  },
+  "documentation_urls": [
+    ".agents/skills/voice-director/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Generates narration.json and triggers local audio synthesis."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 2/3 audio pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s2",
+  "last_verified": "2026-10-30",
+  "tags": ["narration", "tts", "voice", "phonetics", "stage-2"]
+}

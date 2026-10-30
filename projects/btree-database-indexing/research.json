@@ -1,0 +1,217 @@
+{
+  "metadata": {
+    "topic_id": "btree-database-indexing",
+    "title": "Why Do Databases Use B-Trees?",
+    "domain": "database_internals",
+    "difficulty": "intermediate",
+    "target_duration_sec": {
+      "min": 24.0,
+      "max": 32.0,
+      "target": 27.5
+    },
+    "canonical_sources": [
+      {
+        "title": "Organization and Maintenance of Large Ordered Indices",
+        "authors": "Rudolf Bayer, Edward M. McCreight",
+        "year": 1972,
+        "source_type": "academic_paper",
+        "url": "https://doi.org/10.1007/BF00288683"
+      },
+      {
+        "title": "The Ubiquitous B-Tree",
+        "authors": "Douglas Comer",
+        "year": 1979,
+        "source_type": "academic_paper",
+        "url": "https://doi.org/10.1145/356770.356776"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "In database storage engines, reading data from disk blocks is orders of magnitude slower than RAM access. Deep binary trees require dozens of random disk seeks per query, creating a massive I/O bottleneck.",
+    "core_thesis": "B-Trees solve the disk bottleneck by packing hundreds of ordered keys into page-sized nodes, drastically increasing fan-out and reducing tree height so any record in billions requires only 3 to 4 disk page fetches.",
+    "mental_model": "An indexed filing cabinet where each drawer holds hundreds of alphabetized index cards, allowing you to locate any document by checking only 3 drawers rather than opening 30 individual folders.",
+    "key_takeaway": "B-Trees align search algorithms with hardware page boundaries, exchanging fast in-memory scans for minimal disk seeks.",
+    "verified_claims": [
+      "A B-Tree node with fan-out B holds up to B-1 keys and B child pointers, matching the underlying filesystem block size (4KB to 16KB).",
+      "Tree height scales as O(log_B N); for 1 billion rows with B=500, tree height is at most 4, requiring only 4 disk seeks.",
+      "In contrast, a binary tree with B=2 has height log_2(10^9) ≈ 30, requiring up to 30 sequential disk round-trips.",
+      "B-Trees maintain perfect self-balancing: when a node overflows, it splits into two halves and pushes the median key upward."
+    ],
+    "anti_patterns": [
+      "Do not imply the 'B' in B-Tree stands for Binary; B-Trees are high-fan-out multi-way search trees.",
+      "Do not represent disk access as byte-by-byte streaming; disks read and write in fixed-size hardware blocks or pages.",
+      "Do not show node splits growing downward; B-Trees grow upward from the leaves toward a new root."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "tree_height",
+        "symbol_latex": "h \\le \\lceil \\log_{B/2} \\left( \\frac{N+1}{2} \\right) \\rceil + 1",
+        "name": "B-Tree Maximum Height",
+        "type_or_domain": "integer",
+        "role": "Upper bound on the number of disk page accesses required for lookup"
+      },
+      {
+        "id": "node_fanout",
+        "symbol_latex": "B",
+        "name": "Branching Factor / Fan-out",
+        "type_or_domain": "integer",
+        "role": "Maximum number of child pointers stored in a single node page"
+      },
+      {
+        "id": "page_size",
+        "symbol_latex": "S_{\\text{page}} \\in \\{4\\text{KB}, 8\\text{KB}, 16\\text{KB}\\}",
+        "name": "Hardware Disk Page Size",
+        "type_or_domain": "byte_quantity",
+        "role": "Physical block granularity read from storage in a single I/O operation"
+      },
+      {
+        "id": "keys_per_node",
+        "symbol_latex": "K = \\{k_1 < k_2 < \\dots < k_m\\}, \\quad \\lceil B/2 \\rceil - 1 \\le m \\le B - 1",
+        "name": "Ordered Node Keys",
+        "type_or_domain": "sorted_sequence",
+        "role": "Guiding keys that partition child pointer ranges"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_height_bound",
+        "latex": "h_{\\text{btree}} = \\mathcal{O}(\\log_B N) \\ll \\mathcal{O}(\\log_2 N) = h_{\\text{binary}}",
+        "spoken_form": "B-Tree height of big-O log base B of N is vastly smaller than binary tree height of big-O log base two of N",
+        "context": "Comparison of tree depth determining total random I/O operations"
+      },
+      {
+        "id": "eq_seek_time",
+        "latex": "T_{\\text{seek}} = h \\times t_{\\text{page\\_read}}",
+        "spoken_form": "Total lookup seek time equals tree height multiplied by single page read latency",
+        "context": "Total retrieval latency dominated by block fetches"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Root Page Read",
+        "mathematical_operation": "fetch_page(root_id); binary_search(keys, target)",
+        "state_effect": "Loads root page into RAM and locates child pointer interval [k_i, k_{i+1})"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Child Branch Traversal",
+        "mathematical_operation": "fetch_page(child_pointer)",
+        "state_effect": "Performs discrete page I/O, narrowing key range by factor of B"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Leaf Key Match",
+        "mathematical_operation": "target == k_target -> return record_pointer",
+        "state_effect": "Locates exact row tuple pointer in leaf page after only h page reads"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Node Split on Overflow",
+        "mathematical_operation": "m = B -> split(node); promote(median_key)",
+        "state_effect": "When page reaches capacity B, median ascends to parent, preserving balance"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "io_latency_gap",
+      "abstract_concept": "Disparity between RAM and Disk access",
+      "visual_archetype": "geometric_gauge_meter",
+      "svg_primitives": ["rect", "text", "line"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "RAM gauge flashes instantaneously in blue while disk I/O seek bar extends slowly across canvas",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "fanout_depth_contrast",
+      "abstract_concept": "Tree depth compression through high branching factor",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["line", "circle", "rect"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "30-level binary tree towers past screen bounds while 3-level B-Tree sits comfortably within view",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "page_search_traversal",
+      "abstract_concept": "Multi-key page routing with child pointer descent",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["rect", "text", "path", "circle"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Golden search packet drops through root page slot into target child block in 2 hops",
+      "color_token": "accent_secondary_teal"
+    },
+    {
+      "concept_id": "median_page_split",
+      "abstract_concept": "Self-balancing upward node split upon capacity breach",
+      "visual_archetype": "b_tree_split_hierarchy",
+      "svg_primitives": ["rect", "line", "path"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Full page splits horizontally; median key rises up to parent forming a balanced binary fork",
+      "color_token": "state_active_emerald"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "B-Trees",
+        "phonetic_respelling": "BEE trees",
+        "rationale": "Clarify non-binary naming"
+      },
+      {
+        "term": "I/O",
+        "phonetic_respelling": "EYE OH",
+        "rationale": "Spell out storage input output acronym"
+      },
+      {
+        "term": "RAM",
+        "phonetic_respelling": "RAM",
+        "rationale": "Standard memory acronym"
+      },
+      {
+        "term": "fan-out",
+        "phonetic_respelling": "FAN out",
+        "rationale": "Natural hyphenated pronunciation"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The Disk I/O Bottleneck",
+      "target_duration_sec": 6.0,
+      "pedagogical_objective": "Establish the hardware latency gap: reading from disk is 100,000x slower than RAM, making random seeks catastrophic.",
+      "visual_action": "RAM versus Disk latency comparison bars; high latency warning highlights the cost of disk seek cycles.",
+      "active_entities": ["page_size", "eq_seek_time"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Binary Tree vs B-Tree Fan-out",
+      "target_duration_sec": 6.8,
+      "pedagogical_objective": "Contrast binary search trees (height 30, 30 seeks) with high fan-out B-Trees (height 3, 3 seeks) for one billion rows.",
+      "visual_action": "Tall 30-level binary tree with depth 30 appears on left; compact 3-level B-Tree with fan-out 500 appears on right.",
+      "active_entities": ["tree_height", "node_fanout", "eq_height_bound"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Page Alignment & Traversal",
+      "target_duration_sec": 7.2,
+      "pedagogical_objective": "Illustrate how an entire disk page holding ordered keys is loaded in a single I/O and guides query routing.",
+      "visual_action": "Zoom into 8KB page container; golden query packet compares keys and traverses child pointer directly to leaf.",
+      "active_entities": ["keys_per_node", "page_size"]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Balanced Growth: Node Split",
+      "target_duration_sec": 6.2,
+      "pedagogical_objective": "Demonstrate self-balancing growth: when a page fills up, the median key promotes upward, preserving logarithmic depth.",
+      "visual_action": "An overflowing page splits in two; the median key ascends to parent level, maintaining uniform leaf depth.",
+      "active_entities": ["keys_per_node", "tree_height"]
+    }
+  ]
+}

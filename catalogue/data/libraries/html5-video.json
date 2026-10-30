@@ -1,0 +1,43 @@
+{
+  "id": "html5-video",
+  "name": "HTML5 Video Media Element",
+  "version": "native",
+  "category": "media_element",
+  "status": "approved",
+  "licensing": {
+    "spdx_identifier": "WHATWG-HTML",
+    "status": "verified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "Native HTML media element supported natively in Chromium."
+  },
+  "documentation_urls": [
+    "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video"
+  ],
+  "runtime_environment": {
+    "type": "browser_native"
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 400,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": true,
+    "notes": "Video assets must be pre-normalized via scripts/ingest-asset.sh to 1280x720 @ 30fps silent H.264. Must specify muted and loop attributes."
+  },
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "hyperframes_compatible": true,
+    "low_memory_mode_compatible": true
+  },
+  "justification": "Approved core technology. Used for hybrid cinematic layering (Veo/3D background underlays) placed beneath vector SVG stages.",
+  "effects_provided": [
+    "hybrid-video-underlay"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": ["video", "html5", "media", "veo", "cinematic", "browser-native"]
+  }
+}
+

@@ -1,0 +1,45 @@
+{
+  "id": "agent-research-subagent",
+  "name": "Research Subagent",
+  "component_type": "agent",
+  "purpose": "Read-only research subagent with tools for exploring the codebase, searching the web, and reading files.",
+  "capabilities": [
+    "Codebase exploration and file reading",
+    "Web search and literature retrieval",
+    "Anti-hallucination verification"
+  ],
+  "location": "system_prompt:research",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Invoked via invoke_subagent with TypeName 'research'."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Runs in read-only sandbox with no local write access."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#s0"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace subagent specification."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Read-only access; cannot write to workspace."
+  },
+  "owner": "pedagogy",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 0 technical investigation.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["subagent", "research", "read-only", "literature", "stage-0"]
+}

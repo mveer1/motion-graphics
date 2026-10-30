@@ -1,0 +1,46 @@
+{
+  "id": "tool-tts-pipeline",
+  "name": "Kokoro Neural TTS Synthesis Wrapper",
+  "component_type": "tool",
+  "purpose": "Verified wrapper script invoking local Kokoro 0.9.4 neural speech synthesis, handling generator return types cleanly.",
+  "capabilities": [
+    "24 kHz mono PCM WAV speech generation",
+    "Multi-persona voice selection (am_adam, af_bella, am_michael, etc.)",
+    "Configurable speech pacing (default 1.15x)",
+    "Exact ffprobe duration measurement integration"
+  ],
+  "location": "src/pipeline/tts.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Execute via python3.12 src/pipeline/tts.py --text <text> --out <out.wav>."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12",
+    "notes": "Requires kokoro and torch in Python 3.12 environment."
+  },
+  "documentation_urls": [
+    "AGENTS.md#tts"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace python wrapper over Apache-2.0 Kokoro engine."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Offline local model inference; zero external network requests."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Production certified in Stage 3 speech synthesis pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s3",
+  "last_verified": "2026-10-30",
+  "tags": ["tts", "kokoro", "speech", "synthesis", "audio"]
+}

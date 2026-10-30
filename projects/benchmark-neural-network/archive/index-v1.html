@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* ─── Reset & canvas ───────────────────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #080c14;
+      width: 1280px; height: 720px;
+      overflow: hidden;
+      font-family: 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+    }
+
+    #root { position: relative; width: 1280px; height: 720px; }
+
+    /* ─── Shared clip box ──────────────────────────────────────────── */
+    .scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ─── SCENE 1 ── The Problem ───────────────────────────────────── */
+    #s1-title {
+      position: absolute;
+      top: 120px; left: 0; right: 0;
+      text-align: center;
+      font-size: 52px;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+    #s1-subtitle {
+      position: absolute;
+      top: 190px; left: 0; right: 0;
+      text-align: center;
+      font-size: 22px;
+      color: #8b949e;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    /* input → ? → output diagram */
+    #s1-diagram {
+      position: absolute;
+      top: 290px; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 0;
+      width: 640px;
+      opacity: 0;
+    }
+    .diag-box {
+      flex: 1;
+      background: rgba(88,166,255,0.12);
+      border: 1.5px solid rgba(88,166,255,0.4);
+      border-radius: 12px;
+      padding: 22px 0;
+      text-align: center;
+      color: #f0f6fc;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .diag-box.output-box {
+      background: rgba(63,185,80,0.12);
+      border-color: rgba(63,185,80,0.4);
+      color: #3fb950;
+    }
+    .diag-arrow {
+      width: 60px; text-align: center;
+      color: #8b949e;
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+    .diag-label {
+      font-size: 13px;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 6px;
+    }
+
+    /* ─── SCENE 2 ── The Network ───────────────────────────────────── */
+    #s2-canvas {
+      position: absolute;
+      inset: 0;
+    }
+    /* SVG drawn via JS */
+
+    /* ─── SCENE 3 ── Learning ──────────────────────────────────────── */
+    #s3-left {
+      position: absolute;
+      left: 80px; top: 100px; width: 440px; height: 520px;
+      opacity: 0;
+    }
+    #s3-right {
+      position: absolute;
+      right: 80px; top: 100px; width: 540px; height: 520px;
+      opacity: 0;
+    }
+
+    /* ─── SCENE 4 ── Improvement ───────────────────────────────────── */
+    #s4-chart-wrap {
+      position: absolute;
+      top: 90px; left: 50%; transform: translateX(-50%);
+      width: 860px; height: 380px;
+      opacity: 0;
+    }
+    #s4-label {
+      position: absolute;
+      bottom: 80px; left: 0; right: 0;
+      text-align: center;
+      font-size: 32px;
+      font-weight: 700;
+      color: #f0f6fc;
+      letter-spacing: -0.01em;
+      opacity: 0;
+    }
+    #s4-sublabel {
+      position: absolute;
+      bottom: 40px; left: 0; right: 0;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 500;
+      color: #8b949e;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="24.750">
+
+  <!-- ── SCENE 1: The Problem ──────────────────────────────── -->
+  <div class="scene" id="scene1">
+    <div id="s1-title">How Does a Neural Network Learn?</div>
+    <div id="s1-subtitle">A visual explainer</div>
+    <div id="s1-diagram">
+      <div class="diag-box">
+        <div>Input</div>
+        <div class="diag-label">data</div>
+      </div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box" style="background:rgba(210,153,34,0.08);border-color:rgba(210,153,34,0.35);">
+        <div style="color:#e3b341;">Neural<br>Network</div>
+        <div class="diag-label" style="color:#6e7681;">parameters</div>
+      </div>
+      <div class="diag-arrow">→</div>
+      <div class="diag-box output-box">
+        <div>Prediction</div>
+        <div class="diag-label">output</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 2: The Network ──────────────────────────────── -->
+  <div class="scene" id="scene2">
+    <svg id="s2-svg" width="1280" height="720"
+         viewBox="0 0 1280 720"
+         style="position:absolute;inset:0;">
+      <!-- Drawn by JS below -->
+    </svg>
+  </div>
+
+  <!-- ── SCENE 3: Learning ─────────────────────────────────── -->
+  <div class="scene" id="scene3">
+    <!-- Left: mini network + prediction vs target -->
+    <div id="s3-left">
+      <svg id="s3-net-svg" width="440" height="380" viewBox="0 0 440 380"></svg>
+      <div id="s3-compare" style="margin-top:20px;opacity:0;">
+        <div style="display:flex;align-items:center;gap:16px;padding:0 10px;">
+          <div style="flex:1;background:rgba(88,166,255,0.1);border:1px solid rgba(88,166,255,0.3);border-radius:8px;padding:14px;text-align:center;">
+            <div style="font-size:13px;color:#8b949e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Prediction</div>
+            <div style="font-size:32px;font-weight:700;color:#58a6ff;">0.82</div>
+          </div>
+          <div style="font-size:28px;color:#444d56;">≠</div>
+          <div style="flex:1;background:rgba(63,185,80,0.1);border:1px solid rgba(63,185,80,0.3);border-radius:8px;padding:14px;text-align:center;">
+            <div style="font-size:13px;color:#8b949e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Target</div>
+            <div style="font-size:32px;font-weight:700;color:#3fb950;">1.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right: loss + gradient descent explanation -->
+    <div id="s3-right">
+      <div id="s3-loss-label" style="opacity:0;font-size:16px;color:#8b949e;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;text-align:center;">Loss</div>
+      <div id="s3-loss-bar-wrap" style="opacity:0;background:rgba(255,255,255,0.04);border-radius:8px;overflow:hidden;height:28px;width:100%;margin-bottom:28px;">
+        <div id="s3-loss-bar" style="height:28px;width:18%;background:linear-gradient(90deg,#f85149,#ff9500);border-radius:8px;transition:none;"></div>
+      </div>
+      <div id="s3-update-text" style="opacity:0;">
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:24px 28px;">
+          <div style="font-size:15px;color:#8b949e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;">Weight update</div>
+          <div style="font-family:'SF Mono',monospace;font-size:20px;color:#e3b341;letter-spacing:.03em;margin-bottom:10px;">
+            w ← w − η · ∂L/∂w
+          </div>
+          <div style="font-size:14px;color:#6e7681;line-height:1.7;">
+            Each weight shifts slightly<br>in the direction that reduces loss.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCENE 4: Improvement ──────────────────────────────── -->
+  <div class="scene" id="scene4">
+    <div id="s4-chart-wrap">
+      <svg id="s4-svg" width="860" height="400" viewBox="0 0 860 400"
+           style="overflow:visible;"></svg>
+    </div>
+    <div id="s4-label">The network improves with experience.</div>
+    <div id="s4-sublabel">More data · more iterations · lower loss</div>
+  </div>
+
+</div><!-- #root -->
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+// TIMING (measured via scripts/build-audio.py @ 1.15x speed)
+// s1: 0.000 – 6.050   pause 0.5   s2: 6.550 – 12.575
+// pause 0.5   s3: 13.075 – 19.675   pause 0.5   s4: 20.175 – 24.750
+// ─────────────────────────────────────────────────────────────────
+const T = {
+  s1: 0.000,
+  s2: 6.550,
+  s3: 13.075,
+  s4: 20.175,
+  end: 24.750
+};
+const FADE = 0.45;   // cross-fade duration
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 2: Draw network SVG
+// ─────────────────────────────────────────────────────────────────
+(function buildNetworkSVG() {
+  const svg = document.getElementById('s2-svg');
+  const W = 1280, H = 720;
+
+  // Layer definitions: [x, count, color, label]
+  const layers = [
+    { x: 230, nodes: 3, color: '#58a6ff', label: 'Input layer' },
+    { x: 490, nodes: 5, color: '#e3b341', label: 'Hidden layer 1' },
+    { x: 750, nodes: 5, color: '#e3b341', label: 'Hidden layer 2' },
+    { x: 1010, nodes: 2, color: '#3fb950', label: 'Output layer' }
+  ];
+  const R = 24;  // node radius
+  const nodeY = (i, n) => H/2 + (i - (n-1)/2) * 90;
+
+  const ns = 'http://www.w3.org/2000/svg';
+
+  // Connections (edges) group — draw first (behind nodes)
+  const edgeG = document.createElementNS(ns, 'g');
+  edgeG.setAttribute('id', 's2-edges');
+  edgeG.setAttribute('opacity', '0');
+  svg.appendChild(edgeG);
+
+  layers.forEach((from, li) => {
+    if (li === layers.length - 1) return;
+    const to = layers[li + 1];
+    for (let a = 0; a < from.nodes; a++) {
+      for (let b = 0; b < to.nodes; b++) {
+        const line = document.createElementNS(ns, 'line');
+        line.setAttribute('x1', from.x);
+        line.setAttribute('y1', nodeY(a, from.nodes));
+        line.setAttribute('x2', to.x);
+        line.setAttribute('y2', nodeY(b, to.nodes));
+        line.setAttribute('stroke', 'rgba(255,255,255,0.07)');
+        line.setAttribute('stroke-width', '1.2');
+        edgeG.appendChild(line);
+      }
+    }
+  });
+
+  // Nodes group
+  const nodeG = document.createElementNS(ns, 'g');
+  nodeG.setAttribute('id', 's2-nodes');
+  svg.appendChild(nodeG);
+
+  layers.forEach((layer, li) => {
+    for (let i = 0; i < layer.nodes; i++) {
+      const cy = nodeY(i, layer.nodes);
+      const glow = document.createElementNS(ns, 'circle');
+      glow.setAttribute('cx', layer.x);
+      glow.setAttribute('cy', cy);
+      glow.setAttribute('r', R + 10);
+      glow.setAttribute('fill', layer.color.replace(')', ',0.12)').replace('rgb', 'rgba').replace('#', ''));
+      // simpler: just use filter or raw style
+      glow.setAttribute('class', `s2-glow-${li}`);
+      glow.setAttribute('opacity', '0');
+      // Use inline style for colored glow
+      const hexToRgba = (h, a) => {
+        const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+        return `rgba(${r},${g},${b},${a})`;
+      };
+      glow.setAttribute('fill', hexToRgba(layer.color, 0.15));
+      nodeG.appendChild(glow);
+
+      const circle = document.createElementNS(ns, 'circle');
+      circle.setAttribute('cx', layer.x);
+      circle.setAttribute('cy', cy);
+      circle.setAttribute('r', R);
+      circle.setAttribute('fill', hexToRgba(layer.color, 0.18));
+      circle.setAttribute('stroke', layer.color);
+      circle.setAttribute('stroke-width', '2');
+      circle.setAttribute('class', `s2-node-${li}-${i}`);
+      circle.setAttribute('opacity', '0');
+      nodeG.appendChild(circle);
+    }
+  });
+
+  // Layer labels
+  const labelG = document.createElementNS(ns, 'g');
+  labelG.setAttribute('id', 's2-labels');
+  labelG.setAttribute('opacity', '0');
+  svg.appendChild(labelG);
+
+  layers.forEach(layer => {
+    const topY = nodeY(0, layer.nodes) - R - 22;
+    const t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', layer.x);
+    t.setAttribute('y', topY);
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('fill', '#a5b4c4');
+    t.setAttribute('font-size', '14');
+    t.setAttribute('font-weight', '600');
+    t.setAttribute('font-family', 'SF Pro Display, Helvetica Neue, Arial, sans-serif');
+    t.setAttribute('letter-spacing', '0.08em');
+    t.textContent = layer.label.toUpperCase();
+    labelG.appendChild(t);
+  });
+
+  // Signal dot (travels along connections)
+  const dot = document.createElementNS(ns, 'circle');
+  dot.setAttribute('id', 's2-dot');
+  dot.setAttribute('r', '8');
+  dot.setAttribute('fill', '#58a6ff');
+  dot.setAttribute('opacity', '0');
+  dot.setAttribute('filter', 'drop-shadow(0 0 6px #58a6ff)');
+  svg.appendChild(dot);
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// SCENE 3: Draw mini network SVG + s4 loss curve SVG
+// ─────────────────────────────────────────────────────────────────
+(function buildS3Network() {
+  const svg = document.getElementById('s3-net-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const layers = [
+    { x: 60, nodes: 2, color: '#58a6ff' },
+    { x: 220, nodes: 3, color: '#e3b341' },
+    { x: 380, nodes: 1, color: '#3fb950' }
+  ];
+  const R = 18;
+  const H = 380;
+  const nodeY = (i, n) => H/2 + (i - (n-1)/2) * 70;
+  const hexToRgba = (h, a) => {
+    const r = parseInt(h.slice(1,3),16), g = parseInt(h.slice(3,5),16), b = parseInt(h.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
+  };
+
+  // Edges
+  layers.forEach((from, li) => {
+    if (li === layers.length - 1) return;
+    const to = layers[li + 1];
+    for (let a = 0; a < from.nodes; a++) {
+      for (let b = 0; b < to.nodes; b++) {
+        const l = document.createElementNS(ns, 'line');
+        l.setAttribute('x1', from.x); l.setAttribute('y1', nodeY(a, from.nodes));
+        l.setAttribute('x2', to.x);   l.setAttribute('y2', nodeY(b, to.nodes));
+        l.setAttribute('stroke', 'rgba(255,255,255,0.12)');
+        l.setAttribute('stroke-width', '1.5');
+        svg.appendChild(l);
+      }
+    }
+  });
+
+  // Nodes
+  layers.forEach(layer => {
+    for (let i = 0; i < layer.nodes; i++) {
+      const cy = nodeY(i, layer.nodes);
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', layer.x); c.setAttribute('cy', cy); c.setAttribute('r', R);
+      c.setAttribute('fill', hexToRgba(layer.color, 0.2));
+      c.setAttribute('stroke', layer.color); c.setAttribute('stroke-width', '2');
+      svg.appendChild(c);
+    }
+  });
+
+  // Backprop gradient arrows (hidden initially)
+  const bpG = document.createElementNS(ns, 'g');
+  bpG.setAttribute('id', 's3-backprop');
+  bpG.setAttribute('opacity', '0');
+  layers.slice().reverse().forEach((layer, li) => {
+    if (li === 0) return; // skip output
+    const prev = layers.slice().reverse()[li - 1];
+    const arrow = document.createElementNS(ns, 'line');
+    arrow.setAttribute('x1', prev.x - R - 4);
+    arrow.setAttribute('y1', nodeY(0, prev.nodes));
+    arrow.setAttribute('x2', layer.x + R + 4);
+    arrow.setAttribute('y2', nodeY(0, layer.nodes));
+    arrow.setAttribute('stroke', '#f85149');
+    arrow.setAttribute('stroke-width', '2');
+    arrow.setAttribute('stroke-dasharray', '6,4');
+    arrow.setAttribute('marker-end', 'url(#arrowhead)');
+    bpG.appendChild(arrow);
+  });
+
+  const defs = document.createElementNS(ns, 'defs');
+  defs.innerHTML = `<marker id="arrowhead" markerWidth="7" markerHeight="7"
+    refX="6" refY="3.5" orient="auto">
+    <polygon points="0 0, 7 3.5, 0 7" fill="#f85149"/>
+  </marker>`;
+  svg.insertBefore(defs, svg.firstChild);
+  svg.appendChild(bpG);
+})();
+
+(function buildS4Chart() {
+  const svg = document.getElementById('s4-svg');
+  const ns = 'http://www.w3.org/2000/svg';
+  const W = 860, H = 400;
+  const PAD = { left: 70, right: 40, top: 30, bottom: 60 };
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+
+  // Loss curve: exponential decay + noise
+  // Seeded PRNG (mulberry32) — deterministic across frames
+  let seed = 0xdeadbeef;
+  const rand = () => {
+    seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5;
+    return ((seed >>> 0) / 0xffffffff);
+  };
+  const N = 80;
+  const pts = Array.from({length: N}, (_, i) => {
+    const x = i / (N - 1);
+    const loss = 0.95 * Math.exp(-3.5 * x) + 0.05 + (rand() * 0.04 - 0.02) * Math.exp(-x);
+    return [PAD.left + x * cW, PAD.top + cH - loss * cH];
+  });
+  const pathD = pts.map((p, i) => `${i===0?'M':'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+
+  // Axes
+  const axisG = document.createElementNS(ns, 'g');
+  axisG.setAttribute('id', 's4-axes');
+  axisG.setAttribute('opacity', '0');
+
+  // Y-axis
+  const yAxis = document.createElementNS(ns, 'line');
+  yAxis.setAttribute('x1', PAD.left); yAxis.setAttribute('y1', PAD.top);
+  yAxis.setAttribute('x2', PAD.left); yAxis.setAttribute('y2', PAD.top + cH);
+  yAxis.setAttribute('stroke', 'rgba(255,255,255,0.15)'); yAxis.setAttribute('stroke-width', '1.5');
+  axisG.appendChild(yAxis);
+
+  // X-axis
+  const xAxis = document.createElementNS(ns, 'line');
+  xAxis.setAttribute('x1', PAD.left); xAxis.setAttribute('y1', PAD.top + cH);
+  xAxis.setAttribute('x2', PAD.left + cW); xAxis.setAttribute('y2', PAD.top + cH);
+  xAxis.setAttribute('stroke', 'rgba(255,255,255,0.15)'); xAxis.setAttribute('stroke-width', '1.5');
+  axisG.appendChild(xAxis);
+
+  // Axis labels
+  const mkTxt = (x, y, txt, anchor='middle', fill='#6e7681', size=14) => {
+    const t = document.createElementNS(ns, 'text');
+    t.setAttribute('x', x); t.setAttribute('y', y);
+    t.setAttribute('text-anchor', anchor); t.setAttribute('fill', fill);
+    t.setAttribute('font-size', size);
+    t.setAttribute('font-family', 'SF Pro Display, Helvetica Neue, Arial, sans-serif');
+    t.textContent = txt;
+    return t;
+  };
+  axisG.appendChild(mkTxt(PAD.left + cW / 2, H - 8, 'Training iterations'));
+  axisG.appendChild(mkTxt(18, PAD.top + cH / 2, 'Loss', 'middle', '#6e7681', 14));
+  // Rotate Y label
+  axisG.lastChild.setAttribute('transform', `rotate(-90, 18, ${PAD.top + cH/2})`);
+  svg.appendChild(axisG);
+
+  // Curve path (will be revealed via clip-path animation)
+  const clipRect = document.createElementNS(ns, 'clipPath');
+  clipRect.setAttribute('id', 's4-clip');
+  const rect = document.createElementNS(ns, 'rect');
+  rect.setAttribute('x', PAD.left);
+  rect.setAttribute('y', 0);
+  rect.setAttribute('width', '0');   // animated from 0 → cW
+  rect.setAttribute('height', H);
+  clipRect.appendChild(rect);
+  const defs2 = document.createElementNS(ns, 'defs');
+  defs2.appendChild(clipRect);
+  svg.appendChild(defs2);
+
+  // Glow under curve
+  const glowPath = document.createElementNS(ns, 'path');
+  const closeD = pathD + ` L${(PAD.left + cW).toFixed(1)},${(PAD.top + cH).toFixed(1)} L${PAD.left},${(PAD.top + cH).toFixed(1)} Z`;
+  glowPath.setAttribute('d', closeD);
+  glowPath.setAttribute('fill', 'rgba(63,185,80,0.08)');
+  glowPath.setAttribute('clip-path', 'url(#s4-clip)');
+  svg.appendChild(glowPath);
+
+  // Curve stroke
+  const curvePath = document.createElementNS(ns, 'path');
+  curvePath.setAttribute('id', 's4-curve');
+  curvePath.setAttribute('d', pathD);
+  curvePath.setAttribute('fill', 'none');
+  curvePath.setAttribute('stroke', '#3fb950');
+  curvePath.setAttribute('stroke-width', '3');
+  curvePath.setAttribute('stroke-linecap', 'round');
+  curvePath.setAttribute('clip-path', 'url(#s4-clip)');
+  svg.appendChild(curvePath);
+
+  // Store clip rect ref for GSAP
+  svg.dataset.clipRectId = 's4-clip';
+  window._s4ClipRect = rect;
+  window._s4ClipW = cW;
+})();
+
+// ─────────────────────────────────────────────────────────────────
+// MASTER TIMELINE
+// ─────────────────────────────────────────────────────────────────
+const tl = gsap.timeline({ paused: true });
+
+// Helper: true cross-dissolve with zero dip into black
+function sceneFade(outId, inId, at) {
+  tl.to(`#${outId}`, { opacity: 0, duration: FADE, ease: 'power1.inOut' }, at - FADE / 2);
+  tl.to(`#${inId}`,  { opacity: 1, duration: FADE, ease: 'power1.inOut' }, at - FADE / 2);
+}
+
+// ── SCENE 1 ──────────────────────────────────────────────────────
+// Fade in scene1 container
+tl.to('#scene1', { opacity: 1, duration: 0.01 }, T.s1);
+
+// Title slides up from opacity 0
+tl.fromTo('#s1-title',
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, T.s1 + 0.2);
+
+// Subtitle
+tl.fromTo('#s1-subtitle',
+  { opacity: 0 },
+  { opacity: 1, duration: 0.5 }, T.s1 + 0.7);
+
+// Diagram fades in
+tl.fromTo('#s1-diagram',
+  { opacity: 0, y: 18 },
+  { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, T.s1 + 1.5);
+
+// Data flow pulses matching narration: "Given an input, it produces a prediction"
+tl.to('#s1-diagram .diag-box:nth-child(1)', { borderColor: '#58a6ff', boxShadow: '0 0 20px rgba(88,166,255,0.4)', duration: 0.4, yoyo: true, repeat: 1 }, T.s1 + 2.8);
+tl.to('#s1-diagram .diag-arrow:nth-child(2)', { color: '#58a6ff', scale: 1.25, duration: 0.35, yoyo: true, repeat: 1 }, T.s1 + 3.4);
+tl.to('#s1-diagram .diag-box:nth-child(3)', { borderColor: '#e3b341', boxShadow: '0 0 24px rgba(227,179,65,0.4)', duration: 0.45, yoyo: true, repeat: 1 }, T.s1 + 3.9);
+tl.to('#s1-diagram .diag-arrow:nth-child(4)', { color: '#3fb950', scale: 1.25, duration: 0.35, yoyo: true, repeat: 1 }, T.s1 + 4.6);
+tl.to('#s1-diagram .diag-box:nth-child(5)', { borderColor: '#3fb950', boxShadow: '0 0 24px rgba(63,185,80,0.5)', duration: 0.5, yoyo: true, repeat: 1 }, T.s1 + 5.0);
+
+// ── S1 → S2 transition ───────────────────────────────────────────
+sceneFade('scene1', 'scene2', T.s2);
+
+// ── SCENE 2 ──────────────────────────────────────────────────────
+// Edges appear first
+tl.to('#s2-edges', { opacity: 1, duration: 0.5 }, T.s2 + 0.3);
+
+// Nodes stagger in per layer (4 layers × small stagger)
+['s2-node-0', 's2-node-1', 's2-node-2', 's2-node-3'].forEach((cls, li) => {
+  // Each layer's nodes fade in with a slight stagger from each other
+  for (let i = 0; i < [3, 5, 5, 2][li]; i++) {
+    tl.fromTo(`.${cls}-${i}`,
+      { opacity: 0, scale: 0.4, transformOrigin: '50% 50%' },
+      { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.4)' },
+      T.s2 + 0.4 + li * 0.25 + i * 0.06);
+  }
+});
+
+// Layer labels
+tl.to('#s2-labels', { opacity: 1, duration: 0.4 }, T.s2 + 1.7);
+
+// Signal dot travels forward: L0→L1→L2→L3 and loops
+const layers2 = [
+  { x: 230, nodes: 3 },
+  { x: 490, nodes: 5 },
+  { x: 750, nodes: 5 },
+  { x: 1010, nodes: 2 }
+];
+const nodeY2 = (i, n) => 360 + (i - (n-1)/2) * 90;
+
+// First pass of signal dot at T.s2 + 2.0
+// Input node 1 → hidden1 node 2 → hidden2 node 3 → output node 0
+const path = [
+  { x: layers2[0].x, y: nodeY2(1, 3) },
+  { x: layers2[1].x, y: nodeY2(2, 5) },
+  { x: layers2[2].x, y: nodeY2(3, 5) },
+  { x: layers2[3].x, y: nodeY2(0, 2) },
+];
+
+tl.set('#s2-dot', { opacity: 0, attr: { cx: path[0].x, cy: path[0].y } }, T.s2 + 2.0);
+tl.to('#s2-dot', { opacity: 1, duration: 0.2 }, T.s2 + 2.0);
+path.slice(1).forEach((pt, i) => {
+  tl.to('#s2-dot', { attr: { cx: pt.x, cy: pt.y }, duration: 0.55, ease: 'power1.inOut' },
+    T.s2 + 2.2 + i * 0.55);
+});
+// Fade dot out after completing path
+tl.to('#s2-dot', { opacity: 0, duration: 0.3 }, T.s2 + 2.2 + 3 * 0.55 + 0.1);
+
+// Second pass (different route) starting at T.s2 + 3.8
+const path2 = [
+  { x: layers2[0].x, y: nodeY2(0, 3) },
+  { x: layers2[1].x, y: nodeY2(0, 5) },
+  { x: layers2[2].x, y: nodeY2(1, 5) },
+  { x: layers2[3].x, y: nodeY2(1, 2) },
+];
+tl.set('#s2-dot', { attr: { cx: path2[0].x, cy: path2[0].y } }, T.s2 + 3.8);
+tl.to('#s2-dot', { opacity: 1, duration: 0.2, overwrite: 'auto' }, T.s2 + 3.8);
+path2.slice(1).forEach((pt, i) => {
+  tl.to('#s2-dot', { attr: { cx: pt.x, cy: pt.y }, duration: 0.5, ease: 'power1.inOut' },
+    T.s2 + 4.0 + i * 0.5);
+});
+tl.to('#s2-dot', { opacity: 0, duration: 0.3 }, T.s2 + 4.0 + 3 * 0.5 + 0.1);
+
+// Third pass keeping network dynamic right up to the transition
+const path3 = [
+  { x: layers2[0].x, y: nodeY2(2, 3) },
+  { x: layers2[1].x, y: nodeY2(3, 5) },
+  { x: layers2[2].x, y: nodeY2(4, 5) },
+  { x: layers2[3].x, y: nodeY2(1, 2) },
+];
+tl.set('#s2-dot', { attr: { cx: path3[0].x, cy: path3[0].y } }, T.s2 + 5.4);
+tl.to('#s2-dot', { opacity: 1, duration: 0.2, overwrite: 'auto' }, T.s2 + 5.4);
+path3.slice(1).forEach((pt, i) => {
+  tl.to('#s2-dot', { attr: { cx: pt.x, cy: pt.y }, duration: 0.4, ease: 'power1.inOut' },
+    T.s2 + 5.6 + i * 0.4);
+});
+tl.to('#s2-dot', { opacity: 0, duration: 0.2 }, T.s2 + 5.6 + 3 * 0.4);
+
+// ── S2 → S3 transition ───────────────────────────────────────────
+sceneFade('scene2', 'scene3', T.s3);
+
+// ── SCENE 3 ──────────────────────────────────────────────────────
+// Fade in scene3 content synchronously with scene crossfade to avoid any black dip
+tl.to('#s3-left',  { opacity: 1, duration: 0.4 }, T.s3 - 0.2);
+tl.to('#s3-right', { opacity: 1, duration: 0.4 }, T.s3 - 0.1);
+
+// Compare box fades in
+tl.to('#s3-compare', { opacity: 1, duration: 0.4 }, T.s3 + 0.6);
+
+// Loss bar + label appear
+tl.to('#s3-loss-label',    { opacity: 1, duration: 0.3 }, T.s3 + 1.2);
+tl.to('#s3-loss-bar-wrap', { opacity: 1, duration: 0.3 }, T.s3 + 1.4);
+
+// Loss bar pulses high then drops (showing learning)
+tl.to('#s3-loss-bar', { width: '78%', duration: 0.4, ease: 'power2.out' }, T.s3 + 1.8);
+tl.to('#s3-loss-bar', { width: '35%', duration: 1.2, ease: 'power2.inOut' }, T.s3 + 2.4);
+
+// Backprop arrows appear and march backward along dashed stroke
+tl.to('#s3-backprop', { opacity: 1, duration: 0.4 }, T.s3 + 2.2);
+tl.fromTo('#s3-backprop line', { strokeDashoffset: 0 }, { strokeDashoffset: -50, duration: 2.8, ease: 'none' }, T.s3 + 2.3);
+
+// Weight update box
+tl.to('#s3-update-text', { opacity: 1, duration: 0.5 }, T.s3 + 3.0);
+
+// ── S3 → S4 transition ───────────────────────────────────────────
+sceneFade('scene3', 'scene4', T.s4);
+
+// ── SCENE 4 ──────────────────────────────────────────────────────
+// Axes and chart wrap fade in synchronously with scene crossfade to avoid any black dip
+tl.to('#s4-chart-wrap', { opacity: 1, duration: 0.4 }, T.s4 - 0.2);
+tl.to('#s4-axes',       { opacity: 1, duration: 0.4 }, T.s4 - 0.1);
+
+// Loss curve draws left-to-right via clip rect width
+tl.fromTo(window._s4ClipRect,
+  { attr: { width: 0 } },
+  { attr: { width: window._s4ClipW }, duration: 2.0, ease: 'power1.inOut' },
+  T.s4 + 0.4);
+
+// Labels
+tl.fromTo('#s4-label',
+  { opacity: 0, y: 12 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+  T.s4 + 1.2);
+tl.to('#s4-sublabel', { opacity: 1, duration: 0.5 }, T.s4 + 1.6);
+
+// Final fade out
+tl.to('#scene4', { opacity: 0, duration: 0.4 }, T.end - 0.4);
+
+// ─────────────────────────────────────────────────────────────────
+// Register
+// ─────────────────────────────────────────────────────────────────
+window.__timelines = window.__timelines || {};
+window.__timelines['root'] = tl;
+</script>
+</body>
+</html>
