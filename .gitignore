@@ -63,16 +63,15 @@ snapshots/
 
 # --- Render Outputs & Ephemeral Media (Domain 5 Placement Policy) ---
 # Video and synthesized audio renders are ephemeral build outputs.
+*.mp4
+*.mov
+*.webm
+*.avi
+*.mkv
 projects/*/renders/
 projects/*/audio/*.wav
-out/*.mp4
-out/*.mov
-out/*.webm
-out/*.avi
-out/*.mkv
 tests/_work/
 tests/sfx_test/
-tests/*.mp4
 tests/*.wav
 
 # Retain timeline synchronization metadata, HTML showcase & poster assets
