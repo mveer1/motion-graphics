@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>p5.brush Prototype — Textured Stroke Evaluation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0d1117;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    #root {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      background: #0d1117;
+    }
+    #brushCanvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1280px;
+      height: 720px;
+      z-index: 1;
+    }
+    #overlay {
+      position: absolute;
+      top: 32px;
+      left: 48px;
+      right: 48px;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(88, 166, 255, 0.15);
+      border: 1px solid rgba(88, 166, 255, 0.4);
+      color: #58a6ff;
+      margin-bottom: 8px;
+    }
+    h1 {
+      color: #f0f6fc;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0 0 6px 0;
+    }
+    p.subtitle {
+      color: #8b949e;
+      font-size: 14px;
+      line-height: 1.4;
+      max-width: 520px;
+    }
+    .metrics {
+      text-align: right;
+      color: #8b949e;
+      font-size: 12px;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .metric-val {
+      color: #39c5bb;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="4">
+    <canvas id="brushCanvas" width="1280" height="720"></canvas>
+    <div id="overlay">
+      <div>
+        <div class="badge">Prototype Evaluation · p5.brush</div>
+        <h1>Natural Media Vector Field Tracing</h1>
+        <p class="subtitle">Hardware-accelerated textured charcoal &amp; watercolor stroke synthesis on WebGL2 canvas.</p>
+      </div>
+      <div class="metrics">
+        <div>Resolution: <span class="metric-val">1280×720 @ 30fps</span></div>
+        <div>Engine: <span class="metric-val">WebGL2 + GSAP 3</span></div>
+        <div>Seeding: <span class="metric-val">Deterministic PRNG (42)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="./vendor/brush.js"></script>
+  <script>
+    const canvas = document.getElementById("brushCanvas");
+    brush.load(canvas);
+    brush.scaleBrushes(1.2);
+
+    // Coordinate space and points for the textured curve
+    const N_POINTS = 120;
+    const curvePoints = [];
+    for (let i = 0; i <= N_POINTS; i++) {
+      const u = i / N_POINTS;
+      const x = 120 + u * 1040;
+      // Parametric S-curve with harmonic ripple
+      const y = 430 + Math.sin(u * Math.PI * 2.2) * 140 + Math.sin(u * Math.PI * 5) * 25;
+      curvePoints.push({ x, y });
+    }
+
+    // Secondary flow hatching lines
+    const hatchAnchors = [];
+    for (let i = 10; i < N_POINTS; i += 8) {
+      const p = curvePoints[i];
+      hatchAnchors.push({ x: p.x, y: p.y });
+    }
+
+    function renderProgress(t) {
+      brush.clear([13, 17, 23, 255]); // #0d1117 background
+      brush.seed(42);
+      brush.noiseSeed(42);
+
+      const maxIdx = Math.max(2, Math.floor(t * N_POINTS));
+
+      // 1. Draw organic textured charcoal curve
+      brush.set("charcoal", "#58a6ff", 3.5);
+      brush.beginStroke("curve");
+      for (let i = 0; i <= maxIdx; i++) {
+        brush.move(curvePoints[i].x, curvePoints[i].y);
+      }
+      brush.endStroke();
+
+      // 2. Draw subtle watercolor secondary accent if progress is advanced
+      if (t > 0.3) {
+        brush.set("cpencil", "#39c5bb", 1.8);
+        brush.beginStroke("curve");
+        for (let i = 0; i <= maxIdx; i++) {
+          brush.move(curvePoints[i].x, curvePoints[i].y - 12);
+        }
+        brush.endStroke();
+      }
+
+      // 3. Draw directional flow hatching along the traversed portion
+      brush.set("HB", "rgba(139, 148, 158, 0.45)", 1.0);
+      for (let j = 0; j < hatchAnchors.length; j++) {
+        const anchor = hatchAnchors[j];
+        const anchorProg = (anchor.x - 120) / 1040;
+        if (anchorProg <= t) {
+          brush.line(anchor.x, anchor.y, anchor.x + 28, anchor.y - 45);
+        }
+      }
+
+      brush.render();
+    }
+
+    // Initial frame render
+    renderProgress(0.01);
+
+    // Setup deterministic GSAP 3 timeline
+    const animState = { progress: 0.01 };
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to(animState, {
+      progress: 1.0,
+      duration: 3.0,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        renderProgress(animState.progress);
+      }
+    }, 0.5);
+
+    // Register on window.__timelines for HyperFrames capture
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

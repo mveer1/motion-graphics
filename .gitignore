@@ -56,6 +56,10 @@ yarn-error.log*
 **/.hyperframes/
 .cache/
 **/.cache/
+snapshots/
+**/snapshots/
+.render.hf-transaction*
+**/.render.hf-transaction*
 
 # --- Render Outputs & Ephemeral Media (Domain 5 Placement Policy) ---
 # Video and synthesized audio renders are ephemeral build outputs.
