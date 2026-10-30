@@ -1,0 +1,490 @@
+{
+  "id": "ref-c93524ef20",
+  "name": "Monochrome archive collage brand film (portrait)",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (3).mp4",
+    "aliases": [],
+    "sha256": "c93524ef2097687a2669e668552b6f7b560a7d1c3b8130f17b8bc6e6b7bf9001",
+    "bytes": 3404997,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Anthropic Claude asterisk mark appearing inside images and at the close",
+        "timestamps": [
+          0.5,
+          13.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "'Claude' wordmark and the campaign line",
+        "timestamps": [
+          13.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "palette-identity",
+        "description": "Brand combination of black-and-white archive imagery, terracotta accent and serif type",
+        "timestamps": [
+          3.0,
+          9.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand film: the mark, wordmark, campaign line and the overall archive + terracotta + serif identity must not be reproduced. Archive images may be public domain individually but these cut-outs are not reused."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3404997,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 14.467,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 1280,
+    "video_codec": "avc1.640020",
+    "frame_count": 868,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1604,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 14.549,
+      "kbps": 264
+    },
+    "overall_kbps": 1883
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (19 frames over 14.5 s, 0.76 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only.",
+    "coverage": "Full duration at overview density; timestamps approximate.",
+    "concept": {
+      "observed": "A brand film cutting between black-and-white archival imagery (snowflake photographs, motion-study photographs, engravings, sculpture, a sunflower spiral) with thin construction lines, serif words with an accent question mark or full stop, and a closing mark and line.",
+      "interpreted": "Positions a product as a thinking tool by association with the history of inquiry.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Single serif words; no narration.",
+      "interpreted": "Contemplative, intellectual."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured white #f8f8f8 (86%), greys, one terracotta accent #d87858 (1%); luma 0.94."
+      },
+      "typography": {
+        "observed": "Serif lowercase words with accent punctuation."
+      },
+      "composition": {
+        "observed": "Single centred cut-outs on white; vertical frame."
+      },
+      "texture_and_effects": {
+        "observed": "Halftone and engraving textures from the source images; sculpture faces sliced into offset vertical strips."
+      },
+      "timing_and_rhythm": {
+        "observed": "Cuts at 0.75 and 1.20 s, soft change 2.81 s, cut 10.72 s; static hold 13.19-14.31 s; 7.1 onsets/s."
+      },
+      "audio_and_sync": {
+        "observed": "All 3 boundaries within 50 ms of an onset (chance 51%); high spectral centroid (2.4 kHz).",
+        "interpreted": "Percussive, bright track with cuts on hits; only four boundaries, so weak evidence.",
+        "confidence": "low"
+      },
+      "motifs": {
+        "observed": "Spirals and construction lines; the accent mark."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.81,
+        "observed": "Opening mark and question word on white."
+      },
+      {
+        "start": 2.81,
+        "end": 10.72,
+        "observed": "Rapid archive images with line overlays and single words."
+      },
+      {
+        "start": 10.72,
+        "end": 14.47,
+        "observed": "Closing line and mark; final hold."
+      }
+    ],
+    "difficult": [
+      "Sourcing equivalent public-domain imagery with clean cut-outs (collage-design skill can)"
+    ],
+    "uncertainties": [
+      "Most internal image changes were not detected as boundaries (soft or within-scene)",
+      "Timing of the strip-slice moment approximate"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        1.0,
+        13.5
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        5.0
+      ]
+    },
+    {
+      "id": "strip-slice-offset",
+      "timestamps": [
+        7.5
+      ]
+    },
+    {
+      "id": "archival-mono-collage",
+      "timestamps": [
+        3.0,
+        6.0,
+        9.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "pen-stroke",
+      "element-mask-reveal"
+    ],
+    "compositions": [
+      "title-card"
+    ],
+    "templates": [
+      "collage-essay"
+    ],
+    "styles": [
+      "paper-cut"
+    ]
+  },
+  "categories": [
+    "collage-texture",
+    "editorial-layout",
+    "line-art",
+    "logo-reveal"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "portrait",
+    "archive",
+    "monochrome",
+    "brand-film",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 13.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 115,
+      "scan_size": "96x54",
+      "overview_frames": 19,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.75,
+        "kind": "cut",
+        "score": 0.174,
+        "isolation": 0.77,
+        "frame": 45
+      },
+      {
+        "t": 2.812,
+        "kind": "soft",
+        "score": 0.22
+      },
+      {
+        "t": 10.717,
+        "kind": "soft",
+        "score": 1.39,
+        "isolation": 0.01
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.75,
+        "duration": 0.75,
+        "activity": 0.036,
+        "luma": 0.98
+      },
+      {
+        "index": 2,
+        "start": 0.75,
+        "end": 2.81,
+        "duration": 2.06,
+        "activity": 0.274,
+        "luma": 0.89
+      },
+      {
+        "index": 3,
+        "start": 2.81,
+        "end": 10.72,
+        "duration": 7.91,
+        "activity": 0.25,
+        "luma": 0.93
+      },
+      {
+        "index": 4,
+        "start": 10.72,
+        "end": 14.47,
+        "duration": 3.75,
+        "activity": 0.067,
+        "luma": 0.97
+      }
+    ],
+    "static_holds": [
+      [
+        13.19,
+        14.31
+      ]
+    ],
+    "mean_activity": 0.196,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.02,
+      "light_share": 0.98
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.861
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.021
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.014
+      },
+      {
+        "hex": "#d87858",
+        "share": 0.012
+      },
+      {
+        "hex": "#888888",
+        "share": 0.011
+      },
+      {
+        "hex": "#a8a8a8",
+        "share": 0.008
+      },
+      {
+        "hex": "#181818",
+        "share": 0.008
+      },
+      {
+        "hex": "#787878",
+        "share": 0.008
+      },
+      {
+        "hex": "#b8b8b8",
+        "share": 0.007
+      },
+      {
+        "hex": "#989898",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      0.38,
+      1.78,
+      4.79,
+      6.77,
+      8.74,
+      12.6
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.5,
+      "mean_dbfs_voiced": -24.2,
+      "silence_ratio": 0.03,
+      "onsets": 103,
+      "onset_rate_per_sec": 7.08,
+      "onset_times": [
+        0.07,
+        0.56,
+        0.7,
+        0.77,
+        0.86,
+        0.98,
+        1.11,
+        1.23,
+        1.44,
+        1.53,
+        1.63,
+        1.74,
+        1.86,
+        2.0,
+        2.09,
+        2.28,
+        2.41,
+        2.48,
+        2.55,
+        2.65,
+        2.86,
+        2.93,
+        3.09,
+        3.18,
+        3.3,
+        3.39,
+        3.53,
+        3.6,
+        3.72,
+        3.78,
+        3.9,
+        3.97,
+        4.04,
+        4.11,
+        4.18,
+        4.25,
+        4.5,
+        4.6,
+        4.71,
+        4.83,
+        4.9,
+        4.97,
+        5.13,
+        5.22,
+        5.34,
+        5.53,
+        5.62,
+        5.87,
+        5.94,
+        6.01,
+        6.13,
+        6.27,
+        6.36,
+        6.64,
+        6.87,
+        7.04,
+        7.13,
+        7.2,
+        7.29,
+        7.36,
+        7.43,
+        7.5,
+        7.59,
+        7.69,
+        7.76,
+        7.85,
+        7.99,
+        8.06,
+        8.15,
+        8.24,
+        8.34,
+        8.48,
+        8.54,
+        8.71,
+        8.8,
+        8.89,
+        9.01,
+        9.08,
+        9.15,
+        9.26,
+        9.36,
+        9.45,
+        9.54,
+        9.64,
+        9.71,
+        9.78,
+        9.85,
+        9.91,
+        10.01,
+        10.12,
+        10.73,
+        10.8,
+        10.98,
+        11.22,
+        11.31,
+        11.47,
+        11.54,
+        11.82,
+        12.1,
+        12.82,
+        12.93,
+        13.4,
+        13.86
+      ],
+      "tempo_estimate": {
+        "bpm": 107.7,
+        "autocorr": 0.15,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 2384,
+      "band_share": {
+        "low_lt_250": 0.04,
+        "mid_250_2k": 0.4,
+        "high_gt_2k": 0.57
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 50,
+        "near_onset": 1.0,
+        "chance_level": 0.51,
+        "median_offset_ms": 16
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-c93524ef20",
+      "overview": "out/reference-analysis/ref-c93524ef20/overview.jpg",
+      "scenes": "out/reference-analysis/ref-c93524ef20/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-c93524ef20/transitions.jpg",
+      "motion": "out/reference-analysis/ref-c93524ef20/motion.jpg",
+      "audio": "out/reference-analysis/ref-c93524ef20/audio.png",
+      "frames": "out/reference-analysis/ref-c93524ef20/frames",
+      "tracked": false
+    }
+  }
+}

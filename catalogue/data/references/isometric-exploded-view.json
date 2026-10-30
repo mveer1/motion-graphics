@@ -1,0 +1,22 @@
+{
+  "id": "isometric-exploded-view",
+  "name": "Isometric exploded view (2.5D)",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected 3D explainer separates an object into labelled layers along one axis to show what it is made of.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "An object's layers slide apart along a vertical axis with leader-line labels, turning an opaque device into a readable stack; then collapse back together.",
+  "purpose": "Explain composition of hardware, software stacks, materials or organisations.",
+  "visual_behaviour": "Stacked plates separate with staggered ease-out, labels draw out on leader lines, then the stack closes.",
+  "mechanics": "Per-layer translateY with stagger from the top; leader lines with stroke-draw; optional slight camera tilt.",
+  "decomposition": { "primitives": ["svg-shape", "svg-path", "depth-layer"], "effects": ["connector-draw", "object-assembly"], "timing": "Separation about 0.8-1.2 s, labels 0.3 s each." },
+  "use_cases": ["technical explainer", "hardware or architecture stack", "layered concept"],
+  "failure_modes": ["Isometric projection drawn inconsistently between layers", "Too many layers for portrait"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Draw each layer as an isometric parallelogram (SVG) with flat top and side shading; translateY stagger; Studio.draw.connect for leader lines. Candidate composition once a brief needs it." },
+  "capability": { "support": "approximation", "requirements": ["3D shading for the faithful version"], "compatible_components": ["connector-draw", "object-assembly", "svg-shape"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "approximation": "Flat-shaded isometric SVG plates; loses lighting, depth of field and camera orbit.", "advanced_path": "Pre-rendered 3D explode (see rendered-3d-objects).", "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 3 } },
+  "provenance": [ { "source_id": "ref-37644838b5", "timestamps": [44.0], "observed": "A chip is taken apart into stacked layers with labels (approx., from overview spacing)." } ],
+  "related": { "techniques": ["rendered-3d-objects", "diagram-connectors"], "templates": ["technical-explainer"] },
+  "licensing_notes": "Technique only; never draw the reference's branded hardware.",
+  "tags": ["isometric", "exploded-view", "2.5d-depth", "explainer", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

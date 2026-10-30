@@ -1,0 +1,96 @@
+{
+  "project": "masala-chai-recipe",
+  "reviewer": "GitHub Copilot (agent) - preview-grade review, not a substitute for a human art director",
+  "reviewed_on": "2026-10-30",
+  "renders_reviewed": [
+    "Playwright preview frames on Windows (scripts/frame-review.py --samples 12 --scan-fps 5 --fonts google); fonts are Google Fonts CSS stand-ins for the HyperFrames-bundled families. No HyperFrames MP4 render was available on this host."
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 4,
+      "notes": "Each beat pairs one copy block with one drawing state; copy enters first, then the drawing reacts. The 11.3 s sample catches the step-1 numeral mid-reveal with no other copy (transitional, acceptable).",
+      "evidence": ["qa/frame-review/contact-matrix.png", "qa/frame-review/landscape/f01-t002.80.png", "qa/frame-review/landscape/f06-t016.90.png"]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 4,
+      "notes": "Mono kicker / Playfair display / Inter body used consistently; accent italic carries the key word. Fixed during review: split added a space before the full stop in 'Chai, slowly.' and the square list wrapped 'green cardamom pods'. Portrait step bodies wrap to two lines with a short second line.",
+      "evidence": ["qa/frame-review/landscape/f11-t030.97.png", "qa/frame-review/contact-portrait.png", "qa/frame-review/contact-square.png"]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 4,
+      "notes": "Landscape: editorial split. Portrait and square: stacked with the drawing as hero (enlarged during review; it previously filled about 40% of the width and left the lower half empty). Remaining weakness: portrait step scenes leave about 220 px unused above the reserved caption zone.",
+      "evidence": ["qa/frame-review/contact-matrix.png", "qa/frame-review/portrait/f06-t016.90.png", "qa/frame-review/square/f06-t016.90.png"]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 3,
+      "notes": "Scene lengths meet the storyboard reading floors (studio.py validate) and frame-review found no line_unread findings. Rhythm alternates long (ingredients 6.8 s) and short (steps about 4 s) beats. Not judged against sound: this deliverable has no narration or music, and playback was only inspected as sampled frames.",
+      "evidence": ["storyboard.json", "qa/frame-review/report.json"]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 4,
+      "notes": "No text_below_floor or low_contrast findings in any format. Accent on paper is about 4.6:1 (style record contrast_checked). Smallest text is the mono quantity column.",
+      "evidence": ["qa/frame-review/report.json", "qa/frame-review/landscape/f03-t008.43.png"]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 4,
+      "notes": "editorial-light tokens throughout; ink line art with flat ingredient fills, one terracotta accent, static paper grain. Matches the selected 'ink-and-steam' direction in brief.json.",
+      "evidence": ["brief.json", "qa/frame-review/landscape/f08-t022.53.png"]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 4,
+      "notes": "Page-turn wipe into the ingredients, hard cuts between recipe steps (deliberate card rhythm), liquid pour from the pan into the serving scene, match cut from the glass to the end-card mark. The pour and match cut were checked only as sampled frames, not in motion.",
+      "evidence": ["storyboard.json", "qa/frame-review/contact-matrix.png"]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 4,
+      "notes": "Masked line rises for copy, pen-speed strokes for steam and glass, morphs for the liquid, and one persistent drawing across s1-s5.",
+      "evidence": ["src/index.html", "qa/frame-review/contact-landscape.png"]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 4,
+      "notes": "The only loops are steam wobble, flame flicker and the simmering surface, and each is tied to a heat state that ends at the pour. Grain is static, not boiling.",
+      "evidence": ["src/index.html"]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 4,
+      "notes": "No dead_stretch findings in the 5 fps scan. The end card holds from about 28.7 s to 31 s, which the storyboard marks as hold-end.",
+      "evidence": ["qa/frame-review/report.json", "storyboard.json"]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 4,
+      "notes": "No overlap, clipping or safe-area findings in three formats. In portrait and square the drawing deliberately rises into the top UI band; that region holds only decorative steam and spices, never text. Limits: sampled at 5 fps, and the fonts were stand-ins.",
+      "evidence": ["qa/frame-review/report.json", "qa/frame-review/contact-portrait.png"]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 4,
+      "notes": "Title over a steaming pan, then ingredients, four numbered steps, the pour, serving, and an end card with about a 2.3 s hold. Frame 0 shows the drawn pan rather than the title, which is weaker as a thumbnail.",
+      "evidence": ["qa/frame-review/contact-matrix.png", "qa/frame-review/landscape/f00-t000.00.png"]
+    }
+  ],
+  "verdict": "pass (preview-grade): repeat after HyperFrames MP4 renders on the M2 host with bundled fonts",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

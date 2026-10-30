@@ -1,0 +1,287 @@
+{
+  "id": "ref-c93524ef20",
+  "sha256": "c93524ef2097687a2669e668552b6f7b560a7d1c3b8130f17b8bc6e6b7bf9001",
+  "file": "play_720p (3).mp4",
+  "decoded": {
+    "duration": 14.549333,
+    "width": 720,
+    "height": 1280
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30"
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 115,
+      "scan_size": "96x54",
+      "overview_frames": 19,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.75,
+        "kind": "cut",
+        "score": 0.174,
+        "isolation": 0.77,
+        "frame": 45
+      },
+      {
+        "t": 2.812,
+        "kind": "soft",
+        "score": 0.22
+      },
+      {
+        "t": 10.717,
+        "kind": "soft",
+        "score": 1.39,
+        "isolation": 0.01
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.75,
+        "duration": 0.75,
+        "activity": 0.036,
+        "luma": 0.98
+      },
+      {
+        "index": 2,
+        "start": 0.75,
+        "end": 2.81,
+        "duration": 2.06,
+        "activity": 0.274,
+        "luma": 0.89
+      },
+      {
+        "index": 3,
+        "start": 2.81,
+        "end": 10.72,
+        "duration": 7.91,
+        "activity": 0.25,
+        "luma": 0.93
+      },
+      {
+        "index": 4,
+        "start": 10.72,
+        "end": 14.47,
+        "duration": 3.75,
+        "activity": 0.067,
+        "luma": 0.97
+      }
+    ],
+    "static_holds": [
+      [
+        13.19,
+        14.31
+      ]
+    ],
+    "mean_activity": 0.196,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.02,
+      "light_share": 0.98
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.861
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.021
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.014
+      },
+      {
+        "hex": "#d87858",
+        "share": 0.012
+      },
+      {
+        "hex": "#888888",
+        "share": 0.011
+      },
+      {
+        "hex": "#a8a8a8",
+        "share": 0.008
+      },
+      {
+        "hex": "#181818",
+        "share": 0.008
+      },
+      {
+        "hex": "#787878",
+        "share": 0.008
+      },
+      {
+        "hex": "#b8b8b8",
+        "share": 0.007
+      },
+      {
+        "hex": "#989898",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      0.38,
+      1.78,
+      4.79,
+      6.77,
+      8.74,
+      12.6
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.5,
+      "mean_dbfs_voiced": -24.2,
+      "silence_ratio": 0.03,
+      "onsets": 103,
+      "onset_rate_per_sec": 7.08,
+      "onset_times": [
+        0.07,
+        0.56,
+        0.7,
+        0.77,
+        0.86,
+        0.98,
+        1.11,
+        1.23,
+        1.44,
+        1.53,
+        1.63,
+        1.74,
+        1.86,
+        2.0,
+        2.09,
+        2.28,
+        2.41,
+        2.48,
+        2.55,
+        2.65,
+        2.86,
+        2.93,
+        3.09,
+        3.18,
+        3.3,
+        3.39,
+        3.53,
+        3.6,
+        3.72,
+        3.78,
+        3.9,
+        3.97,
+        4.04,
+        4.11,
+        4.18,
+        4.25,
+        4.5,
+        4.6,
+        4.71,
+        4.83,
+        4.9,
+        4.97,
+        5.13,
+        5.22,
+        5.34,
+        5.53,
+        5.62,
+        5.87,
+        5.94,
+        6.01,
+        6.13,
+        6.27,
+        6.36,
+        6.64,
+        6.87,
+        7.04,
+        7.13,
+        7.2,
+        7.29,
+        7.36,
+        7.43,
+        7.5,
+        7.59,
+        7.69,
+        7.76,
+        7.85,
+        7.99,
+        8.06,
+        8.15,
+        8.24,
+        8.34,
+        8.48,
+        8.54,
+        8.71,
+        8.8,
+        8.89,
+        9.01,
+        9.08,
+        9.15,
+        9.26,
+        9.36,
+        9.45,
+        9.54,
+        9.64,
+        9.71,
+        9.78,
+        9.85,
+        9.91,
+        10.01,
+        10.12,
+        10.73,
+        10.8,
+        10.98,
+        11.22,
+        11.31,
+        11.47,
+        11.54,
+        11.82,
+        12.1,
+        12.82,
+        12.93,
+        13.4,
+        13.86
+      ],
+      "tempo_estimate": {
+        "bpm": 107.7,
+        "autocorr": 0.15,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 2384,
+      "band_share": {
+        "low_lt_250": 0.04,
+        "mid_250_2k": 0.4,
+        "high_gt_2k": 0.57
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 50,
+        "near_onset": 1.0,
+        "chance_level": 0.51,
+        "median_offset_ms": 16
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-c93524ef20",
+      "overview": "out/reference-analysis/ref-c93524ef20/overview.jpg",
+      "scenes": "out/reference-analysis/ref-c93524ef20/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-c93524ef20/transitions.jpg",
+      "motion": "out/reference-analysis/ref-c93524ef20/motion.jpg",
+      "audio": "out/reference-analysis/ref-c93524ef20/audio.png",
+      "frames": "out/reference-analysis/ref-c93524ef20/frames",
+      "tracked": false
+    }
+  }
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Studio runtime self-test</title>
+  <script>
+    // The runtime must never use unseeded randomness (GSAP's own ticker may use rAF; the runtime does not).
+    Math.random = function () { throw new Error('Math.random is banned in compositions'); };
+  </script>
+  <link rel="stylesheet" href="../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    #narrow { position: absolute; left: 40px; top: 300px; width: 260px; font-size: 40px; }
+    #stage { position: absolute; inset: 0; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="portrait" data-width="720" data-height="1280" data-fps="30" data-duration="13">
+  <div class="st-scene" id="sceneA">
+    <h1 id="narrow" class="st-display">Warm <em>spiced</em> tea for slow mornings</h1>
+    <div id="matchFrom" style="position:absolute;left:100px;top:900px;width:120px;height:120px;background:#b8432a"></div>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div id="stage">
+      <div class="st-layer" data-depth="1" id="far"></div>
+      <div class="st-layer" data-depth="5" id="near"></div>
+    </div>
+    <div id="matchTo" style="position:absolute;left:400px;top:300px;width:240px;height:240px;background:#2f5d50"></div>
+  </div>
+  <div class="st-scene" id="sceneC"></div>
+  <div class="st-scene" id="sceneD"></div>
+  <div class="st-scene" id="sceneE"></div>
+  <div class="st-scene" id="sceneF"></div>
+  <div class="st-scene" id="sceneG"><svg id="morphSvg" width="400" height="400"><path id="blobPath" d=""></path></svg></div>
+</div>
+
+<script src="../../src/studio/studio-core.js"></script>
+<script src="../../src/studio/studio-draw.js"></script>
+<script src="../../src/studio/studio-type.js"></script>
+<script src="../../src/studio/studio-motion.js"></script>
+<script src="../../src/studio/studio-compositions.js"></script>
+<script>
+(function () {
+  var results = [];
+  function check(name, cond, detail) { results.push({ name: name, ok: !!cond, detail: detail || '' }); }
+
+  // Format and units
+  var f = Studio.format;
+  check('format id from data-format', f.id === 'portrait', f.id);
+  check('unit is 1% of short side', Math.abs(f.unit - 7.2) < 1e-9, f.unit);
+  check('safe area read from CSS vars', f.safe.top === 128 && f.safe.bottom === 256, JSON.stringify(f.safe));
+  check('pick chooses current format', Studio.pick({ landscape: 1, portrait: 2, square: 3 }) === 2);
+  check('pick falls back to default', Studio.pick({ landscape: 1, default: 9 }) === 9);
+
+  // Determinism
+  var r1 = Studio.rng(42), r2 = Studio.rng(42), r3 = Studio.rng(43);
+  var a = [r1(), r1(), r1()], b = [r2(), r2(), r2()], c = [r3(), r3(), r3()];
+  check('rng repeatable for same seed', JSON.stringify(a) === JSON.stringify(b));
+  check('rng differs across seeds', JSON.stringify(a) !== JSON.stringify(c));
+  check('rng range [0,1)', a.every(function (x) { return x >= 0 && x < 1; }));
+  var n = Studio.noise1(5);
+  check('noise repeatable and bounded', n(1.3) === Studio.noise1(5)(1.3) && Math.abs(n(1.3)) <= 1);
+  check('hash stable', Studio.hash('chai') === Studio.hash('chai') && Studio.hash('chai') !== Studio.hash('chaj'));
+
+  // Paths
+  var b1 = Studio.draw.blob(3, { r: 100, phase: 0 }), b2 = Studio.draw.blob(3, { r: 120, phase: 2 });
+  check('blob variants are morph-compatible', Studio.draw.compatible(b1, b2));
+  check('different structures are incompatible', !Studio.draw.compatible(b1, Studio.draw.blob(3, { points: 9 })));
+  var w1 = Studio.draw.wave(1, { width: 720, height: 1280, level: 1.1 }), w2 = Studio.draw.wave(1, { width: 720, height: 1280, level: 0.2, phase: 3 });
+  check('wave levels are morph-compatible', Studio.draw.compatible(w1, w2));
+  check('handLine deterministic', Studio.draw.handLine(9, 0, 0, 100, 0) === Studio.draw.handLine(9, 0, 0, 100, 0));
+  var threw = false;
+  try { Studio.draw.morph(gsap.timeline({ paused: true }), document.getElementById('blobPath'), Studio.draw.blob(1, { points: 9 }), 0, { from: b1 }); } catch (e) { threw = true; }
+  check('morph refuses incompatible paths', threw);
+
+  Studio.build(function (tl, fmt, S) {
+    // Text split with nested markup across lines
+    var narrow = document.getElementById('narrow');
+    var original = narrow.textContent.replace(/\s+/g, ' ').trim();
+    var sp = S.type.split(narrow, { type: 'lines,words,chars', mask: 'lines' });
+    check('split keeps aria-label', narrow.getAttribute('aria-label') === original, narrow.getAttribute('aria-label'));
+    check('split words', sp.words.length === 6, sp.words.length);
+    check('split chars', sp.chars.length === original.replace(/ /g, '').length, sp.chars.length);
+    check('split wraps into several lines', sp.lines.length >= 3, sp.lines.length);
+    check('split masks lines', sp.masks.length === sp.lines.length);
+    check('nested em survives line split', !!narrow.querySelector('.st-line em .st-word'));
+    check('generated spans are aria-hidden', sp.words.every(function (w) { return w.getAttribute('aria-hidden') === 'true'; }));
+    check('split text content unchanged', narrow.textContent.replace(/\s+/g, ' ').trim() === original);
+    var punct = S.el('div', 'st-heading', null, document.getElementById('sceneA'));
+    punct.innerHTML = 'Chai, <em>slowly</em>.';
+    S.type.split(punct, { type: 'lines,words', mask: 'lines' });
+    check('split adds no space before punctuation after inline markup', punct.textContent === 'Chai, slowly.', punct.textContent);
+    check('split keeps the space outside inline markup', !/^\s/.test(punct.querySelector('em').textContent));
+    punct.remove();
+
+    S.show(tl, '#sceneA', 0);
+    S.type.rise(tl, sp.lines, 0.2);
+    S.type.underline(tl, narrow.querySelector('.st-line em'), 1.2, { host: narrow });
+
+    // Transitions
+    S.fx.matchCut(tl, '#matchFrom', '#matchTo', '#sceneA', '#sceneB', 2.0, { duration: 0.8 });
+    S.space.camera(tl, '#stage', 2.0, { x: 50, scale: 1.2, duration: 1.0 });
+    S.fx.wipe(tl, '#sceneB', '#sceneC', 3.5, { from: 'left', edge: '#b8432a' });
+    S.fx.iris(tl, '#sceneC', '#sceneD', 5.0);
+    S.fx.push(tl, '#sceneD', '#sceneE', 6.2);
+    S.fx.shapeCover(tl, '#sceneE', '#sceneF', 7.4, { color: '#2f5d50' });
+    S.fx.liquid(tl, '#sceneF', '#sceneG', 8.8, { color: '#d9a441', duration: 1.2 });
+    var blobMake = function (i) { return S.draw.blob(4, { cx: 200, cy: 200, r: 120, phase: i }); };
+    document.getElementById('blobPath').setAttribute('d', blobMake(0));
+    S.draw.wobble(tl, '#blobPath', 10.0, 11.5, blobMake, { period: 0.5 });
+    check('wobble has no build-time side effect', document.getElementById('blobPath').getAttribute('d') === blobMake(0));
+    S.texture.defs();
+    S.texture.grain(tl, { boil: { from: 0, to: 2, fps: 6 } });
+
+    // Remaining effects: exercised so every catalogue runtime API runs at least once.
+    var fx = S.el('div', null, null, document.getElementById('sceneG'));
+    fx.innerHTML = '<p id="tw">Typewriter line</p><p id="wt">Weight</p><p id="hl">Marked</p><p id="ct">0</p><p id="cs">Cascade</p>' +
+      '<div class="part">a</div><div class="part">b</div><div class="pop">c</div><svg id="pfx" width="200" height="200"></svg>';
+    var tw = S.type.split('#tw', { type: 'chars' });
+    var cs = S.type.split('#cs', { type: 'chars' });
+    var twEnd = S.type.typewriter(tl, tw.chars, 10.0, { cps: 30 });
+    S.type.weight(tl, '#wt', 10.0, { from: 300, to: 800 });
+    S.type.highlight(tl, '#hl', 10.0);
+    S.type.count(tl, '#ct', 10.0, { from: 0, to: 120, duration: 1 });
+    S.type.cascade(tl, cs.chars, 10.0);
+    S.space.assemble(tl, '.part', 10.0, { seed: 4 });
+    S.space.disassemble(tl, '.part', 11.6);
+    S.space.pop(tl, '.pop', 10.0);
+    S.space.float(tl, '.pop', 10.8, 11.8, { period: 0.5 });
+    S.fx.reveal(tl, '#hl', 10.0, { from: 'bottom' });
+    var ps = S.draw.particles(document.getElementById('pfx'), 8, 9, { box: { x: 0, y: 0, width: 200, height: 40 } });
+    S.draw.drift(tl, ps, 10.0, 11.0, { dy: 100 });
+    var beats = S.rhythm.grid(120, { offset: 10.0, count: 4 });
+    check('beat grid spacing', Math.abs(beats[1] - beats[0] - 0.5) < 1e-9 && S.rhythm.snap(10.2, beats) === 10.5, beats.join(','));
+    S.rhythm.pulse(tl, '.pop', beats);
+    check('typewriter end time', Math.abs(twEnd - (10.0 + tw.chars.length / 30)) < 1e-9, twEnd);
+    window.__fxCount = function () { return document.getElementById('ct').textContent; };
+
+    // Compositions
+    var holder = S.el('div', 'st-safe', null, document.getElementById('sceneG'));
+    var card = S.comp.titleCard(holder, { kicker: 'Test', titleHTML: 'A <em>title</em>', subtitle: 'Lede words here' });
+    var list = S.comp.itemList(holder, [{ qty: '1 cup', label: 'water' }, { qty: '2', label: 'cardamom pods' }]);
+    var step = S.comp.stepHeader(holder, { index: 2, total: 4, title: 'Simmer', body: 'Two minutes.' });
+    var end = S.comp.endCard(holder, { title: 'Done', lines: ['Serves 2'] });
+    var caps = S.comp.captions(document.getElementById('root'), [{ start: 0.5, end: 1.5, text: 'First' }, { start: 1.6, end: 2.6, text: 'Second' }]);
+    var e1 = card.enter(tl, 10.0), e2 = list.enter(tl, 10.2), e3 = step.enter(tl, 10.4), e4 = end.enter(tl, 10.6);
+    caps.schedule(tl);
+    check('composition enter returns times', [e1, e2, e3, e4].every(function (t) { return typeof t === 'number' && t > 10; }), [e1, e2, e3, e4].join(','));
+    window.__studioTest = { caps: caps };
+  });
+
+  function waitTimeline() {
+    var tl = window.__timelines && window.__timelines.root;
+    if (!tl) { setTimeout(waitTimeline, 30); return; }
+    check('timeline registered and paused', tl.paused());
+    check('timeline within data-duration', tl.duration() <= 13 + 1e-3, tl.duration());
+    check('ready flag set', document.getElementById('root').getAttribute('data-studio-ready') === 'true');
+
+    function vis(id) {
+      var s = getComputedStyle(document.getElementById(id));
+      return s.visibility !== 'hidden' && parseFloat(s.opacity) > 0.5;
+    }
+    function snapshot() {
+      // Rendered state: hidden scenes compare equal regardless of leftover clip/transform values.
+      return ['sceneA', 'sceneB', 'sceneC', 'sceneD', 'sceneE', 'sceneF', 'sceneG'].map(function (id) {
+        var el = document.getElementById(id);
+        if (!vis(id)) return id + ':hidden';
+        var s = getComputedStyle(el);
+        return id + ':' + s.opacity + '/' + s.clipPath + '/' + s.transform;
+      }).join('|') + '|' + document.getElementById('blobPath').getAttribute('d');
+    }
+    tl.seek(1.0);
+    check('scene A visible at 1.0', vis('sceneA') && !vis('sceneB'));
+    var s1 = snapshot();
+    tl.seek(2.5);
+    check('match cut shows scene B', vis('sceneB') && !vis('sceneA'));
+    tl.seek(4.6);
+    check('wipe completes to scene C', vis('sceneC') && !vis('sceneB'));
+    tl.seek(5.95);
+    check('iris completes to scene D', vis('sceneD') && !vis('sceneC'));
+    tl.seek(7.1);
+    check('push completes to scene E', vis('sceneE') && !vis('sceneD'));
+    tl.seek(8.6);
+    check('shape cover completes to scene F', vis('sceneF') && !vis('sceneE'));
+    tl.seek(10.2);
+    check('liquid completes to scene G', vis('sceneG') && !vis('sceneF'));
+    tl.seek(11.0);
+    var s11 = snapshot();
+    check('counter is an integer mid-tween', /^\d+$/.test(window.__fxCount()) && +window.__fxCount() > 0 && +window.__fxCount() <= 120, window.__fxCount());
+    tl.seek(1.0);
+    check('backward seek restores state at 1.0', snapshot() === s1);
+    var overlayVisible = Array.from(document.querySelectorAll('.st-overlay > :not(.st-grain)')).filter(function (el) {
+      var s = getComputedStyle(el); return s.visibility !== 'hidden' && parseFloat(s.opacity) > 0;
+    }).length;
+    check('overlays hidden after backward seek', overlayVisible === 0, overlayVisible);
+    tl.seek(0);
+    check('scene shown at 0 is visible on frame 0', vis('sceneA'));
+    tl.seek(6.0); tl.seek(11.0);
+    check('seek order independent at 11.0', snapshot() === s11);
+    tl.seek(1.0);
+    var caps = document.querySelectorAll('.st-caption');
+    check('caption 1 visible at 1.0', getComputedStyle(caps[0]).visibility === 'visible' && getComputedStyle(caps[1]).visibility === 'hidden');
+    tl.seek(2.0);
+    check('caption 2 visible at 2.0', getComputedStyle(caps[1]).visibility === 'visible' && getComputedStyle(caps[0]).visibility === 'hidden');
+    window.__studioTestResults = results;
+  }
+  waitTimeline();
+})();
+</script>
+</body>
+</html>

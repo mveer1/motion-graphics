@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: geometric morph chain and grid wave</title>
+  <!--
+    Techniques under test: morph-ready-shape-sequence, grid-wave-propagation, word-slot-roll.
+    Original geometry; Truchet tiles are a public-domain pattern family.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/swiss-minimal.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #sceneA { background: var(--c-paper); }
+    #sceneB { background: var(--c-ink); --truchet-ink: var(--c-paper); --truchet-width: 7; }
+    #morphSvg { position: absolute; left: 0; top: 0; }
+    #shape { fill: var(--c-accent); }
+    #label {
+      position: absolute; left: 0; right: 0; bottom: calc(var(--safe-bottom) + var(--u) * 6);
+      text-align: center; font-family: var(--font-mono); font-size: calc(var(--u) * 4); letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--c-ink);
+    }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    #field { position: absolute; inset: 0; }
+    #fieldLabel { position: absolute; left: var(--safe-left); top: var(--safe-top); color: var(--c-paper); z-index: 2; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="9">
+  <div class="st-scene" id="sceneA">
+    <div class="st-kicker kick">Geometry study</div>
+    <svg id="morphSvg" width="1280" height="720" viewBox="0 0 1280 720"><path id="shape"></path></svg>
+    <div id="label"><span id="slot"></span></div>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div id="field"></div>
+    <div class="st-kicker" id="fieldLabel">Truchet wave</div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var D = S.draw, c = { cx: 640, cy: 330, r: 150 };
+  var shapes = [
+    D.shape('circle', c),
+    D.shape('polygon', { cx: 640, cy: 350, r: 175, sides: 3 }),
+    D.shape('rect', { cx: 640, cy: 330, w: 270, h: 270 }),
+    D.shape('star', { cx: 640, cy: 335, r: 180, spikes: 5, inner: 0.46 })
+  ];
+  document.getElementById('shape').setAttribute('d', shapes[0]);
+  var slot = S.type.roll('#slot', ['circle', 'triangle', 'square', 'star'], { fit: true });
+  S.show(tl, '#sceneA', 0);
+  S.space.pop(tl, '#shape', 0.2, { fromScale: 0.2, tilt: 0 });
+  var t = 1.0, dur = 0.65, hold = 0.45;
+  for (var i = 1; i < shapes.length; i++) {
+    D.morph(tl, '#shape', shapes[i], t, { from: shapes[i - 1], duration: dur, ease: 'power3.inOut' });
+    slot.to(tl, i, t + 0.1, { duration: 0.5 });
+    t += dur + hold;
+  }
+  var cut = t + 0.2;
+  S.cut(tl, '#sceneA', '#sceneB', cut);
+  var cells = D.grid('#field', 9, 16, { truchet: 11 });
+  var popEnd = S.fx.gridWave(tl, cells, cut, { preset: 'pop', from: 'center', amount: 0.7, duration: 0.35 });
+  var f1 = S.fx.gridWave(tl, cells, popEnd + 0.4, { preset: 'flip', from: 'start', amount: 0.9, duration: 0.45 });
+  S.fx.gridWave(tl, cells, f1 + 0.3, { preset: 'flip', from: 'end', amount: 0.9, duration: 0.45 });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{
+  "host": "Windows 11 AMD64",
+  "renderer": "Playwright Chromium 151.0.7922.34 (preview capture: seek + JPEG screenshot, no encode)",
+  "date": "2026-10-30",
+  "note": "Not a HyperFrames render and not the Apple M2 render host.",
+  "results": [
+    {
+      "name": "explainer-annotations",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 9.5,
+      "frames": 285,
+      "build_ms": 923,
+      "ms_per_frame_median": 50.8,
+      "ms_per_frame_p95": 72.5,
+      "ms_per_frame_max": 103.6,
+      "capture_sec_total": 15.0,
+      "peak_chromium_mb": 255,
+      "dom_nodes": 81
+    },
+    {
+      "name": "pen-and-bloom",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 9.5,
+      "frames": 285,
+      "build_ms": 516,
+      "ms_per_frame_median": 52.5,
+      "ms_per_frame_p95": 75.2,
+      "ms_per_frame_max": 118.0,
+      "capture_sec_total": 15.4,
+      "peak_chromium_mb": 264,
+      "dom_nodes": 47
+    },
+    {
+      "name": "shape-and-grid",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 9.0,
+      "frames": 270,
+      "build_ms": 454,
+      "ms_per_frame_median": 51.9,
+      "ms_per_frame_p95": 76.5,
+      "ms_per_frame_max": 94.9,
+      "capture_sec_total": 14.2,
+      "peak_chromium_mb": 307,
+      "dom_nodes": 469
+    },
+    {
+      "name": "silhouette-stage",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 9.0,
+      "frames": 270,
+      "build_ms": 279,
+      "ms_per_frame_median": 51.9,
+      "ms_per_frame_p95": 76.9,
+      "ms_per_frame_max": 107.7,
+      "capture_sec_total": 14.8,
+      "peak_chromium_mb": 313,
+      "dom_nodes": 89
+    },
+    {
+      "name": "word-beats",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 12.5,
+      "frames": 375,
+      "build_ms": 434,
+      "ms_per_frame_median": 47.0,
+      "ms_per_frame_p95": 65.8,
+      "ms_per_frame_max": 88.9,
+      "capture_sec_total": 17.4,
+      "peak_chromium_mb": 291,
+      "dom_nodes": 106
+    }
+  ]
+}

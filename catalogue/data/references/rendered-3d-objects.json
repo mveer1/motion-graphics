@@ -1,0 +1,41 @@
+{
+  "id": "rendered-3d-objects",
+  "name": "Rendered 3D objects and scenes",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "Five inspected references rely on real 3D rendering: clay-render isometric scenes, chrome objects with reflections, voxel cube fields, rotating point clouds and a dotted globe.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Lit, shaded 3D geometry (materials, reflections, soft shadows, camera moves through space) gives products and systems physical presence that flat vector work cannot.",
+  "purpose": "Show physical products, infrastructure or spatial systems; premium hero moments.",
+  "visual_behaviour": "Objects turn, explode into parts or are flown through with a camera; materials respond to light (chrome reflections, matte clay shading); point clouds morph between volumes.",
+  "mechanics": "Perspective camera paths, physically based or matcap materials, per-frame lighting; point clouds as projected 3D samples.",
+  "decomposition": { "primitives": ["depth-layer"], "effects": ["hybrid-video-underlay", "parallax-camera"], "timing": "Camera moves of 2-6 s; object turns of 1-3 s." },
+  "use_cases": ["product promo", "infrastructure or hardware explainer", "premium title moment"],
+  "failure_modes": ["Real-time WebGL in headless capture may stall or exceed the 1.5 GB render budget", "Non-deterministic render loops break frame-accurate seeking", "Recreating a specific product (a branded chip, device or logo object) without authorisation"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Not implemented. Preferred path: pre-render the 3D shot offline (Blender on the render host or external compute) to a short video, normalise with scripts/ingest-asset.sh and composite it under SVG/DOM with the approved hybrid-video-underlay effect. Cheap approximations for some cases are listed under capability.", "notes": "three.js is catalogued as 'proposed'; the algorithmic-art skill documents Blender usage." },
+  "capability": {
+    "support": "additional-dependencies",
+    "requirements": ["3D renderer with lighting and materials (WebGL/three.js or an offline renderer)", "deterministic per-frame rendering driven by the timeline", "GPU memory headroom inside the 1.5 GB render budget"],
+    "compatible_components": ["hybrid-video-underlay", "html5-video", "threejs", "parallax-camera"],
+    "additional_dependencies": ["three.js (catalogue: proposed) with a seek-driven render hook, or Blender for offline pre-renders"],
+    "complexity": "high",
+    "resources": { "cpu": "high for offline renders", "gpu": "high for WebGL in headless capture", "memory": "unknown; must be benchmarked against the 1.5 GB ceiling", "basis": "untested" },
+    "native_option": "None faithful: the DOM/SVG renderer has no lighting model.",
+    "approximation": "2.5D: isometric SVG layers with flat shading (see isometric-exploded-view), CSS 3D transforms for tilted cards and carousels (css-3d-staging), and SVG point clouds projected from 3D coordinates for dotted globes or sphere-to-torus morphs (sampled into keyframes, no lighting). Loses materials, reflections and soft shadows.",
+    "advanced_path": "1) Offline pre-render in Blender (EEVEE) at 720p into a short loop, ingest with scripts/ingest-asset.sh, composite with hybrid-video-underlay: proven pipeline, no runtime risk, cost is authoring time. 2) three.js with a seek-safe render hook (render the scene from timeline time inside a tween modifier) after a low-memory HyperFrames benchmark on the M2. Justified when a brief needs a physical product or hardware hero shot that 2.5D cannot carry.",
+    "additional_tooling": { "needed": "undecided", "justification": "No current brief requires it; the offline pre-render path needs no new runtime dependency and should be tried first." },
+    "limitations": ["Not available in the current runtime", "Any 3D model of a real product needs rights clearance"],
+    "priority": { "creative_value": 4, "cost": 5, "note": "Seen in 5 of 14 references, but expensive; start with the pre-render path when a brief demands it." }
+  },
+  "provenance": [
+    { "source_id": "ref-37644838b5", "timestamps": [5.0, 30.0, 60.0], "observed": "Clay-render isometric scenes of a facility, server racks and an exploded chip, explored with camera moves." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [9.0, 18.0, 22.5], "observed": "A voxel cube field and chrome knot and blob objects with reflections." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [8.5, 9.8], "observed": "A chrome sphere with an orbiting ring in a dark space, reached by a camera push." },
+    { "source_id": "ref-92c22222a2", "timestamps": [9.75, 10.46], "observed": "A dot grid becomes a rotating point-cloud sphere that morphs into a torus." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [3.0], "observed": "A glowing dotted globe horizon under a counter (approx., from overview spacing)." }
+  ],
+  "related": { "techniques": ["isometric-exploded-view", "css-3d-staging"], "effects": ["hybrid-video-underlay", "parallax-camera"], "templates": ["product-promo"] },
+  "licensing_notes": "Technique only. Reference objects include branded hardware and products; never model or reproduce them. Use original or licensed models.",
+  "tags": ["3d", "render", "chrome", "isometric", "point-cloud", "product-promo", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

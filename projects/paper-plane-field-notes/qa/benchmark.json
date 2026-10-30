@@ -1,0 +1,50 @@
+{
+  "host": "Windows 11 AMD64",
+  "renderer": "Playwright Chromium 151.0.7922.34 (preview capture: seek + JPEG screenshot, no encode)",
+  "date": "2026-10-30",
+  "note": "Not a HyperFrames render and not the Apple M2 render host.",
+  "results": [
+    {
+      "name": "projects/paper-plane-field-notes/src/index.html",
+      "size": "1280x720",
+      "fps": 30,
+      "duration_sec": 22.0,
+      "frames": 660,
+      "build_ms": 614,
+      "ms_per_frame_median": 33.4,
+      "ms_per_frame_p95": 39.1,
+      "ms_per_frame_max": 52.4,
+      "capture_sec_total": 22.0,
+      "peak_chromium_mb": 280,
+      "dom_nodes": 172
+    },
+    {
+      "name": "projects/paper-plane-field-notes/src/index.portrait.html",
+      "size": "720x1280",
+      "fps": 30,
+      "duration_sec": 22.0,
+      "frames": 660,
+      "build_ms": 384,
+      "ms_per_frame_median": 33.1,
+      "ms_per_frame_p95": 39.1,
+      "ms_per_frame_max": 46.1,
+      "capture_sec_total": 21.8,
+      "peak_chromium_mb": 292,
+      "dom_nodes": 172
+    },
+    {
+      "name": "projects/paper-plane-field-notes/src/index.square.html",
+      "size": "1080x1080",
+      "fps": 30,
+      "duration_sec": 22.0,
+      "frames": 660,
+      "build_ms": 369,
+      "ms_per_frame_median": 33.9,
+      "ms_per_frame_p95": 43.0,
+      "ms_per_frame_max": 53.1,
+      "capture_sec_total": 22.7,
+      "peak_chromium_mb": 302,
+      "dom_nodes": 166
+    }
+  ]
+}

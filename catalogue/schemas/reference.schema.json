@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionReferenceTechniqueRecord",
+  "description": "Layer 6 of the component model: a technique observed in reference material (a genre convention or an inspected reference video) and decomposed for reuse. Describing a technique does not implement it: implementation_state, implemented_by and validation say whether workspace code exists and what proves it works. Lifecycle shown by the CLI: observed -> specified (documented) -> prototyped -> tested (validation evidence) -> approved (render-host verified).",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "status",
+    "source",
+    "technique",
+    "decomposition",
+    "implementation_state",
+    "implemented_by",
+    "licensing_notes",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "ids": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
+    "source": {
+      "type": "object",
+      "required": ["type", "description", "inspected"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "type": "string", "enum": ["genre-convention", "user-provided-reference", "published-work", "tutorial"] },
+        "description": { "type": "string" },
+        "url": { "type": "string" },
+        "inspected": { "type": "boolean", "description": "True only if an agent or person actually viewed the reference material." },
+        "inspected_on": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "technique": { "type": "string", "description": "What the technique does visually and why it works." },
+    "purpose": { "type": "string", "description": "What it communicates or accomplishes." },
+    "visual_behaviour": { "type": "string", "description": "What the viewer sees, frame to frame." },
+    "mechanics": { "type": "string", "description": "Easing, trajectory, masking, deformation, layering." },
+    "decomposition": {
+      "type": "object",
+      "required": ["primitives", "effects"],
+      "additionalProperties": false,
+      "properties": {
+        "primitives": { "type": "array", "items": { "type": "string" } },
+        "effects": { "type": "array", "items": { "type": "string" } },
+        "timing": { "type": "string", "description": "Typical duration and rhythm, as observed." }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "default": {},
+          "range": { "type": "string" }
+        }
+      }
+    },
+    "use_cases": { "type": "array", "items": { "type": "string" } },
+    "failure_modes": { "type": "array", "items": { "type": "string" } },
+    "implementation_state": { "type": "string", "enum": ["observed", "documented", "prototyped", "implemented"], "description": "observed: seen, not yet specified; documented: specified (decomposition, parameters); prototyped: test composition only; implemented: reusable runtime code exists." },
+    "implemented_by": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+      "description": "Effect, recipe, composition or primitive IDs that implement the technique. Empty while observed or documented only."
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approach": { "type": "string", "description": "How it is (or would be) built with the current stack." },
+        "runtime_api": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "required": ["support"],
+      "additionalProperties": false,
+      "properties": {
+        "support": { "type": "string", "enum": ["native", "approximation", "additional-dependencies", "resource-constrained", "research-required"], "description": "native: faithful with the current stack; approximation: the essential impression with cheaper means; additional-dependencies: needs a library or backend not in the workspace; resource-constrained: feasible but too heavy for the 8 GB render host as is; research-required: no credible path yet." },
+        "requirements": { "type": "array", "items": { "type": "string" }, "description": "Rendering capabilities a faithful version needs." },
+        "compatible_components": { "$ref": "#/definitions/ids" },
+        "additional_dependencies": { "type": "array", "items": { "type": "string" } },
+        "complexity": { "type": "string", "enum": ["low", "medium", "high"] },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["basis"],
+          "properties": {
+            "cpu": { "type": "string" },
+            "gpu": { "type": "string" },
+            "memory": { "type": "string" },
+            "basis": { "type": "string", "enum": ["measured", "estimated", "untested"], "description": "Never present an estimate as a measurement." },
+            "measurements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["what", "value", "where", "date"],
+                "additionalProperties": false,
+                "properties": {
+                  "what": { "type": "string" },
+                  "value": { "type": "string" },
+                  "where": { "type": "string" },
+                  "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+                }
+              }
+            }
+          }
+        },
+        "native_option": { "type": "string" },
+        "approximation": { "type": "string", "description": "How the impression is reproduced cheaply, and what is lost." },
+        "advanced_path": { "type": "string", "description": "What extra tooling or hardware would raise fidelity, and the condition that would justify it." },
+        "additional_tooling": {
+          "type": "object",
+          "required": ["needed"],
+          "additionalProperties": false,
+          "properties": {
+            "needed": { "type": "string", "enum": ["no", "yes", "undecided"] },
+            "justification": { "type": "string" }
+          }
+        },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "priority": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "creative_value": { "type": "integer", "minimum": 1, "maximum": 5 },
+            "cost": { "type": "integer", "minimum": 1, "maximum": 5, "description": "1 = trivial, 5 = very expensive to build or render." },
+            "note": { "type": "string" }
+          }
+        }
+      }
+    },
+    "provenance": {
+      "type": "array",
+      "description": "Inspected references (catalogue/data/reference-sources/) and timestamps that informed the technique.",
+      "items": {
+        "type": "object",
+        "required": ["source_id", "timestamps", "observed"],
+        "additionalProperties": false,
+        "properties": {
+          "source_id": { "type": "string", "pattern": "^ref-[0-9a-f]{10}$" },
+          "timestamps": { "type": "array", "minItems": 1, "items": { "type": "number", "minimum": 0 } },
+          "observed": { "type": "string" }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["state", "evidence"],
+      "additionalProperties": false,
+      "properties": {
+        "state": { "type": "string", "enum": ["none", "preview", "render"], "description": "preview: checked in Playwright Chromium (runtime test, frame review, inspected frames); render: verified in a HyperFrames render on the render host." },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["kind", "path", "result", "date"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": { "type": "string", "enum": ["runtime-test", "frame-review", "demo", "render", "benchmark"] },
+              "path": { "type": "string" },
+              "result": { "type": "string", "enum": ["pass", "partial", "fail"] },
+              "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+              "notes": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "related": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "techniques": { "$ref": "#/definitions/ids" },
+        "effects": { "$ref": "#/definitions/ids" },
+        "compositions": { "$ref": "#/definitions/ids" },
+        "templates": { "$ref": "#/definitions/ids" },
+        "styles": { "$ref": "#/definitions/ids" }
+      }
+    },
+    "combines_with": {
+      "type": "array",
+      "description": "Techniques that work well together with this one, and why.",
+      "items": {
+        "type": "object",
+        "required": ["id", "why"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "why": { "type": "string" }
+        }
+      }
+    },
+    "licensing_notes": { "type": "string", "description": "Techniques are reusable; specific artwork, footage, characters, logos and compositions of the source are not copied." },
+    "tags": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "metadata": { "type": "object" }
+  }
+}

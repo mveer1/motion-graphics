@@ -1,0 +1,35 @@
+{
+  "id": "card-connector",
+  "name": "Card-to-card connector",
+  "effect_id": "connector-draw",
+  "status": "experimental",
+  "visual_intent": "One card hands off to another along a drawn curved arrow.",
+  "parameters": [
+    { "name": "a, b", "type": "selector|element", "description": "Elements to join (measured at the cue)" },
+    { "name": "axis", "type": "string", "description": "Force 'x' or 'y' instead of the dominant axis" },
+    { "name": "bend", "type": "number", "default": 0.45, "description": "Control-point reach as a share of the distance" },
+    { "name": "dashed", "type": "boolean", "default": false, "description": "Pending or optional relationship (fades in)" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "After both cards have landed; the connector should not move once drawn",
+    "easing_standard": "power2.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "var layer = Studio.draw.layer('#s2');\nStudio.draw.connect(tl, layer, '#machineA', '#bucket', 3.2, { bend: 0.35 });"
+  },
+  "fallbacks": "Static SVG arrow faded in with autoAlpha.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.4, "memory_impact": "Low; estimate" },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/explainer-annotations/index.html --fonts google"
+  ],
+  "tags": ["connector", "diagram", "arrow", "reference-derived"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

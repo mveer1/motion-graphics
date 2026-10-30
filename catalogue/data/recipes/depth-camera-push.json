@@ -1,0 +1,56 @@
+{
+  "id": "depth-camera-push",
+  "name": "Depth camera push",
+  "effect_id": "parallax-camera",
+  "status": "experimental",
+  "visual_intent": "Simulated depth: pans and pushes move near layers more than far layers.",
+  "parameters": [
+    {
+      "name": "x",
+      "type": "number",
+      "description": "Pan px"
+    },
+    {
+      "name": "scale",
+      "type": "number",
+      "description": "Push (1 = none)"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "power2.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "Studio.space.camera(tl, '#stage', 0.5, {scale: 1.12, x: 40, duration: 6});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "2.5d",
+    "parallax",
+    "camera",
+    "depth"
+  ],
+  "examples": [
+    "src/studio/studio-motion.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

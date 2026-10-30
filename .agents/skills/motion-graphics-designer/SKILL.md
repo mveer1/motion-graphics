@@ -1,11 +1,23 @@
 ---
 name: motion-graphics-designer
-description: Motion graphics design system and animation guidelines for technical and scientific explainers using HyperFrames, SVG, and GSAP 3.
+description: Creative direction, design system and animation guidelines for short motion pieces (explainers, promos, kinetic typography, how-tos, title sequences) in 16:9, 9:16 and 1:1 using HyperFrames, SVG, GSAP 3 and the studio runtime; also covers legacy technical explainers.
 ---
 
 # Motion Graphics Designer Skill
 
 This skill governs the aesthetic direction, layout system, and animation choreography for technical video productions.
+
+## 0. Studio Projects (read first)
+
+For any project with `project.json` (see `ARCHITECTURE.md` section 0):
+- **Work in order:** brief (objective, audience, formats) → 1-3 distinct directions (style system, motion personality, composition approach) → choose and record why → storyboard with catalogue capabilities and meaningful transitions → layout per format → execution → frame review → creative review.
+- **Light first:** default style `editorial-light`; `paper-cut`, `swiss-minimal`, `cinematic-dark`, `dark-tech` are registered alternatives. Use the dark palettes below only when the brief asks for them.
+- **Use the runtime, not one-off code:** `Studio.comp.*` compositions, `Studio.type/draw/fx/space/rhythm/texture` effects (`src/studio/`). Search before writing: `python scripts/motion-catalogue.py search "<intent>" --type effect`.
+- **Learn from references, then make it original:** before writing directions run `python scripts/motion-catalogue.py recommend --brief projects/<slug>/brief.json` (or `--text`) for techniques, components and reference precedents. Combine principles from several references; never reuse a reference's logo, characters, footage, copy or shot sequence. Record what you used in `brief.references[].technique_ids` (checked by `studio.py validate`, which warns when a technique is only observed or specified). Example: `projects/paper-plane-field-notes` combines word beats, element blooms, a frame HUD, a step tracker, shape morphs, margin callouts and a pen-led path.
+- **Compose each format:** size with `--u` (1 % of the short side) and `--safe-*`; adapt with `#root[data-format="portrait"]` rules and `Studio.pick`. Never hard-code 1280×720 in a studio project.
+- **Inspect frames:** run `scripts/frame-review.py <slug>` and look at the contact sheets; automated passes are not creative approval.
+
+The sections below remain the rules for legacy technical explainers.
 
 ## Quick References & Examples
 
@@ -13,7 +25,7 @@ This skill governs the aesthetic direction, layout system, and animation choreog
 - **GSAP AI Skills:** Use official GreenSock skills ([`gsap-core`](../gsap-core/SKILL.md), [`gsap-timeline`](../gsap-timeline/SKILL.md), [`gsap-plugins`](../gsap-plugins/SKILL.md), [`gsap-utils`](../gsap-utils/SKILL.md), [`gsap-performance`](../gsap-performance/SKILL.md)) for tween syntax, position parameter choreography, and transform optimizations.
 - **Motion Design Principles:** Consult [`motion-design`](../motion-design/SKILL.md) for Disney animation principles adapted to UI, timing/easing tables, hero element staging, and 1/3 rules (motion distance $\le 33\%$, max 3 simultaneous dynamic elements).
 - **Algorithmic Art:** Consult [`algorithmic-art`](../algorithmic-art/SKILL.md) when authoring generative canvas visuals, flow fields, or mathematical sketches.
-- **Color Palettes:** Read [`references/palettes.md`](./references/palettes.md) for calibrated technical hex values (Dark Tech, Cyber Cyan, Quantum Violet).
+- **Color Palettes:** Read [`references/palettes.md`](./references/palettes.md) for calibrated technical hex values (Dark Tech, Cyber Cyan, Quantum Violet) used by legacy explainers; studio projects take colours from their style system (`src/studio/styles/`).
 - **GSAP Animation Patterns:** Read [`references/gsap-patterns.md`](./references/gsap-patterns.md) for crossfades, traveling signal dots, dashed strokes, and clipPath curves.
 - **Reference Template:** Inspect [`examples/scene-template.html`](./examples/scene-template.html) for a complete starter composition.
 

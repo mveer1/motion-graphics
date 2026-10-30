@@ -1,0 +1,31 @@
+{
+  "id": "accent-punctuation-motif",
+  "name": "Accent punctuation motif",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Six inspected references give the full stop, question mark or i-dot a single accent colour and reuse that mark as a recurring character and as the seed of transitions.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A punctuation mark in the accent colour becomes the piece's signature: it ends statements with conviction, travels between scenes (i-dot, decimal point, full stop) and blooms or draws the next element.",
+  "purpose": "Emphasis and finality; a cheap, ownable recurring motif; a motivated source for transitions.",
+  "visual_behaviour": "Neutral words end in a coloured full stop; the dot later moves, draws or expands.",
+  "mechanics": "Separate span for the mark; the mark is the measured source for bloom or pen effects.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["element-bloom", "pen-stroke"], "timing": "Appears with the word; holds 0.3-1 s before it acts." },
+  "parameters": [ { "name": "accent", "description": "Style token for the mark colour", "default": "--c-accent" } ],
+  "use_cases": ["kinetic typography", "brand-neutral promos", "title cards", "explainer statements"],
+  "failure_modes": ["Reusing a specific brand's accent colour and serif with the dot reproduces that brand's identity: use the project's own style tokens", "Every sentence ending in a coloured dot dilutes it"],
+  "implementation_state": "implemented",
+  "implemented_by": ["word-beats", "element-bloom"],
+  "implementation": { "approach": "wordBeats {accent: true} adds a .st-wb-dot span in --c-accent; any span can seed Studio.fx.bloom or Studio.draw.pen.", "runtime_api": ["Studio.comp.wordBeats", "Studio.fx.bloom"] },
+  "capability": { "support": "native", "compatible_components": ["word-beats", "element-bloom", "pen-stroke"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [11.48, 11.72, 12.65], "observed": "Single words end with an accent-coloured full stop on contrasting fields." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [2.5, 9.0], "observed": "One accent dot serves as the i-dot of one word, a decimal point later and the start of an underline." },
+    { "source_id": "ref-c93524ef20", "timestamps": [1.0, 13.5], "observed": "Serif words end with an accent question mark or full stop." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [10.52], "observed": "Each one-word card ends in a full stop." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [16.0, 27.0], "observed": "Closing words with full stops; the stop of a name is accent-coloured." }
+  ],
+  "validation": { "state": "preview", "evidence": [ { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "STOP. card's accent dot seeds the bloom." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "The paper-coloured full stop of 'Fly.' becomes the page of the next scene. Frame review 0 errors, 0 warnings (preview grade)." } ] },
+  "related": { "techniques": ["element-bloom-transition", "word-per-beat-sequence", "pen-led-stroke"] },
+  "licensing_notes": "Technique only. Several references use it inside a specific brand identity (accent colour + serif + mark); never reproduce that combination; use the project's style tokens.",
+  "tags": ["typography", "punctuation", "motif", "accent", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

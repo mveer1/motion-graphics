@@ -1,0 +1,29 @@
+{
+  "id": "stamp-state-change",
+  "name": "Stamp impact for state changes",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "An inspected explainer marks failures and expiries with labels that slam down like rubber stamps.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A short uppercase state label lands from large scale with a tilt and a tiny squash, sometimes jolting the card it hits. The physical metaphor (an official stamp) makes a state change feel final.",
+  "purpose": "Announce a state change in a diagram or story (DOWN, EXPIRED, DONE, SOLD OUT).",
+  "visual_behaviour": "Label appears oversized and drops to size in about 0.2 s, overshoots slightly, settles tilted; the hit card shakes.",
+  "mechanics": "power4.in scale-down, 50 ms squash, back.out recovery, four-step x shake of the target.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["stamp-impact"], "timing": "About 0.4 s total." },
+  "parameters": [ { "name": "rotate", "description": "Settled tilt", "default": -7 }, { "name": "shake", "description": "Element that jolts" } ],
+  "use_cases": ["explainer state change", "failure or warning", "checklist done", "product promo price or launch"],
+  "failure_modes": ["Overuse turns punctuation into noise", "Stamps over important text hide it"],
+  "implementation_state": "implemented",
+  "implemented_by": ["stamp-impact", "stamp-slam"],
+  "implementation": { "approach": "Studio.fx.stamp", "runtime_api": ["Studio.fx.stamp"] },
+  "capability": { "support": "native", "compatible_components": ["stamp-impact", "paper-pop"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-95c96d5c47", "timestamps": [3.42, 35.84], "observed": "DOWN and EXPIRED labels land on hatched cards as a machine fails and a lease runs out." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "DROPPED stamp lands and settles tilted over runner C." }
+  ] },
+  "related": { "techniques": ["single-stage-progression", "sticker-brutalist-style"], "effects": ["stamp-impact"], "templates": ["technical-explainer", "illustrated-explainer"] },
+  "licensing_notes": "Technique only, learned from a user-supplied reference (inspiration-only, rights unknown). Labels and layout are original.",
+  "tags": ["stamp", "state", "diagram", "explainer", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "object-assembly",
+  "name": "Object assembly / disassembly",
+  "category": "spatial_transform",
+  "visual_intent": "Parts fly in from seeded scattered offsets and lock into place (or burst apart).",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "assembly",
+    "objects",
+    "kinetic"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "scatter-assemble"
+  ],
+  "implementation_summary": "fromTo x/y/rotation/scale/autoAlpha with seeded function values; disassemble mirrors it.",
+  "primitives": [
+    "svg-shape"
+  ],
+  "runtime_api": "Studio.space.assemble(tl, parts, at, {seed, spread}) / Studio.space.disassemble(...)",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "counter-roll",
+  "name": "Integer counter",
+  "category": "typography",
+  "visual_intent": "Stat callouts that count up to a number.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "data",
+    "stat"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "integer-count-up"
+  ],
+  "implementation_summary": "Tweens innerText with snap to integers (rendered on every seek, no callbacks).",
+  "primitives": [
+    "styled-text"
+  ],
+  "runtime_api": "Studio.type.count(tl, el, at, {from, to})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/studio-runtime/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "pen-led-line",
+  "name": "Pen-led line",
+  "effect_id": "pen-stroke",
+  "status": "experimental",
+  "visual_intent": "A dot travels and leaves the line behind it: signatures, flight paths, heartbeats, underlines that start from a full stop.",
+  "parameters": [
+    { "name": "path", "type": "selector|element", "description": "Stroked SVG path (keep transforms on a parent <g>)" },
+    { "name": "duration | speed", "type": "number", "default": "length / 600 px/s, clamped 0.4-2.4 s", "description": "Fixed time or pen speed" },
+    { "name": "ease", "type": "string", "default": "power2.inOut", "description": "Monotonic ease shared by line and dot" },
+    { "name": "dot", "type": "selector|element", "description": "Existing circle to use as the tip (default: a created .st-pen-dot)" },
+    { "name": "keepDot", "type": "boolean", "default": true, "description": "Leave the dot at the end (for a following bloom) or fade it" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Start on the cue that introduces the idea; end where the next beat begins",
+    "easing_standard": "power2.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "var end = Studio.draw.pen(tl, '#flight', 2.0, { speed: 520 });\nStudio.fx.bloom(tl, document.getElementById('flight').__penDot, '#s2', '#s3', end + 0.3);"
+  },
+  "fallbacks": "Studio.draw.stroke without a dot (stroke-draw) when the tip would clutter dense line art.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.6, "memory_impact": "Low; estimate, not measured on the M2" },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/pen-and-bloom/index.html --fonts google"
+  ],
+  "tags": ["pen", "stroke", "line-art", "reference-derived"],
+  "examples": ["tests/reference-derived/pen-and-bloom/index.html"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

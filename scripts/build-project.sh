@@ -57,6 +57,22 @@ else
   exit 1
 fi
 
+# Multi-format studio projects (project.json) use the studio build: one render, mux and QA
+# pass per delivery format. Legacy single-format explainers continue below unchanged.
+if [[ -f "$PROJECT_DIR/project.json" ]]; then
+  PY="${PYTHON_BIN:-}"
+  if [[ -z "$PY" ]]; then
+    for candidate in python3.12 python3 python; do
+      if command -v "$candidate" >/dev/null 2>&1; then PY="$candidate"; break; fi
+    done
+  fi
+  if [[ -n "$SPEED" || "$REBUILD_AUDIO" = true ]]; then
+    echo "Note: --speed/--rebuild-audio apply to legacy projects; studio projects read voice and speed from project.json." >&2
+  fi
+  echo "project.json found: delegating to the multi-format studio build (scripts/studio.py build $SLUG)."
+  exec "$PY" "$BASE_DIR/scripts/studio.py" build "$SLUG"
+fi
+
 echo "================================================================="
 echo "🎬  MOTION LAB PRODUCTION ORCHESTRATOR"
 echo "================================================================="

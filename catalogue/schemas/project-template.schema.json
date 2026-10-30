@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionProjectTemplateRecord",
+  "description": "Layer 4 of the component model: a starting point for a kind of deliverable. A template declares which stages apply and references compositions and a style system; it does not duplicate their code.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "deliverable_type",
+    "status",
+    "description",
+    "location",
+    "stages",
+    "default_style",
+    "default_formats",
+    "compositions",
+    "effects",
+    "suitable_for",
+    "validation_steps",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "deliverable_type": {
+      "type": "string",
+      "enum": [
+        "technical_explainer",
+        "kinetic_typography",
+        "illustrated_explainer",
+        "product_promo",
+        "brand_logo",
+        "social_short",
+        "title_sequence",
+        "data_story",
+        "music_visualizer",
+        "collage_essay",
+        "presentation",
+        "generative_loop",
+        "other"
+      ]
+    },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
+    "description": { "type": "string" },
+    "location": { "type": "string", "description": "Workspace-relative template folder (templates/projects/<id>/), or 'pending:' when only documented." },
+    "stages": {
+      "type": "object",
+      "required": ["research", "storyboard", "narration", "music", "captions"],
+      "additionalProperties": false,
+      "properties": {
+        "research": { "type": "string", "enum": ["required", "optional", "skip"] },
+        "storyboard": { "type": "string", "enum": ["required", "optional", "skip"] },
+        "narration": { "type": "string", "enum": ["required", "optional", "none"] },
+        "music": { "type": "string", "enum": ["required", "optional", "none"] },
+        "captions": { "type": "string", "enum": ["required", "optional", "none"] }
+      }
+    },
+    "default_style": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "default_formats": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["landscape", "portrait", "square"] }
+    },
+    "default_duration_sec": { "type": "number", "exclusiveMinimum": 0 },
+    "compositions": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "effects": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "suitable_for": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "validation_steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "validation": {
+      "type": "object",
+      "required": ["evidence", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence": { "type": "string" },
+        "last_verified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "related": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "tags": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "metadata": { "type": "object" }
+  }
+}

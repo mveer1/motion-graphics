@@ -1,0 +1,35 @@
+{
+  "id": "frame-hud",
+  "name": "Frame HUD overlay",
+  "purpose": "Persistent viewfinder frame: corner brackets, four micro labels (title, counter, section, credit) and a progress rule, kept above scenes and transitions so cuts feel like one continuous piece.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["styled-text", "scene-container"],
+    "effects": ["tracking-reveal"],
+    "recipes": ["tracking-settle"]
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "tl, tr, bl, br", "type": "string", "description": "Initial corner labels" },
+    { "name": "progress", "type": "boolean", "default": true, "description": "Show a progress rule under the safe area" },
+    { "name": "brackets", "type": "boolean", "default": true, "description": "Draw corner brackets" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.frameHud(parent, {tl, tr, bl, br}, {progress, brackets}) -> {enter(tl, at), set(tl, corner, text, at), progress(tl, from, to), exit(tl, at)}"
+  },
+  "layout_notes": "Pinned to the format's safe-area corners (--safe-*), z-index above the transition overlay; labels use the kicker size (at the 2.6% text floor). In portrait the bottom labels sit above the caption/UI zone because the safe bottom inset is 20%.",
+  "styles_tested": ["editorial-light", "swiss-minimal"],
+  "examples": ["tests/reference-derived/word-beats/index.html", "projects/paper-plane-field-notes/src/index.html"],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py <project> --fonts google (labels must not collide with scene text in any format)"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test (label swap, progress fill tracks time, stays visible above a bloom) in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "related": ["caption-band", "step-header"],
+  "tags": ["composition", "hud", "frame", "overlay", "continuity", "editorial", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

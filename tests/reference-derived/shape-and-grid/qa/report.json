@@ -1,0 +1,125 @@
+{
+  "target": "tests/reference-derived/shape-and-grid/index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    0.815,
+    1.63,
+    2.445,
+    3.261,
+    4.076,
+    4.891,
+    5.706,
+    6.521,
+    7.336,
+    8.152,
+    8.967
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 9.0,
+      "fps": 30,
+      "timeline_duration": 8.95,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f00-t000.00.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 0.8,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f01-t000.80.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 1.633,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f02-t001.63.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 2.433,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f03-t002.43.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 3.267,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f04-t003.27.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 4.067,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f05-t004.07.png",
+          "visible_text": [
+            "Geometry study"
+          ]
+        },
+        {
+          "time": 4.9,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f06-t004.90.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        },
+        {
+          "time": 5.7,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f07-t005.70.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        },
+        {
+          "time": 6.533,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f08-t006.53.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        },
+        {
+          "time": 7.333,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f09-t007.33.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        },
+        {
+          "time": 8.167,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f10-t008.17.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        },
+        {
+          "time": 8.967,
+          "path": "tests/reference-derived/shape-and-grid/qa/landscape/f11-t008.97.png",
+          "visible_text": [
+            "Truchet wave"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/shape-and-grid/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

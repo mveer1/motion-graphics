@@ -201,7 +201,7 @@ Every explainer video produced in this repository follows a strictly staged, qua
 This workspace enforces the **7-Domain Placement Policy** documented in `.agents/skills/workspace-steward/references/component-placement-policy.md`. Every component in active use is registered under `catalogue/data/` conforming to strict schemas:
 
 ```bash
-# Validate workspace governance & verify all 6 gates:
+# Validate workspace governance & verify all 7 gates:
 python3 scripts/workspace-governance.py
 
 # Search the capability catalogue for approved animation recipes:
@@ -211,6 +211,16 @@ python3 scripts/motion-catalogue.py inspect recipe-backpropagation-flow
 
 ### Zero Secrets Rule
 No API keys, access tokens, private keys, or machine-specific credentials are ever committed to source code or catalogue files. All authenticated external services read credentials dynamically from local environment variables or the macOS Keychain.
+
+### Learning from Reference Videos
+Reference videos teach techniques, never assets. They stay outside the repository; the analysis cache (`out/reference-analysis/`) is never committed; reviewed knowledge lives in `catalogue/data/reference-sources/` (one record per video) and `catalogue/data/references/` (techniques with capability class, provenance and validation evidence). Workflow: `reference-analyst` skill and `ARCHITECTURE.md` section 0.8.
+
+```bash
+python scripts/reference-corpus.py ingest "<folder>"
+python scripts/reference-corpus.py analyze --pending --root "<folder>"
+python scripts/motion-catalogue.py recommend --brief projects/<slug>/brief.json
+python scripts/reference-corpus.py report --backlog
+```
 
 ---
 
@@ -227,6 +237,16 @@ pip install -e tools/earshot
 ```
 
 ### 2. Scaffold a New Project
+Any deliverable (multi-format studio project):
+```bash
+python scripts/studio.py new masala-chai-recipe-2 --template illustrated-explainer --formats landscape,portrait,square
+python scripts/studio.py validate masala-chai-recipe-2
+python scripts/frame-review.py masala-chai-recipe-2 --fonts google
+python scripts/studio.py build masala-chai-recipe-2 --dry-run
+```
+See `projects/masala-chai-recipe/` for a complete example (brief, storyboard, composition, frame review, creative review).
+
+Legacy technical explainer (single 1280×720 format):
 ```bash
 ./scripts/new-project.sh <project-slug> ["Canonical Title"]
 

@@ -1,0 +1,76 @@
+{
+  "id": "end-card",
+  "name": "End card",
+  "purpose": "Closing frame with optional line-art mark, title and supporting lines; holds to the end.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text",
+      "split-text",
+      "svg-path"
+    ],
+    "effects": [
+      "line-art-reveal",
+      "text-mask-rise"
+    ],
+    "recipes": [
+      "line-art-then-fill",
+      "line-mask-rise"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "markSVG",
+      "type": "string",
+      "description": "Optional SVG markup"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Closing title"
+    },
+    {
+      "name": "lines",
+      "type": "array",
+      "description": "Supporting lines"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.endCard(parent, {markSVG, title, lines}).enter(tl, at)"
+  },
+  "layout_notes": "Centred in the safe frame in every format; give it at least 2 s of hold (HyperFrames line_unread rule for the final line).",
+  "styles_tested": [
+    "editorial-light",
+    "swiss-minimal",
+    "paper-cut"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html",
+    "tests/studio-runtime/index.html"
+  ],
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google",
+    "npx hyperframes check on the render host"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "composition",
+    "layout",
+    "end",
+    "card"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

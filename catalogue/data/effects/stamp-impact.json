@@ -1,0 +1,20 @@
+{
+  "id": "stamp-impact",
+  "name": "Stamp impact",
+  "category": "typography",
+  "visual_intent": "A state label (DOWN, EXPIRED, DONE) slams onto the stage with a tilt and a tiny impact squash, announcing a change of state in a diagram or story.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["stamp", "label", "state", "diagram", "explainer", "impact", "reference-derived"],
+  "performance_characteristics": { "cpu_intensity": "low", "gpu_intensity": "low", "dom_node_count": "the label itself", "memory_profile": "Negligible (estimate)" },
+  "recipes": ["stamp-slam"],
+  "implementation_summary": "Fast scale-down from 2.6x with power4.in onto a settled tilt, a 50 ms squash and a back.out recovery; optional four-step x shake of another element (the card that was hit).",
+  "primitives": ["styled-text"],
+  "runtime_api": "Studio.fx.stamp(tl, target, at, {rotate, fromScale, duration, stagger, shake, shakeAmount})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["paper-pop", "beat-pulse"],
+  "validation": { "evidence": "Runtime self-test (settled scale and tilt, shake returns home) in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

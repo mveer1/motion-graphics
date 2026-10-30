@@ -1,0 +1,48 @@
+{
+  "id": "marker-highlight",
+  "name": "Marker highlight sweep",
+  "category": "typography",
+  "visual_intent": "Point at the key word the way an editor would, without changing the type.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "emphasis",
+    "editorial"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "marker-sweep"
+  ],
+  "implementation_summary": "Inserts one span behind the text and scales it from 0 to 1 along x.",
+  "primitives": [
+    "styled-text"
+  ],
+  "runtime_api": "Studio.type.highlight(tl, el, at, {color, from})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

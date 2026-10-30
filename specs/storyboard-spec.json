@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabStoryboard",
+  "description": "Stage 1 scene plan for standard and complex projects: timed scenes with purpose, on-screen text, layout intent per format, catalogue capabilities, transitions and audio cues. Instance file: projects/<slug>/storyboard.json.",
+  "type": "object",
+  "required": ["spec_version", "slug", "direction", "timing_source", "duration_sec", "scenes"],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": { "const": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "direction": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "creative_directions[].id from brief.json." },
+    "timing_source": { "type": "string", "enum": ["narration", "music", "fixed"] },
+    "duration_sec": { "type": "number", "exclusiveMinimum": 0 },
+    "styleframes": {
+      "type": "array",
+      "description": "Still frames reviewed before the full render (paths relative to the project).",
+      "items": { "type": "string" }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/scene" }
+    }
+  },
+  "definitions": {
+    "scene": {
+      "type": "object",
+      "required": ["id", "title", "start_sec", "end_sec", "purpose", "visual", "capabilities", "transition_out"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "title": { "type": "string" },
+        "start_sec": { "type": "number", "minimum": 0 },
+        "end_sec": { "type": "number", "exclusiveMinimum": 0 },
+        "purpose": { "type": "string", "description": "What this scene must communicate or make the viewer feel." },
+        "on_screen_text": { "type": "array", "items": { "type": "string" } },
+        "narration": { "type": "string" },
+        "visual": { "type": "string" },
+        "layout": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "landscape": { "type": "string" },
+            "portrait": { "type": "string" },
+            "square": { "type": "string" }
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "description": "Catalogue IDs (primitives, effects, recipes, compositions) the scene uses."
+        },
+        "beats": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["at_sec", "action"],
+            "additionalProperties": false,
+            "properties": {
+              "at_sec": { "type": "number", "minimum": 0 },
+              "action": { "type": "string" }
+            }
+          }
+        },
+        "transition_out": {
+          "type": "object",
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": { "type": "string", "enum": ["cut", "crossfade", "wipe", "mask", "match-cut", "morph", "push", "liquid", "hold-end", "none"] },
+            "capability": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+            "duration_sec": { "type": "number", "minimum": 0 },
+            "continuity": { "type": "string", "description": "What carries the eye across the cut (shape, colour, position)." }
+          }
+        },
+        "audio_cues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["at_sec", "kind", "description"],
+            "additionalProperties": false,
+            "properties": {
+              "at_sec": { "type": "number", "minimum": 0 },
+              "kind": { "type": "string", "enum": ["narration", "music", "sfx", "silence"] },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

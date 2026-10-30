@@ -1,0 +1,50 @@
+{
+  "id": "paper-pop-in",
+  "name": "Paper pop-in",
+  "effect_id": "paper-pop",
+  "status": "experimental",
+  "visual_intent": "Tactile cut-paper entrance with a slight overshoot and settling tilt.",
+  "parameters": [
+    {
+      "name": "overshoot",
+      "type": "number",
+      "description": "back.out strength"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "back.out(1.8)",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "Studio.space.pop(tl, '.sticker', 1.0, {overshoot: 1.8});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "paper",
+    "pop",
+    "playful"
+  ],
+  "examples": [
+    "src/studio/studio-motion.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

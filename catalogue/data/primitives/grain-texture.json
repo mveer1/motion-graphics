@@ -1,0 +1,41 @@
+{
+  "id": "grain-texture",
+  "name": "Film / paper grain",
+  "kind": "texture",
+  "status": "experimental",
+  "description": "feTurbulence noise overlay blended with the style's --grain-blend; optional stepped boil.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "opacity",
+      "type": "number",
+      "description": "Overlay opacity"
+    },
+    {
+      "name": "boil",
+      "type": "object",
+      "description": "Stepped variation window"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-motion.js",
+    "api": "Studio.texture.grain(tl, {opacity, seed, boil: {from, to, fps}})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "texture",
+    "grain",
+    "tactile"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

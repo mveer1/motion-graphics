@@ -1,0 +1,49 @@
+{
+  "id": "organic-wobble",
+  "name": "Organic deformation loop",
+  "category": "shape_morph",
+  "visual_intent": "Breathing shapes, simmering liquid surfaces and living blobs that loop seamlessly.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "loop",
+    "organic",
+    "liquid"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "breathing-blob-loop"
+  ],
+  "implementation_summary": "Morphs through seeded variants at a fixed period and ends on the first shape so it can loop.",
+  "primitives": [
+    "blob-shape",
+    "wave-surface"
+  ],
+  "runtime_api": "Studio.draw.wobble(tl, path, from, to, make, {period})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

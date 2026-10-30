@@ -1,0 +1,26 @@
+{
+  "id": "stamp-slam",
+  "name": "Stamp slam",
+  "effect_id": "stamp-impact",
+  "status": "experimental",
+  "visual_intent": "State label lands like a rubber stamp.",
+  "parameters": [
+    { "name": "rotate", "type": "number", "default": -7, "description": "Settled tilt in degrees" },
+    { "name": "fromScale", "type": "number", "default": 2.6, "description": "Starting scale" },
+    { "name": "shake", "type": "selector|element", "description": "Element that jolts on impact" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "On the beat where the state changes (pair with an SFX hit on the render host)",
+    "easing_standard": "power4.in then back.out(3)",
+    "prng_required": false
+  },
+  "code_snippet": { "javascript": "Studio.fx.stamp(tl, '#stampDown', cue('failure'), { rotate: -8, shake: '#machineA' });" },
+  "fallbacks": "Paper pop (Studio.space.pop) for a softer arrival.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.3, "memory_impact": "Negligible; estimate" },
+  "validation_steps": ["python tests/test-studio-runtime.py", "python scripts/frame-review.py tests/reference-derived/explainer-annotations/index.html --fonts google"],
+  "tags": ["stamp", "state", "reference-derived"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html"],
+  "validation": { "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

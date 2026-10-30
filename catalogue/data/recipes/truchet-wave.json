@@ -1,0 +1,35 @@
+{
+  "id": "truchet-wave",
+  "name": "Truchet tile wave",
+  "effect_id": "grid-wave",
+  "status": "experimental",
+  "visual_intent": "Quarter-arc tiles flip in a wave from the centre, rewiring the pattern of curves.",
+  "parameters": [
+    { "name": "rows, cols", "type": "integer", "description": "Grid size (Studio.draw.grid)" },
+    { "name": "truchet", "type": "integer", "description": "Seed for the tiles' base rotations" },
+    { "name": "from", "type": "string|number|array", "default": "center", "description": "Wave origin: center, start, end, edges, an index or [x, y] ratios" },
+    { "name": "amount", "type": "number", "default": 0.8, "description": "Seconds the wave takes to cross the grid" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Start on a beat; the wave front can carry a scene change",
+    "easing_standard": "power2.inOut (flip), back.out(1.7) (pop)",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "var cells = Studio.draw.grid('#field', 9, 16, { truchet: 7 });\nStudio.fx.gridWave(tl, cells, 1.0, { preset: 'pop', amount: 0.6 });\nStudio.fx.gridWave(tl, cells, 2.2, { preset: 'flip', from: 'center', amount: 0.9 });"
+  },
+  "fallbacks": "Crossfade between two static patterns.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 2.5, "memory_impact": "Low for <=400 cells; estimate" },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/shape-and-grid/index.html --fonts google"
+  ],
+  "tags": ["truchet", "grid", "wave", "pattern", "reference-derived"],
+  "examples": ["tests/reference-derived/shape-and-grid/index.html"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

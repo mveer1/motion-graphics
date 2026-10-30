@@ -15,6 +15,20 @@ Whenever discovering, introducing, installing, modifying, registering, or retiri
 ---
 
 ## 1. Mandatory Production Lifecycle
+Two tracks share one toolchain (details: `ARCHITECTURE.md` section 0):
+
+**Studio projects** (any deliverable: explainer, promo, kinetic type, recipe, title sequence; any project with `project.json`):
+1. `python scripts/studio.py new <slug> --template <id>` (templates: `python scripts/motion-catalogue.py list` or `templates/projects/`).
+2. Stage 0 `brief.json`: objective, audience, formats, 1-3 genuinely distinct creative directions, the selected one and why. Research (Stage 0R) only when `brief.research.required`; narration only when the brief asks for it.
+3. Stage 1 `storyboard.json` with catalogue capabilities and explicit transitions; pick a registered style system (default `editorial-light`; light themes unless the brief asks otherwise).
+4. Stage 4 `src/index.html` on the vendored runtime (`src/_studio/`, synced from `src/studio/`; never edit the copy). Compose each format; use `--u`, `--safe-*`, `#root[data-format]` rules and `Studio.pick` instead of hard-coded pixel sizes.
+5. `python scripts/studio.py validate <slug>` and `python scripts/frame-review.py <slug> --fonts google`; look at the contact sheets, fix, repeat.
+6. Render host only: `python scripts/studio.py build <slug>` (per-format render, mux, QA with expectations), then `python scripts/studio.py review <slug> --init` and score `qa/creative-review.json` with evidence.
+
+**Legacy technical explainers** (no `project.json`) keep the original stages below; `scripts/build-project.sh` behaves as before.
+
+**Reference videos** (the user supplies examples to learn from): use `reference-analyst`. Videos stay outside the repository; `scripts/reference-corpus.py ingest` then `analyze --pending --root <folder>` write evidence to the untracked `out/reference-analysis/`; inspect it, write source and technique records, run `python scripts/motion-catalogue.py validate` and `python scripts/reference-corpus.py report --backlog`. Learn techniques, never assets: brand marks, characters, footage and shot sequences are excluded (`ARCHITECTURE.md` section 0.8).
+
 Every explainer video produced in this repository must follow the phased lifecycle defined in `ARCHITECTURE.md`:
 1. **Stage 0 (Research & Investigation):** Research the technical domain, verify formulas/algorithms, formulate visual metaphors, and produce both `projects/<project_name>/research.json` (validated against `specs/research-spec.json` via `scripts/validate-research.py`) and `projects/<project_name>/research.md`. **Never** write scripts before validating the research dossier.
 2. **Stage 1 & 2 (Storyboarding & Voice Script):** Generate `narration.json` using the `voice-director` skill and phonetic respellings.
@@ -34,6 +48,7 @@ Specialized skills are available under `.agents/skills/`:
 - **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation.
 - **`motion-library-guide`**: Capability catalogue navigation, dependency vetting, approval states (approved/proposed/blocked), verified licensing, and deterministic GSAP animation recipes.
 - **`motion-graphics-designer`**: Color palettes, layout rules, GSAP 3 animation patterns, and deterministic PRNG rules.
+- **`reference-analyst`**: Reference video ingest and analysis (`scripts/reference-corpus.py`), source and technique records with observation separate from interpretation, capability classes (native, approximation, additional dependencies, resource-constrained, research required), provenance, brand-asset exclusion and the capability backlog.
 - **`gsap-core` / `gsap-timeline` / `gsap-plugins` / `gsap-utils` / `gsap-performance`**: Official GreenSock AI skills for GSAP 3 core tweens, timeline choreography, plugin registration, and rendering performance.
 - **`kinetic-typography`**: Specialized kinetic typography choreography, overflow mask reveals, variable-font weight shifts, and accessibility protections (preserving screen-reader `aria-label` on text mutations).
 - **`motion-design`**: LottieFiles motion design principles, Disney animation principles adapted for UI, timing/easing curves, hero staging, and 1/3 rules (motion distance $\le 33\%$, max 3 simultaneous dynamic elements).
@@ -61,7 +76,8 @@ Specialized skills are available under `.agents/skills/`:
   - **NEVER** run parallel rendering commands or multiple headless Chrome instances.
   - **ALWAYS** pass `--low-memory-mode` to `hyperframes render` to pin the worker count to 1 and use screenshot capture.
   - **Python Environment:** Always invoke `python3.12` (or rely on auto-delegating wrappers) for ML/TTS and schema validation.
-  - Standard development resolution is **1280×720 @ 30fps**. Only scale to 1080p when explicitly instructed.
+  - Standard development resolution is **1280×720 @ 30fps** for legacy explainers. Studio projects take their formats from `project.json` (16:9 1280×720, 9:16 720×1280, 1:1 1080×1080 by default; 60 fps optional) and render them one at a time. Only scale to 1080p or above when explicitly instructed.
+  - **Non-Mac hosts (e.g. Windows):** HyperFrames, FFmpeg and Kokoro may be absent. Use `studio.py validate`, `frame-review.py` and `studio.py build --dry-run`; never claim a render or loudness result that was not produced.
 
 ---
 

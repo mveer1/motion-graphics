@@ -1,0 +1,27 @@
+{
+  "id": "drop-bounce",
+  "name": "Drop and bounce",
+  "effect_id": "squash-bounce",
+  "status": "experimental",
+  "visual_intent": "Ingredients, icons or letters drop in and settle with weight.",
+  "parameters": [
+    { "name": "height", "type": "number", "default": 30, "description": "Drop height in --u units" },
+    { "name": "bounces", "type": "integer", "default": 2, "description": "Rebounds after the first contact" },
+    { "name": "decay", "type": "number", "default": 0.4, "description": "Rebound height ratio" },
+    { "name": "squash", "type": "number", "default": 0.28, "description": "Contact squash (0 = rigid)" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "First contact on a beat or SFX hit",
+    "easing_standard": "power2.in falls, power2.out rises",
+    "prng_required": false
+  },
+  "code_snippet": { "javascript": "Studio.space.bounce(tl, '.ice', 2.0, { height: 24, bounces: 2, stagger: 0.12 });" },
+  "fallbacks": "Paper pop entrance.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.3, "memory_impact": "Negligible; estimate" },
+  "validation_steps": ["python tests/test-studio-runtime.py", "python scripts/frame-review.py tests/reference-derived/explainer-annotations/index.html --fonts google"],
+  "tags": ["bounce", "squash", "reference-derived"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html"],
+  "validation": { "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,98 @@
+{
+  "id": "ref-c3bc609841",
+  "sha256": "c3bc609841f2f3bb590162e59b2b7b90e561782fa7766b2a5c32c44b2f78b551",
+  "file": "play_720p (4).mp4",
+  "decoded": {
+    "duration": 30,
+    "width": 720,
+    "height": 720
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30"
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 30.0,
+        "duration": 30.0,
+        "activity": 0.035,
+        "luma": 0.94
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.035,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.882
+      },
+      {
+        "hex": "#d8b8b8",
+        "share": 0.055
+      },
+      {
+        "hex": "#d8c8c8",
+        "share": 0.022
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.02
+      },
+      {
+        "hex": "#e8d8d8",
+        "share": 0.01
+      },
+      {
+        "hex": "#c8b8b8",
+        "share": 0.007
+      },
+      {
+        "hex": "#e8b8b8",
+        "share": 0.003
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.001
+      }
+    ],
+    "representative_times": [
+      7.5,
+      15.0,
+      22.5
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-c3bc609841",
+      "overview": "out/reference-analysis/ref-c3bc609841/overview.jpg",
+      "scenes": "out/reference-analysis/ref-c3bc609841/scenes.jpg",
+      "transitions": null,
+      "motion": "out/reference-analysis/ref-c3bc609841/motion.jpg",
+      "audio": null,
+      "frames": "out/reference-analysis/ref-c3bc609841/frames",
+      "tracked": false
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "dark-tech",
+  "name": "Dark Tech (legacy)",
+  "status": "experimental",
+  "mode": "dark",
+  "default": false,
+  "description": "Token form of the legacy Dark Tech palette used by the existing technical explainers; use when a technical brief explicitly asks for a dark engineering look.",
+  "location": "src/studio/styles/dark-tech.css",
+  "tokens": {
+    "colors": {
+      "paper": "#080c14",
+      "paper-2": "#0d1117",
+      "ink": "#f0f6fc",
+      "ink-2": "#8b949e",
+      "rule": "#21262d",
+      "accent": "#58a6ff",
+      "accent-2": "#e3b341",
+      "accent-3": "#3fb950"
+    },
+    "typography": {
+      "display": "'Inter', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "texture": "Optional Studio.texture.grain overlay; blend from --grain-blend",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Technical and measured",
+    "ease_in": "power1.in",
+    "ease_out": "power2.out",
+    "enter_duration_sec": 0.6,
+    "stagger_sec": 0.05,
+    "notes": "Semantic colours: accent = input, accent-2 = processing, accent-3 = output/success."
+  },
+  "fonts": [
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "JetBrains Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 18.0:1",
+    "ink-2/paper 6.4:1",
+    "accent/paper 7.7:1",
+    "accent-2/paper 10.1:1"
+  ],
+  "suitable_for": [
+    "dark technical explainers",
+    "systems diagrams on request"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Not yet used in a rendered project.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "dark",
+    "technical",
+    "legacy"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "avoid_for": [
+    "default light-first briefs"
+  ]
+}

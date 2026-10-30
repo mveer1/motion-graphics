@@ -1,0 +1,442 @@
+{
+  "target": "masala-chai-recipe",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    2.815,
+    5.63,
+    8.445,
+    11.261,
+    14.076,
+    16.891,
+    19.706,
+    22.521,
+    25.336,
+    28.152,
+    30.967
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 31.0,
+      "fps": 30,
+      "timeline_duration": 28.7,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f00-t000.00.png",
+          "visible_text": []
+        },
+        {
+          "time": 2.8,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f01-t002.80.png",
+          "visible_text": [
+            "A recipe in four steps",
+            "Masala chai",
+            "Spiced milk tea for two, in about ten minutes."
+          ]
+        },
+        {
+          "time": 5.633,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f02-t005.63.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger"
+          ]
+        },
+        {
+          "time": 8.433,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f03-t008.43.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger",
+            "2 tsp",
+            "sugar, to taste"
+          ]
+        },
+        {
+          "time": 11.267,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f04-t011.27.png",
+          "visible_text": [
+            "01"
+          ]
+        },
+        {
+          "time": 14.067,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f05-t014.07.png",
+          "visible_text": [
+            "01",
+            "/ 04",
+            "Crush the spices",
+            "Lightly crush the cardamom and ginger to release their oils."
+          ]
+        },
+        {
+          "time": 16.9,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f06-t016.90.png",
+          "visible_text": [
+            "02",
+            "/ 04",
+            "Simmer in water",
+            "Simmer the spices in the water for two minutes."
+          ]
+        },
+        {
+          "time": 19.7,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f07-t019.70.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk"
+          ]
+        },
+        {
+          "time": 22.533,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f08-t022.53.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk",
+            "Brew the tea for a minute. Add the milk; bring to a boil."
+          ]
+        },
+        {
+          "time": 25.333,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f09-t025.33.png",
+          "visible_text": [
+            "04",
+            "/ 04",
+            "Strain and serve",
+            "Strain into two cups. Sweeten to taste."
+          ]
+        },
+        {
+          "time": 28.167,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f10-t028.17.png",
+          "visible_text": [
+            "Chai, slowly."
+          ]
+        },
+        {
+          "time": 30.967,
+          "path": "projects/masala-chai-recipe/qa/frame-review/landscape/f11-t030.97.png",
+          "visible_text": [
+            "Chai, slowly.",
+            "Serves 2 \u00b7 About 10 minutes"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/masala-chai-recipe/qa/frame-review/contact-landscape.png"
+    },
+    {
+      "format": "portrait",
+      "file": "index.portrait.html",
+      "width": 720,
+      "height": 1280,
+      "duration": 31.0,
+      "fps": 30,
+      "timeline_duration": 28.7,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f00-t000.00.png",
+          "visible_text": []
+        },
+        {
+          "time": 2.8,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f01-t002.80.png",
+          "visible_text": [
+            "A recipe in four steps",
+            "Masala chai",
+            "Spiced milk tea for two, in about ten minutes."
+          ]
+        },
+        {
+          "time": 5.633,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f02-t005.63.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger"
+          ]
+        },
+        {
+          "time": 8.433,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f03-t008.43.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger",
+            "2 tsp",
+            "sugar, to taste"
+          ]
+        },
+        {
+          "time": 11.267,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f04-t011.27.png",
+          "visible_text": [
+            "01"
+          ]
+        },
+        {
+          "time": 14.067,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f05-t014.07.png",
+          "visible_text": [
+            "01",
+            "/ 04",
+            "Crush the spices",
+            "Lightly crush the cardamom and ginger to release their oils."
+          ]
+        },
+        {
+          "time": 16.9,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f06-t016.90.png",
+          "visible_text": [
+            "02",
+            "/ 04",
+            "Simmer in water",
+            "Simmer the spices in the water for two minutes."
+          ]
+        },
+        {
+          "time": 19.7,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f07-t019.70.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk"
+          ]
+        },
+        {
+          "time": 22.533,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f08-t022.53.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk",
+            "Brew the tea for a minute. Add the milk; bring to a boil."
+          ]
+        },
+        {
+          "time": 25.333,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f09-t025.33.png",
+          "visible_text": [
+            "04",
+            "/ 04",
+            "Strain and serve",
+            "Strain into two cups. Sweeten to taste."
+          ]
+        },
+        {
+          "time": 28.167,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f10-t028.17.png",
+          "visible_text": [
+            "Chai, slowly."
+          ]
+        },
+        {
+          "time": 30.967,
+          "path": "projects/masala-chai-recipe/qa/frame-review/portrait/f11-t030.97.png",
+          "visible_text": [
+            "Chai, slowly.",
+            "Serves 2 \u00b7 About 10 minutes"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/masala-chai-recipe/qa/frame-review/contact-portrait.png"
+    },
+    {
+      "format": "square",
+      "file": "index.square.html",
+      "width": 1080,
+      "height": 1080,
+      "duration": 31.0,
+      "fps": 30,
+      "timeline_duration": 28.7,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f00-t000.00.png",
+          "visible_text": []
+        },
+        {
+          "time": 2.8,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f01-t002.80.png",
+          "visible_text": [
+            "A recipe in four steps",
+            "Masala chai",
+            "Spiced milk tea for two, in about ten minutes."
+          ]
+        },
+        {
+          "time": 5.633,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f02-t005.63.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger"
+          ]
+        },
+        {
+          "time": 8.433,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f03-t008.43.png",
+          "visible_text": [
+            "Ingredients",
+            "You\u2019ll need",
+            "1 cup",
+            "water",
+            "1 cup",
+            "whole milk",
+            "2 tsp",
+            "loose black tea",
+            "4",
+            "cardamom pods",
+            "1 inch",
+            "fresh ginger",
+            "2 tsp",
+            "sugar, to taste"
+          ]
+        },
+        {
+          "time": 11.267,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f04-t011.27.png",
+          "visible_text": [
+            "01"
+          ]
+        },
+        {
+          "time": 14.067,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f05-t014.07.png",
+          "visible_text": [
+            "01",
+            "/ 04",
+            "Crush the spices",
+            "Lightly crush the cardamom and ginger to release their oils."
+          ]
+        },
+        {
+          "time": 16.9,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f06-t016.90.png",
+          "visible_text": [
+            "02",
+            "/ 04",
+            "Simmer in water",
+            "Simmer the spices in the water for two minutes."
+          ]
+        },
+        {
+          "time": 19.7,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f07-t019.70.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk"
+          ]
+        },
+        {
+          "time": 22.533,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f08-t022.53.png",
+          "visible_text": [
+            "03",
+            "/ 04",
+            "Add tea, then milk",
+            "Brew the tea for a minute. Add the milk; bring to a boil."
+          ]
+        },
+        {
+          "time": 25.333,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f09-t025.33.png",
+          "visible_text": [
+            "04",
+            "/ 04",
+            "Strain and serve",
+            "Strain into two cups. Sweeten to taste."
+          ]
+        },
+        {
+          "time": 28.167,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f10-t028.17.png",
+          "visible_text": [
+            "Chai, slowly."
+          ]
+        },
+        {
+          "time": 30.967,
+          "path": "projects/masala-chai-recipe/qa/frame-review/square/f11-t030.97.png",
+          "visible_text": [
+            "Chai, slowly.",
+            "Serves 2 \u00b7 About 10 minutes"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/masala-chai-recipe/qa/frame-review/contact-square.png"
+    }
+  ],
+  "matrix": "projects/masala-chai-recipe/qa/frame-review/contact-matrix.png",
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

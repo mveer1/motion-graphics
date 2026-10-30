@@ -37,7 +37,11 @@
             "cryptography",
             "algorithms_data_structures",
             "physics_mathematics",
-            "software_engineering"
+            "software_engineering",
+            "economics_finance",
+            "natural_sciences",
+            "health_life_sciences",
+            "general_knowledge"
           ]
         },
         "difficulty": {

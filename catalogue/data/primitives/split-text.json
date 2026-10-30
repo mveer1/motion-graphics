@@ -1,0 +1,42 @@
+{
+  "id": "split-text",
+  "name": "Accessible split text (lines, words, chars, masks)",
+  "kind": "text",
+  "status": "experimental",
+  "description": "Splits text into animatable units, keeps an aria-label with the full text, marks fragments aria-hidden and preserves inline <em>/<strong> across line breaks.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "lines, words, chars (comma-separated)"
+    },
+    {
+      "name": "mask",
+      "type": "string",
+      "description": "lines or words for overflow masks"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-type.js",
+    "api": "Studio.type.split(el, {type: 'lines,words,chars', mask: 'lines'|'words'})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "text",
+    "split",
+    "accessibility",
+    "kinetic-typography"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

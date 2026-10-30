@@ -1,0 +1,37 @@
+{
+  "id": "paper-edge-filter",
+  "name": "Torn / rough paper edge filters",
+  "kind": "texture",
+  "status": "experimental",
+  "description": "SVG displacement filters for cut-paper and collage edges; use on few, static elements (filters re-rasterise when the element changes).",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "filter",
+      "type": "id",
+      "description": "st-deckle or st-rough"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-motion.js",
+    "api": "Studio.texture.defs() -> filter: url(#st-deckle) | url(#st-rough)"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "texture",
+    "paper",
+    "collage",
+    "cut-paper"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

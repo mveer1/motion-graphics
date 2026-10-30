@@ -1,0 +1,43 @@
+{
+  "id": "shared-storyboard-spec",
+  "name": "Storyboard Specification",
+  "component_type": "shared_asset",
+  "purpose": "JSON Schema for projects/<slug>/storyboard.json: scenes with timing, purpose, on-screen text, visual description, per-format layout notes, catalogue capabilities, beats, audio cues and an explicit transition out (type, capability, duration, continuity).",
+  "capabilities": [
+    "Stage 1 scene plan that validation checks for gaps, reading-time floors and capability status"
+  ],
+  "location": "specs/storyboard-spec.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Validated by python3 scripts/studio.py validate <slug>."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "json-schema",
+    "notes": "Draft-07."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace schema."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static schema definition."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Validated against projects/masala-chai-recipe/storyboard.json and the template storyboards (2026-10-30).",
+  "architecture_ref": "ARCHITECTURE.md#s1",
+  "last_verified": "2026-10-30",
+  "tags": ["schema", "storyboard", "scenes", "json-schema"]
+}

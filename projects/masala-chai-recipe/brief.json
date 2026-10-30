@@ -1,0 +1,135 @@
+{
+  "spec_version": 1,
+  "slug": "masala-chai-recipe",
+  "title": "Masala Chai",
+  "objective": "Teach a home cook to make two cups of masala chai in four clear steps, readable with the sound off, and make the process feel warm and unhurried.",
+  "audience": "Home cooks who have never made chai from whole spices; social viewers scrolling with sound off.",
+  "platforms": ["website", "instagram-reels", "youtube-shorts", "instagram-feed"],
+  "deliverables": {
+    "formats": ["landscape", "portrait", "square"],
+    "duration_sec": { "min": 24, "target": 30, "max": 32 },
+    "other": ["Poster frame from the title scene"]
+  },
+  "message": {
+    "core_message": "Good chai is whole spices, tea and milk, simmered patiently: four steps.",
+    "key_points": [
+      "What you need for two cups",
+      "Crush cardamom and ginger",
+      "Simmer the spices in water",
+      "Brew the tea, add milk, bring to a boil",
+      "Strain and sweeten to taste"
+    ],
+    "call_to_action": "Make it slowly."
+  },
+  "tone": {
+    "emotional_response": ["warmth", "calm confidence", "appetite"],
+    "keywords": ["editorial", "hand-drawn", "homely", "tactile", "light"],
+    "avoid": ["glossy food-ad clichés", "dark backgrounds", "progress bars", "glowing diagrams", "busy looping filler"]
+  },
+  "constraints": [
+    "Readable with sound off at phone size",
+    "Each format gets its own arrangement (no crops of the landscape layout)",
+    "No photography or stock footage: illustration only, so there are no third-party image rights to clear",
+    "Quantities are a typical home recipe, not nutritional or health claims"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "none",
+    "music": "optional",
+    "sfx": "optional",
+    "captions": false,
+    "notes": "Silent by default (sound-off social). If music is added later it must be licensed and recorded in project.json audio.music.license; no SFX unless it serves the pour and simmer moments."
+  },
+  "research": {
+    "required": false,
+    "reason": "A common stovetop method with no factual, technical or scientific claims beyond quantities and steps."
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "ink-and-steam",
+      "name": "Ink and steam: an editorial cookbook page",
+      "concept": "The film is a living cookbook page. One ink line drawing of a saucepan stays on the page for the whole recipe and changes with each step (spices land, water rises, tea and milk colour it), while the copy column turns like a page. The pan is the constant; only what is in it changes.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Warm ivory paper and warm ink; terracotta for numerals and emphasis; cardamom green, ginger yellow and chai caramel inside the drawing only.",
+        "typography": "Playfair Display headlines with an italic accent word, Inter body, JetBrains Mono quantities.",
+        "texture": "Subtle static paper grain; hand-drawn counter line.",
+        "imagery": "Single-weight ink line illustration with flat fills."
+      },
+      "motion_language": {
+        "personality": "Calm, precise, editorial",
+        "signature_moves": ["Strokes that draw at a steady pen speed", "Lines of type rising out of masks", "A liquid rise that becomes the next shot", "A match cut from the poured glass to the closing mark"],
+        "transitions": "Page-turn wipe into the ingredients, in-place copy changes over a persistent drawing, liquid rise into the serve, match cut into the end card.",
+        "capabilities": ["line-art-reveal", "text-mask-rise", "mask-wipe", "liquid-transition", "match-cut", "organic-wobble"]
+      },
+      "composition": {
+        "approach": "Editorial split: one persistent illustration panel and one copy column.",
+        "landscape": "Copy column left, illustration right.",
+        "portrait": "Illustration in the upper half above the copy; caption zone kept clear.",
+        "square": "Illustration on top, copy below; the ingredient list switches to two columns."
+      },
+      "pacing": "Unhurried: about four seconds per step, each hold sized to its reading time.",
+      "why_it_fits": "Clarity first for a how-to, light by default, and the evolving single drawing makes the four steps feel like one continuous act of cooking.",
+      "risks": "Line art can feel sparse; colour inside the pan and the liquid transition carry the warmth."
+    },
+    {
+      "id": "kitchen-collage",
+      "name": "Kitchen collage: cut paper on the counter",
+      "concept": "An overhead kitchen counter made of cut paper. Ingredients are sticker cut-outs that pop onto the counter and slide into the pan; each step is a new arrangement of paper pieces.",
+      "visual_identity": {
+        "style_system": "paper-cut",
+        "palette": "Kraft and cream paper with saturated spice colours (turmeric, tomato, cardamom).",
+        "typography": "Archivo Black headlines, Nunito body.",
+        "texture": "Deckle edges, paper shadows, light grain.",
+        "imagery": "Flat cut-paper shapes seen from above."
+      },
+      "motion_language": {
+        "personality": "Playful and tactile",
+        "signature_moves": ["Paper pops with overshoot", "Ingredients assemble from scattered positions", "Shape-cover transitions in spice colours"],
+        "transitions": "Shape covers between steps on a quick rhythm.",
+        "capabilities": ["paper-pop", "object-assembly", "shape-cover-transition"]
+      },
+      "composition": {
+        "approach": "Overhead flat-lay: the pan in the centre, ingredients orbiting it, type set on paper tags.",
+        "portrait": "Pan low in frame, tags stacked above."
+      },
+      "pacing": "Brisk and rhythmic, three to four seconds per step.",
+      "why_it_fits": "Very social-friendly and memorable; strongest if the brief later adds music.",
+      "risks": "Busier frames make the quantities harder to read with sound off."
+    },
+    {
+      "id": "night-brew",
+      "name": "Night brew: a slow cinematic pour",
+      "concept": "A late-night ritual: a single vessel lit in warm brass against near-black, steam drifting through slow camera pushes, with letterboxed captions for each step.",
+      "visual_identity": {
+        "style_system": "cinematic-dark",
+        "palette": "Near-black with brass highlights and chai amber.",
+        "typography": "Oswald capitals with EB Garamond italics.",
+        "texture": "Film grain and soft vignette.",
+        "imagery": "Centred hero vessel and steam."
+      },
+      "motion_language": {
+        "personality": "Slow and contemplative",
+        "signature_moves": ["Slow depth camera pushes", "Long dissolves", "Steam that never quite stops"],
+        "transitions": "Long dissolves and iris opens.",
+        "capabilities": ["parallax-camera", "iris-transition", "grain-boil"]
+      },
+      "composition": {
+        "approach": "Centred hero object with letterboxed captions; symmetrical in every format."
+      },
+      "pacing": "Slow, seven to eight seconds per step; would exceed the 32 s ceiling unless steps are merged.",
+      "why_it_fits": "Strong mood for a brand film rather than a how-to.",
+      "risks": "Contradicts the light-first default and the sound-off clarity goal; recommended only if the brief turns into a brand piece."
+    }
+  ],
+  "selected_direction": "ink-and-steam",
+  "selection_rationale": "The objective is instruction with the sound off. Ink and steam keeps every step legible, honours the light-first default and gives the most continuity (one drawing that cooks). Kitchen collage is the alternative for a music-led social campaign; Night brew suits a brand film, not a recipe.",
+  "success_criteria": [
+    "Every step's text stays on screen at least its reading time",
+    "Quantities readable at phone size in the portrait cut",
+    "Each format has an intentional layout",
+    "The closing title holds for at least two seconds"
+  ]
+}

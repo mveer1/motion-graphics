@@ -1,0 +1,29 @@
+{
+  "description": "Output format presets shared by scripts/studio.py and the studio runtime. Safe areas are conservative workspace defaults (fractions of width/height), not platform-certified values; override per format in project.json when a platform publishes different guidance.",
+  "fps": { "default": 30, "allowed": [24, 25, 30, 60] },
+  "formats": {
+    "landscape": {
+      "aspect": "16:9",
+      "default_size": "720p",
+      "sizes": { "720p": [1280, 720], "1080p": [1920, 1080], "4k": [3840, 2160] },
+      "safe_area": { "top": 0.06, "right": 0.05, "bottom": 0.08, "left": 0.05 }
+    },
+    "portrait": {
+      "aspect": "9:16",
+      "default_size": "720p",
+      "sizes": { "720p": [720, 1280], "1080p": [1080, 1920], "4k": [2160, 3840] },
+      "safe_area": { "top": 0.10, "right": 0.10, "bottom": 0.20, "left": 0.06 }
+    },
+    "square": {
+      "aspect": "1:1",
+      "default_size": "1080p",
+      "sizes": { "720p": [720, 720], "1080p": [1080, 1080], "4k": [2160, 2160] },
+      "safe_area": { "top": 0.07, "right": 0.07, "bottom": 0.09, "left": 0.07 }
+    }
+  },
+  "text_floor_fraction": 0.026,
+  "notes": [
+    "text_floor_fraction mirrors the HyperFrames craft rule text_below_floor (2.6% of the frame's short side).",
+    "HyperFrames --resolution only supersamples by whole multiples at the same aspect ratio; other sizes need their own entry file (scripts/studio.py formats --size)."
+  ]
+}

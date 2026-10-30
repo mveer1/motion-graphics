@@ -1,0 +1,79 @@
+{
+  "id": "title-card",
+  "name": "Editorial title card",
+  "purpose": "Opening or section title: kicker, display title with optional <em>, hand-drawn underline and lede.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text",
+      "split-text",
+      "hand-drawn-line",
+      "clip-mask"
+    ],
+    "effects": [
+      "tracking-reveal",
+      "text-mask-rise",
+      "hand-underline"
+    ],
+    "recipes": [
+      "tracking-settle",
+      "line-mask-rise",
+      "underline-draw"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "kicker",
+      "type": "string",
+      "description": "Small label"
+    },
+    {
+      "name": "title / titleHTML",
+      "type": "string",
+      "description": "Display title"
+    },
+    {
+      "name": "subtitle",
+      "type": "string",
+      "description": "Lede"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.titleCard(parent, {kicker, title|titleHTML, subtitle, underline}).enter(tl, at) / .exit(tl, at)"
+  },
+  "layout_notes": "Fills the safe frame. Landscape and square: vertically centred; portrait: bottom-weighted above the caption zone. Title reflows by width; type scale per format comes from --fs-display.",
+  "styles_tested": [
+    "editorial-light",
+    "swiss-minimal",
+    "paper-cut"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html",
+    "tests/studio-runtime/index.html"
+  ],
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google",
+    "npx hyperframes check on the render host"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "composition",
+    "layout",
+    "title",
+    "card"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "polygon-morph-chain",
+  "name": "Geometric morph chain",
+  "effect_id": "shape-morph",
+  "status": "experimental",
+  "visual_intent": "One shape becomes the next (circle, triangle, square, star) in a sequence, so an idea transforms without a cut.",
+  "parameters": [
+    { "name": "shapes", "type": "string[]", "description": "Paths from Studio.draw.shape with the same points count" },
+    { "name": "duration", "type": "number", "default": 0.7, "description": "Seconds per morph" },
+    { "name": "hold", "type": "number", "default": 0.4, "description": "Seconds between morphs" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "One morph per beat or per narrated term",
+    "easing_standard": "power3.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "var S = Studio.draw, o = { cx: 0, cy: 0, r: 120 };\nvar shapes = [S.shape('circle', o), S.shape('polygon', Object.assign({ sides: 3 }, o)), S.shape('rect', { w: 220, h: 220 })];\ndocument.getElementById('morph').setAttribute('d', shapes[0]);\nS.morphChain(tl, '#morph', shapes, 1.0, { duration: 0.6, hold: 0.5 });"
+  },
+  "fallbacks": "Crossfade between shapes, or blob-morph for organic shapes.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.5, "memory_impact": "Low; estimate" },
+  "validation_steps": ["python tests/test-studio-runtime.py", "python scripts/frame-review.py tests/reference-derived/shape-and-grid/index.html --fonts google"],
+  "tags": ["morph", "polygon", "geometry", "reference-derived"],
+  "examples": ["tests/reference-derived/shape-and-grid/index.html"],
+  "validation": { "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html (mid-morph and exact end state) in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

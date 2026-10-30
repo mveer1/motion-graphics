@@ -1,0 +1,22 @@
+{
+  "id": "strip-slice-offset",
+  "name": "Strip-slice offset",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected editorial piece cuts an image into vertical strips and offsets them before they realign.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "An image or word is divided into strips that shift independently and then realign, suggesting analysis, fragmentation or a reveal.",
+  "purpose": "Editorial reveal; express analysis or fragmentation.",
+  "visual_behaviour": "Vertical strips of a portrait slide up and down by different amounts, then lock back together.",
+  "mechanics": "N clones each clipped to one strip (clip-path inset), staggered y offsets with power3 ease.",
+  "decomposition": { "primitives": ["clip-mask"], "effects": ["element-mask-reveal"], "timing": "About 0.6-1 s." },
+  "use_cases": ["editorial or collage piece", "title reveal", "portrait reveal"],
+  "failure_modes": ["Many strips on large images multiply paint cost"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Clone the element N times with clip-path inset(0 x% 0 y%) per strip; stagger y; candidate Studio.fx.slices." },
+  "capability": { "support": "native", "compatible_components": ["element-mask-reveal", "clip-mask"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low-medium (N clones)" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [ { "source_id": "ref-c93524ef20", "timestamps": [7.5], "observed": "Classical sculpture faces are cut into vertical strips offset at different heights (approx., from overview spacing)." } ],
+  "related": { "techniques": ["archival-mono-collage"], "effects": ["element-mask-reveal"] },
+  "licensing_notes": "Technique only; source imagery must be public domain or licensed (collage-design skill).",
+  "tags": ["collage-texture", "slice", "editorial", "reveal", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

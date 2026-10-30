@@ -1,0 +1,43 @@
+{
+  "id": "shared-format-presets",
+  "name": "Delivery Format Presets",
+  "component_type": "shared_asset",
+  "purpose": "Single source for delivery formats: landscape 16:9, portrait 9:16 and square 1:1 sizes (720p/1080p/4K where defined), default size, safe-area insets per format, allowed frame rates and the text-size floor.",
+  "capabilities": [
+    "Drives scripts/studio.py formats/validate, the studio runtime layout variables and frame-review safe-area checks"
+  ],
+  "location": "specs/format-presets.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Read by scripts/studio.py and scripts/frame-review.py."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "json",
+    "notes": "Safe areas are conservative platform-agnostic insets, not any single platform's official overlay map."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace data."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static data."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Used by the three-format chai project and the runtime self-test (2026-10-30).",
+  "architecture_ref": "ARCHITECTURE.md#formats",
+  "last_verified": "2026-10-30",
+  "tags": ["formats", "aspect-ratio", "safe-area", "presets"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "clip-mask",
+  "name": "CSS clip-path and overflow masks",
+  "kind": "mask",
+  "status": "experimental",
+  "description": "Overflow masks for text reveals and clip-path shapes for wipes and irises.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "shape",
+      "type": "css",
+      "description": "inset(t r b l) or circle(r at x y)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-base.css",
+    "api": ".st-mask / .st-mask-inline; clip-path inset() and circle()"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "mask",
+    "clip-path",
+    "reveal"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

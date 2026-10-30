@@ -1,0 +1,44 @@
+{
+  "id": "shared-brief-spec",
+  "name": "Creative Brief Specification",
+  "component_type": "shared_asset",
+  "purpose": "JSON Schema for projects/<slug>/brief.json: objective, audience, platforms, deliverable formats and duration, message, tone, constraints, provided assets, inspected references, audio needs, whether research is required, and one to three distinct creative directions with the selected direction and rationale.",
+  "capabilities": [
+    "Stage 0 creative planning contract for every deliverable type",
+    "Forces explicit audio/research decisions instead of assuming narration and a research dossier"
+  ],
+  "location": "specs/brief-spec.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Validated by python3 scripts/studio.py validate <slug>."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "json-schema",
+    "notes": "Draft-07."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace schema."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static schema definition."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Validated against projects/masala-chai-recipe/brief.json and templates/projects/*/brief.json via scripts/studio.py validate (2026-10-30).",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-10-30",
+  "tags": ["schema", "brief", "creative-direction", "json-schema"]
+}

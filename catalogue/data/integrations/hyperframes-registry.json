@@ -1,0 +1,44 @@
+{
+  "id": "integration-hyperframes-registry",
+  "name": "HyperFrames Block Registry",
+  "component_type": "integration",
+  "purpose": "Upstream HyperFrames registry of ready-made blocks and components installable through the HyperFrames CLI. Recorded as a candidate source of compositions; nothing has been installed or vendored.",
+  "capabilities": [
+    "Potential source of pre-built scenes, transitions and data visualisations"
+  ],
+  "location": "https://hyperframes.heygen.com/reference/cli",
+  "version": "unpinned",
+  "installation": {
+    "required": true,
+    "instructions": "Not approved. Before use: review each item's licence and code, pin the CLI version, vendor into the project, and register the item in the catalogue."
+  },
+  "dependencies": ["tool-hyperframes"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "node (hyperframes CLI)",
+    "notes": "Not evaluated in this workspace."
+  },
+  "documentation_urls": [
+    "https://hyperframes.heygen.com/reference/cli",
+    "https://github.com/heygen-com/hyperframes"
+  ],
+  "licensing": {
+    "spdx_identifier": "UNVERIFIED",
+    "status": "unverified",
+    "commercial_use": false,
+    "notes": "HyperFrames itself is Apache-2.0; individual registry items have not been reviewed. Treat as not cleared for commercial use until checked."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Fetches third-party code into the project; requires code review before use."
+  },
+  "owner": "workspace-governance",
+  "status": "proposed",
+  "approval_evidence": "None yet.",
+  "architecture_ref": "ARCHITECTURE.md#capability-model",
+  "last_verified": "2026-10-30",
+  "tags": ["hyperframes", "registry", "third-party", "proposed"]
+}

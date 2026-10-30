@@ -1,0 +1,26 @@
+{
+  "id": "word-slot",
+  "name": "Word slot in a sentence",
+  "effect_id": "slot-roll",
+  "status": "experimental",
+  "visual_intent": "Swap the key word of a fixed sentence on successive beats.",
+  "parameters": [
+    { "name": "items", "type": "string[]", "description": "Entries, first one shown initially" },
+    { "name": "index", "type": "integer", "description": "Entry to roll to (call to() in time order)" },
+    { "name": "duration", "type": "number", "default": 0.55, "description": "Seconds per roll" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "One roll per beat; hold at least 0.6 s per entry for reading",
+    "easing_standard": "back.out(1.5)",
+    "prng_required": false
+  },
+  "code_snippet": { "javascript": "var slot = Studio.type.roll('#slot', ['hooks', 'ads', 'launches']);\nslot.to(tl, 1, 2.0);\nslot.to(tl, 2, 3.0);" },
+  "fallbacks": "Crossfade between words.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.2, "memory_impact": "Negligible; estimate" },
+  "validation_steps": ["python tests/test-studio-runtime.py", "python scripts/frame-review.py tests/reference-derived/word-beats/index.html --fonts google"],
+  "tags": ["slot", "roll", "reference-derived"],
+  "examples": ["tests/reference-derived/word-beats/index.html"],
+  "validation": { "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,272 @@
+{
+  "id": "ref-c3bc609841",
+  "name": "Hand-drawn cocktail recipe on one stage (square, silent)",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (4).mp4",
+    "aliases": [],
+    "sha256": "c3bc609841f2f3bb590162e59b2b7b90e561782fa7766b2a5c32c44b2f78b551",
+    "bytes": 1957659,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "product",
+        "description": "A liqueur brand name used as an ingredient label in the step tracker",
+        "timestamps": [
+          12.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Illustrations and recipe layout are the creator's; reuse the stage, tracker and pour techniques with original drawings and generic ingredient names."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1957659,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 30.0,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 519,
+    "keyframes": 30,
+    "audio": null,
+    "overall_kbps": 522
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames over 30 s, 0.75 s apart). No cuts were detected, so the scene sheet holds one scene. No audio track.",
+    "coverage": "Full duration at overview density; timestamps approximate to 0.75 s.",
+    "concept": {
+      "observed": "A 30-second cocktail recipe on one hand-drawn stage: title letters drop in, glass draws, ice drops, bottles enter and pour while the glass fills and tints against measurement ticks, a side card shows the current step with its own progress bar, a six-node tracker fills along the bottom, a spoon stirs, a peel lands, closing toast.",
+      "interpreted": "Instructional social format that reads without sound.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Step card with quantity and note; ingredient names in the tracker; no voice or music.",
+      "interpreted": "Clear, friendly, self-paced."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured white #f8f8f8 (88%) with pinks and reds of the drink; luma 0.94."
+      },
+      "typography": {
+        "observed": "Bouncy display title letters; small uppercase labels and mono quantities."
+      },
+      "composition": {
+        "observed": "Square frame: glass centre-left, step card right, tracker bottom, title top."
+      },
+      "shapes_and_materials": {
+        "observed": "Wobbly hand-drawn outlines with light flat fills; liquid with a soft surface line."
+      },
+      "motion": {
+        "observed": "Letter drops with squash, ice bounces, bottle tilts about the neck, pour stream, level rise and tint, stirring rotation."
+      },
+      "timing_and_rhythm": {
+        "observed": "No cuts in 30 s; mean activity 0.035 (the calmest in the corpus).",
+        "interpreted": "Each step about 4-5 s, paced for following along."
+      },
+      "transitions": {
+        "observed": "None: state changes in place."
+      },
+      "audio_and_sync": {
+        "observed": "No audio track in the file."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 30.0,
+        "observed": "Single stage: title, glass, ice, three pours with tracker advancing, stir, peel, toast."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Exact step boundaries (no cuts to measure)",
+      "Whether the drink colours mix procedurally or by keyframes"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "step-progress-tracker",
+      "timestamps": [
+        6.0,
+        15.0,
+        27.0
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        5.0,
+        20.0
+      ]
+    },
+    {
+      "id": "squash-stretch-bounce",
+      "timestamps": [
+        3.0
+      ]
+    },
+    {
+      "id": "vessel-fill-pour",
+      "timestamps": [
+        8.0,
+        12.0,
+        18.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "char-cascade",
+      "squash-bounce",
+      "line-art-reveal",
+      "liquid-transition"
+    ],
+    "compositions": [
+      "progress-stepper",
+      "step-header",
+      "item-list"
+    ],
+    "templates": [
+      "illustrated-explainer"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "hand-drawn-illustration",
+    "line-art",
+    "explainer",
+    "editorial-layout"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "square",
+    "recipe",
+    "how-to",
+    "no-audio"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 8.2
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 30.0,
+        "duration": 30.0,
+        "activity": 0.035,
+        "luma": 0.94
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.035,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.882
+      },
+      {
+        "hex": "#d8b8b8",
+        "share": 0.055
+      },
+      {
+        "hex": "#d8c8c8",
+        "share": 0.022
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.02
+      },
+      {
+        "hex": "#e8d8d8",
+        "share": 0.01
+      },
+      {
+        "hex": "#c8b8b8",
+        "share": 0.007
+      },
+      {
+        "hex": "#e8b8b8",
+        "share": 0.003
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.001
+      }
+    ],
+    "representative_times": [
+      7.5,
+      15.0,
+      22.5
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-c3bc609841",
+      "overview": "out/reference-analysis/ref-c3bc609841/overview.jpg",
+      "scenes": "out/reference-analysis/ref-c3bc609841/scenes.jpg",
+      "transitions": null,
+      "motion": "out/reference-analysis/ref-c3bc609841/motion.jpg",
+      "audio": null,
+      "frames": "out/reference-analysis/ref-c3bc609841/frames",
+      "tracked": false
+    }
+  }
+}

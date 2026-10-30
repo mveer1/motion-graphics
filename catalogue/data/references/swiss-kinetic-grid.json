@@ -1,0 +1,43 @@
+{
+  "id": "swiss-kinetic-grid",
+  "name": "Swiss kinetic grid typography",
+  "status": "experimental",
+  "source": {
+    "type": "genre-convention",
+    "description": "Genre convention: International Typographic Style posters adapted to motion; strict grid, oversized grotesk, one signal colour.",
+    "inspected": false
+  },
+  "technique": "Words land on a visible grid with hard cuts, mask rises and character cascades; colour marks the key word.",
+  "decomposition": {
+    "primitives": [
+      "split-text",
+      "styled-text"
+    ],
+    "effects": [
+      "text-mask-rise",
+      "char-cascade",
+      "push-transition",
+      "marker-highlight"
+    ],
+    "timing": "Hard cuts on beats; 0.3-0.5 s entrances"
+  },
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "text-mask-rise",
+    "char-cascade",
+    "push-transition",
+    "marker-highlight"
+  ],
+  "licensing_notes": "Technique only. No specific artwork, footage, characters or compositions from any source are copied.",
+  "tags": [
+    "reference",
+    "swiss",
+    "kinetic",
+    "grid"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

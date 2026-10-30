@@ -1,0 +1,700 @@
+{
+  "id": "ref-92c22222a2",
+  "name": "Dark kinetic reel: easing studies, shape morphs and word beats",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p.mp4",
+    "aliases": [],
+    "sha256": "92c22222a2dbc86366bcee1bc2842f3f11458b5a79754b7ad3ba346196c7376e",
+    "bytes": 3559597,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Anthropic Claude starburst/asterisk mark (opening burst and closing lockup)",
+        "timestamps": [
+          1.5,
+          14.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "'Claude' wordmark and 'motion designer' lockup",
+        "timestamps": [
+          2.5,
+          14.5
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Contains Anthropic brand marks; do not extract, trace or recreate them, and do not combine the orange/blue/cream palette with a starburst mark. Study techniques only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3559597,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1633,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 251
+    },
+    "overall_kbps": 1898
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames over the full 15 s), scene sheet (10 scenes, start/middle/end) and transition strips (every 2nd frame, -10..+10 frames around each of 11 boundaries). Audio judged from measurements only (onsets, tempo, cut/beat alignment); not listened to.",
+    "coverage": "Full duration; every detected boundary inspected at frame level.",
+    "concept": {
+      "observed": "A self-promotional reel for a 'motion designer' persona: a series of motion studies (easing chart, shape morphs, tile wave, point cloud, kinetic words) ending on a brand lockup.",
+      "interpreted": "Demonstrates motion craft by enacting motion vocabulary; reads as a capability showcase.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No narration; fast cuts, single words, technical captions in corners.",
+      "interpreted": "Confident, playful, designer-to-designer.",
+      "confidence": "medium"
+    },
+    "aspects": {
+      "visual_identity": {
+        "observed": "Near-black, saturated orange-red, ultramarine blue and cream fields; persistent corner frame with micro labels."
+      },
+      "palette": {
+        "observed": "Measured top colours #080818 (26%), #f85838 (23%), #f8e8e8 (14%), #2838f8 (8%); 38% of frames dark.",
+        "interpreted": "Two hot accents on dark and cream give strong figure-ground swaps."
+      },
+      "typography": {
+        "observed": "Heavy condensed caps for single words, italic serif for a subtitle, tiny mono labels; accent full stops."
+      },
+      "composition": {
+        "observed": "Centred single subjects; full-bleed colour fields; words fill the frame width."
+      },
+      "shapes_and_materials": {
+        "observed": "Flat dots, rings, triangles, squares, Truchet-like arcs, dot grids; one 3D point cloud."
+      },
+      "motion": {
+        "observed": "Dots travel on arcs with trails; shapes morph with orbiting satellites; tiles rotate in a wave; letters fall and tile."
+      },
+      "easing": {
+        "observed": "An on-screen chart compares six ways to move between two points; moves mostly strong ease-in-out with hard stops."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median shot 1.87 s; word section cuts every 0.23-0.47 s (11.25-13.10 s).",
+        "interpreted": "Accelerating structure: studies first, then a burst of words."
+      },
+      "transitions": {
+        "observed": "Point-to-iris bloom with a leading ring (1.88 s), letters collapsing to dots plus a diagonal wipe (3.50 s), figure-ground colour swap on a held dot (5.63 s), held square over a background change (7.50 s), radial dissolve of tiles (9.67 s), hard cuts in the word section."
+      },
+      "depth_and_layering": {
+        "observed": "Mostly flat; one rotating point-cloud sphere-to-torus (9.7-11.2 s)."
+      },
+      "texture_and_effects": {
+        "observed": "Directional motion smear on fast words; no grain."
+      },
+      "camera": {
+        "observed": "Locked frame; motion lives in the elements."
+      },
+      "audio_and_sync": {
+        "observed": "Music-like bed, peak -1.8 dBFS, 5.2 onsets/s, tempo estimate 129 bpm (medium confidence); 80% of boundaries within 50 ms of an onset (chance 41%), 60% within 60 ms of the beat grid (chance 26%; analyzer 1.2).",
+        "interpreted": "Cuts are locked to the music.",
+        "confidence": "medium"
+      },
+      "motifs": {
+        "observed": "The dot: it travels, becomes a full stop, seeds the bloom."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.88,
+        "observed": "Dark field: a burst of rays contracts into a small mark."
+      },
+      {
+        "start": 1.88,
+        "end": 3.5,
+        "observed": "Iris bloom to orange; a wordmark assembles; letters collapse into dots."
+      },
+      {
+        "start": 3.5,
+        "end": 5.63,
+        "observed": "Cream: dots on arcs with trails, an easing comparison chart, dots converge."
+      },
+      {
+        "start": 5.63,
+        "end": 7.5,
+        "observed": "Blue: circle with satellites morphs to triangle with rays, then square."
+      },
+      {
+        "start": 7.5,
+        "end": 9.67,
+        "observed": "Black: square subdivides into a tile pattern; orange wave spreads from the centre."
+      },
+      {
+        "start": 9.67,
+        "end": 11.25,
+        "observed": "Dot grid becomes a rotating point cloud sphere, then torus."
+      },
+      {
+        "start": 11.25,
+        "end": 13.1,
+        "observed": "Word cards on alternating fields with smears, falling letters, tiling."
+      },
+      {
+        "start": 13.1,
+        "end": 15.0,
+        "observed": "Orange: ring and cursor, particle burst, brand lockup with underline.",
+        "interpreted": "Brand sign-off; excluded from reuse."
+      }
+    ],
+    "moments": [
+      {
+        "t": 1.88,
+        "observed": "The contracted mark becomes the seed of an iris bloom with a cream ring and orange core.",
+        "interpreted": "Transition motivated by the focal element."
+      },
+      {
+        "t": 5.63,
+        "observed": "Cut swaps figure and ground colours while the dot stays in place.",
+        "interpreted": "Continuity of position makes a hard cut feel smooth."
+      }
+    ],
+    "difficult": [
+      "Point-cloud sphere-to-torus morph with depth (needs 3D projection; approximable with sampled SVG points)",
+      "Brand lockup animation (excluded)"
+    ],
+    "uncertainties": [
+      "Whether the soundtrack is licensed music or generated is unknown",
+      "Exact easing curves are inferred from frames, not measured"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        11.25,
+        11.48,
+        11.72,
+        12.18,
+        12.65
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        1.88
+      ]
+    },
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        11.25,
+        13.07
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        0.5,
+        7.5,
+        14.5
+      ]
+    },
+    {
+      "id": "self-describing-kinetic-words",
+      "timestamps": [
+        11.72,
+        12.18
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        11.48,
+        11.72,
+        12.65
+      ]
+    },
+    {
+      "id": "grid-wave-propagation",
+      "timestamps": [
+        7.58,
+        8.58,
+        9.58
+      ]
+    },
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        5.71,
+        6.57,
+        7.42
+      ]
+    },
+    {
+      "id": "onion-skin-trail",
+      "timestamps": [
+        3.58,
+        4.56
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        11.25,
+        11.48,
+        11.72,
+        12.18,
+        12.65
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        9.75,
+        10.46
+      ]
+    },
+    {
+      "id": "typographic-repetition",
+      "timestamps": [
+        12.5
+      ]
+    },
+    {
+      "id": "orbit-constellation",
+      "timestamps": [
+        5.71,
+        6.57
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        5.63,
+        7.5
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "smear-motion",
+      "grid-wave",
+      "shape-morph",
+      "onion-trail",
+      "match-cut",
+      "beat-pulse"
+    ],
+    "compositions": [
+      "word-beats",
+      "frame-hud"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "title-sequence"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "shape-morphing",
+    "scene-transitions",
+    "music-sync",
+    "generative",
+    "3d-render",
+    "logo-reveal"
+  ],
+  "tags": [
+    "reference-video",
+    "dark-theme",
+    "reel",
+    "motion-studies",
+    "easing",
+    "word-cards",
+    "brand-marks-present"
+  ],
+  "confidence": "high",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 17.1
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 10,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 1.883,
+        "kind": "soft",
+        "score": 0.36,
+        "isolation": 0.16
+      },
+      {
+        "t": 3.5,
+        "kind": "soft",
+        "score": 0.326,
+        "isolation": 0.2
+      },
+      {
+        "t": 5.633,
+        "kind": "cut",
+        "score": 1.111,
+        "isolation": 1.0,
+        "frame": 338
+      },
+      {
+        "t": 7.5,
+        "kind": "cut",
+        "score": 0.698,
+        "isolation": 1.0,
+        "frame": 450
+      },
+      {
+        "t": 9.667,
+        "kind": "soft",
+        "score": 0.052,
+        "isolation": 0.0
+      },
+      {
+        "t": 11.25,
+        "kind": "cut",
+        "score": 0.57,
+        "isolation": 0.84,
+        "frame": 675
+      },
+      {
+        "t": 11.483,
+        "kind": "cut",
+        "score": 0.764,
+        "isolation": 0.93,
+        "frame": 689
+      },
+      {
+        "t": 11.717,
+        "kind": "cut",
+        "score": 1.189,
+        "isolation": 0.91,
+        "frame": 703
+      },
+      {
+        "t": 12.183,
+        "kind": "cut",
+        "score": 0.977,
+        "isolation": 0.91,
+        "frame": 731
+      },
+      {
+        "t": 12.65,
+        "kind": "cut",
+        "score": 1.115,
+        "isolation": 0.85,
+        "frame": 759
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.88,
+        "duration": 1.88,
+        "activity": 0.04,
+        "luma": 0.07
+      },
+      {
+        "index": 2,
+        "start": 1.88,
+        "end": 3.5,
+        "duration": 1.62,
+        "activity": 0.221,
+        "luma": 0.5
+      },
+      {
+        "index": 3,
+        "start": 3.5,
+        "end": 5.63,
+        "duration": 2.13,
+        "activity": 0.072,
+        "luma": 0.92
+      },
+      {
+        "index": 4,
+        "start": 5.63,
+        "end": 7.5,
+        "duration": 1.87,
+        "activity": 0.11,
+        "luma": 0.34
+      },
+      {
+        "index": 5,
+        "start": 7.5,
+        "end": 9.67,
+        "duration": 2.17,
+        "activity": 0.325,
+        "luma": 0.21
+      },
+      {
+        "index": 6,
+        "start": 9.67,
+        "end": 11.25,
+        "duration": 1.58,
+        "activity": 0.118,
+        "luma": 0.08
+      },
+      {
+        "index": 7,
+        "start": 11.72,
+        "end": 12.18,
+        "duration": 0.47,
+        "activity": 0.604,
+        "luma": 0.55
+      },
+      {
+        "index": 8,
+        "start": 12.18,
+        "end": 12.65,
+        "duration": 0.47,
+        "activity": 0.47,
+        "luma": 0.79
+      },
+      {
+        "index": 9,
+        "start": 12.65,
+        "end": 15.0,
+        "duration": 2.35,
+        "activity": 0.166,
+        "luma": 0.44
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.186,
+    "luma": {
+      "mean": 0.39,
+      "dark_share": 0.38,
+      "light_share": 0.17
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.256
+      },
+      {
+        "hex": "#f85838",
+        "share": 0.227
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.136
+      },
+      {
+        "hex": "#2838f8",
+        "share": 0.077
+      },
+      {
+        "hex": "#080808",
+        "share": 0.05
+      },
+      {
+        "hex": "#e8f838",
+        "share": 0.041
+      },
+      {
+        "hex": "#181818",
+        "share": 0.033
+      },
+      {
+        "hex": "#180818",
+        "share": 0.017
+      },
+      {
+        "hex": "#3838f8",
+        "share": 0.015
+      },
+      {
+        "hex": "#180808",
+        "share": 0.014
+      }
+    ],
+    "representative_times": [
+      0.94,
+      2.69,
+      4.56,
+      6.56,
+      8.59,
+      10.46,
+      11.95,
+      12.41,
+      13.82
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.8,
+      "mean_dbfs_voiced": -17.3,
+      "silence_ratio": 0.01,
+      "onsets": 79,
+      "onset_rate_per_sec": 5.24,
+      "onset_times": [
+        0.19,
+        0.53,
+        0.72,
+        1.0,
+        1.93,
+        2.07,
+        2.18,
+        2.3,
+        2.41,
+        2.65,
+        2.76,
+        2.88,
+        3.0,
+        3.13,
+        3.23,
+        3.34,
+        3.48,
+        3.58,
+        3.72,
+        3.81,
+        3.95,
+        4.06,
+        4.18,
+        4.3,
+        4.41,
+        4.53,
+        4.64,
+        4.76,
+        4.88,
+        5.11,
+        5.22,
+        5.46,
+        5.69,
+        5.83,
+        5.94,
+        6.06,
+        6.15,
+        6.39,
+        6.52,
+        6.62,
+        6.76,
+        6.87,
+        6.99,
+        7.11,
+        7.34,
+        7.45,
+        7.57,
+        7.69,
+        7.83,
+        7.92,
+        8.03,
+        8.27,
+        8.5,
+        8.61,
+        8.99,
+        9.22,
+        9.33,
+        9.66,
+        10.84,
+        10.96,
+        11.1,
+        11.31,
+        11.45,
+        11.54,
+        11.68,
+        11.8,
+        11.91,
+        12.0,
+        12.14,
+        12.26,
+        12.38,
+        12.49,
+        12.61,
+        12.72,
+        12.84,
+        12.96,
+        13.07,
+        13.19,
+        14.61
+      ],
+      "tempo_estimate": {
+        "bpm": 129.2,
+        "autocorr": 0.56,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 694,
+      "band_share": {
+        "low_lt_250": 0.45,
+        "mid_250_2k": 0.46,
+        "high_gt_2k": 0.09
+      },
+      "syllabic_modulation_share": 0.28,
+      "boundary_onset_alignment": {
+        "boundaries": 10,
+        "tolerance_ms": 50,
+        "near_onset": 0.8,
+        "chance_level": 0.41,
+        "median_offset_ms": 40,
+        "near_beat": 0.6,
+        "beat_chance_level": 0.26,
+        "beat_phase_sec": 0.087
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-92c22222a2",
+      "overview": "out/reference-analysis/ref-92c22222a2/overview.jpg",
+      "scenes": "out/reference-analysis/ref-92c22222a2/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-92c22222a2/transitions.jpg",
+      "motion": "out/reference-analysis/ref-92c22222a2/motion.jpg",
+      "audio": "out/reference-analysis/ref-92c22222a2/audio.png",
+      "frames": "out/reference-analysis/ref-92c22222a2/frames",
+      "tracked": false
+    }
+  }
+}

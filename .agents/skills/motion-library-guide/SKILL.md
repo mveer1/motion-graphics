@@ -12,6 +12,8 @@ This skill governs the discovery, vetting, selection, and implementation of moti
 ## Quick References
 
 - **Catalogue CLI:** Run `python3 scripts/motion-catalogue.py --help` for query and inspection commands.
+- **Capability layers:** `--type library|primitive|effect|recipe|composition|style|template|technique|source`. Prefer a composition or effect already implemented in `src/studio/` over new code; `proposed` items (for example templates with a `pending:` location) are plans, not implementations.
+- **Techniques learned from references:** `search "<intent>" --type technique [--support native|approximation|additional-dependencies|resource-constrained|research-required]` finds technique records with their derived lifecycle (observed, specified, prototyped, tested, approved), the runtime APIs and components that implement them, and precedents (`source@seconds`). `--type source --category <category>` finds reference videos by category. `recommend --brief projects/<slug>/brief.json [--implemented-only]` ranks techniques, precedents and styles for a brief. `get <technique-id>` shows mechanics, parameters, failure modes and validation evidence. Precedents are study material only (`reference-analyst`).
 - **Approval Policy & Licensing:** Read [`references/approval-policy.md`](./references/approval-policy.md) for approval states, licensing rules, and hardware thresholds.
 - **Contribution Workflow:** Read [`references/contribution-workflow.md`](./references/contribution-workflow.md) for adding and vetting new libraries or recipes.
 - **Recipes Quickstart:** Read [`references/recipes-guide.md`](./references/recipes-guide.md) for immediate GSAP timeline snippets.
@@ -26,7 +28,7 @@ Activate this skill whenever you need to:
 2. **Assess Visual Requirements:** Match abstract pedagogical concepts (e.g. data flow, convergence, consensus) to approved visual archetypes.
 3. **Vet Dependencies:** Check whether a candidate animation library is `approved`, `proposed`, or `blocked` before introducing external code.
 4. **Implement Tested Recipes:** Retrieve parameterized, deterministic GSAP 3 implementations (zero-dip crossfades, marching dashed lines, signal dots, curve reveals).
-5. **Validate Rendering Safety:** Ensure the chosen implementation adheres to the 1280×720 @ 30fps target, single-worker low-memory mode, and $\le$ 1.5 GB RAM cap on Apple Silicon.
+5. **Validate Rendering Safety:** Ensure the chosen implementation adheres to the project's formats (legacy: 1280×720 @ 30fps; studio: `project.json`), single-worker low-memory mode, and $\le$ 1.5 GB RAM cap on Apple Silicon.
 
 ---
 

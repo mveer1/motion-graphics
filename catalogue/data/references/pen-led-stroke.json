@@ -1,0 +1,53 @@
+{
+  "id": "pen-led-stroke",
+  "name": "Pen-led stroke",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Five inspected references draw lines with a visible moving point at the tip (a dot, a heartbeat blip, an accent full stop).", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A line is drawn by a visible point that travels ahead of it, so the line reads as the trace of an action (a pen, a pulse, a flight) rather than as a mask reveal. The point usually survives the stroke and becomes the next focal element.",
+  "purpose": "Give lines agency and direction; carry attention along a path; hand off to the next beat from the dot.",
+  "visual_behaviour": "A small dot appears, moves along a path and leaves the stroke behind it; it may stop at the end, bounce, or bloom into the next scene.",
+  "mechanics": "Dash-offset reveal and dot position share one eased progress (ease-in-out or sine), so the dot stays on the tip; speeds of about 400-900 px/s.",
+  "decomposition": { "primitives": ["svg-path", "svg-shape"], "effects": ["pen-stroke", "stroke-draw"], "timing": "Observed strokes of 0.6-2 s (ref-49459ad8c1 question-mark stroke about 1 s; ref-5924215625 heartbeat line about 1.5 s)." },
+  "parameters": [
+    { "name": "speed or duration", "description": "Pen speed in px/s or a fixed time", "default": "600 px/s" },
+    { "name": "ease", "description": "Shared by line and dot (monotonic)", "default": "power2.inOut" },
+    { "name": "keepDot", "description": "Leave the dot at the end for the next beat", "default": true }
+  ],
+  "use_cases": ["line art", "signature or handwriting", "flight or travel path", "heartbeat or signal", "underline from a full stop", "explainer diagram path"],
+  "failure_modes": ["Dot drawn with a different ease from the line drifts off the tip", "Very fast pens (>1200 px/s) make the dot invisible", "Several pens at once divide attention"],
+  "implementation_state": "implemented",
+  "implemented_by": ["pen-stroke", "pen-led-line"],
+  "implementation": { "approach": "Studio.draw.pen: dash-offset draw plus a circle whose cx/cy follow piecewise-linear tweens sampled evenly in time and in arc length at the same eased progress (no MotionPathPlugin, no callbacks).", "runtime_api": ["Studio.draw.pen"] },
+  "capability": {
+    "support": "native",
+    "requirements": ["SVG path length sampling", "attribute tweens"],
+    "compatible_components": ["pen-stroke", "stroke-draw", "line-art-reveal", "hand-underline"],
+    "additional_dependencies": [],
+    "complexity": "low",
+    "resources": { "cpu": "low", "gpu": "low", "memory": "about 60 attribute tweens per second of drawing", "basis": "measured", "measurements": [
+      { "what": "every-frame preview capture of tests/reference-derived/pen-and-bloom, 1280x720, 285 frames", "value": "52.5 ms/frame median, peak headless Chromium 264 MB", "where": "Windows dev host, Playwright Chromium (tests/reference-derived/benchmark.json)", "date": "2026-10-30" },
+      { "what": "dot-to-tip distance at 8 sampled times on a 1229 px path", "value": "<= 1.5 px", "where": "tests/studio-runtime/reference-techniques.html", "date": "2026-10-30" }
+    ] },
+    "native_option": "Dash-offset stroke + sampled dot tweens.",
+    "additional_tooling": { "needed": "no", "justification": "GSAP MotionPathPlugin would be equivalent but is not needed." },
+    "limitations": ["Assumes a monotonic ease", "Path transforms belong on a parent group (the dot copies only the path's own transform attribute)"],
+    "priority": { "creative_value": 4, "cost": 1 }
+  },
+  "provenance": [
+    { "source_id": "ref-49459ad8c1", "timestamps": [0.5, 1.5, 8.5], "observed": "An orange dot draws a question-mark line that tangles into a scribble; later a line runs from the dot to underline the closing sentence." },
+    { "source_id": "ref-5924215625", "timestamps": [0.5, 19.5], "observed": "A heartbeat trace is drawn by a moving blip at the start and returns flat at the end." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [13.1, 14.9], "observed": "An orange swoosh draws under the closing title and retracts to a dot." },
+    { "source_id": "ref-c93524ef20", "timestamps": [5.0], "observed": "A spiral construction line is traced with an accent dot at its tip over an archival image (approx., from overview spacing)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/pen-and-bloom/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: dot leads the line; underline drawn from the reveal point." },
+    { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Pen-drawn fold lines and a 2 s flight path whose dot becomes the bloom source. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["continuous-line-spine", "element-bloom-transition"], "effects": ["pen-stroke", "stroke-draw"], "templates": ["illustrated-explainer", "title-sequence"] },
+  "combines_with": [ { "id": "element-bloom-transition", "why": "The surviving dot becomes the seed of the next scene." }, { "id": "continuous-line-spine", "why": "One pen line can run through several scenes." } ],
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Paths and copy in the tests are original.",
+  "tags": ["line-art", "pen", "stroke", "dot", "path", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

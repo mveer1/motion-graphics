@@ -1,0 +1,46 @@
+{
+  "id": "blob-shape",
+  "name": "Morph-compatible organic blob",
+  "kind": "shape",
+  "status": "experimental",
+  "description": "Closed cubic Bezier blob; every blob with the same point count shares a command structure, so GSAP core can morph between them.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "points",
+      "type": "integer",
+      "description": "Vertex count (structure)"
+    },
+    {
+      "name": "wobble",
+      "type": "number",
+      "description": "Radius noise"
+    },
+    {
+      "name": "phase",
+      "type": "number",
+      "description": "Noise offset for variants"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.blob(seed, {cx, cy, r, points, wobble, phase})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "shape",
+    "organic",
+    "morph"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

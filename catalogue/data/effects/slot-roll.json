@@ -1,0 +1,20 @@
+{
+  "id": "slot-roll",
+  "name": "Slot roll (words or numbers)",
+  "category": "typography",
+  "visual_intent": "One slot in a sentence cycles through options like a mechanical counter (hooks / ads / launched), keeping the rest of the line still so the change is the message.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["typography", "roll", "slot", "counter", "word-swap", "kinetic", "reference-derived"],
+  "performance_characteristics": { "cpu_intensity": "low", "gpu_intensity": "low", "dom_node_count": "1 window + 1 span per entry", "memory_profile": "Negligible (estimate)" },
+  "recipes": ["word-slot"],
+  "implementation_summary": "A one-line overflow-hidden window as wide as the widest entry over a column of entries; each step tweens the column's yPercent to the entry with back.out overshoot. The window carries an aria-label with all entries.",
+  "primitives": ["styled-text", "clip-mask"],
+  "runtime_api": "Studio.type.roll(parent, items, {align}) -> {to(tl, index, at, {duration, ease})}",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/word-beats/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["counter-roll", "text-mask-rise"],
+  "validation": { "evidence": "Runtime self-test (starts on entry 0, lands exactly on entry 2) in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Studio runtime self-test: reference-derived capabilities</title>
+  <script>
+    Math.random = function () { throw new Error('Math.random is banned in compositions'); };
+  </script>
+  <link rel="stylesheet" href="../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #sceneA { background: #f4efe6; }
+    #sceneB { background: #c8462b; }
+    #sceneC { background: #2f5d50; }
+    #dot { position: absolute; left: 600px; top: 340px; width: 24px; height: 24px; border-radius: 50%; background: #c8462b; }
+    #mover { position: absolute; left: 100px; top: 100px; width: 40px; height: 40px; background: #1e1b16; }
+    #grid { position: absolute; left: 100px; top: 200px; width: 300px; height: 300px; }
+    .ball { position: absolute; left: 900px; top: 500px; width: 60px; height: 60px; border-radius: 50%; background: #2f5d50; }
+    #stampEl { position: absolute; left: 500px; top: 100px; padding: 10px; border: 4px solid #c8462b; font: 700 40px sans-serif; }
+    #smearEl { position: absolute; left: 400px; top: 560px; font: 800 60px sans-serif; }
+    #cardA, #cardB { position: absolute; width: 160px; height: 90px; background: #e7dfd0; }
+    #cardA { left: 120px; top: 300px; } #cardB { left: 760px; top: 420px; }
+    #stepHost { position: absolute; left: 100px; right: 100px; top: 560px; }
+    #rollHost { position: absolute; left: 700px; top: 120px; font: 700 48px sans-serif; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="20">
+  <div class="st-scene" id="sceneA">
+    <div id="dot"></div>
+    <div id="mover"></div>
+    <svg id="art" width="1280" height="720" style="position:absolute;left:0;top:0">
+      <path id="penPath" d="M100 650 C 300 450, 500 700, 700 520 S 1000 380, 1180 600" fill="none" stroke="#1e1b16" stroke-width="5"></path>
+      <path id="morphPath" fill="#2f5d50"></path>
+    </svg>
+    <div id="grid"></div>
+    <div id="ball" class="ball"></div>
+    <div id="stampEl">DOWN</div>
+    <div id="smearEl">SMEAR</div>
+    <div id="cardA"></div><div id="cardB"></div>
+    <div id="stepHost"></div>
+    <div id="rollHost"></div>
+  </div>
+  <div class="st-scene" id="sceneB"></div>
+  <div class="st-scene" id="sceneC"></div>
+  <div class="st-scene" id="sceneD"></div>
+</div>
+
+<script src="../../src/studio/studio-core.js"></script>
+<script src="../../src/studio/studio-draw.js"></script>
+<script src="../../src/studio/studio-type.js"></script>
+<script src="../../src/studio/studio-motion.js"></script>
+<script src="../../src/studio/studio-compositions.js"></script>
+<script>
+(function () {
+  var results = [];
+  function check(name, cond, detail) { results.push({ name: name, ok: !!cond, detail: detail === undefined ? '' : String(detail) }); }
+  function near(a, b, tol) { return Math.abs(a - b) <= tol; }
+  var S = Studio, D = Studio.draw;
+
+  // Morph-ready shapes (pure functions)
+  var circle = D.shape('circle', { cx: 200, cy: 200, r: 100 });
+  var tri = D.shape('polygon', { cx: 200, cy: 200, r: 100, sides: 3 });
+  var sq = D.shape('rect', { cx: 200, cy: 200, w: 180, h: 180 });
+  var star = D.shape('star', { cx: 200, cy: 200, r: 100, spikes: 5 });
+  check('shapes share one structure', D.compatible(circle, tri) && D.compatible(tri, sq) && D.compatible(sq, star));
+  check('shape point count changes structure', !D.compatible(circle, D.shape('circle', { r: 100, points: 40 })));
+  var firstPt = function (d) { var m = d.match(/^M(-?[\d.]+) (-?[\d.]+)/); return [parseFloat(m[1]), parseFloat(m[2])]; };
+  check('shapes start at the top', [circle, tri, sq, star].every(function (d) { var p = firstPt(d); return near(p[0], 200, 0.6) && p[1] < 200; }),
+    [circle, tri, sq, star].map(function (d) { return firstPt(d).join(','); }).join(' | '));
+  check('shape deterministic', D.shape('star', { r: 50 }) === D.shape('star', { r: 50 }));
+  var house = D.shape('poly', { verts: [[200, 60], [300, 160], [300, 340], [100, 340], [100, 160]] });
+  check('poly shapes are morph-compatible and start at the top', D.compatible(house, circle) && near(firstPt(house)[0], 200, 0.6) && near(firstPt(house)[1], 60, 0.6), firstPt(house).join(','));
+  var threw = false;
+  try { D.shape('blobby', {}); } catch (e) { threw = true; }
+  check('unknown shape kind throws', threw);
+  check('hand loop deterministic', D.loop(3, 0, 0, 50, 30) === D.loop(3, 0, 0, 50, 30));
+
+  var probes = {};
+  S.build(function (tl, f) {
+    S.show(tl, '#sceneA', 0);
+    // boxAt follows earlier tweens
+    tl.fromTo('#mover', { x: 0 }, { x: 300, duration: 1, ease: 'none' }, 0.5);
+    var b0 = S.boxAt(tl, '#mover', 0.2), b1 = S.boxAt(tl, '#mover', 1.5);
+    check('boxAt measures the rendered position at a time', near(b0.x, 100, 0.5) && near(b1.x, 400, 0.5), b0.x + ' -> ' + b1.x);
+    check('boxAt restores the playhead', tl.time() === 0, tl.time());
+
+    // Morph chain
+    document.getElementById('morphPath').setAttribute('d', circle);
+    probes.morphEnd = D.morphChain(tl, '#morphPath', [circle, tri, sq], 1.0, { duration: 0.6, hold: 0.2 });
+    check('morphChain end time', near(probes.morphEnd, 1.0 + 0.6 + 0.2 + 0.6, 1e-9), probes.morphEnd);
+
+    // Pen-led stroke
+    probes.penAt = 1.0;
+    probes.penEnd = D.pen(tl, '#penPath', 1.0, { duration: 2.0, ease: 'power2.inOut' });
+
+    // Grid wave
+    probes.cells = D.grid('#grid', 5, 5, { truchet: 7 });
+    probes.waveEnd = S.fx.gridWave(tl, probes.cells, 2.0, { preset: 'pop', from: 'center', amount: 0.8, duration: 0.4 });
+    S.fx.gridWave(tl, probes.cells, 3.5, { preset: 'flip', from: 'center', amount: 0.6, duration: 0.4 });
+
+    // Bounce with an onion-skin trail
+    probes.bounceEnd = S.space.trail(tl, '#ball', 2.0, function (t2, el, at) { return S.space.bounce(t2, el, at, { height: 25, bounces: 2 }); }, { count: 3, lag: 0.06, hold: 0.3 });
+
+    // Stamp, smear, connector, stepper, roll
+    probes.stampEnd = S.fx.stamp(tl, '#stampEl', 2.5, { rotate: -7, shake: '#cardA' });
+    probes.smearEnd = S.fx.smear(tl, '#smearEl', 3.0, { side: 'left', duration: 0.5 });
+    var layer = D.layer('#sceneA');
+    probes.connEnd = D.connect(tl, layer, '#cardA', '#cardB', 3.2, { bend: 0.4 });
+    probes.stepper = S.comp.stepper('#stepHost', ['Ice', 'Gin', 'Stir', 'Peel']);
+    probes.stepper.enter(tl, 3.0);
+    probes.stepper.advance(tl, 0, 3.6);
+    probes.stepper.advance(tl, 2, 4.4);
+    probes.roll = S.type.roll('#rollHost', ['hooks', 'ads', 'launched']);
+    probes.roll.to(tl, 1, 3.5);
+    probes.roll.to(tl, 2, 4.2);
+
+    // HUD + callout
+    probes.hud = S.comp.frameHud('#root', { tl: 'Study 01', tr: '00', bl: 'Motion lab', br: 'Field notes' });
+    probes.hud.enter(tl, 0.2);
+    probes.hud.set(tl, 'tr', '01', 2.0);
+    probes.hud.progress(tl, 0.2, 18.0);
+    probes.callout = S.comp.callout('#sceneA', { text: 'squash!', target: '#ball', side: 'left', seed: 5 });
+    probes.calloutEnd = probes.callout.enter(tl, 4.5);
+
+    // Bloom from the dot into scene B (become), reveal into scene C, smear exit of a word beat card
+    probes.bloomEnd = S.fx.bloom(tl, '#dot', '#sceneA', '#sceneB', 6.0, { duration: 0.8, ring: '#f4efe6' });
+    probes.revealEnd = S.fx.bloom(tl, null, '#sceneB', '#sceneC', 7.5, { mode: 'reveal', x: 640, y: 360, duration: 0.6 });
+
+    // Word beats on scene D, timed by a tempo grid
+    S.show(tl, '#sceneD', 8.5);
+    S.hide(tl, '#sceneC', 8.5);
+    probes.wb = S.comp.wordBeats('#sceneD', [
+      { text: 'RISE', treatment: 'rise' }, { text: 'SMEAR', treatment: 'smear', accent: true },
+      { text: 'DROP', treatment: 'drop' }, { text: 'STRETCH', treatment: 'stretch', bg: '#2f5d50', ink: '#f4efe6' },
+      { text: 'SPIN', treatment: 'spin' }, { text: 'TRACK', treatment: 'track' }, { text: 'ECHO', treatment: 'echo' }, { text: 'CUT', treatment: 'cut' }
+    ], { beats: { start: 8.5, bpm: 120, every: 2 }, holdLast: true });
+    probes.wbEnd = probes.wb.schedule(tl);
+    check('word beats from a tempo grid', near(probes.wb.times[1] - probes.wb.times[0], 1.0, 1e-9) && near(probes.wbEnd, 16.5, 1e-9), probes.wb.times.join(','));
+  });
+
+  function visible(el) {
+    var s = getComputedStyle(el);
+    if (s.visibility === 'hidden' || parseFloat(s.opacity) < 0.01) return false;
+    var p = el.parentElement;
+    while (p && p.id !== 'root') { var ps = getComputedStyle(p); if (ps.visibility === 'hidden' || parseFloat(ps.opacity) < 0.01) return false; p = p.parentElement; }
+    return true;
+  }
+  function state() {
+    var parts = ['sceneA', 'sceneB', 'sceneC', 'sceneD'].map(function (id) { return id + ':' + (visible(document.getElementById(id)) ? 'v' : 'h'); });
+    parts.push(document.getElementById('morphPath').getAttribute('d').slice(0, 40));
+    var dot = document.getElementById('penPath').__penDot;
+    parts.push(dot.getAttribute('cx') + ',' + dot.getAttribute('cy') + ':' + getComputedStyle(dot).visibility);
+    parts.push(getComputedStyle(document.getElementById('ball')).transform);
+    parts.push(getComputedStyle(document.getElementById('smearEl')).filter);
+    Array.prototype.forEach.call(document.querySelectorAll('.st-wb-card'), function (c) { parts.push(visible(c) ? 'v' : 'h'); });
+    Array.prototype.forEach.call(document.querySelectorAll('.st-bloom'), function (c) { parts.push(getComputedStyle(c).visibility + getComputedStyle(c).transform); });
+    return parts.join('|');
+  }
+
+  function waitTimeline() {
+    var tl = window.__timelines && window.__timelines.root;
+    if (!tl) {
+      if (document.getElementById('root').getAttribute('data-studio-error')) {
+        check('build without error', false, document.getElementById('root').getAttribute('data-studio-error'));
+        window.__studioTestResults = results;
+        return;
+      }
+      setTimeout(waitTimeline, 30);
+      return;
+    }
+    check('timeline within data-duration', tl.duration() <= 20 + 1e-3, tl.duration());
+
+    // Pen: the dot sits on the drawn tip at any time.
+    var path = document.getElementById('penPath'), dot = path.__penDot;
+    tl.seek(0.5);
+    check('pen dot hidden before the stroke', getComputedStyle(dot).visibility === 'hidden');
+    var worst = 0;
+    [1.1, 1.2, 1.3, 1.7, 2.0, 2.4, 2.8, 2.9].forEach(function (t) {
+      tl.seek(t);
+      var visibleLen = path.__studioLen - parseFloat(getComputedStyle(path).strokeDashoffset);
+      var p = path.getPointAtLength(Math.max(0, Math.min(path.getTotalLength(), visibleLen)));
+      worst = Math.max(worst, Math.hypot(p.x - parseFloat(dot.getAttribute('cx')), p.y - parseFloat(dot.getAttribute('cy'))));
+    });
+    check('pen dot rides the stroke tip (<= 1.5 px)', worst <= 1.5, worst.toFixed(2));
+    tl.seek(probes.penEnd + 0.1);
+    var endPt = path.getPointAtLength(path.getTotalLength());
+    check('pen ends at the path end', near(parseFloat(dot.getAttribute('cx')), endPt.x, 0.6) && near(parseFloat(dot.getAttribute('cy')), endPt.y, 0.6));
+
+    // Morph chain ends on the last shape; mid-morph differs from both ends.
+    tl.seek(1.3);
+    var mid = document.getElementById('morphPath').getAttribute('d');
+    check('morph in progress mid-way', mid !== circle && mid !== tri);
+    tl.seek(probes.morphEnd + 0.05);
+    var endD = document.getElementById('morphPath').getAttribute('d').replace(/\s+/g, ' ');
+    var sqNums = sq.match(/-?[\d.]+/g).map(Number), endNums = endD.match(/-?[\d.]+/g).map(Number);
+    check('morph chain ends on the last shape', sqNums.length === endNums.length && sqNums.every(function (v, i) { return near(v, endNums[i], 0.05); }));
+
+    // Grid wave pops from the centre outward.
+    var cells = probes.cells, centre = cells[12], corner = cells[0];
+    tl.seek(1.9);
+    check('grid cells hidden before the wave', getComputedStyle(centre).visibility === 'hidden');
+    tl.seek(2.35);
+    var sc = gsap.getProperty(centre, 'scale'), sk = gsap.getProperty(corner, 'scale');
+    check('wave reaches the centre before the corner', sc > sk, sc.toFixed(2) + ' vs ' + sk.toFixed(2));
+    tl.seek(probes.waveEnd + 0.01);
+    check('every cell settled after the wave', cells.every(function (c) { return near(gsap.getProperty(c, 'scale'), 1, 1e-3); }));
+    tl.seek(5.0);
+    check('flip wave turns each tile a quarter', cells.every(function (c) { return near(gsap.getProperty(c, 'rotation'), c.__baseRot, 1e-3) && (c.__baseRot % 90) === 0; }));
+
+    // Bounce and trail
+    var ball = document.getElementById('ball');
+    tl.seek(probes.bounceEnd + 0.05);
+    check('bounce settles at rest', near(gsap.getProperty(ball, 'y'), 0, 0.01) && near(gsap.getProperty(ball, 'scaleY'), 1, 1e-3));
+    var ghosts = document.querySelectorAll('.st-trail');
+    check('trail creates ghosts', ghosts.length === 3, ghosts.length);
+    check('ghosts keep class-based styling', ghosts[0].firstChild.offsetWidth === ball.offsetWidth && !ghosts[0].firstChild.id, ghosts[0].firstChild.offsetWidth);
+    tl.seek(2.3);
+    var gy = gsap.getProperty(ghosts[ghosts.length - 1].firstChild, 'y'), by = gsap.getProperty(ball, 'y');
+    check('ghost lags the original', gy < by, gy.toFixed(1) + ' < ' + by.toFixed(1));
+    tl.seek(probes.bounceEnd + 0.6);
+    check('ghosts hidden after the move', Array.prototype.every.call(ghosts, function (g) { return getComputedStyle(g).visibility === 'hidden'; }));
+
+    // Stamp, smear
+    var st = document.getElementById('stampEl');
+    tl.seek(probes.stampEnd + 0.05);
+    check('stamp settles tilted at full size', near(gsap.getProperty(st, 'scale'), 1, 1e-3) && near(gsap.getProperty(st, 'rotation'), -7, 1e-3));
+    check('stamp shake returns home', near(gsap.getProperty('#cardA', 'x'), 0, 1e-3));
+    var sm = document.getElementById('smearEl');
+    tl.seek(3.05);
+    var blurNode = document.querySelector(getComputedStyle(sm).filter.replace(/^url\("?#?|"?\)$/g, '').replace(/^/, '#') + ' feGaussianBlur');
+    check('smear blurs while fast', /url\(/.test(getComputedStyle(sm).filter) && blurNode && parseFloat(blurNode.getAttribute('stdDeviation')) > 1, getComputedStyle(sm).filter);
+    check('smear stretches along the move', gsap.getProperty(sm, 'scaleX') > 1.05, gsap.getProperty(sm, 'scaleX'));
+    tl.seek(probes.smearEnd + 0.05);
+    check('smear detaches the filter at rest', getComputedStyle(sm).filter === 'none', getComputedStyle(sm).filter);
+    check('smear lands in place', near(gsap.getProperty(sm, 'x'), 0, 1e-3) && near(gsap.getProperty(sm, 'scaleX'), 1, 1e-3));
+    tl.seek(2.9);
+    check('smear target hidden before entrance', !visible(sm));
+
+    // Connector
+    tl.seek(probes.connEnd + 0.05);
+    var conn = document.querySelector('.st-connector:not(.st-connector-head)');
+    var a = S.boxAt(tl, '#cardA', null), b = S.boxAt(tl, '#cardB', null);
+    var p0 = conn.getPointAtLength(0), p1 = conn.getPointAtLength(conn.getTotalLength());
+    check('connector leaves A and reaches B', near(p0.x, a.x + a.w + S.u(1), 1) && near(p1.x, b.x - S.u(1), 1), p0.x.toFixed(1) + ' ' + p1.x.toFixed(1));
+    check('connector fully drawn', near(parseFloat(getComputedStyle(conn).strokeDashoffset), 0, 0.5));
+
+    // Stepper and roll
+    tl.seek(5.6);
+    var nodes = probes.stepper.nodes;
+    var accent = getComputedStyle(document.documentElement).getPropertyValue('--c-accent').trim();
+    var bg0 = getComputedStyle(nodes[0].dot).backgroundColor, bg2 = getComputedStyle(nodes[2].dot).backgroundColor;
+    check('stepper completes earlier nodes', bg0 !== getComputedStyle(nodes[3].dot).backgroundColor && bg2 === getComputedStyle(nodes[3].dot).backgroundColor, bg0 + ' / ' + bg2);
+    var fill = document.querySelector('.st-stepper-fill');
+    check('stepper rule filled to the current node', near(gsap.getProperty(fill, 'scaleX'), 2 / 3, 1e-3), gsap.getProperty(fill, 'scaleX'));
+    var col = document.querySelector('.st-roll-col');
+    check('roll steps to the third entry', near(gsap.getProperty(col, 'yPercent'), -200 / 3, 1e-3), gsap.getProperty(col, 'yPercent'));
+    tl.seek(3.4);
+    check('roll starts on the first entry', near(gsap.getProperty(col, 'yPercent'), 0, 1e-3));
+
+    // HUD
+    var values = document.querySelectorAll('.st-hud-label.tr .st-hud-value');
+    tl.seek(1.5);
+    check('hud shows the first value before the swap', visible(values[0]) && !visible(values[1]));
+    tl.seek(2.6);
+    check('hud swaps the corner value', !visible(values[0]) && visible(values[1]));
+    tl.seek(9.1);
+    check('hud progress tracks time', near(gsap.getProperty('.st-hud-fill', 'scaleX'), (9.1 - 0.2) / 17.8, 0.01), gsap.getProperty('.st-hud-fill', 'scaleX'));
+    tl.seek(6.4);
+    check('hud stays visible above a bloom', visible(document.querySelector('.st-hud')) && getComputedStyle(document.querySelector('.st-hud')).zIndex === '60');
+
+    // Callout
+    tl.seek(probes.calloutEnd + 0.05);
+    var label = document.querySelector('.st-callout');
+    var lb = label.getBoundingClientRect(), f = S.format;
+    check('callout note visible and inside the safe area', visible(label) && lb.left >= f.safe.left - 1 && lb.right <= f.width - f.safe.right + 1, lb.left.toFixed(0) + '..' + lb.right.toFixed(0));
+    check('callout loop drawn', near(parseFloat(getComputedStyle(document.querySelector('.st-annot-path')).strokeDashoffset), 0, 0.5));
+
+    // Bloom (become) and bloom (reveal)
+    tl.seek(6.4);
+    var discs = document.querySelectorAll('.st-bloom');
+    check('bloom creates ring and fill discs', discs.length === 2, discs.length);
+    var midScale = gsap.getProperty(discs[0], 'scale');
+    check('bloom disc grows mid-way', midScale > 0.02 && midScale < 1, midScale);
+    check('bloom keeps the outgoing scene under the disc', visible(document.getElementById('sceneA')) && !visible(document.getElementById('sceneB')));
+    tl.seek(probes.bloomEnd + 0.01);
+    check('bloom ends on the incoming scene', visible(document.getElementById('sceneB')) && !visible(document.getElementById('sceneA')));
+    check('bloom discs gone after the cut', Array.prototype.every.call(discs, function (d) { return getComputedStyle(d).visibility === 'hidden'; }));
+    tl.seek(7.8);
+    var cp = getComputedStyle(document.getElementById('sceneC')).clipPath;
+    check('reveal bloom opens a circle on the source point', /circle\(/.test(cp) && /640px 360px/.test(cp), cp);
+
+    // Word beats
+    var wcards = document.querySelectorAll('.st-wb-card');
+    var times = probes.wb.times;
+    var okCards = true, detail = [];
+    for (var i = 0; i < wcards.length; i++) {
+      tl.seek(times[i] + 0.5);
+      for (var j = 0; j < wcards.length; j++) {
+        var want = j === i;
+        if (visible(wcards[j]) !== want) { okCards = false; detail.push(i + ':' + j); }
+      }
+    }
+    check('one word card per beat', okCards, detail.join(' '));
+    tl.seek(times[2] + 0.02);
+    check('smear card uses the accent dot', !!wcards[1].querySelector('.st-wb-dot'));
+    tl.seek(probes.wbEnd + 0.5);
+    check('last card holds', visible(wcards[wcards.length - 1]));
+    tl.seek(times[6] + 0.25);
+    check('echo copies appear', Array.prototype.some.call(wcards[6].querySelectorAll('.st-wb-echo'), visible));
+
+    // Determinism: seek order independence and backward seeks
+    tl.seek(6.3); var s1 = state();
+    tl.seek(19.0); tl.seek(0); tl.seek(6.3);
+    check('seek order independent at 6.3', state() === s1);
+    tl.seek(12.2); var s2 = state();
+    tl.seek(3.0); tl.seek(12.2);
+    check('seek order independent at 12.2', state() === s2);
+    tl.seek(0.05);
+    check('backward seek restores the opening', visible(document.getElementById('sceneA')) && !visible(document.getElementById('sceneB')) &&
+      Array.prototype.every.call(document.querySelectorAll('.st-bloom'), function (d) { return getComputedStyle(d).visibility === 'hidden'; }));
+    window.__studioTestResults = results;
+  }
+  waitTimeline();
+})();
+</script>
+</body>
+</html>

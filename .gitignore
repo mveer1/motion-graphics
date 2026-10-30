@@ -74,6 +74,20 @@ tests/_work/
 tests/sfx_test/
 tests/*.wav
 
+# Frame-review samples are regenerable (scripts/frame-review.py); keep only the report and the
+# cross-format matrix that creative reviews cite as evidence.
+projects/*/qa/frame-review/*
+!projects/*/qa/frame-review/report.json
+!projects/*/qa/frame-review/contact-matrix.png
+
+# --- Reference corpus (scripts/reference-corpus.py) ---
+# Analysis caches hold frames, contact sheets and audio panels extracted from third-party reference
+# videos (rights unknown): never commit them. The reviewed records live in
+# catalogue/data/reference-sources/ and the videos stay outside the repo.
+out/reference-analysis/
+# Reference-derived test compositions: keep report.json and contact sheets, not sampled frames.
+tests/reference-derived/*/qa/*/
+
 # Retain timeline synchronization metadata, HTML showcase & poster assets
 !projects/*/audio/timeline.json
 !out/index.html

@@ -1,0 +1,41 @@
+{
+  "id": "hand-drawn-line",
+  "name": "Hand-drawn line path",
+  "kind": "path",
+  "status": "experimental",
+  "description": "Seeded wobbly line for underlines, rules, arrows and sketch accents.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "seed",
+      "type": "integer",
+      "description": "PRNG seed"
+    },
+    {
+      "name": "jitter",
+      "type": "number",
+      "description": "Perpendicular wobble as a fraction of length"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.handLine(seed, x1, y1, x2, y2, {segments, jitter})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "path",
+    "hand-drawn",
+    "sketch"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

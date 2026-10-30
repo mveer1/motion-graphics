@@ -1,0 +1,22 @@
+{
+  "id": "sticker-brutalist-style",
+  "name": "Sticker neo-brutalist explainer style",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected technical explainer uses thick black outlines, hard offset shadows, pastel fills, hazard hatching and pill labels.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Cards and labels drawn like stickers (heavy outline, flat pastel fill, hard offset shadow) with monospace labels and hatched 'disabled' states make dense technical diagrams friendly and very legible.",
+  "purpose": "A light, playful style system for technical explainers and developer content.",
+  "visual_behaviour": "White field; outlined pastel cards with offset shadows; diagonal hatching for failed states; pill tags; small sparkle decorations.",
+  "mechanics": "Style tokens (outline width, shadow offset, pastel set) plus pop and stamp entrances.",
+  "decomposition": { "primitives": ["styled-text", "svg-shape"], "effects": ["paper-pop", "stamp-impact"], "timing": "Pop entrances 0.3-0.5 s; state stamps 0.4 s." },
+  "use_cases": ["technical explainer", "developer tool promo", "education"],
+  "failure_modes": ["Too many colours break the system", "Outlines too thin at 720p portrait"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "New style system src/studio/styles/sticker-brutal.css (tokens: --outline, --shadow-offset, pastel accents, hatch pattern) registered in catalogue/data/styles; validate with frame review across the five compositions." },
+  "capability": { "support": "native", "compatible_components": ["paper-pop", "stamp-impact"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2, "note": "Fills a gap: no current style system targets playful technical explainers." } },
+  "provenance": [ { "source_id": "ref-95c96d5c47", "timestamps": [3.42, 14.99, 49.63], "observed": "Outlined pastel cards with offset shadows, hatched failed states and pill labels throughout." } ],
+  "related": { "techniques": ["single-stage-progression", "stamp-state-change"], "templates": ["technical-explainer"] },
+  "licensing_notes": "Technique only (a widespread neo-brutalist convention); choose an original palette and type.",
+  "tags": ["style", "brutalist", "sticker", "explainer", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: word beats</title>
+  <!--
+    Techniques under test (catalogue/data/references/): word-per-beat-sequence, self-describing-kinetic-words,
+    directional-smear, accent-punctuation-motif, element-bloom-transition, hud-frame-overlay, word-slot-roll.
+    Original copy and layout; no reference footage, type lockups or brand marks.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/swiss-minimal.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #beats { background: var(--c-paper); }
+    #end { background: var(--c-accent); color: var(--c-paper); }
+    #endLine {
+      position: absolute; left: var(--safe-left); right: var(--safe-right); top: 50%; margin-top: -0.6em;
+      text-align: center; font-family: var(--font-display); font-weight: 900; font-size: calc(var(--u) * 13);
+      letter-spacing: -0.03em; line-height: 1.15; white-space: nowrap;
+    }
+    #endLine .st-roll { color: var(--c-ink); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="12.5">
+  <div class="st-scene" id="beats"></div>
+  <div class="st-scene" id="end">
+    <div id="endLine">Make it <span id="slot"></span>.</div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var ink = S.token('--c-ink'), paper = S.token('--c-paper'), accent = S.token('--c-accent'), blue = S.token('--c-accent-3');
+  var words = [
+    { text: 'RISE', treatment: 'rise' },
+    { text: 'RUSH', treatment: 'smear', bg: ink, ink: paper },
+    { text: 'DROP', treatment: 'drop' },
+    { text: 'WIDEN', treatment: 'stretch', bg: blue, ink: paper },
+    { text: 'TURN', treatment: 'spin' },
+    { text: 'SPACE', treatment: 'track', bg: ink, ink: paper },
+    { text: 'REPEAT', treatment: 'echo' },
+    { text: 'STOP', treatment: 'cut', accent: true }
+  ];
+  var beats = S.rhythm.grid(120, { offset: 0.6, count: 20 });
+  var times = [];
+  for (var i = 0; i <= words.length; i++) times.push(beats[i * 2]);
+  var seq = S.comp.wordBeats('#beats', words, { beats: times, holdLast: true });
+  var hud = S.comp.frameHud('#root', { tl: 'Type study 03', tr: '01 / 08', bl: 'Word beats', br: '120 BPM' });
+
+  S.show(tl, '#beats', 0);
+  hud.enter(tl, 0);
+  hud.progress(tl, 0.6, 12.3);
+  seq.schedule(tl);
+  // Chain each colour switch from the previous one so backward seeks restore the right value.
+  var hudInk = S.token('--c-ink-2'), prevInk = hudInk;
+  function hudColour(c, at) {
+    tl.fromTo(hud.el, { color: prevInk }, { color: c, duration: 0.001, ease: 'none', immediateRender: false }, at);
+    prevInk = c;
+  }
+  words.forEach(function (w, k) {
+    hudColour(w.bg === ink || w.bg === blue ? paper : hudInk, times[k]);
+    if (k > 0) hud.set(tl, 'tr', (k + 1 < 10 ? '0' : '') + (k + 1) + ' / 08', times[k]);
+  });
+
+  // The accent full stop of the last word becomes the next background.
+  var stop = document.querySelectorAll('.st-wb-card')[7].querySelector('.st-wb-dot');
+  var t0 = times[8] + 0.2;
+  S.fx.bloom(tl, stop, '#beats', '#end', t0, { duration: 0.7, ring: paper });
+  hudColour(paper, t0 + 0.7);
+  var slot = S.type.roll('#slot', ['move', 'land', 'matter'], { fit: true });
+  tl.fromTo('#endLine', { autoAlpha: 0, y: S.u(3) }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' }, t0 + 0.75);
+  slot.to(tl, 1, t0 + 1.7);
+  slot.to(tl, 2, t0 + 2.7);
+});
+</script>
+</body>
+</html>

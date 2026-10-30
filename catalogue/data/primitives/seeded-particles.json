@@ -1,0 +1,46 @@
+{
+  "id": "seeded-particles",
+  "name": "Seeded particle field",
+  "kind": "particle",
+  "status": "experimental",
+  "description": "Deterministic particle positions and per-particle seeds for falling spice, dust, confetti or data points.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Particles"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "description": "PRNG seed"
+    },
+    {
+      "name": "box",
+      "type": "object",
+      "description": "Spawn area"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.particles(svg, count, seed, {box, minR, maxR, fill})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "particles",
+    "procedural",
+    "deterministic"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

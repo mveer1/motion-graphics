@@ -1,0 +1,614 @@
+{
+  "id": "ref-736d4ef2c2",
+  "name": "Constructivist type poster in motion",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (9).mp4",
+    "aliases": [],
+    "sha256": "736d4ef2c2e7d205a6e706add167736e54ed7f78056a374ea12951f7d49ed9fd",
+    "bytes": 5386131,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unverified: an on-screen credit at the end reads 'PANKAJ KUMAR' (possibly the creator). Supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "Rights unverified. No company marks seen. The final poster composition and credit are the creator's; reuse techniques only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5386131,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 30.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1800,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1174,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 30.08,
+      "kbps": 248
+    },
+    "overall_kbps": 1436
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames over 30 s) and scene sheet (13 scenes). Strips generated, not viewed. Audio from measurements only.",
+    "coverage": "Full duration at scene level.",
+    "concept": {
+      "observed": "A typographic manifesto in constructivist/Bauhaus style on cream paper inside an engineering-drawing frame: FORM, MOTION, TYPE, BREAK OUT, letters on a perspective floor, a letter becoming rings, a letter shattering, a primary-shape composition, a final collage poster that shrinks to a badge with a credit.",
+      "interpreted": "A designer's poster series animated; celebrates modernist graphic design.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Single words, very large, often cropped by the frame.",
+      "interpreted": "Bold, declarative."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured cream #e8e8e8 (34%), black, orange #e84818 (7%), blue #1838c8 (5%); luma mean 0.63.",
+        "interpreted": "Light editorial paper with primary accents."
+      },
+      "typography": {
+        "observed": "Black grotesk at poster scale, letters as shapes (O as a disc), letters standing in perspective."
+      },
+      "composition": {
+        "observed": "Asymmetric constructivist layouts; type bleeding off the frame; thin border with a title block."
+      },
+      "shapes_and_materials": {
+        "observed": "Paper sheets with drop shadows, circles, bars, triangles, concentric rings."
+      },
+      "motion": {
+        "observed": "Panels slide and push, a paper card tilts, the camera pans across giant letters, a letter shatters, shapes assemble."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median shot 2.15 s at analyzer 1.1; 4 cuts and 6 soft transitions at 1.2 (1.1 counted fast moves as cuts); static holds 2.06-2.69 s and 28.19-29.94 s (final badge)."
+      },
+      "transitions": {
+        "observed": "Hard cuts and panel pushes; a letter morphing into rings; a full-frame colour field turning white."
+      },
+      "depth_and_layering": {
+        "observed": "Paper layers with shadows; a perspective grid floor."
+      },
+      "texture_and_effects": {
+        "observed": "Flat print look, no grain."
+      },
+      "audio_and_sync": {
+        "observed": "3.0 onsets/s, tempo estimate 129 bpm (medium); 40% of boundaries within 60 ms of the beat grid (chance 26%; weak evidence).",
+        "interpreted": "Cuts mostly on the beat.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 5.97,
+        "observed": "FORM with a solid O; a blue panel pushes in with MOTION."
+      },
+      {
+        "start": 5.97,
+        "end": 13.1,
+        "observed": "Tilting paper card; pan across giant TYPE letters; BREAK OUT split field with a sun disc."
+      },
+      {
+        "start": 13.1,
+        "end": 20.62,
+        "observed": "Letters on a perspective grid floor; an O becomes rings; blue field to white with a thin line."
+      },
+      {
+        "start": 20.62,
+        "end": 26.27,
+        "observed": "A letter shatters; primary shapes assemble into a composition."
+      },
+      {
+        "start": 26.27,
+        "end": 30.0,
+        "observed": "Final collage of all words; it rotates and shrinks to a badge with a credit."
+      }
+    ],
+    "moments": [
+      {
+        "t": 20.8,
+        "observed": "A large A breaks into shards.",
+        "interpreted": "Literal 'break' beat for the manifesto."
+      }
+    ],
+    "difficult": [
+      "Perspective grid floor needs CSS 3D (unverified in the render path)"
+    ],
+    "uncertainties": [
+      "Credit name may be the creator or a dedication",
+      "Scene contents between sampled frames"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        1.0,
+        15.0
+      ]
+    },
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        17.5
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        9.33,
+        10.75,
+        13.1,
+        16.88
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        7.5,
+        14.5
+      ]
+    },
+    {
+      "id": "letter-shatter",
+      "timestamps": [
+        20.8,
+        21.2
+      ]
+    },
+    {
+      "id": "cut-paper-title-sequence",
+      "timestamps": [
+        22.0,
+        24.0,
+        27.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "object-assembly",
+      "push-transition",
+      "shape-morph",
+      "paper-pop"
+    ],
+    "compositions": [
+      "frame-hud",
+      "title-card"
+    ],
+    "templates": [
+      "title-sequence",
+      "kinetic-typography"
+    ],
+    "styles": [
+      "swiss-minimal",
+      "paper-cut"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "editorial-layout",
+    "object-assembly",
+    "title-sequence",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "constructivist",
+    "bauhaus",
+    "poster",
+    "paper"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 24.7
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 10,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.817,
+        "kind": "soft",
+        "score": 0.081,
+        "isolation": 0.11
+      },
+      {
+        "t": 5.967,
+        "kind": "soft",
+        "score": 0.063,
+        "isolation": 0.0
+      },
+      {
+        "t": 9.333,
+        "kind": "soft",
+        "score": 0.297,
+        "isolation": 0.28
+      },
+      {
+        "t": 10.75,
+        "kind": "cut",
+        "score": 0.627,
+        "isolation": 0.51,
+        "frame": 645
+      },
+      {
+        "t": 13.1,
+        "kind": "soft",
+        "score": 0.532,
+        "isolation": 0.35
+      },
+      {
+        "t": 16.883,
+        "kind": "cut",
+        "score": 0.363,
+        "isolation": 0.75,
+        "frame": 1013
+      },
+      {
+        "t": 18.65,
+        "kind": "soft",
+        "score": 0.579,
+        "isolation": 0.09
+      },
+      {
+        "t": 21.567,
+        "kind": "cut",
+        "score": 0.217,
+        "isolation": 0.54,
+        "frame": 1294
+      },
+      {
+        "t": 26.267,
+        "kind": "cut",
+        "score": 0.217,
+        "isolation": 0.61,
+        "frame": 1576
+      },
+      {
+        "t": 27.667,
+        "kind": "soft",
+        "score": 0.132,
+        "isolation": 0.06
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.82,
+        "duration": 3.82,
+        "activity": 0.029,
+        "luma": 0.73
+      },
+      {
+        "index": 2,
+        "start": 3.82,
+        "end": 5.97,
+        "duration": 2.15,
+        "activity": 0.088,
+        "luma": 0.67
+      },
+      {
+        "index": 3,
+        "start": 5.97,
+        "end": 9.33,
+        "duration": 3.37,
+        "activity": 0.148,
+        "luma": 0.63
+      },
+      {
+        "index": 4,
+        "start": 9.33,
+        "end": 10.75,
+        "duration": 1.42,
+        "activity": 0.165,
+        "luma": 0.34
+      },
+      {
+        "index": 5,
+        "start": 10.75,
+        "end": 13.1,
+        "duration": 2.35,
+        "activity": 0.204,
+        "luma": 0.36
+      },
+      {
+        "index": 6,
+        "start": 13.1,
+        "end": 16.88,
+        "duration": 3.78,
+        "activity": 0.214,
+        "luma": 0.81
+      },
+      {
+        "index": 7,
+        "start": 16.88,
+        "end": 18.65,
+        "duration": 1.77,
+        "activity": 0.216,
+        "luma": 0.67
+      },
+      {
+        "index": 8,
+        "start": 18.65,
+        "end": 21.57,
+        "duration": 2.92,
+        "activity": 0.253,
+        "luma": 0.67
+      },
+      {
+        "index": 9,
+        "start": 21.57,
+        "end": 26.27,
+        "duration": 4.7,
+        "activity": 0.076,
+        "luma": 0.45
+      },
+      {
+        "index": 10,
+        "start": 26.27,
+        "end": 27.67,
+        "duration": 1.4,
+        "activity": 0.179,
+        "luma": 0.57
+      },
+      {
+        "index": 11,
+        "start": 27.67,
+        "end": 30.0,
+        "duration": 2.33,
+        "activity": 0.043,
+        "luma": 0.91
+      }
+    ],
+    "static_holds": [
+      [
+        2.06,
+        2.69
+      ],
+      [
+        28.19,
+        29.94
+      ]
+    ],
+    "mean_activity": 0.138,
+    "luma": {
+      "mean": 0.63,
+      "dark_share": 0.01,
+      "light_share": 0.4
+    },
+    "palette": [
+      {
+        "hex": "#e8e8e8",
+        "share": 0.338
+      },
+      {
+        "hex": "#181818",
+        "share": 0.09
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.088
+      },
+      {
+        "hex": "#e84818",
+        "share": 0.07
+      },
+      {
+        "hex": "#e8d8d8",
+        "share": 0.055
+      },
+      {
+        "hex": "#1838c8",
+        "share": 0.053
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.042
+      },
+      {
+        "hex": "#181808",
+        "share": 0.03
+      },
+      {
+        "hex": "#2838b8",
+        "share": 0.016
+      },
+      {
+        "hex": "#282828",
+        "share": 0.011
+      }
+    ],
+    "representative_times": [
+      1.91,
+      4.89,
+      7.65,
+      10.04,
+      11.93,
+      14.99,
+      17.77,
+      20.11,
+      22.75,
+      23.92,
+      25.09,
+      26.97,
+      28.84
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -3.4,
+      "mean_dbfs_voiced": -18.2,
+      "silence_ratio": 0.03,
+      "onsets": 89,
+      "onset_rate_per_sec": 2.96,
+      "onset_times": [
+        0.07,
+        0.28,
+        0.51,
+        0.58,
+        1.0,
+        1.46,
+        1.93,
+        2.39,
+        2.86,
+        3.34,
+        3.81,
+        4.27,
+        4.74,
+        4.95,
+        5.22,
+        5.67,
+        6.15,
+        6.62,
+        7.08,
+        7.5,
+        8.03,
+        8.5,
+        8.73,
+        8.85,
+        8.96,
+        9.2,
+        9.31,
+        9.43,
+        9.66,
+        9.89,
+        10.15,
+        10.36,
+        10.61,
+        10.84,
+        11.31,
+        11.45,
+        11.66,
+        11.77,
+        12.24,
+        12.47,
+        12.59,
+        12.72,
+        13.68,
+        14.12,
+        14.23,
+        14.35,
+        14.47,
+        14.58,
+        15.05,
+        15.28,
+        15.39,
+        15.53,
+        16.0,
+        16.21,
+        16.46,
+        16.93,
+        17.86,
+        17.93,
+        18.34,
+        18.58,
+        19.04,
+        19.13,
+        19.27,
+        19.74,
+        19.97,
+        20.2,
+        20.53,
+        20.69,
+        21.15,
+        21.62,
+        21.85,
+        21.97,
+        22.08,
+        22.31,
+        22.5,
+        23.03,
+        23.5,
+        23.96,
+        24.43,
+        24.89,
+        25.15,
+        26.31,
+        26.77,
+        26.96,
+        27.12,
+        27.84,
+        28.17,
+        28.4,
+        28.61
+      ],
+      "tempo_estimate": {
+        "bpm": 129.2,
+        "autocorr": 0.59,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 738,
+      "band_share": {
+        "low_lt_250": 0.56,
+        "mid_250_2k": 0.23,
+        "high_gt_2k": 0.21
+      },
+      "syllabic_modulation_share": 0.33,
+      "boundary_onset_alignment": {
+        "boundaries": 10,
+        "tolerance_ms": 50,
+        "near_onset": 0.4,
+        "chance_level": 0.26,
+        "median_offset_ms": 62,
+        "near_beat": 0.4,
+        "beat_chance_level": 0.26,
+        "beat_phase_sec": 0.145
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-736d4ef2c2",
+      "overview": "out/reference-analysis/ref-736d4ef2c2/overview.jpg",
+      "scenes": "out/reference-analysis/ref-736d4ef2c2/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-736d4ef2c2/transitions.jpg",
+      "motion": "out/reference-analysis/ref-736d4ef2c2/motion.jpg",
+      "audio": "out/reference-analysis/ref-736d4ef2c2/audio.png",
+      "frames": "out/reference-analysis/ref-736d4ef2c2/frames",
+      "tracked": false
+    }
+  }
+}

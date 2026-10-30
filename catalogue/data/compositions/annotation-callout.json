@@ -1,0 +1,37 @@
+{
+  "id": "annotation-callout",
+  "name": "Annotation callout",
+  "purpose": "Handwritten-style note with a hand-drawn loop around a target and a curved arrow to it: the animator's or teacher's margin note, used to name what the viewer should notice.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["hand-drawn-line", "svg-path", "styled-text"],
+    "effects": ["stroke-draw", "paper-pop"],
+    "recipes": ["pen-speed-stroke", "paper-pop-in"]
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "text", "type": "string", "description": "The note (keep to 1-4 words)" },
+    { "name": "target", "type": "selector|element", "description": "What the note points at (measured at the enter time)" },
+    { "name": "side", "type": "string", "default": "right", "description": "right | left | top | bottom" },
+    { "name": "distance", "type": "number", "default": 9, "description": "Gap between target and note in --u units" },
+    { "name": "loop", "type": "boolean", "default": true, "description": "Draw a hand loop around the target" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.callout(parent, {text, target, side, distance, loop, seed}) -> {enter(tl, at), exit(tl, at)}"
+  },
+  "layout_notes": "Positions are computed per format from the target's rendered box and clamped to the safe area; choose side per format with Studio.pick when the target sits near an edge. The parent must be a full-frame container (a scene).",
+  "styles_tested": ["editorial-light"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "projects/paper-plane-field-notes/src/index.html"],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py <project> --fonts google (the note must stay inside the safe area and off other text)"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test (note visible inside the safe area, loop fully drawn) in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "related": ["hand-underline", "marker-highlight"],
+  "tags": ["composition", "annotation", "callout", "explainer", "handwritten", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

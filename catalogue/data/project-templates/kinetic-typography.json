@@ -1,0 +1,58 @@
+{
+  "id": "kinetic-typography",
+  "name": "Kinetic typography short",
+  "deliverable_type": "kinetic_typography",
+  "status": "proposed",
+  "description": "Type-led short: a few phrases with distinct reveals (mask rise, character cascade, tracking), beat-aware pacing and a held end card. Portrait-first.",
+  "location": "pending:templates/projects/kinetic-typography",
+  "stages": {
+    "research": "skip",
+    "storyboard": "optional",
+    "narration": "none",
+    "music": "optional",
+    "captions": "none"
+  },
+  "default_style": "swiss-minimal",
+  "default_formats": [
+    "portrait",
+    "square",
+    "landscape"
+  ],
+  "default_duration_sec": 12,
+  "compositions": [
+    "end-card"
+  ],
+  "effects": [
+    "char-cascade",
+    "text-mask-rise",
+    "tracking-reveal",
+    "marker-highlight",
+    "push-transition",
+    "beat-pulse"
+  ],
+  "suitable_for": [
+    "quotes",
+    "announcements",
+    "lyric-style pieces",
+    "social shorts",
+    "manifestos"
+  ],
+  "validation_steps": [
+    "python scripts/studio.py new demo-kinetic-typography --template kinetic-typography (scaffold in a scratch slug)",
+    "python scripts/studio.py validate <slug>",
+    "python scripts/frame-review.py <slug> --fonts google"
+  ],
+  "validation": {
+    "evidence": "Not built yet: planned scaffold only. The effects it names are implemented and covered by tests/test-studio-runtime.py.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "template",
+    "kinetic-typography"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

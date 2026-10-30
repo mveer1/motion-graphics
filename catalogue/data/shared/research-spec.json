@@ -38,7 +38,7 @@
   "owner": "pedagogy",
   "status": "approved",
   "approval_evidence": "Production certified in Stage 0 QA gate.",
-  "architecture_ref": "ARCHITECTURE.md#s0",
+  "architecture_ref": "ARCHITECTURE.md#s0r",
   "last_verified": "2026-10-30",
   "tags": ["schema", "spec", "research", "json-schema", "draft-07"]
 }

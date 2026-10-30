@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: pen-led line and element bloom</title>
+  <!--
+    Techniques under test: pen-led-stroke, continuous-line-spine, element-bloom-transition (become and
+    reveal), accent-punctuation-motif. Original drawing and copy.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #sceneA { background: var(--c-paper); }
+    #sceneB { background: var(--c-accent); color: var(--c-paper); }
+    #sceneC { background: var(--c-paper); }
+    #art { position: absolute; left: 0; top: 0; }
+    #walk { fill: none; stroke: var(--c-ink); stroke-width: calc(var(--u) * 0.55); stroke-linecap: round; stroke-linejoin: round; }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    #titleB { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 36%; color: var(--c-paper); }
+    #titleB .dot { color: var(--c-ink); }
+    #titleC { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 30%; }
+    #underlineSvg { position: absolute; left: 0; top: 0; overflow: visible; }
+    #under { fill: none; stroke: var(--c-accent); stroke-width: calc(var(--u) * 0.6); stroke-linecap: round; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="9.5">
+  <div class="st-scene" id="sceneA">
+    <div class="st-kicker kick" id="kickA">Line study</div>
+    <svg id="art" width="1280" height="720" viewBox="0 0 1280 720">
+      <path id="walk" d="M180 470 C 260 300, 380 300, 420 420 S 520 560, 600 430 C 660 330, 760 300, 800 400 C 830 470, 760 520, 720 460 C 680 400, 820 300, 900 330 S 1000 420, 1040 300"></path>
+    </svg>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div class="st-kicker kick" style="color: var(--c-paper)">Line study</div>
+    <h1 class="st-display" id="titleB">Every line starts as a dot<span class="dot">.</span></h1>
+  </div>
+  <div class="st-scene" id="sceneC">
+    <div class="st-kicker kick">Line study</div>
+    <h1 class="st-display" id="titleC">Follow it.</h1>
+    <svg id="underlineSvg" width="1280" height="720" viewBox="0 0 1280 720"><path id="under"></path></svg>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var titleB = S.type.split('#titleB', { type: 'lines,words', mask: 'lines' });
+  var titleC = S.type.split('#titleC', { type: 'lines,words', mask: 'lines' });
+  S.show(tl, '#sceneA', 0);
+  S.type.track(tl, '#kickA', 0.1);
+  var drawn = S.draw.pen(tl, '#walk', 0.6, { speed: 620, ease: 'power1.inOut', dotRadius: S.u(1.3) });
+  var dot = document.getElementById('walk').__penDot;
+  // The pen's dot becomes the accent background of the next scene.
+  var bloomEnd = S.fx.bloom(tl, dot, '#sceneA', '#sceneB', drawn + 0.5, { duration: 0.75, color: S.token('--c-accent') });
+  S.type.rise(tl, titleB.lines, bloomEnd + 0.1, { stagger: 0.08 });
+  // The sentence's full stop opens the following scene (reveal mode).
+  var revealAt = bloomEnd + 2.2;
+  var revealEnd = S.fx.bloom(tl, '#titleB .dot', '#sceneB', '#sceneC', revealAt, { mode: 'reveal', duration: 0.7 });
+  S.type.rise(tl, titleC.lines, revealEnd - 0.2, { stagger: 0.08 });
+  // Underline drawn by the pen from under the first word to the end of the line.
+  var box = S.boxAt(tl, '#titleC', revealEnd + 0.4);
+  var y = box.y + box.h + S.u(1.5);
+  document.getElementById('under').setAttribute('d', S.draw.handLine(5, box.x, y, box.x + Math.min(box.w, S.u(70)), y - S.u(0.6), { segments: 5, jitter: 0.008 }));
+  S.draw.pen(tl, '#under', revealEnd + 0.4, { duration: 0.9, dotRadius: S.u(0.9), keepDot: true });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "id": "onion-trail",
+  "name": "Onion-skin trail",
+  "category": "spatial_transform",
+  "visual_intent": "Fading ghost copies replay a move a few frames behind, exposing its path, spacing and easing: the animator's onion skin used as an on-screen explanation.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["trail", "onion-skin", "ghost", "motion-path", "animation-principles", "reference-derived"],
+  "performance_characteristics": { "cpu_intensity": "low", "gpu_intensity": "low", "dom_node_count": "count clones of the target", "memory_profile": "Low; scales with clone count and target complexity (estimate)" },
+  "recipes": ["ghost-replay"],
+  "implementation_summary": "Clones the target count times into fixed-opacity wrappers behind it and runs the same motion function on each clone with a time lag; ghosts are hidden after the move. Works with any motion built from fromTo tweens.",
+  "primitives": ["svg-shape"],
+  "runtime_api": "Studio.space.trail(tl, target, at, motion(tl, el, at) -> end, {count, lag, opacity, hold})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["object-assembly", "ambient-float"],
+  "validation": { "evidence": "Runtime self-test (ghost count, ghost lags original, ghosts hidden after the move) in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

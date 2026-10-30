@@ -2,6 +2,8 @@
 
 The **Motion Graphics Capability Catalogue** is a machine-readable, schema-validated registry of animation libraries, visual effects, and deterministic animation recipes optimized for Apple Silicon (M-series, 8 GB Unified Memory) and HyperFrames headless Chromium rendering.
 
+It also registers the creative-studio layers: **primitives** (`data/primitives/`), reusable **compositions** (`data/compositions/`), **style systems** (`data/styles/`, exactly one `default`), **project templates** (`data/project-templates/`, `pending:` location until built), **techniques** (`data/references/`: mechanics, parameters, capability class, provenance, validation evidence and a derived lifecycle) and **reference sources** (`data/reference-sources/`: one record per user-supplied reference video, with rights, automated evidence and the analyst's notes; the videos themselves never enter the repository). Search them with `--type primitive|composition|style|template|technique|source`; filter techniques with `--support` and sources with `--category`. Approved still means verified on the M2 with HyperFrames; components validated only in Playwright on other hosts stay `experimental`.
+
 ---
 
 ## 1. Directory Structure
@@ -102,7 +104,16 @@ python3 scripts/motion-catalogue.py validate
 
 # 7. Recompile index.json:
 python3 scripts/motion-catalogue.py export
+
+# 8. Techniques learned from reference videos, by capability class:
+python3 scripts/motion-catalogue.py search "transition" --type technique --support native
+
+# 9. Reference videos by category; techniques, precedents and styles for a brief:
+python3 scripts/motion-catalogue.py search --type source --category kinetic-typography
+python3 scripts/motion-catalogue.py recommend --brief projects/<slug>/brief.json --implemented-only
 ```
+
+Validation also enforces knowledge-base honesty: technique provenance may cite only inspected sources (timestamps inside the video, links in both directions), preview or render validation needs evidence and an implementation, `approved` needs render-host evidence, and `inspiration-only` sources cannot authorise brand assets. The workflow for adding a video is in `ARCHITECTURE.md` section 0.8 and the `reference-analyst` skill.
 
 ---
 

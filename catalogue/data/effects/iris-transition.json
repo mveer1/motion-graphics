@@ -1,0 +1,49 @@
+{
+  "id": "iris-transition",
+  "name": "Iris open",
+  "category": "transition",
+  "visual_intent": "Focus pull into the next scene from a point of interest.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "transition",
+    "iris",
+    "focus"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "iris-open"
+  ],
+  "implementation_summary": "clip-path circle() from 0% to 150% at a chosen centre.",
+  "primitives": [
+    "clip-mask",
+    "scene-container"
+  ],
+  "runtime_api": "Studio.fx.iris(tl, outScene, inScene, at, {cx, cy})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/studio-runtime/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

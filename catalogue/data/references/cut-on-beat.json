@@ -1,0 +1,30 @@
+{
+  "id": "cut-on-beat",
+  "name": "Cuts locked to the music",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Measured in three inspected references: visual cuts fall on musical beats or audio hits far more often than chance.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Scene cuts and word changes land on the soundtrack's beats or hits, so picture and sound feel like one gesture and the edit's rhythm is felt rather than noticed.",
+  "purpose": "Rhythm and impact; makes fast cutting comfortable.",
+  "visual_behaviour": "Each cut coincides with a drum hit or note onset; holds last whole numbers of beats.",
+  "mechanics": "Beat grid from the track's tempo and phase; cue times snapped to the grid (or to detected onsets) within about one frame.",
+  "decomposition": { "primitives": [], "effects": ["beat-pulse"], "timing": "Measured: Measured at analyzer 1.2: ref-92c22222a2 60% of boundaries within 60 ms of the estimated 129 bpm grid (chance 26%), 80% within 50 ms of an onset (chance 41%); ref-392ee4d0f9 80% near an onset (chance 31%); ref-736d4ef2c2 40% near the 129 bpm grid (chance 26%, weak)." },
+  "parameters": [ { "name": "bpm", "description": "Track tempo (measure it; the corpus tool estimates it)" }, { "name": "offset", "description": "First beat time" } ],
+  "use_cases": ["music-driven promo", "kinetic typography", "reel", "title sequence"],
+  "failure_modes": ["Snapping cuts that need reading time onto a fast grid", "Using an estimated tempo without checking the phase by ear"],
+  "implementation_state": "implemented",
+  "implemented_by": ["beat-pulse", "bpm-grid-pulse", "word-beats"],
+  "implementation": { "approach": "Studio.rhythm.grid(bpm, {offset}) and Studio.rhythm.snap for cue times; Studio.comp.wordBeats accepts a tempo grid. scripts/reference-corpus.py measures onset and beat alignment of a finished or reference cut.", "runtime_api": ["Studio.rhythm.grid", "Studio.rhythm.snap", "Studio.comp.wordBeats"] },
+  "capability": { "support": "native", "compatible_components": ["beat-pulse", "word-beats"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no", "justification": "Tempo and onset estimates come from the corpus tool's numpy analysis; Earshot or real-sfx on the render host can refine them." }, "limitations": ["Tempo estimates are autocorrelation-based and can lock to half or double tempo"], "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [11.25, 11.48, 11.72, 12.18, 12.65], "observed": "Cuts in the word section align with the estimated beat grid (measured 0.60 vs 0.26 chance)." },
+    { "source_id": "ref-392ee4d0f9", "timestamps": [3.77, 5.57, 13.17], "observed": "Cuts coincide with audio onsets (measured 0.80 vs 0.31 chance)." },
+    { "source_id": "ref-736d4ef2c2", "timestamps": [10.75, 16.88, 21.57, 26.27], "observed": "Cuts sit near the estimated 129 bpm grid more often than chance, weakly (measured 0.4 vs 0.26)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "wordBeats times from a 120 bpm grid are exact." }
+  ] },
+  "related": { "techniques": ["word-per-beat-sequence"], "effects": ["beat-pulse"], "compositions": ["word-beats"], "templates": ["music-visualizer", "kinetic-typography"] },
+  "licensing_notes": "Technique only; measured from user-supplied references. No audio is reused.",
+  "tags": ["music-sync", "rhythm", "beat", "cut", "audio", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

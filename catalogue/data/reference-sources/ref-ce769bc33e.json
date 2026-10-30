@@ -1,0 +1,526 @@
+{
+  "id": "ref-ce769bc33e",
+  "name": "Ad-tool promo: headline build, card carousel, stat cards",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (5).mp4",
+    "aliases": [],
+    "sha256": "ce769bc33e3e025007e34c5a00f268b839de9330a76f319276f4ec8444aa408a",
+    "bytes": 3059833,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Product logo, wordmark and app icon (hooklab)",
+        "timestamps": [
+          18.5,
+          19.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Proprietary web and phone UI",
+        "timestamps": [
+          3.0,
+          9.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Faces of people (creators or generated) in video thumbnails",
+        "timestamps": [
+          5.0,
+          7.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Company promo with UI, marks and people's likenesses; reuse choreography only with generic UI and no faces."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3059833,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 20.017,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1200,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 949,
+    "keyframes": 20,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 20.096,
+      "kbps": 260
+    },
+    "overall_kbps": 1223
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (27 frames over 20 s, 0.74 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only.",
+    "coverage": "Full duration at overview density; timestamps approximate.",
+    "concept": {
+      "observed": "Promo for an ad-creation tool: a centred headline builds word by word, a link is pasted and submitted, a grid and a curved carousel of portrait video cards spin, settings toggles flip on a phone, big stat cards, a word slot rolls, app icon and logo close.",
+      "interpreted": "Performance-marketing style: hook, demo, proof, call to action.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Short lowercase headline with one accent word; numbers with short labels.",
+      "interpreted": "Punchy, results-focused."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured black #080808 (50%) and white; one orange accent."
+      },
+      "typography": {
+        "observed": "Clean grotesk; centred headline; large numerals for stats."
+      },
+      "motion": {
+        "observed": "Word-by-word build with re-centring, cursor click, carousel spin with motion blur, toggle flips, number cards, vertical word roll."
+      },
+      "timing_and_rhythm": {
+        "observed": "Cuts at 4.22 and 6.08 s, soft changes 8.69 and 11.44 s; static hold 2.56-3.56 s; median shot 2.75 s."
+      },
+      "depth_and_layering": {
+        "observed": "Curved 3D carousel of cards with reflections; phone mockups."
+      },
+      "audio_and_sync": {
+        "observed": "5.4 onsets/s, tempo estimate 123 bpm (medium); 75% of boundaries within 50 ms of an onset (chance 42%).",
+        "interpreted": "Edited to the track.",
+        "confidence": "low"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 4.22,
+        "observed": "Headline builds word by word; a link is pasted into an input."
+      },
+      {
+        "start": 4.22,
+        "end": 8.69,
+        "observed": "Grid of portrait video cards, then a spinning curved carousel."
+      },
+      {
+        "start": 8.69,
+        "end": 11.44,
+        "observed": "Phone mockups with campaign settings and analytics."
+      },
+      {
+        "start": 11.44,
+        "end": 20.02,
+        "observed": "Stat cards, a rolling word, app icon and logo lockup."
+      }
+    ],
+    "difficult": [
+      "Carousel reflections and blur in a DOM renderer (CSS 3D plus smear approximations)"
+    ],
+    "uncertainties": [
+      "Exact timing of the word roll and stat cards"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        6.5
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        16.5
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        6.5,
+        8.0
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        3.0,
+        9.5
+      ]
+    },
+    {
+      "id": "centred-word-build",
+      "timestamps": [
+        0.5,
+        1.5,
+        2.5
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "slot-roll",
+      "smear-motion",
+      "counter-roll",
+      "text-mask-rise"
+    ],
+    "compositions": [
+      "end-card",
+      "word-beats"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "2.5d-depth"
+  ],
+  "tags": [
+    "reference-video",
+    "dark-theme",
+    "saas",
+    "ads",
+    "carousel",
+    "stats",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 11.9
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 4.217,
+        "kind": "soft",
+        "score": 0.298,
+        "isolation": 0.24
+      },
+      {
+        "t": 6.083,
+        "kind": "soft",
+        "score": 0.125,
+        "isolation": 0.0
+      },
+      {
+        "t": 8.688,
+        "kind": "soft",
+        "score": 0.192
+      },
+      {
+        "t": 11.438,
+        "kind": "soft",
+        "score": 0.156
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 4.22,
+        "duration": 4.22,
+        "activity": 0.038,
+        "luma": 0.94
+      },
+      {
+        "index": 2,
+        "start": 4.22,
+        "end": 6.08,
+        "duration": 1.87,
+        "activity": 0.289,
+        "luma": 0.19
+      },
+      {
+        "index": 3,
+        "start": 6.08,
+        "end": 8.69,
+        "duration": 2.61,
+        "activity": 0.068,
+        "luma": 0.09
+      },
+      {
+        "index": 4,
+        "start": 8.69,
+        "end": 11.44,
+        "duration": 2.75,
+        "activity": 0.209,
+        "luma": 0.15
+      },
+      {
+        "index": 5,
+        "start": 11.44,
+        "end": 20.02,
+        "duration": 8.58,
+        "activity": 0.061,
+        "luma": 0.09
+      }
+    ],
+    "static_holds": [
+      [
+        2.56,
+        3.56
+      ]
+    ],
+    "mean_activity": 0.099,
+    "luma": {
+      "mean": 0.29,
+      "dark_share": 0.79,
+      "light_share": 0.21
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.496
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.141
+      },
+      {
+        "hex": "#181818",
+        "share": 0.127
+      },
+      {
+        "hex": "#180808",
+        "share": 0.058
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.048
+      },
+      {
+        "hex": "#786858",
+        "share": 0.025
+      },
+      {
+        "hex": "#988878",
+        "share": 0.019
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.018
+      },
+      {
+        "hex": "#282828",
+        "share": 0.009
+      },
+      {
+        "hex": "#281818",
+        "share": 0.007
+      }
+    ],
+    "representative_times": [
+      1.05,
+      2.11,
+      3.17,
+      5.15,
+      7.38,
+      10.06,
+      13.58,
+      15.73,
+      17.88
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.8,
+      "mean_dbfs_voiced": -17.3,
+      "silence_ratio": 0.0,
+      "onsets": 109,
+      "onset_rate_per_sec": 5.42,
+      "onset_times": [
+        0.07,
+        0.58,
+        0.95,
+        1.46,
+        1.58,
+        2.07,
+        2.21,
+        2.55,
+        3.07,
+        3.48,
+        3.55,
+        3.81,
+        4.3,
+        4.46,
+        4.57,
+        4.69,
+        4.83,
+        4.95,
+        5.06,
+        5.2,
+        5.32,
+        5.46,
+        5.53,
+        5.83,
+        6.08,
+        6.32,
+        6.57,
+        6.83,
+        6.94,
+        7.06,
+        7.17,
+        7.31,
+        7.43,
+        7.57,
+        7.83,
+        8.06,
+        8.31,
+        8.57,
+        8.68,
+        8.82,
+        8.94,
+        9.08,
+        9.2,
+        9.31,
+        9.45,
+        9.57,
+        9.85,
+        10.08,
+        10.31,
+        10.52,
+        10.82,
+        10.94,
+        11.08,
+        11.19,
+        11.31,
+        11.45,
+        11.56,
+        11.82,
+        12.07,
+        12.31,
+        12.45,
+        12.52,
+        12.59,
+        12.75,
+        12.82,
+        12.96,
+        13.07,
+        13.33,
+        13.44,
+        13.56,
+        13.7,
+        13.84,
+        14.07,
+        14.19,
+        14.33,
+        14.44,
+        14.56,
+        14.81,
+        14.95,
+        15.07,
+        15.19,
+        15.33,
+        15.44,
+        15.56,
+        15.81,
+        16.07,
+        16.32,
+        16.56,
+        16.83,
+        16.95,
+        17.07,
+        17.21,
+        17.32,
+        17.44,
+        17.58,
+        17.83,
+        18.02,
+        18.09,
+        18.32,
+        18.58,
+        18.83,
+        18.95,
+        19.06,
+        19.2,
+        19.3,
+        19.46,
+        19.55,
+        19.67,
+        19.81
+      ],
+      "tempo_estimate": {
+        "bpm": 123.0,
+        "autocorr": 0.5,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1255,
+      "band_share": {
+        "low_lt_250": 0.33,
+        "mid_250_2k": 0.42,
+        "high_gt_2k": 0.25
+      },
+      "syllabic_modulation_share": 0.34,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 0.75,
+        "chance_level": 0.42,
+        "median_offset_ms": 7,
+        "near_beat": 0.0,
+        "beat_chance_level": 0.25,
+        "beat_phase_sec": 0.122
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-ce769bc33e",
+      "overview": "out/reference-analysis/ref-ce769bc33e/overview.jpg",
+      "scenes": "out/reference-analysis/ref-ce769bc33e/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-ce769bc33e/transitions.jpg",
+      "motion": "out/reference-analysis/ref-ce769bc33e/motion.jpg",
+      "audio": "out/reference-analysis/ref-ce769bc33e/audio.png",
+      "frames": "out/reference-analysis/ref-ce769bc33e/frames",
+      "tracked": false
+    }
+  }
+}

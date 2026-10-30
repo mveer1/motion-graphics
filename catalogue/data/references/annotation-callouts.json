@@ -1,0 +1,34 @@
+{
+  "id": "annotation-callouts",
+  "name": "Hand-drawn annotation callouts",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Three inspected references add margin notes: handwritten labels with arrows and loops pointing at what to notice.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A note in a handwritten or italic voice, a loop around the subject and a curved arrow between them name the thing the viewer should notice, like a teacher marking up a page. The hand-made marks contrast with clean geometry, so they read as commentary rather than content.",
+  "purpose": "Direct attention; explain a mechanism in place; add a human voice to technical material.",
+  "visual_behaviour": "A loop is drawn around a target, an arrow curves from a short note to it, the note pops in with a slight tilt; marks fade when the point is made.",
+  "mechanics": "Stroke-draw of an overshooting hand loop (0.5 s), arrow shaft (0.35 s) and head (0.15 s); note pop with back ease; positions from the target's rendered box.",
+  "decomposition": { "primitives": ["hand-drawn-line", "svg-path", "styled-text"], "effects": ["stroke-draw", "paper-pop"], "timing": "About 0.6-0.9 s to complete; held 1.5-4 s." },
+  "parameters": [ { "name": "text", "description": "1-4 words" }, { "name": "side", "description": "right | left | top | bottom", "default": "right" }, { "name": "loop", "description": "Draw a loop around the target", "default": true } ],
+  "use_cases": ["explainer", "tutorial", "technical explainer", "design or animation critique", "UI walkthrough"],
+  "failure_modes": ["Notes over moving targets drift off (measure once; keep the target still)", "More than two notes at once clutters", "Handwritten fonts outside the HyperFrames-bundled set need @font-face"],
+  "implementation_state": "implemented",
+  "implemented_by": ["annotation-callout"],
+  "implementation": { "approach": "Studio.comp.callout: Studio.boxAt on the target, Studio.draw.loop + quadratic arrow drawn with Studio.draw.stroke, note popped with Studio.space.pop, clamped to the safe area.", "runtime_api": ["Studio.comp.callout", "Studio.draw.loop"] },
+  "capability": { "support": "native", "compatible_components": ["annotation-callout", "stroke-draw", "hand-underline", "paper-pop"], "complexity": "low",
+    "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/explainer-annotations", "value": "50.8 ms/frame median, peak headless Chromium 255 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] },
+    "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-392ee4d0f9", "timestamps": [0.6, 1.5, 9.5], "observed": "Handwritten notes with arrows label a bouncing ball and an easing curve." },
+    { "source_id": "ref-95c96d5c47", "timestamps": [12.15], "observed": "A hand-drawn oval circles duplicated messages with a short label." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [5.5], "observed": "A small parenthetical aside sits beside a word as a spoken-voice comment." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: loop, arrow and note around the hand-off zone." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two margin notes placed per format (two lines in portrait and square to clear the sheet and HUD) and a note on the flight's landing dot. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["single-stage-progression", "diagram-connectors", "onion-skin-trail"], "compositions": ["annotation-callout"], "templates": ["illustrated-explainer", "technical-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Notes and drawings are original.",
+  "tags": ["annotation", "callout", "explainer", "handwritten", "arrow", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

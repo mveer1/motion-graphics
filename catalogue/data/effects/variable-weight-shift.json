@@ -1,0 +1,48 @@
+{
+  "id": "variable-weight-shift",
+  "name": "Weight shift (variable fonts)",
+  "category": "typography",
+  "visual_intent": "Emphasis by changing stroke weight in place.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "variable-font",
+    "emphasis"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "weight-shift"
+  ],
+  "implementation_summary": "Tweens font-weight. Smooth only with a variable face; HyperFrames bundles fixed weights, so it may step. Check frames.",
+  "primitives": [
+    "styled-text"
+  ],
+  "runtime_api": "Studio.type.weight(tl, el, at, {from: 300, to: 800})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/studio-runtime/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

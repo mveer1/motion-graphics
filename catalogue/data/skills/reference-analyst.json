@@ -1,0 +1,48 @@
+{
+  "id": "skill-reference-analyst",
+  "name": "Reference Analyst Skill",
+  "component_type": "skill",
+  "purpose": "Analyses user-supplied reference videos into reusable motion-design knowledge: ingests and measures them with scripts/reference-corpus.py, inspects the evidence, writes reference-source and technique records with observation separate from interpretation, capability classes, provenance and rights, and maintains the capability backlog.",
+  "capabilities": [
+    "Reference ingest, automated analysis and evidence inspection workflow",
+    "Source records: concept, aspects, scenes, moments, brand-asset exclusions, uncertainties",
+    "Technique records: mechanics, parameters, failure modes, capability class, provenance, validation evidence",
+    "Duplicate detection before new records; backlog reporting; brief recommendations"
+  ],
+  "location": ".agents/skills/reference-analyst",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. Analysis needs the decoders described in tool-reference-corpus."
+  },
+  "dependencies": ["tool-reference-corpus", "tool-motion-catalogue"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Used on the Windows dev host for the first 14-video corpus (2026-10-30)."
+  },
+  "documentation_urls": [
+    ".agents/skills/reference-analyst/SKILL.md",
+    ".agents/skills/reference-analyst/references/analysis-protocol.md",
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill. Governs third-party reference material as inspiration-only."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes catalogue records only; reference videos and the analysis cache stay outside tracked folders."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Applied to 14 reference videos (14 source records, 42 technique records) on 2026-10-30; knowledge base validated by motion-catalogue.py validate and tests/test-reference-corpus.py.",
+  "architecture_ref": "ARCHITECTURE.md#reference-corpus",
+  "last_verified": "2026-10-30",
+  "tags": ["reference", "analysis", "knowledge-base", "techniques", "rights"]
+}

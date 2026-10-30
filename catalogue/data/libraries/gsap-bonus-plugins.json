@@ -1,0 +1,50 @@
+{
+  "id": "gsap-bonus-plugins",
+  "name": "GSAP 3.13+ formerly-Club plugins (SplitText, DrawSVG, MorphSVG)",
+  "version": "3.15.0",
+  "category": "animation_engine",
+  "status": "proposed",
+  "licensing": {
+    "spdx_identifier": "GSAP Standard 'No Charge' License",
+    "status": "unverified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "The workspace gsap-plugins skill states all plugins are free since the Webflow acquisition. The licence text for the exact version has not been reviewed in this workspace."
+  },
+  "documentation_urls": [
+    "https://gsap.com/docs/v3/Plugins/SplitText/",
+    "https://gsap.com/docs/v3/Plugins/MorphSVGPlugin/",
+    "https://gsap.com/docs/v3/Plugins/DrawSVGPlugin/"
+  ],
+  "runtime_environment": {
+    "type": "browser_script",
+    "npm_package": "gsap"
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 250,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": true,
+    "notes": "Requires upgrading from the approved GSAP 3.12.5 to >= 3.13; existing projects pin 3.12.5 and must keep working."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "hyperframes_compatible": true,
+    "low_memory_mode_compatible": false
+  },
+  "justification": "Proposed, not adopted. The studio runtime (src/studio) already covers split text, stroke drawing and morphs between compatible paths with GSAP 3.12.5 core. Adopt only for arbitrary-shape morphs (MorphSVG) after licence review and an M2 benchmark.",
+  "effects_provided": [],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": [
+      "gsap",
+      "plugins",
+      "splittext",
+      "morphsvg",
+      "drawsvg",
+      "proposed"
+    ]
+  }
+}

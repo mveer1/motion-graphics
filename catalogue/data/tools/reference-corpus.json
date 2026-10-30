@@ -1,0 +1,49 @@
+{
+  "id": "tool-reference-corpus",
+  "name": "Reference Corpus (reference video ingest and analysis)",
+  "component_type": "tool",
+  "purpose": "Ingests user-supplied reference videos without copying them into the repository: derives a content-hash ID, probes MP4 metadata in pure Python, decodes frames and audio locally (browser with H.264 or FFmpeg), and writes an untracked analysis cache (scene cuts and soft transitions, holds, palette, motion energy, audio onsets, tempo and cut-to-beat alignment, spectrogram, contact sheets) plus the automated block of catalogue/data/reference-sources/<id>.json. Reports coverage, duplicates and the technique capability backlog.",
+  "capabilities": [
+    "ingest: content-hash IDs (ref-<sha256[:10]>), re-ingest of a renamed copy becomes an alias, never a duplicate",
+    "analyze --pending|--all|--force: adaptive scan, cut refinement, soft-transition classification, holds, palette, motion, audio features; rewrites only the media and automated blocks so human analysis is kept",
+    "check --name: near-duplicate technique search before writing a new record",
+    "status, locate, strip (drop cached frames), doctor (decoder availability)",
+    "report --backlog: corpus coverage by category and support class, techniques by priority"
+  ],
+  "location": "scripts/reference-corpus.py",
+  "version": "1.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Analysis hosts only: pip install playwright pillow numpy, plus either a Chromium-family browser that decodes H.264 (installed Edge or Chrome, used through the Playwright msedge/chrome channel) or FFmpeg on PATH. Run `python scripts/reference-corpus.py doctor` to check."
+  },
+  "dependencies": ["tool-motion-catalogue"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3 + playwright (msedge or chrome channel) or ffmpeg",
+    "notes": "Verified on Windows with Playwright 1.62 and Edge 156: 14 videos (424 s) analysed in 208.5 s at analyzer 1.1. Playwright's bundled Chromium cannot decode H.264. The FFmpeg backend is implemented but untested; on the M2 render host prefer FFmpeg and analyse one video at a time."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md",
+    ".agents/skills/reference-analyst/SKILL.md",
+    "catalogue/README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool. Playwright is Apache-2.0; Pillow is MIT-CMU; numpy is BSD-3-Clause. Reference videos are third-party material of unknown rights: they stay outside the repository, and extracted frames and contact sheets stay in the untracked cache out/reference-analysis/."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads videos only from roots given with --root or MOTION_REFERENCE_ROOTS. Records store the file name, size and SHA-256, never an absolute path. The browser decoder opens the file through a file input as a blob URL (no HTTP server). Writes catalogue/data/reference-sources/ and out/reference-analysis/."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Ingested and analysed 14 user-supplied videos on 2026-10-30 (Windows, Edge decoder); analyses inspected by viewing every contact sheet, and the derived knowledge base validates with motion-catalogue.py validate. Unit tests: tests/test-reference-corpus.py.",
+  "architecture_ref": "ARCHITECTURE.md#reference-corpus",
+  "last_verified": "2026-10-30",
+  "tags": ["reference", "analysis", "video", "corpus", "knowledge-base", "rights"]
+}
