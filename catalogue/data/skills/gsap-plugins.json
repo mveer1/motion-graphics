@@ -1,0 +1,53 @@
+{
+  "id": "skill-gsap-plugins",
+  "name": "GSAP Official Plugins Suite",
+  "component_type": "skill",
+  "purpose": "Advanced animation plugins including Flip, Draggable, DrawSVG, MotionPath, and CustomEase.",
+  "capabilities": [
+    "SVG DrawSVG & MorphSVG animations",
+    "Flip state layout animations",
+    "MotionPath motion tracking",
+    "CustomEase easing curves"
+  ],
+  "location": ".agents/skills/gsap-plugins",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill under .agents/skills/gsap-plugins."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host"
+  },
+  "documentation_urls": [
+    ".agents/skills/gsap-plugins/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Open-source MIT licensed skill."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Agent skill instructional guide."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production approved for motion graphics authoring.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "gsap",
+    "plugins",
+    "drawsvg",
+    "flip",
+    "motionpath"
+  ]
+}

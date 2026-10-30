@@ -931,6 +931,57 @@
     }
   },
   "skills": {
+    "skill-algorithmic-art": {
+      "id": "skill-algorithmic-art",
+      "name": "Algorithmic & Generative Art Skill",
+      "component_type": "skill",
+      "purpose": "Author intentional, deterministic creative coding sketches and generative visuals (Canvas, SVG, Shaders).",
+      "capabilities": [
+        "2D Canvas flow fields and particle systems",
+        "Deterministic PRNG rendering",
+        "Blender/Shader integration",
+        "Video loop export"
+      ],
+      "location": ".agents/skills/algorithmic-art",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/algorithmic-art."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/algorithmic-art/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "generative-art",
+        "creative-coding",
+        "canvas",
+        "svg",
+        "deterministic"
+      ]
+    },
     "skill-earshot": {
       "id": "skill-earshot",
       "name": "Earshot Acoustic Verification Skill",
@@ -983,6 +1034,476 @@
         "earshot",
         "synthesis",
         "qa-gate"
+      ]
+    },
+    "skill-gsap-core": {
+      "id": "skill-gsap-core",
+      "name": "GSAP Core Animation Engine",
+      "component_type": "skill",
+      "purpose": "Core GSAP tweening engine for property interpolation, staggers, and responsive matchMedia.",
+      "capabilities": [
+        "gsap.to(), from(), fromTo() tweens",
+        "Staggered transitions",
+        "Easing functions",
+        "Responsive matchMedia"
+      ],
+      "location": ".agents/skills/gsap-core",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-core."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-core/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "animation",
+        "tween",
+        "core",
+        "javascript"
+      ]
+    },
+    "skill-gsap-frameworks": {
+      "id": "skill-gsap-frameworks",
+      "name": "GSAP Framework Integration (Vue/Svelte)",
+      "component_type": "skill",
+      "purpose": "GSAP integration with Vue, Svelte, and other reactive frontend frameworks.",
+      "capabilities": [
+        "Vue onMounted/unmounted cleanup",
+        "Svelte onMount scoping",
+        "Scoped selector querying"
+      ],
+      "location": ".agents/skills/gsap-frameworks",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-frameworks."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-frameworks/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "vue",
+        "svelte",
+        "frameworks"
+      ]
+    },
+    "skill-gsap-performance": {
+      "id": "skill-gsap-performance",
+      "name": "GSAP Animation Performance Optimization",
+      "component_type": "skill",
+      "purpose": "Techniques for 60fps rendering, avoiding layout thrashing, and GPU layer acceleration.",
+      "capabilities": [
+        "Transform and opacity promotion",
+        "Layout thrashing elimination",
+        "Batching reads and writes",
+        "will-change management"
+      ],
+      "location": ".agents/skills/gsap-performance",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-performance."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-performance/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "performance",
+        "optimization",
+        "60fps",
+        "gpu"
+      ]
+    },
+    "skill-gsap-plugins": {
+      "id": "skill-gsap-plugins",
+      "name": "GSAP Official Plugins Suite",
+      "component_type": "skill",
+      "purpose": "Advanced animation plugins including Flip, Draggable, DrawSVG, MotionPath, and CustomEase.",
+      "capabilities": [
+        "SVG DrawSVG & MorphSVG animations",
+        "Flip state layout animations",
+        "MotionPath motion tracking",
+        "CustomEase easing curves"
+      ],
+      "location": ".agents/skills/gsap-plugins",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-plugins."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-plugins/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "plugins",
+        "drawsvg",
+        "flip",
+        "motionpath"
+      ]
+    },
+    "skill-gsap-react": {
+      "id": "skill-gsap-react",
+      "name": "GSAP React & Hook Integration",
+      "component_type": "skill",
+      "purpose": "Integration of GSAP with React components via useGSAP hook and gsap.context().",
+      "capabilities": [
+        "useGSAP hook lifecycle scoping",
+        "Automatic tween cleanup on unmount",
+        "React ref animation targets"
+      ],
+      "location": ".agents/skills/gsap-react",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-react."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-react/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "react",
+        "hooks",
+        "lifecycle"
+      ]
+    },
+    "skill-gsap-scrolltrigger": {
+      "id": "skill-gsap-scrolltrigger",
+      "name": "GSAP ScrollTrigger Engine",
+      "component_type": "skill",
+      "purpose": "Scroll-linked and scroll-driven animation sequencing and element pinning.",
+      "capabilities": [
+        "ScrollTrigger creation and scrubbing",
+        "Element pinning",
+        "Scroll scrub progress tracking",
+        "Toggle actions"
+      ],
+      "location": ".agents/skills/gsap-scrolltrigger",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-scrolltrigger."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-scrolltrigger/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "scrolltrigger",
+        "scroll",
+        "pinning"
+      ]
+    },
+    "skill-gsap-timeline": {
+      "id": "skill-gsap-timeline",
+      "name": "GSAP Timeline Orchestration",
+      "component_type": "skill",
+      "purpose": "Sequential and parallel animation choreography using GSAP TimelineMax and position parameters.",
+      "capabilities": [
+        "gsap.timeline({ paused: true }) orchestration",
+        "Position parameter alignment",
+        "Nested timelines",
+        "Timeline playback control"
+      ],
+      "location": ".agents/skills/gsap-timeline",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-timeline."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-timeline/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "timeline",
+        "choreography",
+        "sequencing",
+        "audio-sync"
+      ]
+    },
+    "skill-gsap-utils": {
+      "id": "skill-gsap-utils",
+      "name": "GSAP Utility Functions",
+      "component_type": "skill",
+      "purpose": "Mathematical and array utilities for animations including clamp, mapRange, normalize, and interpolate.",
+      "capabilities": [
+        "Value normalization and mapping (mapRange)",
+        "Clamping and interpolation",
+        "Snapping and wrapping",
+        "Mulberry32-friendly math"
+      ],
+      "location": ".agents/skills/gsap-utils",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/gsap-utils."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/gsap-utils/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "gsap",
+        "utils",
+        "math",
+        "interpolation",
+        "helpers"
+      ]
+    },
+    "skill-motion-design": {
+      "id": "skill-motion-design",
+      "name": "Motion Design Principles & Choreography",
+      "component_type": "skill",
+      "purpose": "Applies Disney animation principles and motion design choreography to UI and technical explainer animations.",
+      "capabilities": [
+        "Timing and easing curve selection",
+        "Emotional and cognitive pacing",
+        "Multi-element choreography",
+        "State feedback transitions"
+      ],
+      "location": ".agents/skills/motion-design",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill under .agents/skills/motion-design."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host"
+      },
+      "documentation_urls": [
+        ".agents/skills/motion-design/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Open-source MIT licensed skill."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Agent skill instructional guide."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved for motion graphics authoring.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "motion-design",
+        "choreography",
+        "easing",
+        "timing",
+        "disney-principles"
       ]
     },
     "skill-motion-graphics-designer": {

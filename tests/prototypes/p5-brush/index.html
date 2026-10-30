@@ -122,28 +122,22 @@
       brush.seed(42);
       brush.noiseSeed(42);
 
-      const maxIdx = Math.max(2, Math.floor(t * N_POINTS));
+      const maxIdx = Math.max(3, Math.floor(t * N_POINTS));
+      const activePoints = curvePoints.slice(0, maxIdx).map(p => [p.x, p.y, 1.0]);
 
       // 1. Draw organic textured charcoal curve
-      brush.set("charcoal", "#58a6ff", 3.5);
-      brush.beginStroke("curve");
-      for (let i = 0; i <= maxIdx; i++) {
-        brush.move(curvePoints[i].x, curvePoints[i].y);
-      }
-      brush.endStroke();
+      brush.set("charcoal", "#58a6ff", 3.0);
+      brush.spline(activePoints, 0.4);
 
       // 2. Draw subtle watercolor secondary accent if progress is advanced
-      if (t > 0.3) {
+      if (t > 0.25 && activePoints.length >= 3) {
         brush.set("cpencil", "#39c5bb", 1.8);
-        brush.beginStroke("curve");
-        for (let i = 0; i <= maxIdx; i++) {
-          brush.move(curvePoints[i].x, curvePoints[i].y - 12);
-        }
-        brush.endStroke();
+        const offsetPoints = activePoints.map(p => [p[0], p[1] - 14, 0.8]);
+        brush.spline(offsetPoints, 0.4);
       }
 
       // 3. Draw directional flow hatching along the traversed portion
-      brush.set("HB", "rgba(139, 148, 158, 0.45)", 1.0);
+      brush.set("HB", "rgba(139, 148, 158, 0.5)", 1.0);
       for (let j = 0; j < hatchAnchors.length; j++) {
         const anchor = hatchAnchors[j];
         const anchorProg = (anchor.x - 120) / 1040;

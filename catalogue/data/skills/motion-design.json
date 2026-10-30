@@ -1,0 +1,51 @@
+{
+  "id": "skill-motion-design",
+  "name": "Motion Design Principles & Choreography",
+  "component_type": "skill",
+  "purpose": "Applies Disney animation principles and motion design choreography to UI and technical explainer animations.",
+  "capabilities": [
+    "Timing and easing curve selection",
+    "Emotional and cognitive pacing",
+    "Multi-element choreography",
+    "State feedback transitions"
+  ],
+  "location": ".agents/skills/motion-design",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill under .agents/skills/motion-design."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host"
+  },
+  "documentation_urls": [
+    ".agents/skills/motion-design/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Open-source MIT licensed skill."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Agent skill instructional guide."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production approved for motion graphics authoring.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "motion-design",
+    "choreography",
+    "easing",
+    "timing",
+    "disney-principles"
+  ]
+}

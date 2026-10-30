@@ -1,0 +1,53 @@
+{
+  "id": "skill-gsap-performance",
+  "name": "GSAP Animation Performance Optimization",
+  "component_type": "skill",
+  "purpose": "Techniques for 60fps rendering, avoiding layout thrashing, and GPU layer acceleration.",
+  "capabilities": [
+    "Transform and opacity promotion",
+    "Layout thrashing elimination",
+    "Batching reads and writes",
+    "will-change management"
+  ],
+  "location": ".agents/skills/gsap-performance",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill under .agents/skills/gsap-performance."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host"
+  },
+  "documentation_urls": [
+    ".agents/skills/gsap-performance/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Open-source MIT licensed skill."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Agent skill instructional guide."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production approved for motion graphics authoring.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "gsap",
+    "performance",
+    "optimization",
+    "60fps",
+    "gpu"
+  ]
+}

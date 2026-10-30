@@ -1,0 +1,51 @@
+{
+  "id": "skill-gsap-react",
+  "name": "GSAP React & Hook Integration",
+  "component_type": "skill",
+  "purpose": "Integration of GSAP with React components via useGSAP hook and gsap.context().",
+  "capabilities": [
+    "useGSAP hook lifecycle scoping",
+    "Automatic tween cleanup on unmount",
+    "React ref animation targets"
+  ],
+  "location": ".agents/skills/gsap-react",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill under .agents/skills/gsap-react."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host"
+  },
+  "documentation_urls": [
+    ".agents/skills/gsap-react/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Open-source MIT licensed skill."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Agent skill instructional guide."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production approved for motion graphics authoring.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "gsap",
+    "react",
+    "hooks",
+    "lifecycle"
+  ]
+}
