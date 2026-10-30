@@ -1,0 +1,47 @@
+{
+  "project": "china-market-crash-2026",
+  "voice": "am_michael",
+  "speed": 1.18,
+  "pause_sec": 0.5,
+  "total_duration_sec": 43.075,
+  "target_fps": 30,
+  "total_frames": 1293,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Where Did Two Trillion Vanish?",
+      "text": "How did China's stock market suddenly lose two trillion dollars? It started with a normal dip. But ten weeks of nonstop drops broke the market wide open.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 10.0,
+      "start_time_sec": 0.0,
+      "end_time_sec": 10.0
+    },
+    {
+      "id": "s2",
+      "title": "The Borrowed Money Trap",
+      "text": "The real culprit? Borrowed money. When traders buy stocks on debt, even a small drop wipes out their cash completely, forcing brokers to sell everything automatically.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 10.75,
+      "start_time_sec": 10.5,
+      "end_time_sec": 21.25
+    },
+    {
+      "id": "s3",
+      "title": "The Everyday Retail Panic",
+      "text": "In China, ninety percent of trades come from everyday people on their phones. When panic spreads, millions hit sell together, turning a small dip into an avalanche.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 10.425,
+      "start_time_sec": 21.75,
+      "end_time_sec": 32.175
+    },
+    {
+      "id": "s4",
+      "title": "Why Bailouts Couldn't Fix It",
+      "text": "Property debt and tech sell-offs made it worse. Even massive government bailouts can't stop a crash until real corporate profits grow and people believe in the economy.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 10.4,
+      "start_time_sec": 32.675,
+      "end_time_sec": 43.075
+    }
+  ]
+}

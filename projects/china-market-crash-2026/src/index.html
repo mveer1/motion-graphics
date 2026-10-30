@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Where Did China's $2 Trillion Go?</title>
+  <style>
+    /* ─── RESET & REELS 9:16 CANVAS ──────────────────────────────── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0f172a;
+      width: 720px; height: 1280px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #root {
+      position: relative;
+      width: 720px; height: 1280px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    /* Clean Subtle Grid Overlay */
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+
+    /* Ambient Soft Radial Glow */
+    .ambient-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      top: 25%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(244, 63, 94, 0.05) 0%, rgba(248, 250, 252, 0) 70%);
+      pointer-events: none;
+      border-radius: 50%;
+    }
+
+    /* ─── INSTAGRAM REELS TOP HUD & PROGRESS BAR ─────────────────── */
+    .reels-top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 24px 36px 14px;
+      z-index: 50;
+    }
+
+    /* 4-Segment Reel Progress Bar */
+    .progress-segments {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+      height: 4px;
+      margin-bottom: 16px;
+    }
+    .segment-track {
+      flex: 1;
+      height: 4px;
+      background: rgba(15, 23, 42, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+    .segment-fill {
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 0%;
+      background: #0f172a;
+      border-radius: 2px;
+    }
+
+    /* Top Metadata Pill Row */
+    .top-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      background: #ffffff;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 100px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #0f172a;
+    }
+    .badge-pill.danger {
+      color: #e11d48;
+      border-color: rgba(225, 29, 72, 0.2);
+      background: rgba(255, 241, 242, 0.9);
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #e11d48;
+      box-shadow: 0 0 6px #e11d48;
+    }
+    .time-badge {
+      font-family: 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    /* ─── SCENE CONTAINERS ───────────────────────────────────────── */
+    .scene {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      padding: 95px 36px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ─── CASUAL HEADLINE & SUBTITLE SYSTEM ───────────────────────── */
+    .scene-header {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .scene-tag {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .scene-title {
+      font-size: 35px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      line-height: 1.15;
+    }
+    .scene-subtitle {
+      font-size: 16px;
+      font-weight: 450;
+      color: #475569;
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    /* ─── APPLE/LINEAR STYLE WHITE CARD PANELS ───────────────────── */
+    .white-card {
+      background: #ffffff;
+      border: 1.5px solid rgba(15, 23, 42, 0.08);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.06), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
+      position: relative;
+    }
+    .white-card.danger-card {
+      border-color: rgba(244, 63, 94, 0.25);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255, 241, 242, 0.45) 100%);
+    }
+    .white-card.amber-card {
+      border-color: rgba(245, 158, 11, 0.25);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(254, 243, 199, 0.45) 100%);
+    }
+    .white-card.indigo-card {
+      border-color: rgba(99, 102, 241, 0.25);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(238, 242, 255, 0.45) 100%);
+    }
+    .white-card.emerald-card {
+      border-color: rgba(16, 185, 129, 0.25);
+      background: linear-gradient(180deg, #ffffff 0%, rgba(236, 253, 245, 0.55) 100%);
+    }
+
+    .mono {
+      font-family: 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+    }
+
+    /* ─── SCENE 1 STYLES ─────────────────────────────────────────── */
+    .s1-metric-box {
+      text-align: center;
+      padding: 24px 20px;
+      margin-bottom: 16px;
+    }
+    .s1-big-number {
+      font-size: 50px;
+      font-weight: 900;
+      color: #e11d48;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .s1-chart-card {
+      padding: 20px;
+      margin-bottom: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ─── SCENE 2 STYLES ─────────────────────────────────────────── */
+    .s2-balance-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .balance-box {
+      flex: 1;
+      padding: 16px;
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid rgba(15, 23, 42, 0.06);
+    }
+    .progress-bar-track {
+      height: 28px;
+      background: #e2e8f0;
+      border-radius: 14px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #f59e0b 60%, #ef4444 100%);
+      border-radius: 14px;
+    }
+
+    /* ─── SCENE 3 STYLES ─────────────────────────────────────────── */
+    .crowd-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-radius: 16px;
+      margin-top: 10px;
+    }
+    .crowd-pill.retail {
+      background: #fff1f2;
+      border: 1.5px solid #fecdd3;
+    }
+    .crowd-pill.institution {
+      background: #f1f5f9;
+      border: 1.5px solid #e2e8f0;
+    }
+
+    .phone-mockup {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      margin: 12px 0;
+    }
+    .phone-notification {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: #fff1f2;
+      border-left: 4px solid #e11d48;
+      font-size: 13px;
+      font-weight: 700;
+      color: #9f1239;
+      margin-bottom: 8px;
+    }
+
+    /* ─── SCENE 4 STYLES ─────────────────────────────────────────── */
+    .resolution-banner {
+      padding: 24px;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border: 2px solid #10b981;
+      border-radius: 22px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="43.08">
+
+  <!-- Ambient Light Grid & Radial Backdrop -->
+  <div class="bg-grid"></div>
+  <div class="ambient-glow" id="ambient-glow"></div>
+
+  <!-- Permanent Top Reels Safe Zone & Progress -->
+  <div class="reels-top-bar">
+    <div class="progress-segments">
+      <div class="segment-track"><div class="segment-fill" id="prog-s1"></div></div>
+      <div class="segment-track"><div class="segment-fill" id="prog-s2"></div></div>
+      <div class="segment-track"><div class="segment-fill" id="prog-s3"></div></div>
+      <div class="segment-track"><div class="segment-fill" id="prog-s4"></div></div>
+    </div>
+    <div class="top-meta-row">
+      <div class="badge-pill danger">
+        <span class="live-dot"></span>
+        <span>Market Crash Explained</span>
+      </div>
+      <div class="time-badge mono" id="top-timer">00:00 / 00:43</div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 1: Where Did $2 Trillion Vanish? (0.00s - 10.00s)        -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene1">
+    <div class="scene-header" id="s1-header">
+      <span class="scene-tag">The 2026 Meltdown</span>
+      <h1 class="scene-title">Where Did $2 Trillion Vanish?</h1>
+      <p class="scene-subtitle">China's stock market suffered ten straight weeks of nonstop drops, crossing a critical threshold.</p>
+    </div>
+
+    <!-- Big Counter Card -->
+    <div class="white-card danger-card s1-metric-box" id="s1-card-metric">
+      <div style="font-size: 13px; font-weight: 700; color: #e11d48; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+        Total Market Value Erased
+      </div>
+      <div class="s1-big-number mono" id="s1-counter-loss">-$0.00T</div>
+      <div style="display: flex; justify-content: center; gap: 14px; margin-top: 10px; font-size: 13.5px; font-weight: 600; color: #64748b;">
+        <span>Peak: <strong class="mono" style="color: #0f172a;">4,180 pts</strong></span>
+        <span>&bull;</span>
+        <span>Drawdown: <strong style="color: #e11d48;" class="mono" id="s1-counter-pct">-0.0%</strong></span>
+      </div>
+    </div>
+
+    <!-- Mobile-Optimized Drop Chart -->
+    <div class="white-card s1-chart-card" id="s1-card-chart">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="font-size: 15px; font-weight: 700; color: #0f172a;">10-Week Continuous Plunge</span>
+        <span class="mono" style="font-size: 12px; font-weight: 700; color: #e11d48; background: #fff1f2; padding: 4px 12px; border-radius: 100px;">
+          BEAR ZONE: -20%
+        </span>
+      </div>
+
+      <svg viewBox="0 0 600 420" style="width: 100%; height: 360px;">
+        <!-- Background Guide Lines -->
+        <line x1="40" y1="50" x2="560" y2="50" stroke="#f1f5f9" stroke-width="2"/>
+        <text x="35" y="55" fill="#94a3b8" font-size="12" font-family="'SF Mono', monospace" text-anchor="end">4,180</text>
+        
+        <line x1="40" y1="160" x2="560" y2="160" stroke="#f1f5f9" stroke-width="2"/>
+        <text x="35" y="165" fill="#94a3b8" font-size="12" font-family="'SF Mono', monospace" text-anchor="end">3,800</text>
+
+        <!-- -20% DANGER THRESHOLD LINE -->
+        <line id="s1-bear-line" x1="40" y1="270" x2="560" y2="270" stroke="#f43f5e" stroke-width="3" stroke-dasharray="8 6"/>
+        <text x="35" y="275" fill="#f43f5e" font-size="13" font-weight="800" font-family="'SF Mono', monospace" text-anchor="end">-20%</text>
+        
+        <rect id="s1-danger-tag" x="370" y="248" width="190" height="28" rx="14" fill="#ffe4e6" stroke="#f43f5e" stroke-width="1.5"/>
+        <text x="465" y="267" fill="#e11d48" font-size="11.5" font-weight="800" font-family="'SF Mono', monospace" text-anchor="middle">
+          -20% BEAR THRESHOLD
+        </text>
+
+        <!-- Weeks Axis -->
+        <g font-size="11" font-family="'SF Mono', monospace" fill="#64748b" text-anchor="middle">
+          <text x="60" y="380">Peak</text>
+          <text x="160" y="380">Week 3</text>
+          <text x="270" y="380">Week 6</text>
+          <text x="380" y="380">Week 8</text>
+          <text x="490" y="380">Week 10</text>
+        </g>
+
+        <!-- Clip Rect for Smooth Progressive Line Draw -->
+        <defs>
+          <clipPath id="s1-clip">
+            <rect id="s1-chart-cliprect" x="40" y="0" width="0" height="420"/>
+          </clipPath>
+          <linearGradient id="chart-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#3b82f6"/>
+            <stop offset="50%" stop-color="#f59e0b"/>
+            <stop offset="100%" stop-color="#f43f5e"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Plunging Curve -->
+        <path d="M 60 55 C 120 70, 180 120, 260 165 C 330 205, 390 255, 440 295 L 500 335"
+              fill="none"
+              stroke="url(#chart-grad)"
+              stroke-width="5.5"
+              stroke-linecap="round"
+              clip-path="url(#s1-clip)"/>
+
+        <!-- Breach Marker Dot (440, 295) -->
+        <circle id="s1-breach-dot" cx="440" cy="295" r="8" fill="#e11d48" opacity="0"/>
+        <circle id="s1-breach-pulse" cx="440" cy="295" r="24" fill="none" stroke="#e11d48" stroke-width="2" opacity="0"/>
+      </svg>
+    </div>
+
+    <!-- Bottom Takeaway Card -->
+    <div class="white-card" id="s1-card-footer" style="padding: 16px 20px;">
+      <div style="font-size: 13.5px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+        <span>🚨</span>
+        <span>10 Consecutive Weeks in the Red</span>
+      </div>
+      <p style="font-size: 12.5px; color: #64748b; margin-top: 4px; line-height: 1.4;">
+        Erasing $2.4 Trillion—equivalent to losing the entire valuation of major tech giants in just 70 days.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 2: The Borrowed Money Trap (10.50s - 21.25s)              -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene2">
+    <div class="scene-header" id="s2-header">
+      <span class="scene-tag" style="color: #d97706;">The Mechanism</span>
+      <h1 class="scene-title">The Borrowed Money Trap</h1>
+      <p class="scene-subtitle">When trading with leverage, even a small market drop wipes out your cash completely.</p>
+    </div>
+
+    <!-- Leverage Exposure Card -->
+    <div class="white-card amber-card" id="s2-card-balance" style="margin-bottom: 16px;">
+      <div style="font-size: 13px; font-weight: 700; color: #b45309; text-transform: uppercase;">
+        How 3x Leverage Multiplies Risk
+      </div>
+      <div class="s2-balance-row">
+        <div class="balance-box" style="border-left: 4px solid #10b981;">
+          <div style="font-size: 12px; color: #64748b;">Your Real Cash</div>
+          <div class="mono" style="font-size: 22px; font-weight: 800; color: #047857; margin-top: 4px;" id="s2-cash-val">$10,000</div>
+          <div style="font-size: 11px; color: #059669; margin-top: 2px;">(1x Collateral)</div>
+        </div>
+        <div class="balance-box" style="border-left: 4px solid #3b82f6;">
+          <div style="font-size: 12px; color: #64748b;">Broker Loan</div>
+          <div class="mono" style="font-size: 22px; font-weight: 800; color: #1d4ed8; margin-top: 4px;">$20,000</div>
+          <div style="font-size: 11px; color: #2563eb; margin-top: 2px;">(2x Borrowed)</div>
+        </div>
+      </div>
+      <div style="font-size: 13.5px; font-weight: 600; color: #475569; text-align: center; margin-top: 10px;">
+        Total Buying Power: <strong style="color: #0f172a;">$30,000</strong>
+      </div>
+    </div>
+
+    <!-- Cash Depletion Meter -->
+    <div class="white-card" id="s2-card-meter" style="margin-bottom: 16px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <span style="font-size: 15px; font-weight: 700; color: #0f172a;">Your Remaining Equity</span>
+        <span class="mono" style="font-size: 22px; font-weight: 800; color: #e11d48;" id="s2-meter-label">100%</span>
+      </div>
+
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="s2-meter-fill"></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 12px; font-family: monospace; color: #64748b; margin-top: 10px;">
+        <span>Safe (0% Drop)</span>
+        <span>-15% Drop</span>
+        <span style="color: #e11d48; font-weight: 700;">-33% Drop (Total Wipeout)</span>
+      </div>
+    </div>
+
+    <!-- Broker Auto-Sell Card -->
+    <div class="white-card danger-card" id="s2-card-alert" style="text-align: center; padding: 24px;">
+      <div id="s2-alert-pill" style="display: inline-block; padding: 6px 16px; border-radius: 100px; background: #ecfdf5; border: 1.5px solid #a7f3d0; font-size: 12.5px; font-weight: 800; color: #059669; margin-bottom: 10px;">
+        COLLATERAL STATUS: HEALTHY
+      </div>
+      <div style="font-size: 19px; font-weight: 850; color: #0f172a;" id="s2-alert-title">
+        Brokers Force-Sell at Zero
+      </div>
+      <p style="font-size: 14px; color: #64748b; margin-top: 6px; line-height: 1.45;">
+        When an asset drops by just 33%, the investor's cash hits zero. Brokers don't wait—they automatically liquidate the position on the open market.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 3: The Everyday Retail Panic (21.75s - 32.18s)           -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene3">
+    <div class="scene-header" id="s3-header">
+      <span class="scene-tag" style="color: #e11d48;">The Amplification</span>
+      <h1 class="scene-title">90% Everyday People On Phones</h1>
+      <p class="scene-subtitle">Unlike Wall Street, China's market is driven by individual retail accounts hitting sell together.</p>
+    </div>
+
+    <!-- Crowd Contrast Card -->
+    <div class="white-card indigo-card" id="s3-card-crowd" style="margin-bottom: 14px; padding: 20px;">
+      <div style="font-size: 13px; font-weight: 700; color: #4338ca; text-transform: uppercase;">
+        Who Actually Trades Each Day?
+      </div>
+
+      <div class="crowd-pill retail" id="s3-pill-retail">
+        <div>
+          <div style="font-size: 14.5px; font-weight: 800; color: #9f1239;">China Market: 90% Everyday Retail</div>
+          <div style="font-size: 12px; color: #be123c;">Trading directly on smartphone apps</div>
+        </div>
+        <div class="mono" style="font-size: 26px; font-weight: 900; color: #e11d48;">90%</div>
+      </div>
+
+      <div class="crowd-pill institution">
+        <div>
+          <div style="font-size: 14px; font-weight: 700; color: #334155;">US Market: 80% Institutional</div>
+          <div style="font-size: 12px; color: #64748b;">Market makers and pension funds buffer swings</div>
+        </div>
+        <div class="mono" style="font-size: 20px; font-weight: 700; color: #64748b;">20%</div>
+      </div>
+    </div>
+
+    <!-- Simulated Phone Panic UI -->
+    <div class="phone-mockup" id="s3-phone-mockup">
+      <div style="font-size: 11.5px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 8px;">
+        Smartphone Broker Feed // Market Open
+      </div>
+      <div class="phone-notification" id="notif-1">
+        <span>🚨</span>
+        <span>Margin Call Executed: 200 Shares Liquidated</span>
+      </div>
+      <div class="phone-notification" id="notif-2" style="background: #fef2f2; border-color: #f87171;">
+        <span>📉</span>
+        <span>Retail Sell Volume Spiking: 4.8M Orders Pending</span>
+      </div>
+    </div>
+
+    <!-- Domino Chain Reaction Card -->
+    <div class="white-card" id="s3-card-domino" style="padding: 18px 20px;">
+      <div style="font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 8px;">
+        The Runaway Panic Avalanche
+      </div>
+      <p style="font-size: 13.5px; color: #64748b; line-height: 1.45;">
+        Millions of phone notifications trigger forced sales simultaneously, vaporizing buyer liquidity and driving the market straight into freefall.
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- SCENE 4: Why Bailouts Couldn't Fix It (32.68s - 43.08s)        -->
+  <!-- ============================================================== -->
+  <div class="scene" id="scene4">
+    <div class="scene-header" id="s4-header">
+      <span class="scene-tag" style="color: #059669;">The Real Solution</span>
+      <h1 class="scene-title">Why Bailouts Couldn't Fix It</h1>
+      <p class="scene-subtitle">Government billions can slow the fall, but only real confidence and corporate profits rebuild a market.</p>
+    </div>
+
+    <!-- The Two Forces Cards -->
+    <div class="white-card" id="s4-card-prop" style="border-left: 5px solid #f43f5e; margin-bottom: 14px; padding: 18px 20px;">
+      <div style="font-size: 12px; font-weight: 700; color: #e11d48; text-transform: uppercase;">THE REAL DOWNTURN</div>
+      <div style="font-size: 16.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">Property Debt & Tech Slump</div>
+      <p style="font-size: 13px; color: #64748b; margin-top: 4px; line-height: 1.4;">
+        A cooling real estate market and brutal tech competition reduced corporate earnings across the entire board.
+      </p>
+    </div>
+
+    <div class="white-card" id="s4-card-etf" style="border-left: 5px solid #3b82f6; margin-bottom: 16px; padding: 18px 20px;">
+      <div style="font-size: 12px; font-weight: 700; color: #2563eb; text-transform: uppercase;">TEMPORARY SHIELD</div>
+      <div style="font-size: 16.5px; font-weight: 800; color: #0f172a; margin-top: 2px;">State-Funded ETF Bailouts</div>
+      <p style="font-size: 13px; color: #64748b; margin-top: 4px; line-height: 1.4;">
+        State funds poured tens of billions into buying blue-chip ETFs, but bailouts alone cannot manufacture earnings.
+      </p>
+    </div>
+
+    <!-- The Resolution Banner -->
+    <div class="resolution-banner" id="s4-card-solution">
+      <div style="font-size: 12px; font-weight: 800; color: #047857; text-transform: uppercase; letter-spacing: 0.08em;">
+        THE GOLDEN PRINCIPLE
+      </div>
+      <div style="font-size: 21px; font-weight: 900; color: #064e3b; margin: 8px 0; line-height: 1.25;">
+        Real Earnings + Public Confidence
+      </div>
+      <p style="font-size: 14px; color: #065f46; line-height: 1.45;">
+        A market only sustainably recovers when businesses generate real profits, and everyday people feel secure spending again.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─── GSAP 3 TIMELINE CHOREOGRAPHY (720x1280 INSTAGRAM REELS) ─── -->
+<script>
+// Timeline Anchors measured via Kokoro am_michael
+const T = {
+  s1: 0.000,
+  s1_end: 10.000,
+  s2: 10.500,
+  s2_end: 21.250,
+  s3: 21.750,
+  s3_end: 32.175,
+  s4: 32.675,
+  s4_end: 43.075
+};
+
+const tl = gsap.timeline({ paused: true });
+
+// Synchronous smooth crossfade without flashing
+function sceneTransition(outId, inId, atTime, fade = 0.45) {
+  tl.to(`#${outId}`, { opacity: 0, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);
+  tl.to(`#${inId}`,  { opacity: 1, duration: fade, ease: 'power1.inOut' }, atTime - fade / 2);
+}
+
+// Global Progress Bar fills across the 4 scenes
+tl.to('#prog-s1', { width: '100%', duration: T.s1_end, ease: 'none' }, 0);
+tl.to('#prog-s2', { width: '100%', duration: T.s2_end - T.s2, ease: 'none' }, T.s2);
+tl.to('#prog-s3', { width: '100%', duration: T.s3_end - T.s3, ease: 'none' }, T.s3);
+tl.to('#prog-s4', { width: '100%', duration: T.s4_end - T.s4, ease: 'none' }, T.s4);
+
+// Timer ticker in top right
+const timerElem = document.getElementById('top-timer');
+tl.to({}, {
+  duration: T.s4_end,
+  onUpdate: function() {
+    const s = Math.floor(tl.time());
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    timerElem.textContent = `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')} / 00:43`;
+  }
+}, 0);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 1: Where Did $2 Trillion Vanish? (0.00s -> 10.00s)
+// ═════════════════════════════════════════════════════════════════
+tl.to('#scene1', { opacity: 1, duration: 0.25 }, 0);
+
+// Header and cards smooth casual entrance
+tl.fromTo('#s1-header',
+  { opacity: 0, y: -20 },
+  { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.2)' },
+  0.2);
+
+tl.fromTo('#s1-card-metric',
+  { opacity: 0, scale: 0.92 },
+  { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.3)' },
+  0.35);
+
+tl.fromTo(['#s1-card-chart', '#s1-card-footer'],
+  { opacity: 0, y: 25 },
+  { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power2.out' },
+  0.5);
+
+// Draw the red drop curve smoothly across weeks
+tl.fromTo('#s1-chart-cliprect',
+  { attr: { width: 0 } },
+  { attr: { width: 550 }, duration: 4.8, ease: 'power2.inOut' },
+  0.7);
+
+// Live counter counts up to -$2.42 Trillion and -20.4%
+const s1Count = { loss: 0.0, pct: 0.0 };
+const lossElem = document.getElementById('s1-counter-loss');
+const pctElem = document.getElementById('s1-counter-pct');
+
+tl.to(s1Count, {
+  loss: 2.42,
+  pct: 20.39,
+  duration: 4.5,
+  ease: 'power2.in',
+  onUpdate: () => {
+    lossElem.textContent = `-$${s1Count.loss.toFixed(2)}T`;
+    pctElem.textContent = `-${s1Count.pct.toFixed(1)}%`;
+  }
+}, 0.8);
+
+// Break the -20% barrier at t=4.2s
+tl.to('#s1-bear-line', {
+  stroke: '#e11d48',
+  strokeWidth: 4.5,
+  duration: 0.35,
+  yoyo: true,
+  repeat: 3
+}, 4.2);
+
+tl.fromTo('#s1-danger-tag',
+  { scale: 0.9 },
+  { scale: 1.08, fill: '#fecdd3', duration: 0.35, yoyo: true, repeat: 2 },
+  4.2);
+
+tl.to('#s1-breach-dot', { opacity: 1, duration: 0.3 }, 4.3);
+tl.fromTo('#s1-breach-pulse',
+  { r: 8, opacity: 1 },
+  { r: 28, opacity: 0, duration: 1.0, repeat: 2, ease: 'power2.out' },
+  4.3);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S1 -> S2 (Casual Synchronous Cross-Fade)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene1', 'scene2', T.s2);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 2: The Borrowed Money Trap (10.50s -> 21.25s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s2-header',
+  { opacity: 0, y: -20 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.2)' },
+  T.s2 + 0.1);
+
+tl.fromTo(['#s2-card-balance', '#s2-card-meter', '#s2-card-alert'],
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.5, stagger: 0.12, ease: 'power2.out' },
+  T.s2 + 0.2);
+
+// Meter drains as the price drop reaches 33%
+const s2Gauge = { pct: 100, cash: 10000 };
+const meterLabel = document.getElementById('s2-meter-label');
+const meterFill = document.getElementById('s2-meter-fill');
+const cashValElem = document.getElementById('s2-cash-val');
+
+tl.to(s2Gauge, {
+  pct: 0,
+  cash: 0,
+  duration: 5.5,
+  ease: 'power2.in',
+  onUpdate: () => {
+    meterLabel.textContent = `${s2Gauge.pct.toFixed(0)}%`;
+    meterFill.style.width = `${s2Gauge.pct}%`;
+    cashValElem.textContent = `$${Math.round(s2Gauge.cash).toLocaleString()}`;
+    if (s2Gauge.pct <= 30) {
+      cashValElem.style.color = '#e11d48';
+    }
+  }
+}, T.s2 + 1.2);
+
+// Trigger margin call alert at t=15.0s
+tl.to('#s2-alert-pill', {
+  background: '#fff1f2',
+  borderColor: '#fecdd3',
+  color: '#e11d48',
+  textContent: 'STATUS: MARGIN CALL TRIGGERED',
+  duration: 0.3
+}, T.s2 + 4.5);
+
+tl.to('#s2-card-alert', {
+  borderColor: '#f43f5e',
+  boxShadow: '0 12px 28px rgba(244, 63, 94, 0.15)',
+  duration: 0.4,
+  yoyo: true,
+  repeat: 2
+}, T.s2 + 4.8);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S2 -> S3 (Casual Synchronous Cross-Fade)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene2', 'scene3', T.s3);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 3: The Everyday Retail Panic (21.75s -> 32.18s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s3-header',
+  { opacity: 0, y: -20 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.2)' },
+  T.s3 + 0.1);
+
+tl.fromTo(['#s3-card-crowd', '#s3-phone-mockup', '#s3-card-domino'],
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out' },
+  T.s3 + 0.2);
+
+// Highlight 90% retail dominance
+tl.to('#s3-pill-retail', {
+  scale: 1.03,
+  borderColor: '#e11d48',
+  duration: 0.4,
+  yoyo: true,
+  repeat: 2
+}, T.s3 + 1.5);
+
+// Notifications pop on the phone screen
+tl.fromTo('#notif-1',
+  { opacity: 0, scale: 0.85, x: -10 },
+  { opacity: 1, scale: 1, x: 0, duration: 0.5, ease: 'back.out(1.4)' },
+  T.s3 + 2.0);
+
+tl.fromTo('#notif-2',
+  { opacity: 0, scale: 0.85, x: -10 },
+  { opacity: 1, scale: 1, x: 0, duration: 0.5, ease: 'back.out(1.4)' },
+  T.s3 + 3.2);
+
+// ═════════════════════════════════════════════════════════════════
+// TRANSITION: S3 -> S4 (Casual Synchronous Cross-Fade)
+// ═════════════════════════════════════════════════════════════════
+sceneTransition('scene3', 'scene4', T.s4);
+
+// ═════════════════════════════════════════════════════════════════
+// SCENE 4: Why Bailouts Couldn't Fix It (32.68s -> 43.08s)
+// ═════════════════════════════════════════════════════════════════
+tl.fromTo('#s4-header',
+  { opacity: 0, y: -20 },
+  { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.2)' },
+  T.s4 + 0.1);
+
+tl.fromTo(['#s4-card-prop', '#s4-card-etf'],
+  { opacity: 0, y: 20 },
+  { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, ease: 'power2.out' },
+  T.s4 + 0.25);
+
+// State ETF shield pops
+tl.to('#s4-card-etf', {
+  borderColor: '#2563eb',
+  boxShadow: '0 8px 24px rgba(37, 99, 235, 0.12)',
+  duration: 0.5
+}, T.s4 + 2.2);
+
+// Golden solution banner enters with fresh emerald energy
+tl.fromTo('#s4-card-solution',
+  { opacity: 0, scale: 0.9, y: 20 },
+  { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'back.out(1.3)' },
+  T.s4 + 4.5);
+
+tl.to('#s4-card-solution', {
+  boxShadow: '0 12px 32px rgba(16, 185, 129, 0.2)',
+  duration: 0.8
+}, T.s4 + 5.2);
+
+// Hold cleanly until end of duration
+tl.to({}, { duration: 0.1 }, T.s4_end);
+
+// Mount to global window
+window.__timelines = window.__timelines || {};
+window.__timelines['root'] = tl;
+</script>
+</body>
+</html>

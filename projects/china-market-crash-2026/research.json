@@ -1,0 +1,255 @@
+{
+  "metadata": {
+    "topic_id": "china-market-crash-2026",
+    "title": "China Market Crash: The Reflexive Cascade",
+    "domain": "physics_mathematics",
+    "difficulty": "advanced",
+    "target_duration_sec": {
+      "min": 35.0,
+      "max": 45.0,
+      "target": 40.0
+    },
+    "canonical_sources": [
+      {
+        "title": "China's stock market sinks into bear territory as CSI 300 extends 10-week rout",
+        "authors": "Lee Ying Shan",
+        "year": 2026,
+        "source_type": "benchmark_report",
+        "url": "https://www.cnbc.com/2026/10/22/chinas-stock-market-csi-300-bear-market.html"
+      },
+      {
+        "title": "Chinese Stocks Tumble Into Bear Market as $2.4 Trillion Vanishes",
+        "authors": "Bloomberg News",
+        "year": 2026,
+        "source_type": "benchmark_report",
+        "url": "https://www.bloomberg.com/news/articles/2026-10-22/china-stocks-set-for-bear-market-as-ai-trade-policy-hopes-fade"
+      },
+      {
+        "title": "Is China's economy broken?",
+        "authors": "Czin, Gallagher, Wright",
+        "year": 2026,
+        "source_type": "academic_paper",
+        "url": "https://www.brookings.edu/articles/is-chinas-economy-broken/"
+      },
+      {
+        "title": "In China, the AI bubble has already burst",
+        "authors": "Reuters",
+        "year": 2026,
+        "source_type": "benchmark_report",
+        "url": "https://www.investing.com/news/economy-news/analysisin-china-the-ai-bubble-has-already-burst-4972445"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "China's benchmark CSI 300 plunged over 20% from its June 2026 peak, erasing over $2.4 trillion in market valuation across ten consecutive weekly drops. The underlying breakdown is a reflexive deleveraging spiral where property debt, margin liquidations, and retail panic reinforce one another.",
+    "core_thesis": "China's equity crash is governed by reflexive deleveraging: under high leverage, price declines breach margin thresholds, triggering forced liquidations that retail-heavy trading (90% of volume) rapidly accelerates into an automated feedback loop.",
+    "mental_model": "A synchronized financial domino cascade where an initial macro shock trips leverage gauges into automatic liquidations, triggering price drops that topple successive retail tiers.",
+    "key_takeaway": "While a 20% drawdown defines a bear market, leverage ratio L mathematically wipes out 100% of collateral when prices fall by 1/L; with 90% retail participation, liquidation velocity scales hyper-linearly.",
+    "verified_claims": [
+      "A 20% peak-to-trough decline defines bear-market territory; the CSI 300 crossed this boundary after 10 consecutive weekly routs in 2026.",
+      "With leverage ratio L (total exposure / equity), a price decline of approximately 1/L eliminates all equity collateral and triggers mandatory broker liquidation.",
+      "Retail investors account for roughly 90% of daily trading volume in China's equity markets compared to 20-25% in the US, amplifying procyclical panic selling.",
+      "Systemic stabilization requires real corporate earnings repair and confidence, as state ETF intervention alone cannot permanently arrest a reflexive solvency cascade."
+    ],
+    "anti_patterns": [
+      "Do not treat headline GDP growth prints as proof of market solvency; equity re-pricing leads macroeconomic indicators.",
+      "Do not assume state-backed National Team ETF purchases alone halt liquidations without underlying credit restoration.",
+      "Do not confuse a temporary liquidity squeeze with an underlying balance-sheet deleveraging cycle."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "csi300",
+        "symbol_latex": "P_t",
+        "name": "CSI 300 Index Level",
+        "type_or_domain": "real_number",
+        "role": "Benchmark equity gauge tracking 300 major Shanghai and Shenzhen equities"
+      },
+      {
+        "id": "drawdown",
+        "symbol_latex": "D_t = \\frac{P_{\\text{peak}} - P_t}{P_{\\text{peak}}}",
+        "name": "Peak-to-Trough Drawdown",
+        "type_or_domain": "ratio",
+        "role": "Drawdown fraction indicating technical bear market status when D_t >= 0.20"
+      },
+      {
+        "id": "leverage_ratio",
+        "symbol_latex": "L = \\frac{E_{\\text{total}}}{E_{\\text{eq}}}",
+        "name": "Leverage Ratio",
+        "type_or_domain": "ratio",
+        "role": "Ratio of total leveraged asset exposure to underlying equity collateral"
+      },
+      {
+        "id": "wipeout_threshold",
+        "symbol_latex": "\\delta^* = \\frac{1}{L}",
+        "name": "Leverage Wipeout Threshold",
+        "type_or_domain": "ratio",
+        "role": "Critical fractional asset drop that wipes out 100% of trader collateral"
+      },
+      {
+        "id": "retail_share",
+        "symbol_latex": "q_r \\approx 0.90",
+        "name": "Retail Flow Proportion",
+        "type_or_domain": "ratio",
+        "role": "Proportion of daily market trading volume executed by individual retail accounts"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_drawdown",
+        "latex": "D_t = \\frac{P_{\\text{peak}} - P_t}{P_{\\text{peak}}} \\ge 0.20",
+        "spoken_form": "drawdown at time t equals peak price minus current price divided by peak price, exceeding twenty percent",
+        "context": "Technical definition of entering bear market territory"
+      },
+      {
+        "id": "eq_wipeout",
+        "latex": "E(1 - L \\cdot \\delta) \\le 0 \\implies \\delta^* = \\frac{1}{L}",
+        "spoken_form": "equity value drops to zero when price decline reaches one divided by leverage ratio",
+        "context": "Mathematical boundary for forced margin liquidation"
+      },
+      {
+        "id": "eq_reflexive_flow",
+        "latex": "\\Delta P_{t+1} = \\alpha \\Delta P_t + \\beta(q_r) \\cdot F_{\\text{margin}}",
+        "spoken_form": "next price change equals alpha times current drop plus beta of retail share times margin forced selling",
+        "context": "Reflexive cascade where forced sales drive subsequent price contractions"
+      },
+      {
+        "id": "eq_solvency_stabilization",
+        "latex": "\\frac{d P}{d t} > 0 \\iff \\Pi_{\\text{earnings}} + C_{\\text{confidence}} > F_{\\text{liquidation}}",
+        "spoken_form": "market turnaround occurs when earnings and confidence outweigh liquidation pressure",
+        "context": "Equilibrium condition for enduring market recovery"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Peak-to-Trough Drawdown",
+        "mathematical_operation": "D_t = (P_peak - P_t) / P_peak",
+        "state_effect": "CSI 300 slides 20% over 10 weeks, transitioning regime from correction to bear territory"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Collateral Threshold Breach",
+        "mathematical_operation": "delta >= 1/L -> Margin Call",
+        "state_effect": "Trader equity reaches zero, triggering automated broker sell orders into the book"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Retail Contagion Amplification",
+        "mathematical_operation": "F_next = q_r * F_margin + F_panic",
+        "state_effect": "90% retail flow accelerates order book evaporation, driving prices lower"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Macro Solvency Rebalancing",
+        "mathematical_operation": "Balance: Intervention vs Macro Fundamentals",
+        "state_effect": "Market tests stabilization floor against property drag and earnings growth"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "bear_threshold_plunge",
+      "abstract_concept": "20% Drawdown Bear Market Boundary",
+      "visual_archetype": "geometric_gauge_meter",
+      "svg_primitives": ["path", "line", "rect", "text"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "CSI 300 index curve plunges across -20% red boundary line triggering flashing terminal warnings",
+      "color_token": "gradient_error_coral"
+    },
+    {
+      "concept_id": "leverage_wipeout_gauge",
+      "abstract_concept": "1/L Collateral Depletion and Margin Calls",
+      "visual_archetype": "ring_buffer_pipeline",
+      "svg_primitives": ["rect", "circle", "line", "text"],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "Collateral liquid meter drops to zero as price drops delta, activating margin alert beacon",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "retail_order_cascade",
+      "abstract_concept": "90% Retail Flow Contagion Acceleration",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["path", "circle", "line"],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "Dense storm of retail particle arrows descends rapidly into central order book funnel",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "macro_shock_transmission",
+      "abstract_concept": "Property and AI Shock Transmission Network",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["circle", "line", "rect"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Pulsing red shockwaves travel from peripheral macro nodes into central valuation core",
+      "color_token": "state_active_emerald"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "CSI 300",
+        "phonetic_respelling": "see-ess-eye three hundred",
+        "rationale": "Financial index ticker spoken clearly"
+      },
+      {
+        "term": "deleveraging",
+        "phonetic_respelling": "dee-lev-er-ij-ing",
+        "rationale": "Phonetic breakdown for natural speech synthesis"
+      },
+      {
+        "term": "drawdown",
+        "phonetic_respelling": "draw-down",
+        "rationale": "Even stress on two syllables"
+      },
+      {
+        "term": "margin call",
+        "phonetic_respelling": "mar-jin cawl",
+        "rationale": "Standard financial terminology clarity"
+      },
+      {
+        "term": "reflexive",
+        "phonetic_respelling": "re-flex-iv",
+        "rationale": "Clear pronunciation of Soros feedback term"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The 20% Bear Threshold",
+      "target_duration_sec": 9.5,
+      "pedagogical_objective": "Establish the $2.4 trillion rout as the CSI 300 breaches the 20% bear market boundary after 10 weekly drops.",
+      "visual_action": "Index curve plunges downwards, crossing the 20% bear-market line as red alerts flash and $2.4T metric counts up.",
+      "active_entities": ["csi300", "drawdown"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "The Leverage Wipeout",
+      "target_duration_sec": 9.5,
+      "pedagogical_objective": "Demonstrate that under leverage L, a fractional decline of 1/L wipes out 100% of collateral, triggering automated margin calls.",
+      "visual_action": "Leverage ratio meter expands to 3x while collateral level evaporates, detonating automated margin call alerts.",
+      "active_entities": ["leverage_ratio", "wipeout_threshold"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Retail Contagion Spiral",
+      "target_duration_sec": 9.5,
+      "pedagogical_objective": "Show how China's 90% retail trading share accelerates liquidations into a rapid reflexive feedback loop.",
+      "visual_action": "Swarm of retail particle flows cascades down, overwhelming buy liquidity and driving an accelerating reflexive price spiral.",
+      "active_entities": ["retail_share", "eq_reflexive_flow"]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Macro Shocks & Rebound",
+      "target_duration_sec": 10.0,
+      "pedagogical_objective": "Contrast state ETF intervention with the fundamental macro shocks of property debt, deflation, and corporate earnings repair.",
+      "visual_action": "Macro pressure nodes pulse red against state liquidity shields, highlighting that sustainable stabilization requires true earnings recovery.",
+      "active_entities": ["eq_solvency_stabilization"]
+    }
+  ]
+}
