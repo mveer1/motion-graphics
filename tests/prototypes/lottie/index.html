@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Text-to-Lottie Pipeline Evaluation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0d1117;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    #root {
+      width: 1280px;
+      height: 720px;
+      position: relative;
+      background: #0d1117;
+    }
+    #overlay {
+      position: absolute;
+      top: 32px;
+      left: 48px;
+      right: 48px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(88, 166, 255, 0.15);
+      border: 1px solid rgba(88, 166, 255, 0.4);
+      color: #58a6ff;
+      margin-bottom: 8px;
+    }
+    h1 {
+      color: #f0f6fc;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0 0 6px 0;
+    }
+    p.subtitle {
+      color: #8b949e;
+      font-size: 14px;
+      line-height: 1.4;
+      max-width: 520px;
+    }
+    .metrics {
+      text-align: right;
+      color: #8b949e;
+      font-size: 12px;
+      font-family: "SF Mono", Menlo, monospace;
+    }
+    .metric-val {
+      color: #39c5bb;
+      font-weight: 600;
+    }
+    #lottie-stage {
+      position: absolute;
+      left: 384px;
+      top: 104px;
+      width: 512px;
+      height: 512px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #lottie-box {
+      width: 512px;
+      height: 512px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="4">
+    <div id="overlay">
+      <div>
+        <div class="badge">Prototype Evaluation · Text-to-Lottie</div>
+        <h1>Deterministic Lottie Vector Playback</h1>
+        <p class="subtitle">Bodymovin JSON animated vector badge rendered through lottie-web SVG engine and driven by GSAP timeline.</p>
+      </div>
+      <div class="metrics">
+        <div>Resolution: <span class="metric-val">1280×720 @ 30fps</span></div>
+        <div>Format: <span class="metric-val">Lottie JSON v5.7.0</span></div>
+        <div>Engine: <span class="metric-val">lottie-web (SVG) + GSAP 3</span></div>
+      </div>
+    </div>
+    <div id="lottie-stage">
+      <div id="lottie-box"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
+  <script>
+    const lottieData = {
+      "v": "5.7.0",
+      "fr": 30,
+      "ip": 0,
+      "op": 90,
+      "w": 512,
+      "h": 512,
+      "nm": "Lottie Motion Graphic Prototype",
+      "assets": [],
+      "layers": [
+        {
+          "ty": 4,
+          "nm": "animated-badge",
+          "ip": 0,
+          "op": 90,
+          "st": 0,
+          "ks": {
+            "o": { "a": 0, "k": 100 },
+            "r": {
+              "a": 1,
+              "k": [
+                { "i": { "x": [0.6], "y": [1] }, "o": { "x": [0.4], "y": [0] }, "t": 0, "s": [0] },
+                { "t": 90, "s": [360] }
+              ]
+            },
+            "p": { "a": 0, "k": [256, 256, 0] },
+            "a": { "a": 0, "k": [0, 0, 0] },
+            "s": {
+              "a": 1,
+              "k": [
+                { "i": { "x": [0.2], "y": [1] }, "o": { "x": [0.4], "y": [0] }, "t": 0, "s": [20, 20, 100] },
+                { "i": { "x": [0.6], "y": [1] }, "o": { "x": [0.4], "y": [0] }, "t": 45, "s": [115, 115, 100] },
+                { "t": 90, "s": [100, 100, 100] }
+              ]
+            }
+          },
+          "shapes": [
+            {
+              "ty": "gr",
+              "nm": "ring-shape",
+              "it": [
+                {
+                  "ty": "rc",
+                  "p": { "a": 0, "k": [0, 0] },
+                  "s": { "a": 0, "k": [160, 160] },
+                  "r": { "a": 0, "k": 32 }
+                },
+                {
+                  "ty": "st",
+                  "c": { "a": 0, "k": [0.345, 0.651, 1.0, 1] },
+                  "o": { "a": 0, "k": 100 },
+                  "w": { "a": 0, "k": 12 }
+                },
+                {
+                  "ty": "fl",
+                  "c": { "a": 0, "k": [0.086, 0.129, 0.243, 0.85] },
+                  "o": { "a": 0, "k": 90 }
+                },
+                {
+                  "ty": "tr",
+                  "p": { "a": 0, "k": [0, 0] },
+                  "a": { "a": 0, "k": [0, 0] },
+                  "s": { "a": 0, "k": [100, 100] },
+                  "r": { "a": 0, "k": 0 },
+                  "o": { "a": 0, "k": 100 }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    const container = document.getElementById('lottie-box');
+    const anim = lottie.loadAnimation({
+      container: container,
+      renderer: 'svg',
+      loop: false,
+      autoplay: false,
+      animationData: lottieData
+    });
+
+    const playhead = { frame: 0 };
+    const tl = gsap.timeline({ paused: true });
+
+    tl.to(playhead, {
+      frame: 89,
+      duration: 3.0,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        anim.goToAndStop(playhead.frame, true);
+      }
+    }, 0.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["root"] = tl;
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{
+  "id": "skill-epic-design",
+  "name": "Epic Design (Cinematic 2.5D Parallax & Depth System)",
+  "component_type": "skill",
+  "purpose": "Constructs immersive, cinematic 2.5D pseudo-3D layouts and motion stages using a formal 6-layer depth system, parallax scaling, and clip-path reveals without WebGL.",
+  "capabilities": [
+    "6-layer depth system (depth-0 to depth-5) with prescribed parallax, blur, and scale metrics",
+    "Hero-companion spatial hierarchy and companion scatter transitions",
+    "Inter-section floating elements and 2.5D perspective positioning",
+    "Directional clip-path reveals, curtain drops, and window pane iris transitions",
+    "Automated 2.5D DOM layer validation (scripts/validate-layers.js)"
+  ],
+  "location": ".agents/skills/epic-design",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .agents/skills/epic-design."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Pure CSS/DOM and GSAP execution; zero WebGL overhead. Tested on Apple Silicon M2."
+  },
+  "documentation_urls": [
+    ".agents/skills/epic-design/SKILL.md",
+    "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/epic-design"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "MIT License verified upstream (alirezarezvani/claude-skills commit 04965836, author Abbas Mir)."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Includes read-only local scripts inspect-assets.py and validate-layers.js for asset and DOM depth inspection."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Workspace Steward evaluation: Approved. Upstream verified from alirezarezvani/claude-skills (MIT License). Validated Antigravity compatibility. Bridges the gap between 2D flat composition and heavy 3D WebGL by defining a mathematically structured 6-layer depth model (scale, blur, parallax factor) and companion scatter mechanics that execute with sub-200MB RAM on Apple Silicon M2.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "2.5d",
+    "pseudo-3d",
+    "parallax",
+    "depth-system",
+    "cinematic",
+    "staging"
+  ]
+}
+

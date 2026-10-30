@@ -10,6 +10,9 @@ This skill governs the aesthetic direction, layout system, and animation choreog
 ## Quick References & Examples
 
 - **Motion Library Guide & Capability Catalogue:** Consult [`motion-library-guide`](../motion-library-guide/SKILL.md) and run `python3 scripts/motion-catalogue.py search` to select approved capability recipes and check dependency approval states.
+- **GSAP AI Skills:** Use official GreenSock skills ([`gsap-core`](../gsap-core/SKILL.md), [`gsap-timeline`](../gsap-timeline/SKILL.md), [`gsap-plugins`](../gsap-plugins/SKILL.md), [`gsap-utils`](../gsap-utils/SKILL.md), [`gsap-performance`](../gsap-performance/SKILL.md)) for tween syntax, position parameter choreography, and transform optimizations.
+- **Motion Design Principles:** Consult [`motion-design`](../motion-design/SKILL.md) for Disney animation principles adapted to UI, timing/easing tables, hero element staging, and 1/3 rules (motion distance $\le 33\%$, max 3 simultaneous dynamic elements).
+- **Algorithmic Art:** Consult [`algorithmic-art`](../algorithmic-art/SKILL.md) when authoring generative canvas visuals, flow fields, or mathematical sketches.
 - **Color Palettes:** Read [`references/palettes.md`](./references/palettes.md) for calibrated technical hex values (Dark Tech, Cyber Cyan, Quantum Violet).
 - **GSAP Animation Patterns:** Read [`references/gsap-patterns.md`](./references/gsap-patterns.md) for crossfades, traveling signal dots, dashed strokes, and clipPath curves.
 - **Reference Template:** Inspect [`examples/scene-template.html`](./examples/scene-template.html) for a complete starter composition.

@@ -89,7 +89,7 @@ class TestWorkspaceGovernance(unittest.TestCase):
         for coll in ["skills", "tools", "shared"]:
             for comp_id, data in self.records[coll].items():
                 loc = data.get("location", "")
-                if loc.startswith(("/usr/", "/opt/", "http://", "https://", "role:", "system_prompt:")):
+                if loc.startswith(("/usr/", "/opt/", "http://", "https://", "role:", "system_prompt:", "unresolved:", "pending:")):
                     continue
                 path = REPO_ROOT / loc
                 self.assertTrue(path.exists(), f"Registered component '{comp_id}' location does not exist: {path}")

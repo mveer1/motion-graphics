@@ -195,6 +195,110 @@
         ]
       }
     },
+    "lottie-web": {
+      "id": "lottie-web",
+      "name": "Lottie Web (Bodymovin Animation Player)",
+      "version": "5.12.2",
+      "category": "vector_graphics",
+      "status": "experimental",
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "MIT License verified (Airbnb / Hernan Torrisi)."
+      },
+      "documentation_urls": [
+        "https://github.com/airbnb/lottie-web"
+      ],
+      "runtime_environment": {
+        "type": "browser_script",
+        "cdn_url": "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js",
+        "npm_package": "lottie-web",
+        "bundle_size_kb": 65.0
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 200,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Use SVG renderer mode with autoplay: false. Timeline scrub driven deterministically via GSAP anim.goToAndStop(playhead.frame, true)."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Experimental runtime for rendering declarative JSON vector animations generated via Text-to-Lottie or exported from After Effects. Validated in tests/prototypes/lottie/ rendering 120 frames in 10.7s at 1280x720 30fps with 0 dropped frames.",
+      "effects_provided": [
+        "lottie-vector-animation"
+      ],
+      "metadata": {
+        "author": "Hernan Torrisi",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "lottie",
+          "vector",
+          "json",
+          "svg",
+          "experimental"
+        ]
+      }
+    },
+    "p5-brush": {
+      "id": "p5-brush",
+      "name": "p5.brush (Standalone WebGL2 Build)",
+      "version": "3.0.0",
+      "category": "raster_canvas",
+      "status": "experimental",
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "MIT license verified for p5.brush runtime (Alejandro Campos Uribe, commit d56350a6)."
+      },
+      "documentation_urls": [
+        "https://github.com/acamposuribe/p5.brush",
+        "https://p5-brush.cargo.site/"
+      ],
+      "runtime_environment": {
+        "type": "browser_script",
+        "cdn_url": "https://cdn.jsdelivr.net/npm/p5.brush@3.0.0/dist/brush.js",
+        "npm_package": "p5.brush",
+        "bundle_size_kb": 113.3
+      },
+      "rendering_constraints": {
+        "max_memory_mb": 250,
+        "target_fps": 30,
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Requires WebGL2 canvas context. Must seed using brush.seed() and brush.noiseSeed() before drawing. Validated in tests/prototypes/p5-brush with PSNR=inf determinism across repeated headless Chromium captures."
+      },
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
+      },
+      "justification": "Experimental natural-media brush and textured stroke capability. Evaluated via standalone build (no p5 dependency) in tests/prototypes/p5-brush/. Rendered 120 frames in 6.9s (17 fps) at 1280x720 with bitwise deterministic output (PSNR=inf). Kept isolated from production dependencies pending formal explainer adoption.",
+      "effects_provided": [
+        "textured-brush-stroke"
+      ],
+      "metadata": {
+        "author": "Alejandro Campos Uribe",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30",
+        "tags": [
+          "brush",
+          "natural-media",
+          "charcoal",
+          "watercolor",
+          "webgl2",
+          "experimental"
+        ]
+      }
+    },
     "svg-native": {
       "id": "svg-native",
       "name": "Native Scalable Vector Graphics (SVG 1.1 / 2.0)",
@@ -435,6 +539,40 @@
         "updated_at": "2026-10-30"
       }
     },
+    "lottie-vector-animation": {
+      "id": "lottie-vector-animation",
+      "name": "Lottie Vector Animation Player",
+      "category": "chart_reveal",
+      "visual_intent": "Renders declarative JSON vector animations, icon state changes, and micro-interactions deterministically inside the video composition.",
+      "status": "experimental",
+      "library_dependencies": [
+        "lottie-web",
+        "gsap"
+      ],
+      "rendering_engine": "svg_dom",
+      "tags": [
+        "lottie",
+        "vector",
+        "json",
+        "svg",
+        "micro-interaction"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "low",
+        "gpu_intensity": "low",
+        "dom_node_count": "<50 SVG elements",
+        "memory_profile": "Low (~65MB heap)"
+      },
+      "recipes": [
+        "lottie-gsap-scrub"
+      ],
+      "implementation_summary": "Uses lottie-web SVG renderer with autoplay disabled; GSAP timeline scrubs animation frames via anim.goToAndStop(playhead.frame, true).",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
     "marching-dashed-stroke": {
       "id": "marching-dashed-stroke",
       "name": "Marching Dashed Flow Arrow",
@@ -464,6 +602,41 @@
         "backpropagation-flow"
       ],
       "implementation_summary": "Linearly shifts strokeDashoffset on dashed SVG paths across timeline intervals.",
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
+    "textured-brush-stroke": {
+      "id": "textured-brush-stroke",
+      "name": "Natural-Media Textured Brush Stroke",
+      "category": "chart_reveal",
+      "visual_intent": "Renders organic, calligraphic, and textured media (charcoal, watercolor, pencil, hatching) along mathematical paths on a WebGL2 canvas.",
+      "status": "experimental",
+      "library_dependencies": [
+        "p5-brush",
+        "gsap"
+      ],
+      "rendering_engine": "webgl",
+      "tags": [
+        "brush",
+        "natural-media",
+        "charcoal",
+        "watercolor",
+        "spline",
+        "textured"
+      ],
+      "performance_characteristics": {
+        "cpu_intensity": "medium",
+        "gpu_intensity": "medium",
+        "dom_node_count": "1 Canvas element",
+        "memory_profile": "Low (~180MB peak)"
+      },
+      "recipes": [
+        "p5-brush-spline"
+      ],
+      "implementation_summary": "Uses p5.brush standalone runtime on WebGL2 canvas, driven deterministically by GSAP timeline progress and seeded PRNG.",
       "metadata": {
         "author": "MotionLab",
         "created_at": "2026-10-30",
@@ -720,6 +893,66 @@
         "updated_at": "2026-10-30"
       }
     },
+    "lottie-gsap-scrub": {
+      "id": "lottie-gsap-scrub",
+      "name": "Deterministic Lottie Scrubbing via GSAP",
+      "effect_id": "lottie-vector-animation",
+      "status": "experimental",
+      "visual_intent": "Synchronizes Lottie vector animation playback deterministically to a GSAP timeline without unmanaged browser requestAnimationFrame loops.",
+      "parameters": [
+        {
+          "name": "containerSelector",
+          "type": "string",
+          "default": "#lottieContainer",
+          "description": "Selector for the container DOM element."
+        },
+        {
+          "name": "animationData",
+          "type": "object",
+          "description": "Parsed Lottie JSON object."
+        },
+        {
+          "name": "duration",
+          "type": "number",
+          "default": 3.0,
+          "description": "Duration in timeline seconds."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Anchored to voice narration or stage reveal timestamp.",
+        "easing_standard": "none",
+        "prng_required": false
+      },
+      "code_snippet": {
+        "html": "<div id=\"lottieContainer\" style=\"width: 400px; height: 400px;\"></div>",
+        "css": "#lottieContainer { position: absolute; left: 440px; top: 160px; }",
+        "javascript": "const anim = lottie.loadAnimation({\n  container: document.getElementById('lottieContainer'),\n  renderer: 'svg',\n  loop: false,\n  autoplay: false,\n  animationData: lottieData\n});\nconst playhead = { frame: 0 };\ntl.to(playhead, {\n  frame: anim.totalFrames - 1,\n  duration: 3.0,\n  ease: 'none',\n  onUpdate: () => anim.goToAndStop(playhead.frame, true)\n}, 0.5);"
+      },
+      "fallbacks": "Fallback to native SVG path draw or GSAP MorphSVG if Lottie file fails to parse.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 6.5,
+        "memory_impact": "~65MB peak (well within 1.5GB cap)"
+      },
+      "validation_steps": [
+        "Run hyperframes lint index.html to confirm 0 errors.",
+        "Render with hyperframes render --low-memory-mode --fps 30.",
+        "Verify exact frame matching across repeated render passes."
+      ],
+      "tags": [
+        "lottie",
+        "vector",
+        "gsap-scrub",
+        "deterministic",
+        "experimental"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
     "metric-curve-draw": {
       "id": "metric-curve-draw",
       "name": "Progressive ClipPath Curve Drawing",
@@ -866,6 +1099,80 @@
         "updated_at": "2026-10-30"
       }
     },
+    "p5-brush-spline": {
+      "id": "p5-brush-spline",
+      "name": "Textured Charcoal & Spline Tracing (p5.brush)",
+      "effect_id": "textured-brush-stroke",
+      "status": "experimental",
+      "visual_intent": "Draws an organic, textured charcoal and watercolor spline across canvas with directional flow hatching.",
+      "parameters": [
+        {
+          "name": "canvasSelector",
+          "type": "string",
+          "default": "#brushCanvas",
+          "description": "Selector for the target WebGL2 canvas."
+        },
+        {
+          "name": "brushType",
+          "type": "string",
+          "default": "charcoal",
+          "description": "Brush preset name (charcoal, cpencil, HB, watercolor)."
+        },
+        {
+          "name": "strokeColor",
+          "type": "string",
+          "default": "#58a6ff",
+          "description": "Hex or rgba stroke color."
+        },
+        {
+          "name": "strokeWeight",
+          "type": "number",
+          "default": 3.0,
+          "description": "Width and pressure multiplier."
+        },
+        {
+          "name": "seed",
+          "type": "number",
+          "default": 42,
+          "description": "PRNG seed for deterministic rendering."
+        }
+      ],
+      "timeline_requirements": {
+        "gsap_instance": "window.__timelines['root']",
+        "timing_anchors": "Anchored to voice narration describing algorithmic or continuous natural processes.",
+        "easing_standard": "power2.inOut",
+        "prng_required": true
+      },
+      "code_snippet": {
+        "html": "<canvas id=\"brushCanvas\" width=\"1280\" height=\"720\"></canvas>",
+        "css": "#brushCanvas { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; }",
+        "javascript": "const canvas = document.getElementById('brushCanvas');\nbrush.load(canvas);\nbrush.scaleBrushes(1.2);\n\nconst anim = { progress: 0.01 };\ntl.to(anim, {\n  progress: 1.0,\n  duration: 3.0,\n  ease: 'power2.inOut',\n  onUpdate: () => {\n    brush.clear([13, 17, 23, 255]);\n    brush.seed(42); brush.noiseSeed(42);\n    const active = points.slice(0, Math.floor(anim.progress * points.length)).map(p => [p.x, p.y, 1.0]);\n    brush.set('charcoal', '#58a6ff', 3.0);\n    brush.spline(active, 0.4);\n    brush.render();\n  }\n}, 0.5);"
+      },
+      "fallbacks": "Fallback to native SVG path with stroke-dashoffset animation if WebGL2 is unsupported.",
+      "performance_characteristics": {
+        "tested_fps": 30,
+        "frame_budget_ms": 12.0,
+        "memory_impact": "~180MB peak (well within 1.5GB cap)"
+      },
+      "validation_steps": [
+        "Run hyperframes lint index.html to confirm 0 errors.",
+        "Run hyperframes render --low-memory-mode --fps 30 -o render.mp4.",
+        "Verify bitwise determinism (PSNR inf) across repeated render passes."
+      ],
+      "tags": [
+        "brush",
+        "spline",
+        "natural-media",
+        "charcoal",
+        "webgl2",
+        "experimental"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-10-30",
+        "updated_at": "2026-10-30"
+      }
+    },
     "zero-dip-scene-transition": {
       "id": "zero-dip-scene-transition",
       "name": "Zero-Dip Scene Crossfade Transition",
@@ -982,6 +1289,111 @@
         "deterministic"
       ]
     },
+    "skill-claude-remotion": {
+      "id": "skill-claude-remotion",
+      "name": "Claude Remotion Skill",
+      "component_type": "skill",
+      "purpose": "React-based programmatic video creation and animation system using Remotion.",
+      "capabilities": [
+        "React component timeline authoring",
+        "Spring physics animations (remotion/spring)",
+        "Modular UI components (UIFrame, StatReveal, TerminalAnimation, ComparisonSlide)"
+      ],
+      "location": "https://github.com/cmak34/claude-remotion-skill",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Not installed in workspace. Blocked as a production dependency due to heavy Node/React build stack and memory overhead on 8 GB RAM."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "runtime": "node",
+        "notes": "Requires Node.js, Webpack/Babel bundler, and multi-process Chromium rendering which exceeds the 8 GB unified memory budget on Apple Silicon M2."
+      },
+      "documentation_urls": [
+        "https://github.com/cmak34/claude-remotion-skill",
+        "https://www.remotion.dev"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Skill wrapper is MIT licensed. Remotion core requires Remotion Company License for commercial use above 3 employees."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Runs npm build scripts and invokes Remotion CLI with background workers."
+      },
+      "owner": "motion-graphics",
+      "status": "blocked",
+      "approval_evidence": "Workspace Steward evaluation: Blocked as a production rendering dependency. HyperFrames + GSAP + Chromium provides superior rendering performance (<200 MB RAM vs >2 GB RAM in Remotion) and sub-second deterministic frame capture on Apple Silicon M2 8 GB. Reusable UI design patterns (UIFrame, StatReveal, TerminalAnimation) are documented for native GSAP adaptation.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "remotion",
+        "react",
+        "video",
+        "blocked",
+        "evaluated"
+      ]
+    },
+    "skill-collage-design": {
+      "id": "skill-collage-design",
+      "name": "Collage Design Skill",
+      "component_type": "skill",
+      "purpose": "Procedural mixed-media collage generation with torn paper edges, deckle borders, halftone patterns, and cut masking tape.",
+      "capabilities": [
+        "Procedural torn paper edge generation via SVG feTurbulence",
+        "Mixed-media collage composition rules and asset layering",
+        "Blueprint grids, adhesive tape, and halftone texture overlays",
+        "Headless Chromium SVG to PNG rasterization"
+      ],
+      "location": ".agents/skills/collage-design",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .agents/skills/collage-design."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Tested in Chromium headless. Heavy host CLI dependencies (ImageMagick, Inkscape) are bypassed using browser-native SVG rasterization."
+      },
+      "documentation_urls": [
+        ".agents/skills/collage-design/SKILL.md",
+        "https://github.com/polgarp/collage-design"
+      ],
+      "licensing": {
+        "spdx_identifier": "Apache-2.0",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Apache 2.0 verified upstream (polgarp/collage-design commit 442f6717). External image assets require explicit CC0/public domain attribution."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Design guidelines and SVG templates. Script check_deps.sh reviewed; external tool installations are not executed automatically."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Validated experimental prototype in tests/prototypes/collage/ (collage.svg rendered to 1280x720 PNG in 88.5 KB via headless Chromium). Marked experimental until automated pipeline ingestion is standardized.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "collage",
+        "torn-paper",
+        "mixed-media",
+        "svg-filters",
+        "experimental"
+      ]
+    },
     "skill-earshot": {
       "id": "skill-earshot",
       "name": "Earshot Acoustic Verification Skill",
@@ -1034,6 +1446,116 @@
         "earshot",
         "synthesis",
         "qa-gate"
+      ]
+    },
+    "skill-epic-design": {
+      "id": "skill-epic-design",
+      "name": "Epic Design (Cinematic 2.5D Parallax & Depth System)",
+      "component_type": "skill",
+      "purpose": "Constructs immersive, cinematic 2.5D pseudo-3D layouts and motion stages using a formal 6-layer depth system, parallax scaling, and clip-path reveals without WebGL.",
+      "capabilities": [
+        "6-layer depth system (depth-0 to depth-5) with prescribed parallax, blur, and scale metrics",
+        "Hero-companion spatial hierarchy and companion scatter transitions",
+        "Inter-section floating elements and 2.5D perspective positioning",
+        "Directional clip-path reveals, curtain drops, and window pane iris transitions",
+        "Automated 2.5D DOM layer validation (scripts/validate-layers.js)"
+      ],
+      "location": ".agents/skills/epic-design",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .agents/skills/epic-design."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Pure CSS/DOM and GSAP execution; zero WebGL overhead. Tested on Apple Silicon M2."
+      },
+      "documentation_urls": [
+        ".agents/skills/epic-design/SKILL.md",
+        "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/epic-design"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "MIT License verified upstream (alirezarezvani/claude-skills commit 04965836, author Abbas Mir)."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Includes read-only local scripts inspect-assets.py and validate-layers.js for asset and DOM depth inspection."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Workspace Steward evaluation: Approved. Upstream verified from alirezarezvani/claude-skills (MIT License). Validated Antigravity compatibility. Bridges the gap between 2D flat composition and heavy 3D WebGL by defining a mathematically structured 6-layer depth model (scale, blur, parallax factor) and companion scatter mechanics that execute with sub-200MB RAM on Apple Silicon M2.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "2.5d",
+        "pseudo-3d",
+        "parallax",
+        "depth-system",
+        "cinematic",
+        "staging"
+      ]
+    },
+    "skill-genjutsu": {
+      "id": "skill-genjutsu",
+      "name": "Genjutsu (Creative Coding & Multi-Agent Framework)",
+      "component_type": "skill",
+      "purpose": "Multi-agent creative coding framework for Claude Code/claude.ai spanning web, SwiftUI, and Jetpack Compose.",
+      "capabilities": [
+        "Interactive UI motion generation (cast)",
+        "Full design system and branding generation (paint)",
+        "Autonomous multi-subagent website building (bunshin)",
+        "Cross-platform Web/Android/iOS support"
+      ],
+      "location": "https://genjutsu.athevon.dev",
+      "version": "4.1.1",
+      "installation": {
+        "required": false,
+        "instructions": "Not installed in workspace. Blocked due to redundancy with GSAP AI skills, motion-design, and high subagent token overhead."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "runtime": "claude-code",
+        "notes": "Designed for Claude Code plugin and claude.ai environment. Lacks HyperFrames, Kokoro TTS, or deterministic video assembly integration."
+      },
+      "documentation_urls": [
+        "https://genjutsu.athevon.dev",
+        "https://github.com/AThevon/genjutsu"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "MIT licensed open-source framework by AThevon."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": true,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Bunshin workflow spawns autonomous subagents running arbitrary shell commands and consuming millions of tokens over hours."
+      },
+      "owner": "motion-graphics",
+      "status": "blocked",
+      "approval_evidence": "Formal Workspace Steward evaluation on 2026-10-30: Rejected/Blocked. Genjutsu overlaps 100% with existing workspace skills (gsap-skills, motion-design, motion-graphics-designer) and introduces excessive token complexity (10.5M tokens/run) with zero support for the repository's deterministic video rendering pipeline.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "creative-coding",
+        "multi-agent",
+        "claude-code",
+        "blocked",
+        "evaluated"
       ]
     },
     "skill-gsap-core": {
@@ -1455,6 +1977,61 @@
         "helpers"
       ]
     },
+    "skill-kinetic-typography": {
+      "id": "skill-kinetic-typography",
+      "name": "Kinetic Typography Skill",
+      "component_type": "skill",
+      "purpose": "Specialized kinetic typography choreography, headline mask reveals, variable-font weight shifts, and accessible motion reveals.",
+      "capabilities": [
+        "Text mask and clip-path overflow reveals",
+        "Variable font weight and axis transitions",
+        "Word and character stagger choreography",
+        "Accessibility protection with aria-label preserves on SplitText"
+      ],
+      "location": ".agents/skills/kinetic-typography",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .agents/skills/kinetic-typography."
+      },
+      "dependencies": [
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Verified compatible with Antigravity and HyperFrames GSAP timeline architecture."
+      },
+      "documentation_urls": [
+        ".agents/skills/kinetic-typography/SKILL.md",
+        "https://github.com/iart-ai/kinetic-typography-skills"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "MIT License verified upstream (iart-ai/kinetic-typography-skills commit fccc94bd)."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional skill guidelines and CSS/GSAP recipes; no background daemon or outbound network."
+      },
+      "owner": "motion-graphics",
+      "status": "approved",
+      "approval_evidence": "Production approved. Validated compatibility with Antigravity. Complements GSAP AI skills by providing specialized headline typographic staging (overflow masking, letter-spacing expansions, weight transitions, text-clip gradients) and accessibility safeguards (preserving screen reader aria-label on SplitText mutations).",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "typography",
+        "kinetic-typography",
+        "text-animation",
+        "gsap",
+        "accessibility"
+      ]
+    },
     "skill-motion-design": {
       "id": "skill-motion-design",
       "name": "Motion Design Principles & Choreography",
@@ -1727,6 +2304,59 @@
         "stage-0"
       ]
     },
+    "skill-text-to-lottie": {
+      "id": "skill-text-to-lottie",
+      "name": "Text-to-Lottie Skill (Diffusion Studio)",
+      "component_type": "skill",
+      "purpose": "Prompt-driven generation of declarative Lottie JSON vector animations, icon bursts, and UI state indicators.",
+      "capabilities": [
+        "Prompt to Lottie JSON schema generation",
+        "Vector shape, trim-path, and keyframe choreography recipes",
+        "Deterministic frame-by-frame stepping via lottie-web in HyperFrames"
+      ],
+      "location": "https://github.com/diffusionstudio/lottie",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Recipe instructions incorporated into motion-library-guide. Consumed via lottie-web runtime."
+      },
+      "dependencies": [
+        "lottie-web",
+        "gsap"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Verified in HyperFrames with lottie-web SVG renderer on Apple Silicon M2 (120 frames in 10.7s at 1280x720 30fps)."
+      },
+      "documentation_urls": [
+        "https://github.com/diffusionstudio/lottie"
+      ],
+      "licensing": {
+        "spdx_identifier": "Apache-2.0",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Apache 2.0 verified (commit 3c72912f)."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional skill guidelines for Lottie JSON generation."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Prototyped in tests/prototypes/lottie/. Rendered 120 frames at 1280x720 @ 30fps with 0 dropped frames. Verified deterministic seeking via anim.goToAndStop(playhead.frame, true). Retained as experimental capability.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "lottie",
+        "vector-animation",
+        "json-motion",
+        "experimental"
+      ]
+    },
     "skill-video-assembler": {
       "id": "skill-video-assembler",
       "name": "Video Assembler Skill",
@@ -1834,6 +2464,57 @@
         "voice",
         "phonetics",
         "stage-2"
+      ]
+    },
+    "skill-wiggle": {
+      "id": "skill-wiggle",
+      "name": "Claude Wiggle Skill (SVG to Lottie Logo Animator)",
+      "component_type": "skill",
+      "purpose": "SVG logo animation and Lottie file generation framework using Python lottie and cairosvg.",
+      "capabilities": [
+        "SVG path element extraction",
+        "Keyframe animation generation for logos",
+        "Lottie JSON export via Python lottie library"
+      ],
+      "location": "https://github.com/talknerdytome-labs/wiggle-claude-skill",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Not installed in workspace. Blocked due to redundancy with Text-to-Lottie and brittle Python dependencies."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "runtime": "python3.12",
+        "notes": "Requires Python packages lottie[all], cairosvg, and pillow. Upstream lottie library has unmaintained C-extension build issues on macOS."
+      },
+      "documentation_urls": [
+        "https://github.com/talknerdytome-labs/wiggle-claude-skill"
+      ],
+      "licensing": {
+        "spdx_identifier": "Apache-2.0",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Apache 2.0 verified (commit 134544b0)."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Requires running Python scripts with subprocesses to invoke cairosvg and lottie."
+      },
+      "owner": "motion-graphics",
+      "status": "blocked",
+      "approval_evidence": "Workspace Steward evaluation: Rejected/Blocked. Wiggle's logo animation workflow relies on heavy Python dependencies that duplicate capabilities already handled by GSAP SVG morphing and the Text-to-Lottie schema approach, without offering significant unique capabilities.",
+      "architecture_ref": "ARCHITECTURE.md#s4",
+      "last_verified": "2026-10-30",
+      "tags": [
+        "lottie",
+        "svg",
+        "logo-animation",
+        "blocked",
+        "evaluated"
       ]
     },
     "skill-workspace-steward": {

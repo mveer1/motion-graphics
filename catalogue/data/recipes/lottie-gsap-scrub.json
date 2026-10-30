@@ -1,0 +1,61 @@
+{
+  "id": "lottie-gsap-scrub",
+  "name": "Deterministic Lottie Scrubbing via GSAP",
+  "effect_id": "lottie-vector-animation",
+  "status": "experimental",
+  "visual_intent": "Synchronizes Lottie vector animation playback deterministically to a GSAP timeline without unmanaged browser requestAnimationFrame loops.",
+  "parameters": [
+    {
+      "name": "containerSelector",
+      "type": "string",
+      "default": "#lottieContainer",
+      "description": "Selector for the container DOM element."
+    },
+    {
+      "name": "animationData",
+      "type": "object",
+      "description": "Parsed Lottie JSON object."
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "default": 3.0,
+      "description": "Duration in timeline seconds."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Anchored to voice narration or stage reveal timestamp.",
+    "easing_standard": "none",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "html": "<div id=\"lottieContainer\" style=\"width: 400px; height: 400px;\"></div>",
+    "css": "#lottieContainer { position: absolute; left: 440px; top: 160px; }",
+    "javascript": "const anim = lottie.loadAnimation({\n  container: document.getElementById('lottieContainer'),\n  renderer: 'svg',\n  loop: false,\n  autoplay: false,\n  animationData: lottieData\n});\nconst playhead = { frame: 0 };\ntl.to(playhead, {\n  frame: anim.totalFrames - 1,\n  duration: 3.0,\n  ease: 'none',\n  onUpdate: () => anim.goToAndStop(playhead.frame, true)\n}, 0.5);"
+  },
+  "fallbacks": "Fallback to native SVG path draw or GSAP MorphSVG if Lottie file fails to parse.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 6.5,
+    "memory_impact": "~65MB peak (well within 1.5GB cap)"
+  },
+  "validation_steps": [
+    "Run hyperframes lint index.html to confirm 0 errors.",
+    "Render with hyperframes render --low-memory-mode --fps 30.",
+    "Verify exact frame matching across repeated render passes."
+  ],
+  "tags": [
+    "lottie",
+    "vector",
+    "gsap-scrub",
+    "deterministic",
+    "experimental"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

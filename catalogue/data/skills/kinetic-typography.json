@@ -1,0 +1,55 @@
+{
+  "id": "skill-kinetic-typography",
+  "name": "Kinetic Typography Skill",
+  "component_type": "skill",
+  "purpose": "Specialized kinetic typography choreography, headline mask reveals, variable-font weight shifts, and accessible motion reveals.",
+  "capabilities": [
+    "Text mask and clip-path overflow reveals",
+    "Variable font weight and axis transitions",
+    "Word and character stagger choreography",
+    "Accessibility protection with aria-label preserves on SplitText"
+  ],
+  "location": ".agents/skills/kinetic-typography",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .agents/skills/kinetic-typography."
+  },
+  "dependencies": [
+    "gsap"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Verified compatible with Antigravity and HyperFrames GSAP timeline architecture."
+  },
+  "documentation_urls": [
+    ".agents/skills/kinetic-typography/SKILL.md",
+    "https://github.com/iart-ai/kinetic-typography-skills"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "MIT License verified upstream (iart-ai/kinetic-typography-skills commit fccc94bd)."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Instructional skill guidelines and CSS/GSAP recipes; no background daemon or outbound network."
+  },
+  "owner": "motion-graphics",
+  "status": "approved",
+  "approval_evidence": "Production approved. Validated compatibility with Antigravity. Complements GSAP AI skills by providing specialized headline typographic staging (overflow masking, letter-spacing expansions, weight transitions, text-clip gradients) and accessibility safeguards (preserving screen reader aria-label on SplitText mutations).",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "typography",
+    "kinetic-typography",
+    "text-animation",
+    "gsap",
+    "accessibility"
+  ]
+}

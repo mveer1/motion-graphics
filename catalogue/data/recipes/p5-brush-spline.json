@@ -1,0 +1,75 @@
+{
+  "id": "p5-brush-spline",
+  "name": "Textured Charcoal & Spline Tracing (p5.brush)",
+  "effect_id": "textured-brush-stroke",
+  "status": "experimental",
+  "visual_intent": "Draws an organic, textured charcoal and watercolor spline across canvas with directional flow hatching.",
+  "parameters": [
+    {
+      "name": "canvasSelector",
+      "type": "string",
+      "default": "#brushCanvas",
+      "description": "Selector for the target WebGL2 canvas."
+    },
+    {
+      "name": "brushType",
+      "type": "string",
+      "default": "charcoal",
+      "description": "Brush preset name (charcoal, cpencil, HB, watercolor)."
+    },
+    {
+      "name": "strokeColor",
+      "type": "string",
+      "default": "#58a6ff",
+      "description": "Hex or rgba stroke color."
+    },
+    {
+      "name": "strokeWeight",
+      "type": "number",
+      "default": 3.0,
+      "description": "Width and pressure multiplier."
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": 42,
+      "description": "PRNG seed for deterministic rendering."
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "window.__timelines['root']",
+    "timing_anchors": "Anchored to voice narration describing algorithmic or continuous natural processes.",
+    "easing_standard": "power2.inOut",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "html": "<canvas id=\"brushCanvas\" width=\"1280\" height=\"720\"></canvas>",
+    "css": "#brushCanvas { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; }",
+    "javascript": "const canvas = document.getElementById('brushCanvas');\nbrush.load(canvas);\nbrush.scaleBrushes(1.2);\n\nconst anim = { progress: 0.01 };\ntl.to(anim, {\n  progress: 1.0,\n  duration: 3.0,\n  ease: 'power2.inOut',\n  onUpdate: () => {\n    brush.clear([13, 17, 23, 255]);\n    brush.seed(42); brush.noiseSeed(42);\n    const active = points.slice(0, Math.floor(anim.progress * points.length)).map(p => [p.x, p.y, 1.0]);\n    brush.set('charcoal', '#58a6ff', 3.0);\n    brush.spline(active, 0.4);\n    brush.render();\n  }\n}, 0.5);"
+  },
+  "fallbacks": "Fallback to native SVG path with stroke-dashoffset animation if WebGL2 is unsupported.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 12.0,
+    "memory_impact": "~180MB peak (well within 1.5GB cap)"
+  },
+  "validation_steps": [
+    "Run hyperframes lint index.html to confirm 0 errors.",
+    "Run hyperframes render --low-memory-mode --fps 30 -o render.mp4.",
+    "Verify bitwise determinism (PSNR inf) across repeated render passes."
+  ],
+  "tags": [
+    "brush",
+    "spline",
+    "natural-media",
+    "charcoal",
+    "webgl2",
+    "experimental"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

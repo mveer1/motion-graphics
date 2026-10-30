@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <defs>
+    <!-- Physical shadow filters -->
+    <filter id="cutout-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="6" dy="10" stdDeviation="8" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="tape-shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="paper-texture">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.1 0 0 0 0 0.13 0 0 0 0 0.18 0 0 0 1 0" result="tint"/>
+      <feBlend mode="multiply" in="SourceGraphic" in2="tint"/>
+    </filter>
+    <!-- Torn paper edge clip-path -->
+    <clipPath id="torn-edge">
+      <path d="M 0,0 L 520,0 Q 525,40 518,80 T 522,160 T 516,240 T 524,320 T 517,400 L 0,400 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Base canvas ground -->
+  <rect width="1280" height="720" fill="#0d1117"/>
+
+  <!-- Layer 1: Physical Paper Base with Fiber Tone -->
+  <g transform="translate(140, 90) rotate(-2)" filter="url(#cutout-shadow)">
+    <rect width="560" height="480" rx="4" fill="#1c2128" stroke="#30363d" stroke-width="2"/>
+    <!-- Technical Blueprint Grid Lines -->
+    <path d="M 40,0 L 40,480 M 80,0 L 80,480 M 120,0 L 120,480 M 160,0 L 160,480 M 200,0 L 200,480 M 240,0 L 240,480 M 280,0 L 280,480 M 320,0 L 320,480 M 360,0 L 360,480 M 400,0 L 400,480 M 440,0 L 440,480 M 480,0 L 480,480 M 520,0 L 520,480" stroke="#30363d" stroke-width="0.75" opacity="0.6"/>
+    <path d="M 0,40 L 560,40 M 0,80 L 560,80 M 0,120 L 560,120 M 0,160 L 560,160 M 0,200 L 560,200 M 0,240 L 560,240 M 0,280 L 560,280 M 0,320 L 560,320 M 0,360 L 560,360 M 0,400 L 560,400 M 0,440 L 560,440" stroke="#30363d" stroke-width="0.75" opacity="0.6"/>
+    <text x="32" y="60" fill="#8b949e" font-family="'SF Mono', Menlo, monospace" font-size="12" letter-spacing="0.1em">PLATE 04 · GEOMETRIC ARCHETYPE</text>
+  </g>
+
+  <!-- Layer 2: Torn Paper Fragment Overlap -->
+  <g transform="translate(480, 140) rotate(4)" filter="url(#cutout-shadow)">
+    <path d="M 20,20 L 540,15 Q 545,80 538,140 T 542,220 T 536,300 L 25,320 Q 15,220 22,140 Z" fill="#21262d" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <circle cx="280" cy="160" r="90" fill="none" stroke="#39c5bb" stroke-width="3"/>
+    <circle cx="280" cy="160" r="50" fill="rgba(88, 166, 255, 0.15)"/>
+    <line x1="160" y1="160" x2="400" y2="160" stroke="#39c5bb" stroke-width="2"/>
+    <line x1="280" y1="40" x2="280" y2="280" stroke="#39c5bb" stroke-width="2"/>
+  </g>
+
+  <!-- Layer 3: Cut Masking Tape Strips (Physicality) -->
+  <g transform="translate(180, 75) rotate(-14)" filter="url(#tape-shadow)">
+    <polygon points="0,0 120,4 118,36 2,32" fill="#d29922" opacity="0.65"/>
+  </g>
+  <g transform="translate(940, 120) rotate(22)" filter="url(#tape-shadow)">
+    <polygon points="0,2 140,0 138,34 4,38" fill="#d29922" opacity="0.65"/>
+  </g>
+
+  <!-- Layer 4: Layered Headline & Typographic Annotation -->
+  <g transform="translate(180, 480)" filter="url(#cutout-shadow)">
+    <rect x="-16" y="-36" width="460" height="60" fill="#0d1117" stroke="#30363d" stroke-width="1"/>
+    <text x="0" y="4" fill="#f0f6fc" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.02em">PHYSICAL COLLAGE METAPHOR</text>
+  </g>
+
+  <text x="180" y="540" fill="#8b949e" font-family="'SF Mono', Menlo, monospace" font-size="14">
+    CUT-AND-LAYER ARTIFACT · EVALUATED VIA WORKSPACE-STEWARD
+  </text>
+</svg>
+

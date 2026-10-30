@@ -1,0 +1,52 @@
+{
+  "id": "skill-wiggle",
+  "name": "Claude Wiggle Skill (SVG to Lottie Logo Animator)",
+  "component_type": "skill",
+  "purpose": "SVG logo animation and Lottie file generation framework using Python lottie and cairosvg.",
+  "capabilities": [
+    "SVG path element extraction",
+    "Keyframe animation generation for logos",
+    "Lottie JSON export via Python lottie library"
+  ],
+  "location": "https://github.com/talknerdytome-labs/wiggle-claude-skill",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Not installed in workspace. Blocked due to redundancy with Text-to-Lottie and brittle Python dependencies."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3.12",
+    "notes": "Requires Python packages lottie[all], cairosvg, and pillow. Upstream lottie library has unmaintained C-extension build issues on macOS."
+  },
+  "documentation_urls": [
+    "https://github.com/talknerdytome-labs/wiggle-claude-skill"
+  ],
+  "licensing": {
+    "spdx_identifier": "Apache-2.0",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Apache 2.0 verified (commit 134544b0)."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Requires running Python scripts with subprocesses to invoke cairosvg and lottie."
+  },
+  "owner": "motion-graphics",
+  "status": "blocked",
+  "approval_evidence": "Workspace Steward evaluation: Rejected/Blocked. Wiggle's logo animation workflow relies on heavy Python dependencies that duplicate capabilities already handled by GSAP SVG morphing and the Text-to-Lottie schema approach, without offering significant unique capabilities.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "lottie",
+    "svg",
+    "logo-animation",
+    "blocked",
+    "evaluated"
+  ]
+}
+

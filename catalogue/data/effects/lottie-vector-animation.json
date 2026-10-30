@@ -1,0 +1,35 @@
+{
+  "id": "lottie-vector-animation",
+  "name": "Lottie Vector Animation Player",
+  "category": "chart_reveal",
+  "visual_intent": "Renders declarative JSON vector animations, icon state changes, and micro-interactions deterministically inside the video composition.",
+  "status": "experimental",
+  "library_dependencies": [
+    "lottie-web",
+    "gsap"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "lottie",
+    "vector",
+    "json",
+    "svg",
+    "micro-interaction"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "<50 SVG elements",
+    "memory_profile": "Low (~65MB heap)"
+  },
+  "recipes": [
+    "lottie-gsap-scrub"
+  ],
+  "implementation_summary": "Uses lottie-web SVG renderer with autoplay disabled; GSAP timeline scrubs animation frames via anim.goToAndStop(playhead.frame, true).",
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
+

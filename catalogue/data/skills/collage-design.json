@@ -1,0 +1,54 @@
+{
+  "id": "skill-collage-design",
+  "name": "Collage Design Skill",
+  "component_type": "skill",
+  "purpose": "Procedural mixed-media collage generation with torn paper edges, deckle borders, halftone patterns, and cut masking tape.",
+  "capabilities": [
+    "Procedural torn paper edge generation via SVG feTurbulence",
+    "Mixed-media collage composition rules and asset layering",
+    "Blueprint grids, adhesive tape, and halftone texture overlays",
+    "Headless Chromium SVG to PNG rasterization"
+  ],
+  "location": ".agents/skills/collage-design",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .agents/skills/collage-design."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Tested in Chromium headless. Heavy host CLI dependencies (ImageMagick, Inkscape) are bypassed using browser-native SVG rasterization."
+  },
+  "documentation_urls": [
+    ".agents/skills/collage-design/SKILL.md",
+    "https://github.com/polgarp/collage-design"
+  ],
+  "licensing": {
+    "spdx_identifier": "Apache-2.0",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Apache 2.0 verified upstream (polgarp/collage-design commit 442f6717). External image assets require explicit CC0/public domain attribution."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Design guidelines and SVG templates. Script check_deps.sh reviewed; external tool installations are not executed automatically."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Validated experimental prototype in tests/prototypes/collage/ (collage.svg rendered to 1280x720 PNG in 88.5 KB via headless Chromium). Marked experimental until automated pipeline ingestion is standardized.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "collage",
+    "torn-paper",
+    "mixed-media",
+    "svg-filters",
+    "experimental"
+  ]
+}
+

@@ -29,11 +29,17 @@ Every explainer video produced in this repository must follow the phased lifecyc
 
 ## 2. Project-Specific Skills
 
-Eight specialized skills are available under `.agents/skills/`:
+Specialized skills are available under `.agents/skills/`:
 - **`workspace-steward`**: Workspace-wide governance over component discovery, 7-domain placement policy, registration, licensing audit, architecture documentation, and automated drift detection (`scripts/workspace-governance.py`).
 - **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation.
 - **`motion-library-guide`**: Capability catalogue navigation, dependency vetting, approval states (approved/proposed/blocked), verified licensing, and deterministic GSAP animation recipes.
 - **`motion-graphics-designer`**: Color palettes, layout rules, GSAP 3 animation patterns, and deterministic PRNG rules.
+- **`gsap-core` / `gsap-timeline` / `gsap-plugins` / `gsap-utils` / `gsap-performance`**: Official GreenSock AI skills for GSAP 3 core tweens, timeline choreography, plugin registration, and rendering performance.
+- **`kinetic-typography`**: Specialized kinetic typography choreography, overflow mask reveals, variable-font weight shifts, and accessibility protections (preserving screen-reader `aria-label` on text mutations).
+- **`motion-design`**: LottieFiles motion design principles, Disney animation principles adapted for UI, timing/easing curves, hero staging, and 1/3 rules (motion distance $\le 33\%$, max 3 simultaneous dynamic elements).
+- **`epic-design`**: Cinematic 2.5D pseudo-3D staging, 6-layer depth system (`data-depth="0"` to `"5"` with standardized parallax/scale/blur tokens), hero-companion spatial hierarchy, and directional clip-path transitions without WebGL.
+- **`collage-design`**: Procedural mixed-media collage styling (torn paper deckle edges via SVG `feTurbulence`, blueprint grids, cut masking tape, halftone patterns) rasterized natively via headless Chromium.
+- **`algorithmic-art`**: Generative and algorithmic art systems (flow fields, attractors, shaders) adapted for deterministic HyperFrames rendering.
 - **`voice-director`**: Kokoro voice personas, speech pacing, silence buffers, and phonetic pronunciations.
 - **`real-sfx`**: Sound design and foley placement for motion graphics; extracts cues from HyperFrames compositions (`from_hyperframes.py`), maps visual events to real recordings, and renders balanced SFX audio tracks.
 - **`earshot`**: Acoustic verification, sync measurement, loudness/spectral checks, and procedural sound synthesis (`earshot forge`/`sfx`).

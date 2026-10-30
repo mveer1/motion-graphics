@@ -63,6 +63,13 @@ Match the pedagogical goal from `research.json` to an approved effect:
 - **Mathematical Curves / Loss:** Use `clip-path-reveal` (`metric-curve-draw`).
 - **Focal Attention / State Change:** Use `glow-pulse` (`active-entity-glow`).
 - **Atmospheric Depth:** Use `hybrid-video-underlay` (`cinematic-backdrop-blend`).
+- **Natural Media / Calligraphy (Experimental):** Use `textured-brush-stroke` (`p5-brush-spline`) for organic charcoal, watercolor, or textured pencil curves on WebGL2 canvas (see `tests/prototypes/p5-brush`).
+- **Vector JSON / Lottie (Experimental):** Use `lottie-vector-animation` (`lottie-gsap-scrub`) with `lottie-web` SVG renderer scrubbed deterministically via GSAP timeline (see `tests/prototypes/lottie`).
+- **Kinetic Typography:** Consult `kinetic-typography` for headline mask reveals, variable-font weight shifts, letter-spacing expansions, and SplitText accessibility.
+- **2.5D Pseudo-3D Staging:** Consult `epic-design` for the 6-layer depth system (`data-depth="0"` to `"5"`), hero-companion scaling/scatter, and inter-section transitions without WebGL.
+- **Collage & Mixed Media (Experimental):** Consult `collage-design` for procedural torn paper edges, deckle borders, and halftone overlays rasterized natively in Chromium (see `tests/prototypes/collage`).
+- **Generative / Algorithmic Systems:** Consult `algorithmic-art` for flow fields, particle attractors, and deterministic parameter systems.
+- **Motion Principles & Pacing:** Consult `motion-design` for Disney principles, easing curves, and 1/3 motion distance rules.
 
 ### Step 3: Evaluate Approval State & Guardrails
 - **NEVER** import or reference a library marked `blocked` (e.g. Anime.js). Redundant animation libraries create timeline contention and waste bundle memory.
@@ -92,4 +99,8 @@ python3 scripts/motion-catalogue.py get node-network-signal-transfer
 To avoid duplication across skills:
 - **`motion-library-guide` (This Skill):** Governs the capability catalogue, dependency approval states, verified licensing, recipe parameters, and contribution workflow.
 - **`motion-graphics-designer`:** Governs color palette tokens (Dark Tech, Cyber Cyan), typography rules, 720p/1080p spatial coordinates, and scene layout hierarchy.
+- **`kinetic-typography`:** Specialized kinetic headline reveals, variable font weight shifts, text masking, and screen-reader `aria-label` protections.
+- **`epic-design`:** 2.5D pseudo-3D scene staging, 6-layer depth tokens (depth-0 to depth-5), companion asset hugging, and DOM layer validation.
+- **`motion-design`:** High-level motion design principles (Disney timing, easing, cognitive pacing, multi-element choreography).
+- **`collage-design`:** Mixed-media composition rules, torn paper deckle edges via SVG filters, blueprint overlays, and asset attributions.
 

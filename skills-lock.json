@@ -60,6 +60,24 @@
       "sourceType": "github",
       "skillPath": "SKILL.md",
       "computedHash": "87eb8ebb4635bb08901916c596903afd4c528fe000e7b7ae72ed2d3165531ca8"
+    },
+    "kinetic-typography": {
+      "source": "iart-ai/kinetic-typography-skills",
+      "sourceType": "github",
+      "skillPath": "skills/kinetic-typography/SKILL.md",
+      "computedHash": "0e45dfdf8393137b61fcccf5c681c05dcde053076c5dd61f7b6ca0765290f77e"
+    },
+    "collage-design": {
+      "source": "polgarp/collage-design",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "76b555a857a3359a0c5ea45b04d5a7c78a6b0de69f57306177e37aff79e6ab36"
+    },
+    "epic-design": {
+      "source": "alirezarezvani/claude-skills",
+      "sourceType": "github",
+      "skillPath": "engineering-team/skills/epic-design/SKILL.md",
+      "computedHash": "deff0ce6dae397ccd814d00b044ab66f4a83d56410bf0818ec5bcb3f26e67692"
     }
   }
 }

@@ -1,0 +1,54 @@
+{
+  "id": "skill-genjutsu",
+  "name": "Genjutsu (Creative Coding & Multi-Agent Framework)",
+  "component_type": "skill",
+  "purpose": "Multi-agent creative coding framework for Claude Code/claude.ai spanning web, SwiftUI, and Jetpack Compose.",
+  "capabilities": [
+    "Interactive UI motion generation (cast)",
+    "Full design system and branding generation (paint)",
+    "Autonomous multi-subagent website building (bunshin)",
+    "Cross-platform Web/Android/iOS support"
+  ],
+  "location": "https://genjutsu.athevon.dev",
+  "version": "4.1.1",
+  "installation": {
+    "required": false,
+    "instructions": "Not installed in workspace. Blocked due to redundancy with GSAP AI skills, motion-design, and high subagent token overhead."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "claude-code",
+    "notes": "Designed for Claude Code plugin and claude.ai environment. Lacks HyperFrames, Kokoro TTS, or deterministic video assembly integration."
+  },
+  "documentation_urls": [
+    "https://genjutsu.athevon.dev",
+    "https://github.com/AThevon/genjutsu"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "MIT licensed open-source framework by AThevon."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Bunshin workflow spawns autonomous subagents running arbitrary shell commands and consuming millions of tokens over hours."
+  },
+  "owner": "motion-graphics",
+  "status": "blocked",
+  "approval_evidence": "Formal Workspace Steward evaluation on 2026-10-30: Rejected/Blocked. Genjutsu overlaps 100% with existing workspace skills (gsap-skills, motion-design, motion-graphics-designer) and introduces excessive token complexity (10.5M tokens/run) with zero support for the repository's deterministic video rendering pipeline.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "creative-coding",
+    "multi-agent",
+    "claude-code",
+    "blocked",
+    "evaluated"
+  ]
+}
+

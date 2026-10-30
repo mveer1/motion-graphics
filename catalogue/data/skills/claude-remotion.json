@@ -1,0 +1,53 @@
+{
+  "id": "skill-claude-remotion",
+  "name": "Claude Remotion Skill",
+  "component_type": "skill",
+  "purpose": "React-based programmatic video creation and animation system using Remotion.",
+  "capabilities": [
+    "React component timeline authoring",
+    "Spring physics animations (remotion/spring)",
+    "Modular UI components (UIFrame, StatReveal, TerminalAnimation, ComparisonSlide)"
+  ],
+  "location": "https://github.com/cmak34/claude-remotion-skill",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Not installed in workspace. Blocked as a production dependency due to heavy Node/React build stack and memory overhead on 8 GB RAM."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "node",
+    "notes": "Requires Node.js, Webpack/Babel bundler, and multi-process Chromium rendering which exceeds the 8 GB unified memory budget on Apple Silicon M2."
+  },
+  "documentation_urls": [
+    "https://github.com/cmak34/claude-remotion-skill",
+    "https://www.remotion.dev"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Skill wrapper is MIT licensed. Remotion core requires Remotion Company License for commercial use above 3 employees."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs npm build scripts and invokes Remotion CLI with background workers."
+  },
+  "owner": "motion-graphics",
+  "status": "blocked",
+  "approval_evidence": "Workspace Steward evaluation: Blocked as a production rendering dependency. HyperFrames + GSAP + Chromium provides superior rendering performance (<200 MB RAM vs >2 GB RAM in Remotion) and sub-second deterministic frame capture on Apple Silicon M2 8 GB. Reusable UI design patterns (UIFrame, StatReveal, TerminalAnimation) are documented for native GSAP adaptation.",
+  "architecture_ref": "ARCHITECTURE.md#s4",
+  "last_verified": "2026-10-30",
+  "tags": [
+    "remotion",
+    "react",
+    "video",
+    "blocked",
+    "evaluated"
+  ]
+}
+

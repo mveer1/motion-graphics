@@ -120,7 +120,7 @@ flowchart TD
 | **3. Scriptwriting & Phonetics** | Spoken narration authoring | **YES** | Writes concise, conversational educational scripts matching pacing limits and applying phonetic respellings for technical jargon. |
 | **4. Speech Synthesis** | Local Kokoro TTS 0.9.4 | **NO** | Deterministic neural synthesis on Python 3.12 (24 kHz PCM WAV). Free, local, zero LLM hallucination risk. |
 | **5. Audio Timing Measurement** | `ffprobe` / `wave` | **NO** | Exact millisecond duration measurement of rendered audio chunks. Establishes immutable timeline anchor points. |
-| **6. Motion Graphics Code** | GSAP 3 + SVG HTML authoring (`motion-library-guide` + `motion-graphics-designer`) | **YES** | Vets capabilities via capability catalogue, writes mathematical diagram markup, layout coordinates, and GSAP timelines anchored to audio timestamps. |
+| **6. Motion Graphics Code** | GSAP 3 + SVG HTML authoring (`motion-library-guide` + `motion-graphics-designer` + `gsap-skills` + `motion-design` + `kinetic-typography` + `epic-design` + `collage-design` + `algorithmic-art`) | **YES** | Vets capabilities via capability catalogue, applies Disney motion principles, and authors GSAP timelines anchored to audio timestamps. |
 | **7. Deterministic PRNG** | `mulberry32` algorithm | **NO** | Mathematical pseudorandom number generator ensuring identical frame renders across runs. |
 | **8. Composition Linting** | `hyperframes lint` | **NO** | Static analysis CLI checking for syntax errors, DOM validity, and tween overlaps. |
 | **9. Visual Rendering** | HyperFrames + Chromium | **NO** | Headless Chrome engine running with ANGLE Metal GPU acceleration. |
@@ -432,6 +432,11 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 │   ├── technical-researcher/          # Topic research, math truth, visual metaphors
 │   ├── motion-library-guide/          # Capability catalogue search, vetting, recipes
 │   ├── motion-graphics-designer/      # Colors, typography, GSAP 3 patterns
+│   ├── kinetic-typography/            # Headline mask reveals, variable fonts, accessibility
+│   ├── motion-design/                 # Disney animation principles, easing, staging
+│   ├── epic-design/                   # Cinematic 2.5D pseudo-3D, 6-layer depth system
+│   ├── collage-design/                # Procedural torn paper, mixed-media, SVG filters
+│   ├── algorithmic-art/               # Deterministic flow fields, generative art, math curves
 │   ├── voice-director/                # Voice personas, phonetics, audio pacing
 │   ├── real-sfx/                      # Sound design, HyperFrames cue extraction, multi-track mixing
 │   ├── earshot/                       # Acoustic listening, spectral checks, procedural SFX
@@ -589,6 +594,17 @@ flowchart LR
 - **`workspace-steward`**: Owns workspace-wide placement, registration, dependency governance, architecture-document maintenance, and drift auditing.
 - **`motion-library-guide`**: Queries the registry to select verified libraries, effects, and animation recipes for scene choreography.
 - **`motion-graphics-designer`**: Authors HTML/SVG/GSAP markup implementing selected recipes using aesthetic palette tokens and canvas layout rules.
+- **`gsap-core` / `gsap-timeline` / `gsap-plugins` / `gsap-utils` / `gsap-performance`**: GreenSock official skills providing authoritative tweening and timeline syntax.
+- **`motion-design`**: LottieFiles motion design principles, timing/easing curves, Disney principles adapted for UI, and 1/3 rules.
+- **`algorithmic-art`**: Generative art patterns (flow fields, attractors, shaders) adapted for deterministic HyperFrames rendering.
+- **`kinetic-typography`**: Specialized kinetic text reveals, variable-font weight shifts, and accessibility protections (preserving parent `aria-label`).
+- **`epic-design`**: Cinematic 2.5D pseudo-3D staging, 6-layer depth system (`data-depth="0"` to `"5"`), hero-companion spatial hierarchy, and automated layer validation without WebGL.
+- **`collage-design` (Experimental Skill)**: Procedural mixed-media collage (torn paper deckle edges via SVG filters, blueprint grids, masking tape) rasterized natively in Chromium.
+- **`p5-brush` (Experimental Library)**: Natural-media textured brush strokes on WebGL2 canvas; isolated prototype in `tests/prototypes/p5-brush/` validated with bitwise determinism (`PSNR=inf`).
+- **`lottie-web` / `text-to-lottie` (Experimental Capability)**: Declarative Lottie JSON vector animations scrubbed deterministically via GSAP timeline (`tests/prototypes/lottie/`).
+- **`genjutsu` (Blocked Candidate)**: Evaluated and rejected due to 100% overlap with existing skills and high token overhead. Registered as `blocked` in catalogue.
+- **`claude-remotion` (Blocked Candidate)**: Evaluated and blocked as production rendering engine due to React/Webpack build overhead and high memory footprint (>2.2 GB RAM); reusable UI patterns documented for GSAP adaptation.
+- **`wiggle` (Blocked Candidate)**: Evaluated and rejected due to fragile Python dependencies (`lottie[all]`, `cairosvg`, `pillow`) and narrow scope subsumed by Text-to-Lottie.
 
 ### 7.3 The 7-Domain Component Placement Taxonomy
 All workspace files must strictly reside in their designated domain:

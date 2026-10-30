@@ -1,0 +1,46 @@
+{
+  "id": "p5-brush",
+  "name": "p5.brush (Standalone WebGL2 Build)",
+  "version": "3.0.0",
+  "category": "raster_canvas",
+  "status": "experimental",
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "attribution_required": false,
+    "notes": "MIT license verified for p5.brush runtime (Alejandro Campos Uribe, commit d56350a6)."
+  },
+  "documentation_urls": [
+    "https://github.com/acamposuribe/p5.brush",
+    "https://p5-brush.cargo.site/"
+  ],
+  "runtime_environment": {
+    "type": "browser_script",
+    "cdn_url": "https://cdn.jsdelivr.net/npm/p5.brush@3.0.0/dist/brush.js",
+    "npm_package": "p5.brush",
+    "bundle_size_kb": 113.3
+  },
+  "rendering_constraints": {
+    "max_memory_mb": 250,
+    "target_fps": 30,
+    "headless_chromium_compatible": true,
+    "deterministic_mode_supported": true,
+    "notes": "Requires WebGL2 canvas context. Must seed using brush.seed() and brush.noiseSeed() before drawing. Validated in tests/prototypes/p5-brush with PSNR=inf determinism across repeated headless Chromium captures."
+  },
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "hyperframes_compatible": true,
+    "low_memory_mode_compatible": true
+  },
+  "justification": "Experimental natural-media brush and textured stroke capability. Evaluated via standalone build (no p5 dependency) in tests/prototypes/p5-brush/. Rendered 120 frames in 6.9s (17 fps) at 1280x720 with bitwise deterministic output (PSNR=inf). Kept isolated from production dependencies pending formal explainer adoption.",
+  "effects_provided": [
+    "textured-brush-stroke"
+  ],
+  "metadata": {
+    "author": "Alejandro Campos Uribe",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30",
+    "tags": ["brush", "natural-media", "charcoal", "watercolor", "webgl2", "experimental"]
+  }
+}

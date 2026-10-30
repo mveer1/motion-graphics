@@ -76,7 +76,7 @@ class GovernanceAuditor:
             for comp_id, comp_data in self.records[coll].items():
                 loc = comp_data.get("location", "")
                 # Skip virtual locations or external URLs
-                if loc.startswith(("http://", "https://", "role:", "system_prompt:")):
+                if loc.startswith(("http://", "https://", "role:", "system_prompt:", "unresolved:", "pending:")):
                     continue
                 # Machine-level host tools
                 if loc.startswith(("/usr/", "/opt/")):

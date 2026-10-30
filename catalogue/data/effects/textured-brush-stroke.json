@@ -1,0 +1,35 @@
+{
+  "id": "textured-brush-stroke",
+  "name": "Natural-Media Textured Brush Stroke",
+  "category": "chart_reveal",
+  "visual_intent": "Renders organic, calligraphic, and textured media (charcoal, watercolor, pencil, hatching) along mathematical paths on a WebGL2 canvas.",
+  "status": "experimental",
+  "library_dependencies": [
+    "p5-brush",
+    "gsap"
+  ],
+  "rendering_engine": "webgl",
+  "tags": [
+    "brush",
+    "natural-media",
+    "charcoal",
+    "watercolor",
+    "spline",
+    "textured"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "medium",
+    "gpu_intensity": "medium",
+    "dom_node_count": "1 Canvas element",
+    "memory_profile": "Low (~180MB peak)"
+  },
+  "recipes": [
+    "p5-brush-spline"
+  ],
+  "implementation_summary": "Uses p5.brush standalone runtime on WebGL2 canvas, driven deterministically by GSAP timeline progress and seeded PRNG.",
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}
