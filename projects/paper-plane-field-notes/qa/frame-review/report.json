@@ -1,0 +1,672 @@
+{
+  "target": "paper-plane-field-notes",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    0.5,
+    1.3,
+    3.4,
+    4.4,
+    6.0,
+    8.9,
+    11.2,
+    13.9,
+    15.3,
+    17.0,
+    18.0,
+    18.7,
+    21.5
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 22.0,
+      "fps": 30,
+      "timeline_duration": 20.15,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f00-t000.00.png",
+          "visible_text": [
+            "Fold"
+          ]
+        },
+        {
+          "time": 0.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f01-t000.50.png",
+          "visible_text": [
+            "Fold",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 1.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f02-t001.30.png",
+          "visible_text": [
+            "Crease",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 3.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f03-t003.40.png",
+          "visible_text": [
+            "Fly",
+            ".",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 4.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f04-t004.40.png",
+          "visible_text": [
+            "How to fold",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 6.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f05-t006.00.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the sheet in half, lengthwise.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 1 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 8.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f06-t008.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the top corners to the crease.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "keep creases sharp",
+            "Field notes 01",
+            "Fold 2 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 11.2,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f07-t011.20.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the new edges to the centre.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 3 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 13.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f08-t013.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold down both wings.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "heavy nose, steady glide",
+            "Field notes 01",
+            "Fold 4 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 15.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f09-t015.30.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 17.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f10-t017.00.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f11-t018.00.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.7,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f12-t018.70.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 21.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/landscape/f13-t021.50.png",
+          "visible_text": [
+            "Fold. Crease. Fly.",
+            "Grab a sheet and fold one.",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "low_contrast",
+          "severity": "info",
+          "message": "estimated contrast 2.5:1 < 3.0:1",
+          "time": 3.4,
+          "text": ".",
+          "class": "st-wb-dot"
+        }
+      ],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/paper-plane-field-notes/qa/frame-review/contact-landscape.png"
+    },
+    {
+      "format": "portrait",
+      "file": "index.portrait.html",
+      "width": 720,
+      "height": 1280,
+      "duration": 22.0,
+      "fps": 30,
+      "timeline_duration": 20.24,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f00-t000.00.png",
+          "visible_text": [
+            "Fold"
+          ]
+        },
+        {
+          "time": 0.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f01-t000.50.png",
+          "visible_text": [
+            "Fold",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 1.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f02-t001.30.png",
+          "visible_text": [
+            "Crease",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 3.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f03-t003.40.png",
+          "visible_text": [
+            "Fly",
+            ".",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 4.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f04-t004.40.png",
+          "visible_text": [
+            "How to fold",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 6.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f05-t006.00.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the sheet in half, lengthwise.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 1 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 8.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f06-t008.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the top corners to the crease.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "keep creases sharp",
+            "Field notes 01",
+            "Fold 2 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 11.2,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f07-t011.20.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the new edges to the centre.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 3 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 13.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f08-t013.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold down both wings.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "heavy nose, steady glide",
+            "Field notes 01",
+            "Fold 4 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 15.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f09-t015.30.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 17.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f10-t017.00.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f11-t018.00.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.7,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f12-t018.70.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 21.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/portrait/f13-t021.50.png",
+          "visible_text": [
+            "Fold. Crease. Fly.",
+            "Grab a sheet and fold one.",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/paper-plane-field-notes/qa/frame-review/contact-portrait.png"
+    },
+    {
+      "format": "square",
+      "file": "index.square.html",
+      "width": 1080,
+      "height": 1080,
+      "duration": 22.0,
+      "fps": 30,
+      "timeline_duration": 20.15,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f00-t000.00.png",
+          "visible_text": [
+            "Fold"
+          ]
+        },
+        {
+          "time": 0.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f01-t000.50.png",
+          "visible_text": [
+            "Fold",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 1.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f02-t001.30.png",
+          "visible_text": [
+            "Crease",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 3.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f03-t003.40.png",
+          "visible_text": [
+            "Fly",
+            ".",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 4.4,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f04-t004.40.png",
+          "visible_text": [
+            "How to fold",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 0 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 6.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f05-t006.00.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the sheet in half, lengthwise.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 1 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 8.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f06-t008.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the top corners to the crease.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "keep creases sharp",
+            "Field notes 01",
+            "Fold 2 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 11.2,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f07-t011.20.png",
+          "visible_text": [
+            "How to fold",
+            "Fold the new edges to the centre.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "Field notes 01",
+            "Fold 3 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 13.9,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f08-t013.90.png",
+          "visible_text": [
+            "How to fold",
+            "Fold down both wings.",
+            "1",
+            "Halve",
+            "2",
+            "Corners",
+            "3",
+            "Narrow",
+            "4",
+            "Wings",
+            "heavy nose, steady glide",
+            "Field notes 01",
+            "Fold 4 / 4",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 15.3,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f09-t015.30.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 17.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f10-t017.00.png",
+          "visible_text": [
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.0,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f11-t018.00.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 18.7,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f12-t018.70.png",
+          "visible_text": [
+            "smooth glide",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        },
+        {
+          "time": 21.5,
+          "path": "projects/paper-plane-field-notes/qa/frame-review/square/f13-t021.50.png",
+          "visible_text": [
+            "Fold. Crease. Fly.",
+            "Grab a sheet and fold one.",
+            "Field notes 01",
+            "Flight",
+            "Paper plane",
+            "Dart, 4 folds"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "projects/paper-plane-field-notes/qa/frame-review/contact-square.png"
+    }
+  ],
+  "matrix": "projects/paper-plane-field-notes/qa/frame-review/contact-matrix.png",
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

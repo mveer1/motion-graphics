@@ -1,0 +1,37 @@
+{
+  "id": "bloom-become",
+  "name": "Dot blooms into the next scene",
+  "effect_id": "element-bloom",
+  "status": "experimental",
+  "visual_intent": "A full stop or accent dot expands to fill the frame and becomes the next scene's background colour.",
+  "parameters": [
+    { "name": "source", "type": "selector|element", "description": "Element whose position and colour seed the bloom" },
+    { "name": "duration", "type": "number", "default": 0.8, "description": "Seconds from source size to full cover" },
+    { "name": "ease", "type": "string", "default": "power2.in", "description": "Growth ease; accelerating reads as a burst" },
+    { "name": "ring", "type": "color", "description": "Optional colour of a ring that leads the fill" },
+    { "name": "mode", "type": "string", "default": "become", "description": "become (colour becomes background) or reveal (new scene inside the circle)" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or beat grid (Studio.rhythm.grid); place the bloom on the beat that ends the scene",
+    "easing_standard": "power2.in (become), power2.inOut (reveal)",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "// give #s2 the same background as the dot so the cut is invisible\nStudio.fx.bloom(tl, '#s1 .st-wb-dot', '#s1', '#s2', cue('next'), { duration: 0.7, ring: Studio.token('--c-paper') });"
+  },
+  "fallbacks": "Studio.fx.iris (clip-path circle at a percentage centre) or the approved zero-dip crossfade if the source is not visible at the cue.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 1.0, "memory_impact": "Low; estimate, not measured on the M2" },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/pen-and-bloom/index.html --fonts google --at <bloom start, middle, end>",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the bloom start, middle and cut"
+  ],
+  "tags": ["transition", "bloom", "dot", "iris", "reference-derived"],
+  "examples": ["tests/reference-derived/pen-and-bloom/index.html"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

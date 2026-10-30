@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionReferenceSourceRecord",
+  "description": "One supplied reference (a video) in the reference corpus. The media file stays outside the repository; the record holds its identity (content hash), technical metadata, automated measurements (written by scripts/reference-corpus.py), the analyst's observations kept apart from interpretations, rights and brand-asset notes, and links to the technique records it informed. A reference is study material, never a reusable asset.",
+  "type": "object",
+  "required": ["id", "name", "status", "source", "rights", "media", "analysis", "techniques", "related", "categories", "tags", "confidence"],
+  "additionalProperties": false,
+  "definitions": {
+    "note": {
+      "type": "object",
+      "required": ["observed"],
+      "additionalProperties": false,
+      "properties": {
+        "observed": { "type": "string", "minLength": 3, "description": "What can be seen or measured in the frames or signal." },
+        "interpreted": { "type": "string", "description": "Why it seems to work or what it is for; an inference, not a fact." },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    },
+    "ids": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } }
+  },
+  "properties": {
+    "id": { "type": "string", "pattern": "^ref-[0-9a-f]{10}$", "description": "ref- plus the first 10 hex digits of the file's SHA-256: stable across renames, identical for identical content." },
+    "name": { "type": "string", "minLength": 3, "description": "Descriptive title of the piece's craft (not of a brand)." },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"], "description": "proposed = ingested only; experimental = analysed and inspected; approved = analysis reviewed by a person; blocked = must not be consulted (e.g. rights complaint)." },
+    "source": {
+      "type": "object",
+      "required": ["filename", "sha256", "bytes", "location", "supplied_by"],
+      "additionalProperties": false,
+      "properties": {
+        "filename": { "type": "string" },
+        "aliases": { "type": "array", "items": { "type": "string" }, "description": "Other file names seen with identical content." },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "location": { "type": "string", "description": "Where the file lives, without machine-specific absolute paths." },
+        "supplied_by": { "type": "string" },
+        "supplied_on": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "url": { "type": ["string", "null"] },
+        "creator": { "type": "string" },
+        "publisher": { "type": "string" }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "required": ["licence", "usage", "brand_assets"],
+      "additionalProperties": false,
+      "properties": {
+        "licence": { "type": "string", "description": "SPDX id, licence name, or 'unknown'." },
+        "usage": { "type": "string", "enum": ["inspiration-only", "licensed-reuse", "owned"], "description": "inspiration-only: techniques may be learned, nothing from the file may be reused." },
+        "attribution": { "type": "string" },
+        "brand_assets": {
+          "type": "array",
+          "description": "Protected identity elements seen in the reference. They are never extracted, traced, recreated or embedded in components.",
+          "items": {
+            "type": "object",
+            "required": ["kind", "description", "policy"],
+            "additionalProperties": false,
+            "properties": {
+              "kind": { "type": "string", "enum": ["logo", "wordmark", "lockup", "product-ui", "mascot", "character", "palette-identity", "typeface-identity", "product", "other"] },
+              "description": { "type": "string" },
+              "timestamps": { "type": "array", "items": { "type": "number", "minimum": 0 } },
+              "policy": { "type": "string", "enum": ["exclude", "authorised"] }
+            }
+          }
+        },
+        "notes": { "type": "string" }
+      }
+    },
+    "media": {
+      "type": "object",
+      "required": ["duration_sec", "width", "height", "bytes", "probe"],
+      "properties": {
+        "duration_sec": { "type": "number", "exclusiveMinimum": 0 },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "fps": { "type": "number", "exclusiveMinimum": 0 },
+        "bytes": { "type": "integer" },
+        "probe": { "type": "string" }
+      }
+    },
+    "automated": {
+      "type": "object",
+      "description": "Measurements written by scripts/reference-corpus.py analyze. Re-running the tool replaces this block only.",
+      "required": ["analyzer", "sampling", "boundaries", "scenes", "artifacts"],
+      "properties": {
+        "boundaries": { "type": "array", "items": { "type": "object", "required": ["t", "kind"], "properties": { "t": { "type": "number" }, "kind": { "enum": ["cut", "soft"] } } } },
+        "scenes": { "type": "array", "items": { "type": "object", "required": ["index", "start", "end"] } },
+        "artifacts": { "type": "object", "required": ["cache_dir", "tracked"], "properties": { "tracked": { "const": false } } }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": ["state"],
+      "additionalProperties": false,
+      "properties": {
+        "state": { "type": "string", "enum": ["pending", "automated", "inspected", "reviewed"], "description": "pending: metadata only; automated: tool evidence exists; inspected: an analyst looked at the evidence and wrote the notes below; reviewed: a person confirmed them." },
+        "inspected_on": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "inspected_by": { "type": "string" },
+        "method": { "type": "string", "description": "What was actually looked at (sheets, strips, frame counts, audio method)." },
+        "coverage": { "type": "string" },
+        "concept": { "$ref": "#/definitions/note" },
+        "communication_style": { "$ref": "#/definitions/note" },
+        "aspects": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "visual_identity": { "$ref": "#/definitions/note" },
+            "palette": { "$ref": "#/definitions/note" },
+            "typography": { "$ref": "#/definitions/note" },
+            "composition": { "$ref": "#/definitions/note" },
+            "shapes_and_materials": { "$ref": "#/definitions/note" },
+            "motion": { "$ref": "#/definitions/note" },
+            "easing": { "$ref": "#/definitions/note" },
+            "timing_and_rhythm": { "$ref": "#/definitions/note" },
+            "transitions": { "$ref": "#/definitions/note" },
+            "depth_and_layering": { "$ref": "#/definitions/note" },
+            "texture_and_effects": { "$ref": "#/definitions/note" },
+            "camera": { "$ref": "#/definitions/note" },
+            "audio_and_sync": { "$ref": "#/definitions/note" },
+            "motifs": { "$ref": "#/definitions/note" }
+          }
+        },
+        "scenes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["start", "end", "observed"],
+            "additionalProperties": false,
+            "properties": {
+              "start": { "type": "number", "minimum": 0 },
+              "end": { "type": "number", "minimum": 0 },
+              "observed": { "type": "string" },
+              "interpreted": { "type": "string" }
+            }
+          }
+        },
+        "moments": {
+          "type": "array",
+          "description": "Particularly effective moments.",
+          "items": {
+            "type": "object",
+            "required": ["t", "observed"],
+            "additionalProperties": false,
+            "properties": {
+              "t": { "type": "number", "minimum": 0 },
+              "observed": { "type": "string" },
+              "interpreted": { "type": "string" }
+            }
+          }
+        },
+        "difficult": { "type": "array", "items": { "type": "string" }, "description": "Techniques that would be hard or expensive to reproduce, and why." },
+        "uncertainties": { "type": "array", "items": { "type": "string" }, "description": "What the evidence could not establish." }
+      }
+    },
+    "techniques": {
+      "type": "array",
+      "description": "Technique records (catalogue/data/references/) this reference informed, with where they occur.",
+      "items": {
+        "type": "object",
+        "required": ["id", "timestamps"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "timestamps": { "type": "array", "minItems": 1, "items": { "type": "number", "minimum": 0 } },
+          "observed": { "type": "string" }
+        }
+      }
+    },
+    "related": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "effects": { "$ref": "#/definitions/ids" },
+        "compositions": { "$ref": "#/definitions/ids" },
+        "templates": { "$ref": "#/definitions/ids" },
+        "styles": { "$ref": "#/definitions/ids" }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "kinetic-typography", "editorial-layout", "hand-drawn-illustration", "line-art", "shape-morphing",
+          "object-assembly", "2.5d-depth", "collage-texture", "ui-product-demo", "data-visualisation", "logo-reveal",
+          "character-animation", "3d-render", "live-action", "narration-sync", "music-sync", "scene-transitions",
+          "title-sequence", "explainer", "product-promo", "loop", "generative", "diagram", "iconography"
+        ]
+      },
+      "description": "Controlled vocabulary for structured search; extend the enum here when a new category is genuinely needed."
+    },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "confidence": { "type": "string", "enum": ["low", "medium", "high"], "description": "Confidence in the analysis as a whole." },
+    "metadata": { "type": "object" }
+  }
+}

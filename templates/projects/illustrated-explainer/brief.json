@@ -1,0 +1,50 @@
+{
+  "spec_version": 1,
+  "slug": "{{SLUG}}",
+  "title": "{{TITLE}}",
+  "objective": "TODO: what the viewer should understand or be able to do after watching, in one or two sentences.",
+  "audience": "TODO: who is watching and what they already know",
+  "platforms": ["website", "instagram-reels", "instagram-feed"],
+  "deliverables": {
+    "formats": ["landscape", "portrait", "square"],
+    "duration_sec": { "min": 12, "target": 16, "max": 30 }
+  },
+  "message": {
+    "core_message": "TODO: the single idea the piece must land",
+    "key_points": ["TODO: step or point 1", "TODO: step or point 2"]
+  },
+  "tone": {
+    "emotional_response": ["clarity", "calm confidence"],
+    "keywords": ["editorial", "illustrated", "light"],
+    "avoid": ["dark backgrounds by default", "progress bars", "glowing node diagrams", "filler motion"]
+  },
+  "constraints": ["Readable with sound off", "Every format needs its own layout, not a crop"],
+  "assets_provided": [],
+  "references": [],
+  "audio": { "narration": "optional", "music": "optional", "sfx": "optional", "captions": false },
+  "research": { "required": false, "reason": "TODO: set true and add research.json if the piece makes factual, technical or scientific claims." },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "TODO: direction name",
+      "concept": "TODO: one paragraph describing the idea, the visual metaphor and why it serves the objective.",
+      "visual_identity": {
+        "style_system": "{{STYLE}}",
+        "palette": "TODO",
+        "typography": "TODO",
+        "texture": "TODO"
+      },
+      "motion_language": {
+        "personality": "TODO",
+        "signature_moves": ["TODO"],
+        "transitions": "TODO"
+      },
+      "composition": { "approach": "TODO: how space is used in each format" },
+      "pacing": "TODO",
+      "why_it_fits": "TODO"
+    }
+  ],
+  "selected_direction": null,
+  "success_criteria": ["Each step is readable at phone size", "The ending holds for at least 2 seconds"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "archival-mono-collage",
+  "name": "Monochrome archive collage with one accent",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected brand film cuts between black-and-white archival imagery (engravings, photographs, sculpture) with thin construction lines, serif words and a single accent colour.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Public-domain monochrome imagery on white, overlaid with analytic line drawings and one accent mark, gives a thoughtful, museum-like tone; fast cuts between images on the beat keep it lively.",
+  "purpose": "Editorial, reflective or 'ideas' pieces; intellectual tone without stock-photo look.",
+  "visual_behaviour": "B/W cut-outs on white; a spiral or guide line traces over an image; serif words appear; a single accent element punctuates.",
+  "mechanics": "Hard cuts about every 0.75 s; line overlays drawn with a pen-led stroke; images cut out with clean edges.",
+  "decomposition": { "primitives": ["styled-text", "svg-path"], "effects": ["pen-stroke", "element-mask-reveal"], "timing": "Image cuts about 0.5-1 s; type holds about 1-2 s." },
+  "use_cases": ["brand film (original identity only)", "essay or editorial video", "museum or education", "collage-essay template"],
+  "failure_modes": ["Reproducing a specific brand's combination of archive imagery, serif and accent colour reproduces its identity", "Using images without public-domain or licence verification"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Source images through the collage-design skill (Openverse/Wikimedia public domain with attribution); cut-outs as image layers; Studio.draw.pen for construction lines; one accent token." },
+  "capability": { "support": "native", "requirements": ["licensed or public-domain imagery"], "compatible_components": ["pen-stroke", "element-mask-reveal"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low", "memory": "image layers" }, "additional_tooling": { "needed": "no", "justification": "collage-design skill already covers sourcing and cut-outs" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [ { "source_id": "ref-c93524ef20", "timestamps": [3.0, 6.0, 9.0], "observed": "Snowflake photographs, motion-study photographs, engravings and sculpture cut-outs in black and white with thin accent line work." } ],
+  "related": { "techniques": ["strip-slice-offset", "pen-led-stroke", "accent-punctuation-motif"], "templates": ["collage-essay"] },
+  "licensing_notes": "Technique only. The reference is a brand film whose identity (mark, accent colour, serif, archive look as a whole) must not be reproduced; its specific image treatments are not reused.",
+  "tags": ["collage-texture", "archive", "monochrome", "editorial-layout", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,14 +1,15 @@
 {
   "id": "shared-video-spec",
-  "name": "Motion Graphics Video Composition Specification",
+  "name": "Motion Lab Production Specification (project.json)",
   "component_type": "shared_asset",
-  "purpose": "JSON Schema specification defining video resolution, fps, theme tokens, narration settings, and scene outlines.",
+  "purpose": "JSON Schema (v2) for projects/<slug>/project.json: template, style system, delivery formats with sizes and safe areas, fps, duration, quality, timing source (narration, music or fixed), audio settings (narration optional, licensed music, SFX, captions, loudness target) and runtime version. Projects without project.json remain legacy single-format explainers.",
   "capabilities": [
-    "Machine validation for video project configurations",
-    "Standardized resolution and theme tokens"
+    "Machine validation for multi-format project configuration",
+    "Aspect-ratio aware delivery (16:9, 9:16, 1:1) with safe areas",
+    "Explicit audio decisions instead of narration-by-default"
   ],
   "location": "specs/video-spec.json",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "installation": {
     "required": false,
     "instructions": "Stored in specs/video-spec.json."
@@ -36,8 +37,8 @@
     "notes": "Static schema definition."
   },
   "owner": "video-production",
-  "status": "approved",
-  "approval_evidence": "Production certified in project specifications.",
+  "status": "experimental",
+  "approval_evidence": "v2 rewritten 2026-10-30; validated against projects/masala-chai-recipe/project.json and template project files. v1 was not referenced by any project file.",
   "architecture_ref": "ARCHITECTURE.md#video-spec",
   "last_verified": "2026-10-30",
   "tags": ["schema", "spec", "video", "json-schema", "draft-07"]

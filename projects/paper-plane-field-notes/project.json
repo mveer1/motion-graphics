@@ -1,0 +1,44 @@
+{
+  "spec_version": 2,
+  "slug": "paper-plane-field-notes",
+  "title": "Paper Plane Field Notes",
+  "template": "illustrated-explainer",
+  "style": "editorial-light",
+  "formats": [
+    {
+      "id": "landscape",
+      "width": 1280,
+      "height": 720,
+      "primary": true,
+      "platform": "website"
+    },
+    {
+      "id": "portrait",
+      "width": 720,
+      "height": 1280,
+      "platform": "instagram-reels"
+    },
+    {
+      "id": "square",
+      "width": 1080,
+      "height": 1080,
+      "platform": "instagram-feed"
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 22,
+  "quality": "looks",
+  "timing": {
+    "source": "fixed"
+  },
+  "audio": {
+    "narration": false,
+    "music": {
+      "enabled": false
+    },
+    "sfx": false,
+    "captions": false,
+    "loudness_target_lufs": -16,
+    "loudness_tolerance_lu": 2
+  }
+}

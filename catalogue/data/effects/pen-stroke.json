@@ -1,0 +1,28 @@
+{
+  "id": "pen-stroke",
+  "name": "Pen-led stroke",
+  "category": "path_draw",
+  "visual_intent": "A line is drawn by a visible moving point (a pen tip, a heartbeat, the full stop of a sentence), so the viewer reads the line as an action with a direction rather than a reveal.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "svg-native"],
+  "rendering_engine": "svg_dom",
+  "tags": ["line-art", "stroke", "pen", "dot", "path", "continuity", "reference-derived"],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "path + 1 circle",
+    "memory_profile": "Low; about 60 tiny attribute tweens per second of drawing for the dot (estimate)"
+  },
+  "recipes": ["pen-led-line"],
+  "implementation_summary": "Dash-offset draw of the path (visible length = L x ease(progress)) plus a dot whose cx/cy follow piecewise-linear tweens sampled evenly in time and in arc length at the same eased progress, so it stays on the tip within about a pixel. No MotionPathPlugin, no callbacks.",
+  "primitives": ["svg-path", "svg-shape"],
+  "runtime_api": "Studio.draw.pen(tl, path, at, {duration | speed, ease, dot, dotRadius, dotColor, keepDot, rate})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/pen-and-bloom/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["stroke-draw", "line-art-reveal", "hand-underline"],
+  "validation": {
+    "evidence": "Runtime self-test: dot within 1.5 px of the drawn tip at 8 sampled times, hidden before the stroke, ends on the path end, in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

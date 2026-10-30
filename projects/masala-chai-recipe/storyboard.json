@@ -1,0 +1,132 @@
+{
+  "spec_version": 1,
+  "slug": "masala-chai-recipe",
+  "direction": "ink-and-steam",
+  "timing_source": "fixed",
+  "duration_sec": 31,
+  "styleframes": [
+    "qa/frame-review/contact-matrix.png"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Title",
+      "start_sec": 0,
+      "end_sec": 4.2,
+      "purpose": "Promise a warm, simple recipe; establish the page, the ink line and the pan that will cook through the film.",
+      "on_screen_text": ["A recipe in four steps", "Masala chai", "Spiced milk tea for two, in about ten minutes."],
+      "visual": "Copy column with the title card; the saucepan is already on the page (thumbnail-safe first frame) and steam draws itself, then breathes.",
+      "layout": {
+        "landscape": "Copy left, pan right",
+        "portrait": "Pan in the upper half, title below",
+        "square": "Pan on top, title below"
+      },
+      "capabilities": ["title-card", "tracking-reveal", "text-mask-rise", "hand-underline", "stroke-draw", "organic-wobble", "grain-texture"],
+      "beats": [
+        { "at_sec": 0.2, "action": "Kicker tracks in" },
+        { "at_sec": 0.35, "action": "Title lines rise; underline draws under 'chai'" },
+        { "at_sec": 0.6, "action": "Steam draws, then breathes until the wipe" }
+      ],
+      "transition_out": { "type": "wipe", "capability": "mask-wipe", "duration_sec": 0.9, "continuity": "The pan stays on the page; only the copy column turns." }
+    },
+    {
+      "id": "s2",
+      "title": "Ingredients",
+      "start_sec": 4.2,
+      "end_sec": 11.0,
+      "purpose": "Everything needed for two cups, scannable at a glance.",
+      "on_screen_text": ["Ingredients", "You'll need", "1 cup water", "1 cup whole milk", "2 tsp loose black tea", "4 cardamom pods", "1 inch fresh ginger", "2 tsp sugar, to taste"],
+      "visual": "Itemised list with quantities; cardamom pods and ginger slices assemble around the pan; a slow camera push begins.",
+      "layout": {
+        "landscape": "One-column list left of the pan",
+        "portrait": "One-column list under the pan",
+        "square": "Two-column list under the pan"
+      },
+      "capabilities": ["item-list", "text-mask-rise", "object-assembly", "parallax-camera"],
+      "beats": [
+        { "at_sec": 4.7, "action": "Heading rises" },
+        { "at_sec": 5.0, "action": "Rows arrive with drawn rules" },
+        { "at_sec": 5.6, "action": "Spices assemble around the pan" }
+      ],
+      "transition_out": { "type": "cut", "continuity": "Rows exit upward; the drawing is untouched." }
+    },
+    {
+      "id": "s3",
+      "title": "Step 1: crush",
+      "start_sec": 11.0,
+      "end_sec": 15.0,
+      "purpose": "Show that whole spices are crushed, not ground, before cooking.",
+      "on_screen_text": ["01 / 04", "Crush the spices", "Lightly crush the cardamom and ginger to release their oils."],
+      "visual": "Pods and ginger squash with a short burst of seeded specks, then drop into the pan.",
+      "capabilities": ["step-header", "text-mask-rise", "particle-drift", "object-assembly"],
+      "beats": [
+        { "at_sec": 12.0, "action": "Spices squash" },
+        { "at_sec": 13.4, "action": "Spices fall into the pan" }
+      ],
+      "transition_out": { "type": "cut", "continuity": "Copy changes in place over the persistent pan." }
+    },
+    {
+      "id": "s4",
+      "title": "Step 2: simmer",
+      "start_sec": 15.0,
+      "end_sec": 19.0,
+      "purpose": "Water goes in and the spices simmer; show heat and time without a timer graphic.",
+      "on_screen_text": ["02 / 04", "Simmer in water", "Simmer the spices in the water for two minutes."],
+      "visual": "Water rises inside the pan (morphing surface), the burner flames appear and flicker, bubbles rise.",
+      "capabilities": ["step-header", "text-mask-rise", "shape-morph", "organic-wobble", "particle-drift", "paper-pop"],
+      "beats": [
+        { "at_sec": 15.3, "action": "Water level rises" },
+        { "at_sec": 15.5, "action": "Flames pop on and flicker" },
+        { "at_sec": 16.6, "action": "Bubbles rise" }
+      ],
+      "transition_out": { "type": "cut", "continuity": "Same pan, same water; the copy changes." }
+    },
+    {
+      "id": "s5",
+      "title": "Step 3: tea and milk",
+      "start_sec": 19.0,
+      "end_sec": 23.9,
+      "purpose": "Tea leaves brew, then milk turns the brew into chai.",
+      "on_screen_text": ["03 / 04", "Add tea, then milk", "Brew the tea for a minute. Add the milk; bring to a boil."],
+      "visual": "Tea leaves fall in and the water turns amber; a milk stream draws down, the liquid turns caramel and rises.",
+      "capabilities": ["step-header", "text-mask-rise", "particle-drift", "stroke-draw", "shape-morph", "organic-wobble"],
+      "beats": [
+        { "at_sec": 19.3, "action": "Tea leaves fall" },
+        { "at_sec": 20.8, "action": "Milk stream draws" },
+        { "at_sec": 21.3, "action": "Chai colour and level" }
+      ],
+      "transition_out": { "type": "liquid", "capability": "liquid-transition", "duration_sec": 1.4, "continuity": "The chai itself rises to fill the frame and drains to reveal the glass." }
+    },
+    {
+      "id": "s6",
+      "title": "Step 4: strain and serve",
+      "start_sec": 23.9,
+      "end_sec": 27.6,
+      "purpose": "The payoff: a glass of chai.",
+      "on_screen_text": ["04 / 04", "Strain and serve", "Strain into two cups. Sweeten to taste."],
+      "visual": "A cutting-chai glass draws in ink, fills with caramel colour, steam draws and breathes.",
+      "layout": {
+        "landscape": "Copy left, glass right",
+        "portrait": "Glass above, copy below",
+        "square": "Glass on top, copy below"
+      },
+      "capabilities": ["step-header", "text-mask-rise", "line-art-reveal", "stroke-draw", "organic-wobble"],
+      "beats": [
+        { "at_sec": 24.4, "action": "Glass draws" },
+        { "at_sec": 25.6, "action": "Steam draws and breathes" }
+      ],
+      "transition_out": { "type": "match-cut", "capability": "match-cut", "duration_sec": 0.9, "continuity": "The glass becomes the end card's mark, moving from the art panel to the centre." }
+    },
+    {
+      "id": "s7",
+      "title": "End",
+      "start_sec": 27.6,
+      "end_sec": 31,
+      "purpose": "Close warmly and hold long enough to read.",
+      "on_screen_text": ["Chai, slowly.", "Serves 2 · About 10 minutes"],
+      "visual": "Glass mark above the closing title; held to the end.",
+      "capabilities": ["end-card", "text-mask-rise"],
+      "transition_out": { "type": "hold-end" }
+    }
+  ]
+}

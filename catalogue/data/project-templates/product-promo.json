@@ -1,0 +1,57 @@
+{
+  "id": "product-promo",
+  "name": "Product promo",
+  "deliverable_type": "product_promo",
+  "status": "proposed",
+  "description": "Product hero on depth layers with a slow camera push, feature callouts and a CTA end card. Bring real product imagery (rights recorded in brief.json) or use the procedural placeholder.",
+  "location": "pending:templates/projects/product-promo",
+  "stages": {
+    "research": "optional",
+    "storyboard": "required",
+    "narration": "optional",
+    "music": "optional",
+    "captions": "optional"
+  },
+  "default_style": "editorial-light",
+  "default_formats": [
+    "landscape",
+    "square",
+    "portrait"
+  ],
+  "default_duration_sec": 15,
+  "compositions": [
+    "title-card",
+    "item-list",
+    "end-card"
+  ],
+  "effects": [
+    "parallax-camera",
+    "object-assembly",
+    "shape-cover-transition",
+    "element-mask-reveal",
+    "text-mask-rise"
+  ],
+  "suitable_for": [
+    "product launches",
+    "feature announcements",
+    "app and device promos"
+  ],
+  "validation_steps": [
+    "python scripts/studio.py new demo-product-promo --template product-promo (scaffold in a scratch slug)",
+    "python scripts/studio.py validate <slug>",
+    "python scripts/frame-review.py <slug> --fonts google"
+  ],
+  "validation": {
+    "evidence": "Not built yet: planned scaffold only. The effects it names are implemented and covered by tests/test-studio-runtime.py.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "template",
+    "product-promo"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

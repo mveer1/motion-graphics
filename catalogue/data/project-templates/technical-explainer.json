@@ -1,0 +1,56 @@
+{
+  "id": "technical-explainer",
+  "name": "Technical explainer (research-first)",
+  "deliverable_type": "technical_explainer",
+  "status": "proposed",
+  "description": "The original workflow on the studio runtime: research dossier (Stage 0R), narration with measured timing, diagram scenes, captions. Light by default; set style dark-tech when the brief asks for it. Until built, start technical explainers with scripts/new-project.sh (legacy flow).",
+  "location": "pending:templates/projects/technical-explainer",
+  "stages": {
+    "research": "required",
+    "storyboard": "required",
+    "narration": "required",
+    "music": "none",
+    "captions": "optional"
+  },
+  "default_style": "editorial-light",
+  "default_formats": [
+    "landscape"
+  ],
+  "default_duration_sec": 30,
+  "compositions": [
+    "title-card",
+    "step-header",
+    "caption-band",
+    "end-card"
+  ],
+  "effects": [
+    "stroke-draw",
+    "line-art-reveal",
+    "text-mask-rise",
+    "mask-wipe"
+  ],
+  "suitable_for": [
+    "computer science",
+    "engineering",
+    "science",
+    "data and systems explainers"
+  ],
+  "validation_steps": [
+    "python scripts/studio.py new demo-technical-explainer --template technical-explainer (scaffold in a scratch slug)",
+    "python scripts/studio.py validate <slug>",
+    "python scripts/frame-review.py <slug> --fonts google"
+  ],
+  "validation": {
+    "evidence": "Not built yet: planned scaffold only. The legacy flow (scripts/new-project.sh + scripts/build-project.sh) remains the supported path for technical explainers.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "template",
+    "technical-explainer"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

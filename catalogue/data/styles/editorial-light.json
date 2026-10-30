@@ -1,0 +1,82 @@
+{
+  "id": "editorial-light",
+  "name": "Editorial Light",
+  "status": "experimental",
+  "mode": "light",
+  "default": true,
+  "description": "Workspace default. Warm ivory paper, warm ink, one terracotta accent with a deep green partner; serif display over a neutral sans; generous negative space; subtle grain.",
+  "location": "src/studio/styles/editorial-light.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f4efe6",
+      "paper-2": "#ebe3d4",
+      "ink": "#1e1b16",
+      "ink-2": "#5b5347",
+      "rule": "#cfc5b3",
+      "accent": "#b8432a",
+      "accent-2": "#2f5d50",
+      "accent-3": "#d9a441"
+    },
+    "typography": {
+      "display": "'Playfair Display', serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "texture": "Optional Studio.texture.grain overlay; blend from --grain-blend",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Editorial, calm and precise (premium archetype)",
+    "ease_in": "power2.in",
+    "ease_out": "power3.out",
+    "enter_duration_sec": 0.75,
+    "stagger_sec": 0.06,
+    "notes": "Mask rises and drawn lines over fades; one hero move per beat."
+  },
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "JetBrains Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 15.0:1",
+    "ink-2/paper 6.6:1",
+    "accent/paper 4.7:1",
+    "accent-2/paper 6.5:1",
+    "accent/paper-2 4.3:1 (large text only)"
+  ],
+  "suitable_for": [
+    "editorial explainers",
+    "recipes and lifestyle",
+    "brand films",
+    "technical explainers (light)",
+    "presentations"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Used by projects/masala-chai-recipe frame review.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "light",
+    "editorial",
+    "default",
+    "warm"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

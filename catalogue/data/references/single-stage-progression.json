@@ -1,0 +1,32 @@
+{
+  "id": "single-stage-progression",
+  "name": "Single-stage progression",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Four inspected references keep one stage or diagram on screen and change its state step by step instead of cutting between scenes.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "One persistent layout (a diagram, a recipe stage, a theatre set, a 3D scene) evolves: elements are added, re-labelled, stamped, connected or lit, while a caption or step header names the change. The viewer never re-orients, so attention goes to what changed.",
+  "purpose": "Explain processes and state machines; reduce cognitive load in how-tos and technical explainers.",
+  "visual_behaviour": "The same stage throughout; small local changes per beat (a value updates, a card greys out, a stamp lands, a connector draws, a light comes on).",
+  "mechanics": "Persistent DOM; per-step tweens on existing elements; state changes chained from the previous state for seek safety; optional progress tracker and changing caption.",
+  "decomposition": { "primitives": ["scene-container", "styled-text"], "effects": ["connector-draw", "stamp-impact", "paper-pop"], "timing": "A state change every 2-8 s (ref-95c96d5c47 sections of about 6 s; ref-c3bc609841 about 5 s per step); no hard cuts in two references." },
+  "parameters": [ { "name": "states", "description": "Ordered list of stage states with their cue times" } ],
+  "use_cases": ["technical explainer", "how-to or recipe", "process or state machine", "storybook narration"],
+  "failure_modes": ["Too many simultaneous changes per step", "No caption naming the change", "Stage too dense to see small changes in portrait"],
+  "implementation_state": "prototyped",
+  "implemented_by": [],
+  "implementation": { "approach": "Compose existing components on one scene: Studio.comp.stepper for position, Studio.draw.connect for relations, Studio.fx.stamp for state labels, Studio.comp.callout for attention, chained colour/text swaps. Prototype: tests/reference-derived/explainer-annotations; used in projects/paper-plane-field-notes. A dedicated composition is not justified yet.", "runtime_api": ["Studio.comp.stepper", "Studio.draw.connect", "Studio.fx.stamp", "Studio.comp.callout"] },
+  "capability": { "support": "native", "compatible_components": ["progress-stepper", "connector-draw", "stamp-impact", "annotation-callout"], "complexity": "medium", "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/explainer-annotations", "value": "50.8 ms/frame median, peak 255 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 5, "cost": 2, "note": "Directly serves the workspace's explainer pipeline." } },
+  "provenance": [
+    { "source_id": "ref-95c96d5c47", "timestamps": [12.31, 18.83, 28.31, 35.84], "observed": "One diagram of machines and a shared element changes owner, lease bars and states across numbered steps." },
+    { "source_id": "ref-c3bc609841", "timestamps": [5.0, 20.0], "observed": "A recipe stays on one stage for 30 s with no cuts; ingredients, a step card and a stepper update." },
+    { "source_id": "ref-910d9fc567", "timestamps": [10.0, 30.0], "observed": "A theatre stage persists while a hanging caption sign and the set change." },
+    { "source_id": "ref-37644838b5", "timestamps": [10.0, 50.0, 90.0], "observed": "One 3D scene is explored chapter by chapter with a persistent caption card." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "One relay stage changes state through connectors, callout, fall and stamp." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["step-progress-tracker", "diagram-connectors", "stamp-state-change", "annotation-callouts"], "compositions": ["progress-stepper", "annotation-callout"], "templates": ["technical-explainer", "illustrated-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Subjects, diagrams and copy in the prototype are original.",
+  "tags": ["explainer", "diagram", "state", "how-to", "structure", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

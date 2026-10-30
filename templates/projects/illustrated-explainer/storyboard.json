@@ -1,0 +1,59 @@
+{
+  "spec_version": 1,
+  "slug": "{{SLUG}}",
+  "direction": "direction-a",
+  "timing_source": "fixed",
+  "duration_sec": 16,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Title",
+      "start_sec": 0,
+      "end_sec": 4.4,
+      "purpose": "Name the subject and set the tone.",
+      "on_screen_text": ["An illustrated guide", "{{TITLE}}"],
+      "visual": "Title card in the copy column; the illustration draws itself in the art panel.",
+      "layout": {
+        "landscape": "Copy left, art right",
+        "portrait": "Art above, copy below",
+        "square": "Art top, copy bottom"
+      },
+      "capabilities": ["title-card", "text-mask-rise", "hand-underline", "line-art-reveal"],
+      "transition_out": { "type": "wipe", "capability": "mask-wipe", "duration_sec": 0.9 }
+    },
+    {
+      "id": "s2",
+      "title": "Step 1",
+      "start_sec": 4.4,
+      "end_sec": 8.8,
+      "purpose": "First step of the process.",
+      "on_screen_text": ["Prepare", "Replace with the first step in one sentence."],
+      "visual": "Step header; the first part of the illustration is drawn.",
+      "capabilities": ["step-header", "text-mask-rise", "stroke-draw"],
+      "transition_out": { "type": "cut", "continuity": "Art panel persists; only the copy changes." }
+    },
+    {
+      "id": "s3",
+      "title": "Step 2",
+      "start_sec": 8.8,
+      "end_sec": 13.2,
+      "purpose": "Second step of the process.",
+      "on_screen_text": ["Grow", "Replace with the second step in one sentence."],
+      "visual": "Step header; the illustration completes.",
+      "capabilities": ["step-header", "text-mask-rise", "line-art-reveal"],
+      "transition_out": { "type": "crossfade", "capability": "crossfade-dissolve", "duration_sec": 0.6 }
+    },
+    {
+      "id": "s4",
+      "title": "End",
+      "start_sec": 13.2,
+      "end_sec": 16,
+      "purpose": "Close and hold.",
+      "on_screen_text": ["{{TITLE}}"],
+      "visual": "End card centred in the safe frame; holds to the end.",
+      "capabilities": ["end-card", "text-mask-rise"],
+      "transition_out": { "type": "hold-end" }
+    }
+  ]
+}

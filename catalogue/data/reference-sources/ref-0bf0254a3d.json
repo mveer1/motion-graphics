@@ -1,0 +1,616 @@
+{
+  "id": "ref-0bf0254a3d",
+  "name": "Motion reel: Bauhaus grid, chrome 3D and one-word cards",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (11).mp4",
+    "aliases": [],
+    "sha256": "0bf0254a3df054fdd549ca36d927117352711e9f94064be7b733d045099f6cc4",
+    "bytes": 2490839,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "Rights unverified. No company mark identified, but the frame system and palette closely match ref-92c22222a2 and the first half of ref-b97f9168c6 (likely the same series); treat the overall look as someone's identity and do not reproduce it as a whole."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 2490839,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1058,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 256
+    },
+    "overall_kbps": 1328
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed scene sheet (8 scenes) and transition strips around all 7 boundaries. Overview generated (20 frames) but the scene sheet covered the full duration. Audio from measurements only.",
+    "coverage": "Full duration via the scene sheet; all boundaries at frame level.",
+    "concept": {
+      "observed": "A 15 s motion reel: dot and 'eyes', Bauhaus shape grid, blue field, tilted panel and push into a 3D chrome sphere, then TYPE./SPACE./TIME. cards and a closing title with a swoosh.",
+      "interpreted": "A showreel structured as a tour of motion disciplines (shape, depth, type, time).",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "No narration; words as chapter labels.",
+      "interpreted": "Energetic, design-literate."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured #080808 (45%), #e8e8d8 (15%), #1848f8 (15%); orange accents.",
+        "interpreted": "Black, cream and electric blue with an orange signal colour."
+      },
+      "typography": {
+        "observed": "Heavy sans caps with full stops; outline and metallic variants of the same word style; italic serif accent word on a tilted panel."
+      },
+      "composition": {
+        "observed": "Grid of primitives filling the frame; centred words; persistent corner frame."
+      },
+      "shapes_and_materials": {
+        "observed": "Flat circles, quarter circles, squares and bars; one chrome sphere with an orange ring (3D)."
+      },
+      "motion": {
+        "observed": "Staggered pops into a grid; a rectangle grows to fill the frame; push through a word; smeared word entrances."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median shot 2.48 s; word cards 0.33 s apart at 10.52-11.17 s."
+      },
+      "transitions": {
+        "observed": "Eye-to-disc bloom (2.48 s), shape grows to background (4.82 s), push through text (7.70 s), diagonal wipe with smear (10.52 s), hard cuts."
+      },
+      "depth_and_layering": {
+        "observed": "Flat until a perspective tilt and a 3D sphere section (about 6-10 s)."
+      },
+      "camera": {
+        "observed": "Simulated camera push into a scene at 7.70 s."
+      },
+      "audio_and_sync": {
+        "observed": "7.4 onsets/s, tempo estimate 123 bpm (medium); 83% of boundaries within 50 ms of an onset (chance 52%; analyzer 1.2).",
+        "interpreted": "Loosely synced to a busy track; the high onset rate makes chance alignment high.",
+        "confidence": "low"
+      },
+      "motifs": {
+        "observed": "Dots and rings; full stops; the corner frame."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.48,
+        "observed": "Dark hold with an orange dot (static hold 0.06-0.94 s), word with swoosh, two ring 'eyes'."
+      },
+      {
+        "start": 2.48,
+        "end": 4.82,
+        "observed": "Cream: geometric primitives pop into a grid and rearrange."
+      },
+      {
+        "start": 4.82,
+        "end": 7.7,
+        "observed": "A blue rectangle fills the frame; an italic word on a tilted panel."
+      },
+      {
+        "start": 7.7,
+        "end": 10.52,
+        "observed": "Dark 3D space with a chrome sphere and orange ring."
+      },
+      {
+        "start": 10.52,
+        "end": 15.0,
+        "observed": "Three one-word cards, then a closing title with an orange swoosh that retracts to a dot."
+      }
+    ],
+    "moments": [
+      {
+        "t": 2.48,
+        "observed": "One 'eye' fills and becomes the next background.",
+        "interpreted": "Playful, motivated transition."
+      }
+    ],
+    "difficult": [
+      "Chrome sphere with reflections (needs 3D rendering or a pre-rendered asset)"
+    ],
+    "uncertainties": [
+      "Creator unknown; relation to the other dark reels inferred from style only"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        10.52,
+        10.85,
+        11.17
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        2.48
+      ]
+    },
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        10.52
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        13.1,
+        14.9
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        1.0,
+        7.0,
+        13.0
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        10.52
+      ]
+    },
+    {
+      "id": "grid-wave-propagation",
+      "timestamps": [
+        2.85,
+        3.8
+      ]
+    },
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        1.5,
+        2.3
+      ]
+    },
+    {
+      "id": "continuous-line-spine",
+      "timestamps": [
+        13.1
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        8.5,
+        9.8
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        6.0
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        7.7
+      ]
+    },
+    {
+      "id": "cut-paper-title-sequence",
+      "timestamps": [
+        2.85,
+        4.82
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "smear-motion",
+      "grid-wave",
+      "pen-stroke",
+      "object-assembly",
+      "parallax-camera"
+    ],
+    "compositions": [
+      "word-beats",
+      "frame-hud"
+    ],
+    "templates": [
+      "title-sequence",
+      "kinetic-typography"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "object-assembly",
+    "scene-transitions",
+    "3d-render",
+    "title-sequence",
+    "2.5d-depth"
+  ],
+  "tags": [
+    "reference-video",
+    "dark-theme",
+    "reel",
+    "bauhaus",
+    "geometric",
+    "word-cards"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 21.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 6,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.483,
+        "kind": "soft",
+        "score": 0.265,
+        "isolation": 0.05
+      },
+      {
+        "t": 4.817,
+        "kind": "soft",
+        "score": 0.131,
+        "isolation": 0.02
+      },
+      {
+        "t": 7.7,
+        "kind": "soft",
+        "score": 0.264,
+        "isolation": 0.05
+      },
+      {
+        "t": 10.517,
+        "kind": "cut",
+        "score": 0.226,
+        "isolation": 0.7,
+        "frame": 631
+      },
+      {
+        "t": 10.85,
+        "kind": "cut",
+        "score": 0.97,
+        "isolation": 0.96,
+        "frame": 651
+      },
+      {
+        "t": 11.167,
+        "kind": "cut",
+        "score": 1.281,
+        "isolation": 0.98,
+        "frame": 670
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.48,
+        "duration": 2.48,
+        "activity": 0.048,
+        "luma": 0.09
+      },
+      {
+        "index": 2,
+        "start": 2.48,
+        "end": 4.82,
+        "duration": 2.33,
+        "activity": 0.157,
+        "luma": 0.74
+      },
+      {
+        "index": 3,
+        "start": 4.82,
+        "end": 7.7,
+        "duration": 2.88,
+        "activity": 0.211,
+        "luma": 0.28
+      },
+      {
+        "index": 4,
+        "start": 7.7,
+        "end": 10.52,
+        "duration": 2.82,
+        "activity": 0.163,
+        "luma": 0.16
+      },
+      {
+        "index": 5,
+        "start": 10.52,
+        "end": 10.85,
+        "duration": 0.33,
+        "activity": 0.156,
+        "luma": 0.42
+      },
+      {
+        "index": 6,
+        "start": 10.85,
+        "end": 11.17,
+        "duration": 0.32,
+        "activity": 0.515,
+        "luma": 0.9
+      },
+      {
+        "index": 7,
+        "start": 11.17,
+        "end": 15.0,
+        "duration": 3.83,
+        "activity": 0.079,
+        "luma": 0.08
+      }
+    ],
+    "static_holds": [
+      [
+        0.06,
+        0.94
+      ]
+    ],
+    "mean_activity": 0.136,
+    "luma": {
+      "mean": 0.26,
+      "dark_share": 0.63,
+      "light_share": 0.11
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.445
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.147
+      },
+      {
+        "hex": "#1848f8",
+        "share": 0.145
+      },
+      {
+        "hex": "#181818",
+        "share": 0.039
+      },
+      {
+        "hex": "#180808",
+        "share": 0.022
+      },
+      {
+        "hex": "#382828",
+        "share": 0.018
+      },
+      {
+        "hex": "#181838",
+        "share": 0.016
+      },
+      {
+        "hex": "#282828",
+        "share": 0.015
+      },
+      {
+        "hex": "#684858",
+        "share": 0.015
+      },
+      {
+        "hex": "#9878b8",
+        "share": 0.013
+      }
+    ],
+    "representative_times": [
+      1.24,
+      3.65,
+      6.26,
+      9.11,
+      10.68,
+      11.01,
+      13.09
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -7.4,
+      "mean_dbfs_voiced": -31.3,
+      "silence_ratio": 0.03,
+      "onsets": 111,
+      "onset_rate_per_sec": 7.36,
+      "onset_times": [
+        0.07,
+        0.21,
+        0.3,
+        0.44,
+        0.53,
+        0.7,
+        0.79,
+        0.93,
+        1.02,
+        1.18,
+        1.28,
+        1.42,
+        1.51,
+        1.65,
+        1.76,
+        1.9,
+        2.0,
+        2.14,
+        2.25,
+        2.39,
+        2.48,
+        2.62,
+        2.72,
+        2.86,
+        2.95,
+        3.11,
+        3.2,
+        3.34,
+        3.44,
+        3.6,
+        3.69,
+        3.83,
+        3.92,
+        4.09,
+        4.18,
+        4.32,
+        4.41,
+        4.55,
+        4.67,
+        4.81,
+        4.9,
+        5.04,
+        5.15,
+        5.29,
+        5.39,
+        5.53,
+        5.64,
+        5.78,
+        5.87,
+        6.01,
+        6.11,
+        6.25,
+        6.34,
+        6.5,
+        6.59,
+        6.73,
+        6.83,
+        6.99,
+        7.08,
+        7.22,
+        7.31,
+        7.48,
+        7.57,
+        7.71,
+        7.8,
+        7.94,
+        8.06,
+        8.2,
+        8.29,
+        8.43,
+        8.52,
+        8.66,
+        8.78,
+        8.92,
+        9.01,
+        9.15,
+        9.24,
+        9.4,
+        9.5,
+        9.64,
+        9.73,
+        9.89,
+        9.98,
+        10.12,
+        10.22,
+        10.47,
+        10.61,
+        10.7,
+        10.96,
+        11.1,
+        11.19,
+        11.33,
+        11.45,
+        11.59,
+        11.68,
+        11.82,
+        11.91,
+        12.07,
+        12.14,
+        12.31,
+        12.4,
+        12.54,
+        12.63,
+        12.79,
+        12.89,
+        13.03,
+        13.12,
+        13.28,
+        13.37,
+        13.51,
+        13.7
+      ],
+      "tempo_estimate": {
+        "bpm": 123.0,
+        "autocorr": 0.91,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1182,
+      "band_share": {
+        "low_lt_250": 0.37,
+        "mid_250_2k": 0.41,
+        "high_gt_2k": 0.22
+      },
+      "syllabic_modulation_share": 0.3,
+      "boundary_onset_alignment": {
+        "boundaries": 6,
+        "tolerance_ms": 50,
+        "near_onset": 0.83,
+        "chance_level": 0.52,
+        "median_offset_ms": 18,
+        "near_beat": 0.17,
+        "beat_chance_level": 0.25,
+        "beat_phase_sec": 0.366
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-0bf0254a3d",
+      "overview": "out/reference-analysis/ref-0bf0254a3d/overview.jpg",
+      "scenes": "out/reference-analysis/ref-0bf0254a3d/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-0bf0254a3d/transitions.jpg",
+      "motion": "out/reference-analysis/ref-0bf0254a3d/motion.jpg",
+      "audio": "out/reference-analysis/ref-0bf0254a3d/audio.png",
+      "frames": "out/reference-analysis/ref-0bf0254a3d/frames",
+      "tracked": false
+    }
+  }
+}

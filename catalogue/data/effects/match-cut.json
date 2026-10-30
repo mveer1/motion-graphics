@@ -1,0 +1,48 @@
+{
+  "id": "match-cut",
+  "name": "Match cut",
+  "category": "transition",
+  "visual_intent": "Visual continuity across a cut: the incoming element starts exactly where a similar outgoing element was, then settles.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "transition",
+    "match-cut",
+    "continuity"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "shape-match-cut"
+  ],
+  "implementation_summary": "Measures layout boxes, cuts scenes, tweens the incoming element from the outgoing box to its own.",
+  "primitives": [
+    "scene-container"
+  ],
+  "runtime_api": "Studio.fx.matchCut(tl, fromEl, toEl, outScene, inScene, at, {duration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "step-progress-tracker",
+  "name": "Step progress tracker",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Three inspected references show where the viewer is in a process: a bottom row of step nodes, a chapter bar, step pills.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A row of numbered nodes on a rule fills as the process advances, giving a how-to or explainer a constant answer to 'where are we and how much is left'.",
+  "purpose": "Orientation and pacing in multi-step content without repeated title cards.",
+  "visual_behaviour": "Completed nodes fill with the accent, the current node rings and pulses, the rule fills up to it.",
+  "mechanics": "Colour and scale tweens per node (chained from the previous state), rule scaleX to index / (n - 1).",
+  "decomposition": { "primitives": ["styled-text", "svg-shape"], "effects": ["paper-pop"], "timing": "0.5-0.8 s per advance, aligned with the step's first action." },
+  "parameters": [ { "name": "steps", "description": "Short labels, 3-7" }, { "name": "labels", "description": "Show labels", "default": true } ],
+  "use_cases": ["recipe or how-to", "setup guide", "explainer chapters", "onboarding"],
+  "failure_modes": ["More than 7 steps crowd portrait", "Advancing the tracker before the step is shown", "Tracker competing with captions in the bottom safe zone"],
+  "implementation_state": "implemented",
+  "implemented_by": ["progress-stepper"],
+  "implementation": { "approach": "Studio.comp.stepper(parent, steps).advance(tl, index, at)", "runtime_api": ["Studio.comp.stepper"] },
+  "capability": { "support": "native", "compatible_components": ["progress-stepper", "step-header"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-c3bc609841", "timestamps": [6.0, 15.0, 27.0], "observed": "A bottom row of six named step nodes fills in red as each ingredient is added; a side card shows the current step with its own progress bar." },
+    { "source_id": "ref-37644838b5", "timestamps": [10.0, 60.0], "observed": "A chapter bar at the bottom tracks progress through the explainer." },
+    { "source_id": "ref-95c96d5c47", "timestamps": [18.75, 25.2], "observed": "Numbered step pills head each phase of the explanation." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Five-step tracker advances with the relay stages." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Four-step stepper (Halve, Corners, Narrow, Wings) advanced on each fold in three formats. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["single-stage-progression"], "compositions": ["progress-stepper", "step-header"], "templates": ["illustrated-explainer", "technical-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["stepper", "progress", "how-to", "recipe", "explainer", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "grain-boil",
+  "name": "Grain / boil texture",
+  "category": "texture_material",
+  "visual_intent": "Tactile print or film texture; optional stepped boil for a hand-made feel.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "texture",
+    "grain",
+    "print"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "medium",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "stepped-grain"
+  ],
+  "implementation_summary": "Static feTurbulence tiles; boil steps visibility between seeded tiles at a fixed rate.",
+  "primitives": [
+    "grain-texture"
+  ],
+  "runtime_api": "Studio.texture.grain(tl, {opacity, boil: {from, to, fps}})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "id": "ref-49459ad8c1",
+  "sha256": "49459ad8c1f5a5e3b2f2bd0dac891d0a556b13127b817dd963bc88dbd6552045",
+  "file": "play_720p (8).mp4",
+  "decoded": {
+    "duration": 10.069333,
+    "width": 1280,
+    "height": 720
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30"
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 80,
+      "scan_size": "96x54",
+      "overview_frames": 16,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 2
+    },
+    "boundaries": [
+      {
+        "t": 2.0,
+        "kind": "cut",
+        "score": 1.1,
+        "isolation": 0.93,
+        "frame": 120
+      },
+      {
+        "t": 3.5,
+        "kind": "cut",
+        "score": 1.115,
+        "isolation": 1.0,
+        "frame": 210
+      },
+      {
+        "t": 5.0,
+        "kind": "cut",
+        "score": 1.213,
+        "isolation": 1.0,
+        "frame": 300
+      },
+      {
+        "t": 7.817,
+        "kind": "soft",
+        "score": 0.151,
+        "isolation": 0.06
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.0,
+        "duration": 2.0,
+        "activity": 0.012,
+        "luma": 0.21
+      },
+      {
+        "index": 2,
+        "start": 2.0,
+        "end": 3.5,
+        "duration": 1.5,
+        "activity": 0.118,
+        "luma": 0.84
+      },
+      {
+        "index": 3,
+        "start": 3.5,
+        "end": 5.0,
+        "duration": 1.5,
+        "activity": 0.093,
+        "luma": 0.23
+      },
+      {
+        "index": 4,
+        "start": 5.0,
+        "end": 7.82,
+        "duration": 2.82,
+        "activity": 0.147,
+        "luma": 0.87
+      },
+      {
+        "index": 5,
+        "start": 7.82,
+        "end": 10.0,
+        "duration": 2.18,
+        "activity": 0.042,
+        "luma": 0.26
+      }
+    ],
+    "static_holds": [
+      [
+        0.06,
+        1.06
+      ],
+      [
+        5.06,
+        5.94
+      ]
+    ],
+    "mean_activity": 0.085,
+    "luma": {
+      "mean": 0.51,
+      "dark_share": 0.38,
+      "light_share": 0.42
+    },
+    "palette": [
+      {
+        "hex": "#1828a8",
+        "share": 0.471
+      },
+      {
+        "hex": "#d8d8f8",
+        "share": 0.278
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.121
+      },
+      {
+        "hex": "#1828b8",
+        "share": 0.02
+      },
+      {
+        "hex": "#b8c8f8",
+        "share": 0.016
+      },
+      {
+        "hex": "#2828a8",
+        "share": 0.016
+      },
+      {
+        "hex": "#8888d8",
+        "share": 0.015
+      },
+      {
+        "hex": "#d8e8f8",
+        "share": 0.011
+      },
+      {
+        "hex": "#7888d8",
+        "share": 0.009
+      },
+      {
+        "hex": "#7878c8",
+        "share": 0.008
+      }
+    ],
+    "representative_times": [
+      1.0,
+      2.75,
+      4.25,
+      6.41,
+      8.91
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.9,
+      "mean_dbfs_voiced": -18.3,
+      "silence_ratio": 0.1,
+      "onsets": 19,
+      "onset_rate_per_sec": 1.89,
+      "onset_times": [
+        0.16,
+        1.02,
+        2.07,
+        2.55,
+        2.81,
+        2.93,
+        3.04,
+        3.55,
+        4.06,
+        4.32,
+        6.04,
+        6.32,
+        6.55,
+        6.8,
+        7.62,
+        8.06,
+        9.17,
+        9.31,
+        9.61
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.23,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 799,
+      "band_share": {
+        "low_lt_250": 0.44,
+        "mid_250_2k": 0.36,
+        "high_gt_2k": 0.2
+      },
+      "syllabic_modulation_share": 0.3,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 0.0,
+        "chance_level": 0.17,
+        "median_offset_ms": 134
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-49459ad8c1",
+      "overview": "out/reference-analysis/ref-49459ad8c1/overview.jpg",
+      "scenes": "out/reference-analysis/ref-49459ad8c1/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-49459ad8c1/transitions.jpg",
+      "motion": "out/reference-analysis/ref-49459ad8c1/motion.jpg",
+      "audio": "out/reference-analysis/ref-49459ad8c1/audio.png",
+      "frames": "out/reference-analysis/ref-49459ad8c1/frames",
+      "tracked": false
+    }
+  }
+}

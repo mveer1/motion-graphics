@@ -1,0 +1,83 @@
+{
+  "id": "paper-cut",
+  "name": "Paper Cut",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "Tactile layered paper on kraft-cream with chunky display type and playful overshoot; pairs with paper-pop, assembly and deckle edges.",
+  "location": "src/studio/styles/paper-cut.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f2e8d5",
+      "paper-2": "#e6d6b8",
+      "ink": "#2a2522",
+      "ink-2": "#5e554d",
+      "rule": "#cdbb98",
+      "accent": "#b5401f",
+      "accent-2": "#3f6f8f",
+      "accent-3": "#f0b23a"
+    },
+    "typography": {
+      "display": "'Archivo Black', sans-serif",
+      "text": "'Nunito', sans-serif",
+      "mono": "'Space Mono', monospace"
+    },
+    "texture": "Optional Studio.texture.grain overlay; blend from --grain-blend",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Playful and tactile (paper material easing)",
+    "ease_in": "power2.in",
+    "ease_out": "back.out(1.6)",
+    "enter_duration_sec": 0.6,
+    "stagger_sec": 0.07,
+    "notes": "Small overshoot and tilt; use the brighter --c-tomato for shapes, --c-accent for text."
+  },
+  "fonts": [
+    {
+      "family": "Archivo Black",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Nunito",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Space Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 12.5:1",
+    "ink-2/paper 6.0:1",
+    "accent/paper 4.65:1",
+    "accent-2/paper 4.5:1"
+  ],
+  "suitable_for": [
+    "kids and education",
+    "social shorts",
+    "cut-paper and collage pieces",
+    "playful product explainers"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Not yet used in a rendered project.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "light",
+    "paper",
+    "tactile",
+    "playful"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "avoid_for": [
+    "sombre or clinical topics"
+  ]
+}

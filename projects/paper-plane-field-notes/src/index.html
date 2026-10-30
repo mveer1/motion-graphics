@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Paper Plane Field Notes</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    /* Project styles. Sizes use --u (1% of the short side); per-format rules use #root[data-format]. */
+    .st-scene { background: var(--c-paper); }
+    #s4 { background: var(--c-accent); }
+    #s4 .st-display, #s4 .st-end-line { color: var(--c-paper); }
+    #art { pointer-events: none; }
+    #root[data-format="portrait"] #art,
+    #root[data-format="square"] #art { top: calc(var(--safe-top) + var(--u) * 6); }
+    .st-callout.wrap { white-space: pre-line; text-align: right; }
+    .sheet { fill: #fffaf2; stroke: var(--c-ink); stroke-width: 2.6; stroke-linejoin: round; }
+    .fold { fill: none; stroke: var(--c-ink-2); stroke-width: 1.8; stroke-linecap: round; }
+    .marker { fill: none; stroke: none; }
+    .steps { display: grid; }
+    .steps > .st-heading { grid-area: 1 / 1; }
+    #stepHost { width: 100%; margin-top: calc(var(--u) * 2); }
+    .flight { fill: none; stroke: var(--c-ink); stroke-width: calc(var(--u) * 0.35); stroke-linecap: round; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="landscape"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="22">
+
+  <section class="st-scene" id="s1"></section>
+  <section class="st-scene" id="s2">
+    <div class="st-split-copy" id="copy">
+      <div class="st-kicker" id="kick">How to fold</div>
+      <div class="steps">
+        <h2 class="st-heading" id="h1">Fold the sheet in half, lengthwise.</h2>
+        <h2 class="st-heading" id="h2">Fold the top corners to the crease.</h2>
+        <h2 class="st-heading" id="h3">Fold the new edges to the centre.</h2>
+        <h2 class="st-heading" id="h4">Fold down both wings.</h2>
+      </div>
+      <div id="stepHost"></div>
+    </div>
+    <div class="st-split-art" id="art">
+      <div class="st-art-frame">
+        <svg viewBox="0 0 400 400" aria-hidden="true">
+          <g id="plane">
+            <path id="sheet" class="sheet" d=""/>
+            <path id="crease" class="fold" d="M200 60 L200 340"/>
+            <path id="flapL" class="fold" d="M100 158.5 L200 158.5"/>
+            <path id="flapR" class="fold" d="M300 158.5 L200 158.5"/>
+            <path id="narL" class="fold" d="M140 230 L200 250"/>
+            <path id="narR" class="fold" d="M260 230 L200 250"/>
+            <path id="wingL" class="fold" d="M200 56 L182 300"/>
+            <path id="wingR" class="fold" d="M200 56 L218 300"/>
+            <circle id="shoulder" class="marker" cx="100" cy="158.5" r="8"/>
+            <circle id="nose" class="marker" cx="200" cy="56" r="8"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+  <section class="st-scene" id="s4"></section>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Scene cues mirror storyboard.json.
+  var cue = S.cues({ s1: 0, bloom1: 3.1, s2: 3.8, step1: 4.8, step2: 7.2, step3: 9.8, step4: 12.2, launch: 15.0, bloom2: 18.3, s4: 19.0, end: 22 });
+  var ink = S.token('--c-ink'), ink2 = S.token('--c-ink-2'), paper = S.token('--c-paper'), accent = S.token('--c-accent');
+
+  // Build all DOM and split text before adding tweens.
+  var verbs = S.comp.wordBeats('#s1', [
+    { text: 'Fold', treatment: 'stretch', stretch: 1.7 },
+    { text: 'Crease', treatment: 'track', bg: ink, ink: paper },
+    { text: 'Fly', treatment: 'smear', bg: accent, ink: paper, accent: true, side: 'left' }
+  ], { beats: [0, 0.9, 1.8, cue('bloom1')], holdLast: true });
+  verbs.cards[2].dot.style.color = paper;
+  var hud = S.comp.frameHud('#root', { tl: 'Field notes 01', tr: 'Fold 0 / 4', bl: 'Paper plane', br: 'Dart, 4 folds' }, { progress: false });
+  var heads = ['#h1', '#h2', '#h3', '#h4'].map(function (id) { return S.type.split(id, { type: 'lines,words', mask: 'lines' }); });
+  var steps = S.comp.stepper('#stepHost', ['Halve', 'Corners', 'Narrow', 'Wings']);
+  var end = S.comp.endCard(document.getElementById('s4'), { titleHTML: 'Fold. Crease. Fly.', lines: ['Grab a sheet and fold one.'] });
+  var narrow = S.pick({ landscape: false, portrait: true, square: true });
+  var notes = [
+    S.comp.callout('#s2', { text: narrow ? 'keep creases\nsharp' : 'keep creases sharp', target: '#shoulder', side: 'left', distance: 6, seed: 3 }, { className: 'wrap' }),
+    S.comp.callout('#s2', { text: narrow ? 'heavy nose,\nsteady glide' : 'heavy nose, steady glide', target: '#nose', side: 'left', distance: 6, seed: 8 }, { className: 'wrap' })
+  ];
+
+  // One sheet, four outlines (morph-ready polygons share 48 points and start at the top).
+  var D = S.draw;
+  var shapes = [
+    D.shape('poly', { verts: [[100, 58.5], [300, 58.5], [300, 341.5], [100, 341.5]] }),
+    D.shape('poly', { verts: [[200, 58.5], [300, 158.5], [300, 341.5], [100, 341.5], [100, 158.5]] }),
+    D.shape('poly', { verts: [[200, 58.5], [260, 230], [260, 341.5], [140, 341.5], [140, 230]] }),
+    D.shape('poly', { verts: [[200, 50], [335, 320], [220, 300], [200, 340], [180, 300], [65, 320]] })
+  ];
+  document.getElementById('sheet').setAttribute('d', shapes[0]);
+  gsap.set('#sheet', { transformOrigin: '50% 50%' });
+  ['#crease', '#flapL', '#flapR', '#narL', '#narR', '#wingL', '#wingR'].forEach(function (id) { D.prepare(id); });
+
+  // HUD colour follows the background; each switch starts from the previous colour (seek-safe).
+  var hudInk = ink2;
+  function hudColour(c, at) {
+    tl.fromTo(hud.el, { color: hudInk }, { color: c, duration: 0.001, ease: 'none', immediateRender: false }, at);
+    hudInk = c;
+  }
+
+  // s1: verbs on a 0.9 s beat; the full stop of "Fly." blooms into the page.
+  S.show(tl, '#s1', 0);
+  hud.enter(tl, 0);
+  verbs.schedule(tl);
+  hudColour(paper, 0.9);
+  S.fx.bloom(tl, verbs.cards[2].dot, '#s1', '#s2', cue('bloom1'), { duration: 0.7 });
+  hudColour(ink2, cue('bloom1', 0.45));
+
+  // s2: one stage, four folds.
+  S.type.track(tl, '#kick', cue('s2'));
+  S.space.pop(tl, '#sheet', cue('s2'), { fromScale: 0.5, tilt: 3 });
+  steps.enter(tl, cue('s2', 0.1));
+
+  S.type.rise(tl, heads[0].lines, cue('step1'), { stagger: 0.08 });
+  steps.advance(tl, 0, cue('step1'));
+  hud.set(tl, 'tr', 'Fold 1 / 4', cue('step1'));
+  D.pen(tl, '#crease', cue('step1', 0.3), { duration: 0.8, dotRadius: 4, keepDot: false });
+
+  S.type.exit(tl, heads[0].lines, cue('step2', -0.25));
+  S.type.rise(tl, heads[1].lines, cue('step2'), { stagger: 0.08 });
+  steps.advance(tl, 1, cue('step2'));
+  hud.set(tl, 'tr', 'Fold 2 / 4', cue('step2'));
+  D.morph(tl, '#sheet', shapes[1], cue('step2', 0.1), { from: shapes[0], duration: 0.7, ease: 'power3.inOut' });
+  D.pen(tl, '#flapL', cue('step2', 0.8), { duration: 0.45, dotRadius: 3.5, keepDot: false });
+  D.pen(tl, '#flapR', cue('step2', 0.9), { duration: 0.45, dotRadius: 3.5, keepDot: false });
+  notes[0].enter(tl, cue('step2', 1.0));
+
+  notes[0].exit(tl, cue('step3', -0.2));
+  S.type.exit(tl, heads[1].lines, cue('step3', -0.25));
+  S.type.rise(tl, heads[2].lines, cue('step3'), { stagger: 0.08 });
+  steps.advance(tl, 2, cue('step3'));
+  hud.set(tl, 'tr', 'Fold 3 / 4', cue('step3'));
+  tl.fromTo(['#flapL', '#flapR'], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, ease: 'power1.in', immediateRender: false }, cue('step3'));
+  D.morph(tl, '#sheet', shapes[2], cue('step3', 0.1), { from: shapes[1], duration: 0.7, ease: 'power3.inOut' });
+  D.pen(tl, '#narL', cue('step3', 0.8), { duration: 0.45, dotRadius: 3.5, keepDot: false });
+  D.pen(tl, '#narR', cue('step3', 0.9), { duration: 0.45, dotRadius: 3.5, keepDot: false });
+
+  S.type.exit(tl, heads[2].lines, cue('step4', -0.25));
+  S.type.rise(tl, heads[3].lines, cue('step4'), { stagger: 0.08 });
+  steps.advance(tl, 3, cue('step4'));
+  hud.set(tl, 'tr', 'Fold 4 / 4', cue('step4'));
+  tl.fromTo(['#narL', '#narR', '#crease'], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, ease: 'power1.in', immediateRender: false }, cue('step4'));
+  D.morph(tl, '#sheet', shapes[3], cue('step4', 0.1), { from: shapes[2], duration: 0.7, ease: 'power3.inOut' });
+  D.pen(tl, '#wingL', cue('step4', 0.7), { duration: 0.5, dotRadius: 3.5, keepDot: false });
+  D.pen(tl, '#wingR', cue('step4', 0.8), { duration: 0.5, dotRadius: 3.5, keepDot: false });
+  notes[1].enter(tl, cue('step4', 0.95));
+
+  // s3 (same stage): the plane shrinks into its nose; that dot draws the glide.
+  notes[1].exit(tl, cue('launch', -0.25));
+  S.type.exit(tl, heads[3].lines, cue('launch', -0.2));
+  steps.exit(tl, cue('launch', -0.2));
+  tl.fromTo('#kick', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('launch', -0.2));
+  hud.set(tl, 'tr', 'Flight', cue('launch'));
+  var nose = S.boxAt(tl, '#nose', cue('launch'));
+  tl.fromTo('#plane', { scale: 1, svgOrigin: '200 56' }, { scale: 0.04, svgOrigin: '200 56', duration: 0.5, ease: 'power3.in', immediateRender: false }, cue('launch'));
+  tl.fromTo('#plane', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.05, immediateRender: false }, cue('launch', 0.5));
+  var W = f.width, H = f.height, sx = nose.cx, sy = nose.cy;
+  var p = S.pick({
+    landscape: { ex: W * 0.17, ey: H * 0.64, c1: [sx - W * 0.22, sy - H * 0.16], c2: [W * 0.17 + W * 0.3, H * 0.64 - H * 0.02] },
+    portrait: { ex: W * 0.24, ey: H * 0.72, c1: [sx + W * 0.34, sy + H * 0.08], c2: [W * 0.24 + W * 0.42, H * 0.72 - H * 0.12] },
+    square: { ex: W * 0.2, ey: H * 0.74, c1: [sx + W * 0.28, sy + H * 0.04], c2: [W * 0.2 + W * 0.36, H * 0.74 - H * 0.1] }
+  });
+  var layer = D.layer('#s2');
+  var flight = S.svg('path', { 'class': 'flight', d: 'M' + sx.toFixed(1) + ' ' + sy.toFixed(1) + ' C' + p.c1[0].toFixed(1) + ' ' + p.c1[1].toFixed(1) + ' ' +
+    p.c2[0].toFixed(1) + ' ' + p.c2[1].toFixed(1) + ' ' + p.ex.toFixed(1) + ' ' + p.ey.toFixed(1) }, layer);
+  var landed = D.pen(tl, flight, cue('launch', 0.45), { duration: 2.0, ease: 'sine.inOut', dotRadius: S.u(1.1) });
+  var glide = S.comp.callout('#s2', { text: 'smooth glide', target: flight.__penDot, side: 'top', distance: 6, loop: false, seed: 4 });
+  glide.enter(tl, landed + 0.1);
+
+  // The landing dot opens the end card.
+  S.fx.bloom(tl, flight.__penDot, '#s2', '#s4', cue('bloom2'), { duration: 0.7, ring: ink });
+  hudColour(paper, cue('bloom2', 0.35));
+  end.enter(tl, cue('s4', 0.1));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1021 @@
+{
+  "id": "ref-37644838b5",
+  "name": "3D isometric infrastructure explainer (screen capture)",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (10).mp4",
+    "aliases": [],
+    "sha256": "37644838b5b69c4ce6d0be3fda676805529a752a056d6f05d4010cc061faf5af",
+    "bytes": 18355639,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "product",
+        "description": "A named commercial GPU and its hardware depicted in 3D",
+        "timestamps": [
+          44.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified; publisher unknown (layout suggests a news-style interactive graphic captured from screen). Do not reproduce its 3D models, captions or chapter structure."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 18355639,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 97.9,
+    "encoder": "Lavf62.12.102",
+    "width": 1406,
+    "height": 720,
+    "video_codec": "avc1.640028",
+    "frame_count": 5609,
+    "variable_frame_rate": true,
+    "fps": 57.293,
+    "fps_exact": "average of 1430 timing runs",
+    "video_kbps": 1359,
+    "keyframes": 98,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 97.941,
+      "kbps": 128
+    },
+    "overall_kbps": 1500
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames over 97.9 s, about 1.5 s apart) and the audio sheet with spectrogram. Scene sheet and strips generated, not viewed. Timestamps for individual chapters are approximate.",
+    "coverage": "Full duration at overview density.",
+    "concept": {
+      "observed": "A chaptered explainer of an AI data centre: building and power, data hall, rack, compute tray, an exploded chip, cluster, cooling and a closing summary, in white clay-render isometric 3D with coloured flow lines.",
+      "interpreted": "An interactive scroll story captured as video (variable frame rate 57.3 fps average and a 1406x720 frame suggest a screen recording).",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Caption card with chapter title and paragraph at the bottom left; chapter progress bar; no voice.",
+      "interpreted": "Calm, journalistic, reading-paced."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured light greys (#d8d8d8 25%, #e8e8e8 21%); luma mean 0.77; yellow, blue and orange used only for flows."
+      },
+      "typography": {
+        "observed": "Serif or grotesk caption headings with body paragraphs; small labels with leader lines."
+      },
+      "composition": {
+        "observed": "Centred isometric objects on white with the caption card fixed bottom-left."
+      },
+      "shapes_and_materials": {
+        "observed": "Matte white clay materials, soft shadows, coloured pipe and power-line flows."
+      },
+      "camera": {
+        "observed": "Continuous camera moves between chapters (dolly and orbit) in one 3D world."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median shot 3.0 s with 7 cuts and 11 soft boundaries (analyzer 1.2) over 98 s.",
+        "interpreted": "Paced for reading the captions."
+      },
+      "audio_and_sync": {
+        "observed": "Spectrogram viewed: steady sustained bands and a level envelope with section changes near 22 s and 50 s; no syllabic speech patterns.",
+        "interpreted": "Ambient music bed; no narration.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 22.38,
+        "observed": "Facility exterior and power lines with flowing yellow energy."
+      },
+      {
+        "start": 22.38,
+        "end": 48.52,
+        "observed": "Data hall, rack and an exploded chip with labelled layers (approx.)."
+      },
+      {
+        "start": 48.52,
+        "end": 80.45,
+        "observed": "Racks combine into a cluster; cooling loops with blue and orange flows."
+      },
+      {
+        "start": 80.45,
+        "end": 97.9,
+        "observed": "Summary chapter and closing statement."
+      }
+    ],
+    "difficult": [
+      "Clay-render 3D world with camera flight (needs WebGL or offline 3D)",
+      "Interactive scroll behaviour (not applicable to linear video)"
+    ],
+    "uncertainties": [
+      "Publisher and licence unknown",
+      "Chapter timestamps approximate"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        10.0,
+        60.0
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        44.0
+      ]
+    },
+    {
+      "id": "step-progress-tracker",
+      "timestamps": [
+        10.0,
+        60.0
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        10.0,
+        50.0,
+        90.0
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        5.0,
+        30.0,
+        60.0
+      ]
+    },
+    {
+      "id": "isometric-exploded-view",
+      "timestamps": [
+        44.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "hybrid-video-underlay",
+      "parallax-camera",
+      "connector-draw"
+    ],
+    "compositions": [
+      "caption-band",
+      "progress-stepper"
+    ],
+    "templates": [
+      "technical-explainer"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "3d-render",
+    "diagram",
+    "2.5d-depth",
+    "editorial-layout"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "isometric",
+    "infrastructure",
+    "screen-capture",
+    "chapters"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 31.3
+    },
+    "sampling": {
+      "scan_fps": 4.0,
+      "scan_frames": 391,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 16,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 22.376,
+        "kind": "cut",
+        "score": 0.159,
+        "isolation": 0.94,
+        "frame": 1282
+      },
+      {
+        "t": 26.125,
+        "kind": "soft",
+        "score": 0.402
+      },
+      {
+        "t": 28.677,
+        "kind": "cut",
+        "score": 0.678,
+        "isolation": 0.97,
+        "frame": 1643
+      },
+      {
+        "t": 43.304,
+        "kind": "soft",
+        "score": 0.046,
+        "isolation": 0.0
+      },
+      {
+        "t": 48.523,
+        "kind": "cut",
+        "score": 0.377,
+        "isolation": 0.95,
+        "frame": 2780
+      },
+      {
+        "t": 50.32,
+        "kind": "cut",
+        "score": 0.149,
+        "isolation": 0.52,
+        "frame": 2883
+      },
+      {
+        "t": 52.764,
+        "kind": "cut",
+        "score": 0.172,
+        "isolation": 0.78,
+        "frame": 3023
+      },
+      {
+        "t": 54.875,
+        "kind": "soft",
+        "score": 0.168
+      },
+      {
+        "t": 56.625,
+        "kind": "soft",
+        "score": 0.164
+      },
+      {
+        "t": 58.96,
+        "kind": "cut",
+        "score": 0.349,
+        "isolation": 0.91,
+        "frame": 3378
+      },
+      {
+        "t": 60.375,
+        "kind": "soft",
+        "score": 0.186
+      },
+      {
+        "t": 65.125,
+        "kind": "soft",
+        "score": 0.161
+      },
+      {
+        "t": 69.125,
+        "kind": "soft",
+        "score": 0.161
+      },
+      {
+        "t": 72.125,
+        "kind": "soft",
+        "score": 0.188
+      },
+      {
+        "t": 73.125,
+        "kind": "soft",
+        "score": 0.221
+      },
+      {
+        "t": 80.446,
+        "kind": "cut",
+        "score": 0.197,
+        "isolation": 0.97,
+        "frame": 4609
+      },
+      {
+        "t": 85.625,
+        "kind": "soft",
+        "score": 0.181
+      },
+      {
+        "t": 95.125,
+        "kind": "soft",
+        "score": 0.16
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 22.38,
+        "duration": 22.38,
+        "activity": 0.101,
+        "luma": 0.85
+      },
+      {
+        "index": 2,
+        "start": 22.38,
+        "end": 26.12,
+        "duration": 3.75,
+        "activity": 0.226,
+        "luma": 0.73
+      },
+      {
+        "index": 3,
+        "start": 26.12,
+        "end": 28.68,
+        "duration": 2.55,
+        "activity": 0.169,
+        "luma": 0.49
+      },
+      {
+        "index": 4,
+        "start": 28.68,
+        "end": 43.3,
+        "duration": 14.63,
+        "activity": 0.137,
+        "luma": 0.76
+      },
+      {
+        "index": 5,
+        "start": 43.3,
+        "end": 48.52,
+        "duration": 5.22,
+        "activity": 0.17,
+        "luma": 0.77
+      },
+      {
+        "index": 6,
+        "start": 48.52,
+        "end": 50.32,
+        "duration": 1.8,
+        "activity": 0.384,
+        "luma": 0.49
+      },
+      {
+        "index": 7,
+        "start": 50.32,
+        "end": 52.76,
+        "duration": 2.44,
+        "activity": 0.223,
+        "luma": 0.81
+      },
+      {
+        "index": 8,
+        "start": 52.76,
+        "end": 54.88,
+        "duration": 2.11,
+        "activity": 0.275,
+        "luma": 0.77
+      },
+      {
+        "index": 9,
+        "start": 54.88,
+        "end": 56.62,
+        "duration": 1.75,
+        "activity": 0.211,
+        "luma": 0.83
+      },
+      {
+        "index": 10,
+        "start": 56.62,
+        "end": 58.96,
+        "duration": 2.34,
+        "activity": 0.187,
+        "luma": 0.77
+      },
+      {
+        "index": 11,
+        "start": 58.96,
+        "end": 60.38,
+        "duration": 1.41,
+        "activity": 0.429,
+        "luma": 0.65
+      },
+      {
+        "index": 12,
+        "start": 60.38,
+        "end": 65.12,
+        "duration": 4.75,
+        "activity": 0.234,
+        "luma": 0.75
+      },
+      {
+        "index": 13,
+        "start": 65.12,
+        "end": 69.12,
+        "duration": 4.0,
+        "activity": 0.07,
+        "luma": 0.8
+      },
+      {
+        "index": 14,
+        "start": 69.12,
+        "end": 72.12,
+        "duration": 3.0,
+        "activity": 0.056,
+        "luma": 0.77
+      },
+      {
+        "index": 15,
+        "start": 72.12,
+        "end": 73.12,
+        "duration": 1.0,
+        "activity": 0.216,
+        "luma": 0.78
+      },
+      {
+        "index": 16,
+        "start": 73.12,
+        "end": 80.45,
+        "duration": 7.32,
+        "activity": 0.192,
+        "luma": 0.76
+      },
+      {
+        "index": 17,
+        "start": 80.45,
+        "end": 85.62,
+        "duration": 5.18,
+        "activity": 0.143,
+        "luma": 0.74
+      },
+      {
+        "index": 18,
+        "start": 85.62,
+        "end": 95.12,
+        "duration": 9.5,
+        "activity": 0.134,
+        "luma": 0.79
+      },
+      {
+        "index": 19,
+        "start": 95.12,
+        "end": 97.9,
+        "duration": 2.78,
+        "activity": 0.056,
+        "luma": 0.85
+      }
+    ],
+    "static_holds": [
+      [
+        0.12,
+        0.88
+      ]
+    ],
+    "mean_activity": 0.153,
+    "luma": {
+      "mean": 0.77,
+      "dark_share": 0.0,
+      "light_share": 0.93
+    },
+    "palette": [
+      {
+        "hex": "#d8d8d8",
+        "share": 0.252
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.212
+      },
+      {
+        "hex": "#d8d8e8",
+        "share": 0.106
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.066
+      },
+      {
+        "hex": "#d8e8e8",
+        "share": 0.042
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.023
+      },
+      {
+        "hex": "#e8e8f8",
+        "share": 0.021
+      },
+      {
+        "hex": "#888888",
+        "share": 0.02
+      },
+      {
+        "hex": "#a8a8b8",
+        "share": 0.018
+      },
+      {
+        "hex": "#c8c8d8",
+        "share": 0.015
+      }
+    ],
+    "representative_times": [
+      5.59,
+      11.19,
+      16.79,
+      24.25,
+      27.4,
+      32.34,
+      35.99,
+      39.64,
+      44.6,
+      45.91,
+      47.22,
+      49.42,
+      51.54,
+      53.82,
+      55.75,
+      57.79,
+      59.67,
+      61.57,
+      62.75,
+      63.94,
+      66.12,
+      67.12,
+      68.12,
+      70.62,
+      72.62,
+      74.95,
+      76.78,
+      78.62,
+      81.74,
+      83.03,
+      84.33,
+      88.0,
+      90.37,
+      92.75,
+      96.51
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -24.6,
+      "mean_dbfs_voiced": -41.1,
+      "silence_ratio": 0.0,
+      "onsets": 389,
+      "onset_rate_per_sec": 3.97,
+      "onset_times": [
+        0.33,
+        0.93,
+        1.25,
+        1.72,
+        1.81,
+        2.58,
+        3.02,
+        3.72,
+        4.37,
+        4.46,
+        4.62,
+        5.64,
+        6.18,
+        6.9,
+        7.71,
+        8.36,
+        8.78,
+        9.2,
+        9.73,
+        9.87,
+        11.03,
+        11.12,
+        11.26,
+        11.59,
+        11.7,
+        11.94,
+        12.35,
+        12.77,
+        13.58,
+        13.72,
+        13.86,
+        15.58,
+        15.84,
+        15.93,
+        16.02,
+        16.37,
+        17.53,
+        17.72,
+        19.02,
+        19.71,
+        20.02,
+        20.36,
+        20.78,
+        21.2,
+        21.87,
+        22.59,
+        22.78,
+        23.01,
+        23.22,
+        23.36,
+        23.59,
+        23.71,
+        23.94,
+        24.08,
+        24.36,
+        24.78,
+        25.15,
+        25.31,
+        25.73,
+        25.87,
+        26.35,
+        26.59,
+        26.68,
+        26.77,
+        26.89,
+        26.96,
+        27.03,
+        27.59,
+        27.7,
+        27.93,
+        28.35,
+        28.61,
+        28.77,
+        28.84,
+        29.14,
+        29.26,
+        29.72,
+        29.81,
+        30.0,
+        30.42,
+        30.51,
+        30.58,
+        30.67,
+        30.88,
+        31.02,
+        31.58,
+        31.7,
+        31.76,
+        31.83,
+        31.93,
+        32.02,
+        32.37,
+        32.58,
+        33.44,
+        33.72,
+        33.99,
+        34.06,
+        34.13,
+        34.57,
+        34.67,
+        34.78,
+        35.02,
+        35.22,
+        35.71,
+        35.94,
+        36.08,
+        36.27,
+        36.36,
+        36.46,
+        36.62,
+        36.78,
+        37.04,
+        37.15,
+        37.85,
+        38.13,
+        38.2,
+        38.36,
+        38.45,
+        38.57,
+        38.78,
+        39.03,
+        39.22,
+        39.71,
+        39.94,
+        40.36,
+        40.61,
+        40.77,
+        40.91,
+        41.03,
+        41.73,
+        42.05,
+        42.59,
+        42.68,
+        42.77,
+        43.03,
+        43.58,
+        43.7,
+        44.35,
+        44.77,
+        45.14,
+        45.58,
+        45.72,
+        45.81,
+        46.07,
+        46.51,
+        46.58,
+        46.67,
+        47.02,
+        47.37,
+        47.58,
+        47.72,
+        47.83,
+        47.93,
+        48.09,
+        48.37,
+        48.83,
+        49.02,
+        49.71,
+        50.06,
+        50.78,
+        51.01,
+        51.08,
+        51.22,
+        51.57,
+        51.71,
+        52.01,
+        52.08,
+        52.15,
+        52.36,
+        52.48,
+        52.62,
+        52.92,
+        53.15,
+        53.27,
+        53.64,
+        53.73,
+        53.87,
+        54.06,
+        54.17,
+        54.36,
+        54.59,
+        54.68,
+        54.78,
+        55.01,
+        55.08,
+        55.26,
+        55.59,
+        55.7,
+        55.94,
+        56.35,
+        56.61,
+        56.91,
+        57.14,
+        57.26,
+        57.63,
+        57.72,
+        57.86,
+        58.35,
+        58.51,
+        58.58,
+        58.68,
+        59.03,
+        59.23,
+        59.3,
+        59.58,
+        59.7,
+        59.93,
+        60.02,
+        60.09,
+        60.35,
+        60.63,
+        60.72,
+        60.84,
+        61.14,
+        61.3,
+        61.49,
+        61.72,
+        62.0,
+        62.14,
+        62.25,
+        62.58,
+        62.67,
+        62.9,
+        63.02,
+        63.09,
+        63.23,
+        63.3,
+        63.58,
+        63.72,
+        64.02,
+        64.09,
+        64.37,
+        64.62,
+        64.71,
+        64.83,
+        64.9,
+        65.2,
+        65.27,
+        65.41,
+        65.64,
+        65.74,
+        65.88,
+        66.06,
+        66.13,
+        66.59,
+        66.78,
+        66.9,
+        67.01,
+        67.08,
+        67.22,
+        67.71,
+        68.01,
+        68.27,
+        68.36,
+        68.61,
+        69.03,
+        69.15,
+        69.27,
+        69.52,
+        69.64,
+        69.73,
+        69.87,
+        70.36,
+        70.59,
+        70.68,
+        70.77,
+        70.89,
+        71.03,
+        71.22,
+        71.59,
+        71.7,
+        71.94,
+        72.35,
+        72.61,
+        72.77,
+        72.93,
+        73.03,
+        73.14,
+        73.26,
+        73.42,
+        73.72,
+        73.82,
+        74.51,
+        74.58,
+        74.68,
+        75.02,
+        75.58,
+        75.7,
+        75.84,
+        76.37,
+        76.83,
+        76.9,
+        77.14,
+        77.48,
+        77.72,
+        77.81,
+        78.39,
+        78.58,
+        78.67,
+        78.9,
+        79.02,
+        79.09,
+        79.23,
+        79.57,
+        79.71,
+        80.36,
+        80.57,
+        80.78,
+        80.9,
+        81.2,
+        81.32,
+        81.64,
+        81.73,
+        82.06,
+        82.13,
+        82.36,
+        82.59,
+        82.69,
+        82.9,
+        83.01,
+        83.08,
+        83.22,
+        83.57,
+        83.71,
+        84.01,
+        84.08,
+        84.15,
+        84.27,
+        84.36,
+        84.61,
+        85.19,
+        85.26,
+        85.52,
+        85.64,
+        85.73,
+        85.87,
+        86.05,
+        86.36,
+        86.59,
+        86.68,
+        86.77,
+        87.03,
+        87.59,
+        87.7,
+        87.93,
+        88.35,
+        88.91,
+        89.14,
+        89.26,
+        89.42,
+        89.49,
+        89.72,
+        89.81,
+        90.0,
+        90.58,
+        90.67,
+        91.02,
+        91.58,
+        91.7,
+        91.83,
+        91.93,
+        92.02,
+        92.09,
+        92.28,
+        92.37,
+        92.62,
+        92.83,
+        92.9,
+        93.14,
+        93.48,
+        93.72,
+        94.06,
+        94.13,
+        94.39,
+        94.57,
+        94.67,
+        94.9,
+        95.02,
+        95.09,
+        95.23,
+        95.57,
+        95.71,
+        96.01,
+        96.27,
+        96.36,
+        96.46,
+        96.62,
+        96.78,
+        97.2
+      ],
+      "tempo_estimate": {
+        "bpm": 184.6,
+        "autocorr": 0.83,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 895,
+      "band_share": {
+        "low_lt_250": 0.21,
+        "mid_250_2k": 0.66,
+        "high_gt_2k": 0.13
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 18,
+        "tolerance_ms": 50,
+        "near_onset": 0.33,
+        "chance_level": 0.33,
+        "median_offset_ms": 79,
+        "near_beat": 0.44,
+        "beat_chance_level": 0.37,
+        "beat_phase_sec": 0.074
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-37644838b5",
+      "overview": "out/reference-analysis/ref-37644838b5/overview.jpg",
+      "scenes": "out/reference-analysis/ref-37644838b5/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-37644838b5/transitions.jpg",
+      "motion": "out/reference-analysis/ref-37644838b5/motion.jpg",
+      "audio": "out/reference-analysis/ref-37644838b5/audio.png",
+      "frames": "out/reference-analysis/ref-37644838b5/frames",
+      "tracked": false
+    }
+  }
+}

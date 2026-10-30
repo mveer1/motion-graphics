@@ -1,0 +1,18 @@
+{
+  "runtime_version": "1.0.0",
+  "source": "src/studio",
+  "synced_on": "2026-10-30",
+  "files": {
+    "studio-base.css": "3b8304562176387fa09e7f55aefe80fba030face3c0f1ff97a3c4e22c07c57c1",
+    "studio-compositions.js": "1e8d20dbd45c58c97f10d978e45e923b8a67ee6d92e1cc662e58cb544af6fbac",
+    "studio-core.js": "f45db4aa170d3c8984ad97863bf742194b4301e34a573cd0c386f955fa108ea0",
+    "studio-draw.js": "a74cc21cf8507cac27064baed42e6caed205fb8f4bba24627b4531aa0228c825",
+    "studio-motion.js": "f73f184af9c1f9cea45d9d42f7b36d281a3d5899eea50b7af78ac16822d862bb",
+    "studio-type.js": "080a4159f5d22a65572e93ac9ed295a0213165076db6bf6d3da80e7d04d9e164",
+    "styles/cinematic-dark.css": "c0540cf2e72f8cd02f5a47e3a3abe48e5083231496ec654333bdf73e9031534c",
+    "styles/dark-tech.css": "062d6eada7a54d36c4c3abd543f9ab897d38f5844e35fd3c2546d3592be83a5b",
+    "styles/editorial-light.css": "e694c3cb158c2491bcc1f58b5ffc6678df2cc6dbd7d7d61ff48b7d89a9be779f",
+    "styles/paper-cut.css": "3a2bf9f7304dd72966e88e02d6b00780ccf079c31f594cc06d4f4ca473e0352f",
+    "styles/swiss-minimal.css": "ba0397d4478d3b411256134e25500ae3e1b47e9c5f4fcf6cc6df96a2129540e6"
+  }
+}

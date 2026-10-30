@@ -1,0 +1,48 @@
+{
+  "id": "hud-frame-overlay",
+  "name": "HUD frame overlay",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Six inspected references keep a constant frame layer over changing scenes: corner brackets and micro labels, an engineering-drawing border, life-stat counters or a chapter progress bar.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A thin, persistent frame (corner marks, tiny labels, a counter, a progress rule) sits above every scene and survives every cut. It turns a sequence of disparate shots into one designed object and gives the viewer a sense of place and progress.",
+  "purpose": "Continuity across hard cuts; editorial polish; progress and context (section, counter, credit).",
+  "visual_behaviour": "Four corner brackets or a ruled border at the safe area; small uppercase labels in the corners; one label updates (counter, chapter, age); a rule fills along the bottom.",
+  "mechanics": "Static layer above transitions; label swaps of 0.15-0.3 s; progress linear with time.",
+  "decomposition": { "primitives": ["styled-text", "scene-container"], "effects": ["tracking-reveal"], "timing": "Constant for the whole piece; counter swaps on cuts." },
+  "parameters": [ { "name": "labels", "description": "tl, tr, bl, br strings" }, { "name": "progress", "description": "Show a progress rule", "default": true } ],
+  "use_cases": ["showreel or reel", "kinetic typography", "explainer chapters", "product promo", "documentary-style data story"],
+  "failure_modes": ["Labels below the text floor are unreadable on phones", "HUD colour that does not adapt to dark and light scenes disappears", "Corner labels colliding with scene text in portrait"],
+  "implementation_state": "implemented",
+  "implemented_by": ["frame-hud"],
+  "implementation": { "approach": "Studio.comp.frameHud: brackets and labels pinned to the safe-area corners above the transition overlay; set() swaps a label at a cue; progress() fills the rule. Colour switches should be chained (each from the previous value) for seek safety.", "runtime_api": ["Studio.comp.frameHud"] },
+  "capability": {
+    "support": "native",
+    "requirements": ["absolute layer above scenes"],
+    "compatible_components": ["frame-hud", "tracking-reveal"],
+    "additional_dependencies": [],
+    "complexity": "low",
+    "resources": { "cpu": "low", "gpu": "low", "memory": "a dozen nodes", "basis": "measured", "measurements": [
+      { "what": "every-frame preview capture of tests/reference-derived/word-beats (HUD over every frame), 1280x720, 375 frames", "value": "47.0 ms/frame median, peak headless Chromium 291 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" }
+    ] },
+    "native_option": "DOM layer with GSAP label swaps.",
+    "additional_tooling": { "needed": "no" },
+    "limitations": ["Labels are kept at the 2.6% text floor, larger than the micro labels seen in the references"],
+    "priority": { "creative_value": 4, "cost": 1 }
+  },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [0.5, 7.5, 14.5], "observed": "Corner brackets and tiny corner labels persist over every scene and transition." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [1.0, 7.0, 13.0], "observed": "Same kind of persistent corner frame over dark, light and colour scenes." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [1.0, 20.0], "observed": "Both halves keep small corner meta text over every card." },
+    { "source_id": "ref-736d4ef2c2", "timestamps": [1.0, 15.0], "observed": "An engineering-drawing border with a title block frames the type compositions." },
+    { "source_id": "ref-5924215625", "timestamps": [4.5, 12.0], "observed": "Age and heart-rate counters in the top corners update from scene to scene." },
+    { "source_id": "ref-37644838b5", "timestamps": [10.0, 60.0], "observed": "A chapter progress bar and caption block stay on screen while the 3D scene changes." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Label swap, progress tracks time, stays above a bloom." },
+    { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30" },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Corner labels count the folds (Fold n / 4, then Flight); the HUD colour follows each background, chained from the previous colour. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["word-per-beat-sequence", "single-stage-progression"], "compositions": ["frame-hud", "caption-band"], "templates": ["kinetic-typography", "technical-explainer", "product-promo"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Labels and layout are original.",
+  "tags": ["hud", "frame", "overlay", "continuity", "editorial-layout", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

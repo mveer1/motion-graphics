@@ -1,0 +1,58 @@
+{
+  "id": "element-bloom-transition",
+  "name": "Element bloom transition",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Five inspected references start a scene change from an element already on screen (a full stop, a dot, an eye, a heartbeat, a logo) that grows to become the next scene.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Instead of cutting or wiping, a small element of the current frame expands until its colour fills the frame, and that colour is the background of the next scene. The viewer's eye is already on the element, so the change feels caused rather than imposed.",
+  "purpose": "Motivated scene change with continuity of attention and colour.",
+  "visual_behaviour": "A dot or full stop swells (sometimes led by a thin ring of a second colour) to cover the frame in 0.25-0.8 s; the next scene's content then appears on that colour.",
+  "mechanics": "Scale of a circle from the source's size to the distance to the farthest corner; ease-in (accelerating) growth; the scene swap happens under full cover, so no frame shows both scenes; optional ring leads the fill by 15-20% of the duration.",
+  "decomposition": { "primitives": ["svg-shape", "clip-mask"], "effects": ["element-bloom", "iris-transition", "shape-cover-transition"], "timing": "About 0.25-0.4 s in fast reels (ref-92c22222a2 1.88 s, ref-49459ad8c1 7.82 s); about 0.5-0.8 s in slower pieces (ref-5924215625 1.57 s)." },
+  "parameters": [
+    { "name": "source", "description": "Element whose centre and colour seed the bloom" },
+    { "name": "duration", "description": "Seconds to full cover", "default": 0.8 },
+    { "name": "ring", "description": "Optional leading ring colour" },
+    { "name": "mode", "description": "become (colour becomes the background) or reveal (next scene inside the circle)", "default": "become" }
+  ],
+  "use_cases": ["scene transition", "kinetic typography (full stop to next card)", "logo or icon to end card", "explainer chapter change", "product promo"],
+  "failure_modes": ["Incoming scene background differs from the bloom colour: visible pop", "Source near a frame corner makes the growth read as a wipe", "Used on every cut it becomes a tic; reserve for meaningful turns", "Source that moves during the bloom (measure position at the cue)"],
+  "implementation_state": "implemented",
+  "implemented_by": ["element-bloom", "bloom-become"],
+  "implementation": { "approach": "Studio.fx.bloom measures the source with Studio.boxAt at the cue, scales overlay discs (ring then fill) from the source radius to the farthest corner, cuts the scenes under full cover and hides the discs; mode reveal animates a clip-path circle on the incoming scene instead.", "runtime_api": ["Studio.fx.bloom", "Studio.boxAt"] },
+  "capability": {
+    "support": "native",
+    "requirements": ["CSS transform scale", "clip-path circle (reveal mode)"],
+    "compatible_components": ["element-bloom", "iris-transition", "shape-cover-transition"],
+    "additional_dependencies": [],
+    "complexity": "low",
+    "resources": { "cpu": "low", "gpu": "low", "memory": "1-2 overlay discs", "basis": "measured", "measurements": [
+      { "what": "every-frame preview capture of tests/reference-derived/pen-and-bloom (two blooms), 1280x720, 285 frames", "value": "52.5 ms/frame median, 75.2 ms p95, peak headless Chromium 264 MB", "where": "Windows dev host, Playwright Chromium (tests/reference-derived/benchmark.json)", "date": "2026-10-30" }
+    ] },
+    "native_option": "Transform-scaled disc in the overlay layer; clip-path circle for reveal.",
+    "additional_tooling": { "needed": "no" },
+    "limitations": ["Not yet rendered through HyperFrames on the M2"],
+    "priority": { "creative_value": 5, "cost": 1, "note": "Seen in 5 of 14 references." }
+  },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [1.88], "observed": "A starburst contracts to a point, then a cream disc with an orange core grows from that point to fill the frame." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [7.82], "observed": "The full stop of a sentence grows into a circle with a soft edge that fills the frame with the next scene's blue." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [2.48], "observed": "One of two ring 'eyes' fills and expands into the cream background of the next scene." },
+    { "source_id": "ref-5924215625", "timestamps": [1.57], "observed": "A heartbeat spike becomes a red circle that opens onto the first life scene." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [12.5], "observed": "The product mark scales up into the white end card (approx., from overview spacing)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Disc growth, cut under cover, cleanup, reveal clip centre, seek-order independence." },
+    { "kind": "frame-review", "path": "tests/reference-derived/pen-and-bloom/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "0 errors; contact sheet inspected (become from the pen dot, reveal from a full stop)." },
+    { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Accent full stop with ring blooms into the end card." },
+    { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two blooms: a full stop becomes the page, and the flight's landing dot opens the end card behind a leading ink ring. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["accent-punctuation-motif", "pen-led-stroke", "film-match-cut"], "effects": ["element-bloom", "iris-transition", "shape-cover-transition"], "templates": ["kinetic-typography", "product-promo", "illustrated-explainer"] },
+  "combines_with": [
+    { "id": "accent-punctuation-motif", "why": "The accent full stop is the natural seed." },
+    { "id": "pen-led-stroke", "why": "The pen's dot ends a line and then opens the next scene." }
+  ],
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No footage, frames, logos or shot sequences are copied; implementations are original.",
+  "tags": ["transition", "bloom", "iris", "dot", "continuity", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

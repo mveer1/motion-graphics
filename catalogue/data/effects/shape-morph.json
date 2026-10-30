@@ -1,0 +1,51 @@
+{
+  "id": "shape-morph",
+  "name": "Shape morph (compatible paths)",
+  "category": "shape_morph",
+  "visual_intent": "One shape becomes another (blob to blob, wave level to level) for continuity and organic change.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "morph",
+    "shape",
+    "organic"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "blob-morph",
+    "polygon-morph-chain"
+  ],
+  "implementation_summary": "GSAP core string interpolation of path data; refuses incompatible structures with a clear error. Studio.draw.shape generates morph-ready circles, polygons, stars and rectangles; Studio.draw.morphChain sequences them.",
+  "primitives": [
+    "blob-shape",
+    "svg-path",
+    "morph-shape"
+  ],
+  "runtime_api": "Studio.draw.morph(tl, path, toD, at, {duration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

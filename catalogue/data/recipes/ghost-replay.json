@@ -1,0 +1,27 @@
+{
+  "id": "ghost-replay",
+  "name": "Ghost replay of a move",
+  "effect_id": "onion-trail",
+  "status": "experimental",
+  "visual_intent": "A bounce, arc or throw leaves a short-lived trail of ghosts.",
+  "parameters": [
+    { "name": "motion", "type": "function", "description": "function (tl, el, at) { return Studio.space.bounce(tl, el, at); } - fromTo tweens only" },
+    { "name": "count", "type": "integer", "default": 4, "description": "Number of ghosts" },
+    { "name": "lag", "type": "number", "default": 0.06, "description": "Seconds between ghosts (2 frames at 30 fps)" },
+    { "name": "opacity", "type": "number", "default": 0.5, "description": "Opacity of the nearest ghost" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "While the move is the subject of the narration or caption",
+    "easing_standard": "Inherited from the motion function",
+    "prng_required": false
+  },
+  "code_snippet": { "javascript": "Studio.space.trail(tl, '#ball', 1.0, function (t, el, at) { return Studio.space.bounce(t, el, at, { height: 30 }); }, { count: 4, lag: 0.05 });" },
+  "fallbacks": "A dashed motion path (marching-dashed-stroke) drawn behind the object.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 0.8, "memory_impact": "Low; estimate" },
+  "validation_steps": ["python tests/test-studio-runtime.py", "python scripts/frame-review.py tests/reference-derived/explainer-annotations/index.html --fonts google"],
+  "tags": ["onion-skin", "trail", "reference-derived"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html"],
+  "validation": { "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

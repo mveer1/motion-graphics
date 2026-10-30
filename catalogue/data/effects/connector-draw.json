@@ -1,0 +1,28 @@
+{
+  "id": "connector-draw",
+  "name": "Diagram connector",
+  "category": "data_flow",
+  "visual_intent": "Cards, nodes or labels get joined by a curved arrow that draws from one to the other, making a relationship or a hand-off explicit in a diagram.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "svg-native"],
+  "rendering_engine": "svg_dom",
+  "tags": ["diagram", "connector", "arrow", "explainer", "data-flow", "reference-derived"],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "2 paths per connector",
+    "memory_profile": "Low (estimate)"
+  },
+  "recipes": ["card-connector"],
+  "implementation_summary": "Measures both elements as they render at the cue (Studio.boxAt), leaves from the facing edges along the dominant axis with a cubic curve, draws it with stroke-draw and adds a two-stroke arrowhead; dashed connectors fade in instead (dash pattern and dash draw would conflict).",
+  "primitives": ["svg-path"],
+  "runtime_api": "Studio.draw.connect(tl, Studio.draw.layer(scene), a, b, at, {axis, bend, gap, arrow, dashed, className, duration})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["traveling-packet", "stroke-draw"],
+  "validation": {
+    "evidence": "Runtime self-test (endpoints on the facing edges, fully drawn at the end) in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

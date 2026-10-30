@@ -1,0 +1,47 @@
+/*
+ * Style system: cinematic-dark. Near-black, warm highlights, condensed capitals, slow pushes.
+ * For title sequences and dramatic reveals when the brief asks for a dark direction.
+ */
+:root {
+  --c-paper: #0b0b0c;
+  --c-paper-2: #161616;
+  --c-ink: #f2ede4;
+  --c-ink-2: #a39e93;
+  --c-rule: #34312c;
+  --c-accent: #d4a24c;
+  --c-accent-2: #b0413e;
+  --c-accent-3: #7f9c96;
+  --c-highlight: rgba(212, 162, 76, 0.3);
+  --c-positive: #8fb38a;
+  --c-negative: #d0605a;
+  --c-info: #8aa9c9;
+  --c-caption-ink: #f2ede4;
+  --c-caption-bg: rgba(0, 0, 0, 0.72);
+
+  --font-display: 'Oswald', sans-serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 600;
+  --fw-heading: 500;
+  --track-display: 0.04em;
+  --track-kicker: 0.32em;
+
+  --ease-out: power2.out;
+  --ease-in: power2.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 1.2;
+  --dur-exit: 0.8;
+  --stagger: 0.12;
+
+  --grain-blend: screen;
+}
+
+.st-display {
+  text-transform: uppercase;
+}
+
+.st-display em,
+.st-heading em {
+  font-family: 'EB Garamond', serif;
+  text-transform: none;
+}

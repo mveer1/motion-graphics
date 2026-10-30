@@ -1,8 +1,139 @@
 # Motion Graphics Production Pipeline: System Architecture
 
-> **Repository:** `/Users/mahavir/Downloads/Repo/motion graphics`  
-> **Target Platform:** Apple Silicon macOS (M2, 8 GB Unified Memory)  
-> **Primary Output:** 1280×720 @ 30fps H.264 / AAC MP4 Technical Explainer Videos
+> **Repository:** this workspace (paths below are repository-relative)  
+> **Render host:** Apple Silicon macOS (M2, 8 GB unified memory) with HyperFrames, FFmpeg and Kokoro  
+> **Outputs:** short motion pieces in 16:9 (1280×720), 9:16 (720×1280) and 1:1 (1080×1080) at 30 fps (24/25/60 allowed), light themes by default. Legacy technical explainers stay 1280×720 single-format.
+
+Section 0 describes the general-purpose creative studio. Sections 1–7 describe the original technical-explainer pipeline, which still runs unchanged for projects without `project.json`.
+
+---
+
+## 0. Creative Studio Architecture
+
+<a id="lifecycle"></a>
+
+### 0.1 Lifecycle
+
+Each studio project lives in `projects/<slug>/` and is driven by `scripts/studio.py`. A stage that does not apply is switched off in `brief.json`; it is never skipped silently.
+
+| Stage | Artefact | Tools and skills | When |
+| --- | --- | --- | --- |
+| <a id="s0"></a>0 Brief and creative direction | `brief.json` (`specs/brief-spec.json`): objective, audience, platforms, formats, tone, 1–3 distinct directions, the selected one and why | `motion-graphics-designer` | always |
+| <a id="s0r"></a>0R Research | `research.json` + `research.md` | `technical-researcher`, `scripts/validate-research.py` | only when `brief.research.required` (factual topics) |
+| <a id="s1"></a>1 Storyboard and style | `storyboard.json` (`specs/storyboard-spec.json`); style system from the catalogue | `motion-graphics-designer`, `motion-library-guide` | standard/complex briefs, or when the template requires it |
+| <a id="s2"></a>2 Script | `src/narration.json` | `voice-director` | only with narration |
+| <a id="s3"></a>3 Speech and timing | `audio/*.wav`, `audio/timeline.json` | `scripts/build-audio.py` → `src/pipeline/tts.py` | only with narration |
+| <a id="s4"></a>4 Composition | `src/index.html` on the vendored runtime `src/_studio/` | `motion-graphics-designer`, `gsap-*`, `kinetic-typography` | always |
+| <a id="s4b"></a>4B Sound design | `audio/sfx-track.wav` | `real-sfx`, `earshot` | optional |
+| <a id="s5"></a>5 Validate and lint | — | `studio.py validate`; `hyperframes lint` (render host) | always |
+| <a id="s6"></a>6 Render per format | `renders/<format>/visuals.mp4` | `hyperframes render --composition index.<format>.html --low-memory-mode` | render host |
+| <a id="s7"></a>7 External footage | `assets/generated/` | `scripts/ingest-asset.sh` | optional |
+| <a id="s8"></a>8 Assembly | `renders/<format>/final.mp4` → `out/<slug>-<format>.mp4` | `studio.py build` (FFmpeg `amix` of narration, music, SFX) | render host |
+| <a id="s9"></a>9 QA | technical gates, `qa/frame-review/`, `qa/creative-review.json` | `run-qa-gates.sh`, `scripts/frame-review.py`, `studio.py review` | always |
+
+```bash
+python scripts/studio.py new <slug> --template illustrated-explainer [--style editorial-light] [--formats landscape,portrait,square]
+# fill brief.json -> storyboard.json -> src/index.html
+python scripts/studio.py validate <slug>
+python scripts/frame-review.py <slug> --fonts google      # preview QA on any host with Playwright
+python scripts/studio.py build <slug> --dry-run          # prints the per-format plan anywhere
+python scripts/studio.py build <slug>                    # render host: render, mux and QA per format
+python scripts/studio.py review <slug> --init            # then score qa/creative-review.json
+```
+
+<a id="capability-model"></a>
+
+### 0.2 Capability Model
+
+| Layer | Catalogue folder | Examples | Implementation |
+| --- | --- | --- | --- |
+| Libraries | `catalogue/data/libraries/` | `gsap`, `html-css-native` | CDN or browser-native |
+| Primitives | `catalogue/data/primitives/` | `split-text`, `svg-path`, `seeded-particles` | `src/studio/*.js`, `*.css` |
+| Effects and recipes | `catalogue/data/effects/`, `recipes/` | `text-mask-rise` / `line-mask-rise`, `liquid-transition` / `liquid-rise` | runtime APIs in `src/studio/` |
+| Compositions | `catalogue/data/compositions/` | `title-card`, `item-list`, `step-header`, `end-card`, `caption-band` | `src/studio/studio-compositions.js` |
+| Style systems | `catalogue/data/styles/` | `editorial-light` (default), `paper-cut`, `swiss-minimal`, `cinematic-dark`, `dark-tech` | `src/studio/styles/*.css` |
+| Project templates | `catalogue/data/project-templates/` | `illustrated-explainer` (others proposed) | `templates/projects/<id>/` |
+| Techniques | `catalogue/data/references/` | `pen-led-stroke`, `element-bloom-transition`, `rendered-3d-objects` | runtime APIs named in each record, or a documented capability gap |
+| Reference sources | `catalogue/data/reference-sources/` | `ref-92c22222a2` (one record per reference video) | evidence only; the videos stay outside the repository ([0.8](#reference-corpus)) |
+
+Technique records (`catalogue/data/references/`) describe a visual or motion technique: purpose, behaviour, mechanics, parameters, use cases, failure modes, a capability class, provenance (which inspected references show it, and when) and validation evidence. Their lifecycle is derived, not declared: observed → specified → prototyped → tested (preview or render evidence) → approved (render-host evidence only). Status flows proposed → experimental → approved; `motion-catalogue.py validate` rejects dependencies on less mature components. New components start as experimental and are promoted only after a HyperFrames render on the render host. Search across all layers with `python scripts/motion-catalogue.py search "<intent>" --type effect|recipe|primitive|composition|template|style|technique|source`; `recommend --brief projects/<slug>/brief.json` ranks techniques, precedents and styles for a brief.
+
+<a id="runtime"></a>
+
+### 0.3 Studio Runtime
+
+`src/studio/` is canonical: `studio-core.js` (format, safe area, seeded randomness, timeline registration, scene switches), `studio-draw.js`, `studio-type.js`, `studio-motion.js`, `studio-compositions.js`, `studio-base.css` and `styles/`. HyperFrames serves only the project folder, so `studio.py sync` copies the runtime into `projects/<slug>/src/_studio/` with `studio.lock.json` (SHA-256 per file). Local edits there are rejected: change `src/studio/` and re-sync.
+
+Determinism rules (linted by `studio.py validate`): one paused GSAP timeline registered last through `Studio.build`; no `Math.random`, wall-clock time, timers, `requestAnimationFrame` or infinite repeats; entrances use `fromTo` with `immediateRender`; scene visibility switches 1 ms after the cue so backward seeks restore state; fonts are HyperFrames-bundled families or declared with `@font-face`. Self-test: `tests/test-studio-runtime.py`.
+
+<a id="formats"></a>
+
+### 0.4 Formats and Layout
+
+`specs/format-presets.json` defines landscape 16:9 (1280×720 default, 1080p, 4K), portrait 9:16 (720×1280 default, 1080×1920), square 1:1 (1080×1080), frame rates 24/25/30/60, safe areas per format and the text floor (2.6 % of the short side). Authors write one `src/index.html` for the primary format; `studio.py formats` writes `src/index.<format>.html` with the root size and CSS variables (`--w`, `--h`, `--u` = 1 % of the short side, `--safe-*`). Layout adapts through `#root[data-format=…]` rules and `Studio.pick({landscape, portrait, square})`, so each format is composed rather than cropped. HyperFrames cannot change aspect ratio at render time, hence one entry file per format. Generated files are tracked; validation and governance fail when they are stale.
+
+<a id="video-spec"></a>
+
+### 0.5 Project Configuration
+
+`project.json` (`specs/video-spec.json`, v2) holds the template, style system, formats (primary and optional safe-area overrides), fps, duration, quality, timing source (narration, music or fixed), audio (narration on or off, voice, speed, licensed music, SFX, captions, loudness target) and runtime version. Projects without `project.json` are legacy explainers: `studio.py build` delegates them to `scripts/build-project.sh`, and `build-project.sh` hands studio projects to `studio.py build`.
+
+### 0.6 Quality Assurance
+
+- **Technical:** `run-qa-gates.sh` (streams, loudness, black gaps, container, Earshot). `studio.py build` passes `--expect-width/--expect-height/--expect-fps/--expect-duration`, `--expect-lufs` when audio exists, or `--allow-silent`; mismatches exit 2. Without flags the script stays informational for legacy builds.
+- **Preview:** `scripts/frame-review.py` seeks every format in headless Chromium and flags clipped or overlapping text, text below the floor, safe-area violations, estimated low contrast, dead stretches, blank frames and unread lines. It writes contact sheets and `contact-matrix.png` to `qa/frame-review/`; only `report.json` and the matrix are tracked.
+- **Creative:** `qa/creative-review.json` scores 12 criteria from 1 to 5 with evidence; it passes when every score is at least 3 and the mean is at least 3.5. Automated checks do not replace looking at frames.
+
+<a id="verification-status"></a>
+
+### 0.7 Verification Status (2026-10-30)
+
+| Item | Where | Result |
+| --- | --- | --- |
+| Runtime self-test (`tests/test-studio-runtime.py`) | Windows, Playwright Chromium | pass |
+| Studio CLI, QA gates, build delegation (`tests/test-studio.py`) | Windows, Git Bash with stub ffprobe/ffmpeg | 21 tests pass |
+| Catalogue validation and governance gates | Windows | catalogue pass (10 libraries, 34 effects, 34 recipes, 13 primitives, 5 compositions, 8 templates, 5 styles, 7 references); governance 7/7 gates pass, 1 warning (`.venv/bin/earshot` absent on this host) |
+| `projects/masala-chai-recipe`: validate, frame review in 3 formats, creative review | Windows | 0 errors, 0 warnings; review mean 3.92 (preview grade) |
+| Legacy regression (`benchmark-neural-network` and the other three explainers) | Windows | files unchanged; research dossiers validate; frame review 0 errors (67 pre-existing small-label warnings); `studio.py build --dry-run` delegates to `build-project.sh` |
+| `tests/test-audio-stack.py` | Windows | fails: Earshot and FFmpeg are not installed on this host (environment, not this change) |
+| HyperFrames lint/check/render, FFmpeg mux, loudness, Earshot | not run | tools absent on the Windows host; required on the M2 before promoting any experimental component |
+| Fonts in frame review | Google Fonts CSS stand-ins | rasterisation may differ from HyperFrames' bundled fonts |
+
+<a id="reference-corpus"></a>
+
+### 0.8 Reference Corpus and Technique Knowledge Base
+
+Reference videos teach techniques; they are never source material. `scripts/reference-corpus.py` and the `reference-analyst` skill turn a folder of user-supplied videos into reviewed, searchable knowledge that projects reuse.
+
+| Layer | Location | Tracked | Written by |
+| --- | --- | --- | --- |
+| Videos | outside the repository, found through `--root DIR` or `MOTION_REFERENCE_ROOTS` | never | the user |
+| Analysis cache: sampled frames, overview/scene/transition/motion sheets, audio panel, `signal.json` | `out/reference-analysis/<id>/` | never (third-party imagery, possibly brand marks) | `reference-corpus.py analyze` |
+| Source record: file name, size, SHA-256, rights and brand assets, `media` and `automated` evidence, the analyst's notes | `catalogue/data/reference-sources/ref-<sha256[:10]>.json` (`reference-source.schema.json`) | yes | the tool writes `media` and `automated` only; the analyst writes `analysis`, `techniques`, `rights`, `categories` |
+| Technique record | `catalogue/data/references/<id>.json` (`reference.schema.json`) | yes | the analyst |
+| Implementation | runtime APIs in `src/studio/` plus effect, recipe and composition records | yes | development |
+| Evidence | `tests/studio-runtime/reference-techniques.html`, `tests/reference-derived/<name>/`, demo projects, `benchmark.json` | yes (reports and contact sheets, not sampled frames) | tests, `frame-review.py`, `tests/reference-derived/benchmark.py` |
+
+**Measurement versus judgement.** The tool measures: MP4 boxes parsed in pure Python (no ffprobe), content hash, cuts and soft transitions (coarse scan, frame-accurate refinement, a cut must be an isolated single-frame change), static holds, palette, motion windows, audio onsets, tempo and cut-to-onset/beat alignment against chance. The analyst judges: concept, typography, easing, motifs, techniques and rights, with observations kept apart from interpretations and a confidence per note. Re-running the tool never overwrites the analyst's blocks.
+
+**Capability classes** (`capability.support` on every technique): `native` (existing runtime and HyperFrames), `approximation` (a cheaper stand-in with stated limits, e.g. smear for motion blur), `additional-dependencies` (needs a tool outside the runtime, e.g. Blender pre-renders), `resource-constrained` (possible but too heavy for the 8 GB host as specified), `research-required` (no credible approach yet). `reference-corpus.py report --backlog` lists unsupported or unimplemented techniques by creative value, frequency and cost.
+
+**Validation rules** (`motion-catalogue.py validate`): provenance may cite only inspected sources, with timestamps inside the video; source and technique links are two-way; preview or render validation needs evidence and an implementation; `approved` needs render-host evidence; measured resources need measurements; source IDs must match their hash; `inspiration-only` sources may not authorise brand assets. `studio.py validate` checks `brief.references[].technique_ids` and warns when a project leans on a technique that is only observed or specified.
+
+**Adding a video.**
+
+```bash
+python scripts/reference-corpus.py ingest "<file-or-folder>"                 # hash, probe, create or alias records
+python scripts/reference-corpus.py analyze --pending --root "<folder>"       # evidence into out/reference-analysis/<id>/
+# look at overview/scenes/transitions/motion/audio sheets, then write analysis + techniques (reference-analyst skill)
+python scripts/reference-corpus.py check --name "<candidate technique>"      # extend an existing record when it is a duplicate
+python scripts/motion-catalogue.py validate
+python scripts/reference-corpus.py report --backlog
+```
+
+**Rights.** Every source defaults to `inspiration-only` with unknown licence. Logos, wordmarks, characters, product UI, footage and exact shot sequences are recorded as `brand_assets` with policy `exclude`; demos and projects reuse principles with original copy, drawing and choreography. Nothing from the cache or the videos may be committed or used as an asset.
+
+**Cost.** Analysis runs at about 0.5x real time on the Windows dev host with the Edge decoder (one headless Edge, roughly 0.8 GB working set observed); the FFmpeg backend is implemented but untested. On the M2, analyse one video at a time and never alongside a render.
 
 ---
 
@@ -569,6 +700,8 @@ To execute the comprehensive 18-point verification test across Openverse, Earsho
 
 ---
 
+<a id="governance"></a>
+
 ## 7. Workspace Governance, Component Registration & Drift Detection
 
 ### 7.1 Architectural Purpose & Changes
@@ -617,7 +750,7 @@ All workspace files must strictly reside in their designated domain:
 7. **Registry Metadata & Architecture:** `catalogue/`, `ARCHITECTURE.md`, `AGENTS.md`.
 
 ### 7.4 Automated Governance & Drift Audit CLI
-Run automated audits across all 6 governance gates:
+Run automated audits across all 7 governance gates: catalogue schemas and cross-references; registered files on disk (including style sheets, templates and runtime implementations); unregistered skills, scripts, shared specs, style systems and project templates; blocked dependencies; architecture references resolving to a real anchor; secret exposure; and studio project integrity (vendored runtime matches its lock, generated format files are current). Machine-local `.venv/` tools missing on a host are warnings, not drift.
 
 ```bash
 # Run standard governance audit:

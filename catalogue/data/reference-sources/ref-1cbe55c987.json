@@ -1,0 +1,493 @@
+{
+  "id": "ref-1cbe55c987",
+  "name": "SaaS launch promo: UI fragments, orbit hub and word cards",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (6).mp4",
+    "aliases": [],
+    "sha256": "1cbe55c98734e72eed59104790d8e10fd1034dcfc718e32b64c1837ffc2195b2",
+    "bytes": 2469022,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Product logo and wordmark of a link-management company (dub)",
+        "timestamps": [
+          9.0,
+          13.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Proprietary dashboard, analytics and link UI",
+        "timestamps": [
+          5.0,
+          7.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Company promo with proprietary UI and marks; learn interaction choreography only, using generic original UI."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 2469022,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.067,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 904,
+    "variable_frame_rate": true,
+    "fps": 60,
+    "fps_exact": "average of 47 timing runs",
+    "video_kbps": 1165,
+    "keyframes": 16,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.125,
+      "kbps": 132
+    },
+    "overall_kbps": 1311
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames over 15.07 s) and scene sheet (7 scenes). Transition strips generated, not viewed. Timestamps inside the long 1.52-10.52 s scene are approximate (overview spacing 0.75 s). Audio from measurements only.",
+    "coverage": "Full duration at overview density; the word-card burst at boundary level.",
+    "concept": {
+      "observed": "Product launch promo: a typed link becomes a short link, counters roll over a dotted globe, a dashboard draws, partners orbit a hub, then a burst of feature words and an end card with a call to action.",
+      "interpreted": "Shows the product's value as a sequence of fast, legible interactions.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "No narration; short feature phrases with full stops; numbers counting up.",
+      "interpreted": "Confident SaaS marketing."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured #080808 (67%) dark with white UI; colour only in word-card backgrounds (gradients, orange)."
+      },
+      "typography": {
+        "observed": "Clean grotesk, sentence case with full stops; large numerals."
+      },
+      "composition": {
+        "observed": "Centred UI fragments and cards on dark; hub-and-spoke orbit layout."
+      },
+      "motion": {
+        "observed": "Typing, width compression into a pill, rolling digits, chart draws, card stacks, elliptical orbits."
+      },
+      "timing_and_rhythm": {
+        "observed": "One long continuous scene (1.52-10.52 s), then word cards every about 0.25 s (10.52-12.00 s).",
+        "interpreted": "Slow demonstration, then a rapid recap."
+      },
+      "transitions": {
+        "observed": "Continuous camera moves inside the UI section; hard cuts for word cards; mark scales into the end card."
+      },
+      "depth_and_layering": {
+        "observed": "A dashboard card tilted in perspective; glowing dotted globe horizon."
+      },
+      "audio_and_sync": {
+        "observed": "3.7 onsets/s, tempo estimate 118 bpm (medium); boundaries not aligned with onsets above chance (0.25 vs 0.31).",
+        "confidence": "low"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.52,
+        "observed": "Dark opening with a light streak and a typed link."
+      },
+      {
+        "start": 1.52,
+        "end": 10.52,
+        "observed": "Continuous UI tour: short link, rolling counter over a dotted globe, dashboard chart, notifications, orbit of partner avatars."
+      },
+      {
+        "start": 10.52,
+        "end": 12.5,
+        "observed": "Feature words on cards with distinct backgrounds (pixel grid, gradient, falling symbols)."
+      },
+      {
+        "start": 12.5,
+        "end": 15.07,
+        "observed": "Mark scales into a white end card with tagline and buttons."
+      }
+    ],
+    "difficult": [
+      "Dotted globe and glow (needs projected point sphere or pre-render)"
+    ],
+    "uncertainties": [
+      "Exact times of UI moments inside the long scene",
+      "Whether the counter uses per-digit odometer columns or a single roll"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        10.52,
+        10.75,
+        11.0,
+        11.27,
+        11.5
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        12.5
+      ]
+    },
+    {
+      "id": "grid-wave-propagation",
+      "timestamps": [
+        10.52
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        2.5
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        3.0
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        6.0
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        0.5,
+        1.2,
+        5.0,
+        7.0
+      ]
+    },
+    {
+      "id": "orbit-constellation",
+      "timestamps": [
+        8.5,
+        9.5
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "counter-roll",
+      "slot-roll",
+      "element-bloom",
+      "grid-wave"
+    ],
+    "compositions": [
+      "word-beats",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "data-visualisation"
+  ],
+  "tags": [
+    "reference-video",
+    "dark-theme",
+    "saas",
+    "launch",
+    "ui",
+    "counter",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 13.9
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 1.517,
+        "kind": "cut",
+        "score": 0.764,
+        "isolation": 0.84,
+        "frame": 91
+      },
+      {
+        "t": 10.75,
+        "kind": "cut",
+        "score": 0.957,
+        "isolation": 0.67,
+        "frame": 645
+      },
+      {
+        "t": 11.5,
+        "kind": "cut",
+        "score": 0.993,
+        "isolation": 0.8,
+        "frame": 690
+      },
+      {
+        "t": 12.5,
+        "kind": "cut",
+        "score": 1.32,
+        "isolation": 0.86,
+        "frame": 750
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.52,
+        "duration": 1.52,
+        "activity": 0.009,
+        "luma": 0.0
+      },
+      {
+        "index": 2,
+        "start": 1.52,
+        "end": 10.75,
+        "duration": 9.23,
+        "activity": 0.111,
+        "luma": 0.07
+      },
+      {
+        "index": 3,
+        "start": 10.75,
+        "end": 11.5,
+        "duration": 0.75,
+        "activity": 0.554,
+        "luma": 0.18
+      },
+      {
+        "index": 4,
+        "start": 11.5,
+        "end": 12.5,
+        "duration": 1.0,
+        "activity": 0.45,
+        "luma": 0.41
+      },
+      {
+        "index": 5,
+        "start": 12.5,
+        "end": 15.07,
+        "duration": 2.57,
+        "activity": 0.092,
+        "luma": 0.94
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.142,
+    "luma": {
+      "mean": 0.24,
+      "dark_share": 0.77,
+      "light_share": 0.2
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.666
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.117
+      },
+      {
+        "hex": "#181828",
+        "share": 0.026
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.013
+      },
+      {
+        "hex": "#381808",
+        "share": 0.013
+      },
+      {
+        "hex": "#182828",
+        "share": 0.013
+      },
+      {
+        "hex": "#5898f8",
+        "share": 0.012
+      },
+      {
+        "hex": "#382828",
+        "share": 0.012
+      },
+      {
+        "hex": "#e8b828",
+        "share": 0.011
+      },
+      {
+        "hex": "#080818",
+        "share": 0.01
+      }
+    ],
+    "representative_times": [
+      0.76,
+      3.83,
+      6.13,
+      8.44,
+      11.12,
+      12.0,
+      13.79
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.0,
+      "mean_dbfs_voiced": -18.4,
+      "silence_ratio": 0.01,
+      "onsets": 56,
+      "onset_rate_per_sec": 3.7,
+      "onset_times": [
+        0.23,
+        2.09,
+        2.6,
+        2.86,
+        3.09,
+        3.37,
+        3.48,
+        3.6,
+        3.85,
+        4.09,
+        4.37,
+        4.6,
+        4.85,
+        4.97,
+        5.09,
+        5.36,
+        5.48,
+        5.6,
+        5.85,
+        6.08,
+        6.2,
+        6.36,
+        6.48,
+        6.59,
+        6.85,
+        7.11,
+        7.36,
+        7.59,
+        7.85,
+        8.1,
+        8.36,
+        8.59,
+        8.87,
+        9.1,
+        9.22,
+        9.36,
+        9.47,
+        9.59,
+        9.85,
+        10.1,
+        10.22,
+        10.36,
+        10.59,
+        10.84,
+        11.1,
+        11.35,
+        11.47,
+        11.59,
+        11.73,
+        11.84,
+        11.98,
+        12.1,
+        12.31,
+        12.61,
+        12.75,
+        14.3
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.6,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 806,
+      "band_share": {
+        "low_lt_250": 0.48,
+        "mid_250_2k": 0.33,
+        "high_gt_2k": 0.18
+      },
+      "syllabic_modulation_share": 0.29,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 0.25,
+        "chance_level": 0.31,
+        "median_offset_ms": 101,
+        "near_beat": 0.0,
+        "beat_chance_level": 0.24,
+        "beat_phase_sec": 0.415
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-1cbe55c987",
+      "overview": "out/reference-analysis/ref-1cbe55c987/overview.jpg",
+      "scenes": "out/reference-analysis/ref-1cbe55c987/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-1cbe55c987/transitions.jpg",
+      "motion": "out/reference-analysis/ref-1cbe55c987/motion.jpg",
+      "audio": "out/reference-analysis/ref-1cbe55c987/audio.png",
+      "frames": "out/reference-analysis/ref-1cbe55c987/frames",
+      "tracked": false
+    }
+  }
+}

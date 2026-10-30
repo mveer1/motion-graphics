@@ -1,0 +1,30 @@
+{
+  "id": "diagram-connectors",
+  "name": "Drawn diagram connectors",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Two inspected explainers join cards, nodes and labels with lines that draw between them as relationships are introduced.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Relationships are introduced by drawing the line between two elements at the moment the narration or caption names the relationship, so structure is built in front of the viewer instead of shown complete.",
+  "purpose": "Explain flows, ownership and dependencies one relationship at a time.",
+  "visual_behaviour": "A curved line leaves one card's edge and reaches the other, finishing with an arrowhead; pending links appear dashed.",
+  "mechanics": "Facing-edge anchors, cubic curve with symmetric handles, ease-in-out draw of 0.35-1.2 s, arrowhead after the shaft.",
+  "decomposition": { "primitives": ["svg-path"], "effects": ["connector-draw", "stroke-draw"], "timing": "0.35-1.2 s per connector, one at a time." },
+  "parameters": [ { "name": "bend", "description": "Handle reach", "default": 0.45 }, { "name": "dashed", "description": "Pending relationship", "default": false } ],
+  "use_cases": ["technical explainer", "system diagram", "process flow", "org or ownership chart"],
+  "failure_modes": ["Connectors drawn before both ends exist", "Elements moving after the connector is drawn (measure at the cue; keep them still)", "Crossing lines in dense diagrams"],
+  "implementation_state": "implemented",
+  "implemented_by": ["connector-draw", "card-connector"],
+  "implementation": { "approach": "Studio.draw.connect on a Studio.draw.layer overlay.", "runtime_api": ["Studio.draw.connect", "Studio.draw.layer"] },
+  "capability": { "support": "native", "compatible_components": ["connector-draw", "stroke-draw", "traveling-packet"], "complexity": "low", "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/explainer-annotations (2 connectors)", "value": "50.8 ms/frame median, peak 255 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-95c96d5c47", "timestamps": [14.99, 21.98], "observed": "Machine cards are linked to a shared central element by lines as the ownership rule is explained." },
+    { "source_id": "ref-37644838b5", "timestamps": [44.0], "observed": "Leader lines connect labels to parts of an exploded 3D object (approx., from overview spacing)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30" }
+  ] },
+  "related": { "techniques": ["single-stage-progression", "annotation-callouts"], "effects": ["connector-draw", "traveling-packet"], "templates": ["technical-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["diagram", "connector", "arrow", "explainer", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

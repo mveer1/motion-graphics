@@ -1,0 +1,46 @@
+/*
+ * Style system: paper-cut. Tactile layered paper on kraft-cream, chunky display type,
+ * playful overshoot. Pair with Studio.space.pop / assemble and the #st-deckle filter.
+ */
+:root {
+  --c-paper: #f2e8d5;
+  --c-paper-2: #e6d6b8;
+  --c-ink: #2a2522;
+  --c-ink-2: #5e554d;
+  --c-rule: #cdbb98;
+  --c-accent: #b5401f;
+  --c-accent-2: #3f6f8f;
+  --c-accent-3: #f0b23a;
+  --c-tomato: #d24a26;
+  --c-sage: #8da47e;
+  --c-plum: #7b4b6a;
+  --c-highlight: rgba(240, 178, 58, 0.5);
+  --c-positive: #4d7a3a;
+  --c-negative: #b5361c;
+  --c-info: #3f6f8f;
+  --c-shadow: rgba(42, 37, 34, 0.22);
+  --c-caption-ink: #fff8ec;
+  --c-caption-bg: rgba(42, 37, 34, 0.86);
+
+  --font-display: 'Archivo Black', sans-serif;
+  --font-text: 'Nunito', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --fw-display: 400;
+  --fw-heading: 400;
+  --track-display: -0.01em;
+  --track-kicker: 0.12em;
+
+  --ease-out: back.out(1.6);
+  --ease-in: power2.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 0.6;
+  --dur-exit: 0.4;
+  --stagger: 0.07;
+
+  --grain-blend: multiply;
+}
+
+.st-paper {
+  background: var(--c-paper-2);
+  box-shadow: calc(var(--u) * 0.5) calc(var(--u) * 0.7) 0 var(--c-shadow);
+}

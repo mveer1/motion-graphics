@@ -1,0 +1,35 @@
+{
+  "id": "svg-shape",
+  "name": "SVG basic shapes",
+  "kind": "shape",
+  "status": "approved",
+  "description": "circle, rect, ellipse and polygon for geometric and shape-based animation.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "geometry",
+      "type": "attributes",
+      "description": "cx/cy/r, x/y/width/height, points"
+    }
+  ],
+  "implementation": {
+    "location": "native"
+  },
+  "validation": {
+    "evidence": "Used by catalogue-approved effects (traveling-packet, glow-pulse); not re-verified in this change.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "vector",
+    "shape",
+    "geometric"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

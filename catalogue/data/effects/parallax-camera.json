@@ -1,0 +1,49 @@
+{
+  "id": "parallax-camera",
+  "name": "2.5D camera (depth parallax)",
+  "category": "depth_parallax",
+  "visual_intent": "Simulated depth: pans and pushes move near layers more than far layers.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "2.5d",
+    "parallax",
+    "camera",
+    "depth"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "medium",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "depth-camera-push"
+  ],
+  "implementation_summary": "Per-layer transforms scaled by data-depth factor; consecutive moves chain from the previous camera state.",
+  "primitives": [
+    "depth-layer"
+  ],
+  "runtime_api": "Studio.space.camera(tl, stage, at, {x, y, scale, rotation, duration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionCompositionRecord",
+  "description": "Layer 3 of the component model: a reusable visual unit (title card, step card, itemised list, end card) built from primitives and effects. A composition references components; it never re-implements them.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "purpose",
+    "status",
+    "uses",
+    "formats_supported",
+    "inputs",
+    "implementation",
+    "layout_notes",
+    "validation_steps",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "purpose": { "type": "string" },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
+    "uses": {
+      "type": "object",
+      "required": ["primitives", "effects", "recipes"],
+      "additionalProperties": false,
+      "properties": {
+        "primitives": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+        "effects": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+        "recipes": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } }
+      }
+    },
+    "formats_supported": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["landscape", "portrait", "square"] }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "default": {},
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["location", "api"],
+      "additionalProperties": false,
+      "properties": {
+        "location": { "type": "string" },
+        "api": { "type": "string" }
+      }
+    },
+    "layout_notes": { "type": "string", "description": "How the unit adapts to each aspect ratio (reflow, reposition, alternate layout)." },
+    "styles_tested": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "examples": { "type": "array", "items": { "type": "string" } },
+    "validation_steps": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "validation": {
+      "type": "object",
+      "required": ["evidence", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence": { "type": "string" },
+        "last_verified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "related": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "tags": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "metadata": { "type": "object" }
+  }
+}

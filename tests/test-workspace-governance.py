@@ -19,6 +19,7 @@ Covers:
 
 import sys
 import os
+import re
 import shutil
 import json
 import subprocess
@@ -89,7 +90,10 @@ class TestWorkspaceGovernance(unittest.TestCase):
         for coll in ["skills", "tools", "shared"]:
             for comp_id, data in self.records[coll].items():
                 loc = data.get("location", "")
-                if loc.startswith(("/usr/", "/opt/", "http://", "https://", "role:", "system_prompt:", "unresolved:", "pending:")):
+                if loc.startswith(workspace_governance.VIRTUAL_PREFIXES + workspace_governance.HOST_PREFIXES):
+                    continue
+                if loc.startswith(workspace_governance.MACHINE_LOCAL_PREFIXES):
+                    # Untracked per-machine environments (.venv) may be absent on a fresh checkout.
                     continue
                 path = REPO_ROOT / loc
                 self.assertTrue(path.exists(), f"Registered component '{comp_id}' location does not exist: {path}")
@@ -101,12 +105,42 @@ class TestWorkspaceGovernance(unittest.TestCase):
         }
         for item in skills_dir.iterdir():
             if item.is_dir() and (item / "SKILL.md").exists():
-                rel_loc = str(item.relative_to(REPO_ROOT))
+                rel_loc = item.relative_to(REPO_ROOT).as_posix()
                 self.assertIn(
                     rel_loc,
                     registered_locations,
                     f"Skill folder '{rel_loc}' on disk is not registered in catalogue/data/skills/"
                 )
+
+    def test_style_systems_and_templates_are_registered(self):
+        style_locs = {r["location"] for r in self.records["styles"].values()}
+        for css in (REPO_ROOT / "src" / "studio" / "styles").glob("*.css"):
+            self.assertIn(css.relative_to(REPO_ROOT).as_posix(), style_locs)
+        tpl_locs = {r["location"].rstrip("/") for r in self.records["project-templates"].values()}
+        for tdir in (REPO_ROOT / "templates" / "projects").iterdir():
+            if tdir.is_dir():
+                self.assertIn(tdir.relative_to(REPO_ROOT).as_posix(), tpl_locs)
+
+    def test_architecture_refs_resolve(self):
+        auditor = workspace_governance.GovernanceAuditor()
+        auditor.audit_architecture_references()
+        self.assertEqual(auditor.errors, [], "\n".join(auditor.errors))
+
+    def test_anchor_check_catches_missing_anchor(self):
+        auditor = workspace_governance.GovernanceAuditor()
+        auditor.records["tools"]["tool-motion-catalogue"] = dict(
+            auditor.records["tools"]["tool-motion-catalogue"], architecture_ref="ARCHITECTURE.md#no-such-anchor-xyz")
+        auditor.audit_architecture_references()
+        self.assertTrue(any("no-such-anchor-xyz" in e for e in auditor.errors))
+
+    def test_heading_slug_matches_github_style(self):
+        self.assertEqual(workspace_governance.heading_slug("7. Workspace Governance & Drift"), "7-workspace-governance--drift")
+        self.assertEqual(workspace_governance.heading_slug("Stage 4B: Sound `design`"), "stage-4b-sound-design")
+
+    def test_studio_project_integrity_gate(self):
+        auditor = workspace_governance.GovernanceAuditor()
+        auditor.audit_studio_project_integrity()
+        self.assertEqual(auditor.errors, [], "\n".join(auditor.errors))
 
     def test_no_blocked_dependency_usage(self):
         blocked_ids = {
@@ -128,14 +162,21 @@ class TestWorkspaceGovernance(unittest.TestCase):
                     )
 
     def test_secret_exposure_audit(self):
-        sensitive_patterns = ["bearer ", "eyj", "ghp_", "sk-"]
+        # Token-shaped patterns: a bare "sk-" substring would match ids such as "text-mask-rise".
+        sensitive_patterns = [
+            r"\bbearer\s+[a-z0-9._-]{16,}",
+            r"\beyj[a-z0-9_-]{10,}\.",
+            r"\bghp_[a-z0-9]{20,}",
+            r"(?<![a-z0-9])sk-[a-z0-9]{16,}",
+        ]
+        self.assertTrue(re.search(sensitive_patterns[3], '"api_key": "sk-' + "a1" * 12 + '"'))
+        self.assertFalse(re.search(sensitive_patterns[3], '"id": "text-mask-rise"'))
         for coll, items in self.records.items():
             for rec_id, data in items.items():
                 rec_str = json.dumps(data).lower()
                 for pat in sensitive_patterns:
-                    self.assertNotIn(
-                        pat,
-                        rec_str,
+                    self.assertIsNone(
+                        re.search(pat, rec_str),
                         f"Secret pattern '{pat}' detected in record '{rec_id}'"
                     )
                 sec = data.get("security", {})
@@ -148,7 +189,7 @@ class TestWorkspaceGovernance(unittest.TestCase):
         res = subprocess.run([sys.executable, str(GOVERNANCE_CLI)], capture_output=True, text=True)
         self.assertEqual(res.returncode, 0, f"Governance CLI failed:\n{res.stdout}\n{res.stderr}")
         self.assertIn("[PASS]", res.stdout)
-        self.assertIn("All 6 governance gates passed", res.stdout)
+        self.assertIn("All 7 governance gates passed", res.stdout)
 
     def test_drift_detector_catches_missing_file(self):
         # Test auditor directly with simulated missing file
@@ -177,6 +218,14 @@ class TestWorkspaceGovernance(unittest.TestCase):
             any("non_existent_file_xyz.py" in err for err in auditor.errors),
             "Drift detector should flag non-existent workspace file"
         )
+
+    def test_drift_detector_catches_pending_location_on_active_template(self):
+        auditor = workspace_governance.GovernanceAuditor()
+        tpl = dict(next(iter(auditor.records["project-templates"].values())))
+        tpl.update(id="fake-template", status="experimental", location="pending:not-built")
+        auditor.records["project-templates"]["fake-template"] = tpl
+        auditor.audit_workspace_file_existence()
+        self.assertTrue(any("fake-template" in err for err in auditor.errors))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,46 @@
+{
+  "id": "tool-frame-review",
+  "name": "Frame Review (preview-grade visual QA)",
+  "component_type": "tool",
+  "purpose": "Seeks a composition frame by frame in headless Chromium (Playwright), captures sample frames per format, and reports layout and craft findings before or without a HyperFrames render: clipped or overlapping text, text below the size floor, safe-area violations, estimated contrast, dead stretches, blank frames, unread lines and runtime errors. Writes contact sheets and a cross-format matrix.",
+  "capabilities": [
+    "Per-format sampling of studio projects (index.<format>.html) and legacy single-format projects",
+    "Findings: text_clipped_by_frame, text_overlap, text_below_floor, outside_safe_area, low_contrast, dead_stretch, first_frame_empty, blank_frames, line_unread, timeline_past_end, page errors",
+    "Contact sheet per format plus contact-matrix.png for creative review",
+    "Optional --fonts google to approximate HyperFrames-bundled fonts on hosts without them"
+  ],
+  "location": "scripts/frame-review.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": true,
+    "instructions": "pip install playwright pillow numpy; python -m playwright install chromium (development/QA hosts only)."
+  },
+  "dependencies": ["shared-studio-runtime"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3 + playwright chromium",
+    "notes": "Verified on Windows with Playwright 1.62 Chromium. Preview grade only: it does not replace hyperframes check/render; font rasterisation and timing can differ from HyperFrames' capture."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool. Playwright is Apache-2.0; Pillow is MIT-CMU; numpy is BSD-3-Clause."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Serves the project's src/ directory on 127.0.0.1 with an ephemeral port for the duration of the run. Network: the page loads GSAP from cdnjs and, with --fonts google, Google Fonts CSS. Writes only to projects/<slug>/qa/frame-review/ or --out."
+  },
+  "owner": "workspace-governance",
+  "status": "experimental",
+  "approval_evidence": "Run on projects/masala-chai-recipe (3 formats) and projects/benchmark-neural-network (legacy) on 2026-10-30; findings cross-checked by viewing contact sheets.",
+  "architecture_ref": "ARCHITECTURE.md#s9",
+  "last_verified": "2026-10-30",
+  "tags": ["qa", "visual", "playwright", "contact-sheet", "layout", "formats"]
+}

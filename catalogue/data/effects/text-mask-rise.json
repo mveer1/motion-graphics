@@ -1,0 +1,50 @@
+{
+  "id": "text-mask-rise",
+  "name": "Line / word mask rise",
+  "category": "typography",
+  "visual_intent": "Editorial headline reveal: each line (or word) rises out of its own mask so type appears to be set, not faded.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "kinetic",
+    "headline",
+    "mask"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "line-mask-rise"
+  ],
+  "implementation_summary": "Split into lines with overflow masks, then fromTo yPercent 110 -> 0 with a short stagger.",
+  "primitives": [
+    "split-text",
+    "clip-mask"
+  ],
+  "runtime_api": "Studio.type.rise(tl, split.lines, at, {duration, stagger, from})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

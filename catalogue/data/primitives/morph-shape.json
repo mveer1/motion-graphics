@@ -1,0 +1,30 @@
+{
+  "id": "morph-shape",
+  "name": "Morph-ready geometric shape",
+  "kind": "shape",
+  "status": "experimental",
+  "description": "Closed circle, regular polygon, star or rectangle path sampled at a fixed point count, starting at the top and running clockwise, so any two shapes with the same count morph cleanly with core GSAP (no MorphSVG).",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    { "name": "kind", "type": "string", "description": "circle | polygon | star | rect" },
+    { "name": "points", "type": "integer", "default": 48, "description": "Sample count; equal counts are morph-compatible" },
+    { "name": "cx, cy, r", "type": "number", "description": "Centre and radius in the SVG user space" },
+    { "name": "sides / spikes, inner / w, h", "type": "number", "description": "Polygon sides, star spikes and inner ratio, rectangle size" },
+    { "name": "rotate", "type": "number", "default": -90, "description": "Angle of the first vertex in degrees" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.shape(kind, {cx, cy, r, sides, spikes, inner, w, h, rotate, points}) -> path d"
+  },
+  "performance_notes": "Pure path generation at build time; 48 points per shape is a few hundred bytes of path data.",
+  "related": ["shape-morph", "svg-path", "blob-shape"],
+  "validation": {
+    "evidence": "tests/studio-runtime/reference-techniques.html via tests/test-studio-runtime.py (structure compatibility, start at top, determinism, morph chain end state) in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": ["shape", "morph", "polygon", "geometry", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

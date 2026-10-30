@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: explainer annotations on a persistent stage</title>
+  <!--
+    Techniques under test: stateful-diagram-steps (one stage that changes state), diagram-connectors,
+    annotation-callouts, stamp-impact, squash-stretch-bounce, onion-skin-trail, progress-stepper.
+    Original subject (a relay hand-off); no reference layout, characters or product names.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #stage { background: var(--c-paper); }
+    #head { position: absolute; left: var(--safe-left); top: var(--safe-top); width: 70%; display: flex; flex-direction: column; gap: calc(var(--u) * 1.2); }
+    .card {
+      position: absolute; top: 270px; width: 200px; height: 120px; padding: calc(var(--u) * 1.6);
+      background: var(--c-paper-2, #ebe3d4); border: calc(var(--u) * 0.35) solid var(--c-ink); border-radius: calc(var(--u) * 1.2);
+      font-family: var(--font-mono); font-size: var(--fs-kicker); letter-spacing: 0.06em; text-transform: uppercase; color: var(--c-ink);
+    }
+    .card span { display: block; }
+    .card b { display: block; font-family: var(--font-display); font-size: calc(var(--u) * 4.6); letter-spacing: 0; text-transform: none; margin-top: calc(var(--u) * 0.8); }
+    #cardA { left: 110px; } #cardB { left: 540px; } #cardC { left: 970px; }
+    #zone {
+      position: absolute; left: 330px; top: 300px; width: 190px; height: 60px; border-radius: calc(var(--u) * 0.8);
+      background: repeating-linear-gradient(-45deg, rgba(200, 70, 43, 0.18) 0 10px, transparent 10px 20px);
+    }
+    #baton, .baton-fall { position: absolute; left: 860px; top: 300px; width: 64px; height: 22px; border-radius: 11px; background: var(--c-accent); }
+    .baton-fall { top: 458px; visibility: hidden; opacity: 0; }
+    #stamp {
+      position: absolute; left: 990px; top: 222px; padding: calc(var(--u) * 0.5) calc(var(--u) * 1.4);
+      border: calc(var(--u) * 0.45) solid var(--c-accent); border-radius: calc(var(--u) * 0.6); background: var(--c-paper);
+      font-family: var(--font-mono); font-weight: 700; font-size: calc(var(--u) * 3.2); letter-spacing: 0.12em; color: var(--c-accent);
+      visibility: hidden; opacity: 0;
+    }
+    #stepHost { position: absolute; left: 140px; right: 140px; bottom: calc(var(--safe-bottom) + var(--u) * 1); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="9.5">
+  <div class="st-scene" id="stage">
+    <div id="head"><div class="st-kicker">Relay, explained</div><h2 class="st-heading" id="title">The baton changes hands inside a short zone</h2></div>
+    <div id="zone"></div>
+    <div class="card" id="cardA"><span>Leg 1</span><b>Runner A</b></div>
+    <div class="card" id="cardB"><span>Leg 2</span><b>Runner B</b></div>
+    <div class="card" id="cardC"><span>Leg 3</span><b>Runner C</b></div>
+    <div id="baton"></div>
+    <div id="batonFall" class="baton-fall"></div>
+    <div id="stamp">DROPPED</div>
+    <div id="stepHost"></div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var title = S.type.split('#title', { type: 'lines,words', mask: 'lines' });
+  S.show(tl, '#stage', 0);
+  S.type.rise(tl, title.lines, 0.1, { stagger: 0.08 });
+  S.space.pop(tl, ['#cardA', '#cardB', '#cardC'], 0.5, { stagger: 0.12, tilt: 2 });
+  tl.fromTo('#zone', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'power1.out' }, 1.0);
+  var steps = S.comp.stepper('#stepHost', ['Start', 'Leg 1', 'Hand-off', 'Leg 2', 'Leg 3']);
+  steps.enter(tl, 0.6);
+  steps.advance(tl, 0, 1.2);
+  var layer = S.draw.layer('#stage');
+  S.draw.connect(tl, layer, '#cardA', '#cardB', 1.8, { bend: 0.25 });
+  steps.advance(tl, 2, 2.2);
+  var note = S.comp.callout('#stage', { text: 'hand-off zone', target: '#zone', side: 'bottom', distance: 18, seed: 9 });
+  note.enter(tl, 2.6);
+  steps.advance(tl, 3, 4.0);
+  S.draw.connect(tl, layer, '#cardB', '#cardC', 4.2, { bend: 0.25, dashed: true });
+  // The baton falls with physical timing (22u drop from where it was held); ghosts show the decay.
+  S.hide(tl, '#baton', 5.0);
+  S.space.trail(tl, '#batonFall', 5.0, function (t2, el, at) {
+    return S.space.bounce(t2, el, at, { height: 22, bounces: 2, decay: 0.38, squash: 0.35, fall: 0.4 });
+  }, { count: 4, lag: 0.05, opacity: 0.45, hold: 0.4 });
+  S.fx.stamp(tl, '#stamp', 6.7, { rotate: -8, shake: '#cardC' });
+  note.exit(tl, 8.2);
+});
+</script>
+</body>
+</html>

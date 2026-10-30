@@ -1,0 +1,56 @@
+{
+  "spec_version": 1,
+  "slug": "paper-plane-field-notes",
+  "direction": "direction-a",
+  "timing_source": "fixed",
+  "duration_sec": 22,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Verbs",
+      "start_sec": 0,
+      "end_sec": 3.8,
+      "purpose": "Name the three actions with energy; each word performs itself.",
+      "on_screen_text": ["Fold", "Crease", "Fly."],
+      "visual": "Three full-frame word cards on a 0.9 s beat: Fold squeezes in from a wide stretch, Crease tightens its tracking, Fly. smears in; its full stop (paper colour on terracotta) blooms into the page.",
+      "layout": { "landscape": "Centred words fitted to the safe width", "portrait": "Same, smaller fit", "square": "Same" },
+      "capabilities": ["word-beats", "smear-motion", "tracking-reveal", "frame-hud"],
+      "transition_out": { "type": "mask", "capability": "element-bloom", "duration_sec": 0.7, "continuity": "The full stop of 'Fly.' grows into the paper page of the next scene." }
+    },
+    {
+      "id": "s2",
+      "title": "Four folds",
+      "start_sec": 3.8,
+      "end_sec": 15.0,
+      "purpose": "Show the four folds on one sheet with orientation (tracker) and two margin notes.",
+      "on_screen_text": ["Fold the sheet in half, lengthwise.", "Fold the top corners to the crease.", "Fold the new edges to the centre.", "Fold down both wings.", "keep creases sharp", "heavy nose, steady glide"],
+      "visual": "One paper sheet morphs through four outlines (sheet, house, narrow point, dart); fold lines are drawn by a pen; a four-step tracker fills; hand-drawn notes point at the crease and the nose; corner labels count the folds.",
+      "layout": { "landscape": "Copy and tracker left, sheet right", "portrait": "Sheet above, copy and tracker below", "square": "Sheet top, copy below" },
+      "capabilities": ["shape-morph", "polygon-morph-chain", "morph-shape", "pen-stroke", "progress-stepper", "annotation-callout", "text-mask-rise"],
+      "transition_out": { "type": "none", "continuity": "The finished plane launches; its flight is drawn on the same page." }
+    },
+    {
+      "id": "s3",
+      "title": "Flight",
+      "start_sec": 15.0,
+      "end_sec": 19.0,
+      "purpose": "Pay off the folds: the plane glides.",
+      "on_screen_text": ["smooth glide"],
+      "visual": "The plane shrinks into a dot that draws a gliding path across the page; a note marks the landing.",
+      "capabilities": ["pen-stroke", "annotation-callout"],
+      "transition_out": { "type": "mask", "capability": "element-bloom", "duration_sec": 0.7, "continuity": "The landing dot blooms into the terracotta end card." }
+    },
+    {
+      "id": "s4",
+      "title": "End",
+      "start_sec": 19.0,
+      "end_sec": 22,
+      "purpose": "Close and hold with the call to action.",
+      "on_screen_text": ["Fold. Crease. Fly.", "Grab a sheet and fold one."],
+      "visual": "End card in paper colour on terracotta; the frame labels stay.",
+      "capabilities": ["end-card", "text-mask-rise", "frame-hud"],
+      "transition_out": { "type": "hold-end" }
+    }
+  ]
+}

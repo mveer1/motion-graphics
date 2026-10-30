@@ -1,0 +1,149 @@
+{
+  "target": "tests/reference-derived/pen-and-bloom/index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    0.861,
+    1.721,
+    2.582,
+    3.442,
+    4.303,
+    5.164,
+    6.024,
+    6.885,
+    7.745,
+    8.606,
+    9.467
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 9.5,
+      "fps": 30,
+      "timeline_duration": 8.45,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f00-t000.00.png",
+          "visible_text": []
+        },
+        {
+          "time": 0.867,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f01-t000.87.png",
+          "visible_text": [
+            "Line study"
+          ]
+        },
+        {
+          "time": 1.733,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f02-t001.73.png",
+          "visible_text": [
+            "Line study"
+          ]
+        },
+        {
+          "time": 2.567,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f03-t002.57.png",
+          "visible_text": [
+            "Line study"
+          ]
+        },
+        {
+          "time": 3.433,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f04-t003.43.png",
+          "visible_text": [
+            "Line study"
+          ]
+        },
+        {
+          "time": 4.3,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f05-t004.30.png",
+          "visible_text": [
+            "Line study"
+          ]
+        },
+        {
+          "time": 5.167,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f06-t005.17.png",
+          "visible_text": [
+            "Line study",
+            "Every line starts as a dot."
+          ]
+        },
+        {
+          "time": 6.033,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f07-t006.03.png",
+          "visible_text": [
+            "Line study",
+            "Every line starts as a dot."
+          ]
+        },
+        {
+          "time": 6.9,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f08-t006.90.png",
+          "visible_text": [
+            "Line study",
+            "Every line starts as a dot.",
+            "Line study"
+          ]
+        },
+        {
+          "time": 7.733,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f09-t007.73.png",
+          "visible_text": [
+            "Line study",
+            "Follow it."
+          ]
+        },
+        {
+          "time": 8.6,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f10-t008.60.png",
+          "visible_text": [
+            "Line study",
+            "Follow it."
+          ]
+        },
+        {
+          "time": 9.467,
+          "path": "tests/reference-derived/pen-and-bloom/qa/landscape/f11-t009.47.png",
+          "visible_text": [
+            "Line study",
+            "Follow it."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "text_overlap",
+          "severity": "info",
+          "message": "'Line study' overlaps 'Line study' in 1 sampled frame(s)",
+          "time": 6.9
+        },
+        {
+          "code": "first_frame_empty",
+          "severity": "warning",
+          "message": "frame 0 shows only the background (social thumbnails use the first frame)",
+          "time": 0.0
+        },
+        {
+          "code": "blank_frames",
+          "severity": "warning",
+          "message": "1 scanned frame(s) are a flat colour (first at 0.20s)",
+          "time": 0.2
+        }
+      ],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/pen-and-bloom/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 2,
+  "passed": true
+}

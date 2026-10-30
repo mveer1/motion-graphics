@@ -1,0 +1,55 @@
+{
+  "id": "tracking-settle",
+  "name": "Tracking settle",
+  "effect_id": "tracking-reveal",
+  "status": "experimental",
+  "visual_intent": "Calm, premium label or title entrance: wide tracking settles to the set value while fading in.",
+  "parameters": [
+    {
+      "name": "from",
+      "type": "string",
+      "description": "Start letter-spacing"
+    },
+    {
+      "name": "to",
+      "type": "string",
+      "description": "Final letter-spacing"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "power3.out",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "Studio.type.track(tl, '#kicker', 0.2, {from: '0.6em', to: '0.16em'});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "typography",
+    "tracking",
+    "label"
+  ],
+  "examples": [
+    "src/studio/studio-type.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "id": "morph-ready-shape-sequence",
+  "name": "Geometric shape morph sequence",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Three inspected references transform one primitive into another (circle, triangle, square, letterform, blob) without a cut.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A single shape changes identity in place (circle to triangle to square to star), so an idea transforms continuously instead of being replaced. Matching point structure keeps the morph clean and untwisted.",
+  "purpose": "Show transformation, iteration or a sequence of concepts with continuity; logo-like reveals without using any real mark.",
+  "visual_behaviour": "The outline slides between shapes over 0.5-0.8 s with ease-in-out, holding briefly on each.",
+  "mechanics": "Same point count, same start point (top) and winding (clockwise) for every shape; power3.inOut string interpolation of path data.",
+  "decomposition": { "primitives": ["morph-shape", "svg-path"], "effects": ["shape-morph"], "timing": "About 0.6 s per morph with 0.3-0.5 s holds (ref-92c22222a2 5.71-7.42 s)." },
+  "parameters": [ { "name": "shapes", "description": "circle | polygon(sides) | star(spikes, inner) | rect(w, h)" }, { "name": "points", "description": "Shared sample count", "default": 48 } ],
+  "use_cases": ["shape morphing", "concept transformation", "title sequence", "abstract logo-style reveal (original marks only)", "education geometry"],
+  "failure_modes": ["Different point counts or start points cause twisting", "Morphing to detailed letterforms needs many more points or MorphSVG", "Recreating a brand mark as the end shape"],
+  "implementation_state": "implemented",
+  "implemented_by": ["morph-shape", "shape-morph", "polygon-morph-chain"],
+  "implementation": { "approach": "Studio.draw.shape generates morph-ready paths; Studio.draw.morphChain sequences Studio.draw.morph calls.", "runtime_api": ["Studio.draw.shape", "Studio.draw.morphChain", "Studio.draw.morph"] },
+  "capability": { "support": "native", "compatible_components": ["morph-shape", "shape-morph", "blob-shape"], "complexity": "low",
+    "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/shape-and-grid (morph chain section)", "value": "51.9 ms/frame median for the whole test", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] },
+    "advanced_path": "Arbitrary shape-to-letterform morphs need point matching (GSAP MorphSVGPlugin, catalogued under gsap-bonus-plugins, or a resampling routine); not needed for primitives.",
+    "additional_tooling": { "needed": "no", "justification": "Primitive morphs work with core GSAP; revisit only for letterform morphs." },
+    "limitations": ["Primitives only; letterform morphs not supported"], "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [5.71, 6.57, 7.42], "observed": "A circle with orbiting satellites becomes a triangle with rays, then a square, on a blue field." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [1.5, 2.3], "observed": "Two ring shapes change form (filled and open) before one expands into the next scene." },
+    { "source_id": "ref-736d4ef2c2", "timestamps": [17.5], "observed": "The O of a word becomes a solid blob with concentric rings." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/shape-and-grid/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Circle, triangle, square, star inspected mid-morph and at rest." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Four poly outlines (sheet, house, narrow point, dart) resampled to 48 points and morphed in place. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["grid-wave-propagation"], "effects": ["shape-morph"], "templates": ["title-sequence", "brand-logo-resolve"] },
+  "licensing_notes": "Technique only. Never morph into a third-party logo or mark; end shapes must be original or user-authorised.",
+  "tags": ["shape-morphing", "morph", "geometry", "transition", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

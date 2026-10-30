@@ -1,0 +1,53 @@
+{
+  "id": "word-per-beat-sequence",
+  "name": "Word-per-beat typographic sequence",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Five inspected reference videos deliver a sentence or list one word per cut, each word on its own full-frame card.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A line of copy is split across hard cuts, one word (or short phrase) per card, each card with its own background, colour or treatment. The rhythm of the cuts carries the sentence; contrast between cards keeps every cut legible.",
+  "purpose": "Turn a slogan, list of features or manifesto into rhythm; make each word land as an event.",
+  "visual_behaviour": "Full-frame card, one centred or left-set word in heavy type, often with a full stop; hard cut every 0.25-2.5 s; background colour alternates between paper, ink and one or two accents.",
+  "mechanics": "Hard cuts on a beat grid; per-word entrance (mask rise, smear, character drop, stretch) of 0.2-0.5 s with expo or power ease-out; no exits (the cut replaces the card).",
+  "decomposition": { "primitives": ["split-text", "styled-text", "clip-mask"], "effects": ["text-mask-rise", "char-cascade", "smear-motion", "beat-pulse"], "timing": "Measured cut spacing 0.23-0.47 s (ref-92c22222a2 11.25-12.65 s; ref-1cbe55c987 10.52-12.00 s), about 0.33-0.5 s (ref-0bf0254a3d), about 0.4-2.5 s (ref-b97f9168c6). Readable minimum is about 0.25 s for one short word." },
+  "parameters": [
+    { "name": "words", "description": "Text, treatment, background, ink, accent full stop per card" },
+    { "name": "beats", "description": "Explicit times or a tempo grid (bpm, beats per word)", "default": "120 bpm, 1 word per 2 beats" },
+    { "name": "holdLast", "description": "Keep the final card for a transition (for example an element bloom)", "default": false }
+  ],
+  "use_cases": ["kinetic typography", "product promo feature list", "title sequence", "manifesto or slogan", "social opener", "reel or showreel"],
+  "failure_modes": ["Cards under 0.25 s for words longer than one syllable become unreadable", "Too many different treatments read as a sampler, not a sentence", "Without a beat grid the rhythm feels arbitrary", "Low contrast between consecutive cards hides the cut"],
+  "implementation_state": "implemented",
+  "implemented_by": ["word-beats"],
+  "implementation": { "approach": "Studio.comp.wordBeats builds one .st-wb-card per word, schedules Studio.show/hide on the beat times and applies the word's treatment at its beat.", "runtime_api": ["Studio.comp.wordBeats", "Studio.rhythm.grid"] },
+  "capability": {
+    "support": "native",
+    "requirements": ["DOM text", "hard cuts", "beat grid"],
+    "compatible_components": ["word-beats", "text-mask-rise", "char-cascade", "smear-motion", "beat-pulse"],
+    "additional_dependencies": [],
+    "complexity": "low",
+    "resources": { "cpu": "low", "gpu": "low", "memory": "one card per word", "basis": "estimated" },
+    "native_option": "GSAP + DOM text with Studio.cut on beats.",
+    "additional_tooling": { "needed": "no" },
+    "limitations": ["Fit-to-width shrinks long words in portrait instead of breaking them; very long words need shorter copy"],
+    "priority": { "creative_value": 5, "cost": 1, "note": "Seen in 5 of 14 references; cheapest high-impact kinetic pattern." }
+  },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [11.25, 11.48, 11.72, 12.18, 12.65], "observed": "Five single-word cards (two with accent full stops) cut 0.23-0.47 s apart on alternating colour fields." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [10.52, 10.85, 11.17], "observed": "Three one-word cards about 0.33 s apart, each with a different fill treatment (solid, outline, metallic)." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [2.73, 3.25, 3.72, 4.1, 4.57, 26.75, 27.63, 28.48], "observed": "A sentence spread over fast cuts in the first half; single adjectives with full stops on cards in the second half." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [10.52, 10.75, 11.0, 11.27, 11.5], "observed": "Feature list as about 0.25 s word cards, each with its own background texture." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "One card per beat, tempo-grid times, last card holds." },
+    { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "0 errors; contact sheet inspected: every word legible at its beat." },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Original demo: three verbs on a 0.9 s beat open a 22 s explainer in three formats. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["self-describing-kinetic-words", "accent-punctuation-motif", "cut-on-beat", "directional-smear"], "compositions": ["word-beats"], "templates": ["kinetic-typography", "title-sequence", "product-promo"], "styles": ["swiss-minimal"] },
+  "combines_with": [
+    { "id": "cut-on-beat", "why": "Cuts on the music's beat make the word rhythm feel inevitable." },
+    { "id": "element-bloom-transition", "why": "The last card's full stop can bloom into the next scene." },
+    { "id": "hud-frame-overlay", "why": "A constant frame stitches the fast cuts into one piece." }
+  ],
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No footage, frames, logos, type lockups or shot sequences are copied; implementations and copy are original.",
+  "tags": ["kinetic-typography", "typography", "beat", "cut", "manifesto", "promo", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

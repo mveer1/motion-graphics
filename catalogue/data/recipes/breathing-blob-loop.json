@@ -1,0 +1,55 @@
+{
+  "id": "breathing-blob-loop",
+  "name": "Breathing blob loop",
+  "effect_id": "organic-wobble",
+  "status": "experimental",
+  "visual_intent": "Breathing shapes, simmering liquid surfaces and living blobs that loop seamlessly.",
+  "parameters": [
+    {
+      "name": "make",
+      "type": "function",
+      "description": "phase -> compatible path"
+    },
+    {
+      "name": "period",
+      "type": "number",
+      "description": "Seconds per variant"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "sine.inOut",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "Studio.draw.wobble(tl, '#tea', 4, 9, i => Studio.draw.wave(3, {width: 400, height: 120, level: 0.4, phase: i}), {period: 0.8});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "loop",
+    "organic",
+    "liquid"
+  ],
+  "examples": [
+    "src/studio/studio-draw.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

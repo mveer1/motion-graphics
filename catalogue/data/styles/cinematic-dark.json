@@ -1,0 +1,86 @@
+{
+  "id": "cinematic-dark",
+  "name": "Cinematic Dark",
+  "status": "experimental",
+  "mode": "dark",
+  "default": false,
+  "description": "Near-black with warm highlights, condensed capitals and serif italics; slow pushes and long dissolves for title sequences when a dark direction is requested.",
+  "location": "src/studio/styles/cinematic-dark.css",
+  "tokens": {
+    "colors": {
+      "paper": "#0b0b0c",
+      "paper-2": "#161616",
+      "ink": "#f2ede4",
+      "ink-2": "#a39e93",
+      "rule": "#34312c",
+      "accent": "#d4a24c",
+      "accent-2": "#b0413e",
+      "accent-3": "#7f9c96"
+    },
+    "typography": {
+      "display": "'Oswald', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Optional Studio.texture.grain overlay; blend from --grain-blend",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Slow and cinematic",
+    "ease_in": "power2.in",
+    "ease_out": "power2.out",
+    "enter_duration_sec": 1.2,
+    "stagger_sec": 0.12,
+    "notes": "Camera pushes, letterboxing, restrained grain (screen blend)."
+  },
+  "fonts": [
+    {
+      "family": "Oswald",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "EB Garamond",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 16.9:1",
+    "ink-2/paper 7.4:1",
+    "accent/paper 8.5:1",
+    "accent-2/paper 3.4:1 (shapes only)"
+  ],
+  "suitable_for": [
+    "cinematic title sequences",
+    "film and documentary openers",
+    "dramatic reveals"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Not yet used in a rendered project.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "dark",
+    "cinematic",
+    "title-sequence"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "avoid_for": [
+    "default light-first briefs"
+  ]
+}

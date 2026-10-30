@@ -1,0 +1,37 @@
+{
+  "id": "depth-layer",
+  "name": "Depth layer group (data-depth 0-5)",
+  "kind": "group",
+  "status": "experimental",
+  "description": "Layer containers whose camera response scales with depth (epic-design depth tokens), giving 2.5D parallax without WebGL. Animate children, not the layer element.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "data-depth",
+      "type": "integer",
+      "description": "0 far .. 5 near"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-motion.js",
+    "api": "<div class=\"st-layer\" data-depth=\"0..5\">; Studio.space.factor(el)"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "2.5d",
+    "parallax",
+    "depth",
+    "camera"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "illustrated-explainer",
+  "name": "Illustrated explainer / how-to",
+  "deliverable_type": "illustrated_explainer",
+  "status": "experimental",
+  "description": "Editorial, illustrated step sequence (recipes, how-tos, processes): title card, steps with line-art illustration, end card. Narration optional; on-screen text carries the story.",
+  "location": "templates/projects/illustrated-explainer",
+  "stages": {
+    "research": "optional",
+    "storyboard": "required",
+    "narration": "optional",
+    "music": "optional",
+    "captions": "optional"
+  },
+  "default_style": "editorial-light",
+  "default_formats": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "default_duration_sec": 20,
+  "compositions": [
+    "title-card",
+    "step-header",
+    "item-list",
+    "end-card"
+  ],
+  "effects": [
+    "line-art-reveal",
+    "stroke-draw",
+    "text-mask-rise",
+    "mask-wipe",
+    "element-mask-reveal"
+  ],
+  "suitable_for": [
+    "recipes",
+    "how-tos",
+    "process explainers",
+    "lifestyle education",
+    "editorial explainers"
+  ],
+  "validation_steps": [
+    "python scripts/studio.py new demo-illustrated-explainer --template illustrated-explainer (scaffold in a scratch slug)",
+    "python scripts/studio.py validate <slug>",
+    "python scripts/frame-review.py <slug> --fonts google"
+  ],
+  "validation": {
+    "evidence": "Template scaffold and starter composition validated with scripts/studio.py and frame review in Playwright Chromium, 2026-10-30 (see ARCHITECTURE.md verification status).",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "template",
+    "illustrated-explainer"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

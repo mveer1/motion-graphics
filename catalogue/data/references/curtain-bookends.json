@@ -1,0 +1,22 @@
+{
+  "id": "curtain-bookends",
+  "name": "Theatre curtain bookends",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected storybook piece opens and closes on stage curtains.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Curtains part to open the story and close at the end, framing the piece as a performance and giving it a clear beginning and end.",
+  "purpose": "Framing device for stories, poems and announcements.",
+  "visual_behaviour": "Two drapes slide apart (with slight sway) over about 2 s; they close the same way at the end, with the music fading in and out with them.",
+  "mechanics": "Two panels translating outward with ease-in-out; optional skew sway; fold texture.",
+  "decomposition": { "primitives": ["svg-shape"], "effects": ["mask-wipe"], "timing": "About 2 s open (ref-910d9fc567 0-2.1 s), about 1-2 s close at the end." },
+  "use_cases": ["storybook", "poem", "announcement or reveal", "event promo"],
+  "failure_modes": ["Kitsch when the story is not theatrical"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Two absolutely positioned panels with a fold gradient; fromTo xPercent outward; reverse to close. Small enough to build when a brief asks for it." },
+  "capability": { "support": "native", "compatible_components": ["mask-wipe"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 2, "cost": 1 } },
+  "provenance": [ { "source_id": "ref-910d9fc567", "timestamps": [1.0, 56.0], "observed": "Red curtains open on the stage and close at the end." } ],
+  "related": { "techniques": ["layered-silhouette-stage"] },
+  "licensing_notes": "Technique only (a stage convention).",
+  "tags": ["transition", "curtain", "storybook", "framing", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

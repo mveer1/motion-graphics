@@ -1,0 +1,49 @@
+{
+  "id": "line-art-reveal",
+  "name": "Line-art reveal then fill",
+  "category": "path_draw",
+  "visual_intent": "Progressive illustration: strokes draw in reading order, then flat fills fade in under them.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "illustration",
+    "line-art",
+    "progressive"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "line-art-then-fill"
+  ],
+  "implementation_summary": "Collects stroked shapes in a group, orders them (document, left-right, top-down), draws at pen speed, then fades [data-fill] shapes.",
+  "primitives": [
+    "svg-path",
+    "svg-shape"
+  ],
+  "runtime_api": "Studio.draw.lineArt(tl, group, at, {order, speed})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

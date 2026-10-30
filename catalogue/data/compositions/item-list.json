@@ -1,0 +1,65 @@
+{
+  "id": "item-list",
+  "name": "Itemised list",
+  "purpose": "Ingredients, features, credits or steps with a quantity column and hairline rules.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text"
+    ],
+    "effects": [
+      "element-mask-reveal"
+    ],
+    "recipes": [
+      "edge-reveal"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "items",
+      "type": "array",
+      "description": "[{qty, label, note}]"
+    },
+    {
+      "name": "columns",
+      "type": "object",
+      "description": "Studio.pick map of column counts"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.itemList(parent, items, {columns}).enter(tl, at) / .exit(tl, at)"
+  },
+  "layout_notes": "Grid columns chosen per format (e.g. 2 in landscape, 1 in portrait); rows keep a minimum quantity column width.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html",
+    "tests/studio-runtime/index.html"
+  ],
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google",
+    "npx hyperframes check on the render host"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "composition",
+    "layout",
+    "item",
+    "list"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

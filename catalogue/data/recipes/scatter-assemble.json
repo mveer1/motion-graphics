@@ -1,0 +1,50 @@
+{
+  "id": "scatter-assemble",
+  "name": "Scatter assemble",
+  "effect_id": "object-assembly",
+  "status": "experimental",
+  "visual_intent": "Parts fly in from seeded scattered offsets and lock into place (or burst apart).",
+  "parameters": [
+    {
+      "name": "spread",
+      "type": "number",
+      "description": "Scatter radius in --u units"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "back.out(1.4)",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "Studio.space.assemble(tl, '.ingredient', 2.0, {seed: 21, spread: 30});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "assembly",
+    "objects",
+    "kinetic"
+  ],
+  "examples": [
+    "src/studio/studio-motion.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

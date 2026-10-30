@@ -39,7 +39,7 @@
   "owner": "pedagogy",
   "status": "approved",
   "approval_evidence": "Production certified in Stage 0 technical investigation.",
-  "architecture_ref": "ARCHITECTURE.md#s0",
+  "architecture_ref": "ARCHITECTURE.md#s0r",
   "last_verified": "2026-10-30",
   "tags": ["subagent", "research", "read-only", "literature", "stage-0"]
 }

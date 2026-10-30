@@ -42,7 +42,7 @@
   "owner": "pedagogy",
   "status": "approved",
   "approval_evidence": "Production certified in Stage 0 pipeline; validated against specs/research-spec.json.",
-  "architecture_ref": "ARCHITECTURE.md#s0",
+  "architecture_ref": "ARCHITECTURE.md#s0r",
   "last_verified": "2026-10-30",
   "tags": ["research", "pedagogy", "math", "metaphors", "stage-0"]
 }

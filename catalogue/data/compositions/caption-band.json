@@ -1,0 +1,57 @@
+{
+  "id": "caption-band",
+  "name": "Caption band",
+  "purpose": "Timed captions in the bottom safe area for narrated or sound-off viewing.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text",
+      "scene-container"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "cues",
+      "type": "array",
+      "description": "[{start, end, text}] non-overlapping (studio.py captions writes approximate cues)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.captions(parent, cues).schedule(tl)"
+  },
+  "layout_notes": "Sits on the bottom safe inset (20% in portrait) and carries data-layout-allow-caption-zone.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html",
+    "tests/studio-runtime/index.html"
+  ],
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google",
+    "npx hyperframes check on the render host"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "composition",
+    "layout",
+    "caption",
+    "band"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

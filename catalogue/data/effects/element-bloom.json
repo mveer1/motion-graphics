@@ -1,0 +1,28 @@
+{
+  "id": "element-bloom",
+  "name": "Element bloom transition",
+  "category": "transition",
+  "visual_intent": "A small element of the current scene (a full stop, dot, icon) grows into the next scene's background, so the cut feels caused by something the viewer was already looking at.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["transition", "iris", "bloom", "dot", "continuity", "reference-derived"],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "1-2 overlay discs",
+    "memory_profile": "Low (<10MB); transform-only scaling of a pre-sized disc (estimate, not measured on the M2)"
+  },
+  "recipes": ["bloom-become"],
+  "implementation_summary": "Measures the source with Studio.boxAt at the cue, sizes a disc to the farthest frame corner, scales it from the source radius (optional leading ring), cuts the scenes underneath when the frame is covered, then hides the disc. Mode 'reveal' clips the incoming scene with a circle centred on the source instead.",
+  "primitives": ["svg-shape", "clip-mask"],
+  "runtime_api": "Studio.fx.bloom(tl, source, outScene, inScene, at, {duration, ease, color, ring, ringLead, mode, x, y})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/pen-and-bloom/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["iris-transition", "shape-cover-transition", "match-cut"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html (disc growth, cut, cleanup, reveal clip, seek-order independence) in Playwright Chromium on Windows, 2026-10-30. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

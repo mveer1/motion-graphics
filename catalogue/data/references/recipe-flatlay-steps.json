@@ -1,0 +1,42 @@
+{
+  "id": "recipe-flatlay-steps",
+  "name": "Overhead recipe step sequence",
+  "status": "experimental",
+  "source": {
+    "type": "genre-convention",
+    "description": "Genre convention: overhead (flat-lay) recipe videos with ingredients listed, then numbered steps with the cooking vessel as the anchor.",
+    "inspected": false
+  },
+  "technique": "Ingredient list assembles, numbered steps replace each other around a constant vessel, final serve shot holds.",
+  "decomposition": {
+    "primitives": [
+      "svg-path",
+      "styled-text"
+    ],
+    "effects": [
+      "object-assembly",
+      "line-art-reveal",
+      "text-mask-rise"
+    ],
+    "timing": "Step holds sized to reading time"
+  },
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "item-list",
+    "step-header",
+    "object-assembly",
+    "line-art-reveal"
+  ],
+  "licensing_notes": "Technique only. No specific artwork, footage, characters or compositions from any source are copied.",
+  "tags": [
+    "reference",
+    "recipe",
+    "flatlay",
+    "steps"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

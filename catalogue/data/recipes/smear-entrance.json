@@ -1,0 +1,37 @@
+{
+  "id": "smear-entrance",
+  "name": "Smear entrance / exit",
+  "effect_id": "smear-motion",
+  "status": "experimental",
+  "visual_intent": "Fast kinetic arrival with directional blur and stretch that settles crisp.",
+  "parameters": [
+    { "name": "side", "type": "string", "default": "left", "description": "Entrance comes from this side; with exit:true the target leaves toward it" },
+    { "name": "distance", "type": "number", "default": 60, "description": "Travel in --u units (1% of the short side)" },
+    { "name": "blur", "type": "number", "default": "2.4u", "description": "Peak directional blur in px" },
+    { "name": "stretch", "type": "number", "default": 1.6, "description": "Peak scale along the motion" },
+    { "name": "duration", "type": "number", "default": 0.45, "description": "Seconds; keep under 0.6 or the blur reads as soft focus" }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "On a beat or cut; pairs with hard cuts in word-beats sequences",
+    "easing_standard": "expo.out (entrance), expo.in (exit)",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "Studio.fx.smear(tl, '#word', 2.0, { side: 'left', duration: 0.4 });\nStudio.fx.smear(tl, '#word', 3.6, { side: 'right', exit: true, duration: 0.3 });"
+  },
+  "fallbacks": "Plain push/slide with expo ease (no filter) if the render host shows filter cost or banding.",
+  "performance_characteristics": { "tested_fps": 30, "frame_budget_ms": 4.0, "memory_impact": "Low; blur cost scales with element area; estimate, not measured on the M2" },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/word-beats/index.html --fonts google",
+    "On the M2: hyperframes render with --low-memory-mode and check render time and memory against a no-filter variant"
+  ],
+  "tags": ["smear", "motion-blur", "kinetic", "approximation", "reference-derived"],
+  "examples": ["tests/reference-derived/word-beats/index.html"],
+  "validation": {
+    "evidence": "Runtime self-test tests/studio-runtime/reference-techniques.html in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

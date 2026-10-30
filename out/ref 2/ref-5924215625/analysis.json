@@ -1,0 +1,328 @@
+{
+  "id": "ref-5924215625",
+  "sha256": "592421562515d9108bbcf967c2d668c9fce257bf32e6a5fbbd9d4f97f29d7b27",
+  "file": "play_720p (12).mp4",
+  "decoded": {
+    "duration": 20.074667,
+    "width": 1280,
+    "height": 720
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30"
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 7,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 1.567,
+        "kind": "soft",
+        "score": 0.212,
+        "isolation": 0.0
+      },
+      {
+        "t": 3.917,
+        "kind": "soft",
+        "score": 0.123,
+        "isolation": 0.06
+      },
+      {
+        "t": 5.333,
+        "kind": "soft",
+        "score": 0.046,
+        "isolation": 0.0
+      },
+      {
+        "t": 10.1,
+        "kind": "soft",
+        "score": 0.082,
+        "isolation": 0.0
+      },
+      {
+        "t": 11.733,
+        "kind": "soft",
+        "score": 0.09,
+        "isolation": 0.08
+      },
+      {
+        "t": 14.05,
+        "kind": "soft",
+        "score": 0.056,
+        "isolation": 0.07
+      },
+      {
+        "t": 16.8,
+        "kind": "soft",
+        "score": 0.042,
+        "isolation": 0.16
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.57,
+        "duration": 1.57,
+        "activity": 0.087,
+        "luma": 0.1
+      },
+      {
+        "index": 2,
+        "start": 1.57,
+        "end": 3.92,
+        "duration": 2.35,
+        "activity": 0.13,
+        "luma": 0.63
+      },
+      {
+        "index": 3,
+        "start": 3.92,
+        "end": 5.33,
+        "duration": 1.42,
+        "activity": 0.271,
+        "luma": 0.26
+      },
+      {
+        "index": 4,
+        "start": 5.33,
+        "end": 10.1,
+        "duration": 4.77,
+        "activity": 0.566,
+        "luma": 0.4
+      },
+      {
+        "index": 5,
+        "start": 10.1,
+        "end": 11.73,
+        "duration": 1.63,
+        "activity": 0.174,
+        "luma": 0.67
+      },
+      {
+        "index": 6,
+        "start": 11.73,
+        "end": 14.05,
+        "duration": 2.32,
+        "activity": 0.123,
+        "luma": 0.65
+      },
+      {
+        "index": 7,
+        "start": 14.05,
+        "end": 16.8,
+        "duration": 2.75,
+        "activity": 0.112,
+        "luma": 0.28
+      },
+      {
+        "index": 8,
+        "start": 16.8,
+        "end": 20.0,
+        "duration": 3.2,
+        "activity": 0.044,
+        "luma": 0.08
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.227,
+    "luma": {
+      "mean": 0.37,
+      "dark_share": 0.32,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.098
+      },
+      {
+        "hex": "#080828",
+        "share": 0.079
+      },
+      {
+        "hex": "#585868",
+        "share": 0.047
+      },
+      {
+        "hex": "#281838",
+        "share": 0.031
+      },
+      {
+        "hex": "#f8a868",
+        "share": 0.029
+      },
+      {
+        "hex": "#88c8b8",
+        "share": 0.026
+      },
+      {
+        "hex": "#181828",
+        "share": 0.026
+      },
+      {
+        "hex": "#783868",
+        "share": 0.025
+      },
+      {
+        "hex": "#e88858",
+        "share": 0.024
+      },
+      {
+        "hex": "#582868",
+        "share": 0.021
+      }
+    ],
+    "representative_times": [
+      0.79,
+      2.75,
+      4.62,
+      6.52,
+      7.71,
+      8.91,
+      10.91,
+      12.89,
+      15.43,
+      18.4
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -0.6,
+      "mean_dbfs_voiced": -18.1,
+      "silence_ratio": 0.01,
+      "onsets": 89,
+      "onset_rate_per_sec": 4.43,
+      "onset_times": [
+        0.3,
+        0.42,
+        0.81,
+        0.91,
+        0.98,
+        1.25,
+        1.32,
+        1.51,
+        1.7,
+        1.81,
+        2.07,
+        2.28,
+        2.58,
+        2.69,
+        2.81,
+        3.02,
+        3.3,
+        3.58,
+        3.81,
+        3.97,
+        4.25,
+        4.32,
+        4.57,
+        4.69,
+        4.83,
+        4.95,
+        5.06,
+        5.2,
+        5.32,
+        5.46,
+        5.57,
+        5.83,
+        6.27,
+        6.52,
+        6.69,
+        6.83,
+        7.06,
+        7.2,
+        7.31,
+        7.45,
+        7.57,
+        7.69,
+        7.83,
+        7.94,
+        8.06,
+        8.2,
+        8.27,
+        8.45,
+        8.57,
+        8.68,
+        8.82,
+        8.94,
+        9.06,
+        9.2,
+        9.4,
+        9.57,
+        9.82,
+        9.94,
+        10.08,
+        10.31,
+        10.45,
+        10.57,
+        10.8,
+        11.01,
+        11.31,
+        11.59,
+        11.7,
+        11.84,
+        11.96,
+        12.1,
+        12.35,
+        12.52,
+        12.63,
+        12.91,
+        13.05,
+        13.21,
+        13.42,
+        13.77,
+        14.07,
+        14.3,
+        14.68,
+        15.33,
+        16.02,
+        16.16,
+        16.74,
+        17.16,
+        17.55,
+        18.51,
+        18.62
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.28,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 689,
+      "band_share": {
+        "low_lt_250": 0.39,
+        "mid_250_2k": 0.53,
+        "high_gt_2k": 0.08
+      },
+      "syllabic_modulation_share": 0.36,
+      "boundary_onset_alignment": {
+        "boundaries": 7,
+        "tolerance_ms": 50,
+        "near_onset": 0.57,
+        "chance_level": 0.36,
+        "median_offset_ms": 30
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-5924215625",
+      "overview": "out/reference-analysis/ref-5924215625/overview.jpg",
+      "scenes": "out/reference-analysis/ref-5924215625/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-5924215625/transitions.jpg",
+      "motion": "out/reference-analysis/ref-5924215625/motion.jpg",
+      "audio": "out/reference-analysis/ref-5924215625/audio.png",
+      "frames": "out/reference-analysis/ref-5924215625/frames",
+      "tracked": false
+    }
+  }
+}

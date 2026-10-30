@@ -1,0 +1,50 @@
+{
+  "id": "blob-morph",
+  "name": "Blob morph",
+  "effect_id": "shape-morph",
+  "status": "experimental",
+  "visual_intent": "One shape becomes another (blob to blob, wave level to level) for continuity and organic change.",
+  "parameters": [
+    {
+      "name": "toD",
+      "type": "string",
+      "description": "Target path data with the same structure"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "power2.inOut",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "Studio.draw.morph(tl, '#blob', Studio.draw.blob(4, {r: 160, phase: 2}), 3.0);"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "morph",
+    "shape",
+    "organic"
+  ],
+  "examples": [
+    "src/studio/studio-draw.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

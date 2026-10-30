@@ -1,0 +1,459 @@
+{
+  "id": "ref-49459ad8c1",
+  "name": "Dot-led announcement: one dot draws, punctuates and opens scenes",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (8).mp4",
+    "aliases": [],
+    "sha256": "49459ad8c1f5a5e3b2f2bd0dac891d0a556b13127b817dd963bc88dbd6552045",
+    "bytes": 810462,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "An AI model product name set as the closing title",
+        "timestamps": [
+          8.5,
+          9.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "palette-identity",
+        "description": "Deep blue field with a single orange dot used as a brand motif",
+        "timestamps": [
+          0.5,
+          8.5
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand announcement; reuse the dot-led choreography only, with the project's own palette and copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 810462,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 10.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 600,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 407,
+    "keyframes": 10,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 10.069,
+      "kbps": 226
+    },
+    "overall_kbps": 648
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (16 frames over 10 s) and transition strips around all 4 boundaries (3 cuts and 1 soft transition at analyzer 1.2). Audio from measurements only.",
+    "coverage": "Full duration; all cuts at frame level.",
+    "concept": {
+      "observed": "An announcement told through one orange dot: it draws a question mark that tangles, becomes an i-dot, sits on blueprint guides, ends a list, then blooms into the closing title and draws its underline.",
+      "interpreted": "Personality traits (curious, rigorous, candid) presented as typographic vignettes linked by the dot.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Single words with small parenthetical asides; no narration.",
+      "interpreted": "Warm, witty, understated."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Measured #1828a8 (47%) blue, #d8d8f8 (28%), white (12%); one orange accent."
+      },
+      "typography": {
+        "observed": "Lowercase serif and grotesk words; a word extends with a suffix on construction lines; a serif word on white with an aside."
+      },
+      "composition": {
+        "observed": "Centred single words; the dot keeps its screen position across cuts."
+      },
+      "motion": {
+        "observed": "Dot draws lines, bounces onto staff lines, scrolls a vertical list with a focused item."
+      },
+      "timing_and_rhythm": {
+        "observed": "Cuts at 2.00, 3.50, 5.00 and 7.82 s; static holds 0.06-1.06 s and 5.06-5.94 s.",
+        "interpreted": "Even 1.5 s beats with breathing holds."
+      },
+      "transitions": {
+        "observed": "Colour-inversion cuts with the dot held in place (2.00, 3.50 s); hard cut to white (5.00 s); full stop grows into a soft-edged circle that fills the frame (7.82 s)."
+      },
+      "audio_and_sync": {
+        "observed": "1.9 onsets/s, tempo low confidence; boundaries not near onsets (0.0 vs 0.17 chance).",
+        "interpreted": "Sparse audio, not cut to hits.",
+        "confidence": "low"
+      },
+      "motifs": {
+        "observed": "The dot as i-dot, full stop, decimal point and pen."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.0,
+        "observed": "Blue: the dot draws a question mark that tangles into a scribble."
+      },
+      {
+        "start": 2.0,
+        "end": 3.5,
+        "observed": "Light: staff-like lines; the dot lands as an i-dot in a word."
+      },
+      {
+        "start": 3.5,
+        "end": 5.0,
+        "observed": "Blue: construction guides draw; a word extends."
+      },
+      {
+        "start": 5.0,
+        "end": 7.82,
+        "observed": "White: a serif word with an aside, then a vertical list with a focused item."
+      },
+      {
+        "start": 7.82,
+        "end": 10.0,
+        "observed": "Full stop blooms into blue; product title with the dot as decimal; underline drawn from the dot."
+      }
+    ],
+    "moments": [
+      {
+        "t": 7.82,
+        "observed": "The list's full stop grows into the next scene.",
+        "interpreted": "Punctuation literally ends the sentence and opens the next idea."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the scribble is drawn procedurally or hand-animated"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        7.82
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        0.5,
+        1.5,
+        8.5
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        2.5,
+        9.0
+      ]
+    },
+    {
+      "id": "annotation-callouts",
+      "timestamps": [
+        5.5
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        6.0,
+        7.0
+      ]
+    },
+    {
+      "id": "continuous-line-spine",
+      "timestamps": [
+        2.5,
+        8.5
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        2.0,
+        3.5
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "pen-stroke",
+      "element-bloom",
+      "slot-roll",
+      "match-cut"
+    ],
+    "compositions": [
+      "title-card"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "brand-logo-resolve"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "line-art",
+    "scene-transitions",
+    "title-sequence"
+  ],
+  "tags": [
+    "reference-video",
+    "blue",
+    "dot",
+    "announcement",
+    "typographic-vignettes",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 9.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 80,
+      "scan_size": "96x54",
+      "overview_frames": 16,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 2
+    },
+    "boundaries": [
+      {
+        "t": 2.0,
+        "kind": "cut",
+        "score": 1.1,
+        "isolation": 0.93,
+        "frame": 120
+      },
+      {
+        "t": 3.5,
+        "kind": "cut",
+        "score": 1.115,
+        "isolation": 1.0,
+        "frame": 210
+      },
+      {
+        "t": 5.0,
+        "kind": "cut",
+        "score": 1.213,
+        "isolation": 1.0,
+        "frame": 300
+      },
+      {
+        "t": 7.817,
+        "kind": "soft",
+        "score": 0.151,
+        "isolation": 0.06
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.0,
+        "duration": 2.0,
+        "activity": 0.012,
+        "luma": 0.21
+      },
+      {
+        "index": 2,
+        "start": 2.0,
+        "end": 3.5,
+        "duration": 1.5,
+        "activity": 0.118,
+        "luma": 0.84
+      },
+      {
+        "index": 3,
+        "start": 3.5,
+        "end": 5.0,
+        "duration": 1.5,
+        "activity": 0.093,
+        "luma": 0.23
+      },
+      {
+        "index": 4,
+        "start": 5.0,
+        "end": 7.82,
+        "duration": 2.82,
+        "activity": 0.147,
+        "luma": 0.87
+      },
+      {
+        "index": 5,
+        "start": 7.82,
+        "end": 10.0,
+        "duration": 2.18,
+        "activity": 0.042,
+        "luma": 0.26
+      }
+    ],
+    "static_holds": [
+      [
+        0.06,
+        1.06
+      ],
+      [
+        5.06,
+        5.94
+      ]
+    ],
+    "mean_activity": 0.085,
+    "luma": {
+      "mean": 0.51,
+      "dark_share": 0.38,
+      "light_share": 0.42
+    },
+    "palette": [
+      {
+        "hex": "#1828a8",
+        "share": 0.471
+      },
+      {
+        "hex": "#d8d8f8",
+        "share": 0.278
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.121
+      },
+      {
+        "hex": "#1828b8",
+        "share": 0.02
+      },
+      {
+        "hex": "#b8c8f8",
+        "share": 0.016
+      },
+      {
+        "hex": "#2828a8",
+        "share": 0.016
+      },
+      {
+        "hex": "#8888d8",
+        "share": 0.015
+      },
+      {
+        "hex": "#d8e8f8",
+        "share": 0.011
+      },
+      {
+        "hex": "#7888d8",
+        "share": 0.009
+      },
+      {
+        "hex": "#7878c8",
+        "share": 0.008
+      }
+    ],
+    "representative_times": [
+      1.0,
+      2.75,
+      4.25,
+      6.41,
+      8.91
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.9,
+      "mean_dbfs_voiced": -18.3,
+      "silence_ratio": 0.1,
+      "onsets": 19,
+      "onset_rate_per_sec": 1.89,
+      "onset_times": [
+        0.16,
+        1.02,
+        2.07,
+        2.55,
+        2.81,
+        2.93,
+        3.04,
+        3.55,
+        4.06,
+        4.32,
+        6.04,
+        6.32,
+        6.55,
+        6.8,
+        7.62,
+        8.06,
+        9.17,
+        9.31,
+        9.61
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.23,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 799,
+      "band_share": {
+        "low_lt_250": 0.44,
+        "mid_250_2k": 0.36,
+        "high_gt_2k": 0.2
+      },
+      "syllabic_modulation_share": 0.3,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 0.0,
+        "chance_level": 0.17,
+        "median_offset_ms": 134
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-49459ad8c1",
+      "overview": "out/reference-analysis/ref-49459ad8c1/overview.jpg",
+      "scenes": "out/reference-analysis/ref-49459ad8c1/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-49459ad8c1/transitions.jpg",
+      "motion": "out/reference-analysis/ref-49459ad8c1/motion.jpg",
+      "audio": "out/reference-analysis/ref-49459ad8c1/audio.png",
+      "frames": "out/reference-analysis/ref-49459ad8c1/frames",
+      "tracked": false
+    }
+  }
+}

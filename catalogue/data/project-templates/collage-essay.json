@@ -1,0 +1,43 @@
+{
+  "id": "collage-essay",
+  "name": "Collage visual essay",
+  "deliverable_type": "collage_essay",
+  "status": "proposed",
+  "description": "Cut-paper mixed-media essay from open-licensed found imagery (collage-design skill) with attributions.",
+  "location": "pending:templates/projects/collage-essay",
+  "stages": {
+    "research": "skip",
+    "storyboard": "required",
+    "narration": "optional",
+    "music": "optional",
+    "captions": "optional"
+  },
+  "default_style": "paper-cut",
+  "default_formats": [
+    "landscape",
+    "portrait"
+  ],
+  "compositions": [],
+  "effects": [
+    "paper-pop",
+    "object-assembly",
+    "element-mask-reveal"
+  ],
+  "suitable_for": [
+    "visual essays",
+    "editorial features"
+  ],
+  "validation_steps": [
+    "Build a starter composition under templates/projects/collage-essay and validate it like the experimental templates."
+  ],
+  "tags": [
+    "template",
+    "proposed",
+    "collage-essay"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "grid-wave",
+  "name": "Grid wave propagation",
+  "category": "rhythm_sync",
+  "visual_intent": "A field of cells (tiles, dots, shapes) changes state as a wave travelling out from an origin, turning a pattern into a visible event and a transition into a ripple.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["grid", "pattern", "wave", "stagger", "truchet", "generative", "reference-derived"],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "rows x cols cells (keep under ~400)",
+    "memory_profile": "Low for a few hundred cells (estimate)"
+  },
+  "recipes": ["truchet-wave"],
+  "implementation_summary": "One fromTo over all cells with GSAP's grid stagger ({grid: [rows, cols], from, amount}); presets pop (scale in), flip (quarter turn from each cell's seeded base rotation) and tint, or custom vars. Studio.draw.grid builds the cells and can fill them with quarter-arc Truchet tiles.",
+  "primitives": ["svg-shape"],
+  "runtime_api": "Studio.fx.gridWave(tl, cells, at, {preset, grid, from, amount, duration, ease, fromVars, toVars}); Studio.draw.grid(parent, rows, cols, {truchet})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/shape-and-grid/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["object-assembly", "beat-pulse"],
+  "validation": {
+    "evidence": "Runtime self-test (hidden before, centre before corner, all settled, quarter turns exact) in Playwright Chromium on Windows, 2026-10-30.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "zoom-through-transition",
+  "name": "Zoom-through transition",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected reel pushes the camera through a word on a tilted panel into the next space.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "The camera flies into an element (a letter counter, a window, a dot) until it passes the lens, and the next scene is found inside it.",
+  "purpose": "Spatial continuity; 'going deeper' into a topic.",
+  "visual_behaviour": "An element scales up rapidly with ease-in until its interior fills the frame; the next scene settles from slightly enlarged.",
+  "mechanics": "Scale to 8-20x about an interior point with power3/expo.in; next scene from scale 1.15 to 1 with ease-out; brief overlap.",
+  "decomposition": { "primitives": ["scene-container"], "effects": ["parallax-camera", "match-cut"], "timing": "About 0.5-0.8 s." },
+  "use_cases": ["explainer chapter change", "title sequence", "product detail reveal"],
+  "failure_modes": ["Scaling text to 20x blurs or costs raster time; switch at about 6x", "Transform origin not on a hole or dark interior shows a flash"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Scale the outgoing scene about the target point (transformOrigin from Studio.boxAt), cut at cover, scale the incoming scene down from 1.15. Candidate Studio.fx.zoomThrough." },
+  "capability": { "support": "native", "compatible_components": ["parallax-camera", "match-cut"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "medium at high scale" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [ { "source_id": "ref-0bf0254a3d", "timestamps": [7.7], "observed": "A push through a word on a tilted panel leads into a dark space with a metallic sphere." } ],
+  "related": { "techniques": ["css-3d-staging", "element-bloom-transition"], "effects": ["parallax-camera"] },
+  "licensing_notes": "Technique only.",
+  "tags": ["transition", "zoom", "camera", "scene-transitions", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

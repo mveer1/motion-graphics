@@ -1,0 +1,43 @@
+{
+  "id": "music-visualizer",
+  "name": "Music visualizer",
+  "deliverable_type": "music_visualizer",
+  "status": "proposed",
+  "description": "Audio-reactive or beat-driven visuals from a licensed track: beats from `hyperframes beats`, pulses and generative shapes.",
+  "location": "pending:templates/projects/music-visualizer",
+  "stages": {
+    "research": "skip",
+    "storyboard": "required",
+    "narration": "optional",
+    "music": "optional",
+    "captions": "optional"
+  },
+  "default_style": "swiss-minimal",
+  "default_formats": [
+    "square",
+    "portrait"
+  ],
+  "compositions": [],
+  "effects": [
+    "beat-pulse",
+    "organic-wobble",
+    "particle-drift"
+  ],
+  "suitable_for": [
+    "music releases",
+    "audio teasers"
+  ],
+  "validation_steps": [
+    "Build a starter composition under templates/projects/music-visualizer and validate it like the experimental templates."
+  ],
+  "tags": [
+    "template",
+    "proposed",
+    "music-visualizer"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

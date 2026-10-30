@@ -1,0 +1,38 @@
+/*
+ * Style system: dark-tech. Token form of the legacy "Dark Tech" palette used by the existing
+ * technical explainers (motion-graphics-designer/references/palettes.md). Use when a technical
+ * brief explicitly asks for a dark engineering look.
+ */
+:root {
+  --c-paper: #080c14;
+  --c-paper-2: #0d1117;
+  --c-ink: #f0f6fc;
+  --c-ink-2: #8b949e;
+  --c-rule: #21262d;
+  --c-accent: #58a6ff;
+  --c-accent-2: #e3b341;
+  --c-accent-3: #3fb950;
+  --c-highlight: rgba(88, 166, 255, 0.25);
+  --c-positive: #3fb950;
+  --c-negative: #f85149;
+  --c-info: #58a6ff;
+  --c-caption-ink: #f0f6fc;
+  --c-caption-bg: rgba(13, 17, 23, 0.86);
+
+  --font-display: 'Inter', sans-serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: -0.02em;
+  --track-kicker: 0.08em;
+
+  --ease-out: power2.out;
+  --ease-in: power1.in;
+  --ease-in-out: power1.inOut;
+  --dur-enter: 0.6;
+  --dur-exit: 0.4;
+  --stagger: 0.05;
+
+  --grain-blend: screen;
+}

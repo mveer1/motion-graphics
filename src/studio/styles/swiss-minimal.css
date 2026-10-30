@@ -1,0 +1,42 @@
+/*
+ * Style system: swiss-minimal. High-contrast light grid, heavy grotesk, one signal colour,
+ * snappy timing and hard cuts. Good for kinetic typography and announcements.
+ */
+:root {
+  --c-paper: #f7f7f5;
+  --c-paper-2: #ececea;
+  --c-ink: #111111;
+  --c-ink-2: #4d4d4d;
+  --c-rule: #d6d6d3;
+  --c-accent: #d80f1a;
+  --c-accent-2: #111111;
+  --c-accent-3: #2a52be;
+  --c-highlight: rgba(216, 15, 26, 0.16);
+  --c-positive: #1d7a3e;
+  --c-negative: #d80f1a;
+  --c-info: #2a52be;
+  --c-caption-ink: #ffffff;
+  --c-caption-bg: rgba(17, 17, 17, 0.88);
+
+  --font-display: 'Inter', sans-serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 900;
+  --fw-heading: 800;
+  --track-display: -0.04em;
+  --track-kicker: 0.08em;
+
+  --ease-out: power4.out;
+  --ease-in: power3.in;
+  --ease-in-out: power3.inOut;
+  --dur-enter: 0.45;
+  --dur-exit: 0.3;
+  --stagger: 0.035;
+
+  --grain-blend: multiply;
+}
+
+.st-display em,
+.st-heading em {
+  font-style: normal;
+}

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Masala Chai</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    /* Direction "ink-and-steam" (brief.json). One persistent ink drawing; copy turns like a page. */
+    .st-scene { background: var(--c-paper); }
+    #art { z-index: 5; pointer-events: none; }
+    .ink { fill: none; stroke: var(--c-ink); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .ink-soft { fill: none; stroke: var(--c-ink-2); stroke-width: 2.4; stroke-linecap: round; }
+    .ink-hair { fill: none; stroke: var(--c-ink); stroke-width: 1.4; stroke-linecap: round; }
+    .steam { fill: none; stroke: var(--c-ink-2); stroke-width: 2.6; stroke-linecap: round; opacity: 0.8; }
+    .pan-inside { fill: var(--c-paper-2); }
+    .pod { fill: #7f9a5e; stroke: var(--c-ink); stroke-width: 2; stroke-linejoin: round; }
+    .ginger { fill: #e3c27c; stroke: var(--c-ink); stroke-width: 2; stroke-linejoin: round; }
+    .flame { fill: var(--c-accent-3); stroke: var(--c-accent); stroke-width: 1.6; stroke-linejoin: round; }
+    .bubble { fill: none; stroke: rgba(30, 27, 22, 0.45); stroke-width: 1.3; }
+    .milk { fill: none; stroke: #fffbf3; stroke-width: 6; stroke-linecap: round; }
+    .milk-outline { fill: none; stroke: var(--c-ink); stroke-width: 9.5; stroke-linecap: round; }
+    .chai-fill { fill: #c68b55; }
+    .foam { fill: none; stroke: #e9cfa8; stroke-width: 3; stroke-linecap: round; }
+    #s2-list { width: 100%; }
+    /* Stacked formats: the drawing is the hero. It may rise into the top UI band (decorative steam
+       and spices only, never text) and is sized by width; copy starts just under the counter line. */
+    #root[data-format="portrait"] .st-split-art,
+    #root[data-format="square"] .st-split-art { top: calc(var(--u) * 3); height: var(--art); }
+    #root[data-format="portrait"] { --art: calc(var(--w) - var(--safe-left) - var(--safe-right)); }
+    #root[data-format="square"] { --art: calc((var(--w) - var(--safe-left) - var(--safe-right)) * 0.7); }
+    #root[data-format="portrait"] .st-split-copy,
+    #root[data-format="square"] .st-split-copy { top: calc(var(--u) * 3 + var(--art) * 0.9); }
+    #root[data-format="portrait"] .st-split-copy { gap: calc(var(--u) * 2.4); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="landscape"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="31">
+
+  <section class="st-scene" id="s1"><div class="st-split-copy" id="s1-copy"></div></section>
+  <section class="st-scene" id="s2">
+    <div class="st-split-copy" id="s2-copy">
+      <div class="st-kicker" id="s2-kicker">Ingredients</div>
+      <h2 class="st-heading" id="s2-heading">You’ll need</h2>
+      <div id="s2-list"></div>
+    </div>
+  </section>
+  <section class="st-scene" id="s3"><div class="st-split-copy" id="s3-copy"></div></section>
+  <section class="st-scene" id="s4"><div class="st-split-copy" id="s4-copy"></div></section>
+  <section class="st-scene" id="s5"><div class="st-split-copy" id="s5-copy"></div></section>
+  <section class="st-scene" id="s6">
+    <div class="st-split-copy" id="s6-copy"></div>
+    <div class="st-split-art"><div class="st-art-frame" id="s6-glass-frame"></div></div>
+  </section>
+  <section class="st-scene" id="s7"></section>
+
+  <!-- Persistent drawing: depth layers for the slow camera push (data-depth 0 far .. 5 near). -->
+  <div class="st-split-art" id="art">
+    <div class="st-art-frame" id="art-frame">
+      <svg viewBox="0 0 400 400" data-depth="1" aria-hidden="true">
+        <path id="counter" class="ink-soft" d=""/>
+      </svg>
+      <svg viewBox="0 0 400 400" data-depth="2" aria-hidden="true" id="flames"></svg>
+      <svg viewBox="0 0 400 400" data-depth="3" aria-hidden="true">
+        <defs>
+          <clipPath id="pan-clip"><path d="M95 199 L106 294 Q109 309 125 309 L275 309 Q291 309 294 294 L305 199 Z"/></clipPath>
+        </defs>
+        <path class="pan-inside" d="M92 196 L104 296 Q107 312 124 312 L276 312 Q293 312 296 296 L308 196 Z"/>
+        <g clip-path="url(#pan-clip)">
+          <path id="liquid" d=""/>
+          <g id="bubbles"></g>
+        </g>
+        <path class="ink" d="M92 196 L104 296 Q107 312 124 312 L276 312 Q293 312 296 296 L308 196"/>
+        <path class="ink" d="M82 196 L318 196"/>
+        <path class="ink" d="M308 206 L376 190 Q387 188 387 198 Q387 207 377 209 L309 222"/>
+      </svg>
+      <svg viewBox="0 0 400 400" data-depth="4" aria-hidden="true">
+        <g id="steam">
+          <path class="steam" id="steam-1"/>
+          <path class="steam" id="steam-2"/>
+          <path class="steam" id="steam-3"/>
+        </g>
+        <g id="spices"></g>
+        <g id="specks"></g>
+        <g id="tea-leaves"></g>
+        <path id="milk-outline" class="milk-outline" d="M190 26 C191 100 189 170 190 238"/>
+        <path id="milk" class="milk" d="M190 26 C191 100 189 170 190 238"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Cue map mirrors storyboard.json (pour = start of the liquid transition into s6).
+  var cue = S.cues({ s1: 0, s2: 4.2, s3: 11.0, s4: 15.0, s5: 19.0, pour: 23.2, s6: 23.9, s7: 27.6, end: 31 });
+  var C = { water: '#c9d3cf', brew: '#9e5f2a', chai: '#c68b55', pod: '#7f9a5e', ginger: '#e3c27c', leaf: '#4a3423' };
+  var r2 = function (n) { return Math.round(n * 100) / 100; };
+
+  // ------------------------------------------------------------ artwork (DOM before tweens)
+  document.getElementById('counter').setAttribute('d', S.draw.handLine(5, 22, 336, 378, 336, { segments: 7, jitter: 0.006 }));
+
+  var wave = function (level, phase) {
+    return S.draw.wave(17, { width: 400, height: 400, level: level, phase: phase, amplitude: 3.2, points: 10 });
+  };
+  var liquid = document.getElementById('liquid');
+  liquid.setAttribute('d', wave(0.84, 0));
+  liquid.style.fill = C.water;
+
+  // Steam strands share one command structure, so their variants can morph (organic-wobble).
+  function steamPath(x0, y0, height, phase) {
+    var a = 8 + 3 * Math.sin(phase * 1.7 + x0 * 0.05);
+    var s = 4 * Math.sin(phase * 2.3 + x0 * 0.11);
+    var y1 = y0 - height / 2, y2 = y0 - height;
+    return 'M' + x0 + ' ' + y0 +
+      ' C' + r2(x0 - a) + ' ' + r2(y0 - 18) + ' ' + r2(x0 + a + s) + ' ' + r2(y1 + 18) + ' ' + r2(x0 + s / 2) + ' ' + r2(y1) +
+      ' C' + r2(x0 - a - s) + ' ' + r2(y1 - 18) + ' ' + r2(x0 + a) + ' ' + r2(y2 + 18) + ' ' + r2(x0 + s) + ' ' + r2(y2);
+  }
+  var STEAM_X = [165, 200, 235];
+  STEAM_X.forEach(function (x, i) { document.getElementById('steam-' + (i + 1)).setAttribute('d', steamPath(x, 180, 110, i)); });
+
+  var flameLayer = document.getElementById('flames');
+  var flames = [150, 200, 250].map(function (x) {
+    return S.svg('path', { 'class': 'flame', d: 'M' + x + ' 334 C' + (x - 8) + ' 326 ' + (x - 6) + ' 320 ' + x + ' 313 C' + (x + 6) + ' 320 ' + (x + 8) + ' 326 ' + x + ' 334 Z' }, flameLayer);
+  });
+
+  var SPICES = [
+    { k: 'pod', x: 70, y: 150, r: -20 }, { k: 'pod', x: 120, y: 116, r: 18 }, { k: 'ginger', x: 164, y: 90, r: 0 },
+    { k: 'ginger', x: 240, y: 86, r: 30 }, { k: 'pod', x: 284, y: 114, r: -12 }, { k: 'pod', x: 332, y: 148, r: 24 }
+  ];
+  var spiceLayer = document.getElementById('spices');
+  var spices = SPICES.map(function (sp, i) {
+    var base = S.svg('g', { transform: 'translate(' + sp.x + ' ' + sp.y + ')' }, spiceLayer);
+    var g = S.svg('g', { 'class': 'spice' }, base);
+    var rot = S.svg('g', { transform: 'rotate(' + sp.r + ')' }, g);
+    if (sp.k === 'pod') {
+      S.svg('path', { d: 'M-15 0 C-9 -9 9 -9 15 0 C9 9 -9 9 -15 0 Z', 'class': 'pod' }, rot);
+      S.svg('path', { d: 'M-10 0 Q0 -2 10 0', 'class': 'ink-hair' }, rot);
+    } else {
+      S.svg('path', { d: S.draw.blob(31 + i, { r: 15, points: 7, wobble: 0.3 }), 'class': 'ginger' }, rot);
+      S.svg('path', { d: 'M-6 -4 L5 3 M-3 6 L4 -5', 'class': 'ink-hair' }, rot);
+    }
+    return { g: g, x: sp.x, y: sp.y, k: sp.k };
+  });
+  var speckLayer = document.getElementById('specks');
+  var specks = [];
+  spices.forEach(function (sp, i) {
+    specks = specks.concat(S.draw.particles(speckLayer, 4, 70 + i, {
+      box: { x: sp.x - 14, y: sp.y - 6, width: 28, height: 12 }, minR: 1.2, maxR: 2.4, fill: sp.k === 'pod' ? C.pod : C.ginger
+    }));
+  });
+  var bubblesA = S.draw.particles(document.getElementById('bubbles'), 7, 41, { box: { x: 128, y: 284, width: 144, height: 18 }, minR: 2, maxR: 3.6, className: 'bubble' });
+  var bubblesB = S.draw.particles(document.getElementById('bubbles'), 7, 42, { box: { x: 128, y: 284, width: 144, height: 18 }, minR: 2, maxR: 3.6, className: 'bubble' });
+  var leaves = S.draw.particles(document.getElementById('tea-leaves'), 16, 55, { box: { x: 150, y: 30, width: 100, height: 46 }, minR: 1.6, maxR: 3.1, fill: C.leaf });
+
+  function glassMarkup(id, withSteam) {
+    return '<svg viewBox="0 0 400 400" aria-hidden="true" id="glass-' + id + '">' +
+      '<defs><clipPath id="glass-clip-' + id + '"><path d="M148 132 L161 316 Q162 326 173 326 L227 326 Q238 326 239 316 L252 132 Z"/></clipPath></defs>' +
+      '<g data-fill clip-path="url(#glass-clip-' + id + ')"><rect class="chai-fill" x="140" y="158" width="120" height="190"/><path class="foam" d="M150 160 Q200 168 250 160"/></g>' +
+      '<path class="ink" d="M146 128 L160 318 Q161 330 173 330 L227 330 Q239 330 240 318 L254 128"/>' +
+      '<path class="ink" d="M140 128 L260 128"/>' +
+      '<path class="ink-soft" d="M118 344 Q200 356 282 344"/>' +
+      (withSteam ? '<path class="steam" data-no-draw id="gsteam-1"/><path class="steam" data-no-draw id="gsteam-2"/>' : '') +
+      '</svg>';
+  }
+  document.getElementById('s6-glass-frame').innerHTML = glassMarkup('a', true);
+  var GSTEAM_X = [186, 214];
+  GSTEAM_X.forEach(function (x, i) { document.getElementById('gsteam-' + (i + 1)).setAttribute('d', steamPath(x, 118, 92, i + 3)); });
+
+  // ------------------------------------------------------------ copy (split before any transform tween)
+  var title = S.comp.titleCard(document.getElementById('s1-copy'), {
+    kicker: 'A recipe in four steps',
+    titleHTML: 'Masala <em>chai</em>',
+    subtitle: 'Spiced milk tea for two, in about ten minutes.'
+  });
+  var s2heading = S.type.split('#s2-heading', { type: 'lines,words', mask: 'lines' });
+  var list = S.comp.itemList(document.getElementById('s2-list'), [
+    { qty: '1 cup', label: 'water' },
+    { qty: '1 cup', label: 'whole milk' },
+    { qty: '2 tsp', label: 'loose black tea' },
+    { qty: '4', label: 'cardamom pods' },
+    { qty: '1 inch', label: 'fresh ginger' },
+    { qty: '2 tsp', label: 'sugar, to taste' }
+  ], { columns: { landscape: 1, portrait: 1, square: 2 } });
+  var steps = [
+    S.comp.stepHeader(document.getElementById('s3-copy'), { index: 1, total: 4, title: 'Crush the spices', body: 'Lightly crush the cardamom and ginger to release their oils.' }),
+    S.comp.stepHeader(document.getElementById('s4-copy'), { index: 2, total: 4, title: 'Simmer in water', body: 'Simmer the spices in the water for two minutes.' }),
+    S.comp.stepHeader(document.getElementById('s5-copy'), { index: 3, total: 4, titleHTML: 'Add tea, then <em>milk</em>', body: 'Brew the tea for a minute. Add the milk; bring to a boil.' }),
+    S.comp.stepHeader(document.getElementById('s6-copy'), { index: 4, total: 4, title: 'Strain and serve', body: 'Strain into two cups. Sweeten to taste.' })
+  ];
+  var end = S.comp.endCard(document.getElementById('s7'), { titleHTML: 'Chai, <em>slowly</em>.', lines: ['Serves 2 · About 10 minutes'] });
+  var mark = S.el('div', 'st-end-mark');
+  mark.id = 's7-mark';
+  mark.innerHTML = glassMarkup('b', false);
+  end.el.insertBefore(mark, end.el.firstChild);
+  S.texture.grain(null, { opacity: 0.05, seed: 3 });
+
+  // ------------------------------------------------------------ s1: title over a steaming pan
+  S.show(tl, '#s1', cue('s1'));
+  title.enter(tl, cue('s1', 0.2));
+  var steamEls = ['#steam-1', '#steam-2', '#steam-3'];
+  S.draw.stroke(tl, steamEls, cue('s1', 0.7), { duration: 0.9, stagger: 0.15, slack: 0.3 });
+  STEAM_X.forEach(function (x, i) {
+    S.draw.wobble(tl, steamEls[i], cue('s1', 1.9 + i * 0.1), cue('s2', -0.25), function (p) { return steamPath(x, 180, 110, i + p); }, { period: 0.8 });
+  });
+  tl.fromTo('#steam', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.45, ease: 'power1.in', immediateRender: false }, cue('s2', -0.25));
+
+  // ------------------------------------------------------------ s2: ingredients; page-turn wipe
+  S.fx.wipe(tl, '#s1', '#s2', cue('s2'), { from: 'left', edge: S.token('--c-accent'), duration: 0.9 });
+  S.type.track(tl, '#s2-kicker', cue('s2', 0.45), { from: '0.5em', to: '0.16em', duration: 0.9 });
+  S.type.rise(tl, s2heading.lines, cue('s2', 0.55));
+  list.enter(tl, cue('s2', 0.85), { stagger: 0.11 });
+  S.space.assemble(tl, spices.map(function (s) { return s.g; }), cue('s2', 1.4), { seed: 21, spread: 16, stagger: 0.07 });
+  S.space.camera(tl, '#art-frame', cue('s2', 0.3), { scale: 1.07, y: -8, duration: cue('pour') - cue('s2', 0.3), ease: 'sine.inOut' });
+  list.exit(tl, cue('s3', -0.5));
+  S.type.exit(tl, s2heading.lines, cue('s3', -0.5));
+  tl.fromTo('#s2-kicker', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s3', -0.5));
+
+  // ------------------------------------------------------------ s3: crush, then into the pan
+  S.cut(tl, '#s2', '#s3', cue('s3'));
+  steps[0].enter(tl, cue('s3', 0.1));
+  var spiceGroups = spices.map(function (s) { return s.g; });
+  tl.fromTo(spiceGroups, { scaleX: 1, scaleY: 1 }, { scaleX: 1.3, scaleY: 0.55, transformOrigin: '50% 100%', duration: 0.18, ease: 'power3.out', stagger: 0.08, immediateRender: false }, cue('s3', 1.0));
+  tl.fromTo(spiceGroups, { scaleX: 1.3, scaleY: 0.55 }, { scaleX: 1, scaleY: 1, transformOrigin: '50% 100%', duration: 0.32, ease: 'back.out(2)', stagger: 0.08, immediateRender: false }, cue('s3', 1.25));
+  S.draw.drift(tl, specks, cue('s3', 1.05), cue('s3', 1.9), { dy: 34, jitterX: 16, spread: 0.35 });
+  tl.fromTo(spiceGroups,
+    { x: 0, y: 0, scale: 1, autoAlpha: 1 },
+    {
+      x: function (i) { return (200 - spices[i].x) * 0.55; },
+      y: function (i) { return 262 - spices[i].y; },
+      scale: 0.6, autoAlpha: 0, transformOrigin: '50% 50%', duration: 0.8, ease: 'power2.in', stagger: 0.06, immediateRender: false
+    }, cue('s3', 2.4));
+  steps[0].exit(tl, cue('s4', -0.5));
+
+  // ------------------------------------------------------------ s4: water, heat, simmer
+  S.cut(tl, '#s3', '#s4', cue('s4'));
+  steps[1].enter(tl, cue('s4', 0.1));
+  S.draw.morph(tl, liquid, wave(0.75, 1), cue('s4', 0.3), { from: wave(0.84, 0), duration: 0.5, ease: 'power1.in' });
+  S.draw.morph(tl, liquid, wave(0.66, 2), cue('s4', 0.8), { from: wave(0.75, 1), duration: 0.6, ease: 'power2.out' });
+  tl.fromTo(flames, { scaleY: 0, autoAlpha: 0, transformOrigin: '50% 100%' }, { scaleY: 1, autoAlpha: 1, duration: 0.4, ease: 'back.out(2)', stagger: 0.07 }, cue('s4', 0.5));
+  flames.forEach(function (flame, i) {
+    var start = cue('s4', 1.0 + i * 0.05);
+    var period = 0.16 + 0.03 * i;
+    var reps = Math.floor((cue('pour') - start) / period);
+    if (reps % 2 === 0) reps -= 1;
+    tl.fromTo(flame, { scaleY: 1 }, { scaleY: 0.78, transformOrigin: '50% 100%', duration: period, ease: 'sine.inOut', yoyo: true, repeat: reps, immediateRender: false }, start);
+  });
+  S.draw.drift(tl, bubblesA, cue('s4', 1.6), cue('s4', 2.7), { dy: -26, jitterX: 6, spread: 0.5, ease: 'power1.out' });
+  S.draw.drift(tl, bubblesB, cue('s4', 2.5), cue('s4', 3.6), { dy: -26, jitterX: 6, spread: 0.5, ease: 'power1.out' });
+  S.draw.wobble(tl, liquid, cue('s4', 1.5), cue('s5', -0.2), function (p) { return wave(0.66, 2 + p); }, { period: 0.7 });
+  steps[1].exit(tl, cue('s5', -0.5));
+
+  // ------------------------------------------------------------ s5: tea, then milk
+  S.cut(tl, '#s4', '#s5', cue('s5'));
+  steps[2].enter(tl, cue('s5', 0.1));
+  S.draw.drift(tl, leaves, cue('s5', 0.3), cue('s5', 1.4), { dy: 190, jitterX: 14, spread: 0.45 });
+  tl.fromTo(liquid, { fill: C.water }, { fill: C.brew, duration: 0.8, ease: 'power1.inOut', immediateRender: false }, cue('s5', 1.0));
+  S.draw.stroke(tl, ['#milk-outline', '#milk'], cue('s5', 1.8), { duration: 0.45, stagger: 0, ease: 'power1.in' });
+  tl.fromTo(liquid, { fill: C.brew }, { fill: C.chai, duration: 0.9, ease: 'power1.inOut', immediateRender: false }, cue('s5', 2.2));
+  S.draw.morph(tl, liquid, wave(0.62, 7), cue('s5', 2.3), { from: wave(0.66, 2), duration: 0.4 });
+  S.draw.morph(tl, liquid, wave(0.585, 8), cue('s5', 2.7), { from: wave(0.62, 7), duration: 0.5 });
+  S.draw.erase(tl, ['#milk-outline', '#milk'], cue('s5', 3.1), { duration: 0.35 });
+  S.draw.wobble(tl, liquid, cue('s5', 3.25), cue('pour', 0.35), function (p) { return wave(0.585, 8 + p); }, { period: 0.4 });
+
+  // ------------------------------------------------------------ pour: the chai fills the frame
+  S.fx.liquid(tl, '#s5', '#s6', cue('pour'), { color: C.chai, duration: 1.4, mode: 'drain', seed: 9 });
+  S.hide(tl, '#art', cue('s6'));
+
+  // ------------------------------------------------------------ s6: strain and serve
+  steps[3].enter(tl, cue('s6', 0.6));
+  S.draw.lineArt(tl, '#glass-a', cue('s6', 0.5), { order: 'top-down', speed: 600 });
+  var glassSteam = ['#gsteam-1', '#gsteam-2'];
+  S.draw.stroke(tl, glassSteam, cue('s6', 1.7), { duration: 0.8, stagger: 0.15, slack: 0.3 });
+  GSTEAM_X.forEach(function (x, i) {
+    S.draw.wobble(tl, glassSteam[i], cue('s6', 2.6 + i * 0.1), cue('s7', -0.1), function (p) { return steamPath(x, 118, 92, i + 3 + p); }, { period: 0.8 });
+  });
+
+  // ------------------------------------------------------------ s7: match cut into the end card
+  S.fx.matchCut(tl, '#s6-glass-frame', '#s7-mark', '#s6', '#s7', cue('s7'), { duration: 0.9 });
+  end.enter(tl, cue('s7', 0.05));
+});
+</script>
+</body>
+</html>

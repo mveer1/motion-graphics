@@ -1,0 +1,30 @@
+{
+  "id": "onion-skin-trail",
+  "name": "Onion-skin motion trail",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Two inspected references expose the path and timing of a move with fading ghost copies or trails.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Ghost copies of a moving object, each a few frames behind, show the arc, spacing and easing of the move at once, the way an animator's onion skin does. Spacing between ghosts makes acceleration visible.",
+  "purpose": "Teach or show motion: physics, easing, trajectories; add energy to a move.",
+  "visual_behaviour": "A ball bounces or a dot travels with 3-5 translucent copies trailing it; the copies vanish when it settles.",
+  "mechanics": "Clones replay the same motion function with a time lag (about 2 frames) and decreasing opacity; ghosts hidden after the move.",
+  "decomposition": { "primitives": ["svg-shape"], "effects": ["onion-trail", "squash-bounce"], "timing": "Ghost lag 1-3 frames; trail lifetime = the move plus 0.3 s." },
+  "parameters": [ { "name": "count", "description": "Ghosts", "default": 4 }, { "name": "lag", "description": "Seconds between ghosts", "default": 0.06 } ],
+  "use_cases": ["animation principles explainer", "physics explainer", "sports or trajectory analysis", "playful promo"],
+  "failure_modes": ["Too many ghosts read as smear and cost DOM", "Ghosts left on screen after the move", "Ghosts of id-styled elements lose styling (style by class)"],
+  "implementation_state": "implemented",
+  "implemented_by": ["onion-trail", "ghost-replay"],
+  "implementation": { "approach": "Studio.space.trail(tl, target, at, motion, {count, lag, opacity, hold})", "runtime_api": ["Studio.space.trail"] },
+  "capability": { "support": "native", "compatible_components": ["onion-trail", "squash-bounce"], "complexity": "low", "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/explainer-annotations (4 ghosts on a bounce)", "value": "50.8 ms/frame median, peak 255 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-392ee4d0f9", "timestamps": [0.8, 14.0], "observed": "A bouncing ball and a dot on an arc leave ghost copies, with annotations about spacing and easing." },
+    { "source_id": "ref-92c22222a2", "timestamps": [3.58, 4.56], "observed": "Dots travel with fading trails; an easing chart compares six ways to move between two points." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Ghost stack visible during the baton's bounce, gone after." }
+  ] },
+  "related": { "techniques": ["squash-stretch-bounce", "annotation-callouts"], "effects": ["onion-trail"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["onion-skin", "trail", "ghost", "animation-principles", "physics", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

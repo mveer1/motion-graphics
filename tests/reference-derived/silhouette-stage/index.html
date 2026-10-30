@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: layered silhouette stage (existing components only)</title>
+  <!--
+    Technique under test: layered-silhouette-stage (flat silhouette layers at depth, camera push with
+    parallax, sky palette as a clock, lights coming on). Uses only runtime APIs that existed before the
+    reference corpus (Studio.space.camera, Studio.draw.particles, Studio.type.rise) plus plain GSAP
+    tweens: the "reuse an existing validated component" rung of the cost ladder. Original scene.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #root { --sky-top: #f2c48d; --sky-bottom: #f7e3c4; --sea: #6d8fa3; }
+    #scene { background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom)); }
+    #stage { position: absolute; inset: -6%; }
+    .layer svg { position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
+    #sun { fill: #f08a4b; }
+    #moon { fill: #f4efe6; }
+    .star { fill: #fffaf0; }
+    #hills { fill: #9c7f86; }
+    #sea { fill: var(--sea); }
+    #cliff, #tower { fill: #2b2a33; }
+    #lamp { fill: #3a3946; }
+    #beam { fill: rgba(255, 236, 170, 0.35); }
+    .win { fill: #3a3946; }
+    #grass { fill: #1d1c23; }
+    #cap { position: absolute; left: var(--safe-left); bottom: var(--safe-bottom); display: flex; flex-direction: column; gap: calc(var(--u) * 1); color: var(--c-paper); z-index: 3; }
+    #cap .st-kicker { color: var(--c-paper); }
+    #line { font-family: var(--font-display); font-size: var(--fs-h2); font-weight: 600; line-height: 1.05; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="9">
+  <div class="st-scene" id="scene">
+    <div id="stage">
+      <div class="st-layer layer" data-depth="0"><svg viewBox="0 0 1280 720" preserveAspectRatio="none" id="sky"><circle id="sun" cx="900" cy="360" r="58"></circle><circle id="moon" cx="260" cy="520" r="34"></circle><g id="stars"></g></svg></div>
+      <div class="st-layer layer" data-depth="1"><svg viewBox="0 0 1280 720" preserveAspectRatio="none"><path id="hills" d="M0 470 C 160 400, 300 430, 420 450 S 700 380, 860 430 S 1120 470, 1280 420 L 1280 720 L 0 720 Z"></path></svg></div>
+      <div class="st-layer layer" data-depth="2"><svg viewBox="0 0 1280 720" preserveAspectRatio="none"><rect id="sea" x="0" y="490" width="1280" height="230"></rect></svg></div>
+      <div class="st-layer layer" data-depth="4"><svg viewBox="0 0 1280 720" preserveAspectRatio="none">
+        <path id="beam" d="M1010 268 L 1280 200 L 1280 330 Z"></path>
+        <path id="cliff" d="M760 720 L 820 520 C 860 470, 980 460, 1040 470 L 1120 520 L 1200 720 Z"></path>
+        <path id="tower" d="M992 472 L 1004 300 L 1028 300 L 1040 472 Z"></path>
+        <rect id="lamp" x="998" y="262" width="36" height="38" rx="4"></rect>
+        <rect class="win" x="1010" y="340" width="10" height="16"></rect><rect class="win" x="1010" y="390" width="10" height="16"></rect><rect class="win" x="1010" y="436" width="10" height="16"></rect>
+      </svg></div>
+      <div class="st-layer layer" data-depth="5"><svg viewBox="0 0 1280 720" preserveAspectRatio="none"><path id="grass" d="M0 640 C 120 610, 240 650, 380 630 S 620 660, 760 650 L 760 720 L 0 720 Z"></path></svg></div>
+    </div>
+    <div id="cap"><div class="st-kicker">Night watch</div><div id="line">Light the lamp before the dark.</div></div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var line = S.type.split('#line', { type: 'lines,words', mask: 'lines' });
+  S.show(tl, '#scene', 0);
+  // Camera push across depth layers: near layers move more (parallax).
+  S.space.camera(tl, '#stage', 0.2, { x: 50, scale: 1.08, duration: 8.4, ease: 'sine.inOut' });
+  // Palette as a clock: the sky and sea darken while the sun sets and the moon rises on an arc.
+  tl.fromTo('#root', { '--sky-top': '#f2c48d', '--sky-bottom': '#f7e3c4', '--sea': '#6d8fa3' },
+    { '--sky-top': '#141b33', '--sky-bottom': '#2c3a5e', '--sea': '#1f2b44', duration: 6.0, ease: 'power1.inOut' }, 0.5);
+  tl.fromTo('#sun', { attr: { cy: 360 } }, { attr: { cy: 560 }, duration: 4.5, ease: 'power1.in' }, 0.4);
+  tl.fromTo('#moon', { attr: { cx: 260 } }, { attr: { cx: 420 }, duration: 4.0, ease: 'none' }, 4.2);
+  tl.fromTo('#moon', { attr: { cy: 520 } }, { attr: { cy: 150 }, duration: 4.0, ease: 'power2.out' }, 4.2);
+  var stars = S.draw.particles(document.getElementById('stars'), 36, 7, { box: { x: 0, y: 20, width: 1280, height: 300 }, minR: 1.2, maxR: 2.6, className: 'star' });
+  tl.fromTo(stars.map(function (p) { return p.el; }), { autoAlpha: 0 }, { autoAlpha: 0.9, duration: 0.6, ease: 'power1.out', stagger: { each: 0.06, from: 'random' } }, 4.6);
+  // Lights come on: lamp, beam, then windows from the top down.
+  tl.fromTo('#lamp', { fill: '#3a3946' }, { fill: '#ffe8a3', duration: 0.4, ease: 'power2.out' }, 5.0);
+  tl.fromTo('#beam', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'power1.out' }, 5.2);
+  tl.fromTo('#beam', { rotation: -6, svgOrigin: '1010 268' }, { rotation: 4, duration: 3.4, ease: 'sine.inOut' }, 5.2);
+  tl.fromTo('.win', { fill: '#3a3946' }, { fill: '#ffd98a', duration: 0.25, ease: 'none', stagger: 0.3 }, 5.6);
+  S.type.rise(tl, line.lines, 6.4, { stagger: 0.1 });
+  tl.fromTo('#cap .st-kicker', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 6.2);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "id": "squash-bounce",
+  "name": "Squash-and-stretch bounce",
+  "category": "spatial_transform",
+  "visual_intent": "An object drops and bounces with physical timing: stretched while falling fast, squashed on contact, each rebound lower and quicker. Gives weight and material to simple shapes.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["bounce", "squash", "stretch", "physics", "animation-principles", "entrance", "reference-derived"],
+  "performance_characteristics": { "cpu_intensity": "low", "gpu_intensity": "low", "dom_node_count": "the target", "memory_profile": "Negligible (estimate)" },
+  "recipes": ["drop-bounce"],
+  "implementation_summary": "Entrance: fall with power2.in while stretched, then per contact a 50 ms squash and 100 ms recovery; rebound heights decay geometrically and their durations by the square root of the decay (free-fall timing). Scales about the base (transform-origin 50% 100%).",
+  "primitives": ["svg-shape"],
+  "runtime_api": "Studio.space.bounce(tl, target, at, {height, bounces, decay, squash, fall, stagger})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["paper-pop", "object-assembly"],
+  "validation": { "evidence": "Runtime self-test (settles at rest with scale 1) in Playwright Chromium on Windows, 2026-10-30.", "last_verified": "2026-10-30" },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

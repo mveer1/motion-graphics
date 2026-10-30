@@ -1,0 +1,482 @@
+{
+  "id": "ref-392ee4d0f9",
+  "name": "Animator's notes reel: bounce, verbs and easing curve",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (2).mp4",
+    "aliases": [],
+    "sha256": "392ee4d0f96d028dac84953ac4b8736c72c81c70d53244f76e7fb385ba211459",
+    "bytes": 2006457,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "The name 'Claude' set as a closing title",
+        "timestamps": [
+          14.5
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Closing name is a brand; do not reuse. Study techniques only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 2006457,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 450,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 803,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 256
+    },
+    "overall_kbps": 1070
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed scene sheet (7 scenes, start/middle/end) covering the full 15 s. Overview and strips generated, not viewed. Audio from measurements only.",
+    "coverage": "Full duration at scene level.",
+    "concept": {
+      "observed": "A reel framed as an animator's notebook: a bouncing ball with handwritten notes, one-word verb cards that perform themselves, an easing curve with handles, and a dot on an arc with ghost copies.",
+      "interpreted": "Teaches the principles while demonstrating them.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Handwritten annotations (squash, slow in/slow out, stagger), timeline ruler at the bottom, no narration.",
+      "interpreted": "Witty and instructional."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Light grey paper and near-black cards; blue ball; red accents for annotations and SNAP."
+      },
+      "typography": {
+        "observed": "Condensed heavy caps for verbs; handwritten-style notes; mono timecodes."
+      },
+      "motion": {
+        "observed": "Ball bounce with squash and ghost trail; STRETCH widens, SPIN rotates, SNAP lands on guide lines, a heavy word drops with blur."
+      },
+      "easing": {
+        "observed": "An S-shaped curve with bezier handles is drawn and annotated."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median shot 1.83 s; cuts at 3.77, 5.17, 5.57, 8.47 and 13.17 s."
+      },
+      "transitions": {
+        "observed": "Mostly hard cuts between light and dark cards."
+      },
+      "audio_and_sync": {
+        "observed": "2.8 onsets/s; 80% of boundaries within 50 ms of an onset (chance 31%).",
+        "interpreted": "Cuts placed on sound hits.",
+        "confidence": "medium"
+      },
+      "motifs": {
+        "observed": "Annotation layer and onion skins: the process made visible."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.1,
+        "observed": "Bouncing ball with ghost copies and handwritten notes over a timeline ruler."
+      },
+      {
+        "start": 2.1,
+        "end": 3.77,
+        "observed": "Title line about making things move."
+      },
+      {
+        "start": 3.77,
+        "end": 8.47,
+        "observed": "Dark verb cards: a dropping word, STRETCH, SPIN, SNAP with guide lines."
+      },
+      {
+        "start": 8.47,
+        "end": 13.17,
+        "observed": "Light easing graph with handles and notes."
+      },
+      {
+        "start": 13.17,
+        "end": 15.0,
+        "observed": "Dot grid, dot on an arc with ghosts, closing title."
+      }
+    ],
+    "moments": [
+      {
+        "t": 5.3,
+        "observed": "The word STRETCH is itself stretched.",
+        "interpreted": "Motion as definition."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Annotation font identity unknown",
+      "Exact scene contents between 2.1 and 3.77 s seen only at three frames"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        3.77
+      ]
+    },
+    {
+      "id": "self-describing-kinetic-words",
+      "timestamps": [
+        3.9,
+        5.3,
+        6.0,
+        7.5
+      ]
+    },
+    {
+      "id": "annotation-callouts",
+      "timestamps": [
+        0.6,
+        1.5,
+        9.5
+      ]
+    },
+    {
+      "id": "onion-skin-trail",
+      "timestamps": [
+        0.8,
+        14.0
+      ]
+    },
+    {
+      "id": "squash-stretch-bounce",
+      "timestamps": [
+        0.8,
+        1.6
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        3.77,
+        5.17,
+        5.57,
+        8.47
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "onion-trail",
+      "squash-bounce",
+      "smear-motion",
+      "stroke-draw"
+    ],
+    "compositions": [
+      "word-beats",
+      "annotation-callout"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "illustrated-explainer"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "explainer",
+    "line-art",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "animation-principles",
+    "annotation",
+    "handwritten",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 8.9
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 5,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.1,
+        "kind": "soft",
+        "score": 0.076,
+        "isolation": 0.0
+      },
+      {
+        "t": 3.767,
+        "kind": "cut",
+        "score": 1.021,
+        "isolation": 0.93,
+        "frame": 113
+      },
+      {
+        "t": 5.567,
+        "kind": "cut",
+        "score": 0.782,
+        "isolation": 0.65,
+        "frame": 167
+      },
+      {
+        "t": 8.467,
+        "kind": "soft",
+        "score": 0.459,
+        "isolation": 0.13
+      },
+      {
+        "t": 13.167,
+        "kind": "cut",
+        "score": 0.778,
+        "isolation": 0.55,
+        "frame": 395
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.1,
+        "duration": 2.1,
+        "activity": 0.021,
+        "luma": 0.89
+      },
+      {
+        "index": 2,
+        "start": 2.1,
+        "end": 3.77,
+        "duration": 1.67,
+        "activity": 0.08,
+        "luma": 0.73
+      },
+      {
+        "index": 3,
+        "start": 3.77,
+        "end": 5.57,
+        "duration": 1.8,
+        "activity": 0.319,
+        "luma": 0.21
+      },
+      {
+        "index": 4,
+        "start": 5.57,
+        "end": 8.47,
+        "duration": 2.9,
+        "activity": 0.084,
+        "luma": 0.87
+      },
+      {
+        "index": 5,
+        "start": 8.47,
+        "end": 13.17,
+        "duration": 4.7,
+        "activity": 0.076,
+        "luma": 0.13
+      },
+      {
+        "index": 6,
+        "start": 13.17,
+        "end": 15.0,
+        "duration": 1.83,
+        "activity": 0.126,
+        "luma": 0.76
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.107,
+    "luma": {
+      "mean": 0.53,
+      "dark_share": 0.39,
+      "light_share": 0.55
+    },
+    "palette": [
+      {
+        "hex": "#181828",
+        "share": 0.267
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.193
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.138
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.124
+      },
+      {
+        "hex": "#181818",
+        "share": 0.109
+      },
+      {
+        "hex": "#182828",
+        "share": 0.033
+      },
+      {
+        "hex": "#d8d8e8",
+        "share": 0.029
+      },
+      {
+        "hex": "#383848",
+        "share": 0.021
+      },
+      {
+        "hex": "#484858",
+        "share": 0.019
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.017
+      }
+    ],
+    "representative_times": [
+      1.05,
+      2.94,
+      4.67,
+      7.02,
+      9.64,
+      10.82,
+      12.0,
+      14.09
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.4,
+      "mean_dbfs_voiced": -13.9,
+      "silence_ratio": 0.03,
+      "onsets": 42,
+      "onset_rate_per_sec": 2.78,
+      "onset_times": [
+        0.51,
+        0.98,
+        1.46,
+        1.93,
+        2.0,
+        2.16,
+        2.39,
+        2.86,
+        3.11,
+        3.34,
+        3.81,
+        4.04,
+        4.27,
+        4.74,
+        4.81,
+        4.92,
+        4.99,
+        5.2,
+        5.69,
+        6.39,
+        6.64,
+        6.8,
+        7.31,
+        7.5,
+        7.57,
+        8.27,
+        8.5,
+        8.96,
+        9.43,
+        9.66,
+        9.89,
+        10.36,
+        10.61,
+        10.84,
+        11.56,
+        11.77,
+        12.03,
+        12.26,
+        13.05,
+        13.19,
+        13.68,
+        14.58
+      ],
+      "tempo_estimate": {
+        "bpm": 64.6,
+        "autocorr": 0.48,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 719,
+      "band_share": {
+        "low_lt_250": 0.4,
+        "mid_250_2k": 0.4,
+        "high_gt_2k": 0.2
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 5,
+        "tolerance_ms": 67,
+        "near_onset": 0.8,
+        "chance_level": 0.31,
+        "median_offset_ms": 41,
+        "near_beat": 0.4,
+        "beat_chance_level": 0.13,
+        "beat_phase_sec": 0.213
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-392ee4d0f9",
+      "overview": "out/reference-analysis/ref-392ee4d0f9/overview.jpg",
+      "scenes": "out/reference-analysis/ref-392ee4d0f9/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-392ee4d0f9/transitions.jpg",
+      "motion": "out/reference-analysis/ref-392ee4d0f9/motion.jpg",
+      "audio": "out/reference-analysis/ref-392ee4d0f9/audio.png",
+      "frames": "out/reference-analysis/ref-392ee4d0f9/frames",
+      "tracked": false
+    }
+  }
+}

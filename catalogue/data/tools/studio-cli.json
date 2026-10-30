@@ -1,0 +1,50 @@
+{
+  "id": "tool-studio-cli",
+  "name": "Creative Studio Project CLI",
+  "component_type": "tool",
+  "purpose": "Project lifecycle CLI for multi-format creative projects: scaffold from a project template, vendor the studio runtime, generate per-format entry files, validate brief/storyboard/project/composition, plan or run HyperFrames builds per format, approximate captions, and record the creative review.",
+  "capabilities": [
+    "new: scaffold projects/<slug>/ from templates/projects/<id>/ with brief, storyboard, project.json and composition",
+    "sync: copy src/studio/ into projects/<slug>/src/_studio/ with a SHA-256 lock (refuses to overwrite local edits)",
+    "formats: write src/index.<format>.html entry files for 16:9, 9:16 and 1:1 from one index.html",
+    "validate: JSON Schema checks, catalogue status of capabilities, reading-time floors, determinism lint, font policy, stale generated files",
+    "build: per-format render plan (HyperFrames --composition), audio mux and QA gates; legacy projects delegate to scripts/build-project.sh",
+    "captions: approximate cues from measured narration timing (WebVTT + src/captions.js)",
+    "review: creative-review rubric with evidence and pass rule"
+  ],
+  "location": "scripts/studio.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "python3 scripts/studio.py <subcommand> (stdlib + jsonschema)."
+  },
+  "dependencies": ["shared-studio-runtime", "shared-video-spec", "shared-brief-spec", "shared-storyboard-spec", "shared-format-presets", "tool-hyperframes", "tool-ffmpeg"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3",
+    "notes": "new/sync/formats/validate/captions/review/status and build --dry-run verified on Windows (Python 3.14). Real builds need HyperFrames + FFmpeg on the production Mac and have not been run with this tool yet."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md",
+    "README.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only inside projects/<slug>/ (and out/ on build). build invokes hyperframes, ffmpeg and the QA script as subprocesses with argument lists (no shell)."
+  },
+  "owner": "workspace-governance",
+  "status": "experimental",
+  "approval_evidence": "tests/test-studio.py on Windows; build path unverified until a Mac render. Promote after a full build + QA run on the M2 host.",
+  "architecture_ref": "ARCHITECTURE.md#lifecycle",
+  "last_verified": "2026-10-30",
+  "tags": ["cli", "project", "formats", "validation", "build", "studio"]
+}

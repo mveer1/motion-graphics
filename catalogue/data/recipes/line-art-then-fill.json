@@ -1,0 +1,55 @@
+{
+  "id": "line-art-then-fill",
+  "name": "Line art then fill",
+  "effect_id": "line-art-reveal",
+  "status": "experimental",
+  "visual_intent": "Progressive illustration: strokes draw in reading order, then flat fills fade in under them.",
+  "parameters": [
+    {
+      "name": "group",
+      "type": "element",
+      "description": "SVG group"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "document | left-right | top-down"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "power1.inOut",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "Studio.draw.lineArt(tl, '#pan-illustration', 2.0, {order: 'left-right'});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "illustration",
+    "line-art",
+    "progressive"
+  ],
+  "examples": [
+    "src/studio/studio-draw.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

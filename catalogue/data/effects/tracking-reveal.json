@@ -1,0 +1,48 @@
+{
+  "id": "tracking-reveal",
+  "name": "Tracking (letter-spacing) settle",
+  "category": "typography",
+  "visual_intent": "Calm, premium label or title entrance: wide tracking settles to the set value while fading in.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "tracking",
+    "label"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "tracking-settle"
+  ],
+  "implementation_summary": "fromTo letterSpacing (em) and autoAlpha.",
+  "primitives": [
+    "styled-text"
+  ],
+  "runtime_api": "Studio.type.track(tl, el, at, {from: '0.6em', to: '0.12em'})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "liquid-transition",
+  "name": "Liquid rise",
+  "category": "transition",
+  "visual_intent": "Liquid-inspired scene change: a wavy surface rises to fill the frame; it drains away or becomes the next background.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "transition",
+    "liquid",
+    "fluid"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "liquid-rise"
+  ],
+  "implementation_summary": "Morphs a wave region through rising levels, cuts scenes when full, then drains or hides (mode 'become').",
+  "primitives": [
+    "wave-surface",
+    "scene-container"
+  ],
+  "runtime_api": "Studio.fx.liquid(tl, outScene, inScene, at, {color, mode, duration, seed})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

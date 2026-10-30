@@ -1,0 +1,81 @@
+{
+  "spec_version": 1,
+  "slug": "paper-plane-field-notes",
+  "title": "Paper Plane Field Notes",
+  "objective": "Show, in one calm sequence, the four folds of a classic dart paper plane and why a heavy nose glides, so the viewer can fold one right after watching.",
+  "audience": "Curious adults and older kids scrolling with sound off; no folding experience assumed.",
+  "platforms": ["website", "instagram-reels", "instagram-feed"],
+  "deliverables": {
+    "formats": ["landscape", "portrait", "square"],
+    "duration_sec": { "min": 16, "target": 22, "max": 30 }
+  },
+  "message": {
+    "core_message": "Four sharp folds make a plane that glides.",
+    "key_points": ["Halve the sheet", "Fold the corners to the crease", "Narrow the point", "Fold the wings; keep the nose heavy"],
+    "call_to_action": "Grab a sheet and fold one."
+  },
+  "tone": {
+    "emotional_response": ["delight", "clarity", "can-do"],
+    "keywords": ["field notebook", "hand-drawn", "editorial", "light", "playful"],
+    "avoid": ["dark backgrounds", "glowing node diagrams", "filler motion", "brand marks or layouts from the reference corpus"]
+  },
+  "constraints": ["Readable with sound off", "Every format needs its own layout, not a crop", "Original copy, drawing and choreography: reference videos are study material only"],
+  "assets_provided": [],
+  "references": [
+    {
+      "description": "Reference corpus precedents (catalogue/data/reference-sources, inspiration-only rights). Typographic rhythm from the word-per-beat reels (ref-92c22222a2, ref-0bf0254a3d), a dot that draws and opens scenes (ref-49459ad8c1), a persistent frame and counters (ref-92c22222a2, ref-5924215625), one-stage step progression with a tracker (ref-c3bc609841, ref-95c96d5c47), margin notes (ref-392ee4d0f9), geometric morphs (ref-92c22222a2). Principles combined into an original piece; no assets, brands or shot sequences reused.",
+      "inspected": true,
+      "technique_ids": [
+        "word-per-beat-sequence", "self-describing-kinetic-words", "accent-punctuation-motif", "element-bloom-transition",
+        "hud-frame-overlay", "single-stage-progression", "step-progress-tracker", "morph-ready-shape-sequence",
+        "annotation-callouts", "pen-led-stroke", "directional-smear"
+      ]
+    }
+  ],
+  "audio": { "narration": "none", "music": "optional", "sfx": "optional", "captions": false },
+  "research": { "required": false, "reason": "Folding steps are common knowledge; the piece makes no measured or scientific claims (no distances or speeds)." },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "Field notebook",
+      "concept": "A naturalist's notebook page: three self-describing verbs open the piece, the last full stop becomes the page, one sheet folds in place step by step with hand-drawn margin notes, then the dot of its nose draws the flight across the page and opens the closing card.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Warm paper, ink and one terracotta accent; green and mustard only for notes and the tracker.",
+        "typography": "Playfair Display for verbs and headings, JetBrains Mono for frame labels and step names.",
+        "texture": "Clean paper; hand-drawn loops and arrows for annotations."
+      },
+      "motion_language": {
+        "personality": "Curious and precise: crisp folds, unhurried holds, one playful smear.",
+        "signature_moves": ["self-describing verbs", "dot blooms into the next scene", "shape morphs as folds", "pen-led flight path"],
+        "transitions": "Element blooms from full stops; everything else changes in place on one stage."
+      },
+      "composition": { "approach": "One persistent stage: copy column and stepper beside (landscape) or under (portrait, square) a single folding sheet; a constant frame with corner labels." },
+      "pacing": "Fast 0.9 s verb beats, then about 2.4 s per fold, a 2.5 s flight and a 3 s hold.",
+      "why_it_fits": "A how-to needs orientation (tracker, single stage) and memorable verbs; the line of flight pays off the folds."
+    },
+    {
+      "id": "direction-b",
+      "name": "Swiss fold poster",
+      "concept": "Hard-cut typographic poster: each fold is a full-frame card with a giant numeral and a flat diagram, cut on a 120 bpm grid.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "White, black and signal red.",
+        "typography": "Heavy Inter numerals and verbs.",
+        "texture": "None."
+      },
+      "motion_language": {
+        "personality": "Punchy and graphic.",
+        "signature_moves": ["word beats", "hard cuts on the beat"],
+        "transitions": "Hard cuts only."
+      },
+      "composition": { "approach": "Full-frame cards, numeral left, diagram right; portrait stacks them." },
+      "pacing": "One card per 1-2 s.",
+      "why_it_fits": "Very legible and quick, but loses the sense of one sheet becoming a plane."
+    }
+  ],
+  "selected_direction": "direction-a",
+  "selection_rationale": "Folding is a continuous transformation of one object; direction A keeps that object on one stage and orients the viewer with a tracker, while still borrowing the energy of word beats for the opening. Direction B would explain each fold in isolation.",
+  "success_criteria": ["Each fold is readable at phone size", "The viewer can name the four folds", "The ending holds for at least 2 seconds", "No reference brand, layout or shot sequence is recognisable"]
+}

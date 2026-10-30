@@ -1,0 +1,47 @@
+{
+  "id": "ambient-float",
+  "name": "Ambient float",
+  "category": "spatial_transform",
+  "visual_intent": "Quiet life during a hold (steam, leaves, floating objects). Use sparingly; not filler.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "ambient",
+    "secondary-motion"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with targets",
+    "memory_profile": "Low (<25MB)"
+  },
+  "recipes": [
+    "seeded-float"
+  ],
+  "implementation_summary": "Finite yoyo repeats from rest with seeded period and amplitude.",
+  "primitives": [
+    "svg-shape"
+  ],
+  "runtime_api": "Studio.space.float(tl, targets, from, to, {amplitude, period, seed})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

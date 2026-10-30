@@ -1,0 +1,22 @@
+{
+  "id": "letter-shatter",
+  "name": "Letter shatter",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected typographic piece breaks a large letter into angular shards.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A solid glyph fractures into shards that fly apart with rotation, turning a letter into debris for emphasis or a transition.",
+  "purpose": "Impact, breaking an idea, transition out of a type card.",
+  "visual_behaviour": "A big letter splits into polygons that scatter and spin, leaving the frame or reforming.",
+  "mechanics": "Clones of the glyph clipped to seeded polygon shards; per-shard x, y, rotation with power2.in; optional reverse to assemble.",
+  "decomposition": { "primitives": ["clip-mask", "styled-text"], "effects": ["object-assembly"], "timing": "About 0.5-0.8 s." },
+  "use_cases": ["kinetic typography", "title sequence", "breaking-news or disruption theme"],
+  "failure_modes": ["Too few shards look like a cut, too many cost paint time"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Seeded triangulation of the glyph box, clip-path polygon per clone, Studio.space.disassemble for the scatter." },
+  "capability": { "support": "native", "compatible_components": ["object-assembly", "clip-mask"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "medium (shard clones)" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [ { "source_id": "ref-736d4ef2c2", "timestamps": [20.8, 21.2], "observed": "A large letter A breaks into angular fragments." } ],
+  "related": { "techniques": ["word-per-beat-sequence"], "effects": ["object-assembly"] },
+  "licensing_notes": "Technique only.",
+  "tags": ["kinetic-typography", "shatter", "fracture", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

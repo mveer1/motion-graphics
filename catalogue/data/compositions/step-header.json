@@ -1,0 +1,77 @@
+{
+  "id": "step-header",
+  "name": "Step header",
+  "purpose": "Numbered step with large numeral, '/ total', heading and body, replacing progress bars.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text",
+      "split-text",
+      "clip-mask"
+    ],
+    "effects": [
+      "text-mask-rise"
+    ],
+    "recipes": [
+      "line-mask-rise"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "index",
+      "type": "integer",
+      "description": "Step number"
+    },
+    {
+      "name": "total",
+      "type": "integer",
+      "description": "Step count"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Heading"
+    },
+    {
+      "name": "body",
+      "type": "string",
+      "description": "Body copy"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.stepHeader(parent, {index, total, title, body}).enter(tl, at) / .exit(tl, at)"
+  },
+  "layout_notes": "Stacks vertically in all formats; numeral size scales with --fs-numeral (largest in portrait).",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "projects/masala-chai-recipe/src/index.html",
+    "tests/studio-runtime/index.html"
+  ],
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google",
+    "npx hyperframes check on the render host"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "composition",
+    "layout",
+    "step",
+    "header"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

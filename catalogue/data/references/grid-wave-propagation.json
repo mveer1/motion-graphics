@@ -1,0 +1,33 @@
+{
+  "id": "grid-wave-propagation",
+  "name": "Grid wave propagation",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Four inspected references animate fields of tiles, shapes, dots or pixels in waves spreading from a point.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Every cell of a grid changes state with a delay proportional to its distance from an origin, so a pattern change becomes a visible ripple and a transition gains a source and direction.",
+  "purpose": "Make pattern, data or texture feel alive; turn a scene change into a wave; express propagation (signals, spreading, adoption).",
+  "visual_behaviour": "Tiles pop, flip or change colour starting at the centre (or a corner) and spreading outward over 0.5-1.5 s.",
+  "mechanics": "Grid stagger with an 'amount' for the whole wave; per-cell tween 0.3-0.5 s; flips rotate quarter turns so Truchet arcs reconnect.",
+  "decomposition": { "primitives": ["svg-shape"], "effects": ["grid-wave", "object-assembly"], "timing": "Observed waves cross the frame in about 1-2 s (ref-92c22222a2 7.58-9.58 s)." },
+  "parameters": [ { "name": "grid", "description": "rows x cols" }, { "name": "from", "description": "Origin: center, start, end, edges, index or [x, y]", "default": "center" }, { "name": "amount", "description": "Wave duration across the grid", "default": 0.8 }, { "name": "preset", "description": "pop | flip | tint | custom" } ],
+  "use_cases": ["pattern or texture background", "scene transition", "data spreading or adoption", "title sequence", "product feature grid"],
+  "failure_modes": ["Too many cells (DOM cost, moire at 720p)", "Uniform waves with no origin read as a fade", "Pattern detail below the frame-review blank-frame threshold"],
+  "implementation_state": "implemented",
+  "implemented_by": ["grid-wave", "truchet-wave"],
+  "implementation": { "approach": "Studio.draw.grid builds cells (optional Truchet tiles); Studio.fx.gridWave staggers a preset over the grid; consecutive flips chain.", "runtime_api": ["Studio.fx.gridWave", "Studio.draw.grid"] },
+  "capability": { "support": "native", "compatible_components": ["grid-wave", "object-assembly"], "complexity": "low", "resources": { "basis": "measured", "cpu": "low for <= 400 cells", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/shape-and-grid (144 Truchet cells, three waves)", "value": "51.9 ms/frame median, 94.9 ms max, peak headless Chromium 307 MB, 469 DOM nodes", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "limitations": ["DOM cells; thousands of cells would need a canvas renderer with a seek-safe draw hook"], "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [7.58, 8.58, 9.58], "observed": "A square subdivides into Truchet-like tiles; a colour change propagates outward from the centre." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [2.85, 3.8], "observed": "Geometric tiles (circles, quarter circles, squares) pop into a grid in a staggered sweep." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [8.4, 9.3], "observed": "A dot grid rises into a field of cubes in a wave (rendered in 3D in the reference)." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [10.52], "observed": "A pixel-block grid fills behind a word card." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/shape-and-grid/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Pop wave from the centre and two flip waves inspected." },
+    { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" }
+  ] },
+  "related": { "techniques": ["morph-ready-shape-sequence", "cut-paper-title-sequence"], "effects": ["grid-wave", "object-assembly"], "templates": ["title-sequence", "music-visualizer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Truchet tiling is a centuries-old public pattern family.",
+  "tags": ["grid", "pattern", "wave", "truchet", "generative", "transition", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

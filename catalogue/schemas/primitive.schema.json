@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionPrimitiveRecord",
+  "description": "Layer 1 of the component model: a foundational visual element (shape, path, text, mask, gradient, texture, particle, image) that effects and compositions are built from.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "kind",
+    "status",
+    "description",
+    "rendering_engine",
+    "library_dependencies",
+    "inputs",
+    "implementation",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "kind": {
+      "type": "string",
+      "enum": ["shape", "path", "text", "mask", "gradient", "texture", "particle", "image", "video", "group", "camera", "grid"]
+    },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
+    "description": { "type": "string" },
+    "rendering_engine": { "type": "string", "enum": ["svg_dom", "css_dom", "canvas2d", "webgl", "video_layer"] },
+    "library_dependencies": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "default": {},
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "required": ["location"],
+      "additionalProperties": false,
+      "properties": {
+        "location": { "type": "string", "description": "Workspace-relative file that implements the primitive, or 'native' for browser primitives." },
+        "api": { "type": "string", "description": "Call signature in the studio runtime, if any." }
+      }
+    },
+    "performance_notes": { "type": "string" },
+    "related": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9-]+$" } },
+    "validation": { "$ref": "#/definitions/validation" },
+    "tags": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "metadata": { "type": "object" }
+  },
+  "definitions": {
+    "validation": {
+      "type": "object",
+      "required": ["evidence", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence": { "type": "string" },
+        "last_verified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    }
+  }
+}

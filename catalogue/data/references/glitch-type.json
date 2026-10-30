@@ -1,0 +1,21 @@
+{
+  "id": "glitch-type",
+  "name": "Glitch type",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected reel shows a technical word with RGB channel split and slice displacement.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "A word flickers with colour-channel offsets and horizontal slice shifts for a few frames, signalling code, error or digital noise.",
+  "purpose": "Digital or error theme accent in kinetic typography.",
+  "visual_behaviour": "Red and cyan copies offset by a few pixels; horizontal bands jump sideways for 2-6 frames; snaps clean.",
+  "mechanics": "Two tinted copies with mix-blend-mode screen/multiply and stepped x offsets; clip-path bands of a clone with stepped x; seeded so it repeats identically.",
+  "decomposition": { "primitives": ["styled-text", "clip-mask"], "effects": ["grain-boil"], "timing": "Bursts of 0.1-0.3 s." },
+  "use_cases": ["tech promo", "kinetic typography", "error state"],
+  "failure_modes": ["Overuse is cliche", "Flashing above safe photosensitivity limits"],
+  "implementation_state": "observed",
+  "implemented_by": [],
+  "capability": { "support": "approximation", "requirements": ["per-channel image offsets of video glitches"], "compatible_components": ["grain-boil", "clip-mask"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low-medium" }, "approximation": "Two tinted DOM copies plus stepped band clips; no real compression artefacts.", "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 2, "cost": 2 } },
+  "provenance": [ { "source_id": "ref-b97f9168c6", "timestamps": [3.9], "observed": "A short word card shows channel split and scanline offsets." } ],
+  "related": { "techniques": ["word-per-beat-sequence"] },
+  "licensing_notes": "Technique only.",
+  "tags": ["kinetic-typography", "glitch", "digital", "backlog", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "shared-studio-runtime",
+  "name": "Studio Composition Runtime",
+  "component_type": "shared_asset",
+  "purpose": "Canonical, dependency-free (GSAP 3.12.5 core only) runtime for HyperFrames compositions: format-aware layout variables, seeded randomness, path drawing and morphing, text splitting and typography motion, masks and scene transitions, depth/parallax, rhythm helpers, textures, reusable compositions and five style systems. Projects vendor a locked copy under src/_studio/.",
+  "capabilities": [
+    "studio-core.js: format, safe areas, seeded rng/noise, timeline registration, scene show/hide/crossfade/cut",
+    "studio-draw.js: stroke draw, line art, hand-drawn lines, blobs, waves, morph, wobble, particles",
+    "studio-type.js: accessible split, mask rise, cascade, tracking, weight, typewriter, highlight, underline, counters",
+    "studio-motion.js: reveal/wipe/iris/push/shape-cover/liquid/match-cut transitions, depth camera, assembly, rhythm grid, grain",
+    "studio-compositions.js: title card, item list, step header, end card, captions",
+    "studio-base.css + styles/*.css: tokens, type scale per format, layout primitives, style systems"
+  ],
+  "location": "src/studio",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "python3 scripts/studio.py sync <slug> copies it into projects/<slug>/src/_studio/ with studio.lock.json."
+  },
+  "dependencies": ["gsap"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "browser (HyperFrames headless Chrome)",
+    "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Original workspace code; no third-party code copied. GSAP is loaded separately (see library record)."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Runs inside the render browser only; no network calls of its own."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "tests/test-studio-runtime.py PASS; masala-chai-recipe frame review PASS in three formats (2026-10-30). Promote after HyperFrames renders on the M2 host.",
+  "architecture_ref": "ARCHITECTURE.md#runtime",
+  "last_verified": "2026-10-30",
+  "tags": ["runtime", "gsap", "svg", "typography", "transitions", "formats"]
+}

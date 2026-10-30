@@ -1,0 +1,31 @@
+{
+  "id": "word-slot-roll",
+  "name": "Word or number slot roll",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Three inspected references swap one word or number inside a still layout with a vertical roll (a slot, an odometer, a list scroller with a focused item).", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "One slot of a sentence or figure rolls vertically to its next value while everything around it holds still, so the change itself is the message (what varies, what stays).",
+  "purpose": "Show alternatives, growth or a list compactly; keep a headline stable while its key word changes.",
+  "visual_behaviour": "The word scrolls up out of a one-line window as the next scrolls in, with a slight overshoot; widths re-centre the line.",
+  "mechanics": "yPercent step of a masked column with back.out(1.5) over about 0.5 s; optional width tween so centred lines re-flow smoothly.",
+  "decomposition": { "primitives": ["styled-text", "clip-mask"], "effects": ["slot-roll", "counter-roll"], "timing": "One roll per beat; each entry held at least about 0.6 s." },
+  "parameters": [ { "name": "items", "description": "Entries" }, { "name": "fit", "description": "Re-centre around each entry's width", "default": false } ],
+  "use_cases": ["product promo headline", "feature list", "statistics", "kinetic typography"],
+  "failure_modes": ["Entries changing faster than reading speed", "Different word widths jumping without fit"],
+  "implementation_state": "implemented",
+  "implemented_by": ["slot-roll", "word-slot"],
+  "implementation": { "approach": "Studio.type.roll(parent, items, {fit}).to(tl, index, at)", "runtime_api": ["Studio.type.roll"] },
+  "capability": { "support": "native", "compatible_components": ["slot-roll", "counter-roll"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no" }, "limitations": ["Per-digit odometers (each digit its own column) are not built in; compose several rolls"], "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-ce769bc33e", "timestamps": [16.5], "observed": "The last word of a line cycles through three nouns in a vertical roll (approx., from overview spacing)." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [6.0, 7.0], "observed": "A vertical list scrolls with the focused item at full strength and the others faded." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [2.5], "observed": "A figure counts up with rolling digits above a dotted globe (approx., from overview spacing)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
+    { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Make it move / land / matter re-centres around each word." }
+  ] },
+  "related": { "techniques": ["word-per-beat-sequence", "centred-word-build"], "effects": ["slot-roll", "counter-roll"], "templates": ["product-promo", "kinetic-typography"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["typography", "roll", "slot", "counter", "promo", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

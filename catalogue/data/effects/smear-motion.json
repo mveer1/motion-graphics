@@ -1,0 +1,28 @@
+{
+  "id": "smear-motion",
+  "name": "Directional smear (motion-blur approximation)",
+  "category": "typography",
+  "visual_intent": "A word or object arrives (or leaves) too fast to see sharply: it is stretched along the motion and blurred in that direction only, then snaps crisp at rest.",
+  "status": "experimental",
+  "library_dependencies": ["gsap", "svg-native", "html-css-native"],
+  "rendering_engine": "css_dom",
+  "tags": ["typography", "motion-blur", "smear", "kinetic", "transition", "approximation", "reference-derived"],
+  "performance_characteristics": {
+    "cpu_intensity": "medium",
+    "gpu_intensity": "low",
+    "dom_node_count": "1 SVG filter per target",
+    "memory_profile": "Low; the SVG Gaussian blur is rasterised only while the target moves (filter detached at rest). Cost scales with target area (estimate, not measured on the M2)."
+  },
+  "recipes": ["smear-entrance"],
+  "implementation_summary": "Per target: an SVG feGaussianBlur with stdDeviation 'x 0' (or '0 y') applied through CSS filter, tweened from strong to zero with the same ease as the move, plus a stretch along the motion anchored at the leading edge. The filter is attached for the move only (filter none at rest). Not true motion blur: there is no temporal supersampling.",
+  "primitives": ["styled-text"],
+  "runtime_api": "Studio.fx.smear(tl, target, at, {side, distance, blur, stretch, duration, ease, stagger, exit})",
+  "formats_supported": ["landscape", "portrait", "square"],
+  "examples": ["tests/reference-derived/word-beats/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "related": ["push-transition", "text-mask-rise"],
+  "validation": {
+    "evidence": "Runtime self-test (blur active and stretched mid-move, filter detached and transform reset at rest, hidden before entrance) in Playwright Chromium on Windows, 2026-10-30. SVG filter cost in HyperFrames on the M2 is not yet measured, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

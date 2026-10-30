@@ -1,0 +1,41 @@
+{
+  "id": "wave-surface",
+  "name": "Liquid surface region",
+  "kind": "path",
+  "status": "experimental",
+  "description": "Filled region under a smooth wavy edge at a given level; same structure for every level, so it can rise and fall by morphing.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "level",
+      "type": "number",
+      "description": "0 = top, 1 = bottom"
+    },
+    {
+      "name": "amplitude",
+      "type": "number",
+      "description": "Wave height in px"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.wave(seed, {width, height, level, phase, amplitude, fill})"
+  },
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "liquid",
+    "wave",
+    "fill"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

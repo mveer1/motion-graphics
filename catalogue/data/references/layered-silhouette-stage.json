@@ -1,0 +1,30 @@
+{
+  "id": "layered-silhouette-stage",
+  "name": "Layered silhouette stage with palette clock",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Two inspected references stage stories on flat silhouette layers whose sky and palette change with time of day or life stage.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Flat silhouette layers at different depths form a paper-theatre stage; a slow camera move gives parallax, and the palette (sky gradient, lights coming on) marks the passage of time, so time is told by colour rather than by text.",
+  "purpose": "Atmosphere and the passage of time with cheap 2.5D depth; calm storytelling pace.",
+  "visual_behaviour": "Hills, buildings and foreground as flat shapes; the sky shifts from warm to dark; windows and lamps light one by one; sun or moon travels an arc; the camera drifts.",
+  "mechanics": "Depth-factored camera transforms; tweened CSS colour variables over several seconds; staggered light-ups; arc motion from two axes with different eases.",
+  "decomposition": { "primitives": ["depth-layer", "svg-shape", "seeded-particles"], "effects": ["parallax-camera"], "timing": "Palette shifts over 4-10 s; lights stagger 0.2-0.4 s; ref-910d9fc567 runs 57 s without a hard cut." },
+  "parameters": [ { "name": "palette keyframes", "description": "Sky and ground colours per time of day" }, { "name": "camera", "description": "Pan and push over depth layers" } ],
+  "use_cases": ["storybook or poem", "brand film", "calm explainer intro", "time-lapse metaphor"],
+  "failure_modes": ["Too many layers with detailed silhouettes slow the stage and clutter", "Colour shift without a narrative reason"],
+  "implementation_state": "prototyped",
+  "implemented_by": [],
+  "implementation": { "approach": "No new code: Studio.space.camera over [data-depth] layers, GSAP tweens of CSS custom properties for the sky, Studio.draw.particles for stars, staggered fills for lights. This is the 'reuse an existing component' rung of the cost ladder.", "runtime_api": ["Studio.space.camera", "Studio.draw.particles"] },
+  "capability": { "support": "native", "compatible_components": ["parallax-camera", "depth-layer", "seeded-particles"], "complexity": "low", "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/silhouette-stage", "value": "51.9 ms/frame median, 107.7 ms max, peak headless Chromium 313 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-910d9fc567", "timestamps": [10.0, 30.0, 45.0], "observed": "Silhouette hills, house and figure on a paper-theatre stage; the sky moves through dusk and night; windows and a door light up." },
+    { "source_id": "ref-5924215625", "timestamps": [5.5, 16.8], "observed": "Each life stage has its own palette (warm daylight, sunset, grey city, night)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "frame-review", "path": "tests/reference-derived/silhouette-stage/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Dusk to night, parallax push, stars and lamp inspected." },
+    { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" }
+  ] },
+  "related": { "techniques": ["curtain-bookends"], "effects": ["parallax-camera"], "templates": ["illustrated-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). The lighthouse scene is original.",
+  "tags": ["2.5d-depth", "parallax", "silhouette", "palette", "storybook", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

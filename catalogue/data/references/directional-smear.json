@@ -1,0 +1,55 @@
+{
+  "id": "directional-smear",
+  "name": "Directional smear (motion-blur approximation)",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "Four inspected references show words or objects arriving with streaks: stretched along the motion and blurred in one direction only.", "inspected": true, "inspected_on": "2026-10-30" },
+  "technique": "Fast entrances and exits are drawn smeared: the shape is stretched and blurred along its direction of travel on the fast frames and snaps crisp at rest. It reads as speed and impact, the way camera motion blur or hand-drawn smear frames do.",
+  "purpose": "Convey speed and punch in kinetic type and quick object moves without frame-level supersampling.",
+  "visual_behaviour": "Over 1-4 frames the element appears as a horizontal (or vertical) streak wider than itself, then decelerates hard into a sharp resting position.",
+  "mechanics": "Expo-out travel; stretch anchored at the leading edge, decaying with speed; one-axis Gaussian blur decaying with the same ease; filter removed at rest.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["smear-motion"], "timing": "Observed smears last about 2-5 frames at 60 fps (ref-92c22222a2 11.25 s, 13.07 s); implemented default 0.45 s total with the blur mostly in the first 0.1 s." },
+  "parameters": [
+    { "name": "side", "description": "Direction of arrival or departure", "default": "left" },
+    { "name": "distance", "description": "Travel in --u units", "default": 60 },
+    { "name": "blur", "description": "Peak directional blur", "default": "2.4u" },
+    { "name": "stretch", "description": "Peak scale along the motion", "default": 1.6 }
+  ],
+  "use_cases": ["kinetic typography", "word beats", "product promo", "sports or energetic promos", "whip transitions"],
+  "failure_modes": ["Too long a blur reads as out-of-focus, not speed", "Blur on large areas costs CPU in the SVG filter path", "On slow moves the smear looks like a glitch"],
+  "implementation_state": "implemented",
+  "implemented_by": ["smear-motion", "smear-entrance"],
+  "implementation": { "approach": "Studio.fx.smear: per-target SVG feGaussianBlur with stdDeviation 'x 0' via CSS filter, tweened with the same ease as an expo move and a leading-edge stretch; filter toggled to none at rest.", "runtime_api": ["Studio.fx.smear"] },
+  "capability": {
+    "support": "approximation",
+    "requirements": ["True motion blur integrates several sub-frame positions per output frame (temporal supersampling)."],
+    "compatible_components": ["smear-motion", "push-transition", "text-mask-rise"],
+    "additional_dependencies": [],
+    "complexity": "low",
+    "resources": { "cpu": "medium while blurring (SVG filter rasterised per frame)", "gpu": "low", "memory": "one filter per target", "basis": "measured", "measurements": [
+      { "what": "every-frame preview capture of tests/reference-derived/word-beats (one smear card among eight), 1280x720, 375 frames", "value": "47.0 ms/frame median, 88.9 ms max, peak headless Chromium 291 MB; no outlier frames in the smear interval", "where": "Windows dev host, Playwright Chromium (tests/reference-derived/benchmark.json)", "date": "2026-10-30" }
+    ] },
+    "native_option": "Not available in the DOM renderer: HyperFrames captures one instant per frame.",
+    "approximation": "One-axis blur plus stretch that decay with speed. Loses the curved, motion-dependent shape of real blur (rotation and arcs blur straight) and the sub-frame streak of very fast moves.",
+    "advanced_path": "Temporal supersampling in the render step (render N sub-frames per frame and average with FFmpeg tmix/frame blending) would give true blur for any motion at N times the render cost; justified only for a piece that depends on many fast moves.",
+    "additional_tooling": { "needed": "no", "justification": "The approximation reads correctly at 30 fps for straight moves; supersampling would multiply render time on the 8 GB host." },
+    "limitations": ["Straight-line blur only", "SVG filter cost in HyperFrames on the M2 not yet measured"],
+    "priority": { "creative_value": 4, "cost": 2 }
+  },
+  "provenance": [
+    { "source_id": "ref-92c22222a2", "timestamps": [11.25, 13.07], "observed": "Condensed caps word arrives as a horizontal streak and settles; a later word leaves as a streak to the left." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [10.52], "observed": "One-word card enters from the left heavily smeared across a diagonal colour wipe." },
+    { "source_id": "ref-392ee4d0f9", "timestamps": [3.77], "observed": "A heavy word drops in with vertical motion blur." },
+    { "source_id": "ref-ce769bc33e", "timestamps": [6.5], "observed": "Cards on a spinning carousel blur horizontally at peak speed (approx., from overview spacing)." }
+  ],
+  "validation": { "state": "preview", "evidence": [
+    { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Blur active and stretched mid-move; filter none, x 0, scaleX 1 at rest; hidden before entrance." },
+    { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: streak on the RUSH card, crisp at rest." },
+    { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "'Fly' enters with a left smear on the accent card. Frame review 0 errors, 0 warnings (preview grade)." }
+  ] },
+  "related": { "techniques": ["word-per-beat-sequence", "self-describing-kinetic-words"], "effects": ["smear-motion", "push-transition"], "compositions": ["word-beats"], "templates": ["kinetic-typography", "product-promo"] },
+  "combines_with": [ { "id": "word-per-beat-sequence", "why": "A smeared arrival gives one card in a run of cuts extra punch." } ],
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Implementation and copy are original.",
+  "tags": ["motion-blur", "smear", "kinetic-typography", "speed", "approximation", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+}

@@ -40,7 +40,7 @@
   "owner": "pedagogy",
   "status": "approved",
   "approval_evidence": "Production certified in project scaffolding.",
-  "architecture_ref": "ARCHITECTURE.md#s0",
+  "architecture_ref": "ARCHITECTURE.md#s0r",
   "last_verified": "2026-10-30",
   "tags": ["template", "research", "scaffold", "json", "markdown"]
 }

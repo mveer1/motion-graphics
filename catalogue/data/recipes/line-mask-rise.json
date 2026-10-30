@@ -1,0 +1,61 @@
+{
+  "id": "line-mask-rise",
+  "name": "Line mask rise",
+  "effect_id": "text-mask-rise",
+  "status": "experimental",
+  "visual_intent": "Editorial headline reveal: each line (or word) rises out of its own mask so type appears to be set, not faded.",
+  "parameters": [
+    {
+      "name": "parts",
+      "type": "elements",
+      "description": "Lines or words from Studio.type.split"
+    },
+    {
+      "name": "at",
+      "type": "number",
+      "description": "Start time (s)"
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "description": "Seconds between units"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "style token --ease-out (power3.out in editorial-light)",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "const s = Studio.type.split('#headline', {type: 'lines,words', mask: 'lines'});\nStudio.type.rise(tl, s.lines, cue('title'), {stagger: 0.09});"
+  },
+  "fallbacks": "Fall back to the approved zero-dip crossfade or a plain fromTo opacity/transform tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 2.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python scripts/frame-review.py <project> --fonts google (inspect contact sheets per format)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "typography",
+    "kinetic",
+    "headline",
+    "mask"
+  ],
+  "examples": [
+    "src/studio/studio-type.js"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-10-30"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

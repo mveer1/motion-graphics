@@ -1,0 +1,484 @@
+{
+  "id": "ref-95c96d5c47",
+  "name": "Neo-brutalist sticker explainer of a distributed timer",
+  "status": "experimental",
+  "source": {
+    "filename": "play_720p (7).mp4",
+    "aliases": [],
+    "sha256": "95c96d5c47910acba97402db6ef0710eb195ec0c7ca3371f45ba7f32f6dc1c88",
+    "bytes": 7375613,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-10-30",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "product",
+        "description": "Name of a scheduling product presented as the solution",
+        "timestamps": [
+          12.3,
+          49.6
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. The explainer's specific diagram, story and product are not reused; the subject (one job, many machines) must not be copied into demos either."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 7375613,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 53.033,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1590,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 1102,
+    "keyframes": 53,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 53.077,
+      "kbps": 2
+    },
+    "overall_kbps": 1113
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-10-30",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames over 53 s) and scene sheet (10 scenes). Strips generated, not viewed. Audio track decoded as digital silence.",
+    "coverage": "Full duration at scene level.",
+    "concept": {
+      "observed": "Explains running a scheduled job reliably: one machine with a timer fails (stamp), two machines fire twice (green warning), then a shared referee grants ownership, leases must be renewed, ownership moves on expiry, a woken machine stops itself; ends with a comparison table and tagline.",
+      "interpreted": "Problem-solution technical explainer for developers.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Caption-led (no audio); questions as section headers; numbered steps.",
+      "interpreted": "Friendly, direct, slightly playful."
+    },
+    "aspects": {
+      "visual_identity": {
+        "observed": "Thick black outlines, pastel fills (pink, cyan, yellow, green), hard offset shadows, diagonal hatching, pill labels, small sparkles."
+      },
+      "palette": {
+        "observed": "Measured white #f8f8f8 (63%) with pastel accents; luma mean 0.86."
+      },
+      "typography": {
+        "observed": "Heavy condensed uppercase headers, monospace labels and values."
+      },
+      "composition": {
+        "observed": "Header top-left, persistent diagram centre, notes as stickies; generous white space."
+      },
+      "motion": {
+        "observed": "Cards pop in, values change in place (clock 7:59 to 8:00, owner A to B), bars fill and drain, stamps land."
+      },
+      "timing_and_rhythm": {
+        "observed": "Measured median section 5.97 s; static holds 3.58-4.42 s and 52.08-52.92 s.",
+        "interpreted": "Reading-paced, one idea per section."
+      },
+      "transitions": {
+        "observed": "Push to a green field for the 'two machines' idea (6.27 s); crossfades and reframes between steps."
+      },
+      "audio_and_sync": {
+        "observed": "Audio track present but silent (peak below -80 dBFS).",
+        "interpreted": "Designed for silent autoplay or exported without sound."
+      },
+      "motifs": {
+        "observed": "Stamps for state, hatching for failure, pills for steps."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 6.27,
+        "observed": "One machine with a timer; it goes DOWN (stamp at about 3.4 s)."
+      },
+      {
+        "start": 6.27,
+        "end": 12.23,
+        "observed": "Green field: two machines fire twice; an oval circles the duplicate."
+      },
+      {
+        "start": 12.23,
+        "end": 25.2,
+        "observed": "Shared referee and machine cards; a claim gives one owner."
+      },
+      {
+        "start": 25.2,
+        "end": 40.27,
+        "observed": "Lease bars must be renewed; the owner dies; EXPIRED stamp; ownership moves."
+      },
+      {
+        "start": 40.27,
+        "end": 53.03,
+        "observed": "A woken machine stops itself; comparison table and tagline."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the silent track is intentional",
+      "Exact easing of pops (seen only at sampled frames)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "annotation-callouts",
+      "timestamps": [
+        12.15
+      ]
+    },
+    {
+      "id": "stamp-state-change",
+      "timestamps": [
+        3.42,
+        35.84
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        14.99,
+        21.98
+      ]
+    },
+    {
+      "id": "step-progress-tracker",
+      "timestamps": [
+        18.75,
+        25.2
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        12.31,
+        18.83,
+        28.31,
+        35.84
+      ]
+    },
+    {
+      "id": "sticker-brutalist-style",
+      "timestamps": [
+        3.42,
+        14.99,
+        49.63
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "stamp-impact",
+      "connector-draw",
+      "paper-pop",
+      "marker-highlight"
+    ],
+    "compositions": [
+      "annotation-callout",
+      "progress-stepper",
+      "step-header"
+    ],
+    "templates": [
+      "technical-explainer"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "diagram",
+    "editorial-layout",
+    "iconography"
+  ],
+  "tags": [
+    "reference-video",
+    "light-theme",
+    "neo-brutalist",
+    "sticker",
+    "distributed-systems",
+    "silent"
+  ],
+  "confidence": "high",
+  "metadata": {
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "156.0.4314.50",
+      "run_on": "2026-10-30",
+      "elapsed_sec": 16.2
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 318,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 9,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.583,
+        "kind": "soft",
+        "score": 0.142
+      },
+      {
+        "t": 6.267,
+        "kind": "soft",
+        "score": 0.222,
+        "isolation": 0.03
+      },
+      {
+        "t": 12.233,
+        "kind": "soft",
+        "score": 0.428,
+        "isolation": 0.17
+      },
+      {
+        "t": 17.75,
+        "kind": "soft",
+        "score": 0.14
+      },
+      {
+        "t": 18.75,
+        "kind": "soft",
+        "score": 0.161
+      },
+      {
+        "t": 25.2,
+        "kind": "soft",
+        "score": 0.101,
+        "isolation": 0.0
+      },
+      {
+        "t": 31.417,
+        "kind": "soft",
+        "score": 0.141
+      },
+      {
+        "t": 40.267,
+        "kind": "soft",
+        "score": 0.098,
+        "isolation": 0.04
+      },
+      {
+        "t": 46.233,
+        "kind": "soft",
+        "score": 0.137,
+        "isolation": 0.06
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.58,
+        "duration": 0.58,
+        "activity": 0.044,
+        "luma": 0.98
+      },
+      {
+        "index": 2,
+        "start": 0.58,
+        "end": 6.27,
+        "duration": 5.68,
+        "activity": 0.037,
+        "luma": 0.91
+      },
+      {
+        "index": 3,
+        "start": 6.27,
+        "end": 12.23,
+        "duration": 5.97,
+        "activity": 0.09,
+        "luma": 0.72
+      },
+      {
+        "index": 4,
+        "start": 12.23,
+        "end": 17.75,
+        "duration": 5.52,
+        "activity": 0.079,
+        "luma": 0.91
+      },
+      {
+        "index": 5,
+        "start": 17.75,
+        "end": 18.75,
+        "duration": 1.0,
+        "activity": 0.114,
+        "luma": 0.9
+      },
+      {
+        "index": 6,
+        "start": 18.75,
+        "end": 25.2,
+        "duration": 6.45,
+        "activity": 0.036,
+        "luma": 0.87
+      },
+      {
+        "index": 7,
+        "start": 25.2,
+        "end": 31.42,
+        "duration": 6.22,
+        "activity": 0.088,
+        "luma": 0.85
+      },
+      {
+        "index": 8,
+        "start": 31.42,
+        "end": 40.27,
+        "duration": 8.85,
+        "activity": 0.016,
+        "luma": 0.87
+      },
+      {
+        "index": 9,
+        "start": 40.27,
+        "end": 46.23,
+        "duration": 5.97,
+        "activity": 0.055,
+        "luma": 0.85
+      },
+      {
+        "index": 10,
+        "start": 46.23,
+        "end": 53.03,
+        "duration": 6.8,
+        "activity": 0.039,
+        "luma": 0.9
+      }
+    ],
+    "static_holds": [
+      [
+        3.58,
+        4.42
+      ],
+      [
+        52.08,
+        52.92
+      ]
+    ],
+    "mean_activity": 0.054,
+    "luma": {
+      "mean": 0.86,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.625
+      },
+      {
+        "hex": "#98e888",
+        "share": 0.066
+      },
+      {
+        "hex": "#e8e8c8",
+        "share": 0.022
+      },
+      {
+        "hex": "#988868",
+        "share": 0.02
+      },
+      {
+        "hex": "#988878",
+        "share": 0.02
+      },
+      {
+        "hex": "#e8e8b8",
+        "share": 0.019
+      },
+      {
+        "hex": "#887878",
+        "share": 0.017
+      },
+      {
+        "hex": "#686868",
+        "share": 0.016
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.012
+      },
+      {
+        "hex": "#d8e8c8",
+        "share": 0.012
+      }
+    ],
+    "representative_times": [
+      0.29,
+      2.0,
+      3.42,
+      4.85,
+      7.76,
+      9.25,
+      10.74,
+      13.61,
+      14.99,
+      16.37,
+      18.25,
+      20.36,
+      21.98,
+      23.59,
+      26.75,
+      28.31,
+      29.87,
+      33.63,
+      35.84,
+      38.06,
+      41.76,
+      43.25,
+      44.74,
+      47.93,
+      49.63,
+      51.33
+    ],
+    "audio": {
+      "present": true,
+      "silent": true,
+      "peak_dbfs": -180.0,
+      "method": "decoded track is digital silence"
+    },
+    "artifacts": {
+      "cache_dir": "out/reference-analysis/ref-95c96d5c47",
+      "overview": "out/reference-analysis/ref-95c96d5c47/overview.jpg",
+      "scenes": "out/reference-analysis/ref-95c96d5c47/scenes.jpg",
+      "transitions": "out/reference-analysis/ref-95c96d5c47/transitions.jpg",
+      "motion": "out/reference-analysis/ref-95c96d5c47/motion.jpg",
+      "audio": "out/reference-analysis/ref-95c96d5c47/audio.png",
+      "frames": "out/reference-analysis/ref-95c96d5c47/frames",
+      "tracked": false
+    }
+  }
+}

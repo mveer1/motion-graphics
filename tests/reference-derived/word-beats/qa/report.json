@@ -1,0 +1,203 @@
+{
+  "target": "tests/reference-derived/word-beats/index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.7,
+    1.75,
+    2.7,
+    3.75,
+    4.75,
+    5.8,
+    6.75,
+    7.9,
+    9.0,
+    9.3,
+    10.0,
+    10.75,
+    11.1,
+    12.2
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 12.5,
+      "fps": 30,
+      "timeline_duration": 12.3,
+      "frames": [
+        {
+          "time": 0.7,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f00-t000.70.png",
+          "visible_text": [
+            "RISE",
+            "Type study 03",
+            "01 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 1.733,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f01-t001.73.png",
+          "visible_text": [
+            "RUSH",
+            "Type study 03",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 2.7,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f02-t002.70.png",
+          "visible_text": [
+            "DROP",
+            "Type study 03",
+            "02 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 3.733,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f03-t003.73.png",
+          "visible_text": [
+            "WIDEN",
+            "Type study 03",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 4.733,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f04-t004.73.png",
+          "visible_text": [
+            "TURN",
+            "Type study 03",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 5.8,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f05-t005.80.png",
+          "visible_text": [
+            "SPACE",
+            "Type study 03",
+            "06 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 6.733,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f06-t006.73.png",
+          "visible_text": [
+            "REPEAT",
+            "Type study 03",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 7.9,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f07-t007.90.png",
+          "visible_text": [
+            "STOP",
+            ".",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 9.0,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f08-t009.00.png",
+          "visible_text": [
+            "STOP",
+            ".",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 9.3,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f09-t009.30.png",
+          "visible_text": [
+            "STOP",
+            ".",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 10.0,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f10-t010.00.png",
+          "visible_text": [
+            "Make it movelandmatter.",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 10.733,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f11-t010.73.png",
+          "visible_text": [
+            "Make it movelandmatter.",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 11.1,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f12-t011.10.png",
+          "visible_text": [
+            "Make it movelandmatter.",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        },
+        {
+          "time": 12.2,
+          "path": "tests/reference-derived/word-beats/qa/landscape/f13-t012.20.png",
+          "visible_text": [
+            "Make it movelandmatter.",
+            "Type study 03",
+            "08 / 08",
+            "Word beats",
+            "120 BPM"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "first_frame_empty",
+          "severity": "warning",
+          "message": "frame 0 shows only the background (social thumbnails use the first frame)",
+          "time": 0.0
+        }
+      ],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/word-beats/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 1,
+  "passed": true
+}

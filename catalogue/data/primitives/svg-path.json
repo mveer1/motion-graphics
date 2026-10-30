@@ -1,0 +1,45 @@
+{
+  "id": "svg-path",
+  "name": "SVG path / line / polyline",
+  "kind": "path",
+  "status": "approved",
+  "description": "Native vector stroke and fill geometry; the base of line art, diagrams, underlines and morphs.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "d",
+      "type": "string",
+      "description": "Path data"
+    },
+    {
+      "name": "stroke",
+      "type": "color",
+      "description": "Stroke colour or style token"
+    },
+    {
+      "name": "stroke-width",
+      "type": "length",
+      "description": "Stroke width"
+    }
+  ],
+  "implementation": {
+    "location": "native"
+  },
+  "validation": {
+    "evidence": "Used by catalogue-approved effects (marching-dashed-stroke, clip-path-reveal) in the existing explainers; not re-verified in this change.",
+    "last_verified": "2026-10-30"
+  },
+  "tags": [
+    "vector",
+    "path",
+    "line-art"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-10-30"
+  }
+}

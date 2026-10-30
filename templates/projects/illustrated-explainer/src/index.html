@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/{{STYLE}}.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    /* Project styles. Sizes use --u (1% of the short side); per-format rules use #root[data-format]. */
+    .st-scene { background: var(--c-paper); }
+    #art { z-index: 10; pointer-events: none; }
+    .ink { fill: none; stroke: var(--c-ink); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+    .ink-soft { fill: none; stroke: var(--c-ink-2); stroke-width: 2.2; stroke-linecap: round; }
+    .fill-accent { fill: var(--c-accent); stroke: none; }
+    .fill-leaf { fill: var(--c-accent-2); stroke: none; }
+    .fill-paper { fill: var(--c-paper-2); stroke: none; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="landscape"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="16">
+
+  <section class="st-scene" id="s1"><div class="st-split-copy" id="s1-copy"></div></section>
+  <section class="st-scene" id="s2"><div class="st-split-copy" id="s2-copy"></div></section>
+  <section class="st-scene" id="s3"><div class="st-split-copy" id="s3-copy"></div></section>
+  <section class="st-scene" id="s4"></section>
+
+  <!-- Persistent illustration: one drawing that evolves across steps (continuity). -->
+  <div class="st-split-art" id="art">
+    <div class="st-art-frame">
+      <svg viewBox="0 0 400 400" aria-hidden="true">
+        <path id="ground" class="ink-soft" d=""/>
+        <g id="pot">
+          <path class="fill-accent" data-fill d="M138 250 L152 336 L248 336 L262 250 Z"/>
+          <path class="ink" d="M138 250 L152 336 L248 336 L262 250"/>
+          <path class="ink" d="M128 238 L272 238 L268 256 L132 256 Z"/>
+          <path class="ink-soft" d="M146 252 Q200 244 254 252"/>
+        </g>
+        <g id="plant">
+          <path class="ink" d="M200 248 C198 214 206 182 200 142"/>
+          <path class="fill-leaf" data-fill d="M200 200 C172 194 156 172 160 154 C182 156 200 174 200 200 Z"/>
+          <path class="ink" d="M200 200 C172 194 156 172 160 154 C182 156 200 174 200 200 Z"/>
+          <path class="fill-leaf" data-fill d="M201 172 C228 164 246 140 240 120 C216 126 202 146 201 172 Z"/>
+          <path class="ink" d="M201 172 C228 164 246 140 240 120 C216 126 202 146 201 172 Z"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Scene cues mirror storyboard.json.
+  var cue = S.cues({ s1: 0, s2: 4.4, s3: 8.8, s4: 13.2, end: 16 });
+
+  // Build every piece of DOM (and split text) before adding tweens.
+  document.getElementById('ground').setAttribute('d', S.draw.handLine(3, 30, 338, 370, 338));
+  var title = S.comp.titleCard(document.getElementById('s1-copy'), {
+    kicker: 'An illustrated guide',
+    titleHTML: '{{TITLE}}',
+    subtitle: 'Replace this lede with one sentence that promises what the viewer will learn.'
+  }, { fit: true });
+  var step1 = S.comp.stepHeader(document.getElementById('s2-copy'), {
+    index: 1, total: 2, title: 'Prepare',
+    body: 'Replace with the first step, written as one short instruction.'
+  });
+  var step2 = S.comp.stepHeader(document.getElementById('s3-copy'), {
+    index: 2, total: 2, title: 'Grow',
+    body: 'Replace with the second step, written as one short instruction.'
+  });
+  var end = S.comp.endCard(document.getElementById('s4'), {
+    titleHTML: '{{TITLE}}', lines: ['Your closing line']
+  });
+
+  // Scene 1: title and hero drawing. The ground line is already down on frame 0 (thumbnail).
+  S.show(tl, '#s1', cue('s1'));
+  title.enter(tl, cue('s1', 0.2));
+  S.draw.lineArt(tl, '#pot', cue('s1', 0.4), { order: 'top-down' });
+
+  // Scene 2: wipe to step 1.
+  S.fx.wipe(tl, '#s1', '#s2', cue('s2'), { from: 'left', edge: S.token('--c-accent') });
+  step1.enter(tl, cue('s2', 0.4));
+  step1.exit(tl, cue('s3', -0.5));
+
+  // Scene 3: cut (art persists), the plant draws.
+  S.cut(tl, '#s2', '#s3', cue('s3'));
+  step2.enter(tl, cue('s3', 0.1));
+  S.draw.lineArt(tl, '#plant', cue('s3', 0.5), { order: 'top-down', speed: 500 });
+
+  // Scene 4: crossfade to the end card while the art steps back (no empty frame in between).
+  S.crossfade(tl, '#s3', '#s4', cue('s4'), 0.6);
+  tl.fromTo('#art', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut', immediateRender: false }, cue('s4', -0.3));
+  end.enter(tl, cue('s4', -0.1));
+});
+</script>
+</body>
+</html>
