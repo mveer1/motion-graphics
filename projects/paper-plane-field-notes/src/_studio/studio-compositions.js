@@ -445,4 +445,264 @@
       }
     };
   };
+
+  // ------------------------------------------------------------------ Priority 1 & 5: High-Value Explainer Compositions
+
+  /**
+   * Hero stage: full-canvas explainer composition dedicating 65%-80% area to the focal visual.
+   * Automatically provides header, focal viewport, and footer takeaway without empty voids.
+   */
+  C.heroStage = function (parent, data, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var el = Studio.el('div', 'st-hero-stage' + (o.layout === 'split' ? ' st-layout-split' : '') + (o.className ? ' ' + o.className : ''), null, host);
+
+    var header = null;
+    if (data.title || data.kicker || data.subtitle) {
+      header = T.heroHeader(el, {
+        kicker: data.kicker,
+        title: data.title,
+        titleHTML: data.titleHTML,
+        subtitle: data.subtitle
+      }, { center: o.center !== false, maxTitleU: o.maxTitleU || 9.5 });
+    }
+
+    var viewport = Studio.el('div', 'st-hero-viewport', null, el);
+
+    var footer = null;
+    if (data.footer || data.takeaway) {
+      footer = Studio.el('div', 'st-hero-footer', null, el);
+      Studio.el('div', 'st-kicker', data.footer || data.takeaway, footer);
+    }
+
+    return {
+      el: el,
+      header: header,
+      viewport: viewport,
+      footer: footer,
+      enter: function (tl, at, eo) {
+        var e = eo || {};
+        var end = at;
+        if (header) {
+          end = Math.max(end, header.enter(tl, at, e));
+        }
+        tl.fromTo(viewport, { autoAlpha: 0, scale: 0.94 }, { autoAlpha: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, at + 0.15);
+        end = Math.max(end, at + 0.85);
+        if (footer) {
+          tl.fromTo(footer, { autoAlpha: 0, y: Studio.u(1.2) }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, at + 0.35);
+          end = Math.max(end, at + 0.8);
+        }
+        return end;
+      },
+      exit: function (tl, at) {
+        var end = at + 0.4;
+        if (header) end = Math.max(end, header.exit(tl, at));
+        tl.fromTo(viewport, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: 'power1.in', immediateRender: false }, at);
+        if (footer) tl.fromTo(footer, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.25, ease: 'power1.in', immediateRender: false }, at);
+        return end;
+      }
+    };
+  };
+
+  /**
+   * Split stage: balanced two-column (or stacked) comparison layout with animated divider.
+   */
+  C.splitStage = function (parent, data, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var el = Studio.el('div', 'st-split-stage' + (o.className ? ' ' + o.className : ''), null, host);
+    var paneA = Studio.el('div', 'st-split-pane left', null, el);
+    var divider = Studio.el('div', 'st-split-divider', null, el);
+    var badge = Studio.el('span', 'st-split-badge', data.badge || 'VS', divider);
+    var paneB = Studio.el('div', 'st-split-pane right', null, el);
+
+    return {
+      el: el,
+      paneA: paneA,
+      paneB: paneB,
+      divider: divider,
+      badge: badge,
+      enter: function (tl, at, eo) {
+        var dur = (eo && eo.duration) || 0.7;
+        tl.fromTo(divider, { scaleY: 0 }, { scaleY: 1, duration: dur * 0.8, ease: 'power2.inOut' }, at);
+        tl.fromTo(badge, { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.4, ease: 'back.out(2)' }, at + dur * 0.4);
+        tl.fromTo(paneA, { autoAlpha: 0, x: -Studio.u(3) }, { autoAlpha: 1, x: 0, duration: dur, ease: 'power3.out' }, at + 0.1);
+        tl.fromTo(paneB, { autoAlpha: 0, x: Studio.u(3) }, { autoAlpha: 1, x: 0, duration: dur, ease: 'power3.out' }, at + 0.18);
+        return at + dur + 0.18;
+      },
+      exit: function (tl, at) {
+        tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: 'power1.in', immediateRender: false }, at);
+        return at + 0.35;
+      }
+    };
+  };
+
+  /**
+   * Monument stat: large focal takeaway numeral with rolling counter and animated rule.
+   */
+  C.monumentStat = function (parent, data, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var el = Studio.el('div', 'st-monument-stage' + (o.className ? ' ' + o.className : ''), null, host);
+    var kicker = data.kicker ? Studio.el('div', 'st-monument-kicker', data.kicker, el) : null;
+    var valEl = Studio.el('div', 'st-monument-val', null, el);
+    var rule = Studio.el('div', 'st-monument-rule', null, el);
+    var context = data.context ? Studio.el('p', 'st-monument-context', data.context, el) : null;
+
+    return {
+      el: el,
+      kicker: kicker,
+      valEl: valEl,
+      rule: rule,
+      context: context,
+      enter: function (tl, at, eo) {
+        var e = eo || {};
+        var dur = e.duration || 1.8;
+        var end = at;
+        if (kicker) {
+          tl.fromTo(kicker, { autoAlpha: 0, y: -Studio.u(1.5) }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, at);
+        }
+        tl.fromTo(valEl, { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.7, ease: 'back.out(1.5)' }, at + 0.1);
+        end = Math.max(end, T.formatCount(tl, valEl, at + 0.2, {
+          from: data.from !== undefined ? data.from : 0,
+          to: data.to !== undefined ? data.to : (data.value !== undefined ? data.value : 100),
+          prefix: data.prefix || '',
+          suffix: data.suffix || '',
+          decimals: data.decimals || 0,
+          duration: dur
+        }));
+        tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, at + 0.4);
+        if (context) {
+          tl.fromTo(context, { autoAlpha: 0, y: Studio.u(1.5) }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, at + 0.6);
+          end = Math.max(end, at + 1.2);
+        }
+        return end;
+      },
+      exit: function (tl, at) {
+        tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: 'power1.in', immediateRender: false }, at);
+        return at + 0.35;
+      }
+    };
+  };
+
+  /**
+   * Animated Chart Composition: telemetry readout, animated path curve, and area fill.
+   */
+  C.animatedChart = function (parent, data, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var el = Studio.el('div', 'st-chart-container' + (o.className ? ' ' + o.className : ''), null, host);
+
+    var telem = Studio.el('div', 'st-chart-telemetry', null, el);
+    var label = Studio.el('span', 'st-kicker', data.label || 'METRIC', telem);
+    var val = Studio.el('span', 'st-chart-val', String(data.initialVal || ''), telem);
+    var tag = data.tag ? Studio.el('span', 'st-chart-tag', data.tag, telem) : null;
+
+    var svg = Studio.svg('svg', {
+      'class': 'st-chart-svg',
+      viewBox: '0 0 ' + (data.width || 600) + ' ' + (data.height || 300),
+      preserveAspectRatio: 'xMidYMid meet'
+    }, el);
+
+    var areaPath = null;
+    if (data.area !== false && data.points && data.points.length > 1) {
+      var areaD = Studio.draw.chart.area(data.points, data.baselineY || (data.height || 300));
+      areaPath = Studio.svg('path', {
+        d: areaD,
+        fill: data.areaFill || 'rgba(5, 150, 105, 0.12)'
+      }, svg);
+    }
+
+    var lineD = Studio.draw.chart.line(data.points || []);
+    var linePath = Studio.svg('path', {
+      d: lineD,
+      fill: 'none',
+      stroke: data.lineColor || '#059669',
+      'stroke-width': String(Studio.u(0.6)),
+      'stroke-linecap': 'round',
+      'stroke-linejoin': 'round'
+    }, svg);
+
+    Studio.draw.prepare(linePath);
+
+    return {
+      el: el,
+      svg: svg,
+      linePath: linePath,
+      areaPath: areaPath,
+      valEl: val,
+      tagEl: tag,
+      enter: function (tl, at, eo) {
+        var dur = (eo && eo.duration) || 1.8;
+        tl.fromTo(telem, { autoAlpha: 0, y: -Studio.u(1) }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, at);
+        if (areaPath) {
+          tl.fromTo(areaPath, { opacity: 0 }, { opacity: 1, duration: dur * 0.8, ease: 'power1.out' }, at + 0.3);
+        }
+        var end = Studio.draw.stroke(tl, linePath, at + 0.15, { duration: dur, ease: 'power2.out' });
+        return end;
+      },
+      exit: function (tl, at) {
+        tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: 'power1.in', immediateRender: false }, at);
+        return at + 0.35;
+      }
+    };
+  };
+
+  /**
+   * Progressive Milestone Timeline.
+   */
+  C.timeline = function (parent, events, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var el = Studio.el('div', 'st-timeline' + (o.vertical ? ' vertical' : '') + (o.className ? ' ' + o.className : ''), null, host);
+    var spine = Studio.el('div', 'st-tl-spine', null, el);
+
+    var items = events.map(function (ev, i) {
+      var it = Studio.el('div', 'st-tl-item', null, el);
+      var node = Studio.el('div', 'st-tl-node', String(i + 1), it);
+      var content = Studio.el('div', 'st-tl-content', null, it);
+      if (ev.date) Studio.el('span', 'st-tl-date', ev.date, content);
+      Studio.el('span', 'st-tl-title', ev.title, content);
+      return { item: it, node: node, content: content };
+    });
+
+    return {
+      el: el,
+      spine: spine,
+      items: items,
+      enter: function (tl, at, eo) {
+        var dur = (eo && eo.duration) || 0.8;
+        var scaleProp = o.vertical ? 'scaleY' : 'scaleX';
+        var a = {}, b = { duration: dur, ease: 'power2.inOut' };
+        a[scaleProp] = 0; a.transformOrigin = '0% 0%';
+        b[scaleProp] = 1;
+        tl.fromTo(spine, a, b, at);
+
+        items.forEach(function (it, idx) {
+          var t = at + 0.15 + idx * 0.12;
+          Studio.space.pop(tl, it.node, t, { tilt: 0, overshoot: 1.5 });
+          tl.fromTo(it.content, { autoAlpha: 0, y: Studio.u(1) }, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' }, t + 0.08);
+        });
+        return at + 0.15 + items.length * 0.12 + 0.45;
+      },
+      advance: function (tl, index, at) {
+        if (index >= 0 && index < items.length) {
+          var cur = items[index].node;
+          tl.fromTo(cur,
+            { scale: 1 },
+            { scale: 1.25, duration: 0.2, ease: 'back.out(2)', yoyo: true, repeat: 1, immediateRender: false },
+            at);
+          tl.fromTo(cur,
+            { borderColor: '', backgroundColor: '' },
+            { borderColor: Studio.token('--c-accent', '#c8462b'), backgroundColor: Studio.token('--c-accent', '#c8462b'), color: '#fff', duration: 0.3, ease: 'power1.out', immediateRender: false },
+            at);
+        }
+        return at + 0.4;
+      },
+      exit: function (tl, at) {
+        tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, ease: 'power1.in', immediateRender: false }, at);
+        return at + 0.35;
+      }
+    };
+  };
 })(typeof window !== 'undefined' ? window : this);

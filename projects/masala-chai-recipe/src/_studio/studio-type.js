@@ -154,11 +154,18 @@
    * fixed height). Glyph overhang from tight line-heights is ignored. Run before splitting.
    * Returns the final font size in px.
    */
+  /**
+   * Shrink an element's font size until its content fits its width (and, with {height: true}, its
+   * fixed height). Respects the legibility floor (--fs-floor, min 22px in 720p) so text never
+   * shrinks into microscopic illegibility; if text overflows at min, balances lines instead.
+   * Returns the final font size in px.
+   */
   T.fit = function (target, options) {
     var el = resolve(target);
     var o = options || {};
     var size = o.max || parseFloat(global.getComputedStyle(el).fontSize);
-    var min = o.min || size * 0.5;
+    var floorPx = Studio.u ? Studio.u(3.1) : 22.3;
+    var min = o.min !== undefined ? o.min : Math.max(floorPx, size * 0.5);
     el.style.fontSize = size + 'px';
     var guard = 0;
     var tooBig = function () {
@@ -167,6 +174,9 @@
     while (guard++ < 60 && size > min && tooBig()) {
       size = Math.max(min, size * 0.96);
       el.style.fontSize = size + 'px';
+    }
+    if (tooBig() && !o.nowrap) {
+      el.style.textWrap = 'balance';
     }
     return size;
   };
@@ -302,5 +312,170 @@
     var stagger = o.stagger === undefined ? m.stagger : o.stagger;
     tl.fromTo(els, { yPercent: 0, autoAlpha: 1 }, { yPercent: o.to === undefined ? -105 : o.to, autoAlpha: 0, duration: dur, ease: o.ease || m.easeIn, stagger: stagger, immediateRender: false }, at);
     return at + dur + stagger * Math.max(0, els.length - 1);
+  };
+
+  /**
+   * Slot roll: a one-line window onto a column of words or numbers that steps to an entry with a
+   * small mechanical overshoot. The window is as wide as the widest entry, or with options.fit it
+   * tweens to each entry's own width so a centred sentence re-centres around the current word.
+   * Returns {el, items, to(tl, index, at, {duration, ease}) -> end time}. Starts on items[0].
+   */
+  T.roll = function (parent, items, options) {
+    var o = options || {};
+    var host = resolve(parent);
+    var box = Studio.el('span', 'st-roll' + (o.className ? ' ' + o.className : ''), null, host);
+    box.setAttribute('aria-label', items.join(', '));
+    var col = Studio.el('span', 'st-roll-col', null, box);
+    col.setAttribute('aria-hidden', 'true');
+    var texts = [];
+    var els = items.map(function (txt) {
+      var item = Studio.el('span', 'st-roll-item', null, col);
+      texts.push(Studio.el('span', 'st-roll-text', txt, item));
+      return item;
+    });
+    if (o.align) box.style.textAlign = o.align;
+    var widths = texts.map(function (t) { return t.offsetWidth; });
+    if (o.fit) {
+      box.style.textAlign = o.align || 'left';
+      box.style.width = widths[0] + 'px';
+    }
+    var current = 0;
+    return {
+      el: box,
+      items: els,
+      to: function (tl, index, at, so) {
+        var s = so || {};
+        var dur = s.duration || 0.55;
+        var ease = s.ease || 'back.out(1.5)';
+        var n = els.length;
+        tl.fromTo(col, { yPercent: -100 * current / n }, { yPercent: -100 * index / n, duration: dur, ease: ease, immediateRender: false }, at);
+        if (o.fit) tl.fromTo(box, { width: widths[current] }, { width: widths[index], duration: dur * 0.8, ease: 'power3.inOut', immediateRender: false }, at);
+        current = index;
+        return at + dur;
+      }
+    };
+  };
+  /**
+   * Hero header: coordinated kicker, display title and lede/subtitle with masked line splitting.
+   * Enforces font size hierarchy and clean multi-beat entrance/exit choreography.
+   */
+  T.heroHeader = function (parent, data, options) {
+    var o = options || {};
+    var host = resolve(parent);
+    var el = Studio.el('div', 'st-hero-header' + (o.center ? ' center' : '') + (o.className ? ' ' + o.className : ''), null, host);
+    var kicker = data.kicker ? Studio.el('div', 'st-kicker', data.kicker, el) : null;
+    var title = Studio.el(o.tag || 'h1', 'st-display', null, el);
+    if (data.titleHTML) title.innerHTML = data.titleHTML;
+    else title.textContent = data.title || '';
+    var subtitle = data.subtitle ? Studio.el('p', 'st-subtitle', data.subtitle, el) : null;
+
+    if (o.fit !== false) {
+      T.fit(title, { min: Studio.u(5.5), max: Studio.u(o.maxU || 9.5) });
+    }
+    var titleSplit = T.split(title, { type: 'lines,words', mask: 'lines' });
+    var subSplit = subtitle ? T.split(subtitle, { type: 'words', mask: o.maskSubtitle ? 'words' : null }) : null;
+
+    return {
+      el: el,
+      kicker: kicker,
+      title: title,
+      subtitle: subtitle,
+      titleSplit: titleSplit,
+      subSplit: subSplit,
+      enter: function (tl, at, eo) {
+        var e = eo || {};
+        var dur = e.duration || 0.7;
+        var end = at;
+        if (kicker) {
+          end = Math.max(end, T.track(tl, kicker, at, { from: '0.5em', to: '0.16em', duration: dur * 0.9 }));
+        }
+        end = Math.max(end, T.rise(tl, titleSplit.lines, at + 0.12, { duration: dur, stagger: e.stagger || 0.08 }));
+        if (subSplit) {
+          tl.fromTo(subSplit.words, { autoAlpha: 0, yPercent: 40 }, { autoAlpha: 1, yPercent: 0, duration: 0.5, ease: 'power2.out', stagger: 0.03 }, end - 0.25);
+          end = Math.max(end, end - 0.25 + 0.5 + 0.03 * (subSplit.words.length - 1));
+        }
+        return end;
+      },
+      exit: function (tl, at, eo) {
+        var end = T.exit(tl, titleSplit.lines, at, { stagger: 0.04 });
+        var rest = [kicker, subtitle].filter(Boolean);
+        if (rest.length) {
+          tl.fromTo(rest, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, ease: 'power1.in', immediateRender: false }, at);
+        }
+        return Math.max(end, at + 0.3);
+      }
+    };
+  };
+
+  /**
+   * Spoken punch word emphasis: momentary scale surge, weight pop, and accent color flash.
+   * Seek-safe and deterministic with explicit color restoration.
+   */
+  T.punch = function (tl, target, at, options) {
+    var o = options || {};
+    var els = Studio.all(target);
+    var dur = o.duration || 0.45;
+    var scale = o.scale || 1.15;
+    var color = o.color || Studio.token('--c-accent', '#ba4128');
+    var ease = o.ease || 'back.out(2)';
+    tl.fromTo(els,
+      { scale: 1 },
+      { scale: scale, duration: dur * 0.4, ease: ease, yoyo: true, repeat: 1, immediateRender: false },
+      at);
+    if (color && els.length) {
+      var baseColor = global.getComputedStyle(els[0]).color || '#ba4128';
+      tl.fromTo(els,
+        { color: baseColor },
+        { color: color, duration: dur * 0.5, ease: 'power1.out', yoyo: true, repeat: 1, immediateRender: false },
+        at);
+    }
+    return at + dur;
+  };
+
+  /**
+   * Formatted rolling counter with prefix, suffix, comma grouping, and decimals.
+   * Seek-safe: defines a getter/setter property on target that GSAP directly tweens.
+   */
+  T.formatCount = function (tl, target, at, options) {
+    var o = options || {};
+    var el = resolve(target);
+    var fromVal = o.from !== undefined ? o.from : 0;
+    var toVal = o.to !== undefined ? o.to : 100;
+    var dur = o.duration || 1.6;
+    var decimals = o.decimals || 0;
+    var prefix = o.prefix || '';
+    var suffix = o.suffix || '';
+    var commas = o.commas !== false;
+
+    function formatNumber(num) {
+      var n = Number(num);
+      if (isNaN(n)) n = 0;
+      var fixed = n.toFixed(decimals);
+      if (commas) {
+        var parts = fixed.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        fixed = parts.join('.');
+      }
+      return prefix + fixed + suffix;
+    }
+
+    if (!el.__stNumBound) {
+      var currentVal = fromVal;
+      Object.defineProperty(el, '__stNum', {
+        get: function () { return currentVal; },
+        set: function (v) {
+          currentVal = v;
+          el.textContent = formatNumber(v);
+        },
+        configurable: true
+      });
+      el.__stNumBound = true;
+    }
+    el.__stNum = fromVal;
+    tl.fromTo(el,
+      { __stNum: fromVal },
+      { __stNum: toVal, duration: dur, ease: o.ease || 'power2.out', immediateRender: true },
+      at);
+    return at + dur;
   };
 })(typeof window !== 'undefined' ? window : this);

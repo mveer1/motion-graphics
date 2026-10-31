@@ -129,7 +129,7 @@ mkdir -p "$PROJECT_DIR/renders"
   --fps 30 \
   --quality looks \
   --low-memory-mode \
-  --output ../renders/visuals.mp4)
+  --output ../renders/visuals.mp4 < /dev/null)
 
 # ----------------------------------------------------------------------
 # Stage 8: Audio/Video Stream Multiplexing
@@ -145,7 +145,29 @@ elif [[ -f "$PROJECT_DIR/renders/film_sfx_sfx_track.wav" ]]; then
   SFX_TRACK="$PROJECT_DIR/renders/film_sfx_sfx_track.wav"
 fi
 
-if [[ -f "$AUDIO_FULL" ]] && [[ -n "$SFX_TRACK" ]]; then
+BGM_TRACK=""
+for bgm_candidate in "$PROJECT_DIR/audio/bgm.wav" "$PROJECT_DIR/audio/bgm.mp3" "$PROJECT_DIR/audio/music.mp3" "$PROJECT_DIR/audio/ambient.wav" "$PROJECT_DIR/audio/bed.wav"; do
+  if [[ -f "$bgm_candidate" ]]; then
+    BGM_TRACK="$bgm_candidate"
+    break
+  fi
+done
+
+if [[ -f "$AUDIO_FULL" ]] && [[ -n "$SFX_TRACK" ]] && [[ -n "$BGM_TRACK" ]]; then
+  echo "  • Layering narration ($AUDIO_FULL), sound effects ($SFX_TRACK), and dim background music ($BGM_TRACK)..."
+  ffmpeg -y \
+    -i "$PROJECT_DIR/renders/visuals.mp4" \
+    -i "$AUDIO_FULL" \
+    -i "$SFX_TRACK" \
+    -i "$BGM_TRACK" \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.85[a_sfx];[3:a]volume=0.25[a_bgm];[a_voice][a_sfx][a_bgm]amix=inputs=3:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy \
+    -c:a aac -b:a 192k \
+    -shortest \
+    "$FINAL_RENDER" 2>/dev/null
+  echo "✅ Multiplexed master audio with SFX and background music: $FINAL_RENDER"
+elif [[ -f "$AUDIO_FULL" ]] && [[ -n "$SFX_TRACK" ]]; then
   echo "  • Layering narration ($AUDIO_FULL) and sound effects ($SFX_TRACK)..."
   ffmpeg -y \
     -i "$PROJECT_DIR/renders/visuals.mp4" \
@@ -158,6 +180,19 @@ if [[ -f "$AUDIO_FULL" ]] && [[ -n "$SFX_TRACK" ]]; then
     -shortest \
     "$FINAL_RENDER" 2>/dev/null
   echo "✅ Multiplexed master audio with SFX: $FINAL_RENDER"
+elif [[ -f "$AUDIO_FULL" ]] && [[ -n "$BGM_TRACK" ]]; then
+  echo "  • Layering narration ($AUDIO_FULL) and background music ($BGM_TRACK)..."
+  ffmpeg -y \
+    -i "$PROJECT_DIR/renders/visuals.mp4" \
+    -i "$AUDIO_FULL" \
+    -i "$BGM_TRACK" \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.25[a_bgm];[a_voice][a_bgm]amix=inputs=2:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy \
+    -c:a aac -b:a 192k \
+    -shortest \
+    "$FINAL_RENDER" 2>/dev/null
+  echo "✅ Multiplexed master audio with background music: $FINAL_RENDER"
 elif [[ -f "$AUDIO_FULL" ]]; then
   ffmpeg -y \
     -i "$PROJECT_DIR/renders/visuals.mp4" \

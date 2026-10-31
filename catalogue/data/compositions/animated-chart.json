@@ -1,0 +1,73 @@
+{
+  "id": "animated-chart",
+  "name": "Animated financial chart",
+  "purpose": "Full-featured financial chart composition containing Catmull-Rom spline curves, closed area gradients, data point telemetry, and threshold markers.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "scene-container",
+      "styled-text",
+      "svg-path"
+    ],
+    "effects": [
+      "hand-underline"
+    ],
+    "recipes": [
+      "underline-draw"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "points",
+      "type": "array",
+      "description": "Array of numerical data points or {x, y} coordinates"
+    },
+    {
+      "name": "type",
+      "type": "string",
+      "description": "Chart type: line, area, candlesticks, gauge"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "description": "Primary accent stroke color"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.animatedChart(parent, { points, type, color, fill, telemetry })"
+  },
+  "layout_notes": "Expands to fill 100% of parent viewport stage while preserving aspect-ratio-safe coordinate grids.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/test-motion-primitives/index.html"
+  ],
+  "validation_steps": [
+    "hyperframes check tests/test-motion-primitives",
+    "hyperframes render tests/test-motion-primitives --low-memory-mode < /dev/null"
+  ],
+  "validation": {
+    "evidence": "Tested and verified in tests/test-motion-primitives Scene 1 with 8-point Shanghai Composite surge.",
+    "last_verified": "2026-10-31"
+  },
+  "tags": [
+    "composition",
+    "chart",
+    "data-visualization",
+    "spline",
+    "telemetry"
+  ],
+  "metadata": {
+    "author": "Antigravity",
+    "created_at": "2026-10-31",
+    "updated_at": "2026-10-31"
+  }
+}
+

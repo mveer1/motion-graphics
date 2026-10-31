@@ -14,6 +14,8 @@ The goal: the film sounds as if a person with a good library had cut it. So:
 - **You cannot hear.** Sound is read as numbers, words and pictures (`references/listening.md`). Do not present a pick
   as listened to: say what was checked by eye and by measurement, and what the user should listen to.
 - **Keep the music and voice** when they carry the film. The result is always a new MP4 **and a separate WAV track**.
+- **No Transition Whooshes in Educational Explainers:** Do not place whoosh sweeps across scene cross-dissolves in educational explainers. Whooshes create a repetitive, jarring "slideshow" feel. Keep scene cross-dissolves visually seamless and sonically transparent. Reserve whooshes strictly for fast whip-pans or fast-paced kinetic promos.
+- **Dim Themed Background Music / Ambient Bed:** Educational and technical explainers should feature a continuous, dim background music bed matching the project theme (e.g. minimalist techno pulse for finance/crisis, modular synth pad for science/AI, warm acoustic/marimba for craft/recipes) at `-22` to `-28 dBFS` integrated loudness (~15 to 20 dB below voice). This eliminates bare silence and hooks viewer attention throughout.
 - **Do not double.** Synthesis baked into the render's audio is replaced by the real sounds, not layered under them
   (step 1). The critique measures this as a number (the `doubling` axis).
 - **Do not change the project or the skill folder.** Put all working files in your own folder (`work/`, `result/`).

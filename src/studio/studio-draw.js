@@ -548,4 +548,222 @@
     g.__grid = [rows, cols];
     return cells;
   };
+
+  // ------------------------------------------------------------------ Priority 5: Visual Variety & Chart Primitives
+  var CH = D.chart = {};
+
+  /**
+   * Smooth bezier curve through an array of [x, y] or {x, y} coordinates.
+   */
+  CH.line = function (points, options) {
+    var o = options || {};
+    if (!points || points.length < 2) return '';
+    points = points.map(function (p) { return Array.isArray(p) ? p : [p.x, p.y]; });
+    if (o.smooth === false || points.length === 2) {
+      var d = 'M' + fmt(points[0][0]) + ' ' + fmt(points[0][1]);
+      for (var i = 1; i < points.length; i++) d += ' L' + fmt(points[i][0]) + ' ' + fmt(points[i][1]);
+      return d;
+    }
+    // Catmull-Rom to Cubic Bezier spline conversion
+    var path = 'M' + fmt(points[0][0]) + ' ' + fmt(points[0][1]);
+    for (var j = 0; j < points.length - 1; j++) {
+      var p0 = points[Math.max(0, j - 1)];
+      var p1 = points[j];
+      var p2 = points[j + 1];
+      var p3 = points[Math.min(points.length - 1, j + 2)];
+      var cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+      var cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+      var cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+      path += ' C' + fmt(cp1x) + ' ' + fmt(cp1y) + ' ' + fmt(cp2x) + ' ' + fmt(cp2y) + ' ' + fmt(p2[0]) + ' ' + fmt(p2[1]);
+    }
+    return path;
+  };
+
+  /**
+   * Closed filled area under a chart curve down to baselineY.
+   */
+  CH.area = function (points, baselineY, options) {
+    if (!points || points.length < 2) return '';
+    points = points.map(function (p) { return Array.isArray(p) ? p : [p.x, p.y]; });
+    var baseLine = baselineY !== undefined ? baselineY : points[points.length - 1][1];
+    var lineD = CH.line(points, options);
+    var firstPt = points[0];
+    var lastPt = points[points.length - 1];
+    return lineD + ' L' + fmt(lastPt[0]) + ' ' + fmt(baseLine) + ' L' + fmt(firstPt[0]) + ' ' + fmt(baseLine) + ' Z';
+  };
+
+  /**
+   * Procedural Financial Candlesticks.
+   * candles: [{x, open, high, low, close}]
+   */
+  CH.candlesticks = function (svgParent, candles, options) {
+    var o = options || {};
+    var g = Studio.svg('g', { 'class': 'st-candlesticks ' + (o.className || '') }, svgParent);
+    var barW = o.width || Studio.u(2.0);
+    var bullColor = o.bullColor || '#059669';
+    var bearColor = o.bearColor || '#e11d48';
+
+    var elements = candles.map(function (c) {
+      var isBull = c.close >= c.open;
+      var color = isBull ? bullColor : bearColor;
+      var topBody = Math.min(c.open, c.close);
+      var bodyH = Math.max(1, Math.abs(c.close - c.open));
+
+      var wick = Studio.svg('line', {
+        x1: fmt(c.x), y1: fmt(c.high),
+        x2: fmt(c.x), y2: fmt(c.low),
+        stroke: color, 'stroke-width': max(1, Studio.u(0.25))
+      }, g);
+
+      var body = Studio.svg('rect', {
+        x: fmt(c.x - barW / 2), y: fmt(topBody),
+        width: fmt(barW), height: fmt(bodyH),
+        fill: color, rx: max(1, Studio.u(0.2))
+      }, g);
+
+      return { g: g, wick: wick, body: body, isBull: isBull };
+    });
+
+    return {
+      el: g,
+      items: elements,
+      draw: function (tl, at, duration, stagger) {
+        var dur = duration || 0.6;
+        var stag = stagger || 0.04;
+        var wicks = elements.map(function (e) { return e.wick; });
+        var bodies = elements.map(function (e) { return e.body; });
+        tl.fromTo(wicks, { scaleY: 0, transformOrigin: '50% 50%' }, { scaleY: 1, duration: dur, ease: 'power2.out', stagger: stag }, at);
+        tl.fromTo(bodies, { scaleY: 0, transformOrigin: '50% 50%' }, { scaleY: 1, duration: dur, ease: 'back.out(1.5)', stagger: stag }, at + 0.1);
+        return at + dur + stag * elements.length;
+      }
+    };
+  };
+
+  /**
+   * Radial liquidation or risk gauge arc with needle.
+   */
+  CH.gauge = function (svgParent, options) {
+    var o = options || {};
+    var cx = o.cx || 200, cy = o.cy || 200, r = o.r || 120;
+    var startAngle = o.startAngle !== undefined ? o.startAngle : -140;
+    var endAngle = o.endAngle !== undefined ? o.endAngle : 140;
+    var g = Studio.svg('g', { 'class': 'st-gauge ' + (o.className || '') }, svgParent);
+
+    function arcD(angle0, angle1) {
+      var rad0 = (angle0 - 90) * Math.PI / 180;
+      var rad1 = (angle1 - 90) * Math.PI / 180;
+      var x0 = cx + Math.cos(rad0) * r, y0 = cy + Math.sin(rad0) * r;
+      var x1 = cx + Math.cos(rad1) * r, y1 = cy + Math.sin(rad1) * r;
+      var large = Math.abs(angle1 - angle0) > 180 ? 1 : 0;
+      return 'M' + fmt(x0) + ' ' + fmt(y0) + ' A' + fmt(r) + ' ' + fmt(r) + ' 0 ' + large + ' 1 ' + fmt(x1) + ' ' + fmt(y1);
+    }
+
+    var trackPath = Studio.svg('path', {
+      d: arcD(startAngle, endAngle),
+      fill: 'none', stroke: o.trackColor || 'rgba(0, 0, 0, 0.08)',
+      'stroke-width': fmt(o.strokeWidth || Studio.u(2.2)), 'stroke-linecap': 'round'
+    }, g);
+
+    var valuePath = Studio.svg('path', {
+      d: arcD(startAngle, endAngle),
+      fill: 'none', stroke: o.color || '#e11d48',
+      'stroke-width': fmt(o.strokeWidth || Studio.u(2.2)), 'stroke-linecap': 'round'
+    }, g);
+
+    D.prepare(valuePath);
+
+    // Needle
+    var needleL = r * 0.82;
+    var needle = Studio.svg('line', {
+      x1: fmt(cx), y1: fmt(cy),
+      x2: fmt(cx), y2: fmt(cy - needleL),
+      stroke: o.needleColor || '#1e1b16', 'stroke-width': fmt(Studio.u(0.55)),
+      'stroke-linecap': 'round'
+    }, g);
+
+    var hub = Studio.svg('circle', {
+      cx: fmt(cx), cy: fmt(cy), r: fmt(Studio.u(1.4)),
+      fill: o.needleColor || '#1e1b16'
+    }, g);
+
+    return {
+      el: g,
+      track: trackPath,
+      valuePath: valuePath,
+      needle: needle,
+      hub: hub,
+      set: function (tl, pct, at, duration) {
+        var dur = duration || 0.8;
+        var clamped = Math.max(0, Math.min(1, pct));
+        var targetRot = startAngle + (endAngle - startAngle) * clamped;
+        var len = D.length(valuePath);
+        tl.fromTo(valuePath,
+          { strokeDashoffset: len },
+          { strokeDashoffset: len * (1 - clamped), duration: dur, ease: 'power2.inOut', immediateRender: false },
+          at);
+        tl.fromTo(needle,
+          { rotation: startAngle, transformOrigin: fmt(cx) + 'px ' + fmt(cy) + 'px' },
+          { rotation: targetRot, duration: dur, ease: 'back.out(1.4)', immediateRender: false },
+          at);
+        return at + dur;
+      }
+    };
+  };
+
+  /**
+   * Seeded particles streaming along an SVG path.
+   */
+  D.particleStream = function (svgParent, count, pathElementOrD, from, to, options) {
+    var o = options || {};
+    var n = count || 20;
+    var path = typeof pathElementOrD === 'string'
+      ? Studio.svg('path', { d: pathElementOrD, fill: 'none', stroke: 'none' }, svgParent)
+      : pathElementOrD;
+    var pathLen = D.length(path);
+    var r = Studio.rng(o.seed || 101);
+    var color = o.color || '#e11d48';
+    var radius = o.radius || Studio.u(0.45);
+    var dur = to - from;
+
+    var dots = [];
+    for (var i = 0; i < n; i++) {
+      var dot = Studio.svg('circle', {
+        r: fmt(radius * (0.7 + r() * 0.6)),
+        fill: color,
+        opacity: fmt(0.3 + r() * 0.7)
+      }, svgParent);
+      dots.push(dot);
+    }
+
+    return {
+      dots: dots,
+      animate: function (tl) {
+        dots.forEach(function (dot, idx) {
+          var offset = (idx / n);
+          var proxy = { progress: 0 };
+          var pt0 = path.getPointAtLength((offset * pathLen) % pathLen);
+          dot.setAttribute('cx', fmt(pt0.x));
+          dot.setAttribute('cy', fmt(pt0.y));
+
+          tl.fromTo(proxy,
+            { progress: 0 },
+            {
+              progress: 1,
+              duration: dur,
+              ease: 'none',
+              immediateRender: false,
+              onUpdate: function () {
+                var p = (offset + proxy.progress * (o.speed || 2.0)) % 1;
+                var pt = path.getPointAtLength(p * pathLen);
+                dot.setAttribute('cx', fmt(pt.x));
+                dot.setAttribute('cy', fmt(pt.y));
+              }
+            },
+            from);
+        });
+        return to;
+      }
+    };
+  };
 })(typeof window !== 'undefined' ? window : this);

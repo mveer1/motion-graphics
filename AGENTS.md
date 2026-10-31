@@ -20,10 +20,10 @@ Two tracks share one toolchain (details: `ARCHITECTURE.md` section 0):
 **Studio projects** (any deliverable: explainer, promo, kinetic type, recipe, title sequence; any project with `project.json`):
 1. `python scripts/studio.py new <slug> --template <id>` (templates: `python scripts/motion-catalogue.py list` or `templates/projects/`).
 2. Stage 0 `brief.json`: objective, audience, formats, 1-3 genuinely distinct creative directions, the selected one and why. Research (Stage 0R) only when `brief.research.required`; narration only when the brief asks for it.
-3. Stage 1 `storyboard.json` with catalogue capabilities and explicit transitions; pick a registered style system (default `editorial-light`; light themes unless the brief asks otherwise).
-4. Stage 4 `src/index.html` on the vendored runtime (`src/_studio/`, synced from `src/studio/`; never edit the copy). Compose each format; use `--u`, `--safe-*`, `#root[data-format]` rules and `Studio.pick` instead of hard-coded pixel sizes.
+3. Stage 1 `storyboard.json` with catalogue capabilities and explicit transitions; pick a registered style system (default `editorial-light`; off-white or lighter background with warm, high-contrast, vibrant colors; dark themes only when explicitly requested).
+4. Stage 4 `src/index.html` on the vendored runtime (`src/_studio/`, synced from `src/studio/`; never edit the copy). Compose each format; use `--u`, `--safe-*`, `#root[data-format]` rules and `Studio.pick` instead of hard-coded pixel sizes. Follow the **Anti-Laziness Mandate**: zero static visual freezes while narration is speaking.
 5. `python scripts/studio.py validate <slug>` and `python scripts/frame-review.py <slug> --fonts google`; look at the contact sheets, fix, repeat.
-6. Render host only: `python scripts/studio.py build <slug>` (per-format render, mux, QA with expectations), then `python scripts/studio.py review <slug> --init` and score `qa/creative-review.json` with evidence.
+6. Render host only: `python scripts/studio.py build <slug>` (per-format render, 3-track audio mux with voice, SFX and dim themed background music bed, QA with expectations), then `python scripts/studio.py review <slug> --init` and score `qa/creative-review.json` with evidence.
 
 **Legacy technical explainers** (no `project.json`) keep the original stages below; `scripts/build-project.sh` behaves as before.
 
@@ -33,10 +33,10 @@ Every explainer video produced in this repository must follow the phased lifecyc
 1. **Stage 0 (Research & Investigation):** Research the technical domain, verify formulas/algorithms, formulate visual metaphors, and produce both `projects/<project_name>/research.json` (validated against `specs/research-spec.json` via `scripts/validate-research.py`) and `projects/<project_name>/research.md`. **Never** write scripts before validating the research dossier.
 2. **Stage 1 & 2 (Storyboarding & Voice Script):** Generate `narration.json` using the `voice-director` skill and phonetic respellings.
 3. **Stage 3 (Speech Synthesis & Measurement):** Synthesize voice clips with `src/pipeline/tts.py` and measure exact millisecond durations via `ffprobe` to build the timeline map.
-4. **Stage 4 (Motion Graphics Composition):** Search the capability catalogue (`scripts/motion-catalogue.py search`) via `motion-library-guide` to select approved capability recipes and verify dependency states, then author `src/index.html` using GSAP 3 timelines anchored to measured timestamps (`motion-graphics-designer` skill).
-5. **Stage 4B (Sound Design & Foley Choreography):** Extract animation moments from `src/index.html` via `from_hyperframes.py`, source CC0 assets via `scripts/sfx-openverse.py` or synthesize micro-SFX via `.venv/bin/earshot sfx render`, plan cues with `suggest_cues.py`, and render `audio/sfx-track.wav` with `real-sfx mix.py`.
-6. **Stage 5–6 (Lint & Render):** Lint with `hyperframes lint`, render visuals with `hyperframes render --low-memory-mode`.
-7. **Stage 8 (Multi-Track Multiplexing):** Combine visuals, voice narration, and ducked SFX bed with FFmpeg `amix`.
+4. **Stage 4 (Motion Graphics Composition):** Search the capability catalogue (`scripts/motion-catalogue.py search`) via `motion-library-guide` to select approved capability recipes and verify dependency states, then author `src/index.html` using GSAP 3 timelines anchored to measured timestamps (`motion-graphics-designer` skill). Adopt off-white / light backgrounds with warm, vibrant, high-contrast colors by default. Strictly enforce the **Anti-Laziness Mandate**: zero static visual freezes while narration speaks.
+5. **Stage 4B (Sound Design & Foley Choreography):** Extract animation moments from `src/index.html` via `from_hyperframes.py`, source CC0 assets via `scripts/sfx-openverse.py` or synthesize micro-SFX via `.venv/bin/earshot sfx render`, plan cues with `suggest_cues.py`, render `audio/sfx-track.wav` with `real-sfx mix.py`, and source a dim themed background music bed (`audio/bgm.wav`) to hook viewer attention.
+6. **Stage 5–6 (Lint & Render):** Lint with `hyperframes lint`, render visuals non-interactively with `hyperframes render --low-memory-mode < /dev/null`.
+7. **Stage 8 (Multi-Track Multiplexing):** Combine visuals, voice narration, ducked SFX bed, and dim themed background music bed with FFmpeg `amix`.
 8. **Stage 9 (Automated QA & Verification):** Execute `run-qa-gates.sh` verifying all 5 gates (Streams, EBU R128 loudness, black gaps, bitrate, and Earshot acoustic metrics).
 
 ---
@@ -63,8 +63,11 @@ Specialized skills are available under `.agents/skills/`:
 ---
 
 ## 3. Sound Effects & Audio Sourcing Engine
-- **Openverse Asset Sourcing:** Use `scripts/sfx-openverse.py "<query>" --limit <N> --download --out-dir assets/audio/sfx` to search and retrieve free, Creative Commons CC0 / CC BY sound assets (whooshes, UI clicks, risers, impacts) with zero API keys.
+- **Openverse Asset Sourcing:** Use `scripts/sfx-openverse.py "<query>" --limit <N> --download --out-dir assets/audio/sfx` to search and retrieve free, Creative Commons CC0 / CC BY sound assets (whooshes, UI clicks, risers, impacts, ambient music loops) with zero API keys.
   - *CRITICAL:* Never attempt downloading Freesound `apiv2` URLs which require authentication. Always use the public preview CDN URL in `item["url"]`.
+- **Dim Themed Background Music / Ambient Bed:** Every explainer video incorporates a continuous, dim background music bed matching the project theme (e.g. minimalist techno pulse for finance/crises, modular synth drone for AI/systems, warm acoustic/marimba for lifestyle/recipes) at `-22` to `-28 dBFS` integrated loudness (~15 to 20 dB below voice). This eliminates dead air, hooks viewer attention, and sustains engagement.
+- **Prohibit Transition Whooshes in Educational Explainers:** Do NOT use whoosh sounds on scene cross-dissolves in educational explainers. Scene transitions should be visually seamless and sonically transparent.
+- **Tactile Micro-Sound Foley:** Punctuate data changes, counter rolls, chart draws, and badge reveals with subtle tactile micro-sounds (soft thuds, switch clicks, typewriter runs at `-12` to `-18 dB` below voice).
 - **Procedural Sound FX:** Use `.venv/bin/earshot sfx render <id> -o <path.wav>` for instant, zero-latency code-synthesized micro-sounds (pops, thocks, clicks, chime runs).
 - **Acoustic Quality Audit:** Use `.venv/bin/earshot measure <file>` or `run-qa-gates.sh` to measure true peak, integrated loudness, noise floor, and frequency bands.
 
@@ -75,8 +78,14 @@ Specialized skills are available under `.agents/skills/`:
 - **Rules:**
   - **NEVER** run parallel rendering commands or multiple headless Chrome instances.
   - **ALWAYS** pass `--low-memory-mode` to `hyperframes render` to pin the worker count to 1 and use screenshot capture.
+  - **NON-INTERACTIVE RENDER INVARIANT:** Always execute `hyperframes render` with stdin redirected: `< /dev/null` (e.g., `hyperframes render . --fps 30 --quality looks --low-memory-mode --output ../renders/visuals.mp4 < /dev/null`) to prevent the interactive rating survey prompt from blocking autonomous execution.
+  - **RENDER TIME IS NOT A CONSTRAINT (ANTI-LAZINESS DIRECTIVE):** Apple Silicon M2 memory management rules are strictly about **concurrency and worker limits** to prevent RAM exhaustion. **Render duration is NOT a constraint — time is not a concern.** Whether rendering takes 30 seconds or 3 minutes is completely acceptable. Agents must **NEVER** hold back on visual richness, animation density, kinetic choreography, or multi-step evolutions out of fear of render time or hardware warnings. The framework must NOT be lazy.
   - **Python Environment:** Always invoke `python3.12` (or rely on auto-delegating wrappers) for ML/TTS and schema validation.
-  - Standard development resolution is **1280×720 @ 30fps** for legacy explainers. Studio projects take their formats from `project.json` (16:9 1280×720, 9:16 720×1280, 1:1 1080×1080 by default; 60 fps optional) and render them one at a time. Only scale to 1080p or above when explicitly instructed.
+  - **Supported Aspect Ratios & Formats:**
+    - **Landscape (Default):** `1280×720 @ 30fps` (16:9).
+    - **Vertical Reel / Shorts:** `720×1280 @ 30fps` (9:16) with top chapter/progress indicator, headline group (`top: 90–110px`), hero stage (`top: 320–780px`), bottom takeaway card (`bottom: 90–130px`), and safe zones (`top: 80–128px`, `bottom: 120–256px`).
+    - **Square:** `1080×1080 @ 30fps` (1:1).
+    - Only scale to 1080p or 60fps when explicitly instructed in the brief.
   - **Non-Mac hosts (e.g. Windows):** HyperFrames, FFmpeg and Kokoro may be absent. Use `studio.py validate`, `frame-review.py` and `studio.py build --dry-run`; never claim a render or loudness result that was not produced.
 
 ---
@@ -93,9 +102,25 @@ Specialized skills are available under `.agents/skills/`:
 ---
 
 ## 6. HyperFrames Coding Rules
-- Ensure `data-width="1280"` and `data-height="720"` are set on `#root`.
+- Ensure `data-width="1280"` and `data-height="720"` are set on `#root` (or `720×1280` for vertical reels, `1080×1080` for square).
 - Set `data-fps="30"` and `data-duration="<seconds>"`.
-- Standardize vertical canvas hierarchy: header group positioned at `top: 28px–32px`, diagram stage at `top: 145px–155px`.
+- Standardize vertical canvas hierarchy: header group positioned at `top: 28px–32px`, diagram stage at `top: 145px–155px` (landscape) or vertical tiers (portrait).
+- **Default Theme (Light Canvas, Warm & Contrasty Colors):** Use an off-white, warm ivory, or clean light canvas (`#FBFBFA` / `#F5F3EF` / `#F4EFE6`) by default, paired with rich, warm, vibrant, and punchy contrast accents (vermilion/terracotta, electric ultramarine, marigold amber, emerald, and charcoal typography). Light backgrounds must feel dynamic, colorful, and alive. Dark themes are strictly opt-in when requested.
+- **Anti-Laziness & Visual Vitality Mandate (Zero Static Frames During Speech):**
+  Narration must **NEVER** play over a frozen or static visual. When narration is active, the screen must visually evolve every 2 to 3 seconds:
+  - **Multi-Beat Scene Structure:** A 15-second scene is NOT 1 visual beat; it is 3 to 5 micro-beats (anchor entrance → data development → complication/highlight → detail revelation → takeaway lock).
+  - **Progressive Reveals:** Continuously reveal data, extend graph curves, increment counters, or step through timeline milestones as words are spoken.
+  - **Kinetic Spoken Emphasis:** Spoken key terms must trigger instant visual feedback (highlight glow, weight shifts, callout arrows, badge stamps).
+  - **Continuous Secondary Vitality:** Maintain subtle motion (signal pulses along curves, telemetry tickers, slow parallax drifts, particle streams).
+- **Standard Layout & Motion Primitives (`src/studio/`):**
+  - Use `Studio.comp.heroStage(parent, opts)` and `Studio.comp.splitStage(parent, opts)` instead of manual pixel-absolute containers to guarantee consistent $\ge 65\%$ stage occupancy and prevent empty voids.
+  - Use `Studio.comp.monumentStat(parent, opts)` for large takeaway metrics ($>80\text{px}$ numbers, crisp labels).
+  - Use `Studio.type.heroHeader(parent, opts)` to standardize hierarchy (`kicker` 14–16px, `title` 36–52px, `subtitle` 18–24px) passing WCAG AA contrast.
+  - Use `Studio.type.formatCount(element, start, end, opts)` for live counter rolls.
+  - Use `Studio.draw.chart.line/area(points, opts)` for smooth Catmull-Rom spline charting with auto-normalized points (`[x,y]` or `{x,y}`).
+  - Use `Studio.draw.chart.gauge(parent, opts)` for circular/radial metrics and `Studio.draw.particleStream(parent, opts)` for directional liquidity/contagion particle flows.
+  - Use `Studio.space.drift(target, opts)` to maintain continuous virtual camera motion (e.g. scale $1.0 \to 1.035$) during spoken explanations.
+  - Use `Studio.transition(tl, type, outEl, inEl, atTime, opts)` for choreographing composable transitions (`crossfade`, `slide-left`, `slide-up`, `zoom-through`, `curtain`) with element continuity.
 - Use synchronous cross-dissolves (`sceneTransition(outId, inId, atTime, fade=0.40)`) to eliminate black gaps.
 - Use **GSAP 3** for timeline management. Always create the timeline with `{ paused: true }` and register it on `window.__timelines['root']`.
 - **NEVER use `Math.random()` in composition scripts.** Use a seeded PRNG (such as `mulberry32`) to ensure deterministic rendering across frames.
@@ -105,9 +130,21 @@ Specialized skills are available under `.agents/skills/`:
 ---
 
 ## 7. Multi-Track Audio-Video Assembly & External Footage
-- Render video track without audio using HyperFrames (`renders/visuals.mp4`).
+- Render video track without audio using HyperFrames with stdin redirected (`renders/visuals.mp4 < /dev/null`).
 - External video clips (Veo / stock / 3D) must be ingested via `./scripts/ingest-asset.sh <file> [slug]`, which normalizes them to 1280×720 @ 30fps silent H.264 into `assets/generated/`.
-- Multi-track mux audio with FFmpeg `amix` (preserving narration intelligibility with ducked SFX):
+- Multi-track mux audio with FFmpeg `amix` (preserving narration intelligibility with ducked SFX and dim themed background music bed):
+  ```bash
+  # 3-Track Multiplexing (Narration + SFX + Dim Themed Background Music Bed)
+  ffmpeg -y \
+    -i visuals.mp4 \
+    -i narration-full.wav \
+    -i sfx-track.wav \
+    -i bgm.wav \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.85[a_sfx];[3:a]volume=0.25,afade=t=in:st=0:d=0.5,afade=t=out:st=28.5:d=1.5[a_bgm];[a_voice][a_sfx][a_bgm]amix=inputs=3:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy -c:a aac -b:a 192k -shortest final.mp4
+  ```
+- Fallback to 2-track mix if no background music is available:
   ```bash
   ffmpeg -y \
     -i visuals.mp4 \
@@ -117,5 +154,4 @@ Specialized skills are available under `.agents/skills/`:
     -map 0:v -map "[aout]" \
     -c:v copy -c:a aac -b:a 192k -shortest final.mp4
   ```
-- Fallback to single narration stream if no SFX bed is present.
 - Always execute `.agents/skills/video-assembler/scripts/run-qa-gates.sh` after assembly.

@@ -1,0 +1,58 @@
+{
+  "id": "skill-kokoro-smart-tts",
+  "name": "Kokoro Smart TTS Skill",
+  "component_type": "skill",
+  "purpose": "Transforms Kokoro TTS into expressive, human-like speech via intelligent text preprocessing, calibrated breath pauses, and multi-voice tensor blending.",
+  "capabilities": [
+    "Intelligent text normalization (currencies, numbers, multipliers, fractions, initialisms)",
+    "Punctuation prosody enhancement (em-dashes, unicode ellipses, breath commas)",
+    "Multi-voice style vector linear blending",
+    "Calibrated genre presets (conversational, documentary, storytelling, energetic, technical-explainer)",
+    "Misaki Markdown IPA phonetics injection",
+    "Exact millisecond timeline marker generation for animation sync"
+  ],
+  "location": ".agents/skills/kokoro-smart-tts-skill",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-tts-pipeline"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Tested with Kokoro 0.9.4 and Python 3.12 on Apple Silicon M2."
+  },
+  "documentation_urls": [
+    ".agents/skills/kokoro-smart-tts-skill/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace-owned agent skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Preprocesses text and synthesizes local WAV files via Kokoro."
+  },
+  "owner": "audio-engineering",
+  "status": "approved",
+  "approval_evidence": "Evaluated with before/after audio benchmark across 3 genres in examples/before_after_samples/.",
+  "architecture_ref": "ARCHITECTURE.md#s2",
+  "last_verified": "2026-10-31",
+  "tags": [
+    "tts",
+    "voice",
+    "kokoro",
+    "prosody",
+    "audio-synthesis",
+    "voice-blending",
+    "phonetics"
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "spec_version": 1,
+  "slug": "china-market-crash-v3",
+  "direction": "warm-high-contrast-editorial",
+  "timing_source": "narration",
+  "duration_sec": 66.0,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Euphoria & The Borrowed Wire",
+      "start_sec": 0.0,
+      "end_sec": 17.65,
+      "purpose": "Establish retail market euphoria on mobile screens, stepping through demographic adoption, surging balances, and the hidden time bomb of 3x borrowed margin debt.",
+      "on_screen_text": [
+        "SHANGHAI CSI 300",
+        "+18.4% RALLY",
+        "TEACHERS // DRIVERS // STUDENTS",
+        "3.0X MARGIN LEVERAGE"
+      ],
+      "visual": "A light frosted smartphone interface opens with a rising green candlestick chart, demographic tags pop as narration names them, portfolio counter surges to +¥45k, and an amber margin financing drawer reveals 75% borrowed debt.",
+      "layout": {
+        "portrait": "Top telemetry HUD, center hero mobile viewport with rising green chart and badges, bottom margin debt meter"
+      },
+      "capabilities": [
+        "frame-hud",
+        "counter-roll",
+        "stroke-draw",
+        "text-mask-rise"
+      ],
+      "transition_out": {
+        "type": "cut",
+        "duration_sec": 0.0,
+        "continuity": "Transparent cut into Scene 2 market tremor threshold"
+      }
+    },
+    {
+      "id": "s2",
+      "title": "The Trap Snaps",
+      "start_sec": 17.65,
+      "end_sec": 33.25,
+      "purpose": "Show the shock of a 2% dip instantly breaching collateral thresholds, draining the liquidation gauge, firing broker push alerts, and executing an automated sell-all order.",
+      "on_screen_text": [
+        "-2.1% TREMOR",
+        "COLLATERAL WIPEOUT",
+        "BROKER ALGORITHMS TRIGGERED",
+        "FORCED SELL-ALL"
+      ],
+      "visual": "A bright red breach line shatters the trend, the collateral equity gauge rapidly drains from ¥160,000 to ¥0, three urgent margin call alerts slide in, and a broker involuntary liquidation stamp locks.",
+      "layout": {
+        "portrait": "Upper red tremor tag, center radial liquidation gauge, cascading broker alerts, bottom execution stamp"
+      },
+      "capabilities": [
+        "stroke-draw",
+        "counter-roll",
+        "text-mask-rise",
+        "shape-morph"
+      ],
+      "transition_out": {
+        "type": "cut",
+        "duration_sec": 0.0,
+        "continuity": "Transparent cut into the 90% retail order book vacuum"
+      }
+    },
+    {
+      "id": "s3",
+      "title": "The Human Stampede",
+      "start_sec": 33.25,
+      "end_sec": 50.02,
+      "purpose": "Dramatize the 90% retail market structure, the evaporation of buy-side liquidity, thirty million panic sell orders, and the index plunging into freefall.",
+      "on_screen_text": [
+        "90% RETAIL MARKET",
+        "BUY BIDS: 0.0%",
+        "30M PANIC SELLERS",
+        "ORDER VACUUM // NO BUYERS"
+      ],
+      "visual": "A split comparison highlights 90% retail dominance, buy-side liquidity drains to 0%, a waterfall of crimson order shards pours down the screen, and sell orders are rejected as the index plunges.",
+      "layout": {
+        "portrait": "Upper retail dominance badge, center order-book depth meter with plunging vector, bottom interactive sell rejection tag"
+      },
+      "capabilities": [
+        "particle-drift",
+        "stroke-draw",
+        "text-mask-rise",
+        "counter-roll"
+      ],
+      "transition_out": {
+        "type": "cut",
+        "duration_sec": 0.0,
+        "continuity": "Transparent cut into the state stabilization attempt"
+      }
+    },
+    {
+      "id": "s4",
+      "title": "The Broken Spell",
+      "start_sec": 50.02,
+      "end_sec": 66.0,
+      "purpose": "Demonstrate state bailout failure against loss of confidence, rolling up to the monumental -$2.4T equity loss and concluding takeaway hold.",
+      "on_screen_text": [
+        "STATE ETF RESCUE: +¥200B",
+        "BAILOUT SHATTERED",
+        "-$2,400,000,000,000",
+        "THE ILLUSION BROKE"
+      ],
+      "visual": "An emerald state rescue barrier attempts to arrest the drop but shatters under selling pressure, leading into a monumental frosted card with -$2.4T rolling counter and the concluding takeaway quote.",
+      "layout": {
+        "portrait": "Monumental centered takeaway card with animated rules, hero counter, and breathing focus aura"
+      },
+      "capabilities": [
+        "end-card",
+        "counter-roll",
+        "stroke-draw",
+        "text-mask-rise"
+      ],
+      "transition_out": {
+        "type": "hold-end",
+        "duration_sec": 1.9,
+        "continuity": "Final monumental card holds motionless with subtle breathing pulse to completion"
+      }
+    }
+  ]
+}

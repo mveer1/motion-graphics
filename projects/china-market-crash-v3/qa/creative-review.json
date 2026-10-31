@@ -1,0 +1,141 @@
+{
+  "project": "china-market-crash-v3",
+  "reviewer": "Antigravity Motion Graphics Agent (verified against full HyperFrames MP4 render and snapshot contact sheets)",
+  "reviewed_on": "2026-10-31",
+  "renders_reviewed": [
+    "projects/china-market-crash-v3/renders/portrait/final.mp4 (720x1280 @ 30fps, 66s)",
+    "projects/china-market-crash-v3/qa/snapshots/contact-sheet-1.jpg",
+    "projects/china-market-crash-v3/qa/snapshots/contact-sheet-2.jpg"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 5,
+      "notes": "Every beat pairs a clean header with one prominent hero element: rising mobile app in Scene 1, liquidation gauge in Scene 2, 90% retail depth collapse in Scene 3, and -$2.4T takeaway monument in Scene 4.",
+      "evidence": [
+        "qa/snapshots/frame-00-at-2s.png",
+        "qa/snapshots/frame-03-at-22s.png",
+        "qa/snapshots/frame-06-at-35.5s.png",
+        "qa/snapshots/frame-10-at-59s.png"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 4,
+      "notes": "Oswald display headers, Inter body text, and IBM Plex Mono for financial telemetry and live metric counters. All labels respect safe areas and size floors.",
+      "evidence": [
+        "qa/snapshots/frame-01-at-5s.png",
+        "qa/snapshots/frame-12-at-65.75s.png"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 5,
+      "notes": "Engineered natively for 720x1280 portrait 9:16 mobile reels. Progress HUD is clear of top status bars (128px inset), captions sit above the 256px bottom safe zone.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 5,
+      "notes": "Synchronized to millisecond-accurate Kokoro TTS narration cues. Multi-beat micro-choreography ensures visual updates every 2-3s without any visual stalls.",
+      "evidence": [
+        "audio/timeline.json",
+        "qa/snapshots/frame-02-at-12.5s.png",
+        "qa/snapshots/frame-04-at-26.5s.png"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 5,
+      "notes": "Obsidian text (#111827) and rich contrast accents achieve > 15:1 contrast against the warm off-white canvas (#FBFBFA). Crisp white cards provide clean isolation.",
+      "evidence": [
+        "qa/snapshots/frame-00-at-2s.png",
+        "qa/snapshots/frame-03-at-22s.png"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 5,
+      "notes": "Warm editorial-light aesthetic with vibrant, high-contrast colors (vermilion panic #E11D48, marigold amber #F59E0B, emerald bull #059669, ultramarine blue #1D4ED8).",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 4,
+      "notes": "Seamless, sonically transparent cuts (zero transition whooshes) matching narration scene boundaries.",
+      "evidence": [
+        "qa/snapshots/frame-02-at-12.5s.png",
+        "qa/snapshots/frame-03-at-22s.png"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 5,
+      "notes": "Consistent financial interface and data visualization language throughout: candlestick chart, debt drawer, radial liquidation gauge, order-book depth bars, and monument stat.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 5,
+      "notes": "Every tween directly visualizes economic mechanics: leverage multiplication, equity depletion under margin calls, order book vacuum, and state bailout shatter.",
+      "evidence": [
+        "src/index.html"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 5,
+      "notes": "Zero static freezes during narration. Screen evolves continuously across 3-5 micro-beats per scene (demographic pops, debt bar expand, push alert cascade, particles stream, counter roll).",
+      "evidence": [
+        "qa/snapshots/frame-01-at-5s.png",
+        "qa/snapshots/frame-02-at-12.5s.png",
+        "qa/snapshots/frame-04-at-26.5s.png",
+        "qa/snapshots/frame-05-at-30.5s.png",
+        "qa/snapshots/frame-07-at-42s.png",
+        "qa/snapshots/frame-08-at-46.5s.png"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 4,
+      "notes": "Vertical layout tiers prevent collisions: top HUD, upper headline group, central viewport, and bottom captions/cards.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 5,
+      "notes": "Dramatic four-act psychological arc: Euphoria -> The Trap Snaps -> The Human Stampede -> The Broken Spell, concluding on a 1.9s held -$2.4T monument card.",
+      "evidence": [
+        "brief.json",
+        "storyboard.json",
+        "qa/snapshots/frame-12-at-65.75s.png"
+      ]
+    }
+  ],
+  "verdict": "pass",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

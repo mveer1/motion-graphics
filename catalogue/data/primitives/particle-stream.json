@@ -1,0 +1,50 @@
+{
+  "id": "particle-stream",
+  "name": "Deterministic particle stream",
+  "kind": "particle",
+  "status": "experimental",
+  "description": "Seeded directional particle flow along an SVG guide path or vector trajectory with pseudo-random phase offsets.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native",
+    "gsap"
+  ],
+  "inputs": [
+    {
+      "name": "count",
+      "type": "integer",
+      "description": "Number of particles"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "description": "PRNG seed"
+    },
+    {
+      "name": "pathD",
+      "type": "string",
+      "description": "SVG path d-attribute guide"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.particleStream(svg, count, pathD, options)"
+  },
+  "performance_notes": "Uses lightweight SVG circles animated along path points deterministically via mulberry32 PRNG.",
+  "validation": {
+    "evidence": "Tested and verified in tests/test-motion-primitives Scene 3 with 32 liquidity particles.",
+    "last_verified": "2026-10-31"
+  },
+  "tags": [
+    "particle",
+    "stream",
+    "flow",
+    "deterministic",
+    "prng"
+  ],
+  "metadata": {
+    "author": "Antigravity",
+    "created_at": "2026-10-31",
+    "updated_at": "2026-10-31"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "chart-spline",
+  "name": "Chart spline and data geometry",
+  "kind": "path",
+  "status": "experimental",
+  "description": "Smooth Catmull-Rom cubic bezier curves and financial chart geometries (line, area fill, candlesticks, and radial liquidation gauges).",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "svg-native",
+    "gsap"
+  ],
+  "inputs": [
+    {
+      "name": "points",
+      "type": "array",
+      "description": "Numeric data values or coordinates"
+    },
+    {
+      "name": "box",
+      "type": "object",
+      "description": "Bounding box { width, height }"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-draw.js",
+    "api": "Studio.draw.chart.line(svg, points, options) / Studio.draw.chart.gauge(svg, value, options)"
+  },
+  "performance_notes": "Draws efficiently using SVG path stroke-dashoffset tweens without DOM reconstruction.",
+  "validation": {
+    "evidence": "Tested and verified in tests/test-motion-primitives index.html passing hyperframes check with 0 errors.",
+    "last_verified": "2026-10-31"
+  },
+  "tags": [
+    "path",
+    "spline",
+    "chart",
+    "bezier",
+    "financial"
+  ],
+  "metadata": {
+    "author": "Antigravity",
+    "created_at": "2026-10-31",
+    "updated_at": "2026-10-31"
+  }
+}

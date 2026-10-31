@@ -294,7 +294,7 @@ exit 0
         out = res.stdout + res.stderr
         self.assertEqual(res.returncode, 0, out)
         self.assertIn("delegating to the multi-format studio build", out)
-        self.assertRegex(out, r"FAKEPY \S*scripts/studio\.py build masala-chai-recipe")
+        self.assertRegex(out, r"FAKEPY .*scripts/studio\.py build masala-chai-recipe")
 
 
 if __name__ == "__main__":

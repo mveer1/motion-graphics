@@ -2,21 +2,24 @@
   "id": "skill-voice-director",
   "name": "Voice Director Skill",
   "component_type": "skill",
-  "purpose": "Pedagogical voice script authoring, Kokoro persona selection, speech pacing, silence buffer insertion, and phonetic respelling for technical terms.",
+  "purpose": "Pedagogical voice script authoring, Kokoro persona selection, multi-voice tensor blending, speech pacing, smart silence buffer insertion, and phonetic respelling for technical terms.",
   "capabilities": [
     "Conversational narration scriptwriting",
-    "Phonetic lexicon substitution for technical symbols and acronyms",
-    "Kokoro voice persona assignment (am_adam, af_bella, etc.)",
+    "Smart text normalization for numbers, currencies, multipliers, and initialisms",
+    "Multi-voice style vector blending (am_michael + am_adam, etc.)",
+    "Calibrated genre prosody presets (documentary, conversational, storytelling, energetic)",
+    "Phonetic lexicon substitution and Markdown IPA injection",
     "Millisecond duration timeline mapping"
   ],
   "location": ".agents/skills/voice-director",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "installation": {
     "required": false,
     "instructions": "Built-in workspace skill. No installation needed."
   },
   "dependencies": [
-    "tool-tts-pipeline"
+    "tool-tts-pipeline",
+    "skill-kokoro-smart-tts"
   ],
   "compatibility": {
     "apple_silicon_tested": true,

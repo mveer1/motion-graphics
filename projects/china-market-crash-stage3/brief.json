@@ -1,0 +1,96 @@
+{
+  "spec_version": 1,
+  "slug": "china-market-crash-stage3",
+  "title": "China Market Crash: The Reflexive Cascade",
+  "objective": "Deconstruct China's $2.4T stock market crash as an escalating reflexive deleveraging cascade using focal compositions, systematic typography, purposeful pacing, and continuous motion continuity.",
+  "audience": "Informed viewers seeking a clear, high-production visual explanation of market microstructures, retail sentiment, and margin leverage.",
+  "platforms": ["instagram-reels", "tiktok", "youtube-shorts"],
+  "deliverables": {
+    "formats": ["portrait"],
+    "duration_sec": { "min": 35, "target": 43, "max": 45 }
+  },
+  "message": {
+    "core_message": "When retail investors trade on borrowed money, even a small drop mathematically breaches collateral thresholds, triggering an automated panic stampede where state bailouts cannot print confidence.",
+    "key_points": [
+      "Ten weeks of continuous decline erased over two trillion dollars in market valuation.",
+      "Triple margin debt mathematically triggers 100% collateral wipeouts on small drops.",
+      "90% retail trading dominance turns algorithmic margin calls into a synchronized stampede.",
+      "State intervention cannot print confidence without real corporate earnings repair."
+    ]
+  },
+  "tone": {
+    "emotional_response": ["clarity", "gravitas", "revelation", "tension"],
+    "keywords": ["editorial", "illustrated", "warm-contrast", "kinetic", "systematic"],
+    "avoid": ["static slideshow dashboards", "unreadable micro-text", "visual freezes", "generic whooshes"]
+  },
+  "constraints": [
+    "Strictly enforce typography floor (>=22.3px in 720p / 33.5px in 1080p)",
+    "Anti-Laziness Mandate: Zero static visual freezes while narration is speaking",
+    "Focal stage occupancy >= 65% to eliminate accidental empty space",
+    "Preserve verified factual historical data from research dossier"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "required",
+    "captions": false
+  },
+  "research": {
+    "required": false,
+    "reason": "Directly based on validated research dossier in projects/china-market-crash-2026/research.json"
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "warm-high-contrast-editorial",
+      "name": "Warm High-Contrast Editorial",
+      "concept": "Warm ivory canvas (#FBFBFA) paired with punchy terracotta (#ba4128), electric ultramarine (#1d4ed8), and charcoal typography. Employs focal viewports commanding >70% frame area: dynamic Catmull-Rom spline surge, mechanical radial liquidation gauge, order vacuum comparison, and monumental concluding stat.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Ivory (#FBFBFA), Terracotta (#ba4128), Charcoal (#1b1c1d), Amber (#d97706), Ultramarine (#1d4ed8)",
+        "typography": "JetBrains Mono kicker, Inter display/body, Playfair accent",
+        "texture": "Subtle paper tooth and clean vector geometries"
+      },
+      "motion_language": {
+        "personality": "Deliberate, escalating, kinetic, authoritative",
+        "signature_moves": ["Active camera drift (SP.drift 1.0->1.05)", "Catmull-Rom spline draw", "Mechanical gauge drain", "Kinetic word punch (T.punch)"],
+        "transitions": "Cinematic zoomThrough forward dive, directional wipe, and matchCut"
+      },
+      "composition": {
+        "approach": "Dominant hero stages (heroStage, splitStage, monumentStat) occupying 70%+ frame with balanced negative space"
+      },
+      "pacing": "Starts measured and analytical, accelerates through mechanical liquidation and retail stampede, resolves into steady monumental reflection",
+      "why_it_fits": "Delivers professional editorial authority while maintaining high viewer engagement and zero dead time."
+    },
+    {
+      "id": "minimalist-swiss-terminal",
+      "name": "Minimalist Swiss Terminal",
+      "concept": "High-density technical grid with black-and-white telemetry and sparse accent lines.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "Clean white, stark black, single signal amber",
+        "typography": "Monospace-only hierarchy",
+        "texture": "Rigid geometric coordinate grid"
+      },
+      "motion_language": {
+        "personality": "Orthogonal, stark, understated",
+        "signature_moves": ["Linear coordinate ticks", "Typewriter readout"],
+        "transitions": "Instant cut"
+      },
+      "composition": {
+        "approach": "Grid-locked data widgets"
+      },
+      "pacing": "Metronomic and steady",
+      "why_it_fits": "Strong technical feel, but less visually expressive than editorial motion storytelling."
+    }
+  ],
+  "selected_direction": "warm-high-contrast-editorial",
+  "success_criteria": [
+    "Zero visual freezes exceeding 2.0s during narration",
+    "All text adheres to readability floor (>=22.3px)",
+    "Focal visuals fill 65%-80% of canvas area",
+    "Continuous motion across scene transitions"
+  ]
+}

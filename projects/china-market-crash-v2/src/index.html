@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>China Market Crash: The Reflexive Cascade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/cinematic-dark.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    /* Custom styling for China Market Crash v2 (Cinematic Terminal Dark) */
+    :root {
+      --c-panic: #ff334b;
+      --c-panic-glow: rgba(255, 51, 75, 0.45);
+      --c-bull: #10b981;
+      --c-bull-glow: rgba(16, 185, 129, 0.4);
+      --c-amber: #f59e0b;
+      --c-cyan: #38bdf8;
+      --c-bg-card: #131722;
+      --c-border-card: #242b3d;
+    }
+
+    #root {
+      background: radial-gradient(circle at 50% 25%, #141b2a 0%, #080a0f 75%, #050608 100%);
+      color: var(--c-ink);
+      font-family: var(--font-text);
+      overflow: hidden;
+    }
+
+    /* CRT subtle scanlines and phosphor noise simulation */
+    .crt-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: calc(var(--u) * 5) calc(var(--u) * 5);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Strict scene isolation */
+    .st-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: calc(var(--safe-top) + var(--u) * 1.5);
+      padding-left: var(--safe-left);
+      padding-right: var(--safe-right);
+      box-sizing: border-box;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    #s1 {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Scene copy block */
+    .scene-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: calc(var(--u) * 2.5);
+      z-index: 8;
+    }
+
+    .kicker-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.6);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      padding: calc(var(--u) * 0.4) calc(var(--u) * 1.4);
+      border-radius: calc(var(--u) * 0.6);
+      margin-bottom: calc(var(--u) * 1.2);
+    }
+
+    .kicker-panic {
+      color: var(--c-panic);
+      background: rgba(255, 51, 75, 0.12);
+      border-color: rgba(255, 51, 75, 0.35);
+    }
+
+    .main-title {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 5.4);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 calc(var(--u) * 0.8) 0;
+      color: #ffffff;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.8);
+    }
+
+    .main-subtitle {
+      font-family: var(--font-text);
+      font-size: calc(var(--u) * 2.1);
+      font-weight: 400;
+      color: var(--c-ink-2);
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    /* Stage graphic viewport */
+    .stage-viewport {
+      position: relative;
+      width: calc(var(--w) - var(--safe-left) - var(--safe-right));
+      height: calc(var(--u) * 65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Phone Device Mockup (Scene 1) */
+    .phone-mock {
+      position: relative;
+      width: calc(var(--u) * 44);
+      height: calc(var(--u) * 60);
+      background: var(--c-bg-card);
+      border: 2px solid var(--c-border-card);
+      border-radius: calc(var(--u) * 4);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15);
+      padding: calc(var(--u) * 2.2);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .phone-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.4);
+      color: var(--c-ink-2);
+      margin-bottom: calc(var(--u) * 1.5);
+      padding-bottom: calc(var(--u) * 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .phone-ticker {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: calc(var(--u) * 1.5);
+    }
+
+    .ticker-name {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: calc(var(--u) * 1.8);
+      color: var(--c-ink);
+    }
+
+    .ticker-val {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: calc(var(--u) * 3.4);
+      color: var(--c-bull);
+    }
+
+    .cur-sym {
+      font-size: 0.8em;
+      margin-right: 2px;
+      opacity: 0.85;
+    }
+
+    .ticker-delta {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.6);
+      color: var(--c-bull);
+      background: rgba(16, 185, 129, 0.15);
+      padding: calc(var(--u) * 0.2) calc(var(--u) * 0.8);
+      border-radius: calc(var(--u) * 0.4);
+    }
+
+    /* SVG Chart canvas */
+    .chart-svg {
+      width: 100%;
+      height: calc(var(--u) * 20);
+      overflow: visible;
+    }
+
+    /* Leverage bottom drawer in phone */
+    .leverage-drawer {
+      margin-top: auto;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: calc(var(--u) * 1.6);
+      padding: calc(var(--u) * 1.4);
+    }
+
+    .leverage-title {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.4);
+      font-weight: 600;
+      color: var(--c-amber);
+      margin-bottom: calc(var(--u) * 0.8);
+      text-transform: uppercase;
+    }
+
+    .leverage-bar {
+      width: 100%;
+      height: calc(var(--u) * 1.6);
+      background: #232838;
+      border-radius: calc(var(--u) * 0.5);
+      display: flex;
+      overflow: hidden;
+      margin-bottom: calc(var(--u) * 0.8);
+    }
+
+    .bar-cash {
+      width: 33.3%;
+      background: var(--c-cyan);
+    }
+
+    .bar-debt {
+      width: 66.7%;
+      background: var(--c-amber);
+    }
+
+    .leverage-sub {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.2);
+      color: var(--c-ink-2);
+    }
+
+    /* Scene 2 Wipeout radial gauge */
+    .gauge-box {
+      position: relative;
+      width: calc(var(--u) * 36);
+      height: calc(var(--u) * 36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: calc(var(--u) * 2);
+    }
+
+    .gauge-circle {
+      position: absolute;
+      inset: 0;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-center-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .gauge-lbl {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.4);
+      color: var(--c-ink-2);
+      text-transform: uppercase;
+    }
+
+    .gauge-amount {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 3.8);
+      font-weight: 700;
+      color: var(--c-panic);
+    }
+
+    .alert-banner {
+      width: 100%;
+      background: rgba(255, 51, 75, 0.15);
+      border: 1px solid var(--c-panic);
+      border-radius: calc(var(--u) * 1);
+      padding: calc(var(--u) * 1.2) calc(var(--u) * 2);
+      box-sizing: border-box;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.8);
+      font-weight: 700;
+      color: var(--c-panic);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 0 25px var(--c-panic-glow);
+    }
+
+    /* Scene 3: Order book and Waterfall */
+    .depth-card {
+      width: calc(var(--u) * 60);
+      background: var(--c-bg-card);
+      border: 1px solid var(--c-border-card);
+      border-radius: calc(var(--u) * 1.8);
+      padding: calc(var(--u) * 2);
+      box-sizing: border-box;
+      margin-bottom: calc(var(--u) * 2.5);
+    }
+
+    .depth-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.6);
+      margin-bottom: calc(var(--u) * 0.8);
+    }
+
+    .depth-bar-wrap {
+      width: 100%;
+      height: calc(var(--u) * 1.8);
+      background: #1e2433;
+      border-radius: calc(var(--u) * 0.4);
+      overflow: hidden;
+      display: flex;
+      margin-bottom: calc(var(--u) * 1.6);
+    }
+
+    .depth-bid {
+      width: 10%;
+      background: var(--c-bull);
+    }
+
+    .depth-ask {
+      width: 90%;
+      background: var(--c-panic);
+    }
+
+    .waterfall-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 6;
+    }
+
+    /* Scene 4: Monumental final stats */
+    .monument-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: calc(var(--u) * 4);
+    }
+
+    .stat-hero-number {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 7.6);
+      font-weight: 700;
+      color: var(--c-panic);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      text-shadow: 0 0 35px var(--c-panic-glow);
+      margin-bottom: calc(var(--u) * 1.2);
+    }
+
+    .stat-hero-label {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 2.4);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #ffffff;
+      text-transform: uppercase;
+      margin-bottom: calc(var(--u) * 2);
+    }
+
+    .stat-rule {
+      width: calc(var(--u) * 24);
+      height: calc(var(--u) * 0.4);
+      background: var(--c-panic);
+      margin-bottom: calc(var(--u) * 2.5);
+    }
+
+    .stat-quote {
+      font-family: var(--font-text);
+      font-size: calc(var(--u) * 2.2);
+      color: var(--c-ink-2);
+      max-width: calc(var(--u) * 50);
+      line-height: 1.4;
+    }
+
+    /* Captions layer */
+    #captions-layer {
+      position: absolute;
+      left: var(--safe-left);
+      right: var(--safe-right);
+      bottom: calc(var(--safe-bottom) - var(--u) * 5);
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .st-captions {
+      text-align: center;
+    }
+
+    .st-caption {
+      font-family: var(--font-text);
+      font-size: calc(var(--u) * 2.4);
+      font-weight: 600;
+      line-height: 1.35;
+      color: #ffffff;
+      background: rgba(8, 10, 16, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: calc(var(--u) * 1.2);
+      padding: calc(var(--u) * 1) calc(var(--u) * 2);
+      display: inline-block;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="66">
+
+  <!-- Phosphor Scanline Texture Grid -->
+  <div class="crt-grid" aria-hidden="true"></div>
+
+  <!-- HUD Telemetry layer -->
+  <div id="hud-container"></div>
+
+  <!-- SCENE 1: The Euphoria & 3x Margin Debt -->
+  <section class="st-scene" id="s1">
+    <div class="scene-header">
+      <div class="kicker-tag" id="s1-kicker">SHANGHAI // RETAIL MOMENTUM</div>
+      <h1 class="main-title" id="s1-title">THE EUPHORIA</h1>
+      <p class="main-subtitle" id="s1-sub">Millions of phones. One shared illusion.</p>
+    </div>
+    <div class="stage-viewport">
+      <div class="phone-mock" id="s1-phone">
+        <div class="phone-bar">
+          <span>09:30 AM</span>
+          <span>5G  100%</span>
+        </div>
+        <div class="phone-ticker">
+          <div>
+            <div class="ticker-name">CSI 300 INDEX</div>
+            <div class="ticker-delta">+18.4% RALLY</div>
+          </div>
+          <div class="ticker-val"><span class="cur-sym">¥</span><span id="s1-counter">4120</span></div>
+        </div>
+        <!-- Rising stock trendline -->
+        <svg class="chart-svg" viewBox="0 0 300 140" aria-hidden="true">
+          <defs>
+            <linearGradient id="chart-grad-green" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          <path id="chart-area-1" fill="url(#chart-grad-green)" d="M 10 120 Q 80 110, 150 70 T 290 20 L 290 130 L 10 130 Z" opacity="0"/>
+          <path id="chart-line-1" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round" d="M 10 120 Q 80 110, 150 70 T 290 20"/>
+          <circle id="chart-dot-1" cx="290" cy="20" r="5" fill="#10b981"/>
+        </svg>
+        <!-- The Margin Leverage Trap Drawer -->
+        <div class="leverage-drawer" id="s1-drawer">
+          <div class="leverage-title">
+            <span>FINANCING STRUCTURE</span>
+            <span style="color: #f59e0b;">3.0X DEBT</span>
+          </div>
+          <div class="leverage-bar">
+            <div class="bar-cash"></div>
+            <div class="bar-debt"></div>
+          </div>
+          <div class="leverage-sub">
+            <span>OWN CASH: 33%</span>
+            <span>BORROWED: 67%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 2: The Trap Snaps (2% Tremor, 1/L Wipeout) -->
+  <section class="st-scene" id="s2">
+    <div class="scene-header">
+      <div class="kicker-tag kicker-panic" id="s2-kicker">CRITICAL BREACH // 10:48 AM</div>
+      <h1 class="main-title" id="s2-title">THE TRAP SNAPS</h1>
+      <p class="main-subtitle" id="s2-sub">When 3x leverage turns a wobble into an execution.</p>
+    </div>
+    <div class="stage-viewport">
+      <div class="gauge-box" id="s2-gauge-box">
+        <svg class="gauge-circle" viewBox="0 0 200 200" aria-hidden="true">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#242b3d" stroke-width="12"/>
+          <circle id="gauge-arc" cx="100" cy="100" r="80" fill="none" stroke="#ff334b" stroke-width="12"
+                  stroke-dasharray="502" stroke-dashoffset="0" stroke-linecap="round"/>
+        </svg>
+        <div class="gauge-center-text">
+          <span class="gauge-lbl">COLLATERAL EQUITY</span>
+          <div class="gauge-amount"><span class="cur-sym">¥</span><span id="s2-equity-val">160000</span></div>
+          <span style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-panic);">WIPEOUT: δ* = 1/L</span>
+        </div>
+      </div>
+      <div class="alert-banner" id="s2-alert">
+        ⚡ AUTOMATED MARGIN CALL TRIGGERED
+      </div>
+      <div style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.5); color: var(--c-ink-2); margin-top: calc(var(--u) * 1.5); text-align: center;" id="s2-stamp">
+        BROKER EXECUTION: INVOLUNTARY SELL-ALL
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 3: The Human Stampede (90% Retail, Order Book Vacuum) -->
+  <section class="st-scene" id="s3">
+    <div class="scene-header">
+      <div class="kicker-tag kicker-panic" id="s3-kicker">ORDER BOOK COLLAPSE</div>
+      <h1 class="main-title" id="s3-title">THE STAMPEDE</h1>
+      <p class="main-subtitle" id="s3-sub">90% retail traders. Zero institutional buyers.</p>
+    </div>
+    <div class="stage-viewport">
+      <div class="depth-card" id="s3-card">
+        <div class="depth-row">
+          <span style="color: var(--c-bull);">BUY LIQUIDITY (BIDS)</span>
+          <span id="s3-bid-pct" style="color: var(--c-bull);">0.0%</span>
+        </div>
+        <div class="depth-bar-wrap">
+          <div class="depth-bid" id="s3-bid-bar"></div>
+          <div class="depth-ask"></div>
+        </div>
+        <div class="depth-row" style="color: var(--c-panic);">
+          <span>PANIC SELL PRESSURE</span>
+          <span>100% FORCED</span>
+        </div>
+      </div>
+      <!-- SVG Plunging Index Path -->
+      <svg viewBox="0 0 400 220" style="width: calc(var(--u) * 56); height: calc(var(--u) * 30); overflow: visible;" aria-hidden="true">
+        <line x1="20" y1="40" x2="380" y2="40" stroke="#333d52" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="25" y="32" fill="#5b657e" font-family="monospace" font-size="12">PEAK: 4,120</text>
+        <line x1="20" y1="180" x2="380" y2="180" stroke="#ff334b" stroke-width="1" stroke-dasharray="6 4"/>
+        <text x="25" y="172" fill="#ff334b" font-family="monospace" font-size="12">-20% BEAR MARKET THRESHOLD</text>
+        <path id="plunge-line" fill="none" stroke="#ff334b" stroke-width="5" stroke-linecap="round" d="M 20 40 Q 120 48, 180 90 T 380 205"/>
+        <circle id="plunge-dot" cx="380" cy="205" r="7" fill="#ff334b"/>
+      </svg>
+      <div id="s3-stat-tag" style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.8); color: #ffffff; background: rgba(255,51,75,0.2); border: 1px solid var(--c-panic); padding: 6px 14px; border-radius: 6px; margin-top: 10px;">
+        ORDER BOOK VACUUM // NO BUYERS
+      </div>
+    </div>
+  </section>
+
+  <!-- SCENE 4: The Broken Spell (State Bailout Failure & $2.4T Loss) -->
+  <section class="st-scene" id="s4">
+    <div class="scene-header">
+      <div class="kicker-tag" id="s4-kicker" style="color: var(--c-amber); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.1);">STABILIZATION FAILURE</div>
+      <h1 class="main-title" id="s4-title">THE BROKEN SPELL</h1>
+      <p class="main-subtitle" id="s4-sub">You cannot print confidence.</p>
+    </div>
+    <div class="stage-viewport">
+      <div class="monument-stat" id="s4-monument">
+        <div class="stat-hero-number" id="s4-big-counter">-$2.4T</div>
+        <div class="stat-hero-label">EQUITY VALUE ERASED</div>
+        <div class="stat-rule" id="s4-rule"></div>
+        <div class="stat-quote" id="s4-quote">
+          Two trillion dollars didn't just vanish.<br>
+          <span style="color: #ffffff; font-weight: 600;">The illusion broke.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Persistent Full-frame Falling Shard Particles Layer for Scene 3 & 4 -->
+  <svg class="waterfall-canvas" id="particles-svg" viewBox="0 0 720 1280" aria-hidden="true"></svg>
+
+  <!-- Captions Band -->
+  <div id="captions-layer"></div>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script src="captions.js"></script>
+<script>
+window.__timelines = window.__timelines || {};
+
+Studio.build(function (tl, F, S) {
+  // Exact scene cues from measured audio/timeline.json
+  var cue = S.cues({
+    s1: 0.0,
+    s2: 17.65,
+    s3: 33.25,
+    s4: 50.02,
+    end: 66.0
+  });
+
+  // ---------------------------------------------------------------- Frame HUD
+  var hud = S.comp.frameHud(document.getElementById('hud-container'), {
+    tl: 'CSI 300 // DESK',
+    tr: 'SHANGHAI',
+    bl: 'SSE / SZSE',
+    br: 'LEVERAGE: 3.0X'
+  }, { progress: true });
+  hud.enter(tl, 0.0);
+  hud.progress(tl, 0.0, 66.0);
+
+  tl.add(function () { hud.set(tl, 'br', 'MARGIN BREACH', cue('s2')); }, cue('s2'));
+  tl.add(function () { hud.set(tl, 'tl', 'RETAIL: 90%', cue('s3')); }, cue('s3'));
+  tl.add(function () { hud.set(tl, 'br', 'ORDER VACUUM', cue('s3')); }, cue('s3'));
+  tl.add(function () { hud.set(tl, 'tr', 'DRAWDOWN -20%', cue('s4')); }, cue('s4'));
+  tl.add(function () { hud.set(tl, 'br', 'LOSS: -$2.4T', cue('s4')); }, cue('s4'));
+
+  // ---------------------------------------------------------------- Captions
+  if (window.STUDIO_CAPTIONS && window.STUDIO_CAPTIONS.length) {
+    var cap = S.comp.captions(document.getElementById('captions-layer'), window.STUDIO_CAPTIONS);
+    cap.schedule(tl);
+  }
+
+  // ---------------------------------------------------------------- Particles for Scene 3 & 4
+  var partSvg = document.getElementById('particles-svg');
+  // Seeded deterministic particles (mulberry32 seeded PRNG)
+  var particles = S.draw.particles(partSvg, 55, 42, {
+    color: '#ff334b',
+    radius: 3.5,
+    area: { x: 30, y: -200, width: 660, height: 180 }
+  });
+  // Hide particles initially
+  gsap.set(particles, { autoAlpha: 0 });
+
+  // ================================================================ SCENE 1: Euphoria
+  // Fully established on frame 0 for clean poster thumbnail
+  tl.fromTo('#s1-kicker', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+  tl.fromTo('#s1-title', { autoAlpha: 1, scale: 1 }, { autoAlpha: 1, scale: 1, duration: 0.001 }, 0.0);
+  tl.fromTo('#s1-sub', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+  tl.fromTo('#s1-phone', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+
+  // Stroke green trendline
+  S.draw.stroke(tl, '#chart-line-1', cue('s1', 0.8), { duration: 2.2, ease: 'power2.out' });
+  tl.fromTo('#chart-area-1', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: 'power1.out' }, cue('s1', 1.5));
+  tl.fromTo('#chart-dot-1', { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' }, cue('s1', 2.8));
+
+  // Counter roll: 4120 -> 4875
+  S.type.count(tl, '#s1-counter', cue('s1', 1.0), { from: 4120, to: 4875, duration: 2.8 });
+
+  // Leverage drawer reveal
+  tl.fromTo('#s1-drawer', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, cue('s1', 11.5));
+  tl.fromTo('.bar-debt', { scaleX: 0, transformOrigin: '0% 50%' }, { scaleX: 1, duration: 1.2, ease: 'power3.out' }, cue('s1', 12.0));
+
+  // Transition to Scene 2: Cut
+  S.cut(tl, '#s1', '#s2', cue('s2'));
+
+  // ================================================================ SCENE 2: The Trap Snaps
+  tl.fromTo('#s2-kicker', { autoAlpha: 0, y: -15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s2', 0.05));
+  tl.fromTo('#s2-title', { autoAlpha: 0, scale: 1.15 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power4.out' }, cue('s2', 0.1));
+  tl.fromTo('#s2-sub', { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s2', 0.2));
+  tl.fromTo('#s2-gauge-box', { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: 'back.out(1.4)' }, cue('s2', 0.3));
+
+  // Collateral equity drains: 160000 -> 0
+  S.type.count(tl, '#s2-equity-val', cue('s2', 1.5), { from: 160000, to: 0, duration: 3.5 });
+
+  // Gauge arc depletes (stroke-dashoffset from 0 to 502)
+  tl.fromTo('#gauge-arc', { strokeDashoffset: 0 }, { strokeDashoffset: 502, duration: 3.5, ease: 'power2.inOut' }, cue('s2', 1.5));
+
+  // Red alert flash
+  tl.fromTo('#s2-alert', { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'back.out(2)' }, cue('s2', 5.5));
+  tl.fromTo('#s2-stamp', { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s2', 6.2));
+
+  // Transition to Scene 3: Cut
+  S.cut(tl, '#s2', '#s3', cue('s3'));
+
+  // ================================================================ SCENE 3: The Human Stampede
+  tl.fromTo('#s3-kicker', { autoAlpha: 0, y: -15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s3', 0.05));
+  tl.fromTo('#s3-title', { autoAlpha: 0, scale: 1.1 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out' }, cue('s3', 0.1));
+  tl.fromTo('#s3-sub', { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s3', 0.2));
+  tl.fromTo('#s3-card', { autoAlpha: 0, y: 25 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, cue('s3', 0.3));
+
+  // Bid Liquidity collapses from 50% down to 0%
+  tl.fromTo('#s3-bid-bar', { width: '50%' }, { width: '0%', duration: 2.2, ease: 'power3.in' }, cue('s3', 1.2));
+  tl.fromTo('#s3-bid-pct', { textContent: '50.0%' }, { textContent: '0.0%', duration: 2.2, ease: 'power3.in' }, cue('s3', 1.2));
+
+  // Plunge line draws downward violently
+  S.draw.stroke(tl, '#plunge-line', cue('s3', 2.5), { duration: 3.0, ease: 'power2.in' });
+  tl.fromTo('#plunge-dot', { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' }, cue('s3', 5.3));
+  tl.fromTo('#s3-stat-tag', { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power2.out' }, cue('s3', 5.8));
+
+  // Particle waterfall stream activates
+  tl.fromTo(particles, { autoAlpha: 0 }, { autoAlpha: 0.85, duration: 0.6 }, cue('s3', 0.8));
+  S.draw.drift(tl, particles, cue('s3', 0.8), cue('s4', 4.0), {
+    dy: 1400,
+    jitterX: 25,
+    spread: 0.6,
+    ease: 'power1.in'
+  });
+
+  // Transition to Scene 4: Cut
+  S.cut(tl, '#s3', '#s4', cue('s4'));
+
+  // ================================================================ SCENE 4: The Broken Spell
+  tl.fromTo('#s4-kicker', { autoAlpha: 0, y: -15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s4', 0.05));
+  tl.fromTo('#s4-title', { autoAlpha: 0, scale: 1.1 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out' }, cue('s4', 0.1));
+  tl.fromTo('#s4-sub', { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s4', 0.2));
+
+  tl.fromTo('#s4-monument', { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, cue('s4', 0.4));
+  tl.fromTo('#s4-rule', { scaleX: 0, transformOrigin: '50% 50%' }, { scaleX: 1, duration: 0.7, ease: 'power2.out' }, cue('s4', 1.0));
+  tl.fromTo('#s4-quote', { autoAlpha: 0, y: 15 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, cue('s4', 1.4));
+
+  // Fade out particles towards end
+  tl.fromTo(particles, { autoAlpha: 0.85 }, { autoAlpha: 0, duration: 1.5 }, cue('end', -4.0));
+
+  // Final hold: subtle slow breathing pulse on -$2.4T
+  tl.fromTo('#s4-big-counter', { scale: 1 }, { scale: 1.04, duration: 2.0, ease: 'sine.inOut', yoyo: true, repeat: 3 }, cue('s4', 2.0));
+});
+</script>
+</body>
+</html>

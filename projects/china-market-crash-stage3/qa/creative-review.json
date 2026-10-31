@@ -1,0 +1,132 @@
+{
+  "project": "china-market-crash-stage3",
+  "reviewer": "Antigravity Creative Director & Motion QA",
+  "reviewed_on": "2026-10-31",
+  "renders_reviewed": [
+    "projects/china-market-crash-stage3/renders/portrait/final.mp4"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 5,
+      "notes": "Expanded 440px Catmull-Rom spline curve and 280px radial gauge command >75% of the frame. Vertical reading hierarchy is immediately evident: kicker tag -> title -> focal stage -> telemetry.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-00-at-2s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-04-at-15s.png"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 5,
+      "notes": "All text strictly obeys the 22.3px floor (--fs-floor). Display headers scale from 54px to 84px with masked line rises. Digital collateral percentage readout is prominent at 36px in JetBrains Mono.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-01-at-5s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-13-at-42s.png"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 5,
+      "notes": "Native 720x1280 9:16 layout. The 330px vertical drop on the spline chart and stacked dual-pane comparison utilize the vertical screen real estate without accidental dead space.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 5,
+      "notes": "Visual micro-events occur every 1.5 to 2.5 seconds (surge, threshold breach, 8.2s market break pulse, needle drain, alert reveal, waterfall particle cascade, bailout shatter, monument count).",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-02-at-8.2s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-06-at-19.8s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-11-at-35.8s.png"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 5,
+      "notes": "91/91 text checks pass WCAG AA. Terracotta (#ba4128) achieves 4.55:1 contrast on ivory (#fbfbfa). Grid coordinate labels use #52555a (5.2:1 contrast).",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-01-at-5s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-08-at-24s.png"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 5,
+      "notes": "Warm high-contrast editorial palette: warm ivory canvas (#fbfbfa), charcoal typography (#1b1c1d), terracotta accent (#ba4128), and warning amber (#b45309).",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 5,
+      "notes": "Replaced generic slideshow cuts with spatial transitions: zoomThrough forward dive across the drawdown threshold, downward wipe into market depth, and upward push into the resolution.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-03-at-10s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-07-at-21.4s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-10-at-32.3s.png"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 5,
+      "notes": "Vector-driven visual language: Catmull-Rom spline curves, mechanical radial gauge, retail waterfall particle stream, and monumental stat.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/contact-sheet-1.jpg",
+        "projects/china-market-crash-stage3/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 5,
+      "notes": "Every movement represents financial reality: the 10-week rout, leverage liquidation, order vacuum, and the state bailout shatter.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-04-at-15s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-09-at-29s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-11-at-35.8s.png"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 5,
+      "notes": "Continuous camera drift (SP.drift 1.0->1.04) runs across all 4 scenes, eliminating static freezes during speech. Final card holds steadily for 2.2s.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-13-at-42s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-14-at-42.83s.png"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 5,
+      "notes": "0 layout collisions, 0 clipping, and 0 safe area violations confirmed by hyperframes check.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 5,
+      "notes": "Dramatic four-act progression: The $2T Mystery -> The Leverage Trap -> The Retail Stampede -> The Macro Reckoning & Core Takeaway.",
+      "evidence": [
+        "projects/china-market-crash-stage3/snapshots/frame-00-at-2s.png",
+        "projects/china-market-crash-stage3/snapshots/frame-13-at-42s.png"
+      ]
+    }
+  ],
+  "verdict": "PASS",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

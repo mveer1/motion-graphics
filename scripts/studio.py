@@ -715,7 +715,7 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             continue
         fid = entry["id"]
         visuals = f"../renders/{fid}/visuals.mp4"
-        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src")})
+        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4")})
         inputs = ["-i", f"renders/{fid}/visuals.mp4"]
         filters, labels = [], []
         idx = 1
@@ -739,7 +739,11 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             idx += 1
         final = f"renders/{fid}/final.mp4"
         if labels:
-            mix = ";".join(filters) + ";" + "".join(labels) + f"amix=inputs={len(labels)}:duration=longest:dropout_transition=2[aout]"
+            mix = ";".join(filters) + ";" + "".join(labels) + f"amix=inputs={len(labels)}:duration=longest:dropout_transition=2"
+            if target is not None:
+                mix += f",loudnorm=I={target:g}:TP=-1.5:LRA=11[aout]"
+            else:
+                mix += "[aout]"
             cmd = ["ffmpeg", "-y"] + inputs + ["-filter_complex", mix, "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", f"{project['duration_sec']:g}", final]
         else:
             cmd = ["ffmpeg", "-y", "-i", f"renders/{fid}/visuals.mp4", "-c", "copy", final]
@@ -787,7 +791,7 @@ def cmd_build(args: argparse.Namespace) -> int:
             continue
         if s["stage"].startswith("render:"):
             (pdir / "renders" / s["stage"].split(":", 1)[1]).mkdir(parents=True, exist_ok=True)
-        res = subprocess.run(s["cmd"], cwd=cwd)
+        res = subprocess.run(s["cmd"], cwd=cwd, stdin=subprocess.DEVNULL)
         if res.returncode != 0:
             print(f"Error: stage {s['stage']} failed with exit code {res.returncode}.")
             return res.returncode

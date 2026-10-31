@@ -1,0 +1,54 @@
+{
+  "id": "tool-session-guard",
+  "name": "Session Guard Concurrency Coordinator",
+  "component_type": "tool",
+  "purpose": "Coordinates parallel project execution across independent sessions, providing non-blocking queues and mutual exclusion locks for hardware-bound bottlenecks (Chromium render host, Kokoro TTS, Playwright frame-review) on Apple Silicon macOS without compromising rendering quality.",
+  "capabilities": [
+    "Exclusive render host lock: serializes Chromium + Metal GPU rendering and frame-review across concurrent sessions",
+    "Exclusive TTS lock: serializes neural speech synthesis to prevent PyTorch resident memory pressure",
+    "Stale lock self-healing: detects dead holder PIDs and automatically cleans stale locks",
+    "Project-scoped governance execution: wraps workspace-governance.py --project <slug>",
+    "Heartbeat wait logging: informs background sessions of resource lock holders while waiting",
+    "Isolated Git worktree management: session-start, session-list, session-end with automated branch isolation and virtualenv linking"
+  ],
+  "location": "scripts/session-guard.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace tool. Run via python3 scripts/session-guard.py <subcommand>."
+  },
+  "dependencies": [
+    "tool-studio-cli",
+    "tool-hyperframes",
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3",
+    "notes": "Uses standard library fcntl.flock on POSIX macOS."
+  },
+  "documentation_urls": [
+    "ARCHITECTURE.md#lifecycle",
+    ".agents/skills/parallel-session/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace concurrency tool."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes lockfiles to .locks/ and coordinates local subprocess execution."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Validated via cross-process concurrency tests and scoped governance checks.",
+  "architecture_ref": "ARCHITECTURE.md#lifecycle",
+  "last_verified": "2026-10-31",
+  "tags": ["concurrency", "locking", "parallel", "session-guard", "mutex"]
+}
+

@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>China Market Crash: The Reflexive Cascade (v3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    /* China Market Crash v3: Warm High-Contrast Editorial Canvas */
+    :root {
+      --c-canvas: #fbfbfa;
+      --c-canvas-tint: #f5f3ef;
+      --c-card-bg: rgba(255, 255, 255, 0.94);
+      --c-card-border: rgba(0, 0, 0, 0.08);
+      --c-ink: #111827;
+      --c-ink-2: #4b5563;
+      --c-ink-muted: #9ca3af;
+      --c-bull: #059669;
+      --c-bull-bg: rgba(5, 150, 105, 0.10);
+      --c-bull-border: rgba(5, 150, 105, 0.28);
+      --c-panic: #e11d48;
+      --c-panic-bg: rgba(225, 29, 72, 0.10);
+      --c-panic-border: rgba(225, 29, 72, 0.32);
+      --c-amber: #f59e0b;
+      --c-amber-bg: rgba(245, 158, 11, 0.12);
+      --c-amber-border: rgba(245, 158, 11, 0.35);
+      --c-blue: #1d4ed8;
+      --c-blue-bg: rgba(29, 78, 216, 0.08);
+      --c-blue-border: rgba(29, 78, 216, 0.28);
+      --font-display: 'Oswald', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+      --font-text: 'Inter', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    #root {
+      background: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--c-canvas) 65%, var(--c-canvas-tint) 100%);
+      color: var(--c-ink);
+      font-family: var(--font-text);
+      overflow: hidden;
+      width: 720px;
+      height: 1280px;
+      position: relative;
+    }
+
+    /* Subtle editorial blueprint grid texture */
+    .editorial-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: calc(var(--u) * 6) calc(var(--u) * 6);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Strict scene isolation */
+    .st-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: calc(var(--safe-top) + var(--u) * 1.5);
+      padding-left: var(--safe-left);
+      padding-right: var(--safe-right);
+      box-sizing: border-box;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    #s1 {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Scene copy block */
+    .scene-header {
+      width: 100%;
+      text-align: center;
+      margin-bottom: calc(var(--u) * 2.5);
+      z-index: 8;
+    }
+
+    .kicker-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.5);
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-blue);
+      background: var(--c-blue-bg);
+      border: 1px solid var(--c-blue-border);
+      padding: calc(var(--u) * 0.4) calc(var(--u) * 1.4);
+      border-radius: calc(var(--u) * 0.6);
+      margin-bottom: calc(var(--u) * 1.0);
+    }
+
+    .kicker-panic {
+      color: var(--c-panic);
+      background: var(--c-panic-bg);
+      border-color: var(--c-panic-border);
+    }
+
+    .kicker-amber {
+      color: #b45309;
+      background: var(--c-amber-bg);
+      border-color: var(--c-amber-border);
+    }
+
+    .main-title {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 5.6);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin: 0 0 calc(var(--u) * 0.8) 0;
+      color: var(--c-ink);
+    }
+
+    .main-subtitle {
+      font-family: var(--font-text);
+      font-size: calc(var(--u) * 2.2);
+      font-weight: 400;
+      color: var(--c-ink-2);
+      margin: 0;
+      line-height: 1.35;
+    }
+
+    /* Stage graphic viewport */
+    .stage-viewport {
+      position: relative;
+      width: calc(var(--w) - var(--safe-left) - var(--safe-right));
+      height: calc(var(--u) * 68);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Phone Device Mockup (Scene 1) */
+    .phone-mock {
+      position: relative;
+      width: calc(var(--u) * 48);
+      height: calc(var(--u) * 64);
+      background: var(--c-card-bg);
+      border: 2px solid rgba(0, 0, 0, 0.12);
+      border-radius: calc(var(--u) * 4.5);
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+      padding: calc(var(--u) * 2.4);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .phone-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.5);
+      font-weight: 600;
+      color: var(--c-ink-2);
+      margin-bottom: calc(var(--u) * 1.5);
+      padding-bottom: calc(var(--u) * 1.0);
+      border-bottom: 1px solid var(--c-card-border);
+    }
+
+    .chart-panel {
+      position: relative;
+      width: 100%;
+      height: calc(var(--u) * 26);
+      background: #ffffff;
+      border: 1px solid var(--c-card-border);
+      border-radius: calc(var(--u) * 2.0);
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.02);
+      padding: calc(var(--u) * 1.5);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .chart-counter-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .chart-counter {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 4.8);
+      font-weight: 700;
+      color: var(--c-bull);
+      letter-spacing: -0.02em;
+    }
+
+    .chart-tag-pct {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.8);
+      font-weight: 600;
+      color: var(--c-bull);
+      background: var(--c-bull-bg);
+      border: 1px solid var(--c-bull-border);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* Demographic Tags Row (Scene 1 Micro-Beat 2) */
+    .demographics-row {
+      display: flex;
+      gap: calc(var(--u) * 1.0);
+      width: 100%;
+      margin-top: calc(var(--u) * 1.5);
+    }
+
+    .demo-pill {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--c-card-border);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+      border-radius: calc(var(--u) * 1.2);
+      padding: calc(var(--u) * 0.8) calc(var(--u) * 0.5);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      opacity: 0;
+      transform: translateY(15px);
+    }
+
+    .demo-pill-title {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 1.6);
+      font-weight: 700;
+      color: var(--c-ink);
+      text-transform: uppercase;
+    }
+
+    .demo-pill-sub {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.2);
+      color: var(--c-bull);
+      font-weight: 600;
+    }
+
+    /* Margin Debt Drawer (Scene 1 Micro-Beat 4 & 5) */
+    .margin-drawer {
+      margin-top: calc(var(--u) * 1.8);
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid var(--c-amber-border);
+      border-radius: calc(var(--u) * 1.8);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.08);
+      padding: calc(var(--u) * 1.4);
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .drawer-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: calc(var(--u) * 0.8);
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.4);
+      font-weight: 600;
+      color: #b45309;
+    }
+
+    .ratio-badge {
+      background: var(--c-amber-bg);
+      border: 1px solid var(--c-amber-border);
+      color: #92400e;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .split-bar {
+      display: flex;
+      height: calc(var(--u) * 2.2);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: calc(var(--u) * 0.8);
+    }
+
+    .bar-cash {
+      width: 25%;
+      background: var(--c-bull);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.1);
+      font-weight: 700;
+    }
+
+    .bar-debt {
+      width: 75%;
+      background: repeating-linear-gradient(45deg,
+          #f59e0b,
+          #f59e0b 8px,
+          #d97706 8px,
+          #d97706 16px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.1);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .buffer-alert-tag {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.3);
+      color: #b45309;
+      background: #fef3c7;
+      border: 1px dashed var(--c-amber);
+      padding: calc(var(--u) * 0.4) calc(var(--u) * 0.8);
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 600;
+      opacity: 0;
+    }
+
+    /* SCENE 2: The Trap Snaps (Liquidation Mechanics) */
+    .tremor-card {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--c-card-border);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      border-radius: calc(var(--u) * 2.0);
+      padding: calc(var(--u) * 1.8);
+      box-sizing: border-box;
+      margin-bottom: calc(var(--u) * 1.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gauge-card {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid var(--c-panic-border);
+      box-shadow: 0 16px 36px rgba(225, 29, 72, 0.08);
+      border-radius: calc(var(--u) * 2.8);
+      padding: calc(var(--u) * 2.5);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .gauge-circle {
+      width: calc(var(--u) * 26);
+      height: calc(var(--u) * 26);
+      transform: rotate(-90deg);
+    }
+
+    .gauge-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gauge-amount {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 4.6);
+      font-weight: 700;
+      color: var(--c-panic);
+      line-height: 1;
+    }
+
+    .push-notifications-stack {
+      width: 100%;
+      margin-top: calc(var(--u) * 1.8);
+      display: flex;
+      flex-direction: column;
+      gap: calc(var(--u) * 0.8);
+    }
+
+    .push-card {
+      background: #ffffff;
+      border-left: 4px solid var(--c-panic);
+      border-top: 1px solid var(--c-card-border);
+      border-right: 1px solid var(--c-card-border);
+      border-bottom: 1px solid var(--c-card-border);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+      border-radius: 8px;
+      padding: calc(var(--u) * 1.0) calc(var(--u) * 1.4);
+      display: flex;
+      align-items: center;
+      gap: calc(var(--u) * 1.0);
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .push-icon {
+      font-size: calc(var(--u) * 2.0);
+    }
+
+    .push-title {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 1.6);
+      font-weight: 700;
+      color: var(--c-ink);
+      text-transform: uppercase;
+    }
+
+    .push-sub {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.2);
+      color: var(--c-panic);
+      font-weight: 600;
+    }
+
+    .execution-stamp {
+      width: 100%;
+      background: var(--c-panic);
+      color: #ffffff;
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 1.6);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-align: center;
+      padding: calc(var(--u) * 1.2) calc(var(--u) * 1.6);
+      border-radius: 8px;
+      margin-top: calc(var(--u) * 1.5);
+      box-shadow: 0 10px 25px rgba(225, 29, 72, 0.35);
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    /* SCENE 3: The Human Stampede */
+    .split-market-card {
+      width: 100%;
+      display: flex;
+      gap: calc(var(--u) * 1.5);
+      margin-bottom: calc(var(--u) * 2.0);
+    }
+
+    .market-col {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--c-card-border);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      border-radius: calc(var(--u) * 1.8);
+      padding: calc(var(--u) * 1.6);
+      text-align: center;
+    }
+
+    .market-col-hero {
+      border: 2px solid var(--c-panic-border);
+      background: #fff5f5;
+      box-shadow: 0 12px 28px rgba(225, 29, 72, 0.12);
+    }
+
+    .market-pct {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 5.2);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: calc(var(--u) * 0.4);
+    }
+
+    .retail-dots-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 6px;
+      width: calc(var(--u) * 36);
+      margin: calc(var(--u) * 1.5) auto;
+    }
+
+    .retail-dot {
+      width: 8px;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 50%;
+    }
+
+    .depth-order-card {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--c-card-border);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+      border-radius: calc(var(--u) * 2.0);
+      padding: calc(var(--u) * 1.8);
+      box-sizing: border-box;
+      margin-top: calc(var(--u) * 1.0);
+    }
+
+    .depth-bar-wrapper {
+      position: relative;
+      width: 100%;
+      height: calc(var(--u) * 2.8);
+      background: #fee2e2;
+      border-radius: 6px;
+      overflow: hidden;
+      margin: calc(var(--u) * 1.0) 0;
+    }
+
+    .bid-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: var(--c-bull);
+    }
+
+    .ask-fill {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      background: var(--c-panic);
+    }
+
+    /* SCENE 4: The Broken Spell */
+    .bailout-card {
+      width: 100%;
+      background: #ecfdf5;
+      border: 1.5px solid var(--c-bull-border);
+      border-radius: calc(var(--u) * 1.8);
+      padding: calc(var(--u) * 1.6);
+      box-sizing: border-box;
+      margin-bottom: calc(var(--u) * 2.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .crack-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: calc(var(--u) * 1.8);
+      border: 2px dashed var(--c-panic);
+      background: rgba(225, 29, 72, 0.08);
+      opacity: 0;
+    }
+
+    .monument-takeaway {
+      width: 100%;
+      background: #ffffff;
+      border: 2px solid var(--c-panic-border);
+      box-shadow: 0 24px 60px rgba(225, 29, 72, 0.12), 0 4px 16px rgba(0, 0, 0, 0.04);
+      border-radius: calc(var(--u) * 3.2);
+      padding: calc(var(--u) * 3.2);
+      box-sizing: border-box;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-hero-number {
+      font-family: var(--font-mono);
+      font-size: calc(var(--u) * 8.4);
+      font-weight: 700;
+      line-height: 0.95;
+      color: var(--c-panic);
+      letter-spacing: -0.04em;
+    }
+
+    .stat-hero-label {
+      font-family: var(--font-display);
+      font-size: calc(var(--u) * 2.4);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--c-ink-2);
+      text-transform: uppercase;
+      margin-top: calc(var(--u) * 1.0);
+    }
+
+    .stat-rule {
+      width: calc(var(--u) * 16);
+      height: 2px;
+      background: var(--c-panic);
+      margin: calc(var(--u) * 2.0) auto;
+      transform-origin: 50% 50%;
+    }
+
+    .stat-quote {
+      font-family: var(--font-serif);
+      font-size: calc(var(--u) * 2.6);
+      line-height: 1.35;
+      color: var(--c-ink);
+      font-style: italic;
+    }
+
+    /* Falling Particles Stream Layer */
+    .waterfall-canvas {
+      position: absolute;
+      inset: 0;
+      width: 720px;
+      height: 1280px;
+      pointer-events: none;
+      z-index: 15;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="66">
+    <!-- Blueprint Grid Texture Overlay -->
+    <div class="editorial-grid"></div>
+
+    <!-- Persistent Frame HUD Layer -->
+    <div id="hud-container" style="position: absolute; inset: 0; pointer-events: none; z-index: 20;"></div>
+
+    <!-- ================================================================ SCENE 1: Euphoria & The Borrowed Wire -->
+    <section class="st-scene" id="s1">
+      <div class="scene-header">
+        <div class="kicker-tag" id="s1-kicker">SHANGHAI COMPOSITE // COMMUTE</div>
+        <h1 class="main-title" id="s1-title">THE EUPHORIA</h1>
+        <p class="main-subtitle" id="s1-sub">Morning gains felt effortless and guaranteed.</p>
+      </div>
+      <div class="stage-viewport" id="s1-stage">
+        <div class="phone-mock" id="s1-phone">
+          <div class="phone-bar">
+            <span>PORTFOLIO WATCH</span>
+            <span style="color: var(--c-bull); font-weight: 700;">● LIVE TRADING</span>
+          </div>
+          <div class="chart-panel" id="s1-chart-panel">
+            <div class="chart-counter-box">
+              <div class="chart-counter"><span style="font-size: 0.6em;">¥</span><span id="s1-counter">4120</span></div>
+              <div class="chart-tag-pct" id="s1-pct-tag">+18.4%</div>
+            </div>
+            <!-- SVG Candlestick & Smooth Trendline -->
+            <svg viewBox="0 0 320 90" style="width: 100%; height: 60px; overflow: visible;" aria-hidden="true">
+              <line x1="0" y1="75" x2="320" y2="75" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3" />
+              <path id="chart-area-1" fill="rgba(5, 150, 105, 0.08)"
+                d="M 0 75 Q 80 70, 150 48 T 320 10 L 320 85 L 0 85 Z" />
+              <path id="chart-line-1" fill="none" stroke="#059669" stroke-width="4.5" stroke-linecap="round"
+                d="M 0 75 Q 80 70, 150 48 T 320 10" />
+              <circle id="chart-dot-1" cx="320" cy="10" r="6" fill="#059669" />
+            </svg>
+          </div>
+
+          <!-- Demographics Row: Teachers, Cab Drivers, Students (Micro-Beat 2) -->
+          <div class="demographics-row" id="s1-demos">
+            <div class="demo-pill" id="demo-1">
+              <span style="font-size: 16px;">👨‍🏫</span>
+              <span class="demo-pill-title">TEACHERS</span>
+              <span class="demo-pill-sub">+24% GAIN</span>
+            </div>
+            <div class="demo-pill" id="demo-2">
+              <span style="font-size: 16px;">🚕</span>
+              <span class="demo-pill-title">DRIVERS</span>
+              <span class="demo-pill-sub">+31% GAIN</span>
+            </div>
+            <div class="demo-pill" id="demo-3">
+              <span style="font-size: 16px;">🎓</span>
+              <span class="demo-pill-title">STUDENTS</span>
+              <span class="demo-pill-sub">+19% GAIN</span>
+            </div>
+          </div>
+
+          <!-- Margin Financing Hidden Drawer (Micro-Beat 4 & 5) -->
+          <div class="margin-drawer" id="s1-drawer">
+            <div class="drawer-title-row">
+              <span>MARGIN FINANCING RATIO</span>
+              <span class="ratio-badge" id="s1-ratio-badge">3.0X DEBT</span>
+            </div>
+            <div class="split-bar">
+              <div class="bar-cash">CASH 25%</div>
+              <div class="bar-debt" id="s1-debt-bar">BORROWED 75%</div>
+            </div>
+            <div class="buffer-alert-tag" id="s1-buffer-tag">
+              ⚠️ COLLATERAL BUFFER: DANGEROUSLY THIN (2%)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SCENE 2: The Trap Snaps -->
+    <section class="st-scene" id="s2">
+      <div class="scene-header">
+        <div class="kicker-tag kicker-panic" id="s2-kicker">AUTOMATED MARGIN CALL</div>
+        <h1 class="main-title" id="s2-title">THE TRAP SNAPS</h1>
+        <p class="main-subtitle" id="s2-sub">A 2% dip instantly obliterates triple-leveraged equity.</p>
+      </div>
+      <div class="stage-viewport" id="s2-stage">
+        <div class="tremor-card" id="s2-tremor-card">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.4); color: var(--c-ink-2);">ORDINARY
+              TREMOR</div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 3.2); font-weight: 700; color: var(--c-panic);">
+              -2.1% BREACH</div>
+          </div>
+          <div style="text-align: right;">
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-panic); font-weight: 600;">
+              TRIGGER THRESHOLD</div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.8); color: var(--c-ink); font-weight: 700;">
+              δ* = 1 / LEVERAGE</div>
+          </div>
+        </div>
+
+        <!-- Collateral Wipeout Gauge -->
+        <div class="gauge-card" id="s2-gauge-card">
+          <svg class="gauge-circle" viewBox="0 0 200 200" aria-hidden="true">
+            <circle cx="100" cy="100" r="78" fill="none" stroke="#f3f4f6" stroke-width="14" />
+            <circle id="gauge-arc" cx="100" cy="100" r="78" fill="none" stroke="#e11d48" stroke-width="14"
+              stroke-dasharray="490" stroke-dashoffset="0" stroke-linecap="round" />
+          </svg>
+          <div class="gauge-center">
+            <span
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-ink-2); letter-spacing: 0.1em; font-weight: 600;">COLLATERAL
+              BALANCE</span>
+            <div class="gauge-amount"><span style="font-size: 0.6em;">¥</span><span id="s2-equity-val">160000</span>
+            </div>
+            <span id="s2-wipeout-label"
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.4); color: var(--c-panic); font-weight: 700; margin-top: 4px;">100%
+              MARGIN COVERAGE</span>
+          </div>
+        </div>
+
+        <!-- Push Notification Stack (Micro-Beat 3) -->
+        <div class="push-notifications-stack" id="s2-push-stack">
+          <div class="push-card" id="push-1">
+            <span class="push-icon">⚡</span>
+            <div>
+              <div class="push-title">BROKER MARGIN ALERT</div>
+              <div class="push-sub">Deficit: Deposit ¥80,000 immediately</div>
+            </div>
+          </div>
+          <div class="push-card" id="push-2">
+            <span class="push-icon">⏳</span>
+            <div>
+              <div class="push-title">LIQUIDATION WARNING</div>
+              <div class="push-sub">Collateral breached. 60 seconds remaining</div>
+            </div>
+          </div>
+          <div class="push-card" id="push-3">
+            <span class="push-icon">🔒</span>
+            <div>
+              <div class="push-title">OVERRIDE DISABLED</div>
+              <div class="push-sub">Algorithm control initiated</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Execution Stamp (Micro-Beat 4) -->
+        <div class="execution-stamp" id="s2-stamp">
+          ⚡ INVOLUNTARY SELL-ALL EXECUTED (COLLATERAL WIPED)
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SCENE 3: The Human Stampede -->
+    <section class="st-scene" id="s3">
+      <div class="scene-header">
+        <div class="kicker-tag kicker-panic" id="s3-kicker">HERD RUN // ORDER BOOK COLLAPSE</div>
+        <h1 class="main-title" id="s3-title">THE STAMPEDE</h1>
+        <p class="main-subtitle" id="s3-sub">Ninety percent retail. Zero institutional shock absorbers.</p>
+      </div>
+      <div class="stage-viewport" id="s3-stage">
+        <div class="split-market-card" id="s3-split-card">
+          <div class="market-col">
+            <div class="market-pct" style="color: var(--c-ink-muted);">10%</div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-ink-2); font-weight: 600;">
+              INSTITUTIONAL</div>
+          </div>
+          <div class="market-col market-col-hero">
+            <div class="market-pct" style="color: var(--c-panic);">90%</div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-panic); font-weight: 700;">
+              RETAIL HERD</div>
+          </div>
+        </div>
+
+        <!-- Retail Dots Grid -->
+        <div class="retail-dots-grid" id="s3-dots-grid"></div>
+
+        <!-- Order Book Depth Card -->
+        <div class="depth-order-card" id="s3-depth-card">
+          <div
+            style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: calc(var(--u) * 1.4); font-weight: 600;">
+            <span style="color: var(--c-bull);">BUY LIQUIDITY (BIDS): <span id="s3-bid-val">50.0%</span></span>
+            <span style="color: var(--c-panic);">PANIC ASKS: <span id="s3-ask-val">100%</span></span>
+          </div>
+          <div class="depth-bar-wrapper">
+            <div class="bid-fill" id="s3-bid-fill"></div>
+            <div class="ask-fill"></div>
+          </div>
+          <!-- SVG Plunging Index Path -->
+          <svg viewBox="0 0 340 100" style="width: 100%; height: 75px; overflow: visible;" aria-hidden="true">
+            <line x1="10" y1="15" x2="330" y2="15" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4" />
+            <text x="15" y="10" fill="#64748b" font-family="monospace" font-size="11">PEAK: 4,120</text>
+            <line x1="10" y1="85" x2="330" y2="85" stroke="#e11d48" stroke-width="1" stroke-dasharray="4 4" />
+            <text x="15" y="78" fill="#e11d48" font-family="monospace" font-size="11">-20% BEAR MARKET CLIFF</text>
+            <path id="s3-plunge-path" fill="none" stroke="#e11d48" stroke-width="4.5" stroke-linecap="round"
+              d="M 10 15 Q 120 22, 170 50 T 330 92" />
+            <circle id="s3-plunge-dot" cx="330" cy="92" r="6" fill="#e11d48" />
+          </svg>
+        </div>
+
+        <!-- Sell Button Rejection Tag (Micro-Beat 4) -->
+        <div id="s3-reject-tag"
+          style="width: 100%; background: #fff1f2; border: 1.5px solid var(--c-panic); border-radius: 8px; padding: calc(var(--u) * 1.2); text-align: center; margin-top: calc(var(--u) * 1.5); box-sizing: border-box; opacity: 0;">
+          <span
+            style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.5); font-weight: 700; color: var(--c-panic);">
+            ❌ ORDER REJECTED: ZERO BUYING COUNTERPARTY
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================ SCENE 4: The Broken Spell -->
+    <section class="st-scene" id="s4">
+      <div class="scene-header">
+        <div class="kicker-tag kicker-amber" id="s4-kicker">STATE INTERVENTION // CONFIDENCE BREAK</div>
+        <h1 class="main-title" id="s4-title">THE BROKEN SPELL</h1>
+        <p class="main-subtitle" id="s4-sub">You cannot print confidence into a collapsing crowd.</p>
+      </div>
+      <div class="stage-viewport" id="s4-stage">
+        <!-- State Bailout Barrier -->
+        <div class="bailout-card" id="s4-bailout-card">
+          <div class="crack-overlay" id="s4-crack"></div>
+          <div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-bull); font-weight: 700;">
+              STATE STABILIZATION FUND</div>
+            <div
+              style="font-family: var(--font-mono); font-size: calc(var(--u) * 2.2); font-weight: 700; color: #065f46;">
+              +¥200 BILLION ETF RESCUE</div>
+          </div>
+          <div id="s4-shatter-tag"
+            style="font-family: var(--font-mono); font-size: calc(var(--u) * 1.3); color: var(--c-panic); font-weight: 700; border: 1px solid var(--c-panic); background: #ffffff; padding: 4px 8px; border-radius: 4px; opacity: 0;">
+            BARRIER SHATTERED
+          </div>
+        </div>
+
+        <!-- Monument Takeaway Card -->
+        <div class="monument-takeaway" id="s4-monument">
+          <div class="stat-hero-number" id="s4-big-counter">-$2.4T</div>
+          <div class="stat-hero-label">EQUITY WEALTH WIPED OUT</div>
+          <div class="stat-rule" id="s4-rule"></div>
+          <div class="stat-quote" id="s4-quote">
+            “Two trillion dollars didn’t just vanish.<br>
+            <span style="color: var(--c-panic); font-weight: 700; font-style: normal;">The illusion broke.”</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waterfall Crimson Shards Canvas for Scene 3 & 4 -->
+    <svg class="waterfall-canvas" id="particles-svg" viewBox="0 0 720 1280" aria-hidden="true"></svg>
+
+    <!-- Captions Band -->
+    <div id="captions-layer"></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="_studio/studio-core.js"></script>
+  <script src="_studio/studio-draw.js"></script>
+  <script src="_studio/studio-type.js"></script>
+  <script src="_studio/studio-motion.js"></script>
+  <script src="_studio/studio-compositions.js"></script>
+  <script src="captions.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    // Populate 30 retail dots deterministically
+    (function buildDots() {
+      var grid = document.getElementById('s3-dots-grid');
+      for (var i = 0; i < 30; i++) {
+        var d = document.createElement('div');
+        d.className = 'retail-dot';
+        d.id = 'rdot-' + i;
+        grid.appendChild(d);
+      }
+    })();
+
+    Studio.build(function (tl, F, S) {
+      // Exact scene boundaries from measured audio/timeline.json
+      var cue = S.cues({
+        s1: 0.0,
+        s2: 17.65,
+        s3: 33.25,
+        s4: 50.025,
+        end: 66.0
+      });
+
+      // ---------------------------------------------------------------- Frame HUD
+      var hud = S.comp.frameHud(document.getElementById('hud-container'), {
+        tl: 'CSI 300 // RETAIL DESK',
+        tr: 'SHANGHAI',
+        bl: 'SSE / SZSE',
+        br: 'LEVERAGE: 3.0X'
+      }, { progress: true });
+      hud.enter(tl, 0.0);
+      hud.progress(tl, 0.0, 66.0);
+
+      // Dynamic HUD updates synchronized to micro-beats
+      tl.add(function () { hud.set(tl, 'br', 'MARGIN BREACH', cue('s2')); }, cue('s2'));
+      tl.add(function () { hud.set(tl, 'tl', 'RETAIL: 90%', cue('s3')); }, cue('s3'));
+      tl.add(function () { hud.set(tl, 'br', 'ORDER VACUUM', cue('s3')); }, cue('s3'));
+      tl.add(function () { hud.set(tl, 'tr', 'DRAWDOWN -20%', cue('s4')); }, cue('s4'));
+      tl.add(function () { hud.set(tl, 'br', 'LOSS: -$2.4T', cue('s4')); }, cue('s4'));
+
+      // ---------------------------------------------------------------- Captions
+      if (window.STUDIO_CAPTIONS && window.STUDIO_CAPTIONS.length) {
+        var cap = S.comp.captions(document.getElementById('captions-layer'), window.STUDIO_CAPTIONS);
+        cap.schedule(tl);
+      }
+
+      // ---------------------------------------------------------------- Crimson Shards Particles
+      var partSvg = document.getElementById('particles-svg');
+      // Seeded deterministic particles (mulberry32 seeded PRNG)
+      var particles = S.draw.particles(partSvg, 60, 42, {
+        color: '#e11d48',
+        radius: 3.8,
+        area: { x: 30, y: -220, width: 660, height: 180 }
+      });
+      gsap.set(particles, { autoAlpha: 0 });
+
+      // ================================================================ SCENE 1: Euphoria & The Borrowed Wire (0.0 - 17.65s)
+      // Frame 0 thumbnail establishment
+      tl.fromTo('#s1-kicker', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+      tl.fromTo('#s1-title', { autoAlpha: 1, scale: 1 }, { autoAlpha: 1, scale: 1, duration: 0.001 }, 0.0);
+      tl.fromTo('#s1-sub', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+      tl.fromTo('#s1-phone', { autoAlpha: 1, y: 0 }, { autoAlpha: 1, y: 0, duration: 0.001 }, 0.0);
+
+      // Micro-Beat 1 (0.8s - 3.0s): Trendline stroke and counter roll
+      S.draw.stroke(tl, '#chart-line-1', cue('s1', 0.6), { duration: 2.2, ease: 'power2.out' });
+      tl.fromTo('#chart-area-1', { opacity: 0 }, { opacity: 1, duration: 1.5, ease: 'power1.out' }, cue('s1', 1.2));
+      tl.fromTo('#chart-dot-1', { scale: 0 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' }, cue('s1', 2.6));
+      S.type.count(tl, '#s1-counter', cue('s1', 0.8), { from: 4120, to: 4875, duration: 2.4 });
+
+      // Micro-Beat 2 (3.5s - 7.0s): Spoken demographic tags pop in ("teachers, cab drivers, students")
+      tl.fromTo('#demo-1', { autoAlpha: 0, y: 15, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, cue('s1', 3.8));
+      tl.fromTo('#demo-2', { autoAlpha: 0, y: 15, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, cue('s1', 4.4));
+      tl.fromTo('#demo-3', { autoAlpha: 0, y: 15, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.45, ease: 'back.out(1.8)' }, cue('s1', 5.0));
+
+      // Micro-Beat 3 (7.0s - 11.5s): Phone hero scale drift and portfolio surge ("rally felt unstoppable")
+      tl.to('#s1-phone', { scale: 1.04, duration: 3.5, ease: 'sine.inOut' }, cue('s1', 6.8));
+      tl.fromTo('#s1-pct-tag', { scale: 1 }, { scale: 1.2, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.out' }, cue('s1', 7.5));
+      tl.to('#chart-dot-1', { r: 8.5, duration: 0.4, yoyo: true, repeat: 3, ease: 'sine.inOut' }, cue('s1', 8.2));
+
+      // Micro-Beat 4 (11.5s - 14.5s): Margin financing drawer reveal ("buying on borrowed money")
+      tl.fromTo('#s1-drawer', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.65, ease: 'power3.out' }, cue('s1', 11.5));
+      tl.fromTo('#s1-debt-bar', { scaleX: 0, transformOrigin: '0% 50%' }, { scaleX: 1, duration: 1.1, ease: 'power3.out' }, cue('s1', 12.0));
+      tl.fromTo('#s1-ratio-badge', { scale: 0.8 }, { scale: 1.1, duration: 0.35, yoyo: true, repeat: 1, ease: 'back.out(2)' }, cue('s1', 12.8));
+
+      // Micro-Beat 5 (14.5s - 17.65s): Amber buffer alert tag pulses ("borrowed money time bomb")
+      tl.fromTo('#s1-buffer-tag', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out' }, cue('s1', 14.6));
+      tl.to('#s1-buffer-tag', { scale: 1.05, duration: 0.4, yoyo: true, repeat: 3, ease: 'sine.inOut' }, cue('s1', 15.2));
+
+      // Transition to Scene 2: Transparent Cut
+      S.cut(tl, '#s1', '#s2', cue('s2'));
+
+      // ================================================================ SCENE 2: The Trap Snaps (17.65 - 33.25s)
+      // Micro-Beat 1 (17.65s - 20.5s): Tremor card enters and red breach flashes ("market blinked, 2% dip")
+      tl.fromTo('#s2-kicker', { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s2', 0.05));
+      tl.fromTo('#s2-title', { autoAlpha: 0, scale: 1.12 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power4.out' }, cue('s2', 0.1));
+      tl.fromTo('#s2-sub', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s2', 0.18));
+      tl.fromTo('#s2-tremor-card', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' }, cue('s2', 0.25));
+
+      // Micro-Beat 2 (20.5s - 24.5s): Collateral gauge enters and drains ("triple leverage execution order")
+      tl.fromTo('#s2-gauge-card', { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: 'back.out(1.4)' }, cue('s2', 2.8));
+      S.type.count(tl, '#s2-equity-val', cue('s2', 3.5), { from: 160000, to: 0, duration: 4.8 });
+      tl.fromTo('#gauge-arc', { strokeDashoffset: 0 }, { strokeDashoffset: 490, duration: 4.8, ease: 'power2.inOut' }, cue('s2', 3.5));
+      tl.to('#s2-wipeout-label', { textContent: '⚡ MARGIN LEVEL: 0% WIPEOUT', duration: 0.2 }, cue('s2', 7.5));
+
+      // Micro-Beat 3 (24.5s - 28.5s): Urgent push notification stack arrives ("broker algorithms took control")
+      tl.fromTo('#push-1', { autoAlpha: 0, x: -25 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'back.out(1.5)' }, cue('s2', 7.0));
+      tl.fromTo('#push-2', { autoAlpha: 0, x: -25 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'back.out(1.5)' }, cue('s2', 7.8));
+      tl.fromTo('#push-3', { autoAlpha: 0, x: -25 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'back.out(1.5)' }, cue('s2', 8.6));
+
+      // Micro-Beat 4 (28.5s - 33.25s): Involuntary liquidation stamp impact ("dumping collateral into freefall")
+      tl.fromTo('#s2-stamp', { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'back.out(2.2)' }, cue('s2', 11.2));
+      tl.to('#s2-stage', { y: 6, duration: 0.15, yoyo: true, repeat: 3, ease: 'sine.inOut' }, cue('s2', 11.4));
+
+      // Transition to Scene 3: Transparent Cut
+      S.cut(tl, '#s2', '#s3', cue('s3'));
+
+      // ================================================================ SCENE 3: The Human Stampede (33.25 - 50.02s)
+      // Micro-Beat 1 (33.25s - 36.5s): Split card enters, highlighting 90% retail dominance
+      tl.fromTo('#s3-kicker', { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s3', 0.05));
+      tl.fromTo('#s3-title', { autoAlpha: 0, scale: 1.1 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out' }, cue('s3', 0.1));
+      tl.fromTo('#s3-sub', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s3', 0.18));
+      tl.fromTo('#s3-split-card', { autoAlpha: 0, y: 20 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' }, cue('s3', 0.25));
+
+      // Staggered panic color turn on 30 retail dots
+      var dotEls = document.querySelectorAll('.retail-dot');
+      tl.fromTo(dotEls, { backgroundColor: '#e5e7eb', scale: 0.8 }, {
+        backgroundColor: '#e11d48',
+        scale: 1.1,
+        duration: 0.2,
+        stagger: 0.03,
+        ease: 'power1.out'
+      }, cue('s3', 1.0));
+
+      // Micro-Beat 2 (36.5s - 40.5s): Order-book bids collapse to 0% ("crowded theater with one exit")
+      tl.fromTo('#s3-depth-card', { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, cue('s3', 3.2));
+      tl.fromTo('#s3-bid-fill', { width: '50%' }, { width: '0%', duration: 3.2, ease: 'power3.in' }, cue('s3', 3.8));
+      tl.fromTo('#s3-bid-val', { textContent: '50.0%' }, { textContent: '0.0%', duration: 3.2, ease: 'power3.in' }, cue('s3', 3.8));
+
+      // Micro-Beat 3 (40.5s - 45.0s): Plunge curve drops & falling particles stream ("thirty million phones")
+      S.draw.stroke(tl, '#s3-plunge-path', cue('s3', 7.2), { duration: 3.2, ease: 'power2.in' });
+      tl.fromTo('#s3-plunge-dot', { scale: 0 }, { scale: 1, duration: 0.35, ease: 'back.out(2)' }, cue('s3', 10.2));
+
+      // Particle waterfall stream activates
+      tl.fromTo(particles, { autoAlpha: 0 }, { autoAlpha: 0.85, duration: 0.6 }, cue('s3', 7.0));
+      S.draw.drift(tl, particles, cue('s3', 7.0), cue('s4', 3.5), {
+        dy: 1400,
+        jitterX: 25,
+        spread: 0.6,
+        ease: 'power1.in'
+      });
+
+      // Micro-Beat 4 (45.0s - 50.02s): Rejection tag stamps ("smashed sell into an empty room")
+      tl.fromTo('#s3-reject-tag', { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'back.out(2.0)' }, cue('s3', 11.8));
+      tl.to('#s3-reject-tag', { scale: 1.04, duration: 0.35, yoyo: true, repeat: 3, ease: 'sine.inOut' }, cue('s3', 12.4));
+
+      // Transition to Scene 4: Transparent Cut
+      S.cut(tl, '#s3', '#s4', cue('s4'));
+
+      // ================================================================ SCENE 4: The Broken Spell (50.02 - 66.0s)
+      // Micro-Beat 1 (50.02s - 53.5s): State bailout barrier enters ("Beijing threw billions, state funds bought")
+      tl.fromTo('#s4-kicker', { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s4', 0.05));
+      tl.fromTo('#s4-title', { autoAlpha: 0, scale: 1.1 }, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out' }, cue('s4', 0.1));
+      tl.fromTo('#s4-sub', { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' }, cue('s4', 0.18));
+      tl.fromTo('#s4-bailout-card', { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out' }, cue('s4', 0.25));
+
+      // Micro-Beat 2 (53.5s - 57.0s): Shatter crack on the rescue barrier ("banned short selling, but bubble bursts")
+      tl.fromTo('#s4-crack', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2 }, cue('s4', 3.8));
+      tl.fromTo('#s4-shatter-tag', { autoAlpha: 0, scale: 0.8 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, cue('s4', 4.2));
+      tl.to('#s4-bailout-card', { opacity: 0.4, duration: 0.8, ease: 'power2.out' }, cue('s4', 5.5));
+
+      // Micro-Beat 3 (57.0s - 61.5s): Monument card enters with rolling -$2.4T counter ("can't print confidence")
+      tl.fromTo('#s4-monument', { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, cue('s4', 6.2));
+      tl.fromTo('#s4-big-counter', { textContent: '-$0.5T' }, { textContent: '-$2.4T', duration: 2.2, ease: 'power2.out' }, cue('s4', 6.6));
+      tl.fromTo('#s4-rule', { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, cue('s4', 7.5));
+
+      // Micro-Beat 4 (61.5s - 66.0s): Concluding takeaway quote lock ("the illusion broke")
+      tl.fromTo('#s4-quote', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, cue('s4', 9.0));
+
+      // Fade out particles towards end
+      tl.fromTo(particles, { autoAlpha: 0.85 }, { autoAlpha: 0, duration: 1.5 }, cue('end', -4.0));
+
+      // Breathing pulse on -$2.4T to conclude cleanly
+      tl.fromTo('#s4-big-counter', { scale: 1 }, { scale: 1.04, duration: 1.8, ease: 'sine.inOut', yoyo: true, repeat: 2 }, cue('s4', 9.5));
+    });
+  </script>
+</body>
+
+</html>
