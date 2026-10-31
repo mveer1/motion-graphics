@@ -161,15 +161,6 @@
     return global.gsap.timeline(v);
   };
 
-  Studio.register = function (tl, id) {
-    var key = id || Studio.format.compositionId;
-    global.__timelines = global.__timelines || {};
-    global.__timelines[key] = tl;
-    var root = rootElement();
-    if (root) root.setAttribute('data-studio-ready', 'true');
-    return tl;
-  };
-
   function reportError(err) {
     var root = rootElement();
     if (root) root.setAttribute('data-studio-error', String(err && err.message ? err.message : err));
@@ -198,6 +189,17 @@
     };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(run, run);
     else run();
+  };
+
+  Studio.register = function (tl, id) {
+    var key = id || Studio.format.compositionId;
+    global.__timelines = global.__timelines || {};
+    window.__timelines = window.__timelines || {};
+    window.__timelines[key] = tl;
+    global.__timelines[key] = tl;
+    var root = rootElement();
+    if (root) root.setAttribute('data-studio-ready', 'true');
+    return tl;
   };
 
   // ---------------------------------------------------------------- scenes

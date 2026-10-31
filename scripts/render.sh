@@ -34,14 +34,66 @@ echo "[2/4] Rendering visual track (HyperFrames)..."
   --fps 30 \
   --quality looks \
   --low-memory-mode \
-  --output ../renders/visuals.mp4)
+  --output ../renders/visuals.mp4 < /dev/null)
 
 # 3. Assemble audio & video
-echo "[3/4] Multiplexing video and narration with FFmpeg..."
+echo "[3/4] Multiplexing video and audio with FFmpeg..."
 AUDIO_FILE="$PROJECT_DIR/audio/narration-full.wav"
 OUTPUT_FILE="$PROJECT_DIR/renders/final.mp4"
 
-if [[ -f "$AUDIO_FILE" ]]; then
+SFX_TRACK=""
+if [[ -f "$PROJECT_DIR/audio/sfx-track.wav" ]]; then
+  SFX_TRACK="$PROJECT_DIR/audio/sfx-track.wav"
+elif [[ -f "$PROJECT_DIR/renders/film_sfx_sfx_track.wav" ]]; then
+  SFX_TRACK="$PROJECT_DIR/renders/film_sfx_sfx_track.wav"
+fi
+
+BGM_TRACK=""
+for bgm_candidate in "$PROJECT_DIR/audio/bgm.wav" "$PROJECT_DIR/audio/bgm.mp3" "$PROJECT_DIR/audio/music.mp3" "$PROJECT_DIR/audio/ambient.wav" "$PROJECT_DIR/audio/bed.wav"; do
+  if [[ -f "$bgm_candidate" ]]; then
+    BGM_TRACK="$bgm_candidate"
+    break
+  fi
+done
+
+if [[ -f "$AUDIO_FILE" ]] && [[ -n "$SFX_TRACK" ]] && [[ -n "$BGM_TRACK" ]]; then
+  ffmpeg -y \
+    -i "$PROJECT_DIR/renders/visuals.mp4" \
+    -i "$AUDIO_FILE" \
+    -i "$SFX_TRACK" \
+    -i "$BGM_TRACK" \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.85[a_sfx];[3:a]volume=0.25[a_bgm];[a_voice][a_sfx][a_bgm]amix=inputs=3:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy \
+    -c:a aac -b:a 192k \
+    -shortest \
+    "$OUTPUT_FILE" 2>/dev/null
+  echo "✅ Assembled final video with narration, SFX, and background music: $OUTPUT_FILE"
+elif [[ -f "$AUDIO_FILE" ]] && [[ -n "$SFX_TRACK" ]]; then
+  ffmpeg -y \
+    -i "$PROJECT_DIR/renders/visuals.mp4" \
+    -i "$AUDIO_FILE" \
+    -i "$SFX_TRACK" \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.85[a_sfx];[a_voice][a_sfx]amix=inputs=2:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy \
+    -c:a aac -b:a 192k \
+    -shortest \
+    "$OUTPUT_FILE" 2>/dev/null
+  echo "✅ Assembled final video with narration and SFX: $OUTPUT_FILE"
+elif [[ -f "$AUDIO_FILE" ]] && [[ -n "$BGM_TRACK" ]]; then
+  ffmpeg -y \
+    -i "$PROJECT_DIR/renders/visuals.mp4" \
+    -i "$AUDIO_FILE" \
+    -i "$BGM_TRACK" \
+    -filter_complex "[1:a]volume=1.0[a_voice];[2:a]volume=0.25[a_bgm];[a_voice][a_bgm]amix=inputs=2:duration=first:dropout_transition=2[aout]" \
+    -map 0:v -map "[aout]" \
+    -c:v copy \
+    -c:a aac -b:a 192k \
+    -shortest \
+    "$OUTPUT_FILE" 2>/dev/null
+  echo "✅ Assembled final video with narration and background music: $OUTPUT_FILE"
+elif [[ -f "$AUDIO_FILE" ]]; then
   ffmpeg -y \
     -i "$PROJECT_DIR/renders/visuals.mp4" \
     -i "$AUDIO_FILE" \

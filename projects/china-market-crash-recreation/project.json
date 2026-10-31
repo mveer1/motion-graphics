@@ -1,0 +1,38 @@
+{
+  "spec_version": 2,
+  "slug": "china-market-crash-recreation",
+  "title": "China Market Crash: Anatomy of a Liquidity Meltdown",
+  "template": "illustrated-explainer",
+  "style": "editorial-light",
+  "formats": [
+    {
+      "id": "portrait",
+      "width": 720,
+      "height": 1280,
+      "primary": true,
+      "platform": "instagram-reels"
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 43.08,
+  "quality": "looks",
+  "timing": {
+    "source": "narration",
+    "timeline_file": "audio/timeline.json"
+  },
+  "audio": {
+    "narration": true,
+    "voice": "am_adam",
+    "speed": 1.15,
+    "music": {
+      "enabled": true,
+      "file": "audio/bgm.wav",
+      "license": "Procedural documentary ambient bed (CC0 / project-internal)",
+      "fade_out_sec": 2.0
+    },
+    "sfx": true,
+    "captions": false,
+    "loudness_target_lufs": -14,
+    "loudness_tolerance_lu": 1.5
+  }
+}

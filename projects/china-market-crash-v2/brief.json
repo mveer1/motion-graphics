@@ -1,0 +1,78 @@
+{
+  "spec_version": 1,
+  "slug": "china-market-crash-v2",
+  "title": "China Market Crash: The Reflexive Cascade",
+  "objective": "Deconstruct China's 2026 stock market crash as a high-stakes psychological story of reflexive deleveraging and retail herd panic.",
+  "audience": "Curious finance and tech viewers on mobile looking for a gripping, cinematic narrative behind market crashes.",
+  "platforms": ["instagram-reels", "tiktok", "youtube-shorts"],
+  "deliverables": {
+    "formats": ["portrait"],
+    "duration_sec": { "min": 40, "target": 66, "max": 75 }
+  },
+  "message": {
+    "core_message": "When millions of retail traders buy stocks on triple leverage, a tiny dip triggers automated liquidation and a stampede where state bailouts cannot print confidence.",
+    "key_points": [
+      "Retail euphoria drove massive margin borrowing",
+      "A 2% dip triggered automatic 1/L collateral wipeouts",
+      "90% retail dominance created an instantaneous panic stampede",
+      "State ETF bailouts cannot arrest reflexive deleveraging without confidence"
+    ]
+  },
+  "tone": {
+    "emotional_response": ["tension", "urgency", "clarity", "revelation"],
+    "keywords": ["cinematic", "terminal", "dark", "high-stakes", "urgent"],
+    "avoid": ["static bar charts", "academic monotony", "cheesy stock photos", "sluggish transitions"]
+  },
+  "constraints": ["Designed natively for 720x1280 9:16 portrait", "Reel safe margins respected (10% top, 20% bottom)"],
+  "assets_provided": [],
+  "references": [],
+  "audio": { "narration": "required", "music": "optional", "sfx": "required", "captions": true },
+  "research": { "required": false, "reason": "Derived from validated research dossier in projects/china-market-crash-2026/research.json" },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "cinematic-financial-thriller",
+      "name": "Cinematic Bloomberg Terminal Thriller",
+      "concept": "A dark obsidian digital terminal world where a glowing green phone trading app shatters into an automated liquidation cascade, flowing into a vertical avalanche of panic sell orders.",
+      "visual_identity": {
+        "style_system": "cinematic-dark",
+        "palette": "Obsidian matte base (#090c12), terminal amber (#f59e0b), panic crimson (#ff334b), electric cyan (#38bdf8)",
+        "typography": "JetBrains Mono / monospace kicker and values, Inter / Grotesk display headers, condensed stats",
+        "texture": "Fine CRT phosphor scanlines and subtle terminal grid"
+      },
+      "motion_language": {
+        "personality": "Tense, relentless, precise, mechanical",
+        "signature_moves": ["Wipeout gauge drain", "Split-screen order book vacuum", "Cascade particle stampede"],
+        "transitions": "Directional camera push down, glitch cuts, and match-cuts"
+      },
+      "composition": { "approach": "Vertical 9:16 hero staging with top HUD telemetry and central dynamic motion stage" },
+      "pacing": "Builds from rhythmic green optimism to sudden jarring red alarm, fast stampede, and heavy concluding silence",
+      "why_it_fits": "Fits short-form vertical video storytelling perfectly with maximum thumb-stopping visual hook."
+    },
+    {
+      "id": "swiss-financial-documentary",
+      "name": "Swiss Brutalist Fact Sheet",
+      "concept": "High contrast black and white documentary layout with heavy typographic blocks and bold architectural grids.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "Stark paper (#f5f5f5), jet black (#0a0a0a), signal red (#ff0033)",
+        "typography": "Heavy grotesk display, clean sans body",
+        "texture": "Clean geometric grid lines"
+      },
+      "motion_language": {
+        "personality": "Rigid, journalistic, analytical",
+        "signature_moves": ["Hard cuts", "Typographic wipes"],
+        "transitions": "Linear slide cuts"
+      },
+      "composition": { "approach": "Strict 12-column grid layout" },
+      "pacing": "Steady metronome tempo",
+      "why_it_fits": "Clean and objective, but less emotionally gripping for short-form social video."
+    }
+  ],
+  "selected_direction": "cinematic-financial-thriller",
+  "success_criteria": [
+    "Native 720x1280 composition with proper safe areas",
+    "Narration synchronized to measured timestamps",
+    "Audio passes EBU R128 loudness requirements"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+ "video": null,
+ "composition": "/Users/mahavir/Downloads/Repo/motion graphics/projects/china-market-crash-2026/src/index.html",
+ "info": {
+  "duration": 42.55,
+  "source": "hyperframes",
+  "has_audio": null
+ },
+ "moments": [
+  {
+   "t": 0.2,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "s1-header",
+   "source": "gsap",
+   "tween_s": 0.6,
+   "id": 0,
+   "pct": 0.4
+  },
+  {
+   "t": 0.3,
+   "kind": "onset",
+   "strength": 0.7,
+   "hint": "s1-chart-panel",
+   "source": "gsap",
+   "tween_s": 0.6,
+   "id": 1,
+   "pct": 1.0
+  },
+  {
+   "t": 0.4,
+   "kind": "onset",
+   "strength": 0.7,
+   "hint": "s1-card-metrics ,   s1-card-formula",
+   "source": "gsap",
+   "tween_s": 0.6,
+   "id": 2,
+   "pct": 1.0
+  },
+  {
+   "t": 3.8,
+   "kind": "onset",
+   "strength": 0.7,
+   "hint": "s1-bear-badge",
+   "source": "gsap",
+   "tween_s": 0.4,
+   "id": 3,
+   "pct": 1.0
+  },
+  {
+   "t": 4.0,
+   "kind": "onset",
+   "strength": 0.55,
+   "hint": "s1-breach-ring",
+   "source": "gsap",
+   "tween_s": 1.0,
+   "id": 4,
+   "pct": 0.4
+  }
+ ],
+ "warnings": [
+  "GSAP position not understood: 'T.s2 + 0.1'",
+  "GSAP position not understood: 'T.s2 + 0.2'",
+  "GSAP position not understood: 'T.s2 + 1.2'",
+  "GSAP position not understood: 'T.s2 + 5.0'",
+  "GSAP position not understood: 'T.s2 + 5.5'",
+  "GSAP position not understood: 'T.s3 + 0.1'",
+  "GSAP position not understood: 'T.s3 + 0.2'",
+  "GSAP position not understood: 'T.s3 + 1.5'",
+  "GSAP position not understood: 'T.s3 + 1.6'",
+  "GSAP position not understood: 'T.s3 + 1.8'",
+  "GSAP position not understood: 'T.s3 + 2.4'",
+  "GSAP position not understood: 'T.s3 + 3.0'",
+  "GSAP position not understood: 'T.s3 + 3.6'",
+  "GSAP position not understood: 'T.s3 + 4.2'",
+  "GSAP position not understood: 'T.s3 + 4.5'",
+  "GSAP position not understood: 'T.s3 + 5.2'",
+  "GSAP position not understood: 'T.s3 + 6.0'",
+  "GSAP position not understood: 'T.s3 + 6.8'",
+  "GSAP position not understood: 'T.s3 + 7.0'",
+  "GSAP position not understood: 'T.s3 + 7.6'",
+  "GSAP position not understood: 'T.s3 + 8.2'",
+  "GSAP position not understood: 'T.s4 + 0.1'",
+  "GSAP position not understood: 'T.s4 + 0.2'",
+  "GSAP position not understood: 'T.s4 + 0.35'",
+  "GSAP position not understood: 'T.s4 + 0.5'",
+  "GSAP position not understood: 'T.s4 + 0.65'",
+  "GSAP position not understood: 'T.s4 + 0.8'",
+  "GSAP position not understood: 'T.s4 + 1.2'",
+  "GSAP position not understood: 'T.s4 + 1.6'",
+  "GSAP position not understood: 'T.s4 + 3.0'",
+  "GSAP position not understood: 'T.s4 + 3.2'",
+  "GSAP position not understood: 'T.s4 + 5.2'",
+  "GSAP position not understood: 'T.s4 + 5.4'",
+  "GSAP position not understood: 'T.s4 + 6.5'",
+  "GSAP position not understood: 'T.s4 + 6.8'",
+  "GSAP position not understood: 'T.s4 + 7.0'",
+  "GSAP position not understood: 'T.s4_end'",
+  "GSAP position not understood: 'atTime - fade / 2'"
+ ]
+}

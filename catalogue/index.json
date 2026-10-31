@@ -5995,6 +5995,64 @@
         "accessibility"
       ]
     },
+    "skill-kokoro-smart-tts": {
+      "id": "skill-kokoro-smart-tts",
+      "name": "Kokoro Smart TTS Skill",
+      "component_type": "skill",
+      "purpose": "Transforms Kokoro TTS into expressive, human-like speech via intelligent text preprocessing, calibrated breath pauses, and multi-voice tensor blending.",
+      "capabilities": [
+        "Intelligent text normalization (currencies, numbers, multipliers, fractions, initialisms)",
+        "Punctuation prosody enhancement (em-dashes, unicode ellipses, breath commas)",
+        "Multi-voice style vector linear blending",
+        "Calibrated genre presets (conversational, documentary, storytelling, energetic, technical-explainer)",
+        "Misaki Markdown IPA phonetics injection",
+        "Exact millisecond timeline marker generation for animation sync"
+      ],
+      "location": ".agents/skills/kokoro-smart-tts-skill",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-tts-pipeline"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Tested with Kokoro 0.9.4 and Python 3.12 on Apple Silicon M2."
+      },
+      "documentation_urls": [
+        ".agents/skills/kokoro-smart-tts-skill/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace-owned agent skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Preprocesses text and synthesizes local WAV files via Kokoro."
+      },
+      "owner": "audio-engineering",
+      "status": "approved",
+      "approval_evidence": "Evaluated with before/after audio benchmark across 3 genres in examples/before_after_samples/.",
+      "architecture_ref": "ARCHITECTURE.md#s2",
+      "last_verified": "2026-10-31",
+      "tags": [
+        "tts",
+        "voice",
+        "kokoro",
+        "prosody",
+        "audio-synthesis",
+        "voice-blending",
+        "phonetics"
+      ]
+    },
     "skill-motion-design": {
       "id": "skill-motion-design",
       "name": "Motion Design Principles & Choreography",
@@ -6155,6 +6213,65 @@
         "motion",
         "recipes",
         "dependencies",
+        "governance"
+      ]
+    },
+    "skill-parallel-session": {
+      "id": "skill-parallel-session",
+      "name": "Parallel Session Concurrency Skill",
+      "component_type": "skill",
+      "purpose": "Coordinates multi-project concurrent production sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions.",
+      "capabilities": [
+        "Hardware resource locking (Render and TTS mutexes via scripts/session-guard.py)",
+        "Project-scoped workspace governance execution (--project <slug>)",
+        "Non-blocking wait queues with periodic progress logging",
+        "Stale lock self-healing and recovery",
+        "Git worktree isolation for concurrent project branches (session-start/end)",
+        "Zero-quality-compromise pipeline orchestration"
+      ],
+      "location": ".agents/skills/parallel-session",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace skill. No installation needed."
+      },
+      "dependencies": [
+        "tool-session-guard",
+        "tool-studio-cli",
+        "tool-workspace-governance"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
+      },
+      "documentation_urls": [
+        ".agents/skills/parallel-session/SKILL.md",
+        "ARCHITECTURE.md#lifecycle"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace concurrency skill."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Coordinates locks via .locks/ and runs guarded project commands."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Production tested with concurrent lock acquisition and project-scoped governance gates.",
+      "architecture_ref": "ARCHITECTURE.md#lifecycle",
+      "last_verified": "2026-10-31",
+      "tags": [
+        "concurrency",
+        "parallel",
+        "session",
+        "locking",
         "governance"
       ]
     },
@@ -6436,21 +6553,24 @@
       "id": "skill-voice-director",
       "name": "Voice Director Skill",
       "component_type": "skill",
-      "purpose": "Pedagogical voice script authoring, Kokoro persona selection, speech pacing, silence buffer insertion, and phonetic respelling for technical terms.",
+      "purpose": "Pedagogical voice script authoring, Kokoro persona selection, multi-voice tensor blending, speech pacing, smart silence buffer insertion, and phonetic respelling for technical terms.",
       "capabilities": [
         "Conversational narration scriptwriting",
-        "Phonetic lexicon substitution for technical symbols and acronyms",
-        "Kokoro voice persona assignment (am_adam, af_bella, etc.)",
+        "Smart text normalization for numbers, currencies, multipliers, and initialisms",
+        "Multi-voice style vector blending (am_michael + am_adam, etc.)",
+        "Calibrated genre prosody presets (documentary, conversational, storytelling, energetic)",
+        "Phonetic lexicon substitution and Markdown IPA injection",
         "Millisecond duration timeline mapping"
       ],
       "location": ".agents/skills/voice-director",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "installation": {
         "required": false,
         "instructions": "Built-in workspace skill. No installation needed."
       },
       "dependencies": [
-        "tool-tts-pipeline"
+        "tool-tts-pipeline",
+        "skill-kokoro-smart-tts"
       ],
       "compatibility": {
         "apple_silicon_tested": true,
@@ -7231,6 +7351,65 @@
         "hyperframes",
         "low-memory",
         "chromium"
+      ]
+    },
+    "tool-session-guard": {
+      "id": "tool-session-guard",
+      "name": "Session Guard Concurrency Coordinator",
+      "component_type": "tool",
+      "purpose": "Coordinates parallel project execution across independent sessions, providing non-blocking queues and mutual exclusion locks for hardware-bound bottlenecks (Chromium render host, Kokoro TTS, Playwright frame-review) on Apple Silicon macOS without compromising rendering quality.",
+      "capabilities": [
+        "Exclusive render host lock: serializes Chromium + Metal GPU rendering and frame-review across concurrent sessions",
+        "Exclusive TTS lock: serializes neural speech synthesis to prevent PyTorch resident memory pressure",
+        "Stale lock self-healing: detects dead holder PIDs and automatically cleans stale locks",
+        "Project-scoped governance execution: wraps workspace-governance.py --project <slug>",
+        "Heartbeat wait logging: informs background sessions of resource lock holders while waiting",
+        "Isolated Git worktree management: session-start, session-list, session-end with automated branch isolation and virtualenv linking"
+      ],
+      "location": "scripts/session-guard.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Built-in workspace tool. Run via python3 scripts/session-guard.py <subcommand>."
+      },
+      "dependencies": [
+        "tool-studio-cli",
+        "tool-hyperframes",
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3",
+        "notes": "Uses standard library fcntl.flock on POSIX macOS."
+      },
+      "documentation_urls": [
+        "ARCHITECTURE.md#lifecycle",
+        ".agents/skills/parallel-session/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace concurrency tool."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes lockfiles to .locks/ and coordinates local subprocess execution."
+      },
+      "owner": "workspace-governance",
+      "status": "approved",
+      "approval_evidence": "Validated via cross-process concurrency tests and scoped governance checks.",
+      "architecture_ref": "ARCHITECTURE.md#lifecycle",
+      "last_verified": "2026-10-31",
+      "tags": [
+        "concurrency",
+        "locking",
+        "parallel",
+        "session-guard",
+        "mutex"
       ]
     },
     "tool-sfx-openverse": {

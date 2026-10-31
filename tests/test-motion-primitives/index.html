@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Motion Primitives Showcase & Verification</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">
+    :root {
+      --w: 720px;
+      --h: 1280px;
+      --u: 7.2px;
+      --safe-top: 128px;
+      --safe-right: 72px;
+      --safe-bottom: 256px;
+      --safe-left: 43px;
+    }
+  </style>
+  <style>
+    :root {
+      --c-paper: #fbfbfa;
+      --c-ink: #111827;
+      --c-ink-2: #374151;
+      --c-accent: #ba4128;
+      --c-accent-soft: rgba(186, 65, 40, 0.12);
+      --c-bull: #047857;
+      --c-bull-soft: rgba(4, 120, 87, 0.12);
+      --font-display: 'Oswald', sans-serif;
+      --font-text: 'Inter', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    #root {
+      width: 720px;
+      height: 1280px;
+      position: relative;
+      background: radial-gradient(circle at 50% 20%, #ffffff 0%, var(--c-paper) 70%);
+      color: var(--c-ink);
+      font-family: var(--font-text);
+      overflow: hidden;
+    }
+
+    .st-scene {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    #s1 {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .ambient-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+      background-size: calc(var(--u) * 6) calc(var(--u) * 6);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particles-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      overflow: visible;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+
+<body>
+  <div id="root" data-composition-id="root" data-format="portrait" data-width="720" data-height="1280" data-fps="30" data-duration="10">
+    <div class="ambient-bg-grid"></div>
+
+    <!-- Scene 1: Hero Stage + Animated Chart + Kinetic Typography -->
+    <div class="st-scene" id="s1" data-layout-allow-overlap></div>
+
+    <!-- Scene 2: Split Stage + Radial Liquidation Gauge -->
+    <div class="st-scene" id="s2" data-layout-allow-overlap></div>
+
+    <!-- Scene 3: Monumental Stat + Flowing Particles -->
+    <div class="st-scene" id="s3" data-layout-allow-overlap>
+      <svg class="particles-layer" id="s3-particles" viewBox="0 0 720 1280" data-layout-ignore></svg>
+    </div>
+  </div>
+
+  <script src="_studio/studio-core.js"></script>
+  <script src="_studio/studio-draw.js"></script>
+  <script src="_studio/studio-type.js"></script>
+  <script src="_studio/studio-motion.js"></script>
+  <script src="_studio/studio-compositions.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+
+    Studio.build(function (tl, F, S) {
+      // Cue timestamps
+      var cue = S.cues({
+        s1: 0.0,
+        s2: 3.2,
+        s3: 6.8,
+        end: 10.0
+      });
+
+      // =========================================================================
+      // SCENE 1: Hero Stage & Large Focal Visuals (65-80% Occupancy)
+      // =========================================================================
+      var s1El = document.getElementById('s1');
+      var hero = S.comp.heroStage(s1El, {
+        kicker: 'CSI 300 // LIQUIDITY FLOW',
+        titleHTML: 'THE <em>SURGE</em> BEFORE COLLAPSE',
+        subtitle: 'Over 30 million retail accounts entered margin financing.',
+        footer: 'LEVERAGE MULTIPLIER: 3.0X'
+      }, { center: true });
+
+      // Build animated chart inside focal viewport
+      var chartData = {
+        width: 600,
+        height: 380,
+        baselineY: 370,
+        label: 'EQUITY INFLOW',
+        initialVal: '$4,120B',
+        tag: '+128% SURGE',
+        points: [
+          [20, 340], [120, 310], [220, 290], [320, 210], [420, 160], [520, 80], [580, 50]
+        ],
+        lineColor: '#047857',
+        areaFill: 'rgba(4, 120, 87, 0.12)'
+      };
+      var chart = S.comp.animatedChart(hero.viewport, chartData);
+
+      // Frame 0 establishing thumbnail state
+      tl.fromTo(s1El, { autoAlpha: 1 }, { autoAlpha: 1, duration: 0.001 }, 0.0);
+      hero.enter(tl, cue('s1'));
+      chart.enter(tl, cue('s1', 0.2), { duration: 1.8 });
+
+      // Kinetic punch on spoken emphasis word
+      S.type.punch(tl, '.st-display em', cue('s1', 1.4), { scale: 1.25, color: '#ba4128' });
+
+      // Continuous subtle camera drift to eliminate dead visual air
+      S.space.drift(tl, hero.viewport, cue('s1'), cue('s2'), { startScale: 1.0, endScale: 1.06 });
+
+      // =========================================================================
+      // TRANSITION 1: Cinematic Zoom-Through into Scene 2
+      // =========================================================================
+      S.transition(tl, '#s1', '#s2', cue('s2'), {
+        type: 'zoomThrough',
+        duration: 0.75,
+        outScale: 2.2,
+        inScale: 0.45
+      });
+
+      // =========================================================================
+      // SCENE 2: Split Stage & Radial Gauge
+      // =========================================================================
+      var s2El = document.getElementById('s2');
+      var split = S.comp.splitStage(s2El, { badge: 'VS' });
+
+      // Left pane: Header & Radial Liquidation Gauge
+      var s2Header = S.type.heroHeader(split.paneA, {
+        kicker: 'SYSTEMIC FRICTION',
+        title: 'LIQUIDATION RISK',
+        subtitle: 'Margin calls trigger automated selling.'
+      }, { center: false, fit: false });
+      s2Header.enter(tl, cue('s2', 0.2));
+
+      var gaugeSvg = S.svg('svg', {
+        viewBox: '0 0 400 320',
+        width: '100%',
+        height: '240px',
+        style: 'overflow: visible;'
+      }, split.paneA);
+      var gauge = S.draw.chart.gauge(gaugeSvg, { cx: 200, cy: 190, r: 120, strokeWidth: S.u(2.0), color: '#ba4128' });
+      gauge.set(tl, 0.85, cue('s2', 0.6), 1.6);
+
+      // Right pane: Structured items
+      var list = S.comp.itemList(split.paneB, [
+        { qty: '3.0X', label: 'Maximum Margin' },
+        { qty: '85%', label: 'Maintenance Ratio' },
+        { qty: 'T+0', label: 'Algorithmic Dump' }
+      ]);
+      split.enter(tl, cue('s2', 0.1));
+      list.enter(tl, cue('s2', 0.5));
+
+      // Continuous camera drift during Scene 2
+      S.space.drift(tl, split.el, cue('s2'), cue('s3'), { startScale: 1.0, endScale: 1.04 });
+
+      // =========================================================================
+      // TRANSITION 2: Directional Wipe into Scene 3
+      // =========================================================================
+      S.transition(tl, '#s2', '#s3', cue('s3'), {
+        type: 'wipe',
+        from: 'left',
+        duration: 0.8,
+        edge: '#ba4128'
+      });
+
+      // =========================================================================
+      // SCENE 3: Monumental Stat & Particle Outflow Stream
+      // =========================================================================
+      var s3El = document.getElementById('s3');
+      var monument = S.comp.monumentStat(s3El, {
+        kicker: 'CUMULATIVE CAPITAL LOSS',
+        from: 0.2,
+        to: 2.4,
+        prefix: '-$',
+        suffix: 'T',
+        decimals: 1,
+        context: 'Cascading liquidations erased months of euphoria.'
+      });
+      monument.enter(tl, cue('s3', 0.2), { duration: 2.0 });
+
+      // Streaming particles along falling curve
+      var pSvg = document.getElementById('s3-particles');
+      var stream = S.draw.particleStream(pSvg, 24, 'M120 100 C200 400 500 800 600 1200', cue('s3', 0.5), cue('end'), {
+        speed: 1.8,
+        color: '#ba4128',
+        radius: S.u(0.6)
+      });
+      stream.animate(tl);
+
+      // Final conclusion pulse
+      S.fx.pulse(tl, monument.valEl, cue('end', -1.2), { scale: 1.08 });
+    });
+  </script>
+</body>
+
+</html>

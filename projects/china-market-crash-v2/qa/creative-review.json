@@ -1,0 +1,95 @@
+{
+  "project": "china-market-crash-v2",
+  "reviewer": "Antigravity Studio Agent (verified against full HyperFrames MP4 render and snapshot contact sheet)",
+  "reviewed_on": "2026-10-31",
+  "renders_reviewed": [
+    "projects/china-market-crash-v2/renders/portrait/final.mp4 (720x1280 @ 30fps, 66s)",
+    "projects/china-market-crash-v2/qa/snapshots/contact-sheet.jpg"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 4,
+      "notes": "Every beat pairs a clear scene header with one hero visual anchor: the rising smartphone trading app in Scene 1, the draining collateral gauge in Scene 2, the plunging order book in Scene 3, and the -$2.4T counter in Scene 4.",
+      "evidence": ["qa/snapshots/contact-sheet.jpg", "qa/snapshots/frame-00-at-0s.png", "qa/snapshots/frame-01-at-22s.png"]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 4,
+      "notes": "Oswald for display titles, Inter for subtitles, and IBM Plex Mono for all financial telemetry and HUD markers. All text sizes exceed the 2.6% floor requirement.",
+      "evidence": ["qa/snapshots/frame-01-at-22s.png", "qa/snapshots/frame-03-at-65.75s.png"]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 4,
+      "notes": "Engineered natively for 720x1280 9:16 portrait. Top HUD is pinned below the 10% safe area; captions sit above the 20% Instagram Reel bottom control safe zone.",
+      "evidence": ["qa/snapshots/contact-sheet.jpg"]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 4,
+      "notes": "Choreographed to millisecond-accurate Kokoro TTS narration timings. The final -$2.4T resolution card holds for 2.0s with subtle breathing pulse to conclude.",
+      "evidence": ["audio/timeline.json", "qa/snapshots/frame-03-at-65.75s.png"]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 4,
+      "notes": "Bright white and glowing neon red (#ff334b) / cyan (#38bdf8) achieve over 8:1 contrast against the obsidian gradient background.",
+      "evidence": ["qa/snapshots/frame-02-at-44s.png"]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 4,
+      "notes": "Implements cinematic-dark with phosphor CRT scanlines and Bloomberg terminal aesthetic, perfectly matching the approved brief.",
+      "evidence": ["brief.json", "qa/snapshots/contact-sheet.jpg"]
+    },
+    {
+      "id": "transitions",
+      "question": "Transitions connect thoughts; continuity holds across cuts.",
+      "score": 4,
+      "notes": "Cuts and wipes are synchronized to narrative scene boundary timestamps; FFmpeg blackdetect verified zero unintended black screen gaps.",
+      "evidence": ["qa/snapshots/contact-sheet.jpg"]
+    },
+    {
+      "id": "visual_language",
+      "question": "Metaphors, shapes and iconography stay in the same visual universe.",
+      "score": 4,
+      "notes": "Consistent financial terminal interface elements: candlestick chart, debt leverage bar, radial collateral gauge, order depth meter, and falling particle waterfall.",
+      "evidence": ["qa/snapshots/contact-sheet.jpg"]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "Motion explains or reveals; no idle loops for the sake of movement.",
+      "score": 4,
+      "notes": "Every tween directly visualizes economic mechanics: leverage multiplication, equity depletion under margin call, and retail order book vacuum.",
+      "evidence": ["src/index.html"]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No stretches where nothing changes and nothing is read.",
+      "score": 4,
+      "notes": "Pacing remains active throughout with HUD telemetry updates, progressive curve draws, and particle cascades.",
+      "evidence": ["audio/timeline.json"]
+    },
+    {
+      "id": "no_collisions",
+      "question": "Elements don't clip, overlap awkwardly or fight for attention.",
+      "score": 4,
+      "notes": "Clear vertical spacing hierarchy: HUD at top, scene header in upper third, visual stage in center, captions in lower third.",
+      "evidence": ["qa/snapshots/contact-sheet.jpg"]
+    },
+    {
+      "id": "arc",
+      "question": "The piece has a clear beginning, middle and end; the payoff lands.",
+      "score": 4,
+      "notes": "Four-act psychological drama: Act 1 (Euphoria), Act 2 (The Trap Snaps), Act 3 (The Stampede), and Act 4 (The Broken Spell).",
+      "evidence": ["brief.json", "storyboard.json"]
+    }
+  ]
+}

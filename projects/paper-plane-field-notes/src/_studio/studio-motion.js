@@ -672,4 +672,132 @@
     });
     return end;
   };
+
+  /**
+   * Cinematic Zoom-Through: Outgoing scene plunges forward and fades,
+   * while incoming scene zooms into focus from center.
+   */
+  FX.zoomThrough = function (tl, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var dur = o.duration || 0.85;
+    var ease = o.ease || 'power3.inOut';
+    Studio.show(tl, inTarget, at);
+    tl.fromTo(outTarget,
+      { scale: 1, autoAlpha: 1 },
+      { scale: o.outScale || 2.2, autoAlpha: 0, duration: dur, ease: ease, immediateRender: false },
+      at);
+    tl.fromTo(inTarget,
+      { scale: o.inScale || 0.45, autoAlpha: 0 },
+      { scale: 1, autoAlpha: 1, duration: dur, ease: ease, immediateRender: true },
+      at);
+    Studio.hide(tl, outTarget, at + dur);
+    return at + dur;
+  };
+
+  /**
+   * Coordinated element pulse: momentary scale overshoot for emphasis.
+   */
+  FX.pulse = function (tl, target, at, options) {
+    var o = options || {};
+    var els = Studio.all(target);
+    var dur = o.duration || 0.4;
+    var scale = o.scale || 1.1;
+    var ease = o.ease || 'power2.out';
+    tl.fromTo(els,
+      { scale: 1 },
+      { scale: scale, duration: dur * 0.45, ease: ease, yoyo: true, repeat: 1, immediateRender: false },
+      at);
+    return at + dur;
+  };
+
+  /**
+   * Multi-element coordinated sequence: sequences items with unified easing and rhythm.
+   */
+  FX.coordinate = function (tl, items, at, options) {
+    var o = options || {};
+    var baseEase = o.ease || 'power3.out';
+    var stagger = o.stagger || 0.08;
+    var end = at;
+    items.forEach(function (it, idx) {
+      var t = at + (it.offset !== undefined ? it.offset : idx * stagger);
+      var dur = it.duration || o.duration || 0.6;
+      var ease = it.ease || baseEase;
+      var fromVars = Object.assign({}, it.from || { autoAlpha: 0, y: Studio.u(2) });
+      var toVars = Object.assign({ duration: dur, ease: ease }, it.to || { autoAlpha: 1, y: 0 });
+      tl.fromTo(it.target, fromVars, toVars, t);
+      end = Math.max(end, t + dur);
+    });
+    return end;
+  };
+
+  /**
+   * Continuous virtual camera drift: slow subtle scale/position shift to eliminate frozen frames.
+   */
+  SP.drift = function (tl, stage, from, to, options) {
+    var o = options || {};
+    var st = first(stage);
+    var startScale = o.startScale || 1.0;
+    var endScale = o.endScale || 1.05;
+    var dur = Math.max(0.1, to - from);
+    tl.fromTo(st,
+      { scale: startScale, transformOrigin: o.origin || '50% 50%' },
+      { scale: endScale, duration: dur, ease: o.ease || 'sine.inOut', immediateRender: false },
+      from);
+    return to;
+  };
+
+  /**
+   * Pan virtual camera to frame a specific element.
+   */
+  SP.panTo = function (tl, stage, target, at, options) {
+    var o = options || {};
+    var st = first(stage);
+    var b = Studio.boxAt(tl, target, at);
+    var f = Studio.format;
+    var dx = (f.width / 2) - b.cx;
+    var dy = (f.height / 2) - b.cy;
+    var dur = o.duration || 1.2;
+    var scale = o.scale || 1.2;
+    return SP.camera(tl, st, at, {
+      x: -dx,
+      y: -dy,
+      scale: scale,
+      duration: dur,
+      ease: o.ease || 'power3.inOut'
+    });
+  };
+
+  /**
+   * Unified Composable Transition Architecture.
+   * Priority 4: Establishes explicit semantic relationships between scenes.
+   */
+  Studio.transition = function (tl, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var type = o.type || 'wipe';
+    if (type === 'matchCut' && o.focal && o.focal.from && o.focal.to) {
+      return FX.matchCut(tl, o.focal.from, o.focal.to, outTarget, inTarget, at, o);
+    }
+    if (type === 'zoomThrough') {
+      return FX.zoomThrough(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'push') {
+      return FX.push(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'iris') {
+      return FX.iris(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'shapeCover') {
+      return FX.shapeCover(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'liquid') {
+      return FX.liquid(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'crossfade' || type === 'dissolve') {
+      return Studio.crossfade(tl, outTarget, inTarget, at, o.duration || 0.6);
+    }
+    if (type === 'cut') {
+      return Studio.cut(tl, outTarget, inTarget, at);
+    }
+    return FX.wipe(tl, outTarget, inTarget, at, o);
+  };
 })(typeof window !== 'undefined' ? window : this);

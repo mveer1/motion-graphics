@@ -1,0 +1,131 @@
+{
+  "spec_version": 1,
+  "slug": "china-market-crash-v3",
+  "title": "China Market Crash: The Reflexive Cascade",
+  "objective": "Deconstruct China's 2026 stock market crash as a high-stakes, visually dynamic explainer of reflexive deleveraging and retail herd panic with rich multi-beat visual choreography.",
+  "audience": "Curious finance and tech viewers on mobile looking for a gripping, cinematic narrative behind market crashes.",
+  "platforms": [
+    "instagram-reels",
+    "tiktok",
+    "youtube-shorts"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 40,
+      "target": 66,
+      "max": 75
+    }
+  },
+  "message": {
+    "core_message": "When millions of retail traders buy stocks on triple leverage, a tiny dip triggers automated liquidation and a stampede where state bailouts cannot print confidence.",
+    "key_points": [
+      "Retail euphoria drove massive margin borrowing",
+      "A 2% dip triggered automatic 1/L collateral wipeouts",
+      "90% retail dominance created an instantaneous panic stampede",
+      "State ETF bailouts cannot arrest reflexive deleveraging without confidence"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "tension",
+      "urgency",
+      "clarity",
+      "revelation"
+    ],
+    "keywords": [
+      "vibrant",
+      "high-contrast",
+      "editorial",
+      "high-stakes",
+      "kinetic"
+    ],
+    "avoid": [
+      "static holds",
+      "academic monotony",
+      "frozen screens",
+      "sluggish transitions"
+    ]
+  },
+  "constraints": [
+    "Designed natively for 720x1280 9:16 portrait",
+    "Reel safe margins respected (10% top, 20% bottom)",
+    "Anti-Laziness Mandate: Zero static visual freezes while narration speaks",
+    "Default light theme: Off-white canvas with warm, punchy, high-contrast colors"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "required",
+    "captions": true
+  },
+  "research": {
+    "required": false,
+    "reason": "Derived from validated research dossier in projects/china-market-crash-2026/research.json"
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "warm-high-contrast-editorial",
+      "name": "Warm High-Contrast Editorial Financial Thriller",
+      "concept": "A sophisticated light-canvas financial thriller where a warm ivory editorial surface (#FBFBFA) stages a smartphone trading terminal, radial wipeout gauges, plunging order-book depth bars, and monumental $2.4T takeaway cards with rich, vibrant contrast colors (vermilion, ultramarine, amber, emerald).",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Warm ivory base (#FBFBFA), crisp white cards (#FFFFFF), deep charcoal ink (#111827), punchy vermilion (#E11D48), electric ultramarine (#1D4ED8), marigold amber (#F59E0B), emerald (#059669)",
+        "typography": "Playfair Display / Oswald headings, Inter body, JetBrains Mono telemetry metrics",
+        "texture": "Subtle editorial paper grain and crisp frosted glass cards"
+      },
+      "motion_language": {
+        "personality": "Urgent, fluid, highly animated, rhythmic",
+        "signature_moves": [
+          "Dynamic multi-beat smartphone trading surge",
+          "Collateral liquidation gauge rapid depletion",
+          "Panic order-book waterfall with live volume counter",
+          "Monumental -$2.4T value breakdown and pulse"
+        ],
+        "transitions": "Clean transparent cuts and coordinated wipeouts (zero transition whooshes)"
+      },
+      "composition": {
+        "approach": "Vertical 9:16 layout with top HUD telemetry, central interactive stage viewport, and bottom status badge"
+      },
+      "pacing": "Continuous visual evolution every 2-3 seconds matching spoken keywords and metrics",
+      "why_it_fits": "Delivers maximum retention on mobile reels with stunning high-contrast clarity on light backgrounds."
+    },
+    {
+      "id": "swiss-financial-documentary",
+      "name": "Swiss Modern Analytical Fact Sheet",
+      "concept": "A rigid Swiss-style analytical layout on cool white (#F8F9FA) with heavy grotesk typography and monochrome architecture.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "Clean paper (#F8F9FA), jet black (#09090B), signal crimson (#EF4444)",
+        "typography": "Heavy sans display, clean mono body",
+        "texture": "Clean grid lines"
+      },
+      "motion_language": {
+        "personality": "Rigid, journalistic, metronomic",
+        "signature_moves": [
+          "Hard cuts",
+          "Linear bar draws"
+        ],
+        "transitions": "Linear slide cuts"
+      },
+      "composition": {
+        "approach": "Strict 12-column analytical grid"
+      },
+      "pacing": "Deliberate and formal",
+      "why_it_fits": "Objective and stark, but less visually layered and dynamic than the warm editorial thriller."
+    }
+  ],
+  "selected_direction": "warm-high-contrast-editorial",
+  "success_criteria": [
+    "Native 720x1280 composition with proper safe areas",
+    "Narration synchronized to measured timestamps",
+    "Multi-beat visual choreographies with zero static freezes",
+    "Dim themed background music bed and tactile micro-sfx",
+    "Audio passes EBU R128 loudness requirements"
+  ]
+}

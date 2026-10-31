@@ -1,0 +1,24 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Where Did Two Trillion Vanish?",
+      "text": "How did China's stock market suddenly lose two trillion dollars? It started with a normal dip. But ten weeks of nonstop drops broke the market wide open."
+    },
+    {
+      "id": "s2",
+      "title": "The Borrowed Money Trap",
+      "text": "The real culprit? Borrowed money. When traders buy stocks on debt, even a small drop wipes out their cash completely, forcing brokers to sell everything automatically."
+    },
+    {
+      "id": "s3",
+      "title": "The Everyday Retail Panic",
+      "text": "In China, ninety percent of trades come from everyday people on their phones. When panic spreads, millions hit sell together, turning a small dip into an avalanche."
+    },
+    {
+      "id": "s4",
+      "title": "Why Bailouts Couldn't Fix It",
+      "text": "Property debt and tech sell-offs made it worse. Even massive government bailouts can't stop a crash until real corporate profits grow and people believe in the economy."
+    }
+  ]
+}

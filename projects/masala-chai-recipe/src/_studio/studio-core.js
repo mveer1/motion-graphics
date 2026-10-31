@@ -161,15 +161,6 @@
     return global.gsap.timeline(v);
   };
 
-  Studio.register = function (tl, id) {
-    var key = id || Studio.format.compositionId;
-    global.__timelines = global.__timelines || {};
-    global.__timelines[key] = tl;
-    var root = rootElement();
-    if (root) root.setAttribute('data-studio-ready', 'true');
-    return tl;
-  };
-
   function reportError(err) {
     var root = rootElement();
     if (root) root.setAttribute('data-studio-error', String(err && err.message ? err.message : err));
@@ -198,6 +189,17 @@
     };
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(run, run);
     else run();
+  };
+
+  Studio.register = function (tl, id) {
+    var key = id || Studio.format.compositionId;
+    global.__timelines = global.__timelines || {};
+    window.__timelines = window.__timelines || {};
+    window.__timelines[key] = tl;
+    global.__timelines[key] = tl;
+    var root = rootElement();
+    if (root) root.setAttribute('data-studio-ready', 'true');
+    return tl;
   };
 
   // ---------------------------------------------------------------- scenes
@@ -286,5 +288,23 @@
       return out;
     }
     return [target];
+  };
+
+  /**
+   * Box of `target` in #root pixels as it renders at time `t` of `tl` (seeks there, measures, seeks
+   * back). Lets transitions and annotations aim at elements that earlier tweens have moved.
+   * Returns {x, y, w, h, cx, cy}.
+   */
+  Studio.boxAt = function (tl, target, t) {
+    var el = Studio.all(target)[0];
+    if (!el) throw new Error('Studio.boxAt: target not found');
+    var prev = tl.time();
+    var seek = t !== undefined && t !== null;
+    if (seek) tl.seek(t, true);
+    var root = rootElement().getBoundingClientRect();
+    var r = el.getBoundingClientRect();
+    if (seek) tl.seek(prev, true);
+    var x = r.left - root.left, y = r.top - root.top;
+    return { x: x, y: y, w: r.width, h: r.height, cx: x + r.width / 2, cy: y + r.height / 2 };
   };
 })(typeof window !== 'undefined' ? window : this);

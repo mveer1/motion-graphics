@@ -279,4 +279,491 @@
     });
     return to;
   };
+
+  // ------------------------------------------------------------------ morph-ready shapes
+  function samplePolygon(verts, n) {
+    var segs = [], total = 0;
+    for (var i = 0; i < verts.length; i++) {
+      var a = verts[i], b = verts[(i + 1) % verts.length];
+      var l = Math.sqrt((b[0] - a[0]) * (b[0] - a[0]) + (b[1] - a[1]) * (b[1] - a[1]));
+      segs.push({ a: a, b: b, l: l, start: total });
+      total += l;
+    }
+    var out = [], s = 0;
+    for (var k = 0; k < n; k++) {
+      var target = (k / n) * total;
+      while (s < segs.length - 1 && segs[s].start + segs[s].l < target) s++;
+      var g = segs[s], f = g.l ? (target - g.start) / g.l : 0;
+      out.push([g.a[0] + (g.b[0] - g.a[0]) * f, g.a[1] + (g.b[1] - g.a[1]) * f]);
+    }
+    return out;
+  }
+
+  function startAtTop(pts, cx, cy) {
+    var best = 0, bestD = Infinity;
+    for (var i = 0; i < pts.length; i++) {
+      var a = Math.atan2(pts[i][1] - cy, pts[i][0] - cx) + Math.PI / 2;
+      var d = Math.abs(Math.atan2(Math.sin(a), Math.cos(a)));
+      if (d < bestD - 1e-9) { bestD = d; best = i; }
+    }
+    return pts.slice(best).concat(pts.slice(0, best));
+  }
+
+  /**
+   * Morph-ready closed shape: kind 'circle' | 'polygon' | 'star' | 'rect' | 'poly'. Shapes with the
+   * same `points` count share one command structure (M, L..., Z), start at the top and run clockwise,
+   * so any two morph with D.morph without twisting. options: {cx, cy, r, rx, ry (circle),
+   * sides (polygon), spikes, inner (star), w, h (rect), verts ([[x, y], ...] clockwise, poly),
+   * rotate (deg, default -90), points (48)}. For poly the centre defaults to the vertex centroid.
+   */
+  D.shape = function (kind, options) {
+    var o = options || {};
+    var n = o.points || 48;
+    var cx = o.cx || 0, cy = o.cy || 0, r = o.r || 100;
+    var rot = (o.rotate === undefined ? -90 : o.rotate) * Math.PI / 180;
+    var pts = [], verts = [], i;
+    if (kind === 'circle') {
+      for (i = 0; i < n; i++) {
+        var a = -Math.PI / 2 + (i / n) * Math.PI * 2;
+        pts.push([cx + Math.cos(a) * (o.rx || r), cy + Math.sin(a) * (o.ry || r)]);
+      }
+    } else {
+      if (kind === 'polygon') {
+        var sides = o.sides || 3;
+        for (i = 0; i < sides; i++) verts.push([cx + Math.cos(rot + (i / sides) * Math.PI * 2) * r, cy + Math.sin(rot + (i / sides) * Math.PI * 2) * r]);
+      } else if (kind === 'star') {
+        var spikes = o.spikes || 5, inner = o.inner === undefined ? 0.45 : o.inner;
+        for (i = 0; i < spikes * 2; i++) {
+          var ang = rot + (i / (spikes * 2)) * Math.PI * 2, rr = i % 2 ? r * inner : r;
+          verts.push([cx + Math.cos(ang) * rr, cy + Math.sin(ang) * rr]);
+        }
+      } else if (kind === 'rect') {
+        var hw = (o.w || r * 2) / 2, hh = (o.h || r * 2) / 2;
+        verts = [[cx - hw, cy - hh], [cx + hw, cy - hh], [cx + hw, cy + hh], [cx - hw, cy + hh]];
+      } else if (kind === 'poly') {
+        if (!o.verts || o.verts.length < 3) throw new Error('Studio.draw.shape: poly needs options.verts with 3 or more [x, y] points');
+        verts = o.verts.map(function (v) { return [v[0], v[1]]; });
+        if (o.cx === undefined && o.cy === undefined) {
+          cx = verts.reduce(function (s, v) { return s + v[0]; }, 0) / verts.length;
+          cy = verts.reduce(function (s, v) { return s + v[1]; }, 0) / verts.length;
+        }
+      } else {
+        throw new Error('Studio.draw.shape: unknown kind "' + kind + '"');
+      }
+      pts = startAtTop(samplePolygon(verts, n), cx, cy);
+    }
+    var d = 'M' + fmt(pts[0][0]) + ' ' + fmt(pts[0][1]);
+    for (i = 1; i < pts.length; i++) d += ' L' + fmt(pts[i][0]) + ' ' + fmt(pts[i][1]);
+    return d + ' Z';
+  };
+
+  /**
+   * Morph through compatible shapes in order: `duration` per morph, `hold` between morphs. The path
+   * must already show shapes[0]. Returns the time the last morph ends.
+   */
+  D.morphChain = function (tl, path, shapes, at, options) {
+    var o = options || {};
+    var dur = o.duration || 0.7, hold = o.hold === undefined ? 0.4 : o.hold;
+    var t = at;
+    for (var i = 1; i < shapes.length; i++) {
+      D.morph(tl, path, shapes[i], t, { from: shapes[i - 1], duration: dur, ease: o.ease || 'power3.inOut' });
+      t += dur + (i < shapes.length - 1 ? hold : 0);
+    }
+    return t;
+  };
+
+  // ------------------------------------------------------------------ pen-led strokes
+  function invertEase(E, y) {
+    var lo = 0, hi = 1;
+    for (var i = 0; i < 40; i++) {
+      var mid = (lo + hi) / 2;
+      if (E(mid) < y) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  /**
+   * Pen-led stroke: the path draws on while a dot rides its tip at the same eased progress, so the
+   * line reads as made by a moving point. The dot is a circle created after the path (class
+   * st-pen-dot) unless options.dot is given; it is also stored as path.__penDot. Expects a monotonic
+   * ease. options: {duration | speed (px/s), min, max, ease, dot, dotRadius, dotColor, keepDot, samples}
+   */
+  D.pen = function (tl, path, at, options) {
+    var o = options || {};
+    var el = typeof path === 'string' ? document.querySelector(path) : path;
+    if (!el) throw new Error('Studio.draw.pen: path not found');
+    D.prepare(el, o.slack);
+    var L = D.length(el), len = el.__studioLen;
+    var dur = o.duration || Math.min(o.max || 2.4, Math.max(o.min || 0.4, L / (o.speed || 600)));
+    var ease = o.ease || 'power2.inOut';
+    tl.fromTo(el, { strokeDashoffset: len }, { strokeDashoffset: len - L, duration: dur, ease: ease }, at);
+    var dot = o.dot ? (typeof o.dot === 'string' ? document.querySelector(o.dot) : o.dot) : null;
+    if (!dot) {
+      var sw = parseFloat(global.getComputedStyle(el).strokeWidth) || 4;
+      dot = Studio.svg('circle', { r: fmt(o.dotRadius || sw * 1.6), 'class': 'st-pen-dot' });
+      if (o.dotColor) dot.setAttribute('fill', o.dotColor);
+      if (el.getAttribute('transform')) dot.setAttribute('transform', el.getAttribute('transform'));
+      el.parentNode.insertBefore(dot, el.nextSibling);
+    }
+    el.__penDot = dot;
+    // Sample evenly in time (slow ease ends) and in arc length (fast middle) so linear steps stay on the tip.
+    var K = o.samples || Math.max(12, Math.min(72, Math.round(L / 14)));
+    var N = Math.max(1, Math.ceil(dur * (o.rate || 60)));
+    var E = global.gsap.parseEase(ease);
+    var us = [], i;
+    for (i = 0; i <= N; i++) us.push(i / N);
+    for (i = 1; i < K; i++) us.push(invertEase(E, i / K));
+    us.sort(function (a, b) { return a - b; });
+    var pts = [], ts = [];
+    us.forEach(function (u) {
+      if (ts.length && u - ts[ts.length - 1] < 1e-6) return;
+      var p = el.getPointAtLength(L * Math.max(0, Math.min(1, E(u))));
+      ts.push(u);
+      pts.push([p.x, p.y]);
+    });
+    dot.setAttribute('cx', fmt(pts[0][0]));
+    dot.setAttribute('cy', fmt(pts[0][1]));
+    tl.fromTo(dot, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: true }, at);
+    for (var j = 1; j < ts.length; j++) {
+      tl.fromTo(dot, { attr: { cx: pts[j - 1][0], cy: pts[j - 1][1] } },
+        { attr: { cx: pts[j][0], cy: pts[j][1] }, duration: (ts[j] - ts[j - 1]) * dur, ease: 'none', immediateRender: false }, at + ts[j - 1] * dur);
+    }
+    if (o.keepDot === false) {
+      tl.fromTo(dot, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.2, ease: 'power1.in', immediateRender: false }, at + dur);
+    }
+    return at + dur;
+  };
+
+  function smoothPath(pts) {
+    var d = 'M' + fmt(pts[0][0]) + ' ' + fmt(pts[0][1]);
+    for (var j = 1; j < pts.length; j++) {
+      var mx = (pts[j - 1][0] + pts[j][0]) / 2, my = (pts[j - 1][1] + pts[j][1]) / 2;
+      d += ' Q' + fmt(pts[j - 1][0]) + ' ' + fmt(pts[j - 1][1]) + ' ' + fmt(mx) + ' ' + fmt(my);
+    }
+    return d + ' L' + fmt(pts[pts.length - 1][0]) + ' ' + fmt(pts[pts.length - 1][1]);
+  }
+
+  /** Hand-drawn loop around (cx, cy): a quick pen ellipse that overshoots its start (seeded). */
+  D.loop = function (seed, cx, cy, rx, ry, options) {
+    var o = options || {};
+    var r = Studio.rng(seed);
+    var n = o.segments || 20, turns = o.turns || 1.12;
+    var jitter = o.jitter === undefined ? 0.05 : o.jitter, drift = o.drift === undefined ? 0.1 : o.drift;
+    var a0 = (o.start === undefined ? -2.3 : o.start) + (r() - 0.5) * 0.4;
+    var pts = [];
+    for (var i = 0; i <= n; i++) {
+      var a = a0 + (i / n) * Math.PI * 2 * turns;
+      var k = 1 + (r() * 2 - 1) * jitter + (i / n - 0.5) * drift;
+      pts.push([cx + Math.cos(a) * rx * k, cy + Math.sin(a) * ry * k]);
+    }
+    return smoothPath(pts);
+  };
+
+  // ------------------------------------------------------------------ layers, connectors, grids
+  /** Full-frame SVG layer in #root pixel space (viewBox = frame) for connectors and annotations. */
+  D.layer = function (parent, className) {
+    var f = Studio.format;
+    var host = parent ? (typeof parent === 'string' ? document.querySelector(parent) : parent) : document.getElementById('root');
+    return Studio.svg('svg', {
+      'class': 'st-layer-svg' + (className ? ' ' + className : ''), width: f.width, height: f.height,
+      viewBox: '0 0 ' + f.width + ' ' + f.height, 'aria-hidden': 'true'
+    }, host);
+  };
+
+  /**
+   * Connector from element a to element b, measured as they render at `at` (Studio.boxAt): a cubic
+   * curve leaving the facing edges, drawn on from `at`, with an optional arrowhead. `svg` is a
+   * full-frame layer (D.layer). options: {axis 'x'|'y', bend (0..1), gap (px), arrow, dashed,
+   * className, duration, ease}. Returns the end time.
+   */
+  D.connect = function (tl, svg, a, b, at, options) {
+    var o = options || {};
+    var A = Studio.boxAt(tl, a, at), B = Studio.boxAt(tl, b, at);
+    var gap = o.gap === undefined ? Studio.u(1) : o.gap;
+    var dx = B.cx - A.cx, dy = B.cy - A.cy;
+    var horizontal = o.axis ? o.axis === 'x' : Math.abs(dx) >= Math.abs(dy);
+    var p1, p2, n1, n2, s;
+    if (horizontal) {
+      s = dx >= 0 ? 1 : -1;
+      p1 = [A.cx + s * (A.w / 2 + gap), A.cy];
+      p2 = [B.cx - s * (B.w / 2 + gap), B.cy];
+      n1 = [s, 0]; n2 = [-s, 0];
+    } else {
+      s = dy >= 0 ? 1 : -1;
+      p1 = [A.cx, A.cy + s * (A.h / 2 + gap)];
+      p2 = [B.cx, B.cy - s * (B.h / 2 + gap)];
+      n1 = [0, s]; n2 = [0, -s];
+    }
+    var dist = Math.sqrt((p2[0] - p1[0]) * (p2[0] - p1[0]) + (p2[1] - p1[1]) * (p2[1] - p1[1]));
+    var bend = (o.bend === undefined ? 0.45 : o.bend) * dist;
+    var c2 = [p2[0] + n2[0] * bend, p2[1] + n2[1] * bend];
+    var d = 'M' + fmt(p1[0]) + ' ' + fmt(p1[1]) + ' C' + fmt(p1[0] + n1[0] * bend) + ' ' + fmt(p1[1] + n1[1] * bend) +
+      ' ' + fmt(c2[0]) + ' ' + fmt(c2[1]) + ' ' + fmt(p2[0]) + ' ' + fmt(p2[1]);
+    var cls = 'st-connector' + (o.dashed ? ' st-connector-dashed' : '') + (o.className ? ' ' + o.className : '');
+    var path = Studio.svg('path', { d: d, 'class': cls, fill: 'none' }, svg);
+    var end;
+    if (o.dashed) {
+      tl.fromTo(path, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'power1.out', immediateRender: true }, at);
+      end = at + 0.3;
+    } else {
+      end = D.stroke(tl, path, at, { duration: o.duration || Math.min(1.2, Math.max(0.35, dist / 900)), ease: o.ease || 'power2.inOut' });
+    }
+    if (o.arrow !== false) {
+      var hl = o.head || Studio.u(1.6);
+      var ang = Math.atan2(p2[1] - c2[1], p2[0] - c2[0]);
+      var h1 = [p2[0] - hl * Math.cos(ang - 0.5), p2[1] - hl * Math.sin(ang - 0.5)];
+      var h2 = [p2[0] - hl * Math.cos(ang + 0.5), p2[1] - hl * Math.sin(ang + 0.5)];
+      var head = Studio.svg('path', {
+        d: 'M' + fmt(h1[0]) + ' ' + fmt(h1[1]) + ' L' + fmt(p2[0]) + ' ' + fmt(p2[1]) + ' L' + fmt(h2[0]) + ' ' + fmt(h2[1]),
+        'class': 'st-connector st-connector-head' + (o.className ? ' ' + o.className : ''), fill: 'none'
+      }, svg);
+      end = D.stroke(tl, head, end - 0.05, { duration: 0.18, ease: 'power1.out' });
+    }
+    return end;
+  };
+
+  /**
+   * Grid of cells (divs) filling a positioned `parent`, row-major. options.truchet = seed fills each
+   * cell with a quarter-arc tile at a seeded 0/90 degree start (cell.__baseRot) for pattern waves.
+   */
+  D.grid = function (parent, rows, cols, options) {
+    var o = options || {};
+    var host = typeof parent === 'string' ? document.querySelector(parent) : parent;
+    var g = Studio.el('div', 'st-grid' + (o.className ? ' ' + o.className : ''), null, host);
+    g.style.gridTemplateColumns = 'repeat(' + cols + ', 1fr)';
+    g.style.gridTemplateRows = 'repeat(' + rows + ', 1fr)';
+    if (o.gap !== undefined) g.style.gap = o.gap + 'px';
+    var cells = [];
+    var r = o.truchet !== undefined ? Studio.rng(o.truchet) : null;
+    for (var i = 0; i < rows * cols; i++) {
+      var c = Studio.el('div', 'st-grid-cell', null, g);
+      if (r) {
+        c.innerHTML = '<svg class="st-truchet" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">' +
+          '<path d="M50 0 A50 50 0 0 1 0 50 M100 50 A50 50 0 0 0 50 100"></path></svg>';
+        c.__baseRot = r() < 0.5 ? 0 : 90;
+        global.gsap.set(c, { rotation: c.__baseRot });
+      }
+      cells.push(c);
+    }
+    g.__grid = [rows, cols];
+    return cells;
+  };
+
+  // ------------------------------------------------------------------ Priority 5: Visual Variety & Chart Primitives
+  var CH = D.chart = {};
+
+  /**
+   * Smooth bezier curve through an array of [x, y] or {x, y} coordinates.
+   */
+  CH.line = function (points, options) {
+    var o = options || {};
+    if (!points || points.length < 2) return '';
+    points = points.map(function (p) { return Array.isArray(p) ? p : [p.x, p.y]; });
+    if (o.smooth === false || points.length === 2) {
+      var d = 'M' + fmt(points[0][0]) + ' ' + fmt(points[0][1]);
+      for (var i = 1; i < points.length; i++) d += ' L' + fmt(points[i][0]) + ' ' + fmt(points[i][1]);
+      return d;
+    }
+    // Catmull-Rom to Cubic Bezier spline conversion
+    var path = 'M' + fmt(points[0][0]) + ' ' + fmt(points[0][1]);
+    for (var j = 0; j < points.length - 1; j++) {
+      var p0 = points[Math.max(0, j - 1)];
+      var p1 = points[j];
+      var p2 = points[j + 1];
+      var p3 = points[Math.min(points.length - 1, j + 2)];
+      var cp1x = p1[0] + (p2[0] - p0[0]) / 6;
+      var cp1y = p1[1] + (p2[1] - p0[1]) / 6;
+      var cp2x = p2[0] - (p3[0] - p1[0]) / 6;
+      var cp2y = p2[1] - (p3[1] - p1[1]) / 6;
+      path += ' C' + fmt(cp1x) + ' ' + fmt(cp1y) + ' ' + fmt(cp2x) + ' ' + fmt(cp2y) + ' ' + fmt(p2[0]) + ' ' + fmt(p2[1]);
+    }
+    return path;
+  };
+
+  /**
+   * Closed filled area under a chart curve down to baselineY.
+   */
+  CH.area = function (points, baselineY, options) {
+    if (!points || points.length < 2) return '';
+    points = points.map(function (p) { return Array.isArray(p) ? p : [p.x, p.y]; });
+    var baseLine = baselineY !== undefined ? baselineY : points[points.length - 1][1];
+    var lineD = CH.line(points, options);
+    var firstPt = points[0];
+    var lastPt = points[points.length - 1];
+    return lineD + ' L' + fmt(lastPt[0]) + ' ' + fmt(baseLine) + ' L' + fmt(firstPt[0]) + ' ' + fmt(baseLine) + ' Z';
+  };
+
+  /**
+   * Procedural Financial Candlesticks.
+   * candles: [{x, open, high, low, close}]
+   */
+  CH.candlesticks = function (svgParent, candles, options) {
+    var o = options || {};
+    var g = Studio.svg('g', { 'class': 'st-candlesticks ' + (o.className || '') }, svgParent);
+    var barW = o.width || Studio.u(2.0);
+    var bullColor = o.bullColor || '#059669';
+    var bearColor = o.bearColor || '#e11d48';
+
+    var elements = candles.map(function (c) {
+      var isBull = c.close >= c.open;
+      var color = isBull ? bullColor : bearColor;
+      var topBody = Math.min(c.open, c.close);
+      var bodyH = Math.max(1, Math.abs(c.close - c.open));
+
+      var wick = Studio.svg('line', {
+        x1: fmt(c.x), y1: fmt(c.high),
+        x2: fmt(c.x), y2: fmt(c.low),
+        stroke: color, 'stroke-width': max(1, Studio.u(0.25))
+      }, g);
+
+      var body = Studio.svg('rect', {
+        x: fmt(c.x - barW / 2), y: fmt(topBody),
+        width: fmt(barW), height: fmt(bodyH),
+        fill: color, rx: max(1, Studio.u(0.2))
+      }, g);
+
+      return { g: g, wick: wick, body: body, isBull: isBull };
+    });
+
+    return {
+      el: g,
+      items: elements,
+      draw: function (tl, at, duration, stagger) {
+        var dur = duration || 0.6;
+        var stag = stagger || 0.04;
+        var wicks = elements.map(function (e) { return e.wick; });
+        var bodies = elements.map(function (e) { return e.body; });
+        tl.fromTo(wicks, { scaleY: 0, transformOrigin: '50% 50%' }, { scaleY: 1, duration: dur, ease: 'power2.out', stagger: stag }, at);
+        tl.fromTo(bodies, { scaleY: 0, transformOrigin: '50% 50%' }, { scaleY: 1, duration: dur, ease: 'back.out(1.5)', stagger: stag }, at + 0.1);
+        return at + dur + stag * elements.length;
+      }
+    };
+  };
+
+  /**
+   * Radial liquidation or risk gauge arc with needle.
+   */
+  CH.gauge = function (svgParent, options) {
+    var o = options || {};
+    var cx = o.cx || 200, cy = o.cy || 200, r = o.r || 120;
+    var startAngle = o.startAngle !== undefined ? o.startAngle : -140;
+    var endAngle = o.endAngle !== undefined ? o.endAngle : 140;
+    var g = Studio.svg('g', { 'class': 'st-gauge ' + (o.className || '') }, svgParent);
+
+    function arcD(angle0, angle1) {
+      var rad0 = (angle0 - 90) * Math.PI / 180;
+      var rad1 = (angle1 - 90) * Math.PI / 180;
+      var x0 = cx + Math.cos(rad0) * r, y0 = cy + Math.sin(rad0) * r;
+      var x1 = cx + Math.cos(rad1) * r, y1 = cy + Math.sin(rad1) * r;
+      var large = Math.abs(angle1 - angle0) > 180 ? 1 : 0;
+      return 'M' + fmt(x0) + ' ' + fmt(y0) + ' A' + fmt(r) + ' ' + fmt(r) + ' 0 ' + large + ' 1 ' + fmt(x1) + ' ' + fmt(y1);
+    }
+
+    var trackPath = Studio.svg('path', {
+      d: arcD(startAngle, endAngle),
+      fill: 'none', stroke: o.trackColor || 'rgba(0, 0, 0, 0.08)',
+      'stroke-width': fmt(o.strokeWidth || Studio.u(2.2)), 'stroke-linecap': 'round'
+    }, g);
+
+    var valuePath = Studio.svg('path', {
+      d: arcD(startAngle, endAngle),
+      fill: 'none', stroke: o.color || '#e11d48',
+      'stroke-width': fmt(o.strokeWidth || Studio.u(2.2)), 'stroke-linecap': 'round'
+    }, g);
+
+    D.prepare(valuePath);
+
+    // Needle
+    var needleL = r * 0.82;
+    var needle = Studio.svg('line', {
+      x1: fmt(cx), y1: fmt(cy),
+      x2: fmt(cx), y2: fmt(cy - needleL),
+      stroke: o.needleColor || '#1e1b16', 'stroke-width': fmt(Studio.u(0.55)),
+      'stroke-linecap': 'round'
+    }, g);
+
+    var hub = Studio.svg('circle', {
+      cx: fmt(cx), cy: fmt(cy), r: fmt(Studio.u(1.4)),
+      fill: o.needleColor || '#1e1b16'
+    }, g);
+
+    return {
+      el: g,
+      track: trackPath,
+      valuePath: valuePath,
+      needle: needle,
+      hub: hub,
+      set: function (tl, pct, at, duration) {
+        var dur = duration || 0.8;
+        var clamped = Math.max(0, Math.min(1, pct));
+        var targetRot = startAngle + (endAngle - startAngle) * clamped;
+        var len = D.length(valuePath);
+        tl.fromTo(valuePath,
+          { strokeDashoffset: len },
+          { strokeDashoffset: len * (1 - clamped), duration: dur, ease: 'power2.inOut', immediateRender: false },
+          at);
+        tl.fromTo(needle,
+          { rotation: startAngle, transformOrigin: fmt(cx) + 'px ' + fmt(cy) + 'px' },
+          { rotation: targetRot, duration: dur, ease: 'back.out(1.4)', immediateRender: false },
+          at);
+        return at + dur;
+      }
+    };
+  };
+
+  /**
+   * Seeded particles streaming along an SVG path.
+   */
+  D.particleStream = function (svgParent, count, pathElementOrD, from, to, options) {
+    var o = options || {};
+    var n = count || 20;
+    var path = typeof pathElementOrD === 'string'
+      ? Studio.svg('path', { d: pathElementOrD, fill: 'none', stroke: 'none' }, svgParent)
+      : pathElementOrD;
+    var pathLen = D.length(path);
+    var r = Studio.rng(o.seed || 101);
+    var color = o.color || '#e11d48';
+    var radius = o.radius || Studio.u(0.45);
+    var dur = to - from;
+
+    var dots = [];
+    for (var i = 0; i < n; i++) {
+      var dot = Studio.svg('circle', {
+        r: fmt(radius * (0.7 + r() * 0.6)),
+        fill: color,
+        opacity: fmt(0.3 + r() * 0.7)
+      }, svgParent);
+      dots.push(dot);
+    }
+
+    return {
+      dots: dots,
+      animate: function (tl) {
+        dots.forEach(function (dot, idx) {
+          var offset = (idx / n);
+          var proxy = { progress: 0 };
+          var pt0 = path.getPointAtLength((offset * pathLen) % pathLen);
+          dot.setAttribute('cx', fmt(pt0.x));
+          dot.setAttribute('cy', fmt(pt0.y));
+
+          tl.fromTo(proxy,
+            { progress: 0 },
+            {
+              progress: 1,
+              duration: dur,
+              ease: 'none',
+              immediateRender: false,
+              onUpdate: function () {
+                var p = (offset + proxy.progress * (o.speed || 2.0)) % 1;
+                var pt = path.getPointAtLength(p * pathLen);
+                dot.setAttribute('cx', fmt(pt.x));
+                dot.setAttribute('cy', fmt(pt.y));
+              }
+            },
+            from);
+        });
+        return to;
+      }
+    };
+  };
 })(typeof window !== 'undefined' ? window : this);

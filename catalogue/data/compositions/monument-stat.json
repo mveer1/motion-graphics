@@ -1,0 +1,83 @@
+{
+  "id": "monument-stat",
+  "name": "Monument statistical callout",
+  "purpose": "Dominant full-screen statistical callout featuring extra-large formatted rolling counter, label, and contextual annotation.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "scene-container",
+      "styled-text"
+    ],
+    "effects": [
+      "text-mask-rise",
+      "tracking-reveal"
+    ],
+    "recipes": [
+      "line-mask-rise"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "value",
+      "type": "number",
+      "description": "Numeric target value"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "description": "Currency or sign prefix"
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "description": "Unit or magnitude suffix"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Primary descriptor"
+    },
+    {
+      "name": "subtext",
+      "type": "string",
+      "description": "Contextual annotation or consequence"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.monumentStat(parent, { value, prefix, suffix, label, subtext, decimals })"
+  },
+  "layout_notes": "Centers monumentally in canvas. Typography scales using --fs-display (up to 72px-96px), preventing shrinking while keeping safe margins.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/test-motion-primitives/index.html"
+  ],
+  "validation_steps": [
+    "hyperframes check tests/test-motion-primitives",
+    "hyperframes render tests/test-motion-primitives --low-memory-mode < /dev/null"
+  ],
+  "validation": {
+    "evidence": "Tested and verified in tests/test-motion-primitives Scene 3 with $5.0T monument count.",
+    "last_verified": "2026-10-31"
+  },
+  "tags": [
+    "composition",
+    "statistic",
+    "monument",
+    "counter",
+    "callout"
+  ],
+  "metadata": {
+    "author": "Antigravity",
+    "created_at": "2026-10-31",
+    "updated_at": "2026-10-31"
+  }
+}
+

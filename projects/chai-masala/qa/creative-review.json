@@ -1,0 +1,132 @@
+{
+  "project": "chai-masala",
+  "reviewer": "Antigravity Creative Director",
+  "reviewed_on": "2026-10-31",
+  "renders_reviewed": [
+    "projects/chai-masala/renders/portrait/final.mp4"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 5,
+      "notes": "Every beat maintains a single hero focal visual: botanical cards, extraction curve, casein micelle transformations, and steaming earthen kulhad cup. Header and takeaway tiers frame the central stage.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-01-at-8s.png"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 5,
+      "notes": "Clear tripartite type hierarchy using Playfair Display (26-32px titles), JetBrains Mono (18-42px data callouts/counters), and Inter (19-20px reading body). Zero text elements below reading floor.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-00-at-2.5s.png"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 5,
+      "notes": "True 9:16 vertical composition specifically authored with safe areas (top 128px, bottom 256px), central stage cards occupying >65% vertical real estate without dead void.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 4.5,
+      "notes": "Multi-beat progression per scene: Scene 1 cracks spices progressively (0-17.3s), Scene 2 evolves boiling curve and counter (17.8-31.8s), Scene 3 complexates tannins (32.3-47.4s), Scene 4 double-rise and pour (47.9-63.6s).",
+      "evidence": [
+        "projects/chai-masala/snapshots/frame-02-at-15s.png",
+        "projects/chai-masala/snapshots/frame-05-at-34s.png"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 5,
+      "notes": "HyperFrames check verified 34/34 text elements pass WCAG AA contrast against warm ivory (#FDFCF7) canvas using dark charcoal (#1F2937) and warm terracotta accents.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-04-at-27s.png"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 5,
+      "notes": "Editorial-light culinary palette strictly observed: ivory parchment canvas, Assam amber (#78350F), chai terracotta (#B45309), cardamom emerald (#047857), and saffron accents (#FCD34D).",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 4.5,
+      "notes": "Explicit narrative transitions: Push transition moves from raw spices to boiling water; wipe reveals milk emulsion; circular mask opens into authentic pouring and finish. Element continuity preserved.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-03-at-20s.png"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 5,
+      "notes": "Unified visual language with card containers, rounded pill tags, live counter rolls, smooth Catmull-Rom spline curves, and virtual camera drift (Studio.space.drift).",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-06-at-40s.png"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 5,
+      "notes": "All movement maps to thermodynamic extraction: spice fracture triggers radial oil release, saucepan heating drives boiling bubble convection, and tannin spikes transform into encapsulated shields.",
+      "evidence": [
+        "projects/chai-masala/snapshots/frame-01-at-8s.png",
+        "projects/chai-masala/snapshots/frame-07-at-47s.png"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 5,
+      "notes": "Strict adherence to Anti-Laziness Mandate: visual states evolve every 2-3 seconds during speech. Continuous camera drift prevents frozen screen perception.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-1.jpg",
+        "projects/chai-masala/snapshots/frame-08-at-53s.png"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 5,
+      "notes": "Zero layout faults across all timeline samples. Content stays strictly within top (128px) and bottom (256px) Instagram Reels safe zones.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-2.jpg",
+        "projects/chai-masala/snapshots/frame-10-at-61s.png"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 5,
+      "notes": "Complete four-act culinary arc: raw spice physics -> boiling water decoction -> milk casein binding -> double rise and earthen kulhad finish. The takeaway holds cleanly for 5.6s to 63.63s.",
+      "evidence": [
+        "projects/chai-masala/snapshots/contact-sheet-2.jpg",
+        "projects/chai-masala/snapshots/frame-11-at-63.38s.png"
+      ]
+    }
+  ],
+  "verdict": "pass",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

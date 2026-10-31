@@ -1,0 +1,54 @@
+{
+  "id": "skill-parallel-session",
+  "name": "Parallel Session Concurrency Skill",
+  "component_type": "skill",
+  "purpose": "Coordinates multi-project concurrent production sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions.",
+  "capabilities": [
+    "Hardware resource locking (Render and TTS mutexes via scripts/session-guard.py)",
+    "Project-scoped workspace governance execution (--project <slug>)",
+    "Non-blocking wait queues with periodic progress logging",
+    "Stale lock self-healing and recovery",
+    "Git worktree isolation for concurrent project branches (session-start/end)",
+    "Zero-quality-compromise pipeline orchestration"
+  ],
+  "location": ".agents/skills/parallel-session",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Built-in workspace skill. No installation needed."
+  },
+  "dependencies": [
+    "tool-session-guard",
+    "tool-studio-cli",
+    "tool-workspace-governance"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
+  },
+  "documentation_urls": [
+    ".agents/skills/parallel-session/SKILL.md",
+    "ARCHITECTURE.md#lifecycle"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace concurrency skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Coordinates locks via .locks/ and runs guarded project commands."
+  },
+  "owner": "workspace-governance",
+  "status": "approved",
+  "approval_evidence": "Production tested with concurrent lock acquisition and project-scoped governance gates.",
+  "architecture_ref": "ARCHITECTURE.md#lifecycle",
+  "last_verified": "2026-10-31",
+  "tags": ["concurrency", "parallel", "session", "locking", "governance"]
+}
+

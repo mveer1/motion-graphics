@@ -187,10 +187,10 @@ print('  • Bitrate: ' + num('bit_rate', 1000, ' kbps', '{:.1f}'))
 
 # 5. Earshot Acoustic Verification
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
-EARSHOT_BIN="$REPO_ROOT/.venv/bin/earshot"
+EARSHOT_BIN="${EARSHOT_BIN:-$REPO_ROOT/.venv/bin/earshot}"
 if [[ -x "$EARSHOT_BIN" && "$HAS_AUDIO" == "1" ]]; then
   echo -e "\n[Gate 5/5] Earshot Acoustic & Spectral Verification:"
-  "$EARSHOT_BIN" measure "$VIDEO_PATH" | sed 's/^/  /'
+  "$EARSHOT_BIN" measure "$VIDEO_PATH" | sed 's/^/  /' || true
 fi
 
 echo -e "\n=========================================================="

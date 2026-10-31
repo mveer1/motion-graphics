@@ -1,0 +1,115 @@
+{
+  "spec_version": 1,
+  "slug": "chai-masala",
+  "direction": "warm-culinary-editorial",
+  "timing_source": "narration",
+  "duration_sec": 63.63,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The Spices & The Coarse Crush",
+      "start_sec": 0.0,
+      "end_sec": 17.80,
+      "purpose": "Demonstrate that coarse cracking fractures spice cell walls to release volatile aromatic oils without bitter powder dust.",
+      "on_screen_text": [
+        "BOTANICAL EXTRACTION",
+        "Crush Whole Spices Coarsely",
+        "Volatile Oils Released"
+      ],
+      "visual": "Botanical cards (Cardamom, Ginger, Clove, Cinnamon) animate and fracture under mortar impact, bursting glowing volatile oil droplets.",
+      "layout": {
+      },
+      "capabilities": [
+        "hero-stage",
+        "counter-roll",
+        "text-mask-rise",
+        "tracking-reveal"
+      ],
+      "transition_out": {
+        "type": "push",
+        "capability": "push-transition",
+        "duration_sec": 0.55
+      }
+    },
+    {
+      "id": "s2",
+      "title": "Water First: The Decoction Phase",
+      "start_sec": 17.80,
+      "end_sec": 32.38,
+      "purpose": "Explain why boiling tea leaves and spices in water first achieves 85% extraction efficiency before adding milk.",
+      "on_screen_text": [
+        "POLAR SOLVENT EXTRACTION",
+        "Water Decoction at 100°C",
+        "85% Polyphenol Transfer"
+      ],
+      "visual": "A convective saucepan drawing golden Catmull-Rom diffusion waves into bubbling water at 100°C.",
+      "layout": {
+        "portrait": "Header at top 90px, decoction vessel and spline waves in middle stage, extraction metric at bottom"
+      },
+      "capabilities": [
+        "chart-spline",
+        "hero-stage",
+        "split-stage",
+        "text-mask-rise"
+      ],
+      "transition_out": {
+        "type": "wipe",
+        "capability": "mask-wipe",
+        "duration_sec": 0.55
+      }
+    },
+    {
+      "id": "s3",
+      "title": "The Milk & Casein Shield",
+      "start_sec": 32.38,
+      "end_sec": 47.98,
+      "purpose": "Show how whole milk casein micelles encapsulate harsh tea tannins to neutralize astringency while fat dissolves non-polar aromatics.",
+      "on_screen_text": [
+        "MOLECULAR EMULSIFICATION",
+        "Casein Binds Astringent Tannins",
+        "Silky Viscosity Created"
+      ],
+      "visual": "Milk cream swirls into deep tea amber, casein micelles encapsulating sharp tannin molecules into smooth rounded bubbles.",
+      "layout": {
+        "portrait": "Header at top 90px, cream swirl and molecular binding stage, viscosity metric at bottom"
+      },
+      "capabilities": [
+        "particle-stream",
+        "hero-stage",
+        "counter-roll",
+        "text-mask-rise"
+      ],
+      "transition_out": {
+        "type": "mask",
+        "capability": "shape-cover-transition",
+        "duration_sec": 0.50
+      }
+    },
+    {
+      "id": "s4",
+      "title": "The Double Boil & The Perfect Pour",
+      "start_sec": 47.98,
+      "end_sec": 63.63,
+      "purpose": "Illustrate how rolling boil convection and high aerated pouring create velvety microfoam into steaming clay kulhads.",
+      "on_screen_text": [
+        "AERATION & FINISH",
+        "The Double-Boil Rise",
+        "Fragrant, Balanced & Warm"
+      ],
+      "visual": "Convective double-rise foam boil settling into a steaming terracotta kulhad with upward wisp drifts and golden takeaway seal.",
+      "layout": {
+        "portrait": "Header at top 90px, steaming kulhad stage at top 320px, monumental takeaway seal at bottom"
+      },
+      "capabilities": [
+        "monument-stat",
+        "hero-stage",
+        "text-mask-rise"
+      ],
+      "transition_out": {
+        "type": "hold-end",
+        "duration_sec": 2.0
+      }
+    }
+  ]
+}

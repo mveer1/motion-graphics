@@ -1,0 +1,74 @@
+{
+  "id": "split-stage",
+  "name": "Split comparison stage",
+  "purpose": "Side-by-side or stacked dual-pane comparison stage with central divider and animated VS / contrast badge.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "scene-container",
+      "styled-text",
+      "hand-drawn-line"
+    ],
+    "effects": [
+      "text-mask-rise",
+      "hand-underline"
+    ],
+    "recipes": [
+      "line-mask-rise"
+    ]
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "leftTitle",
+      "type": "string",
+      "description": "Left or top pane heading"
+    },
+    {
+      "name": "rightTitle",
+      "type": "string",
+      "description": "Right or bottom pane heading"
+    },
+    {
+      "name": "badgeText",
+      "type": "string",
+      "description": "Center divider badge text"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-compositions.js",
+    "api": "Studio.comp.splitStage(parent, { leftTitle, rightTitle, badgeText, orientation })"
+  },
+  "layout_notes": "Renders side-by-side in landscape and vertically stacked in portrait/mobile viewports with proportional flex sizing.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/test-motion-primitives/index.html"
+  ],
+  "validation_steps": [
+    "hyperframes check tests/test-motion-primitives",
+    "hyperframes render tests/test-motion-primitives --low-memory-mode < /dev/null"
+  ],
+  "validation": {
+    "evidence": "Tested and verified in tests/test-motion-primitives Scene 2 with liquidation gauge comparison.",
+    "last_verified": "2026-10-31"
+  },
+  "tags": [
+    "composition",
+    "comparison",
+    "split",
+    "versus",
+    "layout"
+  ],
+  "metadata": {
+    "author": "Antigravity",
+    "created_at": "2026-10-31",
+    "updated_at": "2026-10-31"
+  }
+}
+

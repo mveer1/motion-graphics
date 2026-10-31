@@ -418,4 +418,386 @@
     }
     return holder;
   };
+
+  // ------------------------------------------------------------------ reference-derived effects
+  function assign(a, b) {
+    var out = {}, k;
+    for (k in a) if (Object.prototype.hasOwnProperty.call(a, k)) out[k] = a[k];
+    for (k in b) if (Object.prototype.hasOwnProperty.call(b, k)) out[k] = b[k];
+    return out;
+  }
+
+  function paintOf(el) {
+    var s = global.getComputedStyle(el);
+    if (typeof SVGElement !== 'undefined' && el instanceof SVGElement) {
+      return s.fill && s.fill !== 'none' ? s.fill : s.stroke;
+    }
+    var bg = s.backgroundColor;
+    if (bg && bg !== 'transparent' && !/rgba\([^)]*,\s*0\)$/.test(bg)) return bg;
+    return s.color;
+  }
+
+  /**
+   * Element bloom: a disc grows out of `source` (a dot, full stop, icon) in its colour until it
+   * covers the frame; the scenes cut underneath, so the colour becomes the next background (give
+   * the incoming scene that background). mode 'reveal' instead opens the incoming scene inside a
+   * circle centred on the source. options: {duration 0.8, ease, color, ring (leading ring colour),
+   * ringLead (s), mode 'become'|'reveal', x, y (px, instead of measuring the source)}.
+   */
+  FX.bloom = function (tl, source, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var f = Studio.format;
+    var src = first(source);
+    var box = (o.x !== undefined && o.y !== undefined) ? { cx: o.x, cy: o.y, w: 0, h: 0 } : Studio.boxAt(tl, src, at);
+    var dur = o.duration || 0.8;
+    var corners = [[0, 0], [f.width, 0], [0, f.height], [f.width, f.height]];
+    var R = 0;
+    corners.forEach(function (c) { R = Math.max(R, Math.sqrt((c[0] - box.cx) * (c[0] - box.cx) + (c[1] - box.cy) * (c[1] - box.cy))); });
+    R = Math.ceil(R + 2);
+    var r0 = Math.max(1, Math.min(box.w, box.h) / 2);
+    if (o.mode === 'reveal') {
+      var at0 = box.cx.toFixed(1) + 'px ' + box.cy.toFixed(1) + 'px';
+      Studio.show(tl, inTarget, at);
+      tl.fromTo(inTarget, { clipPath: 'circle(' + r0 + 'px at ' + at0 + ')' },
+        { clipPath: 'circle(' + R + 'px at ' + at0 + ')', duration: dur, ease: o.ease || 'power2.inOut', immediateRender: false }, at);
+      Studio.hide(tl, outTarget, at + dur);
+      return at + dur;
+    }
+    var layers = [];
+    var lead = o.ring ? (o.ringLead === undefined ? dur * 0.2 : o.ringLead) : 0;
+    if (o.ring) layers.push({ color: o.ring, start: at, d: dur });
+    layers.push({ color: o.color || (src ? paintOf(src) : Studio.token('--c-accent', '#c8462b')), start: at + lead, d: dur - lead });
+    var discs = layers.map(function (l) {
+      var disc = overlayElement('div', 'st-bloom');
+      disc.style.width = disc.style.height = (2 * R) + 'px';
+      disc.style.left = (box.cx - R) + 'px';
+      disc.style.top = (box.cy - R) + 'px';
+      disc.style.background = l.color;
+      Studio.show(tl, disc, l.start);
+      tl.fromTo(disc, { scale: r0 / R }, { scale: 1, duration: l.d, ease: o.ease || 'power2.in', immediateRender: false }, l.start);
+      return disc;
+    });
+    Studio.cut(tl, outTarget, inTarget, at + dur);
+    discs.forEach(function (d) { Studio.hide(tl, d, at + dur + 0.002); });
+    return at + dur;
+  };
+
+  var smearSeq = 0;
+  function letterId(n) {
+    var s = '';
+    do { s = String.fromCharCode(97 + (n % 26)) + s; n = Math.floor(n / 26) - 1; } while (n >= 0);
+    return s;
+  }
+
+  /**
+   * Smear: a fast directional move with stretch along the motion and a directional blur that decays
+   * with speed, standing in for motion blur (no temporal supersampling). Entrance from `side` by
+   * default; options.exit leaves toward `side`. options: {side 'left'|'right'|'top'|'bottom',
+   * distance (u, 60), blur (px), stretch (1.6), duration (0.45), ease, stagger, exit}.
+   * The blur filter is attached only while the element moves.
+   */
+  FX.smear = function (tl, target, at, options) {
+    var o = options || {};
+    var els = Studio.all(target);
+    var side = o.side || (o.exit ? 'right' : 'left');
+    var horizontal = side === 'left' || side === 'right';
+    var sign = (side === 'left' || side === 'top') ? -1 : 1;
+    var dist = Studio.u(o.distance === undefined ? 60 : o.distance);
+    var blur = o.blur === undefined ? Studio.u(2.4) : o.blur;
+    var stretch = o.stretch === undefined ? 1.6 : o.stretch;
+    var dur = o.duration || 0.45;
+    var ease = o.ease || (o.exit ? 'expo.in' : 'expo.out');
+    var axis = horizontal ? 'x' : 'y', scaleAxis = horizontal ? 'scaleX' : 'scaleY';
+    var stdOn = horizontal ? (blur + ' 0') : ('0 ' + blur);
+    var defs = TX.defs().querySelector('defs');
+    var end = at;
+    els.forEach(function (el, i) {
+      var t = at + i * (o.stagger || 0);
+      var fid = 'st-smear-' + letterId(smearSeq++);
+      var filter = Studio.svg('filter', { id: fid, x: '-60%', y: '-60%', width: '220%', height: '220%', 'color-interpolation-filters': 'sRGB' }, defs);
+      var gb = Studio.svg('feGaussianBlur', { 'in': 'SourceGraphic', stdDeviation: o.exit ? '0 0' : stdOn }, filter);
+      var url = 'url(#' + fid + ')';
+      var moving = {}, still = {};
+      moving[axis] = sign * dist; still[axis] = 0;
+      moving[scaleAxis] = stretch; still[scaleAxis] = 1;
+      var origin = horizontal ? (sign < 0 ? '100% 50%' : '0% 50%') : (sign < 0 ? '50% 100%' : '50% 0%');
+      if (o.exit) {
+        origin = horizontal ? (sign < 0 ? '0% 50%' : '100% 50%') : (sign < 0 ? '50% 0%' : '50% 100%');
+        tl.fromTo(el, { filter: 'none' }, { filter: url, duration: 0.001, ease: 'none', immediateRender: false }, t);
+        tl.fromTo(el, assign(still, { transformOrigin: origin }), assign(moving, { duration: dur, ease: ease, immediateRender: false }), t);
+        tl.fromTo(gb, { attr: { stdDeviation: '0 0' } }, { attr: { stdDeviation: stdOn }, duration: dur, ease: ease, immediateRender: false }, t);
+        tl.fromTo(el, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.001, ease: 'none', immediateRender: false }, t + dur);
+      } else {
+        el.style.filter = url;
+        tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: true }, t);
+        tl.fromTo(el, assign(moving, { transformOrigin: origin }), assign(still, { duration: dur, ease: ease, immediateRender: true }), t);
+        tl.fromTo(gb, { attr: { stdDeviation: stdOn } }, { attr: { stdDeviation: '0 0' }, duration: dur, ease: ease, immediateRender: true }, t);
+        tl.fromTo(el, { filter: url }, { filter: 'none', duration: 0.001, ease: 'none', immediateRender: false }, t + dur);
+      }
+      end = Math.max(end, t + dur);
+    });
+    return end;
+  };
+
+  /**
+   * Grid wave: cells change state in a wave spreading from an origin (GSAP grid stagger).
+   * preset 'pop' (scale in, entrance), 'flip' (quarter turn from each cell's current rotation;
+   * consecutive flips chain), 'tint'
+   * (options.prop from options.fromColor to options.toColor), or custom fromVars/toVars.
+   * options: {grid [rows, cols] (default: the D.grid size), from 'center'|'start'|'end'|'edges'|index|[x, y],
+   * amount (s), duration, ease}. Returns the end time.
+   */
+  FX.gridWave = function (tl, cells, at, options) {
+    var o = options || {};
+    var els = Studio.all(cells);
+    if (!els.length) return at;
+    var grid = o.grid || (els[0].parentNode && els[0].parentNode.__grid) || 'auto';
+    var preset = o.preset || 'pop';
+    var pair;
+    if (o.fromVars) {
+      pair = [o.fromVars, o.toVars];
+    } else if (preset === 'flip') {
+      // Snapshot rotations now: function values are read at first render, after later waves have run.
+      var turn = o.turn || 90;
+      var froms = els.map(function (el) { return el.__baseRot || 0; });
+      els.forEach(function (el) { el.__baseRot = (el.__baseRot || 0) + turn; });
+      pair = [{ rotation: function (i) { return froms[i]; } },
+              { rotation: function (i) { return froms[i] + turn; }, ease: 'power2.inOut' }];
+    } else if (preset === 'tint') {
+      var a = {}, b = { ease: 'power1.inOut' };
+      a[o.prop || 'backgroundColor'] = o.fromColor;
+      b[o.prop || 'backgroundColor'] = o.toColor;
+      pair = [a, b];
+    } else {
+      pair = [{ scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, ease: 'back.out(1.7)' }];
+    }
+    var dur = o.duration || 0.5, amount = o.amount === undefined ? 0.8 : o.amount;
+    var to = assign(pair[1], {
+      duration: dur,
+      stagger: { grid: grid, from: o.from === undefined ? 'center' : o.from, amount: amount },
+      immediateRender: o.entrance === undefined ? (!o.fromVars && preset === 'pop') : o.entrance
+    });
+    if (o.ease) to.ease = o.ease;
+    tl.fromTo(els, assign(pair[0], {}), to, at);
+    return at + dur + amount;
+  };
+
+  /** Stamp: a label slams down from large with a settled tilt and a small impact squash; optional shake of options.shake. Entrance. */
+  FX.stamp = function (tl, target, at, options) {
+    var o = options || {};
+    var els = Studio.all(target);
+    var rot = o.rotate === undefined ? -7 : o.rotate;
+    var dur = o.duration || 0.2;
+    var stagger = o.stagger || 0;
+    tl.fromTo(els, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.05, ease: 'none', stagger: stagger, immediateRender: true }, at);
+    tl.fromTo(els, { scale: o.fromScale || 2.6, rotation: rot * 2.5 }, { scale: 1, rotation: rot, duration: dur, ease: 'power4.in', stagger: stagger, immediateRender: true }, at);
+    var hit = at + dur;
+    tl.fromTo(els, { scale: 1 }, { scale: 0.93, duration: 0.05, ease: 'power1.out', stagger: stagger, immediateRender: false }, hit);
+    tl.fromTo(els, { scale: 0.93 }, { scale: 1, duration: 0.16, ease: 'back.out(3)', stagger: stagger, immediateRender: false }, hit + 0.05);
+    if (o.shake) {
+      var amp = Studio.u(o.shakeAmount || 0.7);
+      var xs = [0, amp, -amp * 0.8, amp * 0.5, 0];
+      for (var i = 1; i < xs.length; i++) {
+        tl.fromTo(o.shake, { x: xs[i - 1] }, { x: xs[i], duration: 0.04, ease: 'none', immediateRender: false }, hit + (i - 1) * 0.04);
+      }
+    }
+    return hit + 0.21 + stagger * Math.max(0, els.length - 1);
+  };
+
+  /**
+   * Bounce with squash and stretch: drops from `height` (u) above rest, bounces `bounces` times
+   * (each rebound `decay` of the last, timed like a falling body), stretches while falling and
+   * squashes on contact. Entrance (hidden until `at`); scales about the base of the element.
+   */
+  SP.bounce = function (tl, target, at, options) {
+    var o = options || {};
+    var h0 = Studio.u(o.height === undefined ? 30 : o.height);
+    var n = o.bounces === undefined ? 2 : o.bounces;
+    var decay = o.decay === undefined ? 0.4 : o.decay;
+    var sq0 = o.squash === undefined ? 0.28 : o.squash;
+    var fall0 = o.fall || 0.45;
+    var end = at;
+    Studio.all(target).forEach(function (el, idx) {
+      var t = at + idx * (o.stagger || 0);
+      tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: true }, t);
+      tl.fromTo(el, { y: -h0, scaleX: 1 - sq0 * 0.35, scaleY: 1 + sq0 * 0.5, transformOrigin: '50% 100%' },
+        { y: 0, scaleX: 1, scaleY: 1, duration: fall0, ease: 'power2.in', immediateRender: true }, t);
+      var cur = t + fall0, h = h0, fall = fall0, sq = sq0;
+      for (var k = 0; k <= n; k++) {
+        tl.fromTo(el, { scaleX: 1, scaleY: 1 }, { scaleX: 1 + sq, scaleY: 1 - sq, duration: 0.05, ease: 'power1.out', immediateRender: false }, cur);
+        tl.fromTo(el, { scaleX: 1 + sq, scaleY: 1 - sq }, { scaleX: 1, scaleY: 1, duration: 0.1, ease: 'power1.inOut', immediateRender: false }, cur + 0.05);
+        if (k === n) { cur += 0.15; break; }
+        h *= decay; fall *= Math.sqrt(decay); sq *= decay;
+        tl.fromTo(el, { y: 0 }, { y: -h, duration: fall, ease: 'power2.out', immediateRender: false }, cur + 0.05);
+        tl.fromTo(el, { y: -h }, { y: 0, duration: fall, ease: 'power2.in', immediateRender: false }, cur + 0.05 + fall);
+        cur += 0.05 + 2 * fall;
+      }
+      end = Math.max(end, cur);
+    });
+    return end;
+  };
+
+  /**
+   * Onion-skin trail: `count` ghost copies replay the same motion `lag` seconds behind, fading with
+   * distance, so the path and spacing of a move stay visible. motion(tl, el, at) must add fromTo
+   * tweens for `el` only and return its end time. Ghosts sit behind the element inside wrappers
+   * (SVG <g> or absolutely positioned div) and are hidden `hold` s after the motion ends. Clones drop
+   * the id, so style the target with classes.
+   * options: {count 4, lag 0.06, opacity 0.5, hold 0.3}. Returns the end time of the original.
+   */
+  SP.trail = function (tl, target, at, motion, options) {
+    var o = options || {};
+    var el = first(target);
+    var count = o.count || 4, lag = o.lag || 0.06, op = o.opacity === undefined ? 0.5 : o.opacity;
+    var isSvg = typeof SVGElement !== 'undefined' && el instanceof SVGElement;
+    var ghosts = [];
+    for (var k = count; k >= 1; k--) {
+      var wrap = isSvg ? Studio.svg('g', { 'class': 'st-trail', 'aria-hidden': 'true' }) : Studio.el('div', 'st-trail');
+      if (!isSvg) wrap.setAttribute('aria-hidden', 'true');
+      wrap.style.opacity = String(op * (1 - (k - 1) / count));
+      var c = el.cloneNode(true);
+      if (c.removeAttribute) c.removeAttribute('id');
+      wrap.appendChild(c);
+      el.parentNode.insertBefore(wrap, el);
+      ghosts.push({ wrap: wrap, el: c, k: k });
+    }
+    var end = motion(tl, el, at);
+    var last = end;
+    ghosts.forEach(function (g) {
+      last = Math.max(last, motion(tl, g.el, at + g.k * lag));
+    });
+    var off = last + (o.hold === undefined ? 0.3 : o.hold);
+    ghosts.forEach(function (g) {
+      tl.fromTo(g.wrap, { visibility: 'inherit' }, { visibility: 'hidden', duration: 0.001, ease: 'none', immediateRender: false }, off);
+    });
+    return end;
+  };
+
+  /**
+   * Cinematic Zoom-Through: Outgoing scene plunges forward and fades,
+   * while incoming scene zooms into focus from center.
+   */
+  FX.zoomThrough = function (tl, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var dur = o.duration || 0.85;
+    var ease = o.ease || 'power3.inOut';
+    Studio.show(tl, inTarget, at);
+    tl.fromTo(outTarget,
+      { scale: 1, autoAlpha: 1 },
+      { scale: o.outScale || 2.2, autoAlpha: 0, duration: dur, ease: ease, immediateRender: false },
+      at);
+    tl.fromTo(inTarget,
+      { scale: o.inScale || 0.45, autoAlpha: 0 },
+      { scale: 1, autoAlpha: 1, duration: dur, ease: ease, immediateRender: true },
+      at);
+    Studio.hide(tl, outTarget, at + dur);
+    return at + dur;
+  };
+
+  /**
+   * Coordinated element pulse: momentary scale overshoot for emphasis.
+   */
+  FX.pulse = function (tl, target, at, options) {
+    var o = options || {};
+    var els = Studio.all(target);
+    var dur = o.duration || 0.4;
+    var scale = o.scale || 1.1;
+    var ease = o.ease || 'power2.out';
+    tl.fromTo(els,
+      { scale: 1 },
+      { scale: scale, duration: dur * 0.45, ease: ease, yoyo: true, repeat: 1, immediateRender: false },
+      at);
+    return at + dur;
+  };
+
+  /**
+   * Multi-element coordinated sequence: sequences items with unified easing and rhythm.
+   */
+  FX.coordinate = function (tl, items, at, options) {
+    var o = options || {};
+    var baseEase = o.ease || 'power3.out';
+    var stagger = o.stagger || 0.08;
+    var end = at;
+    items.forEach(function (it, idx) {
+      var t = at + (it.offset !== undefined ? it.offset : idx * stagger);
+      var dur = it.duration || o.duration || 0.6;
+      var ease = it.ease || baseEase;
+      var fromVars = Object.assign({}, it.from || { autoAlpha: 0, y: Studio.u(2) });
+      var toVars = Object.assign({ duration: dur, ease: ease }, it.to || { autoAlpha: 1, y: 0 });
+      tl.fromTo(it.target, fromVars, toVars, t);
+      end = Math.max(end, t + dur);
+    });
+    return end;
+  };
+
+  /**
+   * Continuous virtual camera drift: slow subtle scale/position shift to eliminate frozen frames.
+   */
+  SP.drift = function (tl, stage, from, to, options) {
+    var o = options || {};
+    var st = first(stage);
+    var startScale = o.startScale || 1.0;
+    var endScale = o.endScale || 1.05;
+    var dur = Math.max(0.1, to - from);
+    tl.fromTo(st,
+      { scale: startScale, transformOrigin: o.origin || '50% 50%' },
+      { scale: endScale, duration: dur, ease: o.ease || 'sine.inOut', immediateRender: false },
+      from);
+    return to;
+  };
+
+  /**
+   * Pan virtual camera to frame a specific element.
+   */
+  SP.panTo = function (tl, stage, target, at, options) {
+    var o = options || {};
+    var st = first(stage);
+    var b = Studio.boxAt(tl, target, at);
+    var f = Studio.format;
+    var dx = (f.width / 2) - b.cx;
+    var dy = (f.height / 2) - b.cy;
+    var dur = o.duration || 1.2;
+    var scale = o.scale || 1.2;
+    return SP.camera(tl, st, at, {
+      x: -dx,
+      y: -dy,
+      scale: scale,
+      duration: dur,
+      ease: o.ease || 'power3.inOut'
+    });
+  };
+
+  /**
+   * Unified Composable Transition Architecture.
+   * Priority 4: Establishes explicit semantic relationships between scenes.
+   */
+  Studio.transition = function (tl, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var type = o.type || 'wipe';
+    if (type === 'matchCut' && o.focal && o.focal.from && o.focal.to) {
+      return FX.matchCut(tl, o.focal.from, o.focal.to, outTarget, inTarget, at, o);
+    }
+    if (type === 'zoomThrough') {
+      return FX.zoomThrough(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'push') {
+      return FX.push(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'iris') {
+      return FX.iris(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'shapeCover') {
+      return FX.shapeCover(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'liquid') {
+      return FX.liquid(tl, outTarget, inTarget, at, o);
+    }
+    if (type === 'crossfade' || type === 'dissolve') {
+      return Studio.crossfade(tl, outTarget, inTarget, at, o.duration || 0.6);
+    }
+    if (type === 'cut') {
+      return Studio.cut(tl, outTarget, inTarget, at);
+    }
+    return FX.wipe(tl, outTarget, inTarget, at, o);
+  };
 })(typeof window !== 'undefined' ? window : this);

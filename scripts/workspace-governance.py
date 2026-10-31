@@ -31,7 +31,7 @@ import shutil
 import json
 import argparse
 from pathlib import Path
-from typing import Dict, List, Any, Set, Tuple
+from typing import Dict, List, Any, Set, Tuple, Optional
 
 # Auto-delegate to Python 3.12 if current python lacks jsonschema
 if sys.executable != "/opt/homebrew/bin/python3.12":
@@ -98,8 +98,9 @@ def document_anchors(path: Path) -> Set[str]:
 
 
 class GovernanceAuditor:
-    def __init__(self, strict: bool = False):
+    def __init__(self, strict: bool = False, target_project: Optional[str] = None):
         self.strict = strict
+        self.target_project = target_project
         self.errors: List[str] = []
         self.warnings: List[str] = []
         self.checks_passed = 0
@@ -285,7 +286,17 @@ class GovernanceAuditor:
         """Gate 7: Studio projects keep an unedited vendored runtime and up-to-date format entry files."""
         errors_before = len(self.errors)
         if PROJECTS_DIR.exists():
-            for pdir in sorted(p for p in PROJECTS_DIR.iterdir() if (p / "project.json").exists()):
+            if self.target_project:
+                pdir = PROJECTS_DIR / self.target_project
+                if not pdir.exists() or not (pdir / "project.json").exists():
+                    self.errors.append(f"Target project '{self.target_project}' with project.json not found under projects/.")
+                    pdirs = []
+                else:
+                    pdirs = [pdir]
+            else:
+                pdirs = sorted(p for p in PROJECTS_DIR.iterdir() if (p / "project.json").exists())
+
+            for pdir in pdirs:
                 integ = studio.runtime_integrity(pdir)
                 self.errors.extend(integ.errors)
                 self.warnings.extend(integ.warnings)
@@ -333,9 +344,10 @@ def main():
     parser = argparse.ArgumentParser(description="Workspace Governance & Drift Detection CLI")
     parser.add_argument("--json", action="store_true", help="Output audit report as JSON")
     parser.add_argument("--strict", action="store_true", help="Treat warnings as errors")
+    parser.add_argument("--project", "-p", help="Scope Gate 7 studio project audit to a single project slug")
     args = parser.parse_args()
 
-    auditor = GovernanceAuditor(strict=args.strict)
+    auditor = GovernanceAuditor(strict=args.strict, target_project=args.project)
     success, summary = auditor.run_all_audits()
 
     if args.json:
