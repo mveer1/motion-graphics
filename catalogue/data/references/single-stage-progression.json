@@ -23,7 +23,7 @@
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "One relay stage changes state through connectors, callout, fall and stamp." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["step-progress-tracker", "diagram-connectors", "stamp-state-change", "annotation-callouts"], "compositions": ["progress-stepper", "annotation-callout"], "templates": ["technical-explainer", "illustrated-explainer"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Subjects, diagrams and copy in the prototype are original.",

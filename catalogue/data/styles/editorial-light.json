@@ -65,7 +65,7 @@
     "presentations"
   ],
   "validation": {
-    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Used by projects/masala-chai-recipe frame review.",
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Used by projects/masala-chai/v1-recipe frame review.",
     "last_verified": "2026-10-30"
   },
   "tags": [

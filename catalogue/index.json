@@ -532,10 +532,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -583,7 +583,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -632,7 +632,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -771,7 +771,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -907,10 +907,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -990,10 +990,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1095,10 +1095,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1183,7 +1183,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1229,10 +1229,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1278,10 +1278,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1395,10 +1395,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1444,10 +1444,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1492,10 +1492,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1540,10 +1540,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1645,10 +1645,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1693,10 +1693,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1742,10 +1742,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1790,10 +1790,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1900,7 +1900,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1946,10 +1946,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -1997,10 +1997,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2275,10 +2275,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2325,10 +2325,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2408,10 +2408,10 @@
         "square"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html"
+        "projects/masala-chai/v1-recipe/src/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2494,7 +2494,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2542,7 +2542,7 @@
         "tests/studio-runtime/index.html"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2734,7 +2734,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2865,7 +2865,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -2920,7 +2920,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3049,7 +3049,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3177,7 +3177,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3233,7 +3233,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3352,7 +3352,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3407,7 +3407,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3525,7 +3525,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3580,7 +3580,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3635,7 +3635,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3696,7 +3696,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3751,7 +3751,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -3861,7 +3861,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4131,7 +4131,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4260,7 +4260,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4373,7 +4373,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4423,7 +4423,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4478,7 +4478,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4532,7 +4532,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4587,7 +4587,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4782,7 +4782,7 @@
         "src/studio/studio-motion.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4837,7 +4837,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -4956,7 +4956,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -5011,7 +5011,7 @@
         "src/studio/studio-draw.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -5066,7 +5066,7 @@
         "src/studio/studio-type.js"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "metadata": {
@@ -7021,7 +7021,7 @@
       },
       "owner": "workspace-governance",
       "status": "experimental",
-      "approval_evidence": "Run on projects/masala-chai-recipe (3 formats) and projects/benchmark-neural-network (legacy) on 2026-10-30; findings cross-checked by viewing contact sheets.",
+      "approval_evidence": "Run on projects/masala-chai/v1-recipe (3 formats) and projects/benchmark-neural-network (legacy) on 2026-10-30; findings cross-checked by viewing contact sheets.",
       "architecture_ref": "ARCHITECTURE.md#s9",
       "last_verified": "2026-10-30",
       "tags": [
@@ -8151,7 +8151,7 @@
       },
       "owner": "video-production",
       "status": "experimental",
-      "approval_evidence": "Validated against projects/masala-chai-recipe/brief.json and templates/projects/*/brief.json via scripts/studio.py validate (2026-10-30).",
+      "approval_evidence": "Validated against projects/masala-chai/v1-recipe/brief.json and templates/projects/*/brief.json via scripts/studio.py validate (2026-10-30).",
       "architecture_ref": "ARCHITECTURE.md#s0",
       "last_verified": "2026-10-30",
       "tags": [
@@ -8402,7 +8402,7 @@
       },
       "owner": "video-production",
       "status": "experimental",
-      "approval_evidence": "Validated against projects/masala-chai-recipe/storyboard.json and the template storyboards (2026-10-30).",
+      "approval_evidence": "Validated against projects/masala-chai/v1-recipe/storyboard.json and the template storyboards (2026-10-30).",
       "architecture_ref": "ARCHITECTURE.md#s1",
       "last_verified": "2026-10-30",
       "tags": [
@@ -8509,7 +8509,7 @@
       },
       "owner": "video-production",
       "status": "experimental",
-      "approval_evidence": "v2 rewritten 2026-10-30; validated against projects/masala-chai-recipe/project.json and template project files. v1 was not referenced by any project file.",
+      "approval_evidence": "v2 rewritten 2026-10-30; validated against projects/masala-chai/v1-recipe/project.json and template project files. v1 was not referenced by any project file.",
       "architecture_ref": "ARCHITECTURE.md#video-spec",
       "last_verified": "2026-10-30",
       "tags": [
@@ -8554,7 +8554,7 @@
         "api": "Studio.draw.blob(seed, {cx, cy, r, points, wobble, phase})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8590,7 +8590,7 @@
         "api": ".st-mask / .st-mask-inline; clip-path inset() and circle()"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8626,7 +8626,7 @@
         "api": "<div class=\"st-layer\" data-depth=\"0..5\">; Studio.space.factor(el)"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8668,7 +8668,7 @@
         "api": "Studio.texture.grain(tl, {opacity, seed, boil: {from, to, fps}})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8709,7 +8709,7 @@
         "api": "Studio.draw.handLine(seed, x1, y1, x2, y2, {segments, jitter})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8811,7 +8811,7 @@
         "api": "Studio.texture.defs() -> filter: url(#st-deckle) | url(#st-rough)"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8848,7 +8848,7 @@
         "api": ".st-scene (hidden until shown) / .st-safe (format safe area)"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8895,7 +8895,7 @@
         "api": "Studio.draw.particles(svg, count, seed, {box, minR, maxR, fill})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8936,7 +8936,7 @@
         "api": "Studio.type.split(el, {type: 'lines,words,chars', mask: 'lines'|'words'})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -8978,7 +8978,7 @@
         "api": ".st-display / .st-heading / .st-lede / .st-body / .st-kicker / .st-mono"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9099,7 +9099,7 @@
         "api": "Studio.draw.wave(seed, {width, height, level, phase, amplitude, fill})"
       },
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9180,7 +9180,7 @@
       ],
       "examples": [
         "tests/reference-derived/explainer-annotations/index.html",
-        "projects/paper-plane-field-notes/src/index.html"
+        "projects/paper-plane-field-notes/v1/src/index.html"
       ],
       "validation_steps": [
         "python tests/test-studio-runtime.py",
@@ -9242,7 +9242,7 @@
         "editorial-light"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html",
+        "projects/masala-chai/v1-recipe/src/index.html",
         "tests/studio-runtime/index.html"
       ],
       "validation_steps": [
@@ -9250,7 +9250,7 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9318,7 +9318,7 @@
         "paper-cut"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html",
+        "projects/masala-chai/v1-recipe/src/index.html",
         "tests/studio-runtime/index.html"
       ],
       "validation_steps": [
@@ -9326,7 +9326,7 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9393,7 +9393,7 @@
       ],
       "examples": [
         "tests/reference-derived/word-beats/index.html",
-        "projects/paper-plane-field-notes/src/index.html"
+        "projects/paper-plane-field-notes/v1/src/index.html"
       ],
       "validation_steps": [
         "python tests/test-studio-runtime.py",
@@ -9464,7 +9464,7 @@
         "editorial-light"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html",
+        "projects/masala-chai/v1-recipe/src/index.html",
         "tests/studio-runtime/index.html"
       ],
       "validation_steps": [
@@ -9472,7 +9472,7 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9531,7 +9531,7 @@
         "editorial-light"
       ],
       "examples": [
-        "projects/paper-plane-field-notes/src/index.html",
+        "projects/paper-plane-field-notes/v1/src/index.html",
         "tests/studio-runtime/reference-techniques.html"
       ],
       "validation_steps": [
@@ -9614,7 +9614,7 @@
         "editorial-light"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html",
+        "projects/masala-chai/v1-recipe/src/index.html",
         "tests/studio-runtime/index.html"
       ],
       "validation_steps": [
@@ -9622,7 +9622,7 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -9693,7 +9693,7 @@
         "paper-cut"
       ],
       "examples": [
-        "projects/masala-chai-recipe/src/index.html",
+        "projects/masala-chai/v1-recipe/src/index.html",
         "tests/studio-runtime/index.html"
       ],
       "validation_steps": [
@@ -9701,7 +9701,7 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -10446,7 +10446,7 @@
         "presentations"
       ],
       "validation": {
-        "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Used by projects/masala-chai-recipe frame review.",
+        "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Used by projects/masala-chai/v1-recipe frame review.",
         "last_verified": "2026-10-30"
       },
       "tags": [
@@ -10747,7 +10747,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "The paper-coloured full stop of 'Fly.' becomes the page of the next scene. Frame review 0 errors, 0 warnings (preview grade)."
@@ -10912,7 +10912,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Two margin notes placed per format (two lines in portrait and square to clear the sheet and HUD) and a note on the flight's landing dot. Frame review 0 errors, 0 warnings (preview grade)."
@@ -12012,7 +12012,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "'Fly' enters with a left smear on the accent card. Frame review 0 errors, 0 warnings (preview grade)."
@@ -12237,7 +12237,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Two blooms: a full stop becomes the page, and the flight's landing dot opens the end card behind a leading ink ring. Frame review 0 errors, 0 warnings (preview grade)."
@@ -12819,7 +12819,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Corner labels count the folds (Fold n / 4, then Flight); the HUD colour follows each background, chained from the previous colour. Frame review 0 errors, 0 warnings (preview grade)."
@@ -13361,7 +13361,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Four poly outlines (sheet, house, narrow point, dart) resampled to 48 points and morphed in place. Frame review 0 errors, 0 warnings (preview grade)."
@@ -13812,7 +13812,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Pen-drawn fold lines and a 2 s flight path whose dot becomes the bloom source. Frame review 0 errors, 0 warnings (preview grade)."
@@ -14225,7 +14225,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Fold squeezes in from a 1.7x stretch, Crease tightens its tracking, Fly smears in (stretch lowered so frame 0 stays inside portrait and square). Frame review 0 errors, 0 warnings (preview grade)."
@@ -14392,7 +14392,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)."
@@ -14817,7 +14817,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Four-step stepper (Halve, Corners, Narrow, Wings) advanced on each fold in three formats. Frame review 0 errors, 0 warnings (preview grade)."
@@ -15547,7 +15547,7 @@
           },
           {
             "kind": "demo",
-            "path": "projects/paper-plane-field-notes/qa/frame-review/report.json",
+            "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
             "result": "pass",
             "date": "2026-10-30",
             "notes": "Original demo: three verbs on a 0.9 s beat open a 22 s explainer in three formats. Frame review 0 errors, 0 warnings (preview grade)."

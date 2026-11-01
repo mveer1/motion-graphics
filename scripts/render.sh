@@ -9,9 +9,11 @@ set -euo pipefail
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PROJECT_NAME="${1:-benchmark-neural-network}"
 
-# Resolve project path in order: projects/<name>, <name>, or direct path
+# Resolve project path in order: projects/<name>, <name>, nested search, or direct path
 if [[ -d "$BASE_DIR/projects/$PROJECT_NAME" ]]; then
   PROJECT_DIR="$BASE_DIR/projects/$PROJECT_NAME"
+elif found=$(find "$BASE_DIR/projects" -mindepth 1 -maxdepth 3 -type d \( -name "$PROJECT_NAME" -o -path "*/$PROJECT_NAME" \) 2>/dev/null | head -n 1) && [[ -n "$found" && -d "$found" ]]; then
+  PROJECT_DIR="$found"
 elif [[ -d "$BASE_DIR/$PROJECT_NAME" ]]; then
   PROJECT_DIR="$BASE_DIR/$PROJECT_NAME"
 elif [[ -d "$PROJECT_NAME" ]]; then

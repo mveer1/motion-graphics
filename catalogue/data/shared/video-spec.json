@@ -38,7 +38,7 @@
   },
   "owner": "video-production",
   "status": "experimental",
-  "approval_evidence": "v2 rewritten 2026-10-30; validated against projects/masala-chai-recipe/project.json and template project files. v1 was not referenced by any project file.",
+  "approval_evidence": "v2 rewritten 2026-10-30; validated against projects/masala-chai/v1-recipe/project.json and template project files. v1 was not referenced by any project file.",
   "architecture_ref": "ARCHITECTURE.md#video-spec",
   "last_verified": "2026-10-30",
   "tags": ["schema", "spec", "video", "json-schema", "draft-07"]

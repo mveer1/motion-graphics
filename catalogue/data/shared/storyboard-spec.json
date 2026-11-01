@@ -36,7 +36,7 @@
   },
   "owner": "video-production",
   "status": "experimental",
-  "approval_evidence": "Validated against projects/masala-chai-recipe/storyboard.json and the template storyboards (2026-10-30).",
+  "approval_evidence": "Validated against projects/masala-chai/v1-recipe/storyboard.json and the template storyboards (2026-10-30).",
   "architecture_ref": "ARCHITECTURE.md#s1",
   "last_verified": "2026-10-30",
   "tags": ["schema", "storyboard", "scenes", "json-schema"]

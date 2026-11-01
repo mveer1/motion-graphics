@@ -210,8 +210,11 @@ def cmd_build(args: argparse.Namespace) -> int:
     Runs full studio pipeline or legacy build with zero quality compromises.
     """
     slug = args.slug
-    pdir = PROJECTS_DIR / slug
-    if not pdir.exists():
+    try:
+        sys.path.insert(0, str(REPO_ROOT / "scripts"))
+        import studio
+        pdir = studio.project_dir(slug)
+    except SystemExit:
         print(f"Error: Project '{slug}' not found in projects/.", file=sys.stderr)
         return 1
 

@@ -39,7 +39,7 @@
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "One card per beat, tempo-grid times, last card holds." },
     { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "0 errors; contact sheet inspected: every word legible at its beat." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Original demo: three verbs on a 0.9 s beat open a 22 s explainer in three formats. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Original demo: three verbs on a 0.9 s beat open a 22 s explainer in three formats. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["self-describing-kinetic-words", "accent-punctuation-motif", "cut-on-beat", "directional-smear"], "compositions": ["word-beats"], "templates": ["kinetic-typography", "title-sequence", "product-promo"], "styles": ["swiss-minimal"] },
   "combines_with": [

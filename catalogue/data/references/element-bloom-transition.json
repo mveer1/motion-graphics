@@ -45,7 +45,7 @@
     { "kind": "frame-review", "path": "tests/reference-derived/pen-and-bloom/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "0 errors; contact sheet inspected (become from the pen dot, reveal from a full stop)." },
     { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Accent full stop with ring blooms into the end card." },
     { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two blooms: a full stop becomes the page, and the flight's landing dot opens the end card behind a leading ink ring. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two blooms: a full stop becomes the page, and the flight's landing dot opens the end card behind a leading ink ring. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["accent-punctuation-motif", "pen-led-stroke", "film-match-cut"], "effects": ["element-bloom", "iris-transition", "shape-cover-transition"], "templates": ["kinetic-typography", "product-promo", "illustrated-explainer"] },
   "combines_with": [

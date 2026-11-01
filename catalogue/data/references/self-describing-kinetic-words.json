@@ -32,7 +32,7 @@
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
     { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: RISE, RUSH, DROP, WIDEN, TURN, SPACE, REPEAT, STOP each perform their meaning." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Fold squeezes in from a 1.7x stretch, Crease tightens its tracking, Fly smears in (stretch lowered so frame 0 stays inside portrait and square). Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Fold squeezes in from a 1.7x stretch, Crease tightens its tracking, Fly smears in (stretch lowered so frame 0 stays inside portrait and square). Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["word-per-beat-sequence", "directional-smear", "typographic-repetition"], "compositions": ["word-beats"], "templates": ["kinetic-typography"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Word list in the test is original.",

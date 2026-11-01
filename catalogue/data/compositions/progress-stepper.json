@@ -19,7 +19,7 @@
   },
   "layout_notes": "Spans its parent's width with equal columns; the rule runs between the first and last node centres. With more than 5 steps in portrait, shorten labels or pass labels:false and name the step elsewhere.",
   "styles_tested": ["editorial-light"],
-  "examples": ["projects/paper-plane-field-notes/src/index.html", "tests/studio-runtime/reference-techniques.html"],
+  "examples": ["projects/paper-plane-field-notes/v1/src/index.html", "tests/studio-runtime/reference-techniques.html"],
   "validation_steps": [
     "python tests/test-studio-runtime.py",
     "python scripts/frame-review.py <project> --fonts google"

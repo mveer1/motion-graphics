@@ -27,7 +27,7 @@
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
     { "kind": "frame-review", "path": "tests/reference-derived/shape-and-grid/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Circle, triangle, square, star inspected mid-morph and at rest." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Four poly outlines (sheet, house, narrow point, dart) resampled to 48 points and morphed in place. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Four poly outlines (sheet, house, narrow point, dart) resampled to 48 points and morphed in place. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["grid-wave-propagation"], "effects": ["shape-morph"], "templates": ["title-sequence", "brand-logo-resolve"] },
   "licensing_notes": "Technique only. Never morph into a third-party logo or mark; end shapes must be original or user-authorised.",

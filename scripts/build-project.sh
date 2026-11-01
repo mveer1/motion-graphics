@@ -46,6 +46,9 @@ done
 if [[ -d "$BASE_DIR/projects/$PROJECT_ARG" ]]; then
   PROJECT_DIR="$BASE_DIR/projects/$PROJECT_ARG"
   SLUG="$PROJECT_ARG"
+elif found=$(find "$BASE_DIR/projects" -mindepth 1 -maxdepth 3 -type d \( -name "$PROJECT_ARG" -o -path "*/$PROJECT_ARG" \) 2>/dev/null | head -n 1) && [[ -n "$found" && -d "$found" ]]; then
+  PROJECT_DIR="$found"
+  SLUG="${found#$BASE_DIR/projects/}"
 elif [[ -d "$BASE_DIR/$PROJECT_ARG" ]]; then
   PROJECT_DIR="$BASE_DIR/$PROJECT_ARG"
   SLUG="$(basename "$PROJECT_ARG")"

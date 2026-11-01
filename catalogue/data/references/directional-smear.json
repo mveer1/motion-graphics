@@ -45,7 +45,7 @@
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Blur active and stretched mid-move; filter none, x 0, scaleX 1 at rest; hidden before entrance." },
     { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: streak on the RUSH card, crisp at rest." },
     { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "'Fly' enters with a left smear on the accent card. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "'Fly' enters with a left smear on the accent card. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["word-per-beat-sequence", "self-describing-kinetic-words"], "effects": ["smear-motion", "push-transition"], "compositions": ["word-beats"], "templates": ["kinetic-typography", "product-promo"] },
   "combines_with": [ { "id": "word-per-beat-sequence", "why": "A smeared arrival gives one card in a run of cuts extra punch." } ],

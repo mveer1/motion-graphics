@@ -127,11 +127,24 @@ def rel_path(p: Path) -> str:
 
 def project_dir(slug_or_path: str) -> Path:
     candidate = PROJECTS_DIR / slug_or_path
-    if candidate.is_dir():
+    if candidate.is_dir() and ((candidate / "project.json").exists() or (candidate / "research.json").exists() or (candidate / "src").is_dir()):
         return candidate
     p = Path(slug_or_path)
     if p.is_dir():
         return p.resolve()
+    # Search recursively under projects/ for matching folder name, path, or project.json slug
+    for cand in sorted(PROJECTS_DIR.rglob("*")):
+        if cand.is_dir() and ((cand / "project.json").exists() or (cand / "research.json").exists()):
+            rel_path = cand.relative_to(PROJECTS_DIR).as_posix()
+            if rel_path == slug_or_path or cand.name == slug_or_path:
+                return cand
+            if (cand / "project.json").exists():
+                try:
+                    data = json.loads((cand / "project.json").read_text(encoding="utf-8"))
+                    if data.get("slug") == slug_or_path:
+                        return cand
+                except Exception:
+                    pass
     raise SystemExit(f"Error: project '{slug_or_path}' not found under projects/.")
 
 
@@ -488,7 +501,9 @@ def validate_project(pdir: Path) -> Report:
         rep.error(e)
     if rep.errors:
         return rep
-    if project["slug"] != slug:
+    is_nested = pdir.parent != PROJECTS_DIR
+    valid_slugs = {pdir.name, f"{pdir.parent.name}/{pdir.name}", f"{pdir.parent.name}-{pdir.name}", project.get("slug", "")} if is_nested else {pdir.name}
+    if project["slug"] not in valid_slugs:
         rep.error(f"project.json slug '{project['slug']}' does not match folder '{slug}'.")
     ids = [f["id"] for f in project["formats"]]
     if len(set(ids)) != len(ids):
@@ -527,7 +542,7 @@ def validate_project(pdir: Path) -> Report:
         for e in schema_errors(brief, SPECS_DIR / "brief-spec.json"):
             rep.error(e)
     if brief and not rep.errors:
-        if brief["slug"] != slug:
+        if brief["slug"] not in valid_slugs:
             rep.error(f"brief.json slug '{brief['slug']}' does not match folder '{slug}'.")
         dirs = brief["creative_directions"]
         dir_ids = [d["id"] for d in dirs]
@@ -756,7 +771,8 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
         if not labels:
             qa += ["--allow-silent"]
         steps.append({"stage": f"qa:{fid}", "cmd": qa, "cwd": "."})
-        steps.append({"stage": f"deliver:{fid}", "cmd": ["copy", rel(pdir / "renders" / fid / "final.mp4"), f"out/{pdir.name}-{fid}.mp4"], "cwd": "."})
+        deliv_slug = project.get("slug") or (f"{pdir.parent.name}-{pdir.name}" if pdir.parent != PROJECTS_DIR else pdir.name)
+        steps.append({"stage": f"deliver:{fid}", "cmd": ["copy", rel(pdir / "renders" / fid / "final.mp4"), f"out/{deliv_slug}-{fid}.mp4"], "cwd": "."})
     return steps
 
 

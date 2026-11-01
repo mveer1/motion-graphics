@@ -23,7 +23,7 @@
     { "source_id": "ref-b97f9168c6", "timestamps": [16.0, 27.0], "observed": "Closing words with full stops; the stop of a name is accent-coloured." }
   ],
   "validation": { "state": "preview", "evidence": [ { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "STOP. card's accent dot seeds the bloom." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "The paper-coloured full stop of 'Fly.' becomes the page of the next scene. Frame review 0 errors, 0 warnings (preview grade)." } ] },
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "The paper-coloured full stop of 'Fly.' becomes the page of the next scene. Frame review 0 errors, 0 warnings (preview grade)." } ] },
   "related": { "techniques": ["element-bloom-transition", "word-per-beat-sequence", "pen-led-stroke"] },
   "licensing_notes": "Technique only. Several references use it inside a specific brand identity (accent colour + serif + mark); never reproduce that combination; use the project's style tokens.",
   "tags": ["typography", "punctuation", "motif", "accent", "reference-derived"],

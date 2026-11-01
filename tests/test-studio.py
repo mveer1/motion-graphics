@@ -13,6 +13,7 @@ import argparse
 import importlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -24,8 +25,8 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 studio = importlib.import_module("studio")
 
-CHAI = REPO_ROOT / "projects" / "masala-chai-recipe"
-LEGACY = REPO_ROOT / "projects" / "benchmark-neural-network"
+CHAI = studio.project_dir("masala-chai/v1-recipe")
+LEGACY = studio.project_dir("neural-network-learning/v1-baseline")
 QA_SCRIPT = REPO_ROOT / ".agents" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
 BUILD_SH = REPO_ROOT / "scripts" / "build-project.sh"
 
@@ -289,12 +290,13 @@ exit 0
         fake_py.write_text('#!/usr/bin/env bash\necho "FAKEPY $*"\n', encoding="utf-8", newline="\n")
         fake_py.chmod(0o755)
         env = dict(os.environ, PYTHON_BIN=posix(fake_py))
-        res = subprocess.run([BASH, posix(BUILD_SH), CHAI.name], env=env, capture_output=True, text=True,
+        chai_slug = CHAI.relative_to(REPO_ROOT / "projects").as_posix()
+        res = subprocess.run([BASH, posix(BUILD_SH), chai_slug], env=env, capture_output=True, text=True,
                              encoding="utf-8", errors="replace", cwd=REPO_ROOT)
         out = res.stdout + res.stderr
         self.assertEqual(res.returncode, 0, out)
         self.assertIn("delegating to the multi-format studio build", out)
-        self.assertRegex(out, r"FAKEPY .*scripts/studio\.py build masala-chai-recipe")
+        self.assertRegex(out, rf"FAKEPY .*scripts/studio\.py build {re.escape(chai_slug)}")
 
 
 if __name__ == "__main__":
