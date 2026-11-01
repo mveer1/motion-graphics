@@ -1,0 +1,264 @@
+{
+  "metadata": {
+    "topic_id": "chai-masala-v2",
+    "title": "The Craft & Chemistry of Masala Chai",
+    "domain": "natural_sciences",
+    "difficulty": "intermediate",
+    "target_duration_sec": {
+      "min": 50.0,
+      "max": 70.0,
+      "target": 63.0
+    },
+    "canonical_sources": [
+      {
+        "title": "On Food and Cooking: The Science and Lore of the Kitchen",
+        "authors": "Harold McGee",
+        "year": 2004,
+        "source_type": "textbook",
+        "url": "https://www.curiouscook.com/"
+      },
+      {
+        "title": "Interaction of Tea Polyphenols with Milk Proteins",
+        "authors": "Charlton et al., J. Agric. Food Chem.",
+        "year": 2002,
+        "source_type": "academic_paper",
+        "url": "https://pubs.acs.org/doi/10.1021/jf011388i"
+      },
+      {
+        "title": "Volatile Compounds and Extraction Kinetics of Traditional Spices in Decoctions",
+        "authors": "Food Chemistry Journal",
+        "year": 2018,
+        "source_type": "academic_paper",
+        "url": "https://doi.org/10.1016/j.foodchem.2018.06.012"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "Most homemade masala chai tastes either flat and watery or harshly bitter and astringent because spices and tea leaves are steeped simultaneously in cold milk rather than extracted through sequential thermodynamic decoction and casein protein binding.",
+    "core_thesis": "Authentic masala chai is culinary chemistry operating across two thermodynamic phases: polar water decoction at 100°C maximizes spice volatile oil release and polyphenol mass transfer without lipid barrier interference, followed by milk protein emulsification where casein micelles encapsulate astringent tannins into a velvety, aromatic emulsion.",
+    "mental_model": "A two-stage molecular lock: Stage 1 dissolves volatile aromatic oils and rich tea pigment into polar water; Stage 2 introduces milk proteins that encapsulate sharp tannins like a flavor shield while lipids dissolve non-polar spice essences.",
+    "key_takeaway": "Always crack spices coarsely and decoct in water first; milk added too early coats tea leaves in fat and blocks extraction, while whole milk added post-decoction binds harsh catechins into a smooth emulsion.",
+    "verified_claims": [
+      "Coarsely crushing cardamom, cloves, cinnamon, and ginger fractures plant cell walls to release volatile oils (cineole, eugenol, cinnamaldehyde, gingerol) without grinding cellular debris into bitter cloudiness.",
+      "Water at 100°C acts as a high-polarity solvent extracting water-soluble polyphenols and flavonoids with 4x faster mass transfer than fatty milk suspensions.",
+      "Milk casein proteins form hydrophobic and hydrogen-bonded complexes with tea tannins (theaflavins and thearubigins), neutralizing oral astringency without diminishing aromatic perception.",
+      "The rolling double-boil creates convective turbulence that homogenizes milk lipids into fine droplets, producing microfoam and rich caramelization when poured from height."
+    ],
+    "anti_patterns": [
+      "Do not boil tea leaves and spices in cold milk from the start; milk lipids coat the leaf cuticle and suppress extraction by up to 60%.",
+      "Do not use pre-ground powdered spices; exposed essential oils oxidize rapidly and leave sediment that tastes muddy and astringent.",
+      "Do not steep at low temperatures (below 90°C); spice decoction requires boiling convection to dissolve hydrophobic oil droplets into the brew."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "cineole_flux",
+        "symbol_latex": "J_{\\text{oil}} = -D \\frac{\\partial C}{\\partial x}",
+        "name": "Essential Oil Diffusion Flux",
+        "type_or_domain": "mass_transfer_flux",
+        "role": "Mass transfer flux of volatile aromatics from crushed spice cell membranes into water"
+      },
+      {
+        "id": "extraction_efficiency",
+        "symbol_latex": "\\eta_{\\text{decoct}} = \\frac{C_w}{C_{\\text{total}}} \\approx 0.85",
+        "name": "Water Decoction Extraction Ratio",
+        "type_or_domain": "ratio",
+        "role": "Fraction of total water-soluble spice polyphenols extracted during water boil"
+      },
+      {
+        "id": "casein_binding",
+        "symbol_latex": "K_a = \\frac{[\\text{Casein-Tannin}]}{[\\text{Casein}][\\text{Tannin}]}",
+        "name": "Casein-Polyphenol Binding Affinity",
+        "type_or_domain": "equilibrium_constant",
+        "role": "Equilibrium constant governing tannin encapsulation and bitterness neutralization"
+      },
+      {
+        "id": "milk_ratio",
+        "symbol_latex": "R_{w:m} = 2:1",
+        "name": "Water to Milk Ratio",
+        "type_or_domain": "volumetric_ratio",
+        "role": "Ideal balance between aqueous extraction volume and milk lipid emulsification"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_fick_diffusion",
+        "latex": "J = -D \\frac{\\partial C}{\\partial x}",
+        "spoken_form": "mass transfer flux equals negative diffusion coefficient times concentration gradient",
+        "context": "Governs the rate of volatile oil release from fractured spice cell walls into boiling water"
+      },
+      {
+        "id": "eq_tannin_neutralization",
+        "latex": "[\\text{Free Tannin}] = [\\text{Total Tannin}] \\cdot \\frac{1}{1 + K_a [\\text{Casein}]}",
+        "spoken_form": "free bitter tannin concentration is sharply reduced as milk casein binds the polyphenol molecules",
+        "context": "Molecular neutralization of tea astringency upon adding whole milk"
+      },
+      {
+        "id": "eq_emulsion_stability",
+        "latex": "\\phi_{\\text{lipid}} \\approx 0.035 \\implies \\mu_{\\text{chai}} > \\mu_{\\text{water}}",
+        "spoken_form": "milk lipid volume fraction produces heightened viscosity and rich mouthfeel",
+        "context": "Formation of a stable milk-fat emulsion that coats the palate"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Coarse Spice Fracture",
+        "mathematical_operation": "Fracture cell walls: surface area increase without micro-particulate debris",
+        "state_effect": "Releases volatile terpenes (cineole, cinnamaldehyde) into headspace"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Aqueous Decoction at 100C",
+        "mathematical_operation": "Solvent extraction: delta_C / delta_t maximizes mass transfer in polar medium",
+        "state_effect": "Deep amber theaflavin diffusion without lipid film barrier"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Casein Emulsification",
+        "mathematical_operation": "Binding equilibrium: Ka complexation locks astringent polyphenols",
+        "state_effect": "Smooth velvety mouthfeel with sharp bitterness neutralized"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Rolling Double-Boil & Aeration",
+        "mathematical_operation": "Convective homogenization and aeration via high pour",
+        "state_effect": "Forms microfoam head and fully melds aromatic flavor profile"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "botanical_fracture_burst",
+      "abstract_concept": "Whole Spice Cell Fracture & Essential Oil Release",
+      "visual_archetype": "scatter_cluster_distribution",
+      "svg_primitives": [
+        "path",
+        "circle",
+        "line",
+        "text"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Botanical cards fracture under mortar impact, releasing expanding glowing volatile oil particles",
+      "color_token": "state_active_emerald"
+    },
+    {
+      "concept_id": "aqueous_diffusion_waves",
+      "abstract_concept": "Thermodynamic Water Decoction at 100C",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": [
+        "path",
+        "line",
+        "circle"
+      ],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "Catmull-Rom spline wave draws deep amber tea diffusion into boiling bubbling water",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "casein_micelle_shield",
+      "abstract_concept": "Casein Protein Tannin Neutralization",
+      "visual_archetype": "ring_buffer_pipeline",
+      "svg_primitives": [
+        "circle",
+        "path",
+        "text"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Silky cream droplets cascade down to encapsulate sharp tannin spikes into smooth rounded bubbles",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "aerated_pour_monument",
+      "abstract_concept": "Rolling Boil & Aerated Kulhad Finish",
+      "visual_archetype": "geometric_gauge_meter",
+      "svg_primitives": [
+        "path",
+        "rect",
+        "text"
+      ],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "Pulsing double-rise foam boil streams hot into steaming clay cups with upward wisp drifts",
+      "color_token": "gradient_error_coral"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "af_bella",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "cardamom",
+        "phonetic_respelling": "CAR-duh-mum",
+        "rationale": "Clear culinary botanical pronunciation"
+      },
+      {
+        "term": "cineole",
+        "phonetic_respelling": "SIN-ee-ohl",
+        "rationale": "Accurate chemical terpene pronunciation"
+      },
+      {
+        "term": "Assam",
+        "phonetic_respelling": "uh-SAHM",
+        "rationale": "Authentic tea region pronunciation"
+      },
+      {
+        "term": "casein",
+        "phonetic_respelling": "KAY-seen",
+        "rationale": "Clear milk protein pronunciation"
+      },
+      {
+        "term": "kulhad",
+        "phonetic_respelling": "KOOL-hud",
+        "rationale": "Traditional Indian clay cup pronunciation"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The Spices & The Coarse Crush",
+      "target_duration_sec": 17.5,
+      "pedagogical_objective": "Demonstrate that coarse cracking releases volatile essential oils without releasing bitter tannin dust.",
+      "visual_action": "Botanical cards fracture under mortar impact, releasing expanding glowing volatile oil particles.",
+      "active_entities": [
+        "cineole_flux"
+      ]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Water First: The Decoction Phase",
+      "target_duration_sec": 14.5,
+      "pedagogical_objective": "Explain why boiling in water first achieves 85% extraction efficiency without milk fats blocking the tea leaf cuticle.",
+      "visual_action": "Convective decoction flask drawing golden Catmull-Rom diffusion waves into boiling water at 100°C.",
+      "active_entities": [
+        "extraction_efficiency",
+        "eq_fick_diffusion"
+      ]
+    },
+    {
+      "scene_id": "s3",
+      "title": "The Milk & Casein Shield",
+      "target_duration_sec": 15.5,
+      "pedagogical_objective": "Show how casein micelles bind bitter tannins to neutralize astringency while milk lipids dissolve spice aromatics.",
+      "visual_action": "Milk cream swirls into deep tea amber, casein micelles encapsulating sharp tannin molecules into smooth emulsion.",
+      "active_entities": [
+        "casein_binding",
+        "eq_tannin_neutralization"
+      ]
+    },
+    {
+      "scene_id": "s4",
+      "title": "The Double Boil & The Perfect Pour",
+      "target_duration_sec": 15.5,
+      "pedagogical_objective": "Illustrate how rolling boil convection and high pour aeration complete the silky microfoam body.",
+      "visual_action": "Double rising foam boil with steam wisps settling into a steaming terracotta kulhad and golden takeaway stamp.",
+      "active_entities": [
+        "milk_ratio",
+        "eq_emulsion_stability"
+      ]
+    }
+  ]
+}
+

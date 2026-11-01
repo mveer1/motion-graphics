@@ -1,0 +1,242 @@
+{
+  "metadata": {
+    "topic_id": "neural-network-learning",
+    "title": "How Does a Neural Network Learn?",
+    "domain": "deep_learning",
+    "difficulty": "introductory",
+    "target_duration_sec": {
+      "min": 22.0,
+      "max": 28.0,
+      "target": 24.75
+    },
+    "canonical_sources": [
+      {
+        "title": "Deep Learning",
+        "authors": "Ian Goodfellow, Yoshua Bengio, Aaron Courville",
+        "year": 2016,
+        "source_type": "textbook",
+        "url": "https://www.deeplearningbook.org"
+      },
+      {
+        "title": "Learning representations by back-propagating errors",
+        "authors": "David E. Rumelhart, Geoffrey E. Hinton, Ronald J. Williams",
+        "year": 1986,
+        "source_type": "academic_paper",
+        "url": "https://doi.org/10.1038/323533a0"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "How can a system composed of simple mathematical operations adapt its internal parameters to learn complex predictive patterns from raw data?",
+    "core_thesis": "A neural network learns through a closed-loop iterative cycle: calculating forward predictions, measuring output error (loss), and propagating gradient corrections backward to adjust synaptic weights.",
+    "mental_model": "An adaptive plumbing network where signal flows forward through valves (weights), discrepancy is measured at the output reservoir, and reverse pressure waves adjust the valve openings until flow reaches optimal balance.",
+    "key_takeaway": "Learning is gradient-directed error minimization across connected parameters over time.",
+    "verified_claims": [
+      "Information propagates forward through affine transformations followed by non-linear activations.",
+      "Loss quantifies the mathematical difference between network prediction and target truth.",
+      "Gradient descent computes partial derivatives of loss with respect to every weight via the chain rule.",
+      "Weights update opposite to the gradient vector scaled by learning rate eta."
+    ],
+    "anti_patterns": [
+      "Avoid describing weights as magical memory units; they are purely scalar multipliers in matrix dot products.",
+      "Do not suggest backpropagation adjusts inputs; it strictly updates internal weights and biases.",
+      "Do not display random jitter or erratic movements as 'learning'; convergence must show deterministic descent down the loss gradient."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "input_x",
+        "symbol_latex": "x \\in \\mathbb{R}^n",
+        "name": "Input Feature Vector",
+        "type_or_domain": "vector",
+        "role": "Initial sensory or feature data fed into layer 0"
+      },
+      {
+        "id": "weight_matrix",
+        "symbol_latex": "W^{[l]} \\in \\mathbb{R}^{m \\times n}",
+        "name": "Synaptic Weight Matrix",
+        "type_or_domain": "matrix",
+        "role": "Trainable parameter matrix scaling connection strengths"
+      },
+      {
+        "id": "bias_vector",
+        "symbol_latex": "b^{[l]} \\in \\mathbb{R}^m",
+        "name": "Bias Offset Vector",
+        "type_or_domain": "vector",
+        "role": "Trainable threshold shifting activation"
+      },
+      {
+        "id": "activation",
+        "symbol_latex": "a^{[l]} = \\sigma(z^{[l]})",
+        "name": "Layer Activation Vector",
+        "type_or_domain": "vector",
+        "role": "Non-linear feature representation emitted by layer l"
+      },
+      {
+        "id": "loss_scalar",
+        "symbol_latex": "L(\\hat{y}, y)",
+        "name": "Scalar Loss Metric",
+        "type_or_domain": "scalar",
+        "role": "Discrepancy penalty between prediction and ground truth"
+      },
+      {
+        "id": "learning_rate",
+        "symbol_latex": "\\eta > 0",
+        "name": "Learning Rate Hyperparameter",
+        "type_or_domain": "scalar",
+        "role": "Step size along the negative loss gradient"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_affine",
+        "latex": "z^{[l]} = W^{[l]} a^{[l-1]} + b^{[l]}",
+        "spoken_form": "z for layer l equals weight matrix W times activation a from layer l minus one, plus bias vector b",
+        "context": "Forward linear combination at each neuron before activation"
+      },
+      {
+        "id": "eq_loss",
+        "latex": "L(\\hat{y}, y) = \\frac{1}{2} \\|\\hat{y} - y\\|^2",
+        "spoken_form": "Loss equals one half times the squared Euclidean distance between predicted y and true y",
+        "context": "Quantification of prediction discrepancy"
+      },
+      {
+        "id": "eq_gradient_update",
+        "latex": "W^{[l]} \\leftarrow W^{[l]} - \\eta \\frac{\\partial L}{\\partial W^{[l]}}",
+        "spoken_form": "New weight matrix W equals current W minus learning rate eta times the partial derivative of loss with respect to W",
+        "context": "Backpropagation weight update step"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Forward Propagation",
+        "mathematical_operation": "a^{[l]} = sigma(W^{[l]} a^{[l-1]} + b^{[l]})",
+        "state_effect": "Signals propagate left-to-right through layers, emitting output prediction y_hat"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Loss Evaluation",
+        "mathematical_operation": "L = (1/2) * ||y_hat - y||^2",
+        "state_effect": "Discrepancy between prediction and target truth is quantified"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Backward Propagation",
+        "mathematical_operation": "grad_W = dL / dW via chain rule",
+        "state_effect": "Error sensitivities traverse right-to-left across hidden layers"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Gradient Descent Update",
+        "mathematical_operation": "W = W - eta * grad_W",
+        "state_effect": "Synaptic connection weights update to diminish future prediction error"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "input_x",
+      "abstract_concept": "Input feature coordinates",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["circle", "text", "filter"],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "Staggered entrance with radial scale pulse",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "weight_matrix",
+      "abstract_concept": "Synaptic connectivity matrix",
+      "visual_archetype": "node_network_graph",
+      "svg_primitives": ["line", "path"],
+      "spatial_anchor": "three_column_layers",
+      "motion_pattern": "Dynamic stroke-width and stroke-opacity tweens based on weight value",
+      "color_token": "neutral_grid_charcoal"
+    },
+    {
+      "concept_id": "activation_flow",
+      "abstract_concept": "Forward signal transmission",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["circle", "line"],
+      "spatial_anchor": "three_column_layers",
+      "motion_pattern": "Bright light packet traveling along connection paths from left to right",
+      "color_token": "accent_secondary_teal"
+    },
+    {
+      "concept_id": "loss_scalar",
+      "abstract_concept": "Prediction error magnitude and descent",
+      "visual_archetype": "curved_landscape_descent",
+      "svg_primitives": ["path", "circle", "text"],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "Marker ball easing smoothly down parabolic basin toward global minimum",
+      "color_token": "gradient_error_coral"
+    },
+    {
+      "concept_id": "backprop_update",
+      "abstract_concept": "Backward error gradient signal",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": ["path", "line"],
+      "spatial_anchor": "three_column_layers",
+      "motion_pattern": "Warm coral wave traveling right-to-left followed by connection re-weighting",
+      "color_token": "gradient_error_coral"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "neural",
+        "phonetic_respelling": "NYOOR-ul",
+        "rationale": "Ensures clean articulation without slurring vowels"
+      },
+      {
+        "term": "loss",
+        "phonetic_respelling": "LAWS",
+        "rationale": "Clear distinction from casual speech"
+      },
+      {
+        "term": "backpropagation",
+        "phonetic_respelling": "back propagation",
+        "rationale": "Two-word separation prevents Kokoro phonetic contraction"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "The Problem",
+      "target_duration_sec": 6.5,
+      "pedagogical_objective": "Establish what a neural network does at a black-box level: mapping an input to a prediction.",
+      "visual_action": "Clean coordinates form; input vector activates; raw prediction emits to the right.",
+      "active_entities": ["input_x", "activation"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "The Network",
+      "target_duration_sec": 6.8,
+      "pedagogical_objective": "Reveal internal mechanics: layered nodes and synaptic weight transformations.",
+      "visual_action": "Layered bipartite graph materializes; forward signal pulses illuminate connections left to right.",
+      "active_entities": ["weight_matrix", "activation_flow"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Learning",
+      "target_duration_sec": 7.8,
+      "pedagogical_objective": "Demonstrate the error feedback loop: comparing prediction to truth, calculating loss, and propagating corrections.",
+      "visual_action": "Ground truth beacon appears; discrepancy delta bracket highlights error; coral reverse wave updates weights.",
+      "active_entities": ["loss_scalar", "backprop_update"]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Improvement",
+      "target_duration_sec": 5.4,
+      "pedagogical_objective": "Show convergence over training iterations: loss descending to minimum and network stabilizing.",
+      "visual_action": "Loss curve appears; marker descends to valley; network glows in steady synchronized state.",
+      "active_entities": ["loss_scalar", "weight_matrix"]
+    }
+  ]
+}
+

@@ -1,0 +1,129 @@
+{
+  "project": "paper-plane-field-notes",
+  "reviewer": "Antigravity Agent",
+  "reviewed_on": "2026-11-01",
+  "renders_reviewed": [
+    "renders/portrait/final.mp4",
+    "out/paper-plane-field-notes-portrait.mp4",
+    "qa/portrait-snapshots/contact-sheet-1.jpg"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 5,
+      "notes": "Single-stage progression keeps attention locked on the folding sheet; stepper clearly indicates current progress 1/4 -> 4/4; callouts only point to the active fold.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-03-at-6s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-04-at-9s.png"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 5,
+      "notes": "Playfair Display for display words and headings, JetBrains Mono for HUD labels and stepper nodes. Clean letter-spacing (0.12em) and high contrast.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-00-at-0.5s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-08-at-21s.png"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 5,
+      "notes": "Dedicated vertical layout with art in the upper safe tier (height 44%) and instructions/stepper in the lower tier. Safe margins top 128px and bottom 256px strictly respected.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 5,
+      "notes": "Opening kinetic word beats on 0.9s intervals, folds pace at ~2.4s per step allowing comfortable reading, 2s glide and 3s hold on closing card.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-07-at-17.5s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-09-at-21.75s.png"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 5,
+      "notes": "Off-white paper (#FBFBFA / #F4EFE6) with dark ink (#1E1B16) exceeds WCAG AAA; accent terracotta provides clear visual feedback.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-03-at-6s.png"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 5,
+      "notes": "Editorial-light style system with paper-craft aesthetic, warm tones, and hand-drawn callout annotations directly reflecting reference research (ref-c3bc609841, ref-392ee4d0f9).",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 5,
+      "notes": "Full stop of 'Fly.' blooms into the notebook page; landing dot of flight path blooms into closing end card. Every transition has continuity.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-02-at-3.4s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-08-at-21s.png"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 5,
+      "notes": "Consistent line weights, pen-led drawing strokes for crease lines, and matching hand-drawn callouts throughout.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-04-at-9s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-06-at-14s.png"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 5,
+      "notes": "Zero decorative filler. Every movement either folds the plane, reveals a step, or traces the flight.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-05-at-11.5s.png"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 5,
+      "notes": "Continuous visual evolution every 0.8–2s fulfilling the Anti-Laziness Mandate.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 5,
+      "notes": "Zero overlaps or clipping; HUD corners clear system chrome; stepper remains above the 256px bottom safe zone.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-06-at-14s.png"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 5,
+      "notes": "High-energy word-beat opening ('Fold. Crease. Fly.'), deliberate step-by-step fold instructional body, pay-off flight arc, and closing takeaway card holding for >2.5s.",
+      "evidence": [
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-00-at-0.5s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-07-at-17.5s.png",
+        "projects/paper-plane-field-notes/qa/portrait-snapshots/frame-09-at-21.75s.png"
+      ]
+    }
+  ],
+  "verdict": "pass",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

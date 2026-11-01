@@ -1,0 +1,29 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.466
+A neural network is a system that learns from examples.
+
+2
+00:00:03.466 --> 00:00:06.050
+Given an input, it produces a prediction.
+
+3
+00:00:06.550 --> 00:00:12.575
+Information flows forward through layers of connected nodes, each applying a simple transformation.
+
+4
+00:00:13.075 --> 00:00:16.213
+The network compares its prediction to the correct answer.
+
+5
+00:00:16.213 --> 00:00:19.675
+The difference — the loss — tells it how to adjust every weight.
+
+6
+00:00:20.175 --> 00:00:23.543
+Repeat this across many examples, and the loss falls.
+
+7
+00:00:23.543 --> 00:00:24.750
+The network learns.

@@ -6,17 +6,17 @@
   "style": "editorial-light",
   "formats": [
     {
-      "id": "landscape",
-      "width": 1280,
-      "height": 720,
-      "primary": true,
-      "platform": "website"
-    },
-    {
       "id": "portrait",
       "width": 720,
       "height": 1280,
+      "primary": true,
       "platform": "instagram-reels"
+    },
+    {
+      "id": "landscape",
+      "width": 1280,
+      "height": 720,
+      "platform": "website"
     },
     {
       "id": "square",

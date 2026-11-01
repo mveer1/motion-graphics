@@ -1,0 +1,146 @@
+{
+  "version": "2.0.0",
+  "inputs": [
+    {
+      "id": "projectSlug",
+      "type": "promptString",
+      "description": "Project slug (e.g., china-market-crash-2026, chai-masala-v2):",
+      "default": "china-market-crash-2026"
+    },
+    {
+      "id": "newProjectSlug",
+      "type": "promptString",
+      "description": "New project slug (lowercase kebab-case):",
+      "default": "my-motion-explainer"
+    },
+    {
+      "id": "templateId",
+      "type": "pickString",
+      "description": "Choose a project template:",
+      "options": [
+        "minimal-editorial",
+        "kinetic-typography",
+        "scientific-explainer",
+        "algorithmic-art-loop",
+        "collage-poster",
+        "epic-scroll-story",
+        "data-dense-dashboard",
+        "technical-explainer"
+      ],
+      "default": "minimal-editorial"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "Studio: Validate Project",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/studio.py validate ${input:projectSlug}",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Studio: Frame Review Contact Sheets",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/frame-review.py ${input:projectSlug} --fonts google",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Studio: Build Full Project (Render + Audio + QA)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/studio.py build ${input:projectSlug}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "focus": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Studio: Sync Formats (index.<format>.html)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/studio.py formats ${input:projectSlug}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Studio: New Project from Template",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/studio.py new ${input:newProjectSlug} --template ${input:templateId}",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "QA: Run 5-Gate Validation",
+      "type": "shell",
+      "command": "./.agents/skills/video-assembler/scripts/run-qa-gates.sh projects/${input:projectSlug}",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "HyperFrames: Lint Composition",
+      "type": "shell",
+      "command": "hyperframes lint projects/${input:projectSlug}/src/index.html",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Audio: Synthesize Narration (TTS)",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python src/pipeline/tts.py --input projects/${input:projectSlug}/src/narration.json --output projects/${input:projectSlug}/audio",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Governance: Audit Workspace",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/workspace-governance.py",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Motion Catalogue: Validate Catalogue",
+      "type": "shell",
+      "command": "${workspaceFolder}/.venv/bin/python scripts/motion-catalogue.py validate",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
+
