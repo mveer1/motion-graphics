@@ -283,6 +283,13 @@ def resolve_entries(target: str, formats: Optional[List[str]]) -> Tuple[Path, Op
     """Returns (src_dir, project_dir or None, entries[{id, file, width, height, safe, studio}])."""
     p = Path(target)
     pdir = REPO_ROOT / "projects" / target
+    if not (pdir.is_dir() or (p.is_dir() and (p / "src").is_dir())):
+        try:
+            sys.path.insert(0, str(REPO_ROOT / "scripts"))
+            studio = importlib.import_module("studio")
+            pdir = studio.project_dir(target)
+        except SystemExit:
+            pass
     if pdir.is_dir() or (p.is_dir() and (p / "src").is_dir()):
         pdir = pdir if pdir.is_dir() else p.resolve()
         src = pdir / "src"

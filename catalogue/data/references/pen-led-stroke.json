@@ -43,7 +43,7 @@
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
     { "kind": "frame-review", "path": "tests/reference-derived/pen-and-bloom/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: dot leads the line; underline drawn from the reveal point." },
     { "kind": "benchmark", "path": "tests/reference-derived/benchmark.json", "result": "pass", "date": "2026-10-30" },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Pen-drawn fold lines and a 2 s flight path whose dot becomes the bloom source. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Pen-drawn fold lines and a 2 s flight path whose dot becomes the bloom source. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["continuous-line-spine", "element-bloom-transition"], "effects": ["pen-stroke", "stroke-draw"], "templates": ["illustrated-explainer", "title-sequence"] },
   "combines_with": [ { "id": "element-bloom-transition", "why": "The surviving dot becomes the seed of the next scene." }, { "id": "continuous-line-spine", "why": "One pen line can run through several scenes." } ],

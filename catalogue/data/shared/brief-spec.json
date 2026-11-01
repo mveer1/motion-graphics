@@ -37,7 +37,7 @@
   },
   "owner": "video-production",
   "status": "experimental",
-  "approval_evidence": "Validated against projects/masala-chai-recipe/brief.json and templates/projects/*/brief.json via scripts/studio.py validate (2026-10-30).",
+  "approval_evidence": "Validated against projects/masala-chai/v1-recipe/brief.json and templates/projects/*/brief.json via scripts/studio.py validate (2026-10-30).",
   "architecture_ref": "ARCHITECTURE.md#s0",
   "last_verified": "2026-10-30",
   "tags": ["schema", "brief", "creative-direction", "json-schema"]

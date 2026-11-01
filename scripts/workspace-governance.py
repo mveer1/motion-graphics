@@ -287,14 +287,18 @@ class GovernanceAuditor:
         errors_before = len(self.errors)
         if PROJECTS_DIR.exists():
             if self.target_project:
-                pdir = PROJECTS_DIR / self.target_project
-                if not pdir.exists() or not (pdir / "project.json").exists():
+                try:
+                    pdir = studio.project_dir(self.target_project)
+                    if (pdir / "project.json").exists():
+                        pdirs = [pdir]
+                    else:
+                        self.errors.append(f"Target project '{self.target_project}' does not contain project.json.")
+                        pdirs = []
+                except SystemExit:
                     self.errors.append(f"Target project '{self.target_project}' with project.json not found under projects/.")
                     pdirs = []
-                else:
-                    pdirs = [pdir]
             else:
-                pdirs = sorted(p for p in PROJECTS_DIR.iterdir() if (p / "project.json").exists())
+                pdirs = sorted(p.parent for p in PROJECTS_DIR.rglob("project.json"))
 
             for pdir in pdirs:
                 integ = studio.runtime_integrity(pdir)
@@ -310,8 +314,9 @@ class GovernanceAuditor:
                     path = pdir / "src" / name
                     current = path.read_text(encoding="utf-8").replace("\r\n", "\n") if path.exists() else None
                     if current != content.replace("\r\n", "\n"):
+                        rel_p = pdir.relative_to(PROJECTS_DIR).as_posix()
                         self.errors.append(
-                            f"{pdir.name}: src/{name} is missing or out of date; run `python scripts/studio.py formats {pdir.name}`."
+                            f"{pdir.name}: src/{name} is missing or out of date; run `python scripts/studio.py formats {rel_p}`."
                         )
         if len(self.errors) == errors_before:
             self.checks_passed += 1

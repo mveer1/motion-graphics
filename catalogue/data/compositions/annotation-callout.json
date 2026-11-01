@@ -22,7 +22,7 @@
   },
   "layout_notes": "Positions are computed per format from the target's rendered box and clamped to the safe area; choose side per format with Studio.pick when the target sits near an edge. The parent must be a full-frame container (a scene).",
   "styles_tested": ["editorial-light"],
-  "examples": ["tests/reference-derived/explainer-annotations/index.html", "projects/paper-plane-field-notes/src/index.html"],
+  "examples": ["tests/reference-derived/explainer-annotations/index.html", "projects/paper-plane-field-notes/v1/src/index.html"],
   "validation_steps": [
     "python tests/test-studio-runtime.py",
     "python scripts/frame-review.py <project> --fonts google (the note must stay inside the safe area and off other text)"

@@ -39,7 +39,7 @@
   },
   "owner": "workspace-governance",
   "status": "experimental",
-  "approval_evidence": "Run on projects/masala-chai-recipe (3 formats) and projects/benchmark-neural-network (legacy) on 2026-10-30; findings cross-checked by viewing contact sheets.",
+  "approval_evidence": "Run on projects/masala-chai/v1-recipe (3 formats) and projects/benchmark-neural-network (legacy) on 2026-10-30; findings cross-checked by viewing contact sheets.",
   "architecture_ref": "ARCHITECTURE.md#s9",
   "last_verified": "2026-10-30",
   "tags": ["qa", "visual", "playwright", "contact-sheet", "layout", "formats"]

@@ -75,10 +75,12 @@
       "concept": "Warm ivory parchment canvas (#FDFCF7) paired with rich chai terracotta (#B45309), emerald cardamom (#047857), deep Assam amber (#78350F), and creamy foam (#FEF3C7). Uses dynamic botanical cards, Catmull-Rom diffusion curves, casein molecular shield diagrams, and a steaming clay kulhad finish.",
       "visual_identity": {
         "style_system": "editorial-light",
+        "palette": "Ivory parchment (#FDFCF7), Assam amber (#78350F), chai terracotta (#B45309), emerald (#047857), warm saffron (#D97706)",
         "typography": "Playfair Display headers, Inter body, JetBrains Mono kickers and metrics",
         "texture": "Clean vector geometry, subtle parchment warmth, vector steam wisps"
       },
       "motion_language": {
+        "personality": "Warm, tactile, rhythmic, editorial",
         "signature_moves": [
           "Mortar fracture impact",
           "Catmull-Rom diffusion wave",
@@ -87,6 +89,7 @@
         ],
         "transitions": "Spatial push-up, directional wipe, and mask reveals"
       },
+      "composition": {
         "approach": "Three-tier vertical hierarchy: top header group, central dynamic visual stage (70%+ occupancy), anchored bottom takeaway card"
       },
       "pacing": "Deliberate and sensory: opens with rhythmic spice preparation, flows through bubbling water and creamy emulsification, concludes with an inviting takeaway hold",

@@ -18,7 +18,10 @@ echo "  • Base Directory: $BASE_DIR"
 echo "  • Mode:           Strictly Sequential (Single Worker, Low-Memory)"
 echo "================================================================="
 
-PROJECT_DIRS=("$BASE_DIR"/projects/*)
+PROJECT_DIRS=()
+while IFS= read -r f; do
+  PROJECT_DIRS+=("$(dirname "$f")")
+done < <(find "$BASE_DIR/projects" -type f \( -name "project.json" -o -name "research.json" \) | sort)
 TOTAL=${#PROJECT_DIRS[@]}
 PASSED=0
 FAILED=0
@@ -29,7 +32,7 @@ REPORT_ITEMS=()
 for ((i=0; i<TOTAL; i++)); do
   P="${PROJECT_DIRS[$i]}"
   if [[ ! -d "$P" ]]; then continue; fi
-  SLUG="$(basename "$P")"
+  SLUG="${P#$BASE_DIR/projects/}"
   
   echo ""
   echo "-----------------------------------------------------------------"

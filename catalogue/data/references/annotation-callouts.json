@@ -25,7 +25,7 @@
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
     { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "Contact sheet inspected: loop, arrow and note around the hand-off zone." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two margin notes placed per format (two lines in portrait and square to clear the sheet and HUD) and a note on the flight's landing dot. Frame review 0 errors, 0 warnings (preview grade)." }
+    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "Two margin notes placed per format (two lines in portrait and square to clear the sheet and HUD) and a note on the flight's landing dot. Frame review 0 errors, 0 warnings (preview grade)." }
   ] },
   "related": { "techniques": ["single-stage-progression", "diagram-connectors", "onion-skin-trail"], "compositions": ["annotation-callout"], "templates": ["illustrated-explainer", "technical-explainer"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Notes and drawings are original.",

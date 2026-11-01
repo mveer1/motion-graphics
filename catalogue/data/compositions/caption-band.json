@@ -32,7 +32,7 @@
     "editorial-light"
   ],
   "examples": [
-    "projects/masala-chai-recipe/src/index.html",
+    "projects/masala-chai/v1-recipe/src/index.html",
     "tests/studio-runtime/index.html"
   ],
   "validation_steps": [
@@ -40,7 +40,7 @@
     "npx hyperframes check on the render host"
   ],
   "validation": {
-    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
     "last_verified": "2026-10-30"
   },
   "tags": [

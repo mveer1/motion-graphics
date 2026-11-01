@@ -20,7 +20,7 @@
   },
   "layout_notes": "Pinned to the format's safe-area corners (--safe-*), z-index above the transition overlay; labels use the kicker size (at the 2.6% text floor). In portrait the bottom labels sit above the caption/UI zone because the safe bottom inset is 20%.",
   "styles_tested": ["editorial-light", "swiss-minimal"],
-  "examples": ["tests/reference-derived/word-beats/index.html", "projects/paper-plane-field-notes/src/index.html"],
+  "examples": ["tests/reference-derived/word-beats/index.html", "projects/paper-plane-field-notes/v1/src/index.html"],
   "validation_steps": [
     "python tests/test-studio-runtime.py",
     "python scripts/frame-review.py <project> --fonts google (labels must not collide with scene text in any format)"
