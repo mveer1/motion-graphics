@@ -1,0 +1,128 @@
+{
+  "project": "benchmark-neural-network-v3",
+  "reviewer": "Motion Lab Autonomous Creative Reviewer",
+  "reviewed_on": "2026-11-01",
+  "renders_reviewed": [
+    "renders/portrait/final.mp4",
+    "out/benchmark-neural-network-v3-portrait.mp4"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 5,
+      "notes": "Clear vertical reading hierarchy: chapter stepper at top, scene title, dominant central neural graph stage occupying > 70% of canvas, and bottom takeaway card.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/frame-00-at-1.5s.png"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 5,
+      "notes": "Consistent Playfair Display serif headings with JetBrains Mono math notation; all text sizes exceed the 18.72px portrait floor (titles 38px, body 20-22px, formulas 18-24px).",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/frame-03-at-7.5s.png"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 5,
+      "notes": "Designed strictly and natively for 720x1280 portrait (9:16 reels) with generous vertical distribution and no compressed boxes.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 5,
+      "notes": "Continuous multi-beat progression evolves the canvas every 1.5 to 2.5 seconds matching spoken words, completely eliminating static visual freezes.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 5,
+      "notes": "Off-white warm ivory canvas paired with high-contrast deep charcoal ink (#1E1B16) and vibrant electric ultramarine and amber chips passing WCAG AA.",
+      "evidence": [
+        "qa/snapshots/frame-04-at-9s.png"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 5,
+      "notes": "Follows editorial-light default style system with terracotta vermilion error highlights, electric ultramarine inputs, and emerald convergence markers.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 5,
+      "notes": "Single-stage progression maintains spatial continuity; the neural network expands, computes loss, and converges without hard cuts or black gaps.",
+      "evidence": [
+        "qa/snapshots/frame-03-at-7.5s.png",
+        "qa/snapshots/frame-06-at-14.5s.png"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 5,
+      "notes": "Cohesive vector language: node halos, traveling signal pulses, dashed backpropagation paths, and parabolic loss curve.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg",
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 5,
+      "notes": "Every tween directly visualizes mathematical ground truth: affine transformations, non-linear activations, error discrepancies, and gradient updates.",
+      "evidence": [
+        "qa/snapshots/frame-08-at-18.5s.png"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 5,
+      "notes": "Anti-Laziness Mandate strictly enforced: continuous virtual camera drift and secondary vitality ensure zero dead air or frozen frames during narration.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-1.jpg"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 5,
+      "notes": "All UI elements respect top status bar (top: 128px safe) and bottom caption margins (bottom: 256px safe); loss basin cleanly fades before network lock.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-2.jpg"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 5,
+      "notes": "Compelling narrative arc from prediction uncertainty (y_hat=0.28) through backpropagation to 99.4% accuracy convergence with an emerald checkmark hold.",
+      "evidence": [
+        "qa/snapshots/contact-sheet-2.jpg",
+        "qa/snapshots/frame-12-at-24.5s.png"
+      ]
+    }
+  ],
+  "verdict": "pass",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

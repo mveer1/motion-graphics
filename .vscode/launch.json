@@ -1,0 +1,65 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug Studio Validate",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/studio.py",
+      "args": ["validate", "${input:debugProjectSlug}"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug Studio Build",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/studio.py",
+      "args": ["build", "${input:debugProjectSlug}"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug Frame Review",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/frame-review.py",
+      "args": ["${input:debugProjectSlug}", "--fonts", "google"],
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug Workspace Governance",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/workspace-governance.py",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Debug Audio Stack Test",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/tests/test-audio-stack.py",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "debugProjectSlug",
+      "type": "promptString",
+      "description": "Project slug to debug:",
+      "default": "china-market-crash-2026"
+    }
+  ]
+}
+

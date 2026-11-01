@@ -1,0 +1,98 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/src",
+    "${workspaceFolder}/tools/earshot"
+  ],
+  "python.analysis.autoSearchPaths": true,
+  "editor.formatOnSave": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.venv": false,
+    "**/__pycache__": true,
+    "**/.hyperframes": true,
+    "**/out/reference-analysis": true,
+    "**/*.pyc": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/out/reference-analysis": true,
+    "**/.hyperframes": true
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["projects/*/brief.json"],
+      "url": "./specs/brief-spec.json"
+    },
+    {
+      "fileMatch": ["projects/*/research.json"],
+      "url": "./specs/research-spec.json"
+    },
+    {
+      "fileMatch": ["projects/*/storyboard.json"],
+      "url": "./specs/storyboard-spec.json"
+    },
+    {
+      "fileMatch": [
+        "catalogue/data/skills/*.json",
+        "catalogue/data/tools/*.json",
+        "catalogue/data/agents/*.json",
+        "catalogue/data/integrations/*.json",
+        "catalogue/data/shared/*.json"
+      ],
+      "url": "./catalogue/schemas/component.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/libraries/*.json"],
+      "url": "./catalogue/schemas/library.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/effects/*.json"],
+      "url": "./catalogue/schemas/effect.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/compositions/*.json"],
+      "url": "./catalogue/schemas/composition.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/primitives/*.json"],
+      "url": "./catalogue/schemas/primitive.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/recipes/*.json"],
+      "url": "./catalogue/schemas/recipe.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/styles/*.json"],
+      "url": "./catalogue/schemas/style.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/project-templates/*.json"],
+      "url": "./catalogue/schemas/project-template.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/reference-sources/*.json"],
+      "url": "./catalogue/schemas/reference-source.schema.json"
+    },
+    {
+      "fileMatch": ["catalogue/data/references/*.json"],
+      "url": "./catalogue/schemas/reference.schema.json"
+    }
+  ],
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features",
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.tabSize": 2
+  },
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.port": 5500
+}
+

@@ -1,0 +1,130 @@
+{
+  "spec_version": 1,
+  "slug": "chai-masala-v2",
+  "title": "The Craft & Chemistry of Masala Chai",
+  "objective": "Explain the scientific principles and culinary technique behind authentic masala chai: coarse spice crushing, water decoction kinetics, milk casein tannin binding, and rolling aeration.",
+  "audience": "Tea lovers, home cooks, and food science enthusiasts looking for a visually captivating explainer of beverage craft.",
+  "platforms": [
+    "instagram-reels",
+    "tiktok",
+    "youtube-shorts"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 50,
+      "target": 57,
+      "max": 70
+    }
+  },
+  "message": {
+    "core_message": "Authentic masala chai is culinary chemistry: coarse crushing frees volatile oils, boiling in water extracts aromatics without lipid interference, and whole milk casein encapsulates sharp tannins into a velvety, aromatic emulsion.",
+    "key_points": [
+      "Crush spices coarsely to release volatile essential oils without grinding cellular debris into bitter dust.",
+      "Water first: polar solvent extraction at 100°C maximizes mass transfer before adding dairy.",
+      "Whole milk casein proteins bind to sharp tannins, neutralizing harsh astringency into rich smoothness.",
+      "The rolling double-boil creates convective turbulence that homogenizes milk lipids into microfoam."
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "warmth",
+      "delight",
+      "clarity",
+      "sensory craving"
+    ],
+    "keywords": [
+      "culinary",
+      "warm-editorial",
+      "aromatic",
+      "illustrated",
+      "inviting"
+    ],
+    "avoid": [
+      "cold laboratory aesthetics",
+      "static recipe cards",
+      "monochrome schemes",
+      "unreadable micro-text"
+    ]
+  },
+  "constraints": [
+    "Strictly enforce typography floor (>=19px in portrait 720p)",
+    "Anti-Laziness Mandate: Continuous visual evolution every 2-3 seconds during narration",
+    "Focal stage occupancy >= 65% with rich warm palette",
+    "Preserve verified food chemistry formulations from research dossier"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "required",
+    "captions": false
+  },
+  "research": {
+    "required": true,
+    "reason": "Documented in projects/chai-masala-v2/research.json and research.md"
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "warm-culinary-editorial",
+      "name": "Warm Culinary Editorial",
+      "concept": "Warm ivory parchment canvas (#FDFCF7) paired with rich chai terracotta (#B45309), emerald cardamom (#047857), deep Assam amber (#78350F), and creamy foam (#FEF3C7). Uses dynamic botanical cards, Catmull-Rom diffusion curves, casein molecular shield diagrams, and a steaming clay kulhad finish.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Ivory parchment (#FDFCF7), Assam amber (#78350F), chai terracotta (#B45309), emerald (#047857), warm saffron (#D97706)",
+        "typography": "Playfair Display headers, Inter body, JetBrains Mono kickers and metrics",
+        "texture": "Clean vector geometry, subtle parchment warmth, vector steam wisps"
+      },
+      "motion_language": {
+        "personality": "Warm, tactile, rhythmic, editorial",
+        "signature_moves": [
+          "Mortar fracture impact",
+          "Catmull-Rom diffusion wave",
+          "Casein micelle encapsulation",
+          "Steam wisp float"
+        ],
+        "transitions": "Spatial push-up, directional wipe, and mask reveals"
+      },
+      "composition": {
+        "approach": "Three-tier vertical hierarchy: top header group, central dynamic visual stage (70%+ occupancy), anchored bottom takeaway card"
+      },
+      "pacing": "Deliberate and sensory: opens with rhythmic spice preparation, flows through bubbling water and creamy emulsification, concludes with an inviting takeaway hold",
+      "why_it_fits": "Captures the emotional warmth and scientific depth of artisan tea brewing while maintaining flawless readability."
+    },
+    {
+      "id": "minimalist-laboratory-chemistry",
+      "name": "Minimalist Laboratory Chemistry",
+      "concept": "Stark beaker blueprints and clinical molecular graphs.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "Monochrome slate with single amber highlight",
+        "typography": "Monospace-only",
+        "texture": "Grid-locked coordinate blueprint"
+      },
+      "motion_language": {
+        "personality": "Clinical, rigid, analytical",
+        "signature_moves": [
+          "Linear progress ticks",
+          "Chemical bond assembly"
+        ],
+        "transitions": "Hard cut"
+      },
+      "composition": {
+        "approach": "Technical split screen"
+      },
+      "pacing": "Metronomic",
+      "why_it_fits": "Too sterile for a warm, comforting culinary beverage."
+    }
+  ],
+  "selected_direction": "warm-culinary-editorial",
+  "success_criteria": [
+    "Zero visual freezes exceeding 2.0s during narration",
+    "All text adheres to readability floor (>=19px)",
+    "Focal stage fills 65%-80% of canvas area",
+    "Continuous motion across scene transitions"
+  ]
+}

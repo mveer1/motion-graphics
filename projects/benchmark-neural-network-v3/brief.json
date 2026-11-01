@@ -1,0 +1,146 @@
+{
+  "spec_version": 1,
+  "slug": "benchmark-neural-network-v3",
+  "title": "How Does a Neural Network Learn?",
+  "objective": "Explain the fundamental feedback loop of neural network learning — forward prediction, loss calculation, backpropagation, and gradient descent convergence — in an engaging, cinematic, portrait-native motion explainer.",
+  "audience": "Technical developers, machine learning students, and curious viewers seeking an intuitive visual deconstruction of deep learning foundations.",
+  "platforms": [
+    "instagram-reels",
+    "tiktok",
+    "youtube-shorts"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 20,
+      "target": 24.75,
+      "max": 30
+    }
+  },
+  "message": {
+    "core_message": "A neural network learns through continuous closed-loop feedback: computing forward predictions, evaluating discrepancy (loss), and propagating gradient corrections backward to adapt synaptic weights.",
+    "key_points": [
+      "Input features propagate through weighted synapses to produce a prediction",
+      "Discrepancy against ground truth defines scalar loss",
+      "Backpropagation computes error gradients with respect to every weight",
+      "Gradient descent iteratively drives loss to the global minimum"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "clarity",
+      "intellectual curiosity",
+      "illumination",
+      "precision"
+    ],
+    "keywords": [
+      "warm-editorial",
+      "vibrant",
+      "kinetic",
+      "precise",
+      "illuminating"
+    ],
+    "avoid": [
+      "dark gloomy backgrounds",
+      "static holds",
+      "microscopic desktop UI boxes",
+      "monotone pacing"
+    ]
+  },
+  "constraints": [
+    "Strictly portrait format (720x1280 @ 30fps)",
+    "Respect mobile reel safe margins (10% top, 20% bottom)",
+    "Anti-Laziness Mandate: Continuous visual evolution every 2-3 seconds during speech",
+    "Editorial light canvas default: Warm ivory background with vibrant high-contrast accents"
+  ],
+  "assets_provided": [],
+  "references": [
+    {
+      "description": "Neo-brutalist sticker explainer: dynamic diagram connectors and single stage progression",
+      "inspected": true,
+      "technique_ids": [
+        "diagram-connectors",
+        "single-stage-progression",
+        "stamp-state-change"
+      ]
+    },
+    {
+      "description": "Paper-theatre silhouette poem in portrait format: vertical framing and depth layering",
+      "inspected": true,
+      "technique_ids": [
+        "layered-silhouette-stage",
+        "continuous-line-spine"
+      ]
+    }
+  ],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "required",
+    "captions": true
+  },
+  "research": {
+    "required": false,
+    "reason": "Grounded in verified deep learning mathematics and validated research dossier in projects/benchmark-neural-network/research.json"
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "warm-high-contrast-editorial",
+      "name": "Warm High-Contrast Editorial Machine Learning",
+      "concept": "A sophisticated light-canvas scientific explainer where an ivory paper surface (#FBFBFA) stages a glowing neural network graph with vibrant electric ultramarine (#1E40AF) inputs, warm amber (#D97706) hidden nodes, coral vermilion (#E11D48) error gradients, and an emerald (#059669) descending loss basin.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Ivory canvas (#FBFBFA), deep charcoal ink (#111827), electric ultramarine (#1E40AF), marigold amber (#D97706), coral vermilion (#E11D48), emerald (#059669), frosted white panels (rgba(255,255,255,0.92))",
+        "typography": "Playfair Display / SF Pro Display headings, JetBrains Mono math notation and telemetry",
+        "texture": "Subtle tactile paper grain, crisp frosted glass cards, and luminous vector nodes"
+      },
+      "motion_language": {
+        "personality": "Fluid, authoritative, mathematically precise, kinetic",
+        "signature_moves": [
+          "Bipartite neural network progressive assembly",
+          "Traveling signal pulses and marching dashed weights",
+          "Discrepancy delta bracket reveal and reverse backpropagation wave",
+          "Loss basin Catmull-Rom spline descent with live counter rolls"
+        ],
+        "transitions": "Continuous single-stage progression with virtual camera drift and morphing focal anchors"
+      },
+      "composition": {
+        "approach": "Vertical 9:16 portrait layout with top chapter progress tracker, central hero neural graph stage, and bottom takeaway badge"
+      },
+      "pacing": "Multi-beat evolution every 2 seconds synchronized with narration phonetics",
+      "why_it_fits": "Delivers peak readability on mobile screens, eradicating the gloomy dark aesthetic of v1 and replacing static cards with an alive vector organism."
+    },
+    {
+      "id": "swiss-minimal-scientific",
+      "name": "Swiss Modern Computational Blueprint",
+      "concept": "A crisp, stark architectural visualization of deep learning math utilizing strict typography grids, geometric isometric node arrays, and monochrome graph coordinates with single-color telemetry highlights.",
+      "visual_identity": {
+        "style_system": "swiss-minimal",
+        "palette": "Clean white (#FFFFFF), stark black (#000000), technical cyan (#0077EE)",
+        "typography": "Helvetica Neue / Neue Haas Grotesk with tabular figures",
+        "texture": "Clean geometric grid lines and blueprint coordinates"
+      },
+      "motion_language": {
+        "personality": "Clinical, instantaneous, snapped, rigid",
+        "signature_moves": ["Coordinate snaps", "Linear graph increments"],
+        "transitions": "Instant step cuts"
+      },
+      "composition": {
+        "approach": "Grid-locked data table layout"
+      },
+      "pacing": "Strict tempo per measure",
+      "why_it_fits": "Appeals to academic rigor but lacks the warm approachable kinetic energy required for mobile reels engagement."
+    }
+  ],
+  "selected_direction": "warm-high-contrast-editorial",
+  "selection_rationale": "The warm high-contrast editorial direction creates maximum retention and visual joy on mobile feeds, blending rigorous scientific truth with tactile warmth and vivid multi-beat motion vitality.",
+  "success_criteria": [
+    "Single-stage evolving neural network diagram occupying >= 65% of canvas",
+    "Zero static freezes exceeding 2 seconds while narration is active",
+    "All text strictly respects the portrait legibility floor (>= 24px)",
+    "Clean 5-gate automated QA pass and crisp contact sheets"
+  ]
+}

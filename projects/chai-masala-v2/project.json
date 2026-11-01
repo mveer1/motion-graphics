@@ -1,0 +1,38 @@
+{
+  "spec_version": 2,
+  "slug": "chai-masala-v2",
+  "title": "The Craft & Chemistry of Masala Chai",
+  "template": "illustrated-explainer",
+  "style": "editorial-light",
+  "formats": [
+    {
+      "id": "portrait",
+      "width": 720,
+      "height": 1280,
+      "primary": true,
+      "platform": "instagram-reels"
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 57.0,
+  "quality": "looks",
+  "timing": {
+    "source": "narration",
+    "timeline_file": "audio/timeline.json"
+  },
+  "audio": {
+    "narration": true,
+    "voice": "af_bella",
+    "speed": 1.15,
+    "music": {
+      "enabled": true,
+      "file": "audio/bgm.wav",
+      "license": "Warm acoustic and marimba culinary ambient bed (CC0 / project-internal)",
+      "fade_out_sec": 2.0
+    },
+    "sfx": true,
+    "captions": false,
+    "loudness_target_lufs": -14,
+    "loudness_tolerance_lu": 1.5
+  }
+}

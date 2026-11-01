@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>China Market Crash: Anatomy of a Liquidity Meltdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    * { box-sizing: border-box; }
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      background: #FBFBFA;
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+    }
+    #root {
+      position: relative;
+      width: 720px; height: 1280px;
+      background: #FBFBFA;
+      overflow: hidden;
+    }
+    .scene {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      padding: 64px 44px 80px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .scene.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    /* Top Progress Indicator */
+    #progress-bar {
+      position: absolute;
+      top: 24px; left: 44px; right: 44px;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      z-index: 100;
+    }
+    #progress-fill {
+      width: 0%; height: 100%;
+      background: #DC2626;
+      border-radius: 2px;
+    }
+
+    /* Cards and Containers */
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1.5px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+      position: relative;
+    }
+    .card-accent {
+      border-left: 6px solid #DC2626;
+    }
+
+    /* Typography Hierarchy */
+    .header-group {
+      margin-top: 10px;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 40px;
+      line-height: 1.15;
+      color: #111827;
+      margin: 8px 0;
+    }
+    .hero-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #DC2626;
+    }
+    .hero-subtitle {
+      font-size: 22px;
+      line-height: 1.35;
+      color: #52555a;
+      margin-top: 4px;
+    }
+
+    /* Takeaway Badge */
+    .takeaway-card {
+      background: #111827;
+      color: #FFFFFF;
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 12px 28px rgba(17, 24, 39, 0.15);
+      margin-bottom: 4px;
+    }
+    .takeaway-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #F87171;
+    }
+    .takeaway-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: #FBFBFA;
+    }
+
+    /* Scene 1 Elements */
+    #s1-chart-container {
+      position: relative;
+      width: 100%;
+      height: 570px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .chart-pill {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      border-radius: 24px;
+      padding: 8px 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Scene 2 Elements */
+    .alert-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      border-left: 5px solid #D97706;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .alert-card.danger {
+      border-left-color: #DC2626;
+      background: #FEF2F2;
+    }
+    .alert-title {
+      font-weight: 700;
+      font-size: 20px;
+      color: #111827;
+    }
+    .alert-desc {
+      font-size: 19px;
+      color: #52555a;
+    }
+
+    /* Scene 3 Elements */
+    #s3-meter-wrap {
+      width: 100%;
+      height: 20px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 14px 0;
+    }
+    #s3-meter-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #D97706, #DC2626);
+      border-radius: 10px;
+    }
+
+    /* Scene 4 Elements */
+    #s4-strike-line {
+      position: absolute;
+      top: 50%; left: 0;
+      width: 100%; height: 5px;
+      background: #DC2626;
+      border-radius: 3px;
+      transform-origin: left center;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="42.5">
+
+  <div id="progress-bar">
+    <div id="progress-fill"></div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- SCENE 1: The $2 Trillion Bubble & Plunge -->
+  <!-- ========================================== -->
+  <section class="scene active" id="s1">
+    <div class="header-group" id="s1-header">
+      <div class="hero-kicker">SHANGHAI COMPOSITE</div>
+      <div class="hero-title">Where Did $2 Trillion Vanish?</div>
+      <div class="hero-subtitle">Ten weeks of nonstop drops shattered the market.</div>
+    </div>
+
+    <div id="s1-chart-container" class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div>
+          <div style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#52555a; text-transform:uppercase;" data-layout-ignore="true">BENCHMARK LEVEL</div>
+          <div id="s1-counter-val" style="font-family:'JetBrains Mono'; font-size:36px; font-weight:800; color:#111827;">2,100</div>
+        </div>
+        <div id="s1-bubble" class="chart-pill" style="opacity: 0;">
+          <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#10B981;"></span>
+          <span style="font-family:'JetBrains Mono'; font-weight:700; font-size:19px; color:#111827;">+150% RALLY</span>
+        </div>
+      </div>
+
+      <svg id="s1-svg" width="584" height="420" viewBox="0 0 584 420" style="overflow: visible;">
+        <defs>
+          <linearGradient id="s1-area-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#DC2626" stop-opacity="0.30" />
+            <stop offset="100%" stop-color="#DC2626" stop-opacity="0.0" />
+          </linearGradient>
+        </defs>
+
+        <!-- Coordinate Grid Lines & Labels -->
+        <g id="s1-grid" opacity="0.8">
+          <line x1="20" y1="60" x2="564" y2="60" stroke="#E5E7EB" stroke-dasharray="4 4" stroke-width="1.5" />
+          <text x="24" y="50" fill="#52555a" font-family="JetBrains Mono" font-size="16" font-weight="600" data-layout-ignore="true">5,178 PEAK (+150%)</text>
+
+          <line x1="20" y1="200" x2="564" y2="200" stroke="#E5E7EB" stroke-dasharray="4 4" stroke-width="1.5" />
+          <text x="24" y="190" fill="#52555a" font-family="JetBrains Mono" font-size="16" font-weight="600" data-layout-ignore="true">4,000 RESISTANCE</text>
+
+          <line x1="20" y1="360" x2="564" y2="360" stroke="#E5E7EB" stroke-dasharray="4 4" stroke-width="1.5" />
+          <text x="24" y="350" fill="#52555a" font-family="JetBrains Mono" font-size="16" font-weight="600" data-layout-ignore="true">3,000 COLLAPSE FLOOR</text>
+        </g>
+
+        <!-- Dynamic Plunge Path -->
+        <path id="s1-area" fill="url(#s1-area-grad)" opacity="0" d="" />
+        <path id="s1-curve" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="" />
+
+        <!-- Peak Point Marker -->
+        <g id="s1-peak-marker" opacity="0" transform="translate(370, 60)">
+          <circle r="9" fill="#DC2626" />
+          <circle r="18" fill="none" stroke="#DC2626" stroke-width="2" opacity="0.6" />
+        </g>
+
+        <!-- Crash Break Marker -->
+        <g id="s1-crash-marker" opacity="0" transform="translate(520, 360)">
+          <circle r="10" fill="#DC2626" />
+          <circle id="s1-crash-pulse" r="22" fill="none" stroke="#DC2626" stroke-width="2.5" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="takeaway-card" id="s1-takeaway">
+      <div>
+        <div class="takeaway-tag">MARKET BREAKPOINT</div>
+        <div class="takeaway-text">Ten Weeks of Nonstop Selling</div>
+      </div>
+      <div style="font-family:'JetBrains Mono'; font-size:28px; font-weight:800; color:#F87171;">-32%</div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SCENE 2: The Borrowed Money Trap -->
+  <!-- ========================================== -->
+  <section class="scene" id="s2">
+    <div class="header-group" id="s2-header">
+      <div class="hero-kicker">LEVERAGE MECHANICS</div>
+      <div class="hero-title">The Borrowed Money Trap</div>
+      <div class="hero-subtitle">When trading on debt, a small dip triggers forced execution.</div>
+    </div>
+
+    <div class="card card-accent" id="s2-stage" style="padding: 24px; min-height: 570px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div>
+          <div style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#52555a; text-transform:uppercase;" data-layout-ignore="true">COLLATERAL HEALTH</div>
+          <div style="font-family:'Playfair Display'; font-size:30px; font-weight:800; color:#111827;">Forced Liquidation</div>
+        </div>
+        <div style="text-align: right;">
+          <div id="s2-gauge-pct" style="font-family:'JetBrains Mono'; font-size:42px; font-weight:800; color:#DC2626;">100%</div>
+          <div style="font-size:15px; font-weight:600; color:#52555a;" data-layout-ignore="true">EQUITY REMAINING</div>
+        </div>
+      </div>
+
+      <!-- Liquidation Gauge SVG with Needle & Hub -->
+      <div style="display: flex; justify-content: center; margin: 6px 0 18px 0;">
+        <svg id="s2-gauge-svg" width="360" height="160" viewBox="0 0 360 160">
+          <path d="M 40 145 A 140 140 0 0 1 320 145" fill="none" stroke="#E5E7EB" stroke-width="20" stroke-linecap="round" />
+          <path id="s2-gauge-arc" d="M 40 145 A 140 140 0 0 1 320 145" fill="none" stroke="#DC2626" stroke-width="20" stroke-linecap="round" stroke-dasharray="440" stroke-dashoffset="0" />
+          
+          <!-- Gauge Center Hub and Animated Needle Group -->
+          <g id="s2-gauge-needle-group" style="transform-origin: 180px 145px;">
+            <line x1="180" y1="145" x2="180" y2="25" stroke="#111827" stroke-width="6" stroke-linecap="round" />
+            <circle cx="180" cy="145" r="14" fill="#111827" />
+            <circle cx="180" cy="145" r="6" fill="#FFFFFF" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Alert Cascade Cards -->
+      <div id="s2-alert-1" class="alert-card" style="opacity: 0;">
+        <div>
+          <div class="alert-title">5:1 Leverage Ratio</div>
+          <div class="alert-desc">$5 borrowed for every $1 trader cash</div>
+        </div>
+        <div style="font-family:'JetBrains Mono'; font-weight:700; font-size:20px; color:#D97706;">RISK 5X</div>
+      </div>
+
+      <div id="s2-alert-2" class="alert-card" style="opacity: 0;">
+        <div>
+          <div class="alert-title">-20% Market Dip</div>
+          <div class="alert-desc">Wipes out initial equity completely</div>
+        </div>
+        <div style="font-family:'JetBrains Mono'; font-weight:700; font-size:20px; color:#DC2626;">WIPEOUT</div>
+      </div>
+
+      <div id="s2-alert-3" class="alert-card danger" style="opacity: 0;">
+        <div>
+          <div class="alert-title">Broker Margin Call</div>
+          <div class="alert-desc">Algorithms dump stock automatically</div>
+        </div>
+        <div style="font-family:'JetBrains Mono'; font-weight:700; font-size:20px; color:#DC2626;">FREEFALL</div>
+      </div>
+    </div>
+
+    <div class="takeaway-card" id="s2-takeaway">
+      <div>
+        <div class="takeaway-tag">AUTOMATED CASCADE</div>
+        <div class="takeaway-text">Brokers Sell Everything Instantly</div>
+      </div>
+      <div style="font-family:'JetBrains Mono'; font-size:22px; font-weight:700; color:#FCA5A5;">DELEVERAGING</div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SCENE 3: The Everyday Retail Panic -->
+  <!-- ========================================== -->
+  <section class="scene" id="s3">
+    <div class="header-group" id="s3-header">
+      <div class="hero-kicker">HERD CONTAGION</div>
+      <div class="hero-title">The Everyday Retail Panic</div>
+      <div class="hero-subtitle">Millions hit sell simultaneously on mobile phones.</div>
+    </div>
+
+    <div class="card" id="s3-stage" style="padding: 24px; min-height: 570px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <div>
+          <div style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#52555a; text-transform:uppercase;" data-layout-ignore="true">TRADING VOLUME SHARE</div>
+          <div style="font-family:'Playfair Display'; font-size:30px; font-weight:800; color:#111827;">Retail Domination</div>
+        </div>
+        <div id="s3-stat-num" style="font-family:'JetBrains Mono'; font-size:46px; font-weight:800; color:#DC2626;">0%</div>
+      </div>
+
+      <div id="s3-meter-wrap">
+        <div id="s3-meter-bar"></div>
+      </div>
+
+      <!-- Particle Stream Visualization -->
+      <div style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 14px; background: #F3F4F6; margin: 12px 0;">
+        <svg id="s3-particle-svg" width="100%" height="100%" viewBox="0 0 576 300">
+          <path id="guide-1" d="M 20 60 Q 288 30 556 150" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="2" />
+          <path id="guide-2" d="M 20 220 Q 288 270 556 150" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="2" />
+          <g id="s3-particles"></g>
+        </svg>
+
+        <div id="s3-freeze-tag" class="chart-pill" style="position: absolute; top: 50%; left: 50%; opacity: 0; background: #FEF2F2; border-color: #DC2626;">
+          <span style="font-family:'JetBrains Mono'; font-weight:800; font-size:20px; color:#DC2626;">NO BUYERS LEFT</span>
+        </div>
+      </div>
+
+      <div id="s3-halt-card" style="background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:12px; padding:16px; display:flex; align-items:center; justify-content:space-between; opacity:0;">
+        <div style="font-weight:700; font-size:19px; color:#92400E;">TRADING HALTS IMPOSED</div>
+        <div style="font-family:'JetBrains Mono'; font-weight:700; font-size:19px; color:#B45309;">1,400+ STOCKS SUSPENDED</div>
+      </div>
+    </div>
+
+    <div class="takeaway-card" id="s3-takeaway">
+      <div>
+        <div class="takeaway-tag">SYSTEMIC BOTTLENECK</div>
+        <div class="takeaway-text">A Small Dip Becomes an Avalanche</div>
+      </div>
+      <div style="font-family:'JetBrains Mono'; font-size:24px; font-weight:800; color:#F87171;">90M TRADERS</div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- SCENE 4: Why Bailouts Couldn't Fix It -->
+  <!-- ========================================== -->
+  <section class="scene" id="s4">
+    <div class="header-group" id="s4-header">
+      <div class="hero-kicker">STRUCTURAL AFTERMATH</div>
+      <div class="hero-title">Why Bailouts Couldn't Fix It</div>
+      <div class="hero-subtitle">Confidence cannot be printed without corporate profit growth.</div>
+    </div>
+
+    <div class="card" id="s4-stage" style="padding: 28px; text-align: center; min-height: 570px; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div id="s4-rescue-wrap" style="position: relative; display: inline-block; margin: 12px 0 20px 0;" data-layout-allow-occlusion="true">
+          <div id="s4-rescue-tag" style="background: #EFF6FF; border: 2px solid #3B82F6; color: #1D4ED8; font-family:'JetBrains Mono'; font-weight:800; font-size:22px; padding: 14px 24px; border-radius: 12px;">
+            STATE RESCUE FUND: $200 BILLION
+          </div>
+          <div id="s4-strike-line" data-layout-allow-occlusion="true"></div>
+        </div>
+
+        <div id="s4-fail-reason" style="font-size:21px; color:#52555a; line-height:1.45; margin-bottom: 20px; opacity:0;">
+          Even unprecedented state liquidity cannot overcome collapsing corporate earnings and shattered retail trust.
+        </div>
+      </div>
+
+      <!-- Monument Stat Component -->
+      <div id="s4-monument-wrap" style="background:#F9FAFB; border-radius:18px; padding: 32px 24px; border: 1.5px solid #E5E7EB;">
+        <div style="font-family:'JetBrains Mono'; font-size:16px; font-weight:700; color:#DC2626; letter-spacing:0.12em; text-transform:uppercase;" data-layout-ignore="true">TOTAL WEALTH ERASED</div>
+        <div id="s4-stat" style="font-family:'JetBrains Mono'; font-size:92px; font-weight:800; color:#111827; line-height:1; margin: 14px 0;">-$0.0T</div>
+        <div style="font-size:21px; font-weight:600; color:#52555a;">Over Two Trillion Dollars Vanished</div>
+      </div>
+    </div>
+
+    <div class="takeaway-card" id="s4-takeaway">
+      <div>
+        <div class="takeaway-tag">CORE TAKEAWAY</div>
+        <div class="takeaway-text">The Illusion of Endless Gains Broke</div>
+      </div>
+      <div style="font-family:'JetBrains Mono'; font-size:26px; font-weight:800; color:#F87171;">-$2.4T</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Studio Primitives -->
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+
+<script>
+  window.__timelines = window.__timelines || {};
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('root');
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines['root'] = tl;
+
+    const S = window.Studio || {};
+    const D = S.draw || {};
+    const T = S.type || {};
+    const SP = S.space || {};
+
+    // Continuous Progress Bar
+    tl.to('#progress-fill', { width: '100%', duration: 42.5, ease: 'none' }, 0);
+
+    // Continuous Cinematic Camera Drift (Anti-Laziness Mandate)
+    SP.drift(tl, root, 0, 42.5, { startScale: 1.0, endScale: 1.035 });
+
+    // ==========================================
+    // SCENE 1 TIMELINE (0.00s - 9.53s)
+    // ==========================================
+    const s1Points = [
+      [20, 340],
+      [140, 280],
+      [250, 190],
+      [320, 120],
+      [370, 60],    // Peak: 5,178
+      [410, 160],
+      [460, 280],
+      [520, 360]    // Drop: 3,000
+    ];
+
+    const s1PathD = D.chart.line(s1Points, { tension: 0.35 });
+    const s1AreaD = D.chart.area(s1Points, 370, { tension: 0.35 });
+
+    const s1CurveEl = document.getElementById('s1-curve');
+    const s1AreaEl = document.getElementById('s1-area');
+    s1CurveEl.setAttribute('d', s1PathD);
+    s1AreaEl.setAttribute('d', s1AreaD);
+
+    const s1PathLen = s1CurveEl.getTotalLength();
+    gsap.set(s1CurveEl, { strokeDasharray: s1PathLen, strokeDashoffset: s1PathLen });
+
+    // Entrance: Header & Card appear smoothly at start
+    gsap.set('#s1-header > *', { opacity: 1, y: 0 });
+    gsap.set('#s1-chart-container', { opacity: 1, scale: 1 });
+    tl.fromTo('#s1-takeaway', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.3);
+
+    // Progressive Spline Curve Draw (Rise to peak 0.5s - 3.0s)
+    tl.to(s1CurveEl, { strokeDashoffset: s1PathLen * 0.45, duration: 2.5, ease: 'power1.inOut' }, 0.5);
+    tl.to(s1AreaEl, { opacity: 1, duration: 1.2, ease: 'power1.out' }, 1.2);
+
+    // Live Index Counter Roll: 2,100 -> 5,178
+    const s1CounterEl = document.getElementById('s1-counter-val');
+    tl.to({ val: 2100 }, {
+      val: 5178,
+      duration: 2.5,
+      ease: 'power1.inOut',
+      onUpdate: function() {
+        s1CounterEl.textContent = Math.round(this.targets()[0].val).toLocaleString();
+      }
+    }, 0.5);
+
+    // Peak Marker & Bubble Reveal
+    tl.to('#s1-peak-marker', { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)' }, 2.8);
+    tl.to('#s1-bubble', { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.5)' }, 3.0);
+
+    // The Sudden Plunge (3.6s - 6.0s)
+    tl.to(s1CurveEl, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.in' }, 3.6);
+    tl.to({ val: 5178 }, {
+      val: 2980,
+      duration: 2.4,
+      ease: 'power2.in',
+      onUpdate: function() {
+        s1CounterEl.textContent = Math.round(this.targets()[0].val).toLocaleString();
+      }
+    }, 3.6);
+    tl.to('#s1-crash-marker', { opacity: 1, duration: 0.4, ease: 'power2.out' }, 5.8);
+
+    // Crash Pulse Vibration
+    tl.fromTo('#s1-crash-pulse', 
+      { r: 12, opacity: 1 }, 
+      { r: 38, opacity: 0, duration: 1.0, repeat: 2, ease: 'power1.out' }, 
+      6.0
+    );
+
+    // Takeaway Accent Pulse
+    tl.fromTo('#s1-takeaway', { scale: 1 }, { scale: 1.03, duration: 0.25, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 6.8);
+
+    // ==========================================
+    // TRANSITION: SCENE 1 -> SCENE 2 (9.53s)
+    // ==========================================
+    S.transition(tl, '#s1', '#s2', 9.53, { type: 'push', direction: 'up', duration: 0.50 });
+
+    // ==========================================
+    // SCENE 2 TIMELINE (9.53s - 19.90s)
+    // ==========================================
+    tl.fromTo('#s2-header > *', { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.45, ease: 'power2.out' }, 9.9);
+    tl.fromTo('#s2-takeaway', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 10.0);
+
+    // Radial Gauge Draining from 100% to 0% with Needle Deflection
+    const gaugeEl = document.getElementById('s2-gauge-arc');
+    const needleGroup = document.getElementById('s2-gauge-needle-group');
+    tl.to(gaugeEl, { strokeDashoffset: 440, duration: 5.0, ease: 'power2.inOut' }, 10.6);
+    tl.fromTo(needleGroup, 
+      { rotation: 72, transformOrigin: '180px 145px' }, 
+      { rotation: -72, transformOrigin: '180px 145px', duration: 5.0, ease: 'power2.inOut' }, 
+      10.6
+    );
+
+    // Counter Roll for Equity Health (100% -> 0%)
+    const gaugePctEl = document.getElementById('s2-gauge-pct');
+    tl.to({ val: 100 }, {
+      val: 0,
+      duration: 5.0,
+      ease: 'power2.inOut',
+      onUpdate: function() {
+        gaugePctEl.textContent = `${Math.round(this.targets()[0].val)}%`;
+      }
+    }, 10.6);
+
+    // Staggered Margin Alert Cards
+    tl.fromTo('#s2-alert-1', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 11.6);
+    tl.fromTo('#s2-alert-2', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 13.5);
+    tl.fromTo('#s2-alert-3', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.4)' }, 15.5);
+
+    // ==========================================
+    // TRANSITION: SCENE 2 -> SCENE 3 (19.90s)
+    // ==========================================
+    S.transition(tl, '#s2', '#s3', 19.90, { type: 'push', direction: 'left', duration: 0.50 });
+
+    // ==========================================
+    // SCENE 3 TIMELINE (19.90s - 29.95s)
+    // ==========================================
+    tl.fromTo('#s3-header > *', { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.45, ease: 'power2.out' }, 20.25);
+    tl.fromTo('#s3-takeaway', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 20.35);
+
+    // Particle Flow Setup
+    const particleContainer = document.getElementById('s3-particles');
+    const particleCount = 48;
+    const dots = [];
+
+    for (let i = 0; i < particleCount; i++) {
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('r', 5.5);
+      circle.setAttribute('fill', i % 2 === 0 ? '#DC2626' : '#D97706');
+      circle.setAttribute('opacity', 0);
+      particleContainer.appendChild(circle);
+      dots.push(circle);
+    }
+
+    // Animate Particles along path
+    dots.forEach((dot, idx) => {
+      const isTop = idx % 2 === 0;
+      const startX = 20 + (idx * 11);
+      const startY = isTop ? 60 + (idx % 4 * 12) : 220 - (idx % 4 * 12);
+      
+      tl.fromTo(dot, 
+        { cx: startX, cy: startY, opacity: 0 },
+        { 
+          cx: 550, 
+          cy: 150 + (Math.sin(idx) * 20), 
+          opacity: 0.90, 
+          duration: 2.8, 
+          repeat: 2, 
+          ease: 'power1.in',
+          delay: (idx * 0.035)
+        }, 
+        20.8
+      );
+    });
+
+    // Retail Volume Share Counter (0% -> 90%)
+    const s3NumEl = document.getElementById('s3-stat-num');
+    tl.to({ val: 0 }, {
+      val: 90,
+      duration: 3.2,
+      ease: 'power2.out',
+      onUpdate: function() {
+        s3NumEl.textContent = `${Math.round(this.targets()[0].val)}%`;
+      }
+    }, 21.0);
+
+    // Retail Meter Bar Filling
+    tl.to('#s3-meter-bar', { width: '90%', duration: 3.2, ease: 'power2.out' }, 21.0);
+
+    // Liquidity Freeze & Halts Tag
+    tl.fromTo('#s3-freeze-tag', { xPercent: -50, yPercent: -50, scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: 'back.out(2)' }, 24.2);
+    tl.to('#s3-halt-card', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 24.8);
+
+    // ==========================================
+    // TRANSITION: SCENE 3 -> SCENE 4 (29.95s)
+    // ==========================================
+    S.transition(tl, '#s3', '#s4', 29.95, { type: 'wipe', duration: 0.50 });
+
+    // ==========================================
+    // SCENE 4 TIMELINE (29.95s - 42.50s)
+    // ==========================================
+    tl.fromTo('#s4-header > *', { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.08, duration: 0.45, ease: 'power2.out' }, 30.3);
+    tl.fromTo('#s4-takeaway', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 30.4);
+
+    // State Rescue Tag Entrance
+    tl.fromTo('#s4-rescue-tag', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, 30.8);
+
+    // Red Strikethrough Animation shattering the intervention
+    tl.fromTo('#s4-strike-line', { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: 'power2.inOut' }, 32.2);
+    tl.to('#s4-rescue-tag', { color: '#9CA3AF', borderColor: '#D1D5DB', backgroundColor: '#F3F4F6', duration: 0.3 }, 32.5);
+
+    // Failure Explanation text
+    tl.to('#s4-fail-reason', { opacity: 1, duration: 0.6, ease: 'power1.out' }, 33.0);
+
+    // Monumental Loss Counter Roll (-$0.0T -> -$2.4T)
+    const s4StatEl = document.getElementById('s4-stat');
+    tl.to({ val: 0.0 }, {
+      val: 2.4,
+      duration: 2.4,
+      ease: 'power2.out',
+      onUpdate: function() {
+        s4StatEl.textContent = `-$${this.targets()[0].val.toFixed(1)}T`;
+      }
+    }, 34.0);
+
+    // Final Takeaway Hold with subtle pulse
+    tl.fromTo('#s4-takeaway', { scale: 1 }, { scale: 1.03, duration: 0.3, yoyo: true, repeat: 1, ease: 'power1.inOut' }, 36.5);
+  });
+</script>
+
+</body>
+</html>

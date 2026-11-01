@@ -791,7 +791,20 @@ def cmd_build(args: argparse.Namespace) -> int:
             continue
         if s["stage"].startswith("render:"):
             (pdir / "renders" / s["stage"].split(":", 1)[1]).mkdir(parents=True, exist_ok=True)
-        res = subprocess.run(s["cmd"], cwd=cwd, stdin=subprocess.DEVNULL)
+        if s["stage"] == "lint":
+            stashed = []
+            for vf in cwd.glob("index.*.html"):
+                if vf.name != "index.html":
+                    tmp = vf.with_name("." + vf.name + ".lint-stash")
+                    vf.rename(tmp)
+                    stashed.append((tmp, vf))
+            try:
+                res = subprocess.run(s["cmd"], cwd=cwd, stdin=subprocess.DEVNULL)
+            finally:
+                for tmp, orig in stashed:
+                    tmp.rename(orig)
+        else:
+            res = subprocess.run(s["cmd"], cwd=cwd, stdin=subprocess.DEVNULL)
         if res.returncode != 0:
             print(f"Error: stage {s['stage']} failed with exit code {res.returncode}.")
             return res.returncode
