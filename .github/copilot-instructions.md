@@ -1,8 +1,8 @@
-# Motion Lab: AI Operational Guide & Rules (VS Code Primary)
+# Motion Lab: AI Operational Guide & Rules
 
 This workspace is **Motion Lab**: a reproducible, high-performance motion graphics and video production pipeline optimized for Apple Silicon macOS (8 GB Unified RAM). 
 
-In this repository, **VS Code is the primary interactive development workstation**, while **Antigravity acts as the secondary autonomous accelerator** for deep research dossiers, batch generation, and multi-agent workflows.
+In this repository, **Claude Code is the primary owner and operator** (entry point: `CLAUDE.md`, rules: `AGENTS.md`). VS Code remains available for editing and its tasks in `.vscode/`; this file applies to any Copilot-assisted editing.
 
 ---
 
