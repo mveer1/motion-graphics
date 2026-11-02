@@ -1,0 +1,175 @@
+{
+  "spec_version": 1,
+  "slug": "bhopal-gas-tragedy",
+  "title": "The Night Bhopal Didn't Wake Up",
+  "objective": "Tell the story of the Bhopal gas leak of 2-3 December 1984 as a human tragedy: what happened that night, why the safeguards failed, how many died (and why nobody agrees), and what the survivors are still living with.",
+  "audience": "General viewers on short-form platforms; no prior knowledge of Bhopal or of chemistry assumed.",
+  "platforms": [
+    "instagram-reels",
+    "youtube-shorts",
+    "website"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 75,
+      "target": 95,
+      "max": 110
+    }
+  },
+  "message": {
+    "core_message": "On the night of 2-3 December 1984 a poisonous gas escaped from a pesticide plant into a sleeping city; decades later the dead are still not agreed on, justice was partial, and survivors are still ill.",
+    "key_points": [
+      "Night of 2-3 December 1984, Bhopal, India: about 894,000 residents, a Union Carbide India pesticide plant at the city's edge",
+      "Tank E610 held 42 tons of methyl isocyanate; about 30 tonnes escaped in under an hour",
+      "Safeguards were failing: refrigeration off since 1982, scrubber on standby, flare tower unable to cope, siren sounded briefly and was switched off",
+      "How water entered the tank is disputed (negligence vs the company's sabotage claim)",
+      "Deaths: 3,787 government-confirmed; survivor groups estimate about 23,000; more than 500,000 exposed",
+      "1989 settlement of US$470 million; 2010 convictions of seven former employees; Warren Anderson never faced an Indian court",
+      "Plant waste was moved out in January 2025; over 100,000 survivors live with chronic illness"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "sorrow",
+      "gravity",
+      "quiet anger",
+      "respect for survivors"
+    ],
+    "keywords": [
+      "storytelling",
+      "hushed",
+      "ink-wash",
+      "bone paper",
+      "elegiac"
+    ],
+    "avoid": [
+      "gore or depictions of dead bodies",
+      "a single death toll stated as fact",
+      "naming the cause of the water ingress as settled",
+      "sensational music stings, jump scares, red-alert HUD graphics",
+      "technical process diagrams that turn the story into a chemistry lecture",
+      "a dark or black canvas"
+    ]
+  },
+  "constraints": [
+    "Light canvas throughout; the sadness comes from desaturated palette, ink-stain gas and fading windows, not from a dark background",
+    "Every number on screen carries its source or its range where sources disagree",
+    "No generated imagery is presented as archival or as a real photograph; no real victims' faces",
+    "Readable with sound off",
+    "Portrait only unless more formats are requested (docs/VISION.md default)",
+    "Narration states disputes as disputes"
+  ],
+  "assets_provided": [],
+  "references": [
+    {
+      "description": "Workspace technique records consulted: layered-silhouette-stage, stamp-state-change, continuous-line-spine (catalogue/data/references/). Techniques only; no assets, brands or footage.",
+      "inspected": false,
+      "technique_ids": [
+        "layered-silhouette-stage",
+        "stamp-state-change",
+        "continuous-line-spine"
+      ]
+    }
+  ],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "optional",
+    "captions": false,
+    "notes": "Slow, low string or piano-like drone bed at about -26 dBFS; room-tone night ambience at the start; the siren is a single thin tone that stops abruptly; no whooshes on dissolves. Voice: am_michael (documentary), speed 1.0."
+  },
+  "research": {
+    "required": true,
+    "reason": "Historical and scientific claims with disputed figures: deaths, quantities, causes, legal outcomes."
+  },
+  "complexity": "complex",
+  "creative_directions": [
+    {
+      "id": "ink-bleed-bone-paper",
+      "name": "Ink bleed on bone paper",
+      "concept": "The whole film is one sheet of bone-coloured paper. It opens as an engineer's schematic of the plant drawn in fine charcoal line. When the tank fails the drawing 'leaks': a sulphur-ochre ink wash blooms out of the vent, soaks the paper, and spreads over a hand-inked skyline of a sleeping city whose warm windows go out one by one. The paper keeps the stain for the rest of the film. Numbers are written onto the stained sheet like ledger entries; the unresolved death toll is a field of ink dots that keeps filling the page past the government's figure. The ending is a pale dawn skyline with a few windows still lit.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "bone paper #EFEBE4, charcoal ink #24211E, ash grey #8C877F, sulphur-ochre gas #BFAE4A, night-slate wash #46526A, dried-brick red #8E3326 (used sparingly for people and counts), warm window marigold #D9A441",
+        "typography": "Playfair Display for titles and big numbers, Inter for lines of narration support, JetBrains Mono for dates and ledger entries",
+        "texture": "paper grain, ink bleed edges via displaced masks, faint blueprint grid on the schematic"
+      },
+      "motion_language": {
+        "personality": "slow, hushed, deliberate; the gas moves faster than anything else in the film",
+        "signature_moves": [
+          "line-art draw-on of the plant",
+          "ink wash bloom through a displaced mask",
+          "windows extinguishing one at a time",
+          "tally dots filling the page",
+          "stamp of a ledger figure"
+        ],
+        "transitions": "the ink stain carries scene to scene as a continuous element; dissolves on shared paper; no whooshes"
+      },
+      "composition": {
+        "approach": "Portrait: story art occupies the upper two-thirds inside the safe area, one line of copy below the art above the bottom UI safe zone; skyline sits low in frame and the cloud descends from the top so it reads as 'over' the city."
+      },
+      "pacing": "new picture or beat every 2-3 s; scenes 10-14 s each; the final hold is 3 s",
+      "why_it_fits": "It delivers the requested hook (schematic into toxic cloud over a sleeping city) as one continuous transformation, keeps the canvas light as required, and the permanent stain makes the tragedy feel like it never lifted."
+    },
+    {
+      "id": "paper-cut-night",
+      "name": "Layered paper-cut night diorama",
+      "concept": "Muted layered paper silhouettes of the plant, rooftops and a night sky built as a shallow diorama; the gas is a translucent sulphur paper layer sliding across. Tactile, but close in look to the earlier great-fire-london-collage project.",
+      "visual_identity": {
+        "style_system": "paper-cut",
+        "palette": "slate, ash, ochre, brick",
+        "typography": "Archivo Black, Nunito",
+        "texture": "cut edges, shadow depth"
+      },
+      "motion_language": {
+        "personality": "tactile, stepped",
+        "signature_moves": [
+          "parallax slide",
+          "layer lift"
+        ],
+        "transitions": "layer wipes"
+      },
+      "composition": {
+        "approach": "depth layers with a low horizon"
+      },
+      "pacing": "new layer every 2-3 s",
+      "why_it_fits": "Strong depth, but it repeats a recent look and feels crafty for a grave subject."
+    },
+    {
+      "id": "ledger-documents",
+      "name": "Archival ledger and documents",
+      "concept": "Typewritten reports, a settlement cheque, a court order, sealed in an aged folder; the human story is carried by numbers and legal text.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "sepia, oxblood",
+        "typography": "EB Garamond, typewriter mono",
+        "texture": "foxing"
+      },
+      "motion_language": {
+        "personality": "measured, bureaucratic",
+        "signature_moves": [
+          "stamp",
+          "redaction bar"
+        ],
+        "transitions": "slow dissolves"
+      },
+      "composition": {
+        "approach": "documents at slight angles"
+      },
+      "pacing": "slower, 4-6 s per document",
+      "why_it_fits": "Fits the justice section, but the night itself needs an image, and real documents cannot be sourced offline."
+    }
+  ],
+  "selected_direction": "ink-bleed-bone-paper",
+  "success_criteria": [
+    "Every on-screen figure matches research.json including ranges and disputes",
+    "The hook (schematic becoming a cloud over a sleeping city) lands inside the first 12 s",
+    "Visible change at least every 3 s while narration speaks",
+    "The canvas never goes dark; sadness reads through palette and the persistent ink stain",
+    "No two consecutive scenes share a composition",
+    "Ends quieter than it begins, with a 3 s hold"
+  ]
+}

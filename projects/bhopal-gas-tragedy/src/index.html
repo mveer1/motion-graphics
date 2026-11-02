@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Night Bhopal Didn't Wake Up</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    /* Palette: bone paper, charcoal ink, sulphur-ochre gas, night slate, dried brick, window marigold. */
+    :root {
+      --c-paper: #EFEBE4;
+      --c-paper-2: #E4DED2;
+      --c-ink: #24211E;
+      --c-ink-2: #6F6A62;
+      --c-rule: #CBC3B4;
+      --c-accent: #8E3326;
+      --c-gas: #BFAE4A;
+      --c-gas-deep: #7E7434;
+      --c-night: #46526A;
+      --c-win: #D9A441;
+      --c-win-off: #D3CCBE;
+    }
+    body { background: var(--c-paper); }
+    #root { background: var(--c-paper); }
+    .st-scene { background: transparent; }
+    .lyr { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+    #defsSvg { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+    #stainSvg { z-index: 1; }
+    #worldSvg { z-index: 2; }
+    .st-scene { z-index: 5; }
+    #grainSvg { z-index: 60; pointer-events: none; mix-blend-mode: multiply; }
+    .sv { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+
+    /* SVG strokes */
+    .ink { fill: none; stroke: var(--c-ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+    .ink2 { fill: none; stroke: var(--c-ink-2); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { fill: none; stroke: var(--c-rule); stroke-width: 1.2; }
+    .brick { fill: none; stroke: var(--c-accent); stroke-width: 5.5; stroke-linecap: round; }
+    .fp { fill: var(--c-paper-2); stroke: none; }
+    .fgas { fill: var(--c-gas); }
+
+    /* Type. Families are named literally so the renderer injects the bundled fonts. */
+    .tx { position: absolute; margin: 0; white-space: nowrap; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 25px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-2); }
+    .mono.dark { color: var(--c-ink); }
+    .mono.red { color: var(--c-accent); }
+    .serif { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--c-ink); line-height: 1.02; letter-spacing: -0.01em; }
+    .serif.red { color: var(--c-accent); }
+    .serif.it { font-style: italic; font-weight: 600; }
+    .sans { font-family: 'Inter', sans-serif; font-weight: 500; color: var(--c-ink-2); }
+    .stamp { font-family: 'JetBrains Mono', monospace; font-weight: 700; text-transform: uppercase; color: var(--c-accent); border: 4px solid var(--c-accent); padding: 8px 14px; letter-spacing: 0.08em; background: rgba(239, 235, 228, 0.55); }
+    .stamp.ash { color: var(--c-ink-2); border-color: var(--c-ink-2); }
+
+    /* Scene 1 */
+    #k1 { left: 44px; top: 150px; }
+    #pl1 { left: 296px; top: 224px; font-size: 24px; color: var(--c-ink); }
+    #n1 { left: 44px; top: 622px; font-size: 104px; }
+    #n1c { left: 48px; top: 746px; }
+    /* Scene 2 */
+    #k2 { left: 44px; top: 150px; }
+    #lb2 { left: 180px; width: 240px; text-align: center; top: 396px; white-space: normal; font-size: 23px; line-height: 1.35; color: var(--c-ink); }
+    #st42 { left: 462px; top: 556px; font-size: 40px; line-height: 1; font-family: 'Playfair Display', serif; }
+    #sev { left: 44px; top: 500px; font-size: 40px; }
+    #sevc { left: 46px; top: 548px; font-size: 21px; letter-spacing: 0.08em; }
+    #qm { left: 574px; top: 226px; font-size: 128px; }
+    #disp { left: 456px; top: 404px; font-size: 22px; line-height: 1.3; white-space: normal; width: 170px; }
+    #prs { left: 62px; top: 906px; font-size: 22px; }
+    .rowtx { font-size: 22px; letter-spacing: 0.1em; }
+    .rowst { font-size: 31px; }
+    /* Scene 3 */
+    #k3 { left: 44px; top: 150px; }
+    #t30 { left: 44px; top: 612px; font-size: 92px; }
+    #t30c { left: 48px; top: 724px; }
+    #sirx { left: 214px; top: 668px; font-size: 27px; color: var(--c-ink); }
+    #tfl { left: 44px; top: 628px; font-size: 52px; white-space: normal; width: 600px; }
+    #tdd { left: 44px; top: 622px; font-size: 62px; white-space: normal; width: 600px; }
+    #tdd.serif.red { color: var(--c-ink); }
+    /* Scene 4 */
+    #k4 { left: 44px; top: 150px; }
+    #la { left: 48px; top: 205px; font-size: 23px; }
+    #na { left: 44px; top: 232px; font-size: 128px; }
+    #lgd { left: 48px; top: 760px; font-size: 21px; }
+    #lb { left: 48px; top: 805px; font-size: 23px; }
+    #nb { left: 44px; top: 832px; font-size: 128px; }
+    /* Scene 5 */
+    #y89 { left: 46px; top: 148px; }
+    #n89 { left: 44px; top: 184px; font-size: 72px; }
+    #c89 { left: 48px; top: 286px; font-size: 23px; }
+    #y10 { left: 46px; top: 366px; }
+    #n10 { left: 44px; top: 400px; font-size: 64px; }
+    #s2y { left: 400px; top: 405px; font-size: 32px; }
+    #c10 { left: 48px; top: 598px; font-size: 22px; }
+    #wa { left: 46px; top: 684px; font-size: 22px; }
+    #d14 { left: 66px; top: 892px; font-size: 22px; }
+    #nev { left: 44px; top: 940px; font-size: 38px; }
+    /* Scene 6 */
+    #k6 { left: 44px; top: 150px; }
+    #t6 { left: 44px; top: 150px; font-size: 56px; white-space: normal; width: 600px; }
+    #tt { left: 44px; top: 636px; font-size: 88px; }
+    #ttc { left: 48px; top: 738px; font-size: 22px; line-height: 1.4; white-space: normal; width: 600px; }
+    #hk { left: 44px; top: 628px; font-size: 100px; }
+    #hkc { left: 48px; top: 740px; font-size: 22px; line-height: 1.4; white-space: normal; width: 600px; }
+    #end6 { left: 44px; top: 634px; font-size: 56px; white-space: normal; width: 600px; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="104.5">
+
+  <svg id="defsSvg" aria-hidden="true">
+    <defs>
+      <filter id="ink" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.011 0.016" numOctaves="3" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="84" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feGaussianBlur in="d" stdDeviation="4.5"/>
+      </filter>
+      <filter id="grainF" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" result="g"/>
+        <feColorMatrix in="g" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.42  0 0 0 0 0.38  0 0 0 0.9 -0.28"/>
+      </filter>
+      <clipPath id="tankClip"><path d="M180 230 V540 A120 22 0 0 0 420 540 V230 A120 22 0 0 0 180 230 Z"/></clipPath>
+      <linearGradient id="dawnG" x1="0" y1="1" x2="0" y2="0">
+        <stop offset="0" stop-color="#F3DFC4" stop-opacity="0.95"/>
+        <stop offset="1" stop-color="#F3DFC4" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Persistent stain: the page keeps the gas after the cloud has gone. -->
+  <svg id="stainSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true"><g id="stain" filter="url(#ink)"></g></svg>
+
+  <!-- Persistent world: blueprint plant, sleeping city, the cloud. -->
+  <svg id="worldSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true">
+    <g id="bpgrid"></g>
+    <g id="stars"></g>
+    <g id="moon"></g>
+    <rect id="dawn" x="0" y="660" width="720" height="380" fill="url(#dawnG)"/>
+    <g id="city"></g>
+    <g id="plant"></g>
+    <g id="wisp" filter="url(#ink)"></g>
+    <g id="cloud" filter="url(#ink)"></g>
+  </svg>
+
+  <section class="st-scene" id="s1">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s1art"></g></svg>
+    <p class="tx mono" id="k1">2 December 1984 &middot; Bhopal, India</p>
+    <p class="tx mono" id="pl1">Pesticide plant</p>
+    <p class="tx serif" id="n1">894,539</p>
+    <p class="tx mono" id="n1c">residents, falling asleep</p>
+  </section>
+
+  <section class="st-scene" id="s2">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s2art"></g></svg>
+    <p class="tx mono" id="k2">Tank E610 &middot; underground</p>
+    <p class="tx mono" id="lb2">Methyl<br>isocyanate</p>
+    <p class="tx stamp" id="st42">42 tons</p>
+    <p class="tx serif" id="sev">Sevin</p>
+    <p class="tx mono" id="sevc">pesticide</p>
+    <p class="tx serif red" id="qm">?</p>
+    <p class="tx stamp ash" id="disp">Water entry:<br>disputed</p>
+    <p class="tx mono" id="prs">Pressure</p>
+  </section>
+
+  <section class="st-scene" id="s3">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s3art"></g></svg>
+    <p class="tx mono" id="k3">Near 1 a.m.</p>
+    <p class="tx serif" id="t30">~30 tonnes</p>
+    <p class="tx mono" id="t30c">of gas, in under an hour</p>
+    <p class="tx mono" id="sirx">Siren: switched off</p>
+    <p class="tx serif it" id="tfl">Hundreds of thousands fled into the dark</p>
+    <p class="tx serif red" id="tdd">Within days,<br>thousands dead</p>
+  </section>
+
+  <section class="st-scene" id="s4">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s4art"></g></svg>
+    <p class="tx mono" id="k4">Nobody agrees</p>
+    <p class="tx mono" id="la">Government-confirmed deaths</p>
+    <p class="tx serif" id="na">3,787</p>
+    <p class="tx mono" id="lgd">1 dot = about 100 people</p>
+    <p class="tx mono red" id="lb">Survivor groups&rsquo; estimate</p>
+    <p class="tx serif red" id="nb">23,000</p>
+  </section>
+
+  <section class="st-scene" id="s5">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s5art"></g></svg>
+    <p class="tx mono" id="y89">1989</p>
+    <p class="tx serif" id="n89">US$470 million</p>
+    <p class="tx mono" id="c89">Out-of-court settlement</p>
+    <p class="tx mono" id="y10">2010</p>
+    <p class="tx serif" id="n10">7 convicted</p>
+    <p class="tx stamp" id="s2y">2 years</p>
+    <p class="tx mono" id="c10">Negligence &middot; former employees</p>
+    <p class="tx mono" id="wa">Warren Anderson &middot; company chief</p>
+    <p class="tx mono" id="d14">died 2014</p>
+    <p class="tx serif it" id="nev">Never faced an Indian court</p>
+  </section>
+
+  <section class="st-scene" id="s6">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s6art"></g></svg>
+    <p class="tx mono" id="k6">January 2025</p>
+    <p class="tx serif" id="t6">The Night Bhopal Didn&rsquo;t Wake Up</p>
+    <p class="tx serif" id="tt">337 tonnes</p>
+    <p class="tx mono" id="ttc">of waste trucked out of the plant<br>(most reports; others say 307&ndash;377)</p>
+    <p class="tx serif" id="hk">100,000+</p>
+    <p class="tx mono" id="hkc">survivors still live with<br>chronic illness</p>
+    <p class="tx serif it" id="end6">That night has not ended.</p>
+  </section>
+
+  <svg id="grainSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true"><rect width="720" height="1280" filter="url(#grainF)" opacity="0.5"/></svg>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Cues come from audio/timeline.json (measured) with scene boundaries in the 0.5 s gaps.
+  var cue = S.cues({ s1: 0, s2: 13.3, s3: 39.45, s4: 58.5, s5: 69.67, s6: 87.13, end: 104.5 });
+  var rng = S.rng(1984);
+  var $ = function (id) { return document.getElementById(id); };
+  var NS = function (tag, attrs, parent) { return S.svg(tag, attrs, parent); };
+  var P = function (parent, d, cls) { return NS('path', { d: d, 'class': cls || 'ink' }, parent); };
+
+  // ------------------------------------------------------------------ helpers
+  function enter(target, at, o) {
+    o = o || {};
+    tl.fromTo(target, { autoAlpha: 0, y: o.y === undefined ? 16 : o.y },
+      { autoAlpha: 1, y: 0, duration: o.d || 0.6, ease: 'power2.out', immediateRender: true }, at);
+  }
+  function fadeIn(target, at, d, again) {
+    // again: the element was shown and hidden earlier, so this entrance must not pre-render.
+    tl.fromTo(target, { autoAlpha: 0 }, { autoAlpha: 1, duration: d || 0.5, ease: 'power1.out', immediateRender: !again }, at);
+  }
+  function leave(target, at, d) {
+    tl.fromTo(target, { autoAlpha: 1 }, { autoAlpha: 0, duration: d || 0.4, ease: 'power1.in', immediateRender: false }, at);
+  }
+  function typed(id, at, cps) {
+    var sp = S.type.split($(id), { type: 'chars' });
+    S.type.typewriter(tl, sp.chars, at, { cps: cps || 26 });
+  }
+  function assign(a, b) { for (var k in b) if (Object.prototype.hasOwnProperty.call(b, k)) a[k] = b[k]; return a; }
+  function dist(x1, y1, x2, y2) { var dx = x1 - x2, dy = y1 - y2; return Math.sqrt(dx * dx + dy * dy); }
+
+  // ------------------------------------------------------------------ world: grid, stars, moon
+  var grid = $('bpgrid');
+  for (var gx = 48; gx < 720; gx += 48) P(grid, 'M' + gx + ' 128 V1040', 'thin').setAttribute('opacity', '0.55');
+  for (var gy = 128; gy < 1040; gy += 48) P(grid, 'M0 ' + gy + ' H720', 'thin').setAttribute('opacity', '0.55');
+
+  var stars = [];
+  for (var si = 0; si < 30; si++) {
+    var sc = NS('circle', { cx: Math.round(rng.range(40, 690)), cy: Math.round(rng.range(215, 410)), r: rng.range(1.3, 2.5).toFixed(1), fill: '#6F6A62', opacity: 0.55 }, $('stars'));
+    stars.push(sc);
+  }
+  var moon = $('moon');
+  NS('circle', { cx: 120, cy: 262, r: 32, fill: '#F6F2EA', stroke: '#6F6A62', 'stroke-width': 1.8 }, moon);
+  NS('circle', { cx: 108, cy: 252, r: 7, fill: '#E4DED2' }, moon);
+  NS('circle', { cx: 130, cy: 274, r: 5, fill: '#E4DED2' }, moon);
+
+  // ------------------------------------------------------------------ world: sleeping city
+  var CITY_BASE = 1040;
+  var city = $('city');
+  var wins = [];
+  var bx = -10;
+  while (bx < 730) {
+    var bw = rng.int(58, 104), bh = rng.int(130, 232);
+    var by = CITY_BASE - bh;
+    NS('rect', { x: bx, y: by, width: bw, height: bh, fill: '#E4DED2', stroke: '#24211E', 'stroke-width': 2.2 }, city);
+    if (rng() < 0.4) P(city, 'M' + (bx + bw * 0.3) + ' ' + by + ' V' + (by - 16) + ' M' + (bx + bw * 0.3 - 6) + ' ' + (by - 16) + ' H' + (bx + bw * 0.3 + 6), 'ink2');
+    else if (rng() < 0.5) NS('rect', { x: bx + bw * 0.55, y: by - 14, width: 18, height: 14, fill: '#E4DED2', stroke: '#24211E', 'stroke-width': 1.8 }, city);
+    var cols = Math.max(2, Math.floor((bw - 14) / 20)), rows = Math.floor((bh - 30) / 32);
+    for (var rr = 0; rr < rows; rr++) {
+      for (var cc = 0; cc < cols; cc++) {
+        var wx = bx + 10 + cc * 20, wy = by + 16 + rr * 32;
+        if (wx + 11 > 725) continue;
+        NS('rect', { x: wx, y: wy, width: 11, height: 15, fill: '#D3CCBE' }, city);
+        var lit = NS('rect', { x: wx, y: wy, width: 11, height: 15, fill: '#D9A441' }, city);
+        wins.push({ el: lit, x: wx, sleep: rng() < 0.62 ? 5.6 + rng() * 6.2 : null, wave: 43.6 + Math.abs(wx - 605) / 650 * 5.2 + rng() * 0.5 });
+      }
+    }
+    bx += bw + rng.int(4, 10);
+  }
+  P(city, 'M0 ' + CITY_BASE + ' H720', 'ink');
+
+  // ------------------------------------------------------------------ world: the plant schematic
+  var plant = $('plant');
+  P(plant, 'M30 560 H690', 'ink');
+  // administration block
+  P(plant, 'M60 560 V500 H182 V560', 'ink');
+  P(plant, 'M52 500 H190', 'ink');
+  [76, 112, 148].forEach(function (x) { P(plant, 'M' + x + ' 520 h14 v22 h-14 Z', 'ink2'); });
+  // process building with saw-tooth roof
+  P(plant, 'M210 560 V440 H372 V560', 'ink');
+  P(plant, 'M210 440 L240 414 V440 M264 440 L294 414 V440 M318 440 L348 414 V440 M240 414 H294 M294 414 H348', 'ink2');
+  P(plant, 'M236 470 H346 M236 500 H346 M236 530 H346', 'ink2');
+  // tanks
+  P(plant, 'M400 560 V472 Q400 460 425 460 Q450 460 450 472 V560', 'ink');
+  P(plant, 'M470 560 V472 Q470 460 495 460 Q520 460 520 472 V560', 'ink');
+  P(plant, 'M400 500 H450 M470 500 H520', 'ink2');
+  var fillTank = P(plant, 'M470 560 V472 Q470 460 495 460 Q520 460 520 472 V560 Z', 'fp');
+  fillTank.setAttribute('data-fill', '');
+  // piping
+  P(plant, 'M372 520 H400 M450 512 H470 M520 512 H590', 'ink2');
+  // stack and vent
+  P(plant, 'M590 560 V292 M620 560 V292', 'ink');
+  P(plant, 'M584 292 H626 M590 350 H620 M590 420 H620 M590 490 H620', 'ink');
+  // flare tower (lattice)
+  P(plant, 'M656 560 L672 372 L688 560', 'ink');
+  P(plant, 'M660 520 H684 M663 480 H681 M666 440 H678 M660 520 L684 480 M684 520 L660 480 M663 480 L681 440 M681 480 L663 440', 'ink2');
+
+  // ------------------------------------------------------------------ world: gas
+  var wisp = $('wisp');
+  var wispCircles = [[605, 270, 22], [620, 236, 26], [598, 198, 30]].map(function (c) {
+    return NS('circle', { cx: c[0], cy: c[1], r: c[2], fill: '#BFAE4A', opacity: 0.55 }, wisp);
+  });
+  var cloud = $('cloud');
+  var VENT = { x: 605, y: 292 };
+  var blobs = [
+    [600, 330, 70], [520, 390, 90], [430, 340, 100], [330, 430, 110], [250, 360, 90], [150, 440, 110], [60, 390, 90],
+    [560, 530, 100], [470, 610, 120], [360, 690, 130], [250, 730, 120], [140, 770, 120], [50, 710, 100], [640, 650, 90],
+    [600, 770, 110], [500, 860, 120], [380, 910, 130], [260, 940, 120], [150, 970, 120], [60, 940, 100], [650, 910, 100],
+    [400, 205, 80], [250, 205, 70], [560, 225, 60], [330, 560, 90], [200, 580, 80]
+  ].map(function (b, i) {
+    var deep = i % 4 === 0;
+    var c = NS('circle', { cx: b[0], cy: b[1], r: b[2], fill: deep ? '#7E7434' : '#BFAE4A', opacity: deep ? 0.34 : 0.5 }, cloud);
+    return { el: c, cx: b[0], cy: b[1], r: b[2], deep: deep };
+  });
+  S.all(blobs.map(function (b) { return b.el; })).forEach(function (el) {
+    gsap.set(el, { svgOrigin: el.getAttribute('cx') + ' ' + el.getAttribute('cy') });
+  });
+
+  // ------------------------------------------------------------------ stain layer (persists to the end)
+  var stain = $('stain');
+  [[650, 150, 250], [50, 230, 190], [700, 660, 210], [30, 880, 250], [380, 1190, 300], [360, 120, 170], [690, 1010, 150]].forEach(function (b) {
+    NS('circle', { cx: b[0], cy: b[1], r: b[2], fill: '#BFAE4A', opacity: 0.5 }, stain);
+  });
+  gsap.set('#stainSvg', { autoAlpha: 0 });
+
+  // ================================================================== SCENE 1 (0 - 13.3)
+  S.show(tl, '#s1', cue('s1'));
+  stars.forEach(function (st, i) {
+    var t0 = rng.range(0, 3);
+    tl.fromTo(st, { opacity: 0.25 }, { opacity: 0.8, duration: 1.4 + (i % 3) * 0.4, ease: 'sine.inOut', yoyo: true, repeat: 5 }, t0);
+  });
+  tl.fromTo('#moon', { y: 0 }, { y: -12, duration: 13, ease: 'sine.inOut' }, 0);
+  typed('k1', 0.3, 30);
+  var plantEnd = S.draw.lineArt(tl, '#plant', 0.5, { order: 'top-down', speed: 520, stagger: 0.1, max: 1.2 });
+  // ledger: the number of sleepers
+  enter('#n1', 5.3);
+  enter('#n1c', 5.8);
+  S.type.formatCount(tl, $('n1'), 5.6, { from: 0, to: 894539, duration: 2.7 });
+  // windows go dark one by one as the city falls asleep
+  wins.forEach(function (w) {
+    if (w.sleep !== null) tl.fromTo(w.el, { opacity: 1 }, { opacity: 0, duration: 0.5, ease: 'power1.in', immediateRender: false }, w.sleep);
+  });
+  // label and leader to the plant
+  var leader = NS('path', { d: S.draw.handLine(11, 566, 248, 598, 284), 'class': 'ink2' }, $('s1art'));
+  fadeIn('#pl1', 9.7, 0.6);
+  S.draw.stroke(tl, leader, 9.8, { duration: 0.7 });
+  // first wisp at the vent
+  wispCircles.forEach(function (c, i) {
+    gsap.set(c, { svgOrigin: c.getAttribute('cx') + ' ' + c.getAttribute('cy') });
+    tl.fromTo(c, { scale: 0.1, y: 0, opacity: 0 }, { scale: 1, y: -34 - i * 12, opacity: 0.6, duration: 2.2, ease: 'power1.out', immediateRender: true }, 11.4 + i * 0.5);
+  });
+
+  // ================================================================== SCENE 2 (13.3 - 39.45)
+  S.crossfade(tl, '#s1', '#s2', cue('s2'), 0.6);
+  leave('#worldSvg', cue('s2', -0.3), 0.6);
+  var a2 = $('s2art');
+  // tank cutaway
+  var tankG = NS('g', { id: 'tankArt' }, a2);
+  P(tankG, 'M180 230 V540 A120 22 0 0 0 420 540 V230', 'ink').setAttribute('stroke-width', '3');
+  NS('ellipse', { cx: 300, cy: 230, rx: 120, ry: 22, 'class': 'ink' }, tankG).setAttribute('stroke-width', '3');
+  P(tankG, 'M300 208 V172 H352', 'ink');
+  P(tankG, 'M180 330 A120 22 0 0 0 420 330 M180 440 A120 22 0 0 0 420 440', 'ink2');
+  // liquid, clipped to the tank
+  var liqClip = NS('g', { 'clip-path': 'url(#tankClip)' }, a2);
+  var liq = NS('g', { id: 'liq' }, liqClip);
+  NS('rect', { x: 175, y: 320, width: 250, height: 300, fill: '#46526A', opacity: 0.34 }, liq);
+  NS('ellipse', { cx: 300, cy: 320, rx: 120, ry: 22, fill: '#46526A', opacity: 0.3 }, liq);
+  var bubbles = [];
+  for (var bi = 0; bi < 12; bi++) bubbles.push(NS('circle', { cx: Math.round(rng.range(200, 400)), cy: Math.round(rng.range(480, 560)), r: rng.range(2.5, 6).toFixed(1), fill: 'none', stroke: '#24211E', 'stroke-width': 1.4, opacity: 0 }, liqClip));
+  // Sevin sack
+  var sack = NS('g', { id: 'sack' }, a2);
+  P(sack, 'M62 440 Q56 416 78 410 H116 Q138 416 132 440 L140 490 Q100 504 58 490 Z', 'ink');
+  P(sack, 'M72 432 H122', 'ink2');
+  var leaf = P(sack, 'M96 470 C84 462 84 450 96 446 C108 450 108 462 96 470 Z', 'ink2');
+  var arrow = NS('path', { d: S.draw.handLine(21, 178, 456, 146, 456), 'class': 'ink2' }, a2);
+  // water pipe + droplet
+  var pipe = P(a2, 'M420 300 H540 V356', 'ink');
+  var drop = P(a2, 'M540 372 C530 388 530 398 540 402 C550 398 550 388 540 372 Z', 'ink');
+  drop.setAttribute('fill', '#46526A');
+  // pressure dial
+  var DX = 152, DY = 800, DR = 84;
+  var ang = function (p) { return (150 + 240 * p) * Math.PI / 180; };
+  var arcPath = function (p0, p1, r) {
+    var a0 = ang(p0), a1 = ang(p1);
+    return 'M' + (DX + r * Math.cos(a0)).toFixed(1) + ' ' + (DY + r * Math.sin(a0)).toFixed(1) +
+      ' A' + r + ' ' + r + ' 0 ' + ((p1 - p0) * 240 > 180 ? 1 : 0) + ' 1 ' + (DX + r * Math.cos(a1)).toFixed(1) + ' ' + (DY + r * Math.sin(a1)).toFixed(1);
+  };
+  var dial = NS('g', { id: 'dial' }, a2);
+  NS('circle', { cx: DX, cy: DY, r: DR + 16, fill: '#E4DED2', stroke: '#24211E', 'stroke-width': 2.6 }, dial);
+  var zones = [[0, 0.55, '#6F8A63'], [0.55, 0.8, '#D9A441'], [0.8, 1, '#8E3326']].map(function (z) {
+    var p = NS('path', { d: arcPath(z[0], z[1], DR), fill: 'none', stroke: z[2], 'stroke-width': 11, 'stroke-linecap': 'butt' }, dial);
+    return p;
+  });
+  for (var ti = 0; ti <= 10; ti++) {
+    var ta = ang(ti / 10);
+    P(dial, 'M' + (DX + (DR - 14) * Math.cos(ta)).toFixed(1) + ' ' + (DY + (DR - 14) * Math.sin(ta)).toFixed(1) + ' L' + (DX + (DR - 24) * Math.cos(ta)).toFixed(1) + ' ' + (DY + (DR - 24) * Math.sin(ta)).toFixed(1), 'ink2');
+  }
+  var needle = NS('g', { id: 'needle' }, dial);
+  P(needle, 'M' + DX + ' ' + DY + ' L' + (DX + DR - 12) + ' ' + DY, 'ink').setAttribute('stroke-width', '4');
+  NS('circle', { cx: DX, cy: DY, r: 8, fill: '#24211E' }, needle);
+  gsap.set(needle, { svgOrigin: DX + ' ' + DY });
+  // safeguard rows
+  var rowsData = [
+    { y: 650, lbl: 'Cooling', st: 'off since 1982', at: 33.0 },
+    { y: 756, lbl: 'Scrubber', st: 'on standby', at: 35.5 },
+    { y: 862, lbl: 'Flare tower', st: 'too small', at: 37.6 }
+  ];
+  var rowEls = [], strikes = [];
+  rowsData.forEach(function (r, i) {
+    var g = NS('g', { id: 'row' + i }, a2);
+    NS('rect', { x: 270, y: r.y, width: 378, height: 92, rx: 4, fill: '#E4DED2', stroke: '#CBC3B4', 'stroke-width': 1.6 }, g);
+    if (i === 0) { P(g, 'M300 676 V716 M280 696 H320 M286 682 L314 710 M314 682 L286 710', 'ink2'); }
+    if (i === 1) { P(g, 'M290 672 H314 V718 H290 Z M290 686 H314 M290 700 H314', 'ink2'); P(g, 'M302 668 V658', 'ink2'); }
+    if (i === 2) { P(g, 'M292 718 L302 672 L312 718 M296 702 H308 M298 690 H306', 'ink2'); }
+    rowEls.push(g);
+    strikes.push(NS('path', { d: S.draw.handLine(40 + i, 286, r.y + 56, 640, r.y + 46, { jitter: 0.02 }), 'class': 'brick' }, a2));
+  });
+  // row text (HTML, tracked with the row group)
+  var rowTexts = rowsData.map(function (r, i) {
+    var wrap = S.el('div', 'tx', null, $('s2'));
+    wrap.style.left = '340px'; wrap.style.top = (r.y + 12) + 'px';
+    S.el('div', 'mono rowtx', r.lbl, wrap);
+    var st = S.el('div', 'serif rowst', r.st, wrap);
+    st.style.marginTop = '6px';
+    return wrap;
+  });
+
+  typed('k2', 13.6, 28);
+  S.draw.lineArt(tl, tankG, 13.7, { order: 'top-down', speed: 520, stagger: 0.1, max: 1.1 });
+  // liquid fills as the tank is described
+  tl.fromTo(liq, { y: 290 }, { y: 0, duration: 3.4, ease: 'power2.inOut' }, 15.2);
+  enter('#lb2', 17.9);
+  S.fx.stamp(tl, '#st42', 16.4, { rotate: -6 });
+  // Sevin: sack and tag
+  S.draw.lineArt(tl, sack, 19.6, { speed: 420, stagger: 0.1 });
+  S.draw.stroke(tl, arrow, 19.8, { duration: 0.5 });
+  enter('#sev', 21.0);
+  enter('#sevc', 21.3);
+  // bubbles rise
+  bubbles.forEach(function (b, i) {
+    var t0 = 18.8 + (i % 6) * 0.45 + rng() * 0.3;
+    var period = 1.6 + (i % 3) * 0.3;
+    var n = S.cycles(t0, 39.2, period * 2);
+    for (var k = 0; k < n; k++) {
+      var t = t0 + k * period * 2;
+      tl.fromTo(b, { y: 0, opacity: 0 }, { y: -80, opacity: 0.7, duration: period, ease: 'none', immediateRender: k === 0 }, t);
+      tl.fromTo(b, { y: -80, opacity: 0.7 }, { y: -160, opacity: 0, duration: period, ease: 'none', immediateRender: false }, t + period);
+    }
+  });
+  // pressure dial climbs
+  fadeIn(dial, 22.3, 0.5);
+  fadeIn('#prs', 22.5, 0.5);
+  var a0 = 150 + 240 * 0.2, a1 = 150 + 240 * 0.93;
+  tl.fromTo(needle, { rotation: a0 }, { rotation: a1, duration: 13.4, ease: 'power1.in', immediateRender: true }, 22.5);
+  var cur = a1, tt = 35.9;
+  while (tt < 39.2) {
+    var nxt = a1 + rng.range(-5, 5);
+    tl.fromTo(needle, { rotation: cur }, { rotation: nxt, duration: 0.13, ease: 'none', immediateRender: false }, tt);
+    cur = nxt; tt += 0.13;
+  }
+  tl.fromTo(dial, { x: 0 }, { x: 3, duration: 0.07, yoyo: true, repeat: 17, ease: 'none', immediateRender: false }, 36.6);
+  // water: a question, not an answer
+  S.draw.stroke(tl, pipe, 25.6, { duration: 0.7 });
+  fadeIn(drop, 26.2, 0.4);
+  tl.fromTo(drop, { y: 0 }, { y: 6, duration: 0.5, ease: 'sine.inOut', yoyo: true, repeat: 5, immediateRender: false }, 26.7);
+  enter('#qm', 26.0, { d: 0.5 });
+  tl.fromTo('#qm', { rotation: -6 }, { rotation: 6, duration: 1.2, ease: 'sine.inOut', yoyo: true, repeat: 7, immediateRender: false }, 26.5);
+  S.fx.stamp(tl, '#disp', 27.3, { rotate: 4, fromScale: 1.8 });
+  // safeguards
+  rowEls.forEach(function (g, i) {
+    fadeIn(g, 28.4 + i * 0.35, 0.5);
+    enter(rowTexts[i], 28.5 + i * 0.35, { y: 10 });
+    S.draw.stroke(tl, strikes[i], rowsData[i].at, { duration: 0.55, ease: 'power2.out' });
+  });
+  // the stack of shouts: card shake on each strike
+  rowsData.forEach(function (r, i) {
+    tl.fromTo(rowEls[i], { x: 0 }, { x: -3, duration: 0.05, yoyo: true, repeat: 3, ease: 'none', immediateRender: false }, r.at + 0.5);
+  });
+
+  // ================================================================== SCENE 3 (39.45 - 58.5)
+  S.crossfade(tl, '#s2', '#s3', cue('s3'), 0.6);
+  fadeIn('#worldSvg', cue('s3', -0.3), 0.6, true);
+  // plant stays lit; the wisp becomes the cloud
+  typed('k3', 40.1, 24);
+  tl.fromTo(wisp, { opacity: 1 }, { opacity: 0, duration: 1.2, ease: 'power1.in', immediateRender: false }, 41.0);
+  blobs.forEach(function (b) {
+    var d = dist(b.cx, b.cy, VENT.x, VENT.y);
+    var t0 = 40.0 + d / 900 * 5.2;
+    var dur = 3.3;
+    var op = b.deep ? 0.34 : 0.5;
+    tl.fromTo(b.el, { x: VENT.x - b.cx, y: VENT.y - b.cy, scale: 0.08, opacity: 0 },
+      { x: 0, y: 0, scale: 1, opacity: op, duration: dur, ease: 'power2.out', immediateRender: true }, t0);
+    var drift = rng.range(-16, 16);
+    tl.fromTo(b.el, { x: 0 }, { x: drift, duration: Math.max(1, 58.4 - (t0 + dur)), ease: 'sine.inOut', immediateRender: false }, t0 + dur);
+  });
+  // windows go out in a wave from the vent
+  wins.forEach(function (w) {
+    if (w.sleep === null) tl.fromTo(w.el, { opacity: 1 }, { opacity: 0, duration: 0.45, ease: 'power1.in', immediateRender: false }, w.wave);
+  });
+  // moon is swallowed
+  tl.fromTo('#moon', { opacity: 1 }, { opacity: 0.25, duration: 3, ease: 'power1.in', immediateRender: false }, 44.5);
+  // ledger: quantity
+  enter('#t30', 42.7);
+  enter('#t30c', 43.2);
+  leave('#t30', 46.3, 0.4);
+  leave('#t30c', 46.3, 0.4);
+  // siren
+  var a3 = $('s3art');
+  var siren = NS('g', { id: 'siren' }, a3);
+  P(siren, 'M122 676 H146 L176 654 V726 L146 704 H122 Z', 'ink');
+  var arcs = [P(siren, 'M188 672 Q200 690 188 708', 'ink2'), P(siren, 'M198 660 Q218 690 198 720', 'ink2'), P(siren, 'M208 648 Q236 690 208 732', 'ink2')];
+  var sirenX = P(siren, 'M110 646 L226 736 M226 646 L110 736', 'brick');
+  fadeIn(siren, 46.9, 0.3);
+  fadeIn(arcs, 47.1, 0.1);
+  tl.fromTo(arcs, { scale: 1, svgOrigin: '176 690' }, { scale: 1.25, duration: 0.3, yoyo: true, repeat: 3, ease: 'sine.inOut', immediateRender: false }, 47.1);
+  tl.fromTo(sirenX, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, ease: 'none', immediateRender: true }, 48.9);
+  fadeIn('#sirx', 49.0, 0.4);
+  leave(siren, 50.0, 0.4);
+  leave('#sirx', 50.0, 0.4);
+  // people wake and run
+  var RUNNERS = 11, runners = [];
+  for (var ri = 0; ri < RUNNERS; ri++) {
+    var sc3 = rng.range(0.9, 1.35), rx0 = 780 + ri * 18, rbase = 1034 + rng.int(-6, 8);
+    var og = NS('g', { transform: 'translate(' + rx0 + ',' + rbase + ') scale(' + sc3.toFixed(2) + ')' }, a3);
+    var mv = NS('g', { 'class': 'mv' }, og);
+    var bob = NS('g', { 'class': 'bob' }, mv);
+    NS('circle', { cx: 0, cy: -40, r: 6, fill: '#24211E' }, bob);
+    P(bob, 'M0 -33 L2 -14', 'ink').setAttribute('stroke-width', '3.2');
+    var legA = P(bob, 'M2 -14 L2 2', 'ink'); legA.setAttribute('stroke-width', '3.2');
+    var legB = P(bob, 'M2 -14 L2 2', 'ink'); legB.setAttribute('stroke-width', '3.2');
+    P(bob, 'M0 -30 L-9 -22 M0 -30 L9 -26', 'ink').setAttribute('stroke-width', '2.6');
+    gsap.set([legA, legB], { svgOrigin: '2 -14' });
+    var t0r = 50.2 + ri * 0.33, dur = rng.range(7.2, 9.2);
+    tl.fromTo(og, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, ease: 'none', immediateRender: true }, t0r);
+    tl.fromTo(mv, { x: 0 }, { x: -(rx0 + 90) / sc3, duration: dur, ease: 'none', immediateRender: true }, t0r);
+    var nstep = Math.floor(dur / 0.2);
+    tl.fromTo(bob, { y: 0 }, { y: -3, duration: 0.1, ease: 'sine.inOut', yoyo: true, repeat: nstep, immediateRender: true }, t0r);
+    tl.fromTo(legA, { rotation: -38 }, { rotation: 38, duration: 0.2, ease: 'sine.inOut', yoyo: true, repeat: nstep, immediateRender: true }, t0r);
+    tl.fromTo(legB, { rotation: 38 }, { rotation: -38, duration: 0.2, ease: 'sine.inOut', yoyo: true, repeat: nstep, immediateRender: true }, t0r);
+    runners.push(og);
+  }
+  enter('#tfl', 52.9);
+  leave('#tfl', 55.5, 0.4);
+  enter('#tdd', 55.7, { d: 0.7 });
+  // the cloud thins to a haze; the page keeps the stain
+  tl.fromTo('#cloud', { opacity: 1 }, { opacity: 0.12, duration: 0.3, ease: 'none', immediateRender: false }, 60.0);
+  tl.fromTo('#stainSvg', { autoAlpha: 0 }, { autoAlpha: 1, duration: 3.5, ease: 'power1.in', immediateRender: true }, 53.5);
+  tl.fromTo('#stain', { opacity: 0.16 }, { opacity: 0.26, duration: 46, ease: 'sine.inOut', immediateRender: true }, 53.5);
+
+  // ================================================================== SCENE 4 (58.5 - 69.67)
+  S.crossfade(tl, '#s3', '#s4', cue('s4'), 0.7);
+  leave('#worldSvg', cue('s4', 0.2), 0.8);
+  var a4 = $('s4art');
+  var DCOLS = 20, DROWS = 12, ghosts = [], fills = [];
+  for (var dr = 0; dr < DROWS; dr++) {
+    for (var dc = 0; dc < DCOLS; dc++) {
+      var dx = 60 + dc * 30, dy = 410 + dr * 30;
+      ghosts.push(NS('circle', { cx: dx, cy: dy, r: 9, fill: 'none', stroke: '#8C877F', 'stroke-width': 1.3, opacity: 0.55 }, a4));
+    }
+  }
+  var N_GOV = 38, N_ALL = 230;
+  for (var di = 0; di < N_ALL; di++) {
+    var rw = Math.floor(di / DCOLS), cl = di % DCOLS;
+    var fc = NS('circle', { cx: 60 + cl * 30, cy: 410 + rw * 30, r: 9.5, fill: di < N_GOV ? '#24211E' : '#8E3326' }, a4);
+    fills.push(fc);
+    gsap.set(fc, { svgOrigin: (60 + cl * 30) + ' ' + (410 + rw * 30) });
+  }
+  typed('k4', 59.2, 24);
+  fadeIn(ghosts, 59.5, 0.8);
+  enter('#la', 60.8);
+  enter('#na', 61.2);
+  S.type.formatCount(tl, $('na'), 61.5, { from: 0, to: 3787, duration: 3.3 });
+  tl.fromTo(fills.slice(0, N_GOV), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'back.out(2)', stagger: 3.0 / N_GOV, immediateRender: true }, 61.6);
+  enter('#lgd', 65.0);
+  enter('#lb', 65.6);
+  enter('#nb', 66.1);
+  S.type.formatCount(tl, $('nb'), 66.0, { from: 0, to: 23000, duration: 2.7, prefix: '≈ ' });
+  tl.fromTo(fills.slice(N_GOV), { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: 'power2.out', stagger: 2.7 / (N_ALL - N_GOV), immediateRender: true }, 66.1);
+
+  // ================================================================== SCENE 5 (69.67 - 87.13)
+  S.crossfade(tl, '#s4', '#s5', cue('s5'), 0.7);
+  var a5 = $('s5art');
+  var ruleA = NS('path', { d: S.draw.handLine(51, 44, 346, 648, 344), 'class': 'ink2' }, a5);
+  var ruleB = NS('path', { d: S.draw.handLine(52, 44, 662, 648, 660), 'class': 'ink2' }, a5);
+  // seven figures
+  var pawns = [];
+  for (var pi = 0; pi < 7; pi++) {
+    var pg = NS('g', { transform: 'translate(' + (68 + pi * 64) + ',572)' }, a5);
+    var inner = NS('g', {}, pg);
+    NS('circle', { cx: 0, cy: -38, r: 9, fill: '#24211E' }, inner);
+    NS('path', { d: 'M-15 0 Q-15 -24 0 -26 Q15 -24 15 0 Z', fill: '#6F6A62' }, inner);
+    pawns.push(inner);
+  }
+  // empty chair and the line that stops short of a courtroom
+  var chair = NS('g', { transform: 'translate(104,884) scale(1.5)' }, a5);
+  P(chair, 'M8 -98 L0 -46 M0 -46 H54 M4 -46 V0 M50 -46 V0 M10 -84 H46', 'ink');
+  var dashes = [];
+  for (var ds = 0; ds < 15; ds++) dashes.push(P(a5, 'M' + (210 + ds * 22) + ' 826 h12', 'ink2'));
+  var door = NS('g', { id: 'door' }, a5);
+  P(door, 'M560 884 V792 Q560 748 600 748 Q640 748 640 792 V884 Z', 'ink');
+  P(door, 'M600 748 V884', 'ink2');
+  P(door, 'M552 884 H648', 'ink');
+
+  enter('#y89', 69.95);
+  enter('#n89', 70.3);
+  S.type.formatCount(tl, $('n89'), 71.9, { from: 0, to: 470, duration: 2.6, prefix: 'US$', suffix: ' million' });
+  enter('#c89', 74.2);
+  S.draw.stroke(tl, ruleA, 75.0, { duration: 0.8 });
+  enter('#y10', 76.7);
+  enter('#n10', 77.0);
+  pawns.forEach(function (p, i) {
+    tl.fromTo(p, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'back.out(2)', immediateRender: true }, 77.8 + i * 0.34);
+  });
+  S.fx.stamp(tl, '#s2y', 79.9, { rotate: -5 });
+  enter('#c10', 80.6);
+  S.draw.stroke(tl, ruleB, 81.2, { duration: 0.8 });
+  enter('#wa', 81.7);
+  S.draw.lineArt(tl, chair, 81.9, { speed: 300 });
+  dashes.forEach(function (d, i) { S.draw.stroke(tl, d, 83.4 + i * 0.16, { duration: 0.14 }); });
+  S.draw.lineArt(tl, door, 84.4, { speed: 500, stagger: 0.1 });
+  enter('#nev', 84.5);
+  enter('#d14', 86.0);
+
+  // ================================================================== SCENE 6 (87.13 - 104.5)
+  S.crossfade(tl, '#s5', '#s6', cue('s6'), 0.8);
+  fadeIn('#worldSvg', cue('s6', -0.4), 0.8, true);
+  var a6 = $('s6art');
+  var road = NS('path', { d: 'M0 604 H720', 'class': 'ink2' }, a6);
+  fadeIn(road, 87.6, 0.6);
+  var trucks = [];
+  for (var tk = 0; tk < 5; tk++) {
+    var og6 = NS('g', { transform: 'translate(545,604)' }, a6);
+    var mv6 = NS('g', {}, og6);
+    var tb = NS('g', {}, mv6);
+    NS('rect', { x: -2, y: -34, width: 56, height: 28, fill: '#E4DED2', stroke: '#24211E', 'stroke-width': 2.2 }, tb);
+    NS('path', { d: 'M-2 -6 V-26 H-20 L-30 -14 V-6 Z', fill: '#E4DED2', stroke: '#24211E', 'stroke-width': 2.2, 'stroke-linejoin': 'round' }, tb);
+    NS('circle', { cx: -16, cy: -3, r: 6, fill: '#24211E' }, tb);
+    NS('circle', { cx: 6, cy: -3, r: 6, fill: '#24211E' }, tb);
+    NS('circle', { cx: 40, cy: -3, r: 6, fill: '#24211E' }, tb);
+    NS('rect', { x: 8, y: -28, width: 38, height: 16, fill: '#BFAE4A', opacity: 0.55 }, tb);
+    var ts = 90.4 + tk * 1.3;
+    tl.fromTo(og6, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, ease: 'none', immediateRender: true }, ts);
+    tl.fromTo(mv6, { x: 0 }, { x: -690, duration: 7.0, ease: 'none', immediateRender: true }, ts);
+    var nb6 = Math.floor(7.0 / 0.16);
+    tl.fromTo(tb, { y: 0 }, { y: -1.6, duration: 0.08, ease: 'sine.inOut', yoyo: true, repeat: nb6, immediateRender: true }, ts);
+    trucks.push(og6);
+  }
+  typed('k6', 87.8, 26);
+  enter('#tt', 90.0);
+  S.type.formatCount(tl, $('tt'), 90.2, { from: 0, to: 337, duration: 2.4, suffix: ' tonnes' });
+  enter('#ttc', 90.6);
+  leave('#tt', 93.5, 0.4);
+  leave('#ttc', 93.5, 0.4);
+  enter('#hk', 94.2);
+  S.type.formatCount(tl, $('hk'), 94.4, { from: 0, to: 100000, duration: 2.6, suffix: '+' });
+  enter('#hkc', 95.0);
+  leave('#hk', 98.3, 0.4);
+  leave('#hkc', 98.3, 0.4);
+  enter('#end6', 98.7, { d: 0.9 });
+  // dawn: the sky pales and a few windows come back
+  tl.fromTo('#dawn', { opacity: 0 }, { opacity: 1, duration: 5.0, ease: 'power1.inOut', immediateRender: true }, 94.5);
+  var relit = wins.filter(function (w, i) { return i % 17 === 4; }).slice(0, 10);
+  relit.forEach(function (w, i) {
+    tl.fromTo(w.el, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power1.out', immediateRender: false }, 96.0 + i * 0.5);
+  });
+  tl.fromTo('#moon', { opacity: 0.25 }, { opacity: 0, duration: 2, ease: 'power1.in', immediateRender: false }, 95.0);
+  // title replaces the date line and the piece holds
+  leave('#k6', 100.0, 0.5);
+  enter('#t6', 100.3, { d: 1.0 });
+  // slow drift under the end hold keeps the frame alive
+  tl.fromTo('#stain', { opacity: 0.26 }, { opacity: 0.3, duration: 4.5, ease: 'sine.inOut', immediateRender: false }, 100.0);
+  tl.to({}, { duration: 0.01 }, 104.49);
+});
+</script>
+</body>
+</html>
