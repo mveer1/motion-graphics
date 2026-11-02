@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Cloud Has an Address</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:256px;--safe-left:43px;}</style>
+  <style>
+    /* Palette: off-white canvas, charcoal linework, vermilion = the incident, ultramarine = traffic,
+       marigold = warning, emerald = recovery. */
+    :root {
+      --c-paper: #FBFBFA;
+      --c-paper-2: #F1EEE8;
+      --c-ink: #1F1F1F;
+      --c-ink-2: #6B6A66;
+      --c-rule: #D9D5CC;
+      --c-red: #E2432A;
+      --c-blue: #2F4FD8;
+      --c-gold: #F2A91B;
+      --c-green: #1E9E6A;
+    }
+    body { background: var(--c-paper); }
+    #root { background: var(--c-paper); }
+    .st-scene { background: transparent; }
+    .lyr { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+    #defsSvg { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+    #bgSvg { z-index: 1; }
+    #worldSvg { z-index: 2; }
+    #phoneSvg { z-index: 3; }
+    .st-scene { z-index: 5; }
+    #caps { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; z-index: 30; pointer-events: none; }
+    #grainSvg { z-index: 60; pointer-events: none; mix-blend-mode: multiply; }
+    .sv { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+
+    /* SVG strokes */
+    .ink { fill: none; stroke: var(--c-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .ink2 { fill: none; stroke: var(--c-ink-2); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .thin { fill: none; stroke: var(--c-rule); stroke-width: 1.4; }
+    .fp { fill: var(--c-paper-2); stroke: none; }
+    .maplabel { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 19px; letter-spacing: 0.1em; fill: var(--c-ink); }
+    .sealabel { font-family: 'Playfair Display', serif; font-style: italic; font-size: 20px; fill: #B9B4A8; }
+
+    /* Type. Families are named literally so the renderer injects the bundled fonts. */
+    .tx { position: absolute; margin: 0; white-space: nowrap; }
+    .mono { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 19px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-ink-2); }
+    .mono.dark { color: var(--c-ink); }
+    .mono.red { color: var(--c-red); }
+    .serif { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--c-ink); line-height: 1.04; letter-spacing: -0.01em; }
+    .serif.red { color: var(--c-red); }
+    .stamp { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 17px; text-transform: uppercase; color: var(--c-red); border: 3px solid var(--c-red); padding: 5px 10px; letter-spacing: 0.08em; background: rgba(251, 251, 250, 0.7); }
+    .stamp.ash { color: var(--c-ink-2); border-color: var(--c-ink-2); }
+    .stamp.green { color: var(--c-green); border-color: var(--c-green); }
+    .chip { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ink); border: 2.5px solid var(--c-ink); border-radius: 22px; padding: 6px 16px; background: var(--c-paper); }
+    .panel { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 12.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--c-ink-2); line-height: 1.3; }
+    .panel b { color: var(--c-ink); font-weight: 700; }
+
+    /* Shared copy block: kicker + headline sit under the art, above the captions. */
+    .kick { left: 43px; top: 822px; }
+    .head { left: 43px; top: 846px; font-size: 40px; }
+
+    /* Scene 1 */
+    #chW { left: 490px; top: 592px; }
+    #chP { left: 490px; top: 650px; }
+    #chA { left: 490px; top: 708px; }
+    /* Scene 2 */
+    #lbF { left: 43px; top: 192px; }
+    #lbP { left: 480px; top: 636px; width: 168px; white-space: nowrap; line-height: 1.3; font-size: 13px; text-transform: none; letter-spacing: 0.06em; }
+    #stN { left: 43px; top: 722px; }
+    #stE { left: 43px; top: 722px; }
+    #stC { left: 43px; top: 768px; }
+    /* Scene 3 */
+    #lbIn { left: 84px; top: 292px; width: 120px; text-align: right; font-size: 15px; }
+    #chL { left: 452px; top: 640px; font-size: 16px; }
+    /* Scene 4 */
+    #bCap { left: 440px; top: 580px; }
+    #bDem { left: 440px; top: 640px; }
+    #bTxt { left: 440px; top: 712px; }
+    #stW { left: 440px; top: 744px; font-size: 16px; }
+    /* Scene 5 */
+    #tl0 { left: 484px; top: 566px; }
+    #tl1 { left: 484px; top: 642px; }
+    #tl2 { left: 484px; top: 724px; }
+    #tl3 { left: 484px; top: 780px; }
+    /* Scene 6 */
+    #t6a { left: 43px; top: 690px; font-size: 54px; white-space: normal; width: 600px; }
+    #bl1 { left: 108px; top: 626px; width: 126px; text-align: center; font-size: 15px; }
+    #bl2 { left: 297px; top: 626px; width: 126px; text-align: center; font-size: 15px; }
+    #bl3 { left: 486px; top: 626px; width: 126px; text-align: center; font-size: 15px; }
+    #src6 { left: 43px; top: 944px; font-size: 14px; letter-spacing: 0.06em; white-space: normal; width: 600px; line-height: 1.35; }
+
+    /* Captions (narration text, sentence timing from audio/timeline.json) */
+    .cap { position: absolute; left: 43px; width: 605px; bottom: 264px; display: flex; justify-content: center; text-wrap: balance; visibility: hidden; opacity: 0; }
+    .cap span { display: inline-block; max-width: 605px; text-align: center; text-wrap: balance; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 29px; line-height: 1.22; color: var(--c-caption-ink, #fffaf2); background: var(--c-caption-bg, rgba(30, 27, 22, 0.84)); padding: 9px 20px 11px; border-radius: 16px; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="70">
+
+  <svg id="defsSvg" aria-hidden="true">
+    <defs>
+      <filter id="wob" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="blur6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+      <filter id="grainF" x="0" y="0" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="5" result="g"/>
+        <feColorMatrix in="g" type="matrix" values="0 0 0 0 0.5  0 0 0 0 0.48  0 0 0 0 0.44  0 0 0 0.8 -0.3"/>
+      </filter>
+      <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.2" fill="#D9D5CC"/></pattern>
+      <clipPath id="lensClip"><circle cx="530" cy="520" r="104"/></clipPath>
+      <radialGradient id="bloomG"><stop offset="0" stop-color="#E2432A" stop-opacity="0.55"/><stop offset="1" stop-color="#E2432A" stop-opacity="0"/></radialGradient>
+    </defs>
+  </svg>
+
+  <!-- Background: faint dot grid, like map paper. -->
+  <svg id="bgSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true"><rect x="0" y="128" width="720" height="780" fill="url(#dots)" opacity="0.7"/></svg>
+
+  <!-- World: the India map under a camera group. -->
+  <svg id="worldSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true">
+    <g id="cam"><g id="mapG">
+      <path id="indiaFill" class="fp"/>
+      <text class="sealabel" id="sea" x="64" y="742">Arabian Sea</text>
+      <g id="routesBase"></g>
+      <g id="routesGreen"></g>
+      <g id="routesDetour"></g>
+      <path id="indiaLine" class="ink" filter="url(#wob)"/>
+      <g id="nodes"></g>
+      <g id="flowL"></g>
+      <g id="rings"></g>
+      <g id="mapFx"></g>
+    </g></g>
+  </svg>
+
+  <!-- The phone (scenes 1 and 6). -->
+  <svg id="phoneSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true"><g id="phoneG"></g></svg>
+
+  <section class="st-scene" id="s1">
+    <p class="tx mono kick" id="k1">A tap. An answer.</p>
+    <p class="tx mono kick" id="k1b">Where it lives</p>
+    <p class="tx serif head" id="h1a">It feels weightless.</p>
+    <p class="tx serif head" id="h1b">The cloud is a place.</p>
+    <p class="tx chip" id="chW">Walls</p>
+    <p class="tx chip" id="chP">Power</p>
+    <p class="tx chip" id="chA">An address</p>
+  </section>
+
+  <section class="st-scene" id="s2">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s2art"></g></svg>
+    <p class="tx mono kick" id="k2">June 2026 &middot; Delhi</p>
+    <p class="tx serif head" id="h2">A fire at a third-party site.</p>
+    <p class="tx mono dark" id="lbF">Third-party<br>data center</p>
+    <p class="tx mono dark" id="lbP"><b>Point of Presence</b><br>a network junction</p>
+    <p class="tx stamp ash" id="stN">Non-compute PoP</p>
+    <p class="tx stamp" id="stE">Emergency power shutdown</p>
+    <p class="tx stamp ash" id="stC">Cause: not disclosed</p>
+  </section>
+
+  <section class="st-scene" id="s3">
+    <p class="tx mono kick" id="k3">Where traffic enters</p>
+    <p class="tx serif head" id="h3">One junction. Three cities.</p>
+    <p class="tx mono dark" id="lbIn">Delhi PoP</p>
+    <p class="tx stamp ash" id="chL">Packet loss possible</p>
+  </section>
+
+  <section class="st-scene" id="s4">
+    <p class="tx mono kick" id="k4">Traffic rerouted</p>
+    <p class="tx serif head" id="h4">The detour has less room.</p>
+    <p class="tx panel" id="bCap"><b>Capacity</b></p>
+    <p class="tx panel" id="bDem"><b>Demand</b></p>
+    <p class="tx panel" id="bTxt">Demand &gt; capacity</p>
+    <p class="tx stamp" id="stW">No workaround</p>
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s4art"></g></svg>
+  </section>
+
+  <section class="st-scene" id="s5">
+    <p class="tx mono kick" id="k5">9&ndash;26 June 2026</p>
+    <p class="tx serif head" id="h5">Weeks to rebuild.</p>
+    <p class="tx panel" id="tl0"><b>9 Jun</b><br>First update</p>
+    <p class="tx panel" id="tl1"><b>By 15 Jun</b><br>Delhi backbone added</p>
+    <p class="tx panel" id="tl2"><b>By 22 Jun</b><br>Chennai capacity done</p>
+    <p class="tx panel" id="tl3"><b>26 Jun</b><br>Back to normal</p>
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s5art"></g></svg>
+  </section>
+
+  <section class="st-scene" id="s6">
+    <svg class="sv" viewBox="0 0 720 1280" aria-hidden="true"><g id="s6art"></g></svg>
+    <p class="tx mono kick" id="k6">The takeaway</p>
+    <p class="tx serif head" id="h6">A backup needs room.</p>
+    <p class="tx mono dark" id="bl1">Buildings</p>
+    <p class="tx mono dark" id="bl2">Power</p>
+    <p class="tx mono dark" id="bl3">Cables</p>
+    <p class="tx serif" id="t6a">The cloud<br>has an address.</p>
+    <p class="tx mono" id="src6">Source: Google Cloud Service Health, Delhi incident, June 2026</p>
+  </section>
+
+  <div id="caps"></div>
+  <svg id="grainSvg" class="lyr" viewBox="0 0 720 1280" aria-hidden="true"><rect width="720" height="1280" filter="url(#grainF)" opacity="0.35"/></svg>
+</div>
+
+<script src="captions.js"></script>
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Scene cues sit in the 0.5 s gaps of audio/timeline.json (measured narration).
+  var cue = S.cues({ s1: 0, s2: 8.05, s3: 24.0, s4: 35.2, s5: 46.4, s6: 58.1, end: 70 });
+  var rng = S.rng(2026);
+  var $ = function (id) { return document.getElementById(id); };
+  var NS = function (tag, attrs, parent) { return S.svg(tag, attrs, parent); };
+  var P = function (parent, d, cls, extra) {
+    var el = NS('path', { d: d, 'class': cls || 'ink' }, parent);
+    if (extra) for (var k in extra) if (Object.prototype.hasOwnProperty.call(extra, k)) el.setAttribute(k, extra[k]);
+    return el;
+  };
+  var BLUE = '#2F4FD8', RED = '#E2432A', GOLD = '#F2A91B', GREEN = '#1E9E6A';
+  var INK = '#1F1F1F', INK2 = '#6B6A66', RULE = '#D9D5CC', PAPER = '#FBFBFA', PAPER2 = '#F1EEE8';
+
+  // ------------------------------------------------------------------ helpers
+  function enter(target, at, o) {
+    o = o || {};
+    tl.fromTo(target, { autoAlpha: 0, y: o.y === undefined ? 14 : o.y },
+      { autoAlpha: 1, y: 0, duration: o.d || 0.55, ease: 'power2.out', immediateRender: true }, at);
+  }
+  function pop(target, at, o) {
+    o = o || {};
+    tl.fromTo(target, { autoAlpha: 0, scale: o.from === undefined ? 0.6 : o.from, transformOrigin: '50% 50%' },
+      { autoAlpha: 1, scale: 1, duration: o.d || 0.45, ease: o.ease || 'back.out(1.8)', immediateRender: true }, at);
+  }
+  function fadeIn(target, at, d) {
+    tl.fromTo(target, { autoAlpha: 0 }, { autoAlpha: 1, duration: d || 0.5, ease: 'power1.out', immediateRender: true }, at);
+  }
+  function leave(target, at, d) {
+    tl.fromTo(target, { autoAlpha: 1 }, { autoAlpha: 0, duration: d || 0.4, ease: 'power1.in', immediateRender: false }, at);
+  }
+  function typed(id, at, cps) {
+    var sp = S.type.split($(id), { type: 'chars' });
+    S.type.typewriter(tl, sp.chars, at, { cps: cps || 28 });
+  }
+  function camAt(k, px, py, sx, sy) { return { scale: k, x: sx - px * k, y: sy - py * k }; }
+
+  // ------------------------------------------------------------------ map geometry
+  var MX = 72, MY = 190, KX = 19.53, KY = 21;
+  function pj(lon, lat) { return [MX + (lon - 68) * KX, MY + (37.2 - lat) * KY]; }
+  var DEL = pj(77.2, 28.6), MUM = pj(72.9, 19.1), CHE = pj(80.3, 13.1);
+  var outline = [[74.0,37.0],[75.6,36.7],[77.6,35.6],[79.1,34.5],[78.9,33.4],[79.9,32.6],[78.7,31.2],[80.2,30.2],
+    [81.1,30.1],[80.4,28.9],[81.9,27.9],[83.4,27.4],[84.7,27.0],[86.0,26.6],[88.1,26.5],[88.7,27.9],[89.0,27.3],
+    [89.8,26.7],[91.6,26.8],[92.1,27.8],[93.5,28.6],[95.2,29.2],[96.6,28.6],[97.2,28.2],[96.2,27.2],[95.3,26.2],
+    [94.6,25.4],[94.2,23.9],[93.3,23.0],[93.2,22.0],[92.5,22.9],[92.2,24.0],[91.5,24.1],[91.9,24.9],[91.6,25.2],
+    [90.2,25.2],[89.8,26.0],[89.2,26.1],[88.5,26.4],[88.1,25.2],[88.7,24.2],[88.9,23.2],[89.0,22.1],[88.2,21.7],
+    [87.0,21.5],[86.8,20.7],[85.7,19.8],[84.9,19.2],[83.4,17.9],[82.3,16.6],[81.3,15.8],[80.3,15.0],[80.2,13.4],
+    [80.0,11.8],[79.8,10.4],[79.2,9.4],[78.2,8.9],[77.6,8.1],[76.9,8.5],[76.4,9.7],[75.8,11.4],[74.9,12.9],
+    [74.2,14.5],[73.7,16.0],[73.2,17.8],[72.8,19.2],[72.8,20.4],[72.6,21.3],[72.7,21.5],[72.6,22.2],[72.2,21.5],
+    [71.2,20.8],[70.4,20.9],[69.0,22.2],[69.8,22.8],[70.4,22.9],[68.7,23.4],[68.2,23.7],[68.9,24.3],[70.0,24.2],
+    [70.6,25.5],[70.2,26.9],[71.2,27.9],[72.6,28.9],[73.3,29.9],[74.5,31.0],[74.9,32.1],[75.6,32.6],[74.5,33.5],
+    [73.8,34.4],[74.2,35.5]].map(function (p) { return pj(p[0], p[1]); });
+  function mid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; }
+  function fx(n) { return n.toFixed(1); }
+  function smoothClosed(pts) {
+    var n = pts.length, m0 = mid(pts[n - 1], pts[0]);
+    var d = 'M' + fx(m0[0]) + ' ' + fx(m0[1]);
+    for (var i = 0; i < n; i++) {
+      var m = mid(pts[i], pts[(i + 1) % n]);
+      d += ' Q' + fx(pts[i][0]) + ' ' + fx(pts[i][1]) + ' ' + fx(m[0]) + ' ' + fx(m[1]);
+    }
+    return d + ' Z';
+  }
+  var indiaD = smoothClosed(outline);
+  $('indiaFill').setAttribute('d', indiaD);
+  $('indiaLine').setAttribute('d', indiaD);
+
+  // Routes: three links between the Delhi, Mumbai and Chennai points of presence.
+  function curve(a, b, c) { return 'M' + fx(a[0]) + ' ' + fx(a[1]) + ' Q' + fx(c[0]) + ' ' + fx(c[1]) + ' ' + fx(b[0]) + ' ' + fx(b[1]); }
+  var dDM = curve(DEL, MUM, [DEL[0] - 70, (DEL[1] + MUM[1]) / 2]);
+  var dDC = curve(DEL, CHE, [DEL[0] + 70, (DEL[1] + CHE[1]) / 2 + 10]);
+  var dMC = curve(MUM, CHE, [(MUM[0] + CHE[0]) / 2 - 30, (MUM[1] + CHE[1]) / 2 + 50]);
+  var rb = $('routesBase');
+  function road(parent, d, w, col, op) {
+    var band = P(parent, d, 'ink', { stroke: col, 'stroke-width': w, 'stroke-opacity': op, 'stroke-linecap': 'butt' });
+    var line = P(parent, d, 'ink', { stroke: col, 'stroke-width': 2.4 });
+    return { band: band, line: line };
+  }
+  var rDM = road(rb, dDM, 12, BLUE, 0.2), rDC = road(rb, dDC, 12, BLUE, 0.2), rMC = road(rb, dMC, 12, BLUE, 0.2);
+  // Detours: the bypass paths traffic takes around the dark Delhi junction. Much thinner.
+  var rd = $('routesDetour');
+  var dT1 = 'M' + fx(DEL[0] - 26) + ' ' + fx(DEL[1] - 28) + ' C' + fx(DEL[0] - 120) + ' ' + fx(DEL[1] + 30) + ' ' + fx(MUM[0] - 70) + ' ' + fx(MUM[1] - 90) + ' ' + fx(MUM[0] - 6) + ' ' + fx(MUM[1] - 6);
+  var dT2 = 'M' + fx(DEL[0] + 26) + ' ' + fx(DEL[1] - 26) + ' C' + fx(DEL[0] + 150) + ' ' + fx(DEL[1] + 60) + ' ' + fx(CHE[0] + 80) + ' ' + fx(CHE[1] - 150) + ' ' + fx(CHE[0] + 6) + ' ' + fx(CHE[1] - 6);
+  var rT1 = road(rd, dT1, 4, BLUE, 0.3), rT2 = road(rd, dT2, 4, BLUE, 0.3);
+  // Recovery roads (emerald), drawn back over the base roads in scene 5.
+  var rgG = $('routesGreen');
+  var gDM = road(rgG, dDM, 12, GREEN, 0.28), gDC = road(rgG, dDC, 12, GREEN, 0.28), gMC = road(rgG, dMC, 12, GREEN, 0.28);
+
+  // Nodes: city dots, labels, the three PoPs and the Delhi building pin.
+  var nodes = $('nodes');
+  function pin(c, id) {
+    var g = NS('g', { id: id }, nodes);
+    NS('circle', { cx: fx(c[0]), cy: fx(c[1]), r: 15, fill: PAPER, stroke: INK, 'stroke-width': 3 }, g);
+    var core = NS('circle', { cx: fx(c[0]), cy: fx(c[1]), r: 7, fill: BLUE }, g);
+    return { g: g, core: core };
+  }
+  var nM = pin(MUM, 'nM'), nC = pin(CHE, 'nC'), nD = pin(DEL, 'nD');
+  function label(txt, x, y, anchor) {
+    var t = NS('text', { x: fx(x), y: fx(y), 'class': 'maplabel', 'text-anchor': anchor || 'start' }, nodes);
+    t.textContent = txt;
+    return t;
+  }
+  var lD = label('DELHI', DEL[0] + 32, DEL[1] - 36), lM = label('MUMBAI', MUM[0] - 36, MUM[1] + 6, 'end'), lC = label('CHENNAI', CHE[0] + 36, CHE[1] + 6);
+  // The Delhi building pin (appears in scene 1 as "an address").
+  var bpin = NS('g', { id: 'bpin' }, $('mapFx'));
+  NS('path', { d: 'M' + fx(DEL[0]) + ' ' + fx(DEL[1] - 18) + ' l0 -30', stroke: INK, 'stroke-width': 3, 'stroke-linecap': 'round' }, bpin);
+  NS('rect', { x: fx(DEL[0] - 16), y: fx(DEL[1] - 78), width: 32, height: 30, rx: 3, fill: PAPER, stroke: INK, 'stroke-width': 3 }, bpin);
+  for (var wi = 0; wi < 3; wi++) NS('rect', { x: fx(DEL[0] - 10 + wi * 9), y: fx(DEL[1] - 70), width: 6, height: 14, fill: RED }, bpin);
+  var bpinRing = NS('circle', { cx: fx(DEL[0]), cy: fx(DEL[1]), r: 15, fill: 'none', stroke: RED, 'stroke-width': 3 }, $('mapFx'));
+  // A dark cross over the Delhi node when the PoP is isolated.
+  var xD = NS('g', {}, $('mapFx'));
+  NS('path', { d: 'M' + fx(DEL[0] - 9) + ' ' + fx(DEL[1] - 9) + ' L' + fx(DEL[0] + 9) + ' ' + fx(DEL[1] + 9) + ' M' + fx(DEL[0] + 9) + ' ' + fx(DEL[1] - 9) + ' L' + fx(DEL[0] - 9) + ' ' + fx(DEL[1] + 9), stroke: RED, 'stroke-width': 5, 'stroke-linecap': 'round' }, xD);
+
+  // Seeded dots that stream along a path. One proxy tween drives every dot (seek-safe).
+  function flow(layer, d, n, at, end, o) {
+    o = o || {};
+    var pathEl = NS('path', { d: d, fill: 'none', stroke: 'none' }, layer);
+    var len = pathEl.getTotalLength(), laps = o.laps || 1, dots = [], proxy = { p: 0 };
+    for (var i = 0; i < n; i++) dots.push(NS('circle', { r: o.r || 4, fill: o.color || BLUE }, layer));
+    function place() {
+      for (var j = 0; j < dots.length; j++) {
+        var q = ((j / dots.length) + proxy.p * laps) % 1;
+        if (o.rev) q = 1 - q;
+        var pt = pathEl.getPointAtLength(q * len);
+        dots[j].setAttribute('cx', fx(pt.x));
+        dots[j].setAttribute('cy', fx(pt.y));
+      }
+    }
+    place();
+    tl.fromTo(dots, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'power1.out', immediateRender: true }, at);
+    tl.fromTo(proxy, { p: 0 }, { p: 1, duration: end - at, ease: 'none', immediateRender: false, onUpdate: place }, at);
+    tl.fromTo(dots, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4, ease: 'power1.in', immediateRender: false }, end - 0.4);
+    return { dots: dots, path: pathEl };
+  }
+
+  // ------------------------------------------------------------------ phone
+  var ph = $('phoneG');
+  NS('rect', { x: 210, y: 190, width: 300, height: 560, rx: 44, fill: PAPER, stroke: INK, 'stroke-width': 4 }, ph);
+  NS('rect', { x: 226, y: 214, width: 268, height: 512, rx: 30, fill: '#FFFFFF', stroke: RULE, 'stroke-width': 2 }, ph);
+  NS('rect', { x: 324, y: 222, width: 72, height: 12, rx: 6, fill: INK }, ph);
+  var cloudP = NS('g', {}, ph);
+  [[340, 288, 24], [372, 274, 30], [398, 294, 20]].forEach(function (c) { NS('circle', { cx: c[0], cy: c[1], r: c[2], fill: '#C9D2F5' }, cloudP); });
+  NS('rect', { x: 336, y: 288, width: 64, height: 28, rx: 14, fill: '#C9D2F5' }, cloudP);
+  var tileDefs = [
+    [246, 350, GOLD], [366, 350, BLUE], [246, 470, GREEN], [366, 470, RED], [246, 590, INK2], [366, 590, '#7A8FE8']
+  ];
+  var tiles = [];
+  tileDefs.forEach(function (t, i) {
+    var g = NS('g', {}, ph);
+    NS('rect', { x: t[0], y: t[1], width: 108, height: 104, rx: 24, fill: t[2] }, g);
+    var cx = t[0] + 54, cy = t[1] + 52;
+    var gl = { fill: 'none', stroke: '#FFFFFF', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+    if (i === 0) { NS('path', { d: 'M' + (cx - 24) + ' ' + (cy - 18) + ' h48 a8 8 0 0 1 8 8 v22 a8 8 0 0 1 -8 8 h-30 l-14 12 v-12 h-4 a8 8 0 0 1 -8 -8 v-22 a8 8 0 0 1 8 -8 z' }, g).setAttribute('style', 'fill:none;stroke:#fff;stroke-width:5;stroke-linejoin:round'); }
+    if (i === 1) { NS('path', { d: 'M' + (cx - 12) + ' ' + (cy - 20) + ' L' + (cx + 22) + ' ' + cy + ' L' + (cx - 12) + ' ' + (cy + 20) + ' Z', fill: '#fff' }, g); }
+    if (i === 2) { var a = NS('path', { d: 'M' + cx + ' ' + (cy + 24) + ' c-22 -22 -24 -30 -24 -38 a24 24 0 0 1 48 0 c0 8 -2 16 -24 38 z' }, g); a.setAttribute('style', 'fill:none;stroke:#fff;stroke-width:5;stroke-linejoin:round'); NS('circle', { cx: cx, cy: cy - 14, r: 7, fill: '#fff' }, g); }
+    if (i === 3) { NS('circle', { cx: cx, cy: cy, r: 24, fill: 'none', stroke: '#fff', 'stroke-width': 5 }, g); NS('path', { d: 'M' + (cx - 12) + ' ' + (cy - 8) + ' h22 M' + (cx - 12) + ' ' + (cy + 2) + ' h22 M' + (cx - 6) + ' ' + (cy - 12) + ' c14 0 14 18 0 18 l12 10', fill: 'none', stroke: '#fff', 'stroke-width': 4, 'stroke-linecap': 'round' }, g); }
+    if (i === 4) { NS('path', { d: 'M' + (cx - 26) + ' ' + (cy - 20) + ' h10 l8 30 h26 l6 -22 h-36', fill: 'none', stroke: '#fff', 'stroke-width': 5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g); NS('circle', { cx: cx - 6, cy: cy + 22, r: 4.5, fill: '#fff' }, g); NS('circle', { cx: cx + 18, cy: cy + 22, r: 4.5, fill: '#fff' }, g); }
+    if (i === 5) { NS('path', { d: 'M' + (cx - 12) + ' ' + (cy + 16) + ' v-30 l26 -6 v30', fill: 'none', stroke: '#fff', 'stroke-width': 5, 'stroke-linejoin': 'round' }, g); NS('circle', { cx: cx - 18, cy: cy + 18, r: 7, fill: '#fff' }, g); NS('circle', { cx: cx + 8, cy: cy + 12, r: 7, fill: '#fff' }, g); }
+    tiles.push(g);
+  });
+  // Tap ring (scene 1), loading spinner (scene 6).
+  var tapRing = NS('circle', { cx: 300, cy: 402, r: 10, fill: 'none', stroke: INK, 'stroke-width': 3 }, ph);
+  var spin = NS('g', {}, ph);
+  NS('circle', { cx: 300, cy: 402, r: 24, fill: 'none', stroke: 'rgba(255,255,255,0.35)', 'stroke-width': 6 }, spin);
+  var spinArc = NS('path', { d: 'M300 378 a24 24 0 0 1 24 24', fill: 'none', stroke: '#fff', 'stroke-width': 6, 'stroke-linecap': 'round' }, spin);
+
+  gsap.set([ph], { svgOrigin: '360 470' });
+
+  // ------------------------------------------------------------------ captions
+  var capsEl = $('caps');
+  var capData = (window.STUDIO_CAPTIONS || []).slice();
+  function splitCue(c) {
+    if (c.text.length <= 58 || c.text.indexOf(', ') < 0) return [c];
+    var idx = [], pos = -1;
+    while ((pos = c.text.indexOf(', ', pos + 1)) >= 0) idx.push(pos + 1);
+    var half = c.text.length / 2, best = idx[0];
+    idx.forEach(function (i) { if (Math.abs(i - half) < Math.abs(best - half)) best = i; });
+    var a = c.text.slice(0, best).trim(), b = c.text.slice(best).trim();
+    var tsplit = c.start + (c.end - c.start) * (a.length / (a.length + b.length));
+    return splitCue({ start: c.start, end: tsplit, text: a }).concat(splitCue({ start: tsplit, end: c.end, text: b }));
+  }
+  var caps = [];
+  capData.forEach(function (c) { caps = caps.concat(splitCue(c)); });
+  caps.forEach(function (c, i) {
+    var d = document.createElement('div');
+    d.className = 'cap';
+    var sp = document.createElement('span');
+    sp.textContent = c.text;
+    d.appendChild(sp);
+    capsEl.appendChild(d);
+    S.show(tl, d, c.start);
+    S.hide(tl, d, c.end - 0.04);
+  });
+
+  // ================================================================== SCENE 1: the weightless feeling (0 - 8.05)
+  S.show(tl, '#s1', 0);
+  gsap.set(['#mapG'], { autoAlpha: 0 });
+  gsap.set('#cam', { svgOrigin: '0 0' });
+  typed('k1', 0.2, 30);
+  tl.fromTo('#k1', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, 3.8);
+  enter('#h1a', 0.5);
+  tl.fromTo('#phoneG', { scale: 0.92, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.6, ease: 'power2.out', immediateRender: true }, 0);
+  tl.fromTo(tiles, { scale: 0.5, autoAlpha: 0, transformOrigin: '50% 50%' }, { scale: 1, autoAlpha: 1, duration: 0.45, ease: 'back.out(1.7)', stagger: 0.12, immediateRender: true }, 0.35);
+  tl.fromTo(cloudP, { y: 8, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'power2.out', immediateRender: true }, 0.2);
+  // The tap: ring on the first tile, the tile answers.
+  tl.fromTo(tapRing, { autoAlpha: 0, scale: 0.4, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1.1, duration: 0.3, ease: 'power2.out', immediateRender: true }, 1.1);
+  tl.fromTo(tapRing, { autoAlpha: 1, scale: 1.1 }, { autoAlpha: 0, scale: 3.4, duration: 0.55, ease: 'power1.out', immediateRender: false }, 1.4);
+  tl.fromTo(tiles[0], { scale: 1, transformOrigin: '50% 50%' }, { scale: 0.9, duration: 0.14, ease: 'power2.out', yoyo: true, repeat: 1, immediateRender: false }, 1.15);
+  // The instant answer: three little bars race across the cloud.
+  var bars = [];
+  for (var bi = 0; bi < 3; bi++) bars.push(NS('rect', { x: 340 + bi * 18, y: 292, width: 8, height: 18, rx: 4, fill: BLUE }, ph));
+  tl.fromTo(bars, { scaleY: 0.2, autoAlpha: 0, transformOrigin: '50% 100%' }, { scaleY: 1, autoAlpha: 1, duration: 0.25, stagger: 0.08, ease: 'back.out(2)', immediateRender: true }, 1.5);
+  tl.fromTo(bars, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.35, immediateRender: false }, 2.3);
+  // "Nothing is there": tiles drift, the cloud floats.
+  tl.fromTo(tiles, { y: 0 }, { y: -6, duration: 1.2, ease: 'sine.inOut', yoyo: true, repeat: 1, stagger: 0.1, immediateRender: false }, 2.3);
+  tl.fromTo(cloudP, { y: 0 }, { y: -10, duration: 0.9, ease: 'sine.inOut', yoyo: true, repeat: 3, immediateRender: false }, 2.3);
+  // "But the cloud is a place": headline swap, then the camera goes through the screen.
+  leave('#h1a', 3.8, 0.35);
+  enter('#h1b', 4.0);
+  typed('k1b', 4.2, 28);
+  fadeIn('#sea', 6.2, 0.6);
+  tl.fromTo('#phoneG', { scale: 1 }, { scale: 6.5, duration: 1.7, ease: 'power3.in', immediateRender: false }, 4.2);
+  tl.fromTo('#phoneG', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, ease: 'power1.in', immediateRender: false }, 4.9);
+  var cK = camAt(1.55, 360, 440, 360, 500);
+  tl.fromTo('#cam', { scale: cK.scale, x: cK.x, y: cK.y }, { scale: cK.scale, x: cK.x, y: cK.y, duration: 0.01, immediateRender: true }, 0);
+  tl.fromTo('#cam', { scale: cK.scale, x: cK.x, y: cK.y }, { scale: 1, x: 0, y: 0, duration: 2.0, ease: 'power2.out', immediateRender: false }, 4.8);
+  tl.fromTo('#mapG', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, ease: 'power1.out', immediateRender: false }, 5.0);
+  tl.fromTo('#indiaFill', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, immediateRender: true }, 5.4);
+  S.draw.stroke(tl, '#indiaLine', 4.8, { duration: 2.2, ease: 'power1.inOut' });
+  [nD.g, nM.g, nC.g, lD, lM, lC].forEach(function (el, i) { pop(el, 5.9 + i * 0.12, { d: 0.4 }); });
+  // Road bands appear softly so the map reads as a network.
+  tl.fromTo([rDM.band, rDM.line, rDC.band, rDC.line, rMC.band, rMC.line], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, stagger: 0.05, immediateRender: true }, 6.3);
+  // Walls, power, address: chips pop with the narration; the Delhi building drops in last.
+  pop('#chW', 5.5); pop('#chP', 6.2); pop('#chA', 6.85);
+  tl.fromTo(bpin, { y: -40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, ease: 'bounce.out', immediateRender: true }, 7.0);
+  tl.fromTo(bpinRing, { autoAlpha: 0.9, attr: { r: 15 } }, { autoAlpha: 0, attr: { r: 44 }, duration: 0.8, ease: 'power1.out', immediateRender: true }, 7.45);
+
+  // ================================================================== SCENE 2: a fire in someone else's building (8.05 - 24)
+  // Camera pushes into Delhi while the closeup takes over.
+  var dK = camAt(3.1, DEL[0], DEL[1], 360, 440);
+  tl.fromTo('#cam', { scale: 1, x: 0, y: 0 }, { scale: dK.scale, x: dK.x, y: dK.y, duration: 1.1, ease: 'power2.in', immediateRender: false }, 7.2);
+  leave('#mapG', 7.9, 0.5);
+  S.crossfade(tl, '#s1', '#s2', cue('s2'), 0.6);
+
+  var a2 = $('s2art');
+  // Ground and building (elevation drawing).
+  var gl2 = P(a2, 'M44 700 H676', 'ink2');
+  var bFill = NS('rect', { x: 124, y: 330, width: 348, height: 370, 'class': 'fp', 'data-fill': '' }, a2);
+  var bOut = NS('g', {}, a2);
+  P(bOut, 'M124 700 V330 H472 V700', 'ink');
+  P(bOut, 'M108 330 H488', 'ink');
+  P(bOut, 'M108 330 V310 H488 V330', 'ink');
+  [150, 210].forEach(function (x) { P(bOut, 'M' + x + ' 300 V250 H' + (x + 40) + ' V300', 'ink2'); });
+  P(bOut, 'M404 300 V262 H444 V300', 'ink2');
+  for (var vr = 0; vr < 4; vr++) P(bOut, 'M150 ' + (372 + vr * 26) + ' H446', 'thin');
+  P(bOut, 'M286 700 V626 H342 V700', 'ink');
+  P(bOut, 'M314 626 V700', 'thin');
+  var sign = NS('rect', { x: 214, y: 340, width: 168, height: 22, rx: 4, fill: INK }, a2);
+  var signT = NS('text', { x: 298, y: 357, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono, monospace', 'font-size': 13, 'font-weight': 700, fill: PAPER, 'letter-spacing': '2' }, a2);
+  signT.textContent = 'DATA CENTER';
+  // The broken window where the fire starts.
+  var win = NS('rect', { x: 156, y: 500, width: 74, height: 80, rx: 4, fill: INK, 'fill-opacity': 0.9 }, a2);
+  // Bloom, flames, smoke.
+  var bloom = NS('circle', { cx: 193, cy: 540, r: 130, fill: 'url(#bloomG)' }, a2);
+  var fire = NS('g', {}, a2);
+  var flameD = 'M0 0 C-20 -2 -26 -26 -8 -46 C-8 -34 -2 -30 2 -34 C4 -44 10 -52 12 -64 C26 -44 28 -20 20 -8 C16 -2 8 0 0 0 Z';
+  var flames = [];
+  [[176, 580, 1.15], [198, 582, 1.5], [220, 580, 1.05]].forEach(function (c, i) {
+    var gF = NS('g', { transform: 'translate(' + c[0] + ' ' + c[1] + ') scale(' + c[2] + ')' }, fire);
+    NS('path', { d: flameD, fill: RED }, gF);
+    var inner = NS('path', { d: flameD, fill: GOLD, transform: 'scale(0.55)' }, gF);
+    flames.push(gF);
+  });
+  var smoke = [];
+  for (var si = 0; si < 7; si++) {
+    smoke.push(NS('circle', { cx: Math.round(135 + rng.range(0, 55)), cy: 500, r: Math.round(rng.range(20, 34)), fill: '#9A968D', opacity: 0, filter: 'url(#blur6)' }, a2));
+  }
+  // Magnified PoP (lens) with a rack and LEDs.
+  var lens = NS('g', {}, a2);
+  var lensBg = NS('circle', { cx: 530, cy: 520, r: 104, fill: PAPER, stroke: INK, 'stroke-width': 4 }, lens);
+  var lensIn = NS('g', { 'clip-path': 'url(#lensClip)' }, lens);
+  NS('rect', { x: 426, y: 416, width: 208, height: 208, fill: '#EDEAE2' }, lensIn);
+  var leds = [];
+  for (var ri = 0; ri < 3; ri++) {
+    NS('rect', { x: 468, y: 470 + ri * 36, width: 124, height: 28, rx: 4, fill: PAPER, stroke: INK, 'stroke-width': 3 }, lensIn);
+    for (var li = 0; li < 4; li++) leds.push(NS('circle', { cx: 486 + li * 14, cy: 484 + ri * 36, r: 4.2, fill: BLUE }, lensIn));
+    P(lensIn, 'M552 ' + (484 + ri * 36) + ' h28', 'thin');
+  }
+  var ptag = NS('rect', { x: 500, y: 444, width: 60, height: 20, rx: 10, fill: BLUE }, lensIn);
+  var ptagT = NS('text', { x: 530, y: 459, 'text-anchor': 'middle', 'font-family': 'JetBrains Mono, monospace', 'font-size': 13, 'font-weight': 700, fill: '#fff', 'letter-spacing': '1' }, lensIn);
+  ptagT.textContent = 'PoP';
+  var link = P(a2, 'M472 470 L444 484', 'ink2', { 'stroke-dasharray': '5 6' });
+  var lensTie = P(a2, 'M444 484 L430 500', 'ink2', { 'stroke-dasharray': '5 6' });
+  // Power-off badge on the lens.
+  var offB = NS('g', {}, a2);
+  NS('circle', { cx: 604, cy: 440, r: 26, fill: PAPER, stroke: RED, 'stroke-width': 4 }, offB);
+  NS('path', { d: 'M604 426 V440 M592 430 a16 16 0 1 0 24 0', fill: 'none', stroke: RED, 'stroke-width': 4.5, 'stroke-linecap': 'round' }, offB);
+
+  // 8.3 kicker, 8.5 headline, building draws on.
+  typed('k2', 8.45, 26);
+  enter('#h2', 8.7);
+  S.draw.lineArt(tl, bOut, 8.4, { speed: 700, stagger: 0.07, max: 1.0 });
+  S.draw.stroke(tl, gl2, 8.3, { duration: 0.9 });
+  tl.fromTo(bFill, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, immediateRender: true }, 9.0);
+  fadeIn([sign, signT], 9.5, 0.4);
+  fadeIn(win, 9.6, 0.3);
+  enter('#lbF', 11.2);
+  // "a fire broke out": bloom, flames, smoke.
+  tl.fromTo(bloom, { autoAlpha: 0, scale: 0.4, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 1.0, ease: 'power2.out', immediateRender: true }, 10.2);
+  flames.forEach(function (g, i) { tl.fromTo(g, { autoAlpha: 0, scaleY: 0.1, transformOrigin: '50% 100%' }, { autoAlpha: 1, scaleY: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: true }, 10.3 + i * 0.15); });
+  var flick = Studio.cycles(10.7, 23.9, 0.9);
+  flames.forEach(function (g, i) {
+    for (var k = 0; k < flick; k++) tl.fromTo(g, { scaleY: 1, scaleX: 1 }, { scaleY: 1.12 - i * 0.03, scaleX: 0.94, duration: 0.45, ease: 'sine.inOut', yoyo: true, repeat: 1, immediateRender: false }, 10.7 + k * 0.9 + i * 0.13);
+  });
+  smoke.forEach(function (c, i) {
+    var cycles = Studio.cycles(10.4 + i * 0.55, 23.9, 3.4);
+    for (var k = 0; k < cycles; k++) {
+      tl.fromTo(c, { y: 0, x: 0, scale: 0.5, opacity: 0 }, { y: -190, x: -30, scale: 1.8, opacity: 0.42, duration: 1.4, ease: 'power1.out', immediateRender: false }, 10.4 + i * 0.55 + k * 3.4);
+      tl.fromTo(c, { opacity: 0.42 }, { opacity: 0, duration: 1.9, ease: 'power1.in', immediateRender: false }, 11.8 + i * 0.55 + k * 3.4);
+    }
+  });
+  // 13.1 "Google's servers were not the problem"
+  pop('#stN', 13.6, { from: 0.8, d: 0.35 });
+  leave('#stN', 15.3, 0.35);
+  // 15.25 the lens: the network junction, a point of presence.
+  fadeIn([link, lensTie], 15.4, 0.4);
+  tl.fromTo(lens, { autoAlpha: 0, scale: 0.7, transformOrigin: '530px 520px' }, { autoAlpha: 1, scale: 1, duration: 0.55, ease: 'back.out(1.4)', immediateRender: true }, 15.6);
+  enter('#lbP', 17.3);
+  // 18.9 emergency power shutdown: badge, LEDs die one by one, stamp slams in.
+  pop(offB, 18.3, { d: 0.35 });
+  leds.forEach(function (c, i) {
+    tl.fromTo(c, { fill: BLUE }, { fill: '#B8B5AD', duration: 0.12, ease: 'none', immediateRender: false }, 18.6 + i * 0.09);
+  });
+  tl.fromTo(ptag, { fill: BLUE }, { fill: '#B8B5AD', duration: 0.2, immediateRender: false }, 19.8);
+  tl.fromTo('#stE', { autoAlpha: 0, scale: 1.7, rotation: -6, transformOrigin: '0% 50%' }, { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.3, ease: 'power3.in', immediateRender: true }, 18.9);
+  // 21.3 "Google has not said what started the fire"
+  pop('#stC', 21.6, { from: 0.8, d: 0.35 });
+
+  // ================================================================== SCENE 3: one junction, three cities (24 - 35.2)
+  var k1c = camAt(3.1, DEL[0], DEL[1], 360, 440);
+  tl.fromTo('#cam', { scale: k1c.scale, x: k1c.x, y: k1c.y }, { scale: 1, x: 0, y: 0, duration: 1.6, ease: 'power2.inOut', immediateRender: false }, 23.4);
+  tl.fromTo('#mapG', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7, ease: 'power1.out', immediateRender: false }, 23.5);
+  S.crossfade(tl, '#s2', '#s3', cue('s3'), 0.6);
+  typed('k3', 24.35, 28);
+  enter('#h3', 24.6);
+  // Normal traffic streams along the three roads.
+  flow($('flowL'), dDM, 7, 24.4, 27.6, { r: 4.2, laps: 1.6 });
+  flow($('flowL'), dDC, 8, 24.5, 27.6, { r: 4.2, laps: 1.6 });
+  flow($('flowL'), dMC, 6, 24.6, 27.6, { r: 4.2, laps: 1.4 });
+  flow($('flowL'), dMC, 6, 27.4, 35.0, { r: 4.2, laps: 0.5 });
+  enter('#lbIn', 25.4);
+  leave('#lbIn', 27.2, 0.3);
+  // 27.3 it goes dark: Delhi node blacks out, rings travel outward.
+  tl.fromTo(nD.core, { fill: BLUE }, { fill: INK, duration: 0.2, immediateRender: false }, 27.3);
+  pop(xD, 27.4, { d: 0.25 });
+  for (var rr = 0; rr < 3; rr++) {
+    var ring = NS('circle', { cx: fx(DEL[0]), cy: fx(DEL[1]), r: 8, fill: 'none', stroke: RED, 'stroke-width': 4 }, $('rings'));
+    tl.fromTo(ring, { autoAlpha: 0.9, attr: { r: 8, 'stroke-width': 4 } }, { autoAlpha: 0, attr: { r: 380, 'stroke-width': 1 }, duration: 3.6, ease: 'power1.out', immediateRender: true }, 27.3 + rr * 1.0);
+  }
+  tl.fromTo([rDM.band, rDM.line, rDC.band, rDC.line], { opacity: 1 }, { opacity: 0.25, duration: 0.7, immediateRender: false }, 27.5);
+  // City tags flash marigold when the ripple reaches them (Delhi, Mumbai, Chennai).
+  function felt(c, at) {
+    var halo = NS('circle', { cx: fx(c[0]), cy: fx(c[1]), r: 15, fill: 'none', stroke: GOLD, 'stroke-width': 6 }, $('mapFx'));
+    tl.fromTo(halo, { autoAlpha: 0, attr: { r: 15 } }, { autoAlpha: 1, attr: { r: 26 }, duration: 0.4, ease: 'back.out(2)', immediateRender: true }, at);
+    return halo;
+  }
+  var hD = felt(DEL, 28.4), hM = felt(MUM, 29.3), hC = felt(CHE, 30.4);
+  // 31 "Connections slowed down": surviving traffic crawls; a few packets fall off the road.
+  function lost(d, p0, p1, at, col) {
+    var pe = NS('path', { d: d, fill: 'none', stroke: 'none' }, $('flowL'));
+    var ln = pe.getTotalLength(), pr = { p: p0 };
+    var dot = NS('circle', { r: 5, fill: col || RED }, $('flowL'));
+    var pt0 = pe.getPointAtLength(p0 * ln);
+    dot.setAttribute('cx', fx(pt0.x)); dot.setAttribute('cy', fx(pt0.y));
+    tl.fromTo(dot, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.25, immediateRender: true }, at);
+    tl.fromTo(pr, { p: p0 }, { p: p1, duration: 1.3, ease: 'none', immediateRender: false, onUpdate: function () {
+      var pt = pe.getPointAtLength(pr.p * ln);
+      dot.setAttribute('cx', fx(pt.x)); dot.setAttribute('cy', fx(pt.y));
+    } }, at);
+    tl.fromTo(dot, { y: 0, autoAlpha: 1 }, { y: 40, autoAlpha: 0, duration: 0.55, ease: 'power2.in', immediateRender: false }, at + 1.3);
+  }
+  lost(dMC, 0.1, 0.45, 31.3); lost(dMC, 0.55, 0.85, 32.6); lost(dDM, 0.2, 0.55, 33.1); lost(dDC, 0.25, 0.6, 33.7);
+  pop('#chL', 32.9, { from: 0.8, d: 0.35 });
+  var wig = [];
+  [DEL, MUM, CHE].forEach(function (c, i) {
+    var x0 = i === 1 ? c[0] - 74 : c[0] + 18, y0 = c[1] + 28;
+    var wg = P($('mapFx'), 'M' + fx(x0) + ' ' + fx(y0) + ' q6 -9 12 0 t12 0 t12 0 t12 0 t12 0', 'ink', { stroke: GOLD, 'stroke-width': 3.2 });
+    wig.push(wg);
+  });
+  S.draw.stroke(tl, wig, 31.0, { duration: 0.6, stagger: 0.2 });
+
+  // ================================================================== SCENE 4: the detour has less room (35.2 - 46.4)
+  S.crossfade(tl, '#s3', '#s4', cue('s4'), 0.6);
+  typed('k4', 35.55, 28);
+  enter('#h4', 35.8);
+  tl.fromTo([hD, hM, hC, xD], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, immediateRender: false }, 35.4);
+  tl.fromTo([wig[0], wig[1], wig[2]], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, immediateRender: false }, 35.4);
+  tl.fromTo([rDM.line, rDC.line], { opacity: 0.25 }, { opacity: 0.12, duration: 0.5, immediateRender: false }, 35.5);
+  // 35.5 rerouted: two thin bypass roads draw on, traffic follows them.
+  S.draw.stroke(tl, [rT1.line, rT2.line], 35.7, { duration: 1.2, stagger: 0.2 });
+  fadeIn([rT1.band, rT2.band], 36.2, 0.8);
+  flow($('flowL'), dT1, 9, 36.6, 45.9, { r: 3.6, laps: 1.1, color: BLUE });
+  flow($('flowL'), dT2, 9, 36.9, 45.9, { r: 3.6, laps: 1.1, color: BLUE });
+  // 37 "narrower than the road they replaced": measuring ticks on a fat ghost road and a thin one.
+  var s4a = $('s4art');
+  var gaugeA = NS('g', {}, s4a);
+  NS('rect', { x: 440, y: 596, width: 200, height: 18, rx: 4, fill: PAPER2, stroke: INK2, 'stroke-width': 2 }, gaugeA);
+  var capFill = NS('rect', { x: 440, y: 596, width: 112, height: 18, rx: 4, fill: BLUE }, gaugeA);
+  NS('rect', { x: 440, y: 656, width: 200, height: 18, rx: 4, fill: PAPER2, stroke: INK2, 'stroke-width': 2 }, gaugeA);
+  var demFill = NS('rect', { x: 440, y: 656, width: 200, height: 18, rx: 4, fill: RED }, gaugeA);
+  var capMark = P(gaugeA, 'M552 586 V686', 'ink', { 'stroke-dasharray': '4 5', 'stroke-width': 2.2 });
+  enter('#bCap', 40.1); enter('#bDem', 40.4);
+  tl.fromTo(gaugeA, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: true }, 40.1);
+  tl.fromTo(capFill, { attr: { width: 0 } }, { attr: { width: 112 }, duration: 0.5, ease: 'power2.out', immediateRender: true }, 40.2);
+  tl.fromTo(demFill, { attr: { width: 0 } }, { attr: { width: 200 }, duration: 2.0, ease: 'power2.inOut', immediateRender: true }, 40.7);
+  enter('#bTxt', 42.6);
+  // 40.2 "traffic queued up": dots pile up at the Mumbai and Chennai nodes.
+  var piles = [];
+  function pile(c, ox, oy, n, at) {
+    for (var i = 0; i < n; i++) {
+      var d = NS('circle', { cx: fx(c[0] + ox + (i % 4) * 11), cy: fx(c[1] + oy + Math.floor(i / 4) * 11), r: 4.4, fill: i > 5 ? RED : BLUE }, $('flowL'));
+      piles.push(d);
+      tl.fromTo(d, { autoAlpha: 0, scale: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'back.out(2)', immediateRender: true }, at + i * 0.17);
+    }
+  }
+  pile(MUM, 18, -46, 12, 40.7); pile(CHE, 18, -50, 12, 41.0);
+  tl.fromTo([nM.core, nC.core], { fill: BLUE }, { fill: RED, duration: 1.2, immediateRender: false }, 41.9);
+  // 43.2 "no workaround"
+  pop('#stW', 44.3, { from: 0.8, d: 0.35 });
+
+  // ================================================================== SCENE 5: weeks to rebuild (46.4 - 58.1)
+  S.crossfade(tl, '#s4', '#s5', cue('s5'), 0.6);
+  typed('k5', 46.75, 26);
+  enter('#h5', 47.0);
+  tl.fromTo([gaugeA, '#bCap', '#bDem', '#bTxt', '#stW'], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4, immediateRender: false }, 46.2);
+  tl.fromTo(piles, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, stagger: 0.03, immediateRender: false }, 52.5);
+  tl.fromTo([rT1.line, rT1.band, rT2.line, rT2.band], { autoAlpha: 1 }, { autoAlpha: 0, duration: 1.2, immediateRender: false }, 54.6);
+  // Timeline panel, proportional to the days: 9 Jun at the top, 26 Jun at the bottom.
+  var a5 = $('s5art'), T0 = 574, DAY = 12.8;
+  function ty(day) { return T0 + (day - 9) * DAY; }
+  var tline = P(a5, 'M466 ' + T0 + ' V' + fx(ty(26)), 'ink', { 'stroke-width': 3 });
+  var dayTicks = [9, 15, 22, 26].map(function (dd) {
+    var c = NS('circle', { cx: 466, cy: fx(ty(dd)), r: 8, fill: PAPER, stroke: INK, 'stroke-width': 3 }, a5);
+    return c;
+  });
+  S.draw.stroke(tl, tline, 46.7, { duration: 9.0, ease: 'none' });
+  var tlIds = ['#tl0', '#tl1', '#tl2', '#tl3'];
+  var tlAt = [46.95, 49.4, 50.9, 55.2];
+  dayTicks.forEach(function (c, i) { pop(c, tlAt[i], { d: 0.35 }); enter(tlIds[i], tlAt[i] + 0.1); });
+  tl.fromTo(dayTicks[1], { fill: PAPER }, { fill: GREEN, duration: 0.3, immediateRender: false }, 49.8);
+  tl.fromTo(dayTicks[2], { fill: PAPER }, { fill: GREEN, duration: 0.3, immediateRender: false }, 51.3);
+  tl.fromTo(dayTicks[3], { fill: PAPER }, { fill: GREEN, duration: 0.3, immediateRender: false }, 55.6);
+  // Green roads come back, route by route: Delhi first, then Chennai, then the full ring.
+  [gDM, gDC, gMC].forEach(function (g) { g.band.setAttribute('opacity', '1'); });
+  S.draw.stroke(tl, [gDM.line, gDC.line], 49.4, { duration: 1.4, stagger: 0.3 });
+  fadeIn([gDM.band, gDC.band], 49.8, 1.2);
+  tl.fromTo(nD.core, { fill: INK }, { fill: GREEN, duration: 0.5, immediateRender: false }, 50.3);
+  S.draw.stroke(tl, gMC.line, 50.8, { duration: 1.2 });
+  fadeIn(gMC.band, 51.1, 1.0);
+  tl.fromTo(nC.core, { fill: RED }, { fill: GREEN, duration: 0.6, immediateRender: false }, 51.2);
+  tl.fromTo(nM.core, { fill: RED }, { fill: GREEN, duration: 0.6, immediateRender: false }, 53.0);
+  // 52 "Crews reached the damaged site": a hard hat over the Delhi pin.
+  var hat = NS('g', {}, $('mapFx'));
+  NS('path', { d: 'M' + fx(DEL[0] + 30) + ' ' + fx(DEL[1] - 70) + ' a20 20 0 0 1 40 0 z', fill: GOLD, stroke: INK, 'stroke-width': 3 }, hat);
+  NS('rect', { x: fx(DEL[0] + 24), y: fx(DEL[1] - 71), width: 52, height: 7, rx: 3, fill: GOLD, stroke: INK, 'stroke-width': 3 }, hat);
+  NS('path', { d: 'M' + fx(DEL[0] + 50) + ' ' + fx(DEL[1] - 90) + ' v14', stroke: INK, 'stroke-width': 3 }, hat);
+  pop(hat, 52.4, { d: 0.4 });
+  // 55 "back to normal": routes carry traffic again.
+  flow($('flowL'), dDM, 7, 55.9, 57.9, { r: 4.2, laps: 1.4, color: GREEN });
+  flow($('flowL'), dDC, 8, 56.0, 57.9, { r: 4.2, laps: 1.4, color: GREEN });
+  flow($('flowL'), dMC, 6, 56.1, 57.9, { r: 4.2, laps: 1.2, color: GREEN });
+
+  // ================================================================== SCENE 6: the cloud has an address (58.1 - 70)
+  S.crossfade(tl, '#s5', '#s6', cue('s6'), 0.6);
+  leave('#mapG', 57.9, 0.9);
+  leave(hat, 57.6, 0.4);
+  tl.fromTo(['#tl0', '#tl1', '#tl2', '#tl3', tline].concat(dayTicks), { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, immediateRender: false }, 57.8);
+  typed('k6', 58.5, 28);
+  enter('#h6', 58.75);
+  // The phone comes back, the first tile stuck on a spinner (the slow answer).
+  tl.fromTo('#phoneG', { scale: 5.5, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 1.3, ease: 'power3.out', immediateRender: false }, 58.2);
+  tl.fromTo(spin, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: true }, 59.3);
+  tl.fromTo(spin, { rotation: 0, svgOrigin: '300 402' }, { rotation: 360 * 2, duration: 1.8, ease: 'none', immediateRender: false }, 59.3);
+  tl.fromTo(tapRing, { autoAlpha: 0 }, { autoAlpha: 0, duration: 0.01, immediateRender: false }, 58.2);
+  // 60.4 "The cloud is not weightless": the phone leaves and the cloud lands with weight.
+  tl.fromTo('#phoneG', { autoAlpha: 1 }, { autoAlpha: 0, scale: 0.9, duration: 0.5, ease: 'power1.in', immediateRender: false }, 60.3);
+  var a6 = $('s6art');
+  var ground6 = P(a6, 'M110 470 H610', 'ink2');
+  var shadow = NS('ellipse', { cx: 360, cy: 476, rx: 70, ry: 8, fill: INK, opacity: 0.16 }, a6);
+  var cloud6 = NS('g', {}, a6);
+  [[330, 440, 36], [378, 418, 46], [418, 448, 30]].forEach(function (c) { NS('circle', { cx: c[0], cy: c[1], r: c[2], fill: '#C9D2F5', stroke: INK, 'stroke-width': 3 }, cloud6); });
+  NS('rect', { x: 322, y: 436, width: 124, height: 34, rx: 17, fill: '#C9D2F5' }, cloud6);
+  P(cloud6, 'M312 470 H460', 'ink');
+  S.draw.stroke(tl, ground6, 60.5, { duration: 0.8 });
+  tl.fromTo(shadow, { autoAlpha: 0, scaleX: 0.3, transformOrigin: '50% 50%' }, { autoAlpha: 0.16, scaleX: 1, duration: 0.8, ease: 'power2.in', immediateRender: true }, 60.6);
+  tl.fromTo(cloud6, { y: -230, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.9, ease: 'bounce.out', immediateRender: true }, 60.6);
+  // 62 "buildings, power, and cables"
+  var icons = [];
+  var iB = NS('g', {}, a6); P(iB, 'M130 590 V530 H200 V590 M114 590 H216 M140 544 h14 M166 544 h14 M140 562 h14 M166 562 h14', 'ink');
+  var iP = NS('g', {}, a6); P(iP, 'M372 506 L338 566 H362 L348 604 L392 540 H368 Z', 'ink'); iP.setAttribute('fill', GOLD);
+  var iC = NS('g', {}, a6); P(iC, 'M498 560 C520 520 540 600 562 560 S596 520 618 560', 'ink'); NS('circle', { cx: 498, cy: 560, r: 8, fill: INK }, iC); NS('circle', { cx: 618, cy: 560, r: 8, fill: INK }, iC);
+  iP.firstChild && iP.firstChild.setAttribute('style', 'fill:' + GOLD);
+  [iB, iP, iC].forEach(function (g, i) { pop(g, 62.2 + i * 0.7, { d: 0.45 }); });
+  [['#bl1', 62.35], ['#bl2', 63.05], ['#bl3', 63.75]].forEach(function (b) { enter(b[0], b[1]); });
+  // 64 "And every one of them has an address": the closing line holds.
+  leave('#h6', 63.7, 0.4);
+  leave('#k6', 63.7, 0.4);
+  enter('#t6a', 64.2, { d: 0.7 });
+  enter('#src6', 65.6, { d: 0.6 });
+  // The closing frame holds from 66.2 s to the end.
+});
+</script>
+</body>
+</html>
