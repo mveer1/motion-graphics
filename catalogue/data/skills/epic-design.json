@@ -10,11 +10,11 @@
     "Directional clip-path reveals, curtain drops, and window pane iris transitions",
     "Automated 2.5D DOM layer validation (scripts/validate-layers.js)"
   ],
-  "location": ".agents/skills/epic-design",
+  "location": ".claude/skills/epic-design",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Installed in workspace under .agents/skills/epic-design."
+    "instructions": "Installed in workspace under .claude/skills/epic-design."
   },
   "dependencies": [
     "gsap"
@@ -25,7 +25,7 @@
     "notes": "Pure CSS/DOM and GSAP execution; zero WebGL overhead. Tested on Apple Silicon M2."
   },
   "documentation_urls": [
-    ".agents/skills/epic-design/SKILL.md",
+    ".claude/skills/epic-design/SKILL.md",
     "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/epic-design"
   ],
   "licensing": {

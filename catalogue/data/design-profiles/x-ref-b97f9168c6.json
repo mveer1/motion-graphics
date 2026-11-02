@@ -1,0 +1,259 @@
+{
+  "id": "x-ref-b97f9168c6",
+  "name": "Reference b97f9168c6",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (1).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-b97f9168c6.",
+  "identity": {
+    "mood": {
+      "value": "Manifesto-like, energetic.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "A side-by-side comparison of generated reels; useful as two contrasting style systems.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0b0b0c",
+          "role": "background",
+          "coverage": 0.5715,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#cafe25",
+          "role": "accent",
+          "coverage": 0.1229,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#e6e8e2",
+          "role": "text",
+          "coverage": 0.119,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#8f8e92",
+          "role": "other",
+          "coverage": 0.0697,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#3f3fe6",
+          "role": "other",
+          "coverage": 0.0467,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#4a4240",
+          "role": "other",
+          "coverage": 0.0428,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#e1492a",
+          "role": "other",
+          "coverage": 0.0167,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        },
+        {
+          "hex": "#96c02e",
+          "role": "other",
+          "coverage": 0.0106,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.66,
+          1.99,
+          3.32,
+          4.65,
+          5.98,
+          7.31,
+          8.64,
+          9.97,
+          11.3,
+          12.63,
+          13.96,
+          15.29,
+          16.62,
+          17.95,
+          19.28,
+          20.61,
+          21.94,
+          23.27,
+          24.6,
+          25.93,
+          27.26,
+          28.59,
+          29.92,
+          31.25
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Heavy condensed caps, left-aligned large statements, outline echoes, a word in a design-tool selection box, glitch split type.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Left-aligned statement plus right-hand hero object in the second half; centred single words in the first.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.composition"
+      },
+      "layering_and_depth": {
+        "value": "3D render sections (cubes, chrome objects).",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.depth_and_layering"
+      }
+    },
+    "shape_language": {
+      "value": "Chrome knot, ring and blob (3D), voxel cubes, dot grids, star bursts.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.shapes_and_materials"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Rapid cuts, marquee rows in opposite directions, 3D object rotation, particle vortex.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "35.81 hard cuts/min, median luma change 0.563/255 per frame, 33.0% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 0.467,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#motion",
+        "note": "19 cuts in 31.833 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Hard cuts throughout.",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "Measured 7 cuts and 9 soft transitions at analyzer 1.2 (1.1 reported 18 cuts, counting the fast horizontal wipes at 19.25-29.25 s); median shot 1.85 s at 1.1; 0.4-0.5 s cuts at 2.73-4.57 s; 2.5 s statements at 16.8-26.75 s; 0.8 s adjectives after 26.75 s.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "4.7 onsets/s, tempo estimate 72 bpm (medium, may be half tempo); cuts not near the grid above chance (0.06 vs 0.14).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-b97f9168c6.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -14.3,
+      "lra_lu": 3.4,
+      "true_peak_dbtp": -0.0,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-b97f9168c6.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-b97f9168c6"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Chrome 3D objects and voxel field (3D rendering)",
+    "Analyst-listed difficulty: Particle vortex in 3D"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

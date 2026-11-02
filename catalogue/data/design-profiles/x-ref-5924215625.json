@@ -1,0 +1,254 @@
+{
+  "id": "x-ref-5924215625",
+  "name": "Reference 5924215625",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (12).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-5924215625.",
+  "identity": {
+    "mood": {
+      "value": "Wordless, poignant.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Emotional short about time; the line is both heartbeat and the ground walked on.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0f0b27",
+          "role": "background",
+          "coverage": 0.3182,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#583d5e",
+          "role": "other",
+          "coverage": 0.1607,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#6c8b80",
+          "role": "other",
+          "coverage": 0.1349,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#9eb5a8",
+          "role": "other",
+          "coverage": 0.1144,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#c36056",
+          "role": "other",
+          "coverage": 0.0764,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#dadbc7",
+          "role": "text",
+          "coverage": 0.0736,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#eda96c",
+          "role": "other",
+          "coverage": 0.0679,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        },
+        {
+          "hex": "#430f99",
+          "role": "accent",
+          "coverage": 0.0538,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.42,
+          1.25,
+          2.09,
+          2.93,
+          3.76,
+          4.6,
+          5.44,
+          6.27,
+          7.11,
+          7.95,
+          8.78,
+          9.62,
+          10.46,
+          11.29,
+          12.13,
+          12.96,
+          13.8,
+          14.64,
+          15.47,
+          16.31,
+          17.15,
+          17.98,
+          18.82,
+          19.66
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "layering_and_depth": {
+        "value": "Flat layers with mild parallax in landscapes.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.depth_and_layering"
+      }
+    },
+    "shape_language": {
+      "value": "Flat vector characters and scenery with simple shading.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.shapes_and_materials"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Characters walk along the line; scenes slide or dissolve as the walk continues; hamster wheels and clocks for routine.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "0.0 hard cuts/min, median luma change 0.834/255 per frame, 19.4% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 20.0,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#motion",
+        "note": "0 cuts in 20.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Heartbeat-to-circle bloom (1.57 s); soft walking transitions; a ragged organic edge wipe late in the piece.",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "Measured boundaries 1.57 c, 3.92 c, then soft changes at 5.33, 10.10, 11.73, 14.05, 16.80 s; median shot 2.35 s.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "4.4 onsets/s, tempo low confidence; 57% of boundaries near onsets (chance 36%).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-5924215625.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -14.2,
+      "lra_lu": 3.3,
+      "true_peak_dbtp": -0.6,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-5924215625.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-5924215625"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Walking character animation (rigs or hand-drawn cycles)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

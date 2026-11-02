@@ -1,0 +1,138 @@
+{
+  "plate-sunlit": {
+    "asset_id": "ast-9fb0957d6cc4",
+    "file": "plate-sunlit.png",
+    "sha256": "9fb0957d6cc43c7a1e9f2837c4722b39c45297ff4a6107df5c8de50ac2182a60",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "depth-haze",
+    "prompt": "s1 sunlit water plate",
+    "params": {
+      "recipe": "depth-haze",
+      "width": 1280,
+      "height": 720,
+      "seed": 31,
+      "colors": [
+        "#0f8aa6",
+        "#0a4a6c",
+        "#9be8f2"
+      ],
+      "options": {
+        "particles": 70
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "d27a832e0c2707ff"
+  },
+  "plate-twilight": {
+    "asset_id": "ast-50c562251e77",
+    "file": "plate-twilight.png",
+    "sha256": "50c562251e77ba81e2e43445afef41b5034587442ef7598cb82a4e59f11fe2b9",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "depth-haze",
+    "prompt": "s2 twilight plate",
+    "params": {
+      "recipe": "depth-haze",
+      "width": 1280,
+      "height": 720,
+      "seed": 32,
+      "colors": [
+        "#0a4a6c",
+        "#06223a",
+        "#2a79a0"
+      ],
+      "options": {
+        "particles": 140
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "34e121e98ffbf579"
+  },
+  "plate-pressure": {
+    "asset_id": "ast-00a5687c8cd1",
+    "file": "plate-pressure.png",
+    "sha256": "00a5687c8cd1e2aec256ca94941a5317552031038f18498ff5e3db300ae807eb",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "depth-haze",
+    "prompt": "s3 pressure plate",
+    "params": {
+      "recipe": "depth-haze",
+      "width": 1280,
+      "height": 720,
+      "seed": 33,
+      "colors": [
+        "#071a2c",
+        "#020711",
+        "#12466e"
+      ],
+      "options": {
+        "particles": 90
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "62c0c955c2c09f1c"
+  },
+  "plate-midnight": {
+    "asset_id": "ast-9afa6f078b9e",
+    "file": "plate-midnight.png",
+    "sha256": "9afa6f078b9e4a6e35ebd86a9689dff377bc30328ee0322a9be0463cd0aeee5f",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "depth-haze",
+    "prompt": "s4/s5 midnight plate",
+    "params": {
+      "recipe": "depth-haze",
+      "width": 1280,
+      "height": 720,
+      "seed": 34,
+      "colors": [
+        "#04101c",
+        "#010306",
+        "#0b3a52"
+      ],
+      "options": {
+        "particles": 120
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "4f839111864963fb"
+  },
+  "caustics": {
+    "asset_id": "ast-264e7f7a7ec7",
+    "file": "caustics.png",
+    "sha256": "264e7f7a7ec7c2a6547bdc6b5ab298eb5f7c3cbadfebbdf51cca478859ffa830",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "caustics",
+    "prompt": "s1 caustic light network (screen blend)",
+    "params": {
+      "recipe": "caustics",
+      "width": 1280,
+      "height": 720,
+      "seed": 35,
+      "colors": [
+        "#bff3ff"
+      ],
+      "options": {}
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "3aca4d86f44c808c"
+  }
+}

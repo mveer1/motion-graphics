@@ -1,343 +1,255 @@
-# Motion Lab: Technical Motion Graphics Production Pipeline
+# Motion Lab
 
-An end-to-end, reproducible, low-memory video production pipeline built for engineering, scientific, and technical explainers on Apple Silicon macOS (optimized for 8 GB RAM).
+A local, low-memory pipeline that turns a project folder (`projects/<slug>/`) into narrated explainers and short-form videos on one Apple Silicon Mac. Everything runs on the machine (GSAP and fonts are fetched from the network at render time, see section 12): HyperFrames (headless Chrome) renders HTML + GSAP + SVG, Kokoro speaks the narration, FFmpeg assembles the result, and scripted gates check it.
 
-Motion Lab automates the complete lifecycle: from technical research dossier validation, studio-grade speech synthesis, and frame-accurate GSAP 3 / SVG animation to intelligent sound design, multi-track audio multiplexing, and automated QA gates.
+Evidence labels used below: **Verified** (read in the workspace), **Observed** (executed and measured), **Inferred**, **Unknown**. Full evidence, per-finding detail and Mermaid diagrams: [docs/architecture-audit.md](docs/architecture-audit.md). Business goals: [docs/VISION.md](docs/VISION.md). Hard production rules: [AGENTS.md](AGENTS.md). Design reference: [ARCHITECTURE.md](ARCHITECTURE.md) section 0. Agent entry point: [CLAUDE.md](CLAUDE.md).
 
----
+## 1. Project overview
 
-## Table of Contents
+Purpose (VISION.md): produce our own narrated explainers and short-form social videos in technology, finance, science, history, mathematics and news. Motion graphics only, synthetic narration, local rendering, portrait by default. Quality is premium craft plus accurate explanation; speed is not a priority.
 
-- [Key Capabilities](#key-capabilities)
-- [Open Source Tools & Attributions](#open-source-tools--attributions)
-- [Production Lifecycle (Stages 0–9)](#production-lifecycle-stages-09)
-- [Directory Layout](#directory-layout)
-- [Workspace Governance & Stewardship](#workspace-governance--stewardship)
-- [Quickstart & Commands](#quickstart--commands)
-- [Hardware & Memory Management](#hardware--memory-management)
-- [Showcase Portfolio](#showcase-portfolio)
-- [Credits & Licensing](#credits--licensing)
+Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 s), `polya-recurrence` (portrait, 73 s), `great-fire-london-collage` (landscape, 44.6 s), `ocean-descent-documentary` (landscape, 49.5 s), plus two silent 14 s landscape fixtures (`motion-quality-v1-baseline`, `-v2-directed`). Older explainers (`btree-database-indexing`, `distributed-consensus-raft`, `neural-network-learning`, `masala-chai`, `paper-plane-field-notes`, `china-market-crash`) live as versioned folders without a top-level `project.json`.
 
----
+## 2. Workspace capabilities
 
-## Key Capabilities
+| Capability | State |
+|---|---|
+| Multi-format layout composed per format (landscape 1280×720, portrait 720×1280, square 1080×1080, 30 fps) | Verified in `specs/format-presets.json`; shipped films use one format each |
+| Deterministic runtime: seeded RNG, one paused GSAP timeline, lint bans `Math.random`, timers, infinite repeats | Verified (`studio.py validate`) |
+| Narration: Kokoro, 24 kHz mono, measured durations, 0.5 s scene pauses | Verified in code; not re-run in this audit |
+| Capability catalogue: 10 libraries, 43 effects, 44 recipes, 16 primitives, 14 compositions, 10 styles, 42 reference techniques | Verified; **most are `experimental`** (10/10 styles, 37/43 effects) |
+| Creative-intelligence layer: beat maps, style bake-off, design knowledge base, asset engine, single-scene re-render | Verified; **not yet committed to git** |
+| Technical QA: 5 gates with per-format expectations; objective/measured/judgment motion QA; 12-criterion creative review | Verified and exercised |
+| Series (sequential or collection) grouping | Verified (`studio.py series`) |
+| Math-animation toolkit (3Blue1Brown style) | **Missing**: only SVG + GSAP primitives; three.js is registered but experimental |
+| Preview frame review (Playwright) | **Unavailable on this host** (Playwright not installed) |
 
-- **Natural Narration:** Kokoro TTS v0.9.4 generating 24 kHz WAV narration with accurate G2P phonemisation and configurable speech pacing (default: 1.15x).
-- **Procedural Motion Graphics:** HyperFrames CLI + GSAP 3 + SVG compositions rendered via headless Chrome with ANGLE Metal GPU acceleration.
-- **Audio-Driven Timeline Synchronization:** Visual animations are strictly driven by actual measured audio waveforms (sub-millisecond ffprobe timing), with 0.5s inter-scene padding buffers.
-- **Acoustic Intelligence & Real SFX:** Visual cue detection from code, CC0 sound effect retrieval from Openverse, code-synthesized micro-SFX via Earshot, and multi-track audio ducking.
-- **Decoupled Stream Assembly:** Sub-second FFmpeg stream multiplexing (`-c:v copy -c:a aac`) eliminating costly video re-encoding.
-- **Automated QA Verification:** 5-gate automated validation suite (`run-qa-gates.sh`) ensuring stream integrity, EBU R128 loudness compliance, zero black gaps, bitrate targets, and spectral acoustic health.
-- **Single-Command Orchestration:** Automated project builder executing the entire pipeline from Stage 0 to Stage 9 (`./scripts/build-project.sh <project-slug>`).
+## 3. Verified technology stack
 
----
+| Layer | Tool | Version / location |
+|---|---|---|
+| Renderer | HyperFrames | 0.8.226, global npm; Chrome from `~/.cache/hyperframes` |
+| Animation | GSAP | 3.12.5, loaded from cdnjs at render time |
+| Narration | Kokoro | 0.9.4, Homebrew `python3.12` (not the venv) |
+| Assembly, QA | FFmpeg / ffprobe | 9.0.2 |
+| Acoustic QA, SFX | Earshot | 0.4.0 (`tools/earshot` submodule, installed in `.venv`) |
+| Sound library | Openverse (keyless), Clipwing skills (`tools/clipwing-skills` submodule) | |
+| Python | `.venv` 3.12.16 (torch, numpy, scipy, librosa, Pillow, jsonschema, earshot) | `python3` on PATH is 3.14: do not use it for ML |
+| Node | 24.22.1 | |
+| Not installed | Playwright, ruff, pytest, misaki (in `.venv`) | |
 
-## Open Source Tools & Attributions
+No lockfile exists. `pyproject.toml` does not declare kokoro, misaki or playwright.
 
-This project stands on the shoulders of remarkable open-source software, models, tools, and datasets. We gratefully credit the original authors and maintainers:
+## 4. Architecture overview
 
-### 1. Voice Synthesis & Phonetics
-
-- **[Kokoro TTS](https://huggingface.co/hexgrad/Kokoro-82M)** by [hexgrad](https://github.com/hexgrad) (Apache-2.0 License)
-  - An open-weight 82-million parameter text-to-speech model that punches well above its weight class. Kokoro delivers natural, expressive prosody with ultra-fast inference on CPU and Apple Silicon.
-  - *Usage:* Powers `src/pipeline/tts.py` and `scripts/build-audio.py`, generating 24 kHz mono PCM WAV narration across male and female personas (`am_adam`, `af_bella`, `am_michael`, `af_sarah`, `bm_george`, `bf_emma`).
-- **[Misaki](https://github.com/hexgrad/misaki)** by [hexgrad](https://github.com/hexgrad) (Apache-2.0 License)
-  - G2P (Grapheme-to-Phoneme) conversion engine providing accurate phonemic transcription for English pronunciation.
-- **[eSpeak NG](https://github.com/espeak-ng/espeak-ng)** (GPLv3 License)
-  - Universal text-to-speech phoneme engine used by Kokoro for phonetic segmentation and fallback synthesis.
-
-### 2. Motion Graphics & Visual Rendering
-
-- **[HyperFrames](https://hyperframes.dev)** by the HyperFrames Team
-  - A code-first motion graphics framework and CLI that renders HTML5, CSS, SVG, Canvas, and JavaScript animations into frame-accurate MP4 video using headless Chromium with ANGLE Metal hardware acceleration.
-  - *Usage:* Primary visual rendering engine (`hyperframes render --low-memory-mode`, `hyperframes snapshot`, `hyperframes lint`).
-- **[GSAP 3 (GreenSock Animation Platform)](https://gsap.com)** by [GreenSock / Webflow](https://greensock.com) (Standard 'No-Charge' GreenSock License)
-  - The industry-standard JavaScript animation library. Provides rock-solid timeline sequencing, easing curves, and deterministic frame stepping.
-  - *Usage:* All scene animations are orchestrated with GSAP 3 timelines attached to `window.__timelines['root']`, synchronized to millisecond audio timeline maps.
-- **[Three.js](https://threejs.org)** by [Ricardo Cabello (Mr.doob)](https://github.com/mrdoob/three.js) and contributors (MIT License)
-  - WebGL/WebGPU 3D graphics library registered in the capability catalogue (`catalogue/data/libraries/threejs.json`) for spatial data visualizations and 3D scenes.
-- **[Anime.js](https://animejs.com)** by [Julian Garnier](https://github.com/juliangarnier/anime) (MIT License)
-  - Lightweight, flexible JavaScript animation engine registered in the capability catalogue (`catalogue/data/libraries/animejs.json`) for micro-interactions and SVG path morphing.
-
-### 3. Sound Design, Foley & Acoustic Intelligence
-
-- **[Earshot](https://github.com/Leonxlnx/earshot)** by [Leon (@Leonxlnx)](https://github.com/Leonxlnx) (MIT License)
-  - An acoustic intelligence CLI and procedural sound synthesis engine built as "Ears for Coding Agents".
-  - *Usage:* Vendored under `tools/earshot`. Provides procedural micro-SFX rendering (`earshot sfx render <id>`), objective loudness measurement (EBU R128), spectral bandwidth verification, sync checking, and automated acoustic QA gates.
-- **[Real SFX & Clipwing Skills](https://github.com/Clipwing/skills)** by [Clipwing Team](https://github.com/Clipwing) (MIT License)
-  - Sound design automation suite for motion graphics.
-  - *Usage:* Vendored under `tools/clipwing-skills` and `.agents/skills/real-sfx/`. Extracts animation moments from HyperFrames compositions (`from_hyperframes.py`), maps visual events to real foley recordings (`suggest_cues.py`), and renders balanced multi-track SFX audio tracks (`mix.py`).
-- **[Openverse](https://openverse.org)** by the [WordPress Foundation](https://wordpress.org) & Openverse Community (Open Source / CC-licensed metadata)
-  - Search engine and index for over 700 million openly licensed and public domain creative works.
-  - *Usage:* Directly queried via `scripts/sfx-openverse.py` to search and download high-quality CC0 and CC BY sound effects (whooshes, UI pops, mechanical clicks, ambient beds) with zero API keys required.
-
-### 4. Audio-Video Multiplexing & Signal Processing
-
-- **[FFmpeg & FFprobe](https://ffmpeg.org)** by Fabrice Bellard, Michael Niedermayer, and the FFmpeg Development Team (LGPLv2.1+ / GPLv2+)
-  - The universal multimedia processing framework.
-  - *Usage:* Sub-millisecond audio duration probing, EBU R128 loudness scanning (`-filter:a ebur128`), audio ducking via `amix` filter, and lightning-fast stream multiplexing (`-c:v copy -c:a aac -shortest`).
-- **[SoundFile](https://github.com/bastibe/python-soundfile)** by Bastian Bechtold and Erik de Castro Lopo (BSD 3-Clause License)
-  - Python interface to libsndfile for reading, writing, and transforming uncompressed PCM audio files.
-- **[SciPy](https://scipy.org)** & **[NumPy](https://numpy.org)** by the SciPy and NumPy Developers (BSD 3-Clause License)
-  - High-performance scientific computing and digital signal processing used across acoustic measurement and audio manipulation.
-- **[jsonschema](https://github.com/python-jsonschema/jsonschema)** by Julian Berman (MIT License)
-  - Strict JSON Schema Draft-07 implementation used for validating Stage 0 research dossiers (`scripts/validate-research.py`) and catalogue component metadata (`scripts/workspace-governance.py`).
-
----
-
-## Production Lifecycle (Stages 0–9)
-
-Every explainer video produced in this repository follows a strictly staged, quality-gated lifecycle:
-
-```
-[ Stage 0: Technical Research ]
-  ├── research.json (Draft-07 schema validation via validate-research.py)
-  └── research.md (Mathematical truth & visual metaphor archetypes)
-        │
-        ▼
-[ Stage 1 & 2: Storyboarding & Narration Script ]
-  └── narration.json (Scene definitions, phonetic respellings, pacing)
-        │
-        ▼
-[ Stage 3: Speech Synthesis & Waveform Measurement ]
-  ├── Kokoro TTS generates 24 kHz WAV clips via src/pipeline/tts.py
-  ├── FFprobe measures exact millisecond durations
-  └── audio/timeline.json generated with 0.5s inter-scene padding buffers
-        │
-        ▼
-[ Stage 4: Motion Graphics Composition ]
-  ├── Query capability catalogue (scripts/motion-catalogue.py)
-  └── Author src/index.html with GSAP 3 timelines locked to timeline.json
-        │
-        ▼
-[ Stage 4B: Foley Choreography & Sound Design ]
-  ├── Visual moments extracted from index.html (from_hyperframes.py)
-  ├── Openverse CC0 assets sourced (scripts/sfx-openverse.py)
-  ├── Micro-sounds synthesized via Earshot (earshot sfx render)
-  └── Multitrack SFX bed rendered (real-sfx mix.py -> audio/sfx-track.wav)
-        │
-        ▼
-[ Stage 5 & 6: Linting & Headless Chrome Rendering ]
-  ├── hyperframes lint index.html
-  └── hyperframes render --low-memory-mode (Pinned 1 worker, ANGLE Metal)
-        │
-        ▼
-[ Stage 8: Multi-Track Stream Multiplexing ]
-  └── FFmpeg amix ducks SFX bed under narration (-c:v copy -c:a aac)
-        │
-        ▼
-[ Stage 9: Automated QA Gates (run-qa-gates.sh) ]
-  ├── Gate 1: Stream Integrity & Zero Silent Tracks
-  ├── Gate 2: EBU R128 Loudness Verification (-16 to -14 LUFS)
-  ├── Gate 3: Black Gap & Visual Dip Detection
-  ├── Gate 4: Video Bitrate Compliance (1.0 to 4.5 Mbps)
-  └── Gate 5: Earshot Acoustic Health & Spectral Bandwidth
+```mermaid
+flowchart LR
+    brief --> storyboard --> comp[src/index.html + vendored _studio runtime]
+    storyboard --> narr[narration.json] --> audio[Kokoro + ffprobe timeline]
+    comp --> validate[studio.py validate] --> lock[render lock]
+    lock --> render[hyperframes render, 1 worker]
+    render --> mux[ffmpeg mux + loudnorm 48 kHz]
+    audio --> mux
+    mux --> qa[5 QA gates] --> out[out/slug-format.mp4] --> review[creative review]
 ```
 
----
+Two tracks share one toolchain: **studio projects** (`project.json`, driven by `scripts/studio.py`) and **legacy projects** (no `project.json`, driven by `scripts/build-project.sh`). Each delegates to the other for the other's kind, so keep both working.
 
-## Directory Layout
+## 5. Pipeline execution flow
+
+Studio project: `brief.json` → optional `research.json`/`research.md` (only when `brief.research.required`) → `storyboard.json` → `src/narration.json` and `audio/` → `src/index.html` (+ generated `index.<format>.html`) → `validate` → `build` → `review`.
+
+`studio.py build` plan (Verified, `build_plan`): validate → formats → narration (skipped if `narration-full.wav` exists) → lint → per format: render → mux → QA → copy to `out/`. The whole build now runs under the render lock.
+
+Legacy stages 0 to 9 (research dossier, narration, composition, foley, lint, render, mux, QA) are unchanged; see ARCHITECTURE.md.
+
+## 6. Directory structure
 
 ```text
 .
-├── AGENTS.md                          # Operational instructions for AI agents
-├── ARCHITECTURE.md                    # Complete system architecture & specifications
-├── README.md                          # Pipeline documentation, open source credits & quickstart
-├── .gitignore                         # Placement-policy-enforced gitignore
-├── .gitmodules                        # Upstream git submodules for tools
-├── specs/
-│   ├── research-spec.json             # Stage 0: Research dossier JSON Schema (Draft-07)
-│   ├── video-spec.json                # Declarative video specification schema
-│   └── veo-integration.md             # Ingestion strategy for cinematic / Veo video
-├── templates/
-│   ├── research-template.json         # Reusable research data model instance
-│   └── research-template.md           # Reusable Markdown dossier template
-├── projects/                          # Production explainer workspaces
-│   ├── benchmark-neural-network/      # Explainer 1: Deep Learning & Gradient Descent
-│   ├── distributed-consensus-raft/    # Explainer 2: Raft Consensus & Log Replication
-│   └── btree-database-indexing/       # Explainer 3: B-Trees & Storage Engine Geometry
-├── out/                               # Portfolio delivery showcase
-│   ├── index.html                     # HTML5 interactive video portfolio gallery
-│   └── posters/                       # Video preview poster thumbnails
-├── scripts/
-│   ├── build-project.sh               # Full-lifecycle production orchestrator (0 -> 9)
-│   ├── build-all.sh                   # Sequential batch portfolio builder & QA verifier
-│   ├── build-audio.py                 # Kokoro TTS & timeline map generator
-│   ├── sfx-openverse.py               # Openverse CC audio search and asset downloader
-│   ├── motion-catalogue.py            # Capability catalogue CLI search & inspect
-│   ├── workspace-governance.py        # 6-gate governance audit & drift detector
-│   ├── new-project.sh                 # Scaffolds new projects from schema & templates
-│   ├── render.sh                      # Single-command render and mux builder
-│   ├── validate-research.py           # Research schema validator (Draft-07)
-│   └── ingest-asset.sh                # Normalizer for external stock/AI video
-├── catalogue/                         # Workspace component capability registry
-│   ├── schemas/                       # JSON schemas for tools, libraries, recipes, effects
-│   ├── data/                          # Registered component definitions
-│   └── index.json                     # Precomputed lookup index
-├── .agents/skills/                    # Workspace agent skills
-│   ├── workspace-steward/             # Governance, placement policy & audit
-│   ├── technical-researcher/          # Stage 0 research dossiers & schema validation
-│   ├── motion-library-guide/          # Capability catalogue search & recipe curation
-│   ├── motion-graphics-designer/      # SVG/GSAP 3 motion graphics design system
-│   ├── voice-director/                # Kokoro voice synthesis & phonetics
-│   ├── real-sfx/                      # Sound design & frame-accurate cue mixing
-│   ├── earshot/                       # Acoustic listening, critique & procedural SFX
-│   └── video-assembler/               # Low-memory rendering, multiplexing & QA
-├── tools/                             # Local vendored toolsets (git submodules)
-│   ├── earshot/                       # Leonxlnx/earshot (v0.4.0)
-│   └── clipwing-skills/               # Clipwing/skills
-├── assets/
-│   ├── audio/sfx/                     # Openverse / CC0 downloaded sound library
-│   ├── images/                        # Vector and raster graphic assets
-│   └── generated/                     # Normalized external video clips
-├── logs/                              # Pipeline execution logs (ephemeral)
-└── tests/                             # Independent test suite & smoke tests
+├── CLAUDE.md AGENTS.md ARCHITECTURE.md TODO.md   # agent rules, design reference, open decisions
+├── docs/                 # VISION.md (business), architecture-audit.md (evidence)
+├── specs/                # JSON schemas (brief, storyboard, project, beatmap, asset…), categories, presets, guides
+├── catalogue/            # data/ (records) + schemas/ + index.json
+├── src/
+│   ├── studio/           # canonical runtime (core, draw, type, motion, compositions, styles/)
+│   └── pipeline/         # tts.py, colour science, archetypes, videoscan, asset providers
+├── scripts/              # studio.py, session-guard.py, build-audio.py, motion-qa.py, frame-review.py, …
+├── templates/            # project templates + research template
+├── projects/<slug>/      # brief, storyboard, src/, audio/, qa/, renders/ (gitignored)
+├── series/               # series.json groupings
+├── out/                  # delivered videos only: MP4s, archive/ of superseded ones, gallery index.html
+├── reference/            # reference-video material, never delivered: analysis/ (frames, sheets), design-dna/, design-kb/ (all gitignored, regenerable)
+├── tools/                # earshot, clipwing-skills (git submodules)
+├── assets/ logs/ archive/ tests/
+├── .claude/skills/       # 28 agent skills
+├── .locks/ .worktrees/   # lock files; parallel-session worktrees (gitignored)
+└── .venv/                # Python 3.12 environment (gitignored)
 ```
+
+## 7. Component responsibilities
+
+| Component | Owns |
+|---|---|
+| `scripts/studio.py` | project lifecycle, validation, build plan and execution, review rubric, series |
+| `src/studio/` | the composition runtime; copied into each project by `studio.py sync` and SHA-locked |
+| `catalogue/` + `motion-catalogue.py` | what capabilities exist and their approval state |
+| `scripts/build-audio.py`, `src/pipeline/tts.py` | narration synthesis and timeline |
+| `scripts/session-guard.py` | locks (`render`, `tts`, `analysis`) and worktree sessions |
+| `.claude/skills/video-assembler/scripts/run-qa-gates.sh` | technical QA gates |
+| `scripts/motion-qa.py`, `frame-review.py` | measured motion QA and preview checks |
+| `.claude/skills/workspace-steward` + `workspace-governance.py` | placement policy and drift detection |
+
+## 8. Execution and development workflow
+
+Setup once: `git submodule update --init --recursive && source .venv/bin/activate && pip install -e tools/earshot`.
+
+```bash
+python scripts/studio.py new <slug> --template illustrated-explainer --formats portrait --category history
+python scripts/studio.py validate <slug>
+python scripts/studio.py build <slug> --dry-run      # plan only, runs anywhere
+python scripts/studio.py build <slug>                # render host: takes the render lock itself
+python scripts/studio.py review <slug> --init        # then score qa/creative-review.json
+```
+
+Use `.venv/bin/python` for these. Legacy: `./scripts/build-project.sh <slug>`. Catalogue: `python scripts/motion-catalogue.py search "<intent>"`. Governance after any component change: `python scripts/workspace-governance.py`.
+
+Build behaviour to know (Verified in this audit, scratch build): a render whose composition tree, assets, format, fps or quality changed since it was rendered prints `[stale]` and re-renders. A render with no `visuals.stamp.json` (made before stamps existed) is reused with a message; delete it to force a re-render. Narration is still reused whenever `narration-full.wav` exists, so delete it after editing `narration.json`.
+
+## 9. Concurrency model
+
+One heavy job at a time (permanent: VISION.md fixes the 8 GB machine). `session-guard.py` holds `fcntl.flock` locks in one `.locks/` directory shared by every worktree. `studio.py build` acquires the `render` lock itself and is re-entrant under `session-guard build`. Parallel sessions use `session-guard.py session-start <slug>` (git worktree per film). Parallel work helps authoring and validation, not rendering.
+
+Still unlocked when called directly (Verified): `scripts/build-audio.py`, `scripts/frame-review.py`, `scripts/build-project.sh`. Route them through `session-guard.py run <resource> -- …`. Each film is a single `index.html`, so two people cannot work on different scenes of one film without merging.
+
+## 10. Cost and resource considerations
+
+No paid API is called by the pipeline (Verified by grep). `src/pipeline/assets/providers/kie.py` is an opt-in paid-asset adapter, tested only against a local stub, key read from the environment. Cost is local compute and disk.
+
+Measured (Observed): a 14 s 720p30 render takes 22 s wall with a peak of 686 MB across the render process tree. Prior notes put Kokoro at about 1.4 GB and a 50 s film build at 620 to 830 MB. Heavy-film render times are **Unknown**; each build now appends per-stage seconds to `logs/build-timings.jsonl`.
+
+Disk: repo 2.7 GB (`.venv` 1.1 GB, `tools/` 887 MB, `projects/` 476 MB, `out/` 143 MB, `.git` 121 MB), plus 240 MB in `~/.cache/hyperframes`. No cleanup policy exists.
+
+## 11. Quality assurance mechanisms
+
+| Layer | Mechanism | State |
+|---|---|---|
+| Static | `studio.py validate`: schemas, cross-references, determinism lint, runtime integrity | Works, 0.1 s |
+| Preview | `frame-review.py` (clipped text, safe area, contrast, dead stretches) | **Cannot run here: no Playwright** |
+| Measured | `motion-qa.py` (objective / measured / judgment; never a quality verdict) | Works |
+| Technical | `run-qa-gates.sh`: streams, EBU R128, black gaps, bitrate, Earshot; `--expect-width/height/fps/duration/lufs` | Works |
+| Creative | `qa/creative-review.json`, 12 criteria 1 to 5, pass if all ≥ 3 and mean ≥ 3.5, evidence required | Works; judgment is the reviewer's |
+| Tests | 147 tests in 6 passing suites; runtime suite skipped (no Playwright) | `test-audio-stack` fails (below) |
+
+Missing: automated audio/picture sync check, scene-repetition detection, factual verification of narration, CI.
+
+## 12. Known limitations
+
+- `test-audio-stack.py` fails: suite 3 (real-sfx) extracts 0 moments from its fixture, then crashes with `FileNotFoundError`. Pre-existing; not investigated further.
+- SFX and bed audio are written per film (`generate_bed_and_sfx.py`, three divergent copies).
+- GSAP and fonts are fetched from the network at render time.
+- Runtime version label (`1.0.0`) is not bumped when content changes: 12 project folders carry a vendored runtime that differs from canonical under the same label.
+- The four shipped narrated films have 96 kHz AAC audio (fixed for new builds, shipped files not re-muxed).
+- `ruff` and `pytest` are not installed, so the documented lint did not run.
+- 10 of 10 styles and most effects are `experimental`; promotion needs render-host evidence.
+
+## 13. Scalability assessment
+
+| Dimension | Assessment |
+|---|---|
+| More projects | File-based and cheap; storage grows linearly and `out/` duplicates every render |
+| Longer videos | Worked to 104.5 s (one sample); render cost per second of video measured on a light 14 s fixture only |
+| 1080p / 60 fps / 4K | Defined in presets, **untested** here |
+| More complex animation | Not measured; render time is accepted by policy, memory is bounded by one worker |
+| More workers | Not supported by design (8 GB) |
+| More styles / categories | Easy for categories (JSON); styles touch a record, a CSS file and tags; "what is a style" is an open decision in `TODO.md` |
+
+## 14. Weighted architecture scorecard
+
+Scores are judgements from the evidence in the audit, not measurements. Overall **5.95 / 10** after this audit, **5.77** as found.
+
+| Rubric | Score | Weight | Confidence | Key finding |
+|---|---:|---:|---|---|
+| A Cost efficiency | 7 | 10% | Medium | No paid calls; agent-session token cost unknown |
+| B Execution efficiency | 6 | 10% | Medium | 1.6× real time on a light fixture; serial by design |
+| C Concurrent development | 5 | 10% | Medium | Lock now shared across worktrees and enforced in build; three entry points still unlocked |
+| D Visual diversity | 6 | 10% | Medium | Four distinct style systems shipped, but styles are token sheets and all experimental; frames not reviewed here |
+| E Scalability | 5 | 12% | Low | One long sample; higher resolutions untested |
+| F Modularity | 6 | 8% | Medium | Good schemas and boundaries; `studio.py` monolith, hard-wired renderer |
+| G Maintainability | 6 | 8% | Medium | Strong tests and docs; overlapping instruction files; lint tooling absent |
+| H Reliability | 6 | 8% | Medium | Stage-fail-stop and resume; stale-render bug fixed; no retries |
+| I Quality assurance | 7 | 10% | High | Layered gates; preview layer dead on this host |
+| J Resource management | 7 | 5% | Medium | Serial locks, 686 MB measured peak; no cleanup policy |
+| K Extensibility | 6 | 5% | Medium | Formats and categories easy; renderer and TTS hard-wired |
+| L Reproducibility | 4 | 4% | High | Work untracked in git, no lockfile, network at render time |
+| **Weighted total** | **5.95** | 100% | | |
+
+## 15. Top architectural risks
+
+1. **Work not under version control** (Critical): most of the creative layer and 5 of 6 films are untracked. One bad command loses them.
+2. **No pinned environment** (High): three Pythons, no lockfile, kokoro and playwright undeclared.
+3. **Preview QA unavailable** (High): the layer that catches clipped text and safe-area violations cannot run here.
+4. **Advisory locking** (High, partly fixed): direct calls to audio, frame-review and legacy build skip the lock.
+5. **Network-dependent renders** (Medium): an offline render host or a CDN change breaks reproduction.
+
+Full list of ten with priorities: [docs/architecture-audit.md](docs/architecture-audit.md) section 4.
+
+## 16. Improvements implemented (this audit)
+
+- Render lock shared across git worktrees; re-entrant for nested calls; `studio.py build` takes it.
+- Render stamps: stale renders re-render; unstamped legacy renders are kept with a message.
+- `aresample=48000` after `loudnorm` (was 96 kHz output).
+- Per-stage timing log `logs/build-timings.jsonl` (gitignored).
+- Runtime-drift warning names the differing files.
+- `categories` backfilled in the 6 studio briefs.
+- 5 regression tests (`tests/test-studio.py`: 25 → 30).
+- This README (the previous one described projects that no longer exist) and `docs/architecture-audit.md`.
+
+## 17. Recommended future improvements
+
+In priority order: **commit the untracked work** (user action); add a pinned requirements file and a `studio.py doctor` toolchain check; install Playwright or port `frame-review.py` to the puppeteer-core that `dom-probe.mjs` already uses; fingerprint narration like renders; lock `build-audio.py`, `frame-review.py` and `build-project.sh`; derive the runtime version from content; decide the GSAP/font vendoring question; settle "what is a style" (`TODO.md`) before adding styles. Proposals only, none started: splitting `studio.py`, CI, a math-animation toolkit.
+
+## 18. Validation results
+
+| Check | Result |
+|---|---|
+| `test-studio` (30), `test-motion-catalogue` (16), `test-motion-primitives` (8), `test-workspace-governance` (15), `test-creative-intelligence` (54), `test-reference-corpus` (24, 1 skipped) | OK |
+| `test-studio-runtime` | 2 skipped (no Playwright) |
+| `test-audio-stack` | **FAIL** (pre-existing, see section 12) |
+| `motion-catalogue.py validate`, `workspace-governance.py` (7 gates) | PASS |
+| `studio.py validate` on 6 studio projects | 6 × PASS, category warnings 6 → 0 |
+| Scratch build of the 14 s fixture | render 21.0 s; skip on unchanged, `[stale]` on edit, `[skip]` without stamp; scratch files removed |
+| Mux sample rate | 96,000 Hz → 48,000 Hz on a 5 s clip |
+| Not tested | narrated build with `loudnorm` end to end, Kokoro, real two-session contention, multi-format build, frame-review, `ruff` |
+
+## 19. Last audit date
+
+2026-11-02 (host: Apple M2, 8 GB; HyperFrames 0.8.226; FFmpeg 9.0.2).
 
 ---
 
-## Workspace Governance & Stewardship
+## Constraints worth repeating
 
-This workspace enforces the **7-Domain Placement Policy** documented in `.agents/skills/workspace-steward/references/component-placement-policy.md`. Every component in active use is registered under `catalogue/data/` conforming to strict schemas:
+- One render at a time. Always `--low-memory-mode` and `< /dev/null`. Never run concurrent HyperFrames, headless Chrome or Kokoro jobs.
+- TTS only through `src/pipeline/tts.py` or `scripts/build-audio.py`.
+- Never edit `src/_studio/`; edit `src/studio/` and run `studio.py sync`.
+- Render duration is not a constraint; do not cut visual density to save time.
+- Never commit secrets. Reference videos stay outside the repo; learn techniques, never assets. Reference-derived caches live in `reference/`, never in `out/`.
 
-```bash
-# Validate workspace governance & verify all 7 gates:
-python3 scripts/workspace-governance.py
+## Open-source credits
 
-# Search the capability catalogue for approved animation recipes:
-python3 scripts/motion-catalogue.py search "glow"
-python3 scripts/motion-catalogue.py inspect recipe-backpropagation-flow
-```
+Motion Lab's own code, scripts, skills and docs are MIT licensed.
 
-### Zero Secrets Rule
-No API keys, access tokens, private keys, or machine-specific credentials are ever committed to source code or catalogue files. All authenticated external services read credentials dynamically from local environment variables or the macOS Keychain.
-
-### Learning from Reference Videos
-Reference videos teach techniques, never assets. They stay outside the repository; the analysis cache (`out/reference-analysis/`) is never committed; reviewed knowledge lives in `catalogue/data/reference-sources/` (one record per video) and `catalogue/data/references/` (techniques with capability class, provenance and validation evidence). Workflow: `reference-analyst` skill and `ARCHITECTURE.md` section 0.8.
-
-```bash
-python scripts/reference-corpus.py ingest "<folder>"
-python scripts/reference-corpus.py analyze --pending --root "<folder>"
-python scripts/motion-catalogue.py recommend --brief projects/<slug>/brief.json
-python scripts/reference-corpus.py report --backlog
-```
-
----
-
-## Quickstart & Commands
-
-### 1. Initialize Submodules & Virtual Environment
-```bash
-# Initialize vendored tool submodules:
-git submodule update --init --recursive
-
-# Activate Python 3.12 virtual environment:
-source .venv/bin/activate
-pip install -e tools/earshot
-```
-
-### 2. Scaffold a New Project
-Any deliverable (multi-format studio project):
-```bash
-python scripts/studio.py new masala-chai-recipe-2 --template illustrated-explainer --formats landscape,portrait,square
-python scripts/studio.py validate masala-chai-recipe-2
-python scripts/frame-review.py masala-chai-recipe-2 --fonts google
-python scripts/studio.py build masala-chai-recipe-2 --dry-run
-```
-See `projects/masala-chai-recipe/` for a complete example (brief, storyboard, composition, frame review, creative review).
-
-Legacy technical explainer (single 1280×720 format):
-```bash
-./scripts/new-project.sh <project-slug> ["Canonical Title"]
-
-# Example:
-./scripts/new-project.sh quantum-computing-qubits "How Do Qubits Compute in Superposition?"
-```
-
-### 3. Validate Research Dossier
-```bash
-python3 scripts/validate-research.py projects/<project-slug>
-```
-
-### 4. Synthesize Narration Audio & Timeline
-```bash
-# Default pacing (1.15x speed, voice: am_adam):
-python3 scripts/build-audio.py <project-slug>
-
-# Custom override:
-python3 scripts/build-audio.py <project-slug> --voice af_bella --speed 1.20
-```
-
-### 5. Sourcing Sound Effects with Openverse
-```bash
-# Search and download CC0/CC BY sound effects with attribution:
-python3 scripts/sfx-openverse.py "whoosh fast" --limit 5 --download --out-dir assets/audio/sfx
-```
-
-### 6. Synthesizing Procedural Micro-SFX with Earshot
-```bash
-.venv/bin/earshot sfx render click/thock -o assets/audio/sfx/thock.wav
-```
-
-### 7. Full-Lifecycle Build (Stages 0 → 9)
-```bash
-./scripts/build-project.sh <project-slug>
-```
-Renders visuals with HyperFrames, extracts visual foley cues, mixes multi-track audio, multiplexes streams via FFmpeg, and verifies all 5 Stage 9 QA gates. Output is placed in `out/<project-slug>.mp4`.
-
-### 8. Batch Portfolio Build & QA Audit
-```bash
-./scripts/build-all.sh
-```
-
----
-
-## Hardware & Memory Management
-
-This pipeline is specifically engineered for Apple Silicon (macOS, Apple M2, 8 GB RAM):
-- **Single-Worker Rendering:** `hyperframes render` is pinned to `--low-memory-mode` to prevent Chrome worker explosions.
-- **Decoupled Assembly:** Video rendering is strictly decoupled from audio synthesis. Stream multiplexing uses FFmpeg copy mode (`-c:v copy`), completing in under one second.
-- **Hardware Acceleration:** Chromium uses `--use-angle=metal` and `--enable-gpu-rasterization` for smooth SVG rendering without CPU bottlenecking.
-- **Deterministic Math:** Compositions strictly use seeded PRNGs (`mulberry32`) instead of non-deterministic `Math.random()`.
-
----
-
-## Showcase Portfolio
-
-The repository includes three production explainers demonstrating diverse technical domains:
-
-1. **Benchmark: Neural Network Learning & Gradient Descent** (`projects/benchmark-neural-network`)
-   - Visualizes multi-layer forward propagation, loss surface computation, and backpropagation weight adjustments.
-2. **Distributed Consensus: The Raft Algorithm** (`projects/distributed-consensus-raft`)
-   - Visualizes leader election, heartbeat broadcasts, RPC request handling, and split-brain resolution.
-3. **Storage Engine Geometry: B-Tree Database Indexing** (`projects/btree-database-indexing`)
-   - Visualizes balanced search trees, branch factor traversal, page splits, and logarithmic query bounds.
-
-To view the portfolio gallery with poster thumbnails and research briefs, open `out/index.html` in your browser.
-
----
-
-## Credits & Licensing
-
-### Upstream Open Source Acknowledgments
-
-| Tool / Component | Creator / Maintainer | Upstream Repository | License |
-|---|---|---|---|
-| **Kokoro TTS** | hexgrad | [hexgrad/Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) | Apache-2.0 |
-| **Misaki G2P** | hexgrad | [hexgrad/misaki](https://github.com/hexgrad/misaki) | Apache-2.0 |
-| **eSpeak NG** | eSpeak NG Team | [espeak-ng/espeak-ng](https://github.com/espeak-ng/espeak-ng) | GPLv3 |
-| **HyperFrames** | HyperFrames Team | [hyperframes.dev](https://hyperframes.dev) | MIT / CLI |
-| **GSAP 3** | GreenSock / Webflow | [greensock.com](https://gsap.com) | GreenSock Standard |
-| **Earshot** | Leon (@Leonxlnx) | [Leonxlnx/earshot](https://github.com/Leonxlnx/earshot) | MIT |
-| **Clipwing Skills** | Clipwing Team | [Clipwing/skills](https://github.com/Clipwing/skills) | MIT |
-| **Openverse** | WordPress Foundation | [openverse.org](https://openverse.org) | Open Source / CC |
-| **FFmpeg** | FFmpeg Developers | [ffmpeg.org](https://ffmpeg.org) | LGPLv2.1+ / GPLv2+ |
-| **Three.js** | Mr.doob & Contributors | [mrdoob/three.js](https://github.com/mrdoob/three.js) | MIT |
-| **Anime.js** | Julian Garnier | [juliangarnier/anime](https://github.com/juliangarnier/anime) | MIT |
-| **SoundFile** | Bastian Bechtold | [bastibe/python-soundfile](https://github.com/bastibe/python-soundfile) | BSD 3-Clause |
-| **SciPy** | SciPy Developers | [scipy.org](https://scipy.org) | BSD 3-Clause |
-| **NumPy** | NumPy Developers | [numpy.org](https://numpy.org) | BSD 3-Clause |
-| **jsonschema** | Julian Berman | [python-jsonschema/jsonschema](https://github.com/python-jsonschema/jsonschema) | MIT |
-
-### Project License
-Motion Lab pipeline source code, scripts, agent skills, and architecture documentation are distributed under the **MIT License**.
+| Tool | Maintainer | License |
+|---|---|---|
+| [Kokoro TTS](https://huggingface.co/hexgrad/Kokoro-82M), [Misaki](https://github.com/hexgrad/misaki) | hexgrad | Apache-2.0 |
+| [eSpeak NG](https://github.com/espeak-ng/espeak-ng) | eSpeak NG Team | GPLv3 |
+| [HyperFrames](https://hyperframes.dev) | HyperFrames Team | MIT / CLI |
+| [GSAP 3](https://gsap.com) | GreenSock / Webflow | GreenSock Standard "No-Charge" |
+| [Earshot](https://github.com/Leonxlnx/earshot) | Leon (@Leonxlnx) | MIT |
+| [Clipwing Skills](https://github.com/Clipwing/skills) | Clipwing Team | MIT |
+| [Openverse](https://openverse.org) | WordPress Foundation | CC-licensed metadata (CC0 / CC BY assets, attribution logged) |
+| [FFmpeg](https://ffmpeg.org) | FFmpeg Developers | LGPLv2.1+ / GPLv2+ |
+| [Three.js](https://threejs.org), [Anime.js](https://animejs.com) | mrdoob & contributors, Julian Garnier | MIT (registered in the catalogue) |
+| SoundFile, SciPy, NumPy | their developers | BSD-3-Clause |
+| jsonschema | Julian Berman | MIT |

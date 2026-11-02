@@ -1,0 +1,57 @@
+{
+  "id": "tool-design-dna",
+  "name": "Design DNA (measure, extract, verify, knowledge base)",
+  "component_type": "tool",
+  "purpose": "Measures palettes and motion from images and videos deterministically, builds extracted design profiles with provenance on every value (measured / inferred / subjective / prescribed / unknown), verifies renders against a profile, validates profiles and answers faceted queries over techniques, sources and profiles.",
+  "capabilities": [
+    "measure: stratified sampling, farthest-point k-means, CIE76 merge, coverage; video adds cuts, shot length, static share, loudness",
+    "extract [--register]: extracted profile; bridges the reference analyst's observed/interpreted notes into inferred/subjective facts",
+    "verify: colour fidelity (mean/max dE76, dE2000 reported, coverage drift)",
+    "validate: schema, provenance rules, cross-references",
+    "kb build|query|for-beat: derived keyword facets (camera, transition, typography, effects, material, lighting, composition, narrative)"
+  ],
+  "location": "scripts/design-dna.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-motion-catalogue",
+    "tool-reference-corpus"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python .venv (Pillow, NumPy, jsonschema); ffmpeg for video",
+    "notes": "Reimplements the measure/verify loop of zanwei/design-dna (MIT) in Python; CIEDE2000 checked against published test vectors. Video extraction on a 15 s 720p/60 fps reference: about 10 s, 128 MB peak."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md",
+    "catalogue/schemas/design-profile.schema.json"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads media from a path you give it; writes catalogue/data/design-profiles/ (with --register) and untracked out/design-dna/. Frames and contact sheets from third-party videos stay untracked."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "design",
+    "profile",
+    "measurement",
+    "knowledge-base"
+  ]
+}

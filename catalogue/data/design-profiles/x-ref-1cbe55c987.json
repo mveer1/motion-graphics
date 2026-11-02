@@ -1,0 +1,252 @@
+{
+  "id": "x-ref-1cbe55c987",
+  "name": "Reference 1cbe55c987",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (6).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-1cbe55c987.",
+  "identity": {
+    "mood": {
+      "value": "Confident SaaS marketing.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Shows the product's value as a sequence of fast, legible interactions.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#030203",
+          "role": "background",
+          "coverage": 0.6234,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#fcfbfa",
+          "role": "text",
+          "coverage": 0.1403,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#201d24",
+          "role": "other",
+          "coverage": 0.1091,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#d4632c",
+          "role": "accent",
+          "coverage": 0.0553,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#eacdcd",
+          "role": "other",
+          "coverage": 0.0306,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#735d79",
+          "role": "other",
+          "coverage": 0.0156,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#53a7f3",
+          "role": "other",
+          "coverage": 0.0142,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        },
+        {
+          "hex": "#8ce474",
+          "role": "other",
+          "coverage": 0.0116,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.32,
+          0.95,
+          1.58,
+          2.21,
+          2.84,
+          3.47,
+          4.1,
+          4.73,
+          5.36,
+          5.99,
+          6.62,
+          7.25,
+          7.88,
+          8.51,
+          9.14,
+          9.77,
+          10.4,
+          11.03,
+          11.66,
+          12.29,
+          12.92,
+          13.55,
+          14.18,
+          14.81
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Clean grotesk, sentence case with full stops; large numerals.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Centred UI fragments and cards on dark; hub-and-spoke orbit layout.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.composition"
+      },
+      "layering_and_depth": {
+        "value": "A dashboard card tilted in perspective; glowing dotted globe horizon.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.depth_and_layering"
+      }
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Typing, width compression into a pill, rolling digits, chart draws, card stacks, elliptical orbits.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "31.86 hard cuts/min, median luma change 0.66/255 per frame, 30.3% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 0.5,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#motion",
+        "note": "8 cuts in 15.067 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Continuous camera moves inside the UI section; hard cuts for word cards; mark scales into the end card.",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "One long continuous scene (1.52-10.52 s), then word cards every about 0.25 s (10.52-12.00 s).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "3.7 onsets/s, tempo estimate 118 bpm (medium); boundaries not aligned with onsets above chance (0.25 vs 0.31).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-1cbe55c987.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -13.6,
+      "lra_lu": 1.7,
+      "true_peak_dbtp": -0.3,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-1cbe55c987.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-1cbe55c987"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Dotted globe and glow (needs projected point sphere or pre-render)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

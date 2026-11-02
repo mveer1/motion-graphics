@@ -90,7 +90,7 @@
     {
       "label": "QA: Run 5-Gate Validation",
       "type": "shell",
-      "command": "./.agents/skills/video-assembler/scripts/run-qa-gates.sh projects/${input:projectSlug}",
+      "command": "./.claude/skills/video-assembler/scripts/run-qa-gates.sh projects/${input:projectSlug}",
       "group": {
         "kind": "test",
         "isDefault": true

@@ -1,0 +1,81 @@
+{
+  "id": "archival",
+  "name": "Archival / Historical",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "Aged cream paper, sepia ink, oxblood accent and serif documentary type; reads as documents, maps and press clippings with slow dissolves.",
+  "location": "src/studio/styles/archival.css",
+  "tokens": {
+    "colors": {
+      "paper": "#e8dfc9",
+      "paper-2": "#d8cdb0",
+      "ink": "#2a241b",
+      "ink-2": "#5c5242",
+      "rule": "#b9ab8a",
+      "accent": "#8a2c1a",
+      "accent-2": "#3d5a6c",
+      "accent-3": "#b88a2b"
+    },
+    "typography": {
+      "display": "'EB Garamond', sans-serif",
+      "text": "'EB Garamond', sans-serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Paper grain (multiply), faint foxing and halftone for photographs",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Measured and documentary: slow dissolves, drift, gentle settles",
+    "ease_in": "power1.in",
+    "ease_out": "power2.out",
+    "enter_duration_sec": 1.0,
+    "stagger_sec": 0.1,
+    "notes": "No overshoot. Treat motion as a camera over a surface, not objects performing."
+  },
+  "fonts": [
+    {
+      "family": "EB Garamond",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 11.6:1",
+    "ink-2/paper 5.8:1",
+    "accent/paper 6.4:1"
+  ],
+  "suitable_for": [
+    "history",
+    "biography",
+    "journalism",
+    "document-led stories"
+  ],
+  "categories": [
+    "history",
+    "news"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-02. Not yet used in a rendered project.",
+    "last_verified": "2026-11-02"
+  },
+  "tags": [
+    "light",
+    "archival",
+    "sepia",
+    "serif"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-02",
+    "updated_at": "2026-11-02"
+  },
+  "avoid_for": [
+    "futuristic or technical product topics"
+  ]
+}

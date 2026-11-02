@@ -29,7 +29,7 @@
   },
   "documentation_urls": [
     "ARCHITECTURE.md#lifecycle",
-    ".agents/skills/parallel-session/SKILL.md"
+    ".claude/skills/parallel-session/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

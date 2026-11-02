@@ -1,0 +1,13 @@
+{
+  "spec_version": 1,
+  "description": "Subject categories for projects and visual styles. Single source of truth: brief.json `categories`, style records `categories` and series.json `categories` are validated against these ids. A project may carry more than one (for example history + finance). To add a category, add it here; nothing else needs to change.",
+  "categories": [
+    { "id": "technology", "name": "Technology & software", "description": "Software, systems, engineering, how technical things work." },
+    { "id": "finance", "name": "Business & finance", "description": "Markets, money, companies, economics." },
+    { "id": "science", "name": "Science & research", "description": "Natural science, medicine, studies and research findings." },
+    { "id": "history", "name": "History", "description": "Past events, people, places and periods." },
+    { "id": "mathematics", "name": "Mathematics", "description": "Proofs, structures, patterns and quantitative ideas." },
+    { "id": "news", "name": "News", "description": "Current events and explainers on them." },
+    { "id": "storytelling", "name": "Storytelling", "description": "Narrative-first pieces where story, character or mood leads over explanation." }
+  ]
+}

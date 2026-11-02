@@ -59,7 +59,7 @@ To avoid visual clutter and cognitive fatigue, abstract mathematical mechanics a
 
 ## 4. Domain Glossary & Phonetic Respellings
 
-All technical terminology is cross-referenced with `.agents/skills/voice-director/references/phonetics.md` for Kokoro TTS synthesis:
+All technical terminology is cross-referenced with `.claude/skills/voice-director/references/phonetics.md` for Kokoro TTS synthesis:
 
 | Technical Term | IPA / Phonetic Respelling | Context / Usage |
 |---|---|---|

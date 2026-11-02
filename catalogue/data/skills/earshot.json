@@ -9,7 +9,7 @@
     "Procedural micro-SFX synthesis (clicks, thocks, pops, risers)",
     "Acoustic quality auditing for Gate 5 signoff"
   ],
-  "location": ".agents/skills/earshot",
+  "location": ".claude/skills/earshot",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -24,7 +24,7 @@
     "notes": "Integrates with vendored tools/earshot and .venv/bin/earshot."
   },
   "documentation_urls": [
-    ".agents/skills/earshot/SKILL.md"
+    ".claude/skills/earshot/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

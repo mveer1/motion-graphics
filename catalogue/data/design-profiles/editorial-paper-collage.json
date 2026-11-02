@@ -1,0 +1,183 @@
+{
+  "id": "editorial-paper-collage",
+  "name": "Editorial / Paper Collage",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Hand-assembled layered paper: cut-out figures, torn edges, halftone dots and heavy type on a kraft-cream ground. Tactile, playful and graphic; motion behaves like paper being placed and slid, not like software.",
+  "style": "paper-cut",
+  "archetype": "collage-stack",
+  "intended_use": [
+    "story-led explainers",
+    "history and culture",
+    "kids and education",
+    "social shorts"
+  ],
+  "avoid_for": [
+    "sombre or clinical subjects",
+    "dense numeric analysis"
+  ],
+  "identity": {
+    "mood": "playful, tactile, energetic",
+    "genre": "editorial explainer",
+    "visual_language": "layered cut-outs with hard paper shadows, tape and halftone",
+    "editorial_approach": "each scene is a poster assembled in front of the viewer",
+    "illustration_style": "printed or woodcut cut-out figures, flat ink colour",
+    "photography_style": "halftoned or duotoned photographs cut to silhouette",
+    "composition_philosophy": "one dominant cut-out, 2-3 supporting scraps, text on a banner of its own paper",
+    "environment": "flat kraft or coloured card ground, never a gradient",
+    "realism": "flat graphic, deliberately not photorealistic",
+    "storytelling_conventions": "objects arrive by being placed; reveals by sliding one sheet off another"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#f2e8d5",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#2a2522",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#b5401f",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#3f6f8f",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f0b23a",
+          "role": "highlight",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "dark ink on warm paper; accent only on large display type and shapes"
+    },
+    "typography": {
+      "display": "Archivo Black, sentence or all caps, tight tracking",
+      "text": "Nunito 500-700",
+      "mono": "Space Mono for annotations",
+      "scale_and_hierarchy": "one huge headline word per beat, small captions on tape labels",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "asymmetric stack with overlap and rotation of 1-4 degrees; large occupancy",
+      "negative_space": "minimal; paper texture fills quiet areas",
+      "layering_and_depth": "4-6 sheets with offset hard shadows",
+      "hero_occupancy_pct": 60
+    },
+    "shape_language": "torn and scissor-cut polygons, circles for stickers",
+    "texture": "paper grain, halftone, misregistration",
+    "materials": "paper, tape, card",
+    "lighting": "flat, with a consistent top-left paper shadow",
+    "contrast": "high",
+    "visual_rhythm": "alternate full-bleed collages with typographic beats",
+    "image_treatment": "halftone or duotone; no soft photographic gradients"
+  },
+  "motion": {
+    "grammar": "Things are placed, slid and flipped like paper on a table. Movement is slightly stepped and tactile; overshoot is small and rare.",
+    "easing": {
+      "entrances": "settle-lean for hero scraps, enter-decel for the rest",
+      "exits": "exit-accelerate (slide off)",
+      "emphasis": "emphasis-pulse",
+      "vocabulary_ids": [
+        "enter-decel",
+        "settle-lean",
+        "exit-accelerate",
+        "transition-liquid",
+        "camera-parallax",
+        "hold-breath"
+      ]
+    },
+    "timing": {
+      "pace": "medium-fast; a new picture every 2-3 s",
+      "typical_move_sec": 0.45,
+      "shot_length_sec": 3.0,
+      "holds": "short; keep drift on the held sheet",
+      "stagger_sec": 0.07
+    },
+    "transitions": {
+      "vocabulary": [
+        "paper slide-over (transition-push)",
+        "torn-sheet wipe (transition-liquid / shape cover)",
+        "match-cut on a shared shape"
+      ],
+      "avoid": [
+        "glossy glows",
+        "long dissolves"
+      ],
+      "continuity": "a shape or colour carries the eye across the cut"
+    },
+    "camera": {
+      "language": "flat-safe: uniform push, pull and parallax between sheets; no perspective warp of text",
+      "moves": [
+        "push-in",
+        "pull-out",
+        "pan",
+        "parallax"
+      ],
+      "lens_character": "none (flat-lay)"
+    },
+    "object_movement": "small bobs and drifts on cut-outs, assembling pieces",
+    "kinetic_typography": "word-per-beat on banners, tape-label swaps",
+    "particles": "confetti scraps sparingly",
+    "depth_parallax": "sheet-to-sheet parallax of 2-3 speeds",
+    "stillness_policy": "A held collage keeps one living scrap (drift or flutter)."
+  },
+  "audio_direction": {
+    "narration": "warm, conversational, 1.1-1.15x",
+    "music": "light acoustic or jazzy bed, low",
+    "sfx": "paper rustle, tape, stamp thuds at 12-18 dB under voice",
+    "silence_and_space": "short breaths before the reveal"
+  },
+  "rendering": {
+    "strategy": "Programmatic SVG/CSS collage in HyperFrames; photographic cut-outs from generated or licensed stills with a paper-edge filter; halftone and grain procedural.",
+    "preferred_asset_types": [
+      "hybrid",
+      "generated-image",
+      "illustration-2d",
+      "typography"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "paper-pop",
+      "grain-boil",
+      "parallax-camera",
+      "text-mask-rise",
+      "push-transition"
+    ],
+    "resource_notes": "Light; the deckle filter is the heaviest element."
+  },
+  "techniques": [
+    "cut-paper-title-sequence",
+    "archival-mono-collage",
+    "sticker-brutalist-style",
+    "layered-silhouette-stage",
+    "stamp-state-change"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Paper imitation reads as cheap if shadows and rotation are inconsistent.",
+    "Generated cut-out figures can carry hallucinated detail; check each one.",
+    "Collage plus dense data fights for attention."
+  ],
+  "example_scenes": [
+    "A single cut-out figure over a map with a taped headline banner; the banner slides off to reveal the next sheet."
+  ],
+  "tags": [
+    "collage",
+    "paper",
+    "editorial"
+  ]
+}

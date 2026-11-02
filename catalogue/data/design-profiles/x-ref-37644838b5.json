@@ -1,0 +1,251 @@
+{
+  "id": "x-ref-37644838b5",
+  "name": "Reference 37644838b5",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (10).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-37644838b5.",
+  "identity": {
+    "mood": {
+      "value": "Calm, journalistic, reading-paced.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "An interactive scroll story captured as video (variable frame rate 57.3 fps average and a 1406x720 frame suggest a screen recording).",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#dee1e3",
+          "role": "background",
+          "coverage": 0.708,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#b8bec3",
+          "role": "other",
+          "coverage": 0.0937,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#272e34",
+          "role": "text",
+          "coverage": 0.0685,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#8d9399",
+          "role": "other",
+          "coverage": 0.0592,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#5f666c",
+          "role": "other",
+          "coverage": 0.0437,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#dbcaae",
+          "role": "other",
+          "coverage": 0.0121,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#76a5d5",
+          "role": "accent",
+          "coverage": 0.0087,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        },
+        {
+          "hex": "#a98271",
+          "role": "other",
+          "coverage": 0.006,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1683,
+          1683
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          2.04,
+          6.12,
+          10.2,
+          14.28,
+          18.36,
+          22.44,
+          26.53,
+          30.61,
+          34.69,
+          38.77,
+          42.85,
+          46.93,
+          51.01,
+          55.09,
+          59.17,
+          63.25,
+          67.33,
+          71.42,
+          75.5,
+          79.58,
+          83.66,
+          87.74,
+          91.82,
+          95.9
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Serif or grotesk caption headings with body paragraphs; small labels with leader lines.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Centred isometric objects on white with the caption card fixed bottom-left.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.composition"
+      }
+    },
+    "shape_language": {
+      "value": "Matte white clay materials, soft shadows, coloured pipe and power-line flows.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.shapes_and_materials"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "2.46 hard cuts/min, median luma change 0.451/255 per frame, 40.7% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 19.741,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#motion",
+        "note": "4 cuts in 97.429 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "not yet assessed",
+          "basis": "unknown"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "Continuous camera moves between chapters (dolly and orbit) in one 3D world.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.camera"
+      }
+    },
+    "choreography": {
+      "value": "Measured median shot 3.0 s with 7 cuts and 11 soft boundaries (analyzer 1.2) over 98 s.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "Spectrogram viewed: steady sustained bands and a level envelope with section changes near 22 s and 50 s; no syllabic speech patterns.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-37644838b5.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -38.2,
+      "lra_lu": 4.3,
+      "true_peak_dbtp": -24.3,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-37644838b5.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-37644838b5"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Clay-render 3D world with camera flight (needs WebGL or offline 3D)",
+    "Analyst-listed difficulty: Interactive scroll behaviour (not applicable to linear video)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

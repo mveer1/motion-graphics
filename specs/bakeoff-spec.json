@@ -1,0 +1,281 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabStyleBakeoff",
+  "description": "Record of a style bake-off: one representative beat, a shortlist of structurally different treatments (composition archetypes, not re-skins), measured distinctness, comparison across fixed criteria, and the recorded decision. Instance file: projects/<slug>/bakeoff/bakeoff.json. The 'decision' is written by the creative director (human or agent) after looking at the sheet; the metrics are evidence for it, never the decision itself.",
+  "type": "object",
+  "required": [
+    "spec_version",
+    "slug",
+    "beat",
+    "candidates",
+    "generated_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": {
+      "const": 1
+    },
+    "slug": {
+      "type": "string"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "beat": {
+      "type": "object",
+      "required": [
+        "id",
+        "headline",
+        "message"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "headline": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string",
+          "description": "The narrative intent that every candidate must preserve."
+        },
+        "key_figure": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "supporting": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "series": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Optional data series for data-led archetypes."
+        },
+        "mood": {
+          "type": "string"
+        }
+      }
+    },
+    "shortlist_reason": {
+      "type": "string",
+      "description": "Why these candidates were shortlisted for this content (not all styles are always compared)."
+    },
+    "candidates": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "profile",
+          "archetype",
+          "composition"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string",
+            "description": "Design profile id."
+          },
+          "archetype": {
+            "type": "string"
+          },
+          "composition": {
+            "type": "string",
+            "description": "Path to the HyperFrames composition for this candidate."
+          },
+          "still": {
+            "type": "string"
+          },
+          "motion_sample": {
+            "type": "string"
+          },
+          "metrics": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text_blocks": {
+                "type": "integer"
+              },
+              "min_text_pct_short_side": {
+                "type": "number"
+              },
+              "min_contrast_ratio": {
+                "type": "number"
+              },
+              "ink_coverage": {
+                "type": "number",
+                "description": "Fraction of pixels that differ from the dominant background colour."
+              },
+              "hero_area_pct": {
+                "type": "number"
+              },
+              "dominant_colors": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "layout_signature": {
+                "type": "string",
+                "description": "Hash of the 16x9 luminance layout map, for distance computation."
+              }
+            }
+          },
+          "implementation_cost": {
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "cost_basis": {
+            "type": "string"
+          },
+          "strengths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "risks": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "distinctness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "layout_distance": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Pairwise mean absolute difference of the luminance layout maps, 0-1."
+        },
+        "palette_distance": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          },
+          "description": "Pairwise mean CIEDE2000 between dominant palettes."
+        },
+        "min_layout_distance": {
+          "type": "number"
+        },
+        "threshold": {
+          "type": "number"
+        },
+        "distinct": {
+          "type": "boolean",
+          "description": "True when every pair clears the layout threshold. A false value means the bake-off compared re-skins and must be redone."
+        },
+        "control_reskin": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "The first archetype rendered again in a different style system: a re-skin. Its layout distance is the baseline real alternatives must clear (threshold = 1.5 x this).",
+          "properties": {
+            "archetype": {
+              "type": "string"
+            },
+            "styles": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "layout_distance": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "criteria": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "composition",
+          "legibility",
+          "visual-identity",
+          "storytelling",
+          "implementation-cost",
+          "consistency-with-direction"
+        ]
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 5
+        }
+      },
+      "description": "candidate id -> criterion -> 1-5, written by the director after viewing the sheet."
+    },
+    "sheet": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "chosen",
+        "rationale",
+        "decided_by"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "chosen": {
+          "type": "string"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 20
+        },
+        "decided_by": {
+          "enum": [
+            "user",
+            "creative-director-agent",
+            "user-approved-agent-proposal"
+          ]
+        },
+        "overrides": {
+          "type": "string",
+          "description": "User overrides of the proposal, verbatim."
+        },
+        "production_profile": {
+          "type": "string",
+          "description": "Path of the project design profile derived from the choice."
+        },
+        "decided_at": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

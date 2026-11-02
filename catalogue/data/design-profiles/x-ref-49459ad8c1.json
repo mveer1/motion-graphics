@@ -1,0 +1,246 @@
+{
+  "id": "x-ref-49459ad8c1",
+  "name": "Reference 49459ad8c1",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (8).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-49459ad8c1.",
+  "identity": {
+    "mood": {
+      "value": "Warm, witty, understated.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Personality traits (curious, rigorous, candid) presented as typographic vignettes linked by the dot.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#1f1ca8",
+          "role": "background",
+          "coverage": 0.5767,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#dee1fc",
+          "role": "text",
+          "coverage": 0.3918,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#bec1f3",
+          "role": "other",
+          "coverage": 0.0153,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#4846b6",
+          "role": "other",
+          "coverage": 0.0075,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#8484d6",
+          "role": "accent",
+          "coverage": 0.0067,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#040404",
+          "role": "other",
+          "coverage": 0.0009,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#e9643e",
+          "role": "other",
+          "coverage": 0.0007,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        },
+        {
+          "hex": "#564450",
+          "role": "other",
+          "coverage": 0.0003,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.21,
+          0.63,
+          1.05,
+          1.47,
+          1.89,
+          2.31,
+          2.73,
+          3.15,
+          3.57,
+          3.99,
+          4.41,
+          4.82,
+          5.24,
+          5.66,
+          6.08,
+          6.5,
+          6.92,
+          7.34,
+          7.76,
+          8.18,
+          8.6,
+          9.02,
+          9.44,
+          9.86
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Lowercase serif and grotesk words; a word extends with a suffix on construction lines; a serif word on white with an aside.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Centred single words; the dot keeps its screen position across cuts.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.composition"
+      }
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Dot draws lines, bounces onto staff lines, scrolls a vertical list with a focused item.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "36.0 hard cuts/min, median luma change 0.077/255 per frame, 73.0% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 1.5,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#motion",
+        "note": "6 cuts in 10.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Colour-inversion cuts with the dot held in place (2.00, 3.50 s); hard cut to white (5.00 s); full stop grows into a soft-edged circle that fills the frame (7.82 s).",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "Cuts at 2.00, 3.50, 5.00 and 7.82 s; static holds 0.06-1.06 s and 5.06-5.94 s.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "1.9 onsets/s, tempo low confidence; boundaries not near onsets (0.0 vs 0.17 chance).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-49459ad8c1.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -13.6,
+      "lra_lu": 2.4,
+      "true_peak_dbtp": -0.8,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-49459ad8c1.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-49459ad8c1"
+    ]
+  },
+  "weaknesses": [
+    "Unassessed: this profile has only measured properties."
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

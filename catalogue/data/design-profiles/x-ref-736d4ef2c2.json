@@ -1,0 +1,264 @@
+{
+  "id": "x-ref-736d4ef2c2",
+  "name": "Reference 736d4ef2c2",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (9).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-736d4ef2c2.",
+  "identity": {
+    "mood": {
+      "value": "Bold, declarative.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "A designer's poster series animated; celebrates modernist graphic design.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#ebe9de",
+          "role": "background",
+          "coverage": 0.549,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#141410",
+          "role": "text",
+          "coverage": 0.2174,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#d1341f",
+          "role": "other",
+          "coverage": 0.0922,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#2134ba",
+          "role": "accent",
+          "coverage": 0.0637,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#e7c434",
+          "role": "other",
+          "coverage": 0.0364,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#bcb9b2",
+          "role": "other",
+          "coverage": 0.0292,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#736860",
+          "role": "other",
+          "coverage": 0.0073,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        },
+        {
+          "hex": "#242d8c",
+          "role": "other",
+          "coverage": 0.0049,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.63,
+          1.88,
+          3.13,
+          4.39,
+          5.64,
+          6.89,
+          8.15,
+          9.4,
+          10.65,
+          11.91,
+          13.16,
+          14.41,
+          15.67,
+          16.92,
+          18.17,
+          19.43,
+          20.68,
+          21.93,
+          23.19,
+          24.44,
+          25.69,
+          26.95,
+          28.2,
+          29.45
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Black grotesk at poster scale, letters as shapes (O as a disc), letters standing in perspective.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Asymmetric constructivist layouts; type bleeding off the frame; thin border with a title block.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.composition"
+      },
+      "layering_and_depth": {
+        "value": "Paper layers with shadows; a perspective grid floor.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.depth_and_layering"
+      }
+    },
+    "shape_language": {
+      "value": "Paper sheets with drop shadows, circles, bars, triangles, concentric rings.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.shapes_and_materials"
+    },
+    "texture": {
+      "value": "Flat print look, no grain.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.texture_and_effects"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Panels slide and push, a paper card tilts, the camera pans across giant letters, a letter shatters, shapes assemble.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "10.0 hard cuts/min, median luma change 0.762/255 per frame, 37.8% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 3.392,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#motion",
+        "note": "5 cuts in 30.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Hard cuts and panel pushes; a letter morphing into rings; a full-frame colour field turning white.",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "Measured median shot 2.15 s at analyzer 1.1; 4 cuts and 6 soft transitions at 1.2 (1.1 counted fast moves as cuts); static holds 2.06-2.69 s and 28.19-29.94 s (final badge).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "3.0 onsets/s, tempo estimate 129 bpm (medium); 40% of boundaries within 60 ms of the beat grid (chance 26%; weak evidence).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-736d4ef2c2.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -15.7,
+      "lra_lu": 6.3,
+      "true_peak_dbtp": -2.1,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-736d4ef2c2.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-736d4ef2c2"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Perspective grid floor needs CSS 3D (unverified in the render path)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

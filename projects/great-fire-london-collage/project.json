@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "slug": "great-fire-london-collage",
+  "title": "The Fire That Rebuilt London",
+  "template": "illustrated-explainer",
+  "style": "paper-cut",
+  "formats": [
+    {
+      "id": "landscape",
+      "width": 1280,
+      "height": 720,
+      "primary": true
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 44.6,
+  "quality": "looks",
+  "timing": {
+    "source": "narration"
+  },
+  "audio": {
+    "narration": true,
+    "music": {
+      "enabled": true,
+      "file": "audio/bed.wav",
+      "fade_out_sec": 1.5,
+      "license": "Original synthesized by audio/generate_bed_and_sfx.py (numpy sines and noise, no samples). Project-owned; no third-party licence or attribution."
+    },
+    "sfx": true,
+    "captions": false,
+    "loudness_target_lufs": -16,
+    "loudness_tolerance_lu": 2,
+    "voice": "af_bella",
+    "speed": 1.1
+  }
+}

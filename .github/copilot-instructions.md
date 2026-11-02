@@ -90,24 +90,24 @@ In this repository, **Claude Code is the primary owner and operator** (entry poi
 
 ---
 
-## 5. Available Skills & Capability Index (`.agents/skills/`)
+## 5. Available Skills & Capability Index (`.claude/skills/`)
 
 Consult these specialized skills when crafting animations, audio, or research:
 
 | Skill | Path | Description & Use Case |
 | :--- | :--- | :--- |
-| `motion-graphics-designer` | `.agents/skills/motion-graphics-designer` | Layout rules, palettes, kinetic typography, dynamic stage occupancy. |
-| `gsap-core` / `gsap-timeline` | `.agents/skills/gsap-core` / `gsap-timeline` | Official GreenSock animation choreography and timeline sequencing. |
-| `gsap-plugins` / `gsap-utils` | `.agents/skills/gsap-plugins` / `gsap-utils` | Flip, SplitText, SVG drawing, clamp, mapRange, Mulberry32 PRNG. |
-| `kinetic-typography` | `.agents/skills/kinetic-typography` | Overflow masks, variable-font weight shifts, SplitText accessibility. |
-| `epic-design` | `.agents/skills/epic-design` | 2.5D pseudo-3D parallax, 6-layer depth tokens (`data-depth="0"`–`"5"`). |
-| `motion-design` | `.agents/skills/motion-design` | Disney animation principles adapted for UI, easing curves, 1/3 rules. |
-| `real-sfx` | `.agents/skills/real-sfx` | Tactile foley, cue extraction from HyperFrames, mix balancing. |
-| `earshot` | `.agents/skills/earshot` | Acoustic measurement (EBU R128 loudness), procedural micro-SFX synthesis. |
-| `voice-director` | `.agents/skills/voice-director` | Kokoro TTS voice persona tuning, speech pacing, phonetic respellings. |
-| `technical-researcher` | `.agents/skills/technical-researcher` | Stage 0 research dossiers, formula verification, visual metaphor archetypes. |
-| `video-assembler` | `.agents/skills/video-assembler` | FFmpeg multiplexing, low-memory render configs, automated QA gates. |
-| `workspace-steward` | `.agents/skills/workspace-steward` | 7-Domain component placement, schema audits, drift verification. |
+| `motion-graphics-designer` | `.claude/skills/motion-graphics-designer` | Layout rules, palettes, kinetic typography, dynamic stage occupancy. |
+| `gsap-core` / `gsap-timeline` | `.claude/skills/gsap-core` / `gsap-timeline` | Official GreenSock animation choreography and timeline sequencing. |
+| `gsap-plugins` / `gsap-utils` | `.claude/skills/gsap-plugins` / `gsap-utils` | Flip, SplitText, SVG drawing, clamp, mapRange, Mulberry32 PRNG. |
+| `kinetic-typography` | `.claude/skills/kinetic-typography` | Overflow masks, variable-font weight shifts, SplitText accessibility. |
+| `epic-design` | `.claude/skills/epic-design` | 2.5D pseudo-3D parallax, 6-layer depth tokens (`data-depth="0"`–`"5"`). |
+| `motion-design` | `.claude/skills/motion-design` | Disney animation principles adapted for UI, easing curves, 1/3 rules. |
+| `real-sfx` | `.claude/skills/real-sfx` | Tactile foley, cue extraction from HyperFrames, mix balancing. |
+| `earshot` | `.claude/skills/earshot` | Acoustic measurement (EBU R128 loudness), procedural micro-SFX synthesis. |
+| `voice-director` | `.claude/skills/voice-director` | Kokoro TTS voice persona tuning, speech pacing, phonetic respellings. |
+| `technical-researcher` | `.claude/skills/technical-researcher` | Stage 0 research dossiers, formula verification, visual metaphor archetypes. |
+| `video-assembler` | `.claude/skills/video-assembler` | FFmpeg multiplexing, low-memory render configs, automated QA gates. |
+| `workspace-steward` | `.claude/skills/workspace-steward` | 7-Domain component placement, schema audits, drift verification. |
 
 ---
 

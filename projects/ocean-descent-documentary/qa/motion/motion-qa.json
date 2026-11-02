@@ -1,0 +1,390 @@
+{
+  "spec_version": 1,
+  "target": {
+    "kind": "project",
+    "path": "projects/ocean-descent-documentary",
+    "slug": "ocean-descent-documentary",
+    "format": "landscape",
+    "sha256": "56bd1149e0f7dc98e87977879db6ef950b4471503b07c20dfaa8bed0e938a04a"
+  },
+  "generated_at": "2026-11-02T10:16:33+00:00",
+  "tool": {
+    "name": "motion-qa",
+    "version": "1.0",
+    "host": "darwin"
+  },
+  "expectations": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_sec": 49.5,
+    "audio": true
+  },
+  "checks_run": [
+    {
+      "id": "dom-probe",
+      "status": "ran",
+      "reason": "10 samples",
+      "elapsed_sec": 1.48
+    },
+    {
+      "id": "composition-lint",
+      "status": "ran"
+    },
+    {
+      "id": "video-decode",
+      "status": "ran",
+      "elapsed_sec": 0.61
+    },
+    {
+      "id": "spec-compliance",
+      "status": "ran"
+    },
+    {
+      "id": "black-and-flat-frames",
+      "status": "ran"
+    },
+    {
+      "id": "static-holds",
+      "status": "ran"
+    },
+    {
+      "id": "repeated-composition",
+      "status": "ran"
+    },
+    {
+      "id": "transition-variety",
+      "status": "ran"
+    },
+    {
+      "id": "scene-durations",
+      "status": "ran"
+    },
+    {
+      "id": "audio-levels",
+      "status": "ran",
+      "elapsed_sec": 0.32
+    },
+    {
+      "id": "audio-cut-alignment",
+      "status": "skipped",
+      "reason": "not implemented: no onset detector is wired in (hyperframes audio could supply onsets)"
+    }
+  ],
+  "findings": [
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 22% of the frame",
+      "evidence": {
+        "occupancy": 0.217,
+        "grid": "32x18"
+      },
+      "t_sec": 7.56,
+      "beat": "s1",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 26% of the frame",
+      "evidence": {
+        "occupancy": 0.265,
+        "grid": "32x18"
+      },
+      "t_sec": 17.77,
+      "beat": "s2",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 17% of the frame",
+      "evidence": {
+        "occupancy": 0.171,
+        "grid": "32x18"
+      },
+      "t_sec": 30.49,
+      "beat": "s3",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 22% of the frame",
+      "evidence": {
+        "occupancy": 0.216,
+        "grid": "32x18"
+      },
+      "t_sec": 42.65,
+      "beat": "s4",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 13% of the frame",
+      "evidence": {
+        "occupancy": 0.129,
+        "grid": "32x18"
+      },
+      "t_sec": 48.605,
+      "beat": "s5",
+      "suggestion": "enlarge the subject or declare intent: minimal",
+      "waived_by": {
+        "intent": "intent:minimal",
+        "source": "storyboard"
+      }
+    },
+    {
+      "id": "very-dark",
+      "class": "measured",
+      "severity": "warn",
+      "message": "2.4s where the whole frame is very dark (mean luma <= 8/255)",
+      "evidence": {
+        "mean_luma_max": 8,
+        "min_sec": 1.5
+      },
+      "range_sec": [
+        36.467,
+        38.9
+      ],
+      "beat": "s4",
+      "suggestion": "check it reads on a phone in daylight; declare intent: dark if the darkness is the point",
+      "waived_by": {
+        "intent": "intent:dark",
+        "source": "storyboard"
+      }
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "2.2s of slow drift (per-frame change tiny, but the picture moves: lag energy 2.23)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 2.227,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        2.333,
+        4.5
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "4.1s of slow drift (per-frame change tiny, but the picture moves: lag energy 1.92)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 1.921,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        5.033,
+        9.1
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "3.1s of slow drift (per-frame change tiny, but the picture moves: lag energy 0.95)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.947,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        9.933,
+        13.067
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "4.2s of slow drift (per-frame change tiny, but the picture moves: lag energy 1.33)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 1.328,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        20.033,
+        24.267
+      ],
+      "beat": "s3"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "4.5s of slow drift (per-frame change tiny, but the picture moves: lag energy 0.82)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.816,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        36.5,
+        41.033
+      ],
+      "beat": "s4"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 2.67s while narration speaks at the end of the film",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.632,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        46.833,
+        49.5
+      ],
+      "beat": "s5",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still",
+      "waived_by": {
+        "intent": "intent:minimal",
+        "source": "storyboard"
+      }
+    },
+    {
+      "id": "end-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "the picture is unchanged for the last 2.6s",
+      "evidence": {
+        "threshold_sec": 1.4,
+        "source": "Motionmaxxing G3, adopted-unverified"
+      }
+    },
+    {
+      "id": "motion-energy",
+      "class": "measured",
+      "severity": "note",
+      "message": "median frame-to-frame luma change 0.221/255, 70% of frames static, median shot 49.5s",
+      "evidence": {
+        "motion_mean_luma_diff": 0.619,
+        "motion_median": 0.221,
+        "motion_p90": 1.885,
+        "static_share": 0.6954,
+        "cut_count": 0,
+        "cuts_per_min": 0.0
+      }
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s1: does the picture show 'A water plate with caustics and light beams; the surface and a boat leave the top of the f' and does it deliver 'Start at the bright surface and show light being used up: colour by colour.'?",
+      "range_sec": [
+        0.0,
+        9.45
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s2: does the picture show 'The camera continues down; light shafts die; a pale jelly drifts up through marine snow; t' and does it deliver 'Mark the twilight zone and make the dimming felt.'?",
+      "range_sec": [
+        9.45,
+        19.85
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s3: does the picture show 'A field of horizontal lines slowly closes as a counter climbs from 1 to 1,090 atm and the ' and does it deliver 'Make pressure felt as weight, not as a fact.'?",
+      "range_sec": [
+        19.85,
+        33.15
+      ],
+      "beat": "s3"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s4: does the picture show 'A hundred dim dots; seventy-six ignite one by one, each with a soft bell; then 76% resolve' and does it deliver 'Turn the surprise into a picture: no sunlight, yet three in four make light.'?",
+      "range_sec": [
+        33.15,
+        45.025
+      ],
+      "beat": "s4"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s5: does the picture show 'Everything dims; the dots drift aside and one line of type remains.' and does it deliver 'End quietly on the idea.'?",
+      "range_sec": [
+        45.025,
+        49.5
+      ],
+      "beat": "s5"
+    }
+  ],
+  "summary": {
+    "objective_failures": 0,
+    "measured_warnings": 4,
+    "judgment_questions": 5,
+    "waived": 3,
+    "technical_pass": true
+  },
+  "artifacts": {
+    "scene_sheet": "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+    "seams": "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+    "critique_template": "projects/ocean-descent-documentary/qa/motion/critique.template.json"
+  },
+  "critique_prompts": [
+    "Describe each frame on the scene sheet in one sentence before judging: what is on screen, what is the hero, would it pass as a slide?",
+    "Does each beat make the viewer see the idea, or only read a description of it? Name the visual event that carries it.",
+    "Is emphasis spent or spread? Which beat is the point of the film, and does it get the hardest visual work?",
+    "At each seam (seams.jpg): what carries the eye across the transition (shape, position, colour, motion)? Is the transition motivated or decorative?",
+    "Is stillness anywhere designed (a reason you can state) or accidental? Is any motion decoration with no job?",
+    "Does the sound support pacing, with silence before what matters? (listen; the audio-cut-alignment check did not run)",
+    "Does the ending feel designed, and does it end smaller or quieter than it began?"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "spec_version": 1,
+  "slug": "ocean-descent-documentary",
+  "title": "Where the Light Goes",
+  "objective": "Show, in under a minute, how sunlight fades with depth in the ocean, how pressure builds, and that the dark deep sea is not dark of light.",
+  "categories": ["science"],
+  "audience": "General viewers; no prior knowledge.",
+  "platforms": [
+    "website",
+    "youtube"
+  ],
+  "deliverables": {
+    "formats": [
+      "landscape"
+    ],
+    "duration_sec": {
+      "min": 36,
+      "target": 42,
+      "max": 50
+    }
+  },
+  "message": {
+    "core_message": "Sunlight is gone below about a thousand metres, but most of the animals that live there make their own light.",
+    "key_points": [
+      "Red light is filtered out first; blue goes deepest",
+      "Rarely any significant light below 200 m; twilight zone to 1,000 m",
+      "Pressure rises about 1 atmosphere per 10 m (roughly 1,100 atm at the Challenger Deep)",
+      "No sunlight below 1,000 m",
+      "76% of observed individuals in 17 years of video off California were bioluminescent"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "awe",
+      "stillness",
+      "quiet wonder"
+    ],
+    "keywords": [
+      "cinematic",
+      "low-key",
+      "layered",
+      "descent"
+    ],
+    "avoid": [
+      "quiz-style cards",
+      "HUD clutter",
+      "exaggeration beyond the sources"
+    ]
+  },
+  "constraints": [
+    "The 76% figure is scoped to the study: 17 years of ROV video off California, surface to 3,900 m",
+    "Procedural imagery is stylised, not photographic, and is not presented as footage",
+    "Readable with sound off"
+  ],
+  "assets_provided": [],
+  "references": [
+    {
+      "description": "Reference-derived profile for dark layered reels and the cinematic-documentary registry profile",
+      "inspected": true,
+      "technique_ids": [
+        "layered-silhouette-stage",
+        "film-match-cut",
+        "zoom-through-transition"
+      ]
+    }
+  ],
+  "audio": {
+    "narration": "required",
+    "music": "optional",
+    "sfx": "optional",
+    "captions": false,
+    "notes": "Layered sound design by depth zone; silence is a tool."
+  },
+  "research": {
+    "required": true,
+    "reason": "Scientific figures: depths, pressure, bioluminescence share."
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "cinematic-descent",
+      "name": "Cinematic descent",
+      "concept": "One continuous descent. The camera sinks through four water-column zones, each with its own colour, light and sound. Small labels name only what the viewer needs. The numbers become pictures: spectrum bands that vanish in order, lines that compress with pressure, a hundred dots of which seventy-six light up.",
+      "visual_identity": {
+        "style_system": "cinematic-dark",
+        "palette": "deep teal to black, bioluminescent cyan and green, one warm amber for the surface",
+        "typography": "Oswald uppercase wide tracking, small; Inter text",
+        "texture": "procedural haze, caustics, film grain"
+      },
+      "motion_language": {
+        "personality": "slow, damped, camera-led",
+        "signature_moves": [
+          "vertical descent",
+          "parallax between planes",
+          "light fading"
+        ],
+        "transitions": "vertical push, slow dissolve, iris like a porthole"
+      },
+      "composition": {
+        "approach": "subject off-centre, deep space, one small label"
+      },
+      "pacing": "slow, 4-9 s per beat, motion always alive",
+      "why_it_fits": "The subject is a journey through depth; the camera can narrate it."
+    },
+    {
+      "id": "scientific-viz",
+      "name": "Scientific visualisation",
+      "concept": "A flat labelled depth diagram with isometric zones.",
+      "visual_identity": {
+        "style_system": "sci-viz",
+        "palette": "navy and teal",
+        "typography": "Inter + mono",
+        "texture": "grid"
+      },
+      "motion_language": {
+        "personality": "instrument-calm",
+        "signature_moves": [
+          "labels on leader lines"
+        ],
+        "transitions": "camera continuation"
+      },
+      "composition": {
+        "approach": "centred diagram"
+      },
+      "pacing": "medium",
+      "why_it_fits": "Accurate, but the descent is felt less."
+    }
+  ],
+  "selected_direction": "cinematic-descent",
+  "success_criteria": [
+    "Camera never idle during narration",
+    "Each zone has a distinct colour and sound bed",
+    "Every figure matches the dossier",
+    "Ending quiet and short"
+  ]
+}

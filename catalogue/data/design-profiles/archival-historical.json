@@ -1,0 +1,166 @@
+{
+  "id": "archival-historical",
+  "name": "Archival / Historical",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Documents, maps and press clippings on aged paper with grain and foxing, documentary serif type and slow dissolves. Motion is a camera moving over a surface.",
+  "style": "archival",
+  "archetype": "archive-document",
+  "intended_use": [
+    "history and biography",
+    "investigations built on records",
+    "journalism"
+  ],
+  "avoid_for": [
+    "futuristic or technical product topics"
+  ],
+  "identity": {
+    "mood": "sober, reflective, authentic",
+    "genre": "historical documentary",
+    "visual_language": "documents, maps, newsprint and halftone photographs",
+    "editorial_approach": "evidence on screen, attributable and legible",
+    "photography_style": "monochrome or sepia, scanned look",
+    "composition_philosophy": "a surface seen by a slow camera",
+    "environment": "table or archive surface",
+    "realism": "documentary (period-appropriate)",
+    "storytelling_conventions": "zoom into a detail, pull back to the whole page, dissolve in time"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#e8dfc9",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#2a241b",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#8a2c1a",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#3d5a6c",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#b88a2b",
+          "role": "highlight",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "sepia ink on aged paper"
+    },
+    "typography": {
+      "display": "EB Garamond 500, large",
+      "text": "EB Garamond",
+      "mono": "IBM Plex Mono for typewriter and dates",
+      "scale_and_hierarchy": "typewritten captions with date stamps",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "documents layered at slight angles; text legible when it is evidence",
+      "layering_and_depth": "2-4 layers with soft shadows",
+      "hero_occupancy_pct": 60
+    },
+    "texture": "paper grain, foxing, halftone",
+    "materials": "paper, ink, photographic prints",
+    "lighting": "even raking light on a surface",
+    "contrast": "moderate"
+  },
+  "motion": {
+    "grammar": "A slow camera over documents; dissolves for time passing; nothing bounces.",
+    "easing": {
+      "entrances": "enter-decel (long)",
+      "exits": "transition-dissolve",
+      "vocabulary_ids": [
+        "camera-push",
+        "camera-track",
+        "transition-dissolve",
+        "enter-decel",
+        "hold-breath",
+        "reveal-mask-wipe"
+      ]
+    },
+    "timing": {
+      "pace": "slow-medium",
+      "typical_move_sec": 0.8,
+      "shot_length_sec": 5.0,
+      "holds": "long, alive with grain"
+    },
+    "transitions": {
+      "vocabulary": [
+        "slow dissolve",
+        "push into a detail",
+        "page turn / sheet slide"
+      ],
+      "avoid": [
+        "glitch",
+        "liquid"
+      ],
+      "continuity": "the same table surface persists"
+    },
+    "camera": {
+      "language": "slow push, lateral track over a document",
+      "moves": [
+        "push-in",
+        "pull-out",
+        "tracking",
+        "parallax"
+      ]
+    },
+    "kinetic_typography": "typewriter or stamp reveals, sparingly",
+    "stillness_policy": "Held documents keep slow drift and grain."
+  },
+  "audio_direction": {
+    "narration": "measured, 1.0x (am_michael / bm_george)",
+    "music": "sparse strings or piano, low",
+    "sfx": "paper, typewriter, film projector bed"
+  },
+  "rendering": {
+    "strategy": "HyperFrames layered documents with procedural paper and grain; period imagery must be licensed or generated and labelled as such.",
+    "preferred_asset_types": [
+      "archival",
+      "hybrid",
+      "typography",
+      "generated-image"
+    ],
+    "feasibility": "approximation",
+    "resource_notes": "Authentic archival media needs sourcing and rights checks.",
+    "runtime_capabilities": [
+      "parallax-camera",
+      "grain-boil",
+      "crossfade-dissolve",
+      "typewriter-reveal"
+    ]
+  },
+  "techniques": [
+    "archival-mono-collage",
+    "stamp-state-change",
+    "annotation-callouts"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Generated 'archival' imagery risks passing as authentic: label it.",
+    "Slow pace needs strong content.",
+    "Period typography without period facts can mislead."
+  ],
+  "example_scenes": [
+    "A map pinned on a table; the camera pushes to a marked street while a typed caption appears."
+  ],
+  "tags": [
+    "archival",
+    "history",
+    "sepia"
+  ]
+}

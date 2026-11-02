@@ -1,0 +1,195 @@
+{
+  "measured": true,
+  "measurement": {
+    "method": "deterministic_stratified+farthest_point_kmeans",
+    "k": 8,
+    "max_pixels": 160000,
+    "sampled_pixels": 160000,
+    "merge_delta_e76": 2.5,
+    "source_size": [
+      3136,
+      3136
+    ],
+    "pooled_from_frames": 24,
+    "sample_times_sec": [
+      0.3,
+      0.91,
+      1.52,
+      2.12,
+      2.73,
+      3.33,
+      3.94,
+      4.55,
+      5.15,
+      5.76,
+      6.37,
+      6.97,
+      7.58,
+      8.18,
+      8.79,
+      9.4,
+      10.0,
+      10.61,
+      11.22,
+      11.82,
+      12.43,
+      13.03,
+      13.64,
+      14.25
+    ]
+  },
+  "palette": [
+    {
+      "hex": "#fcfcfc",
+      "coverage": 0.8768,
+      "role": "background"
+    },
+    {
+      "hex": "#dddcdc",
+      "coverage": 0.0304,
+      "role": "other"
+    },
+    {
+      "hex": "#cd705b",
+      "coverage": 0.0206,
+      "role": "accent"
+    },
+    {
+      "hex": "#b3b3b3",
+      "coverage": 0.0204,
+      "role": "other"
+    },
+    {
+      "hex": "#858585",
+      "coverage": 0.0197,
+      "role": "other"
+    },
+    {
+      "hex": "#191919",
+      "coverage": 0.0173,
+      "role": "text"
+    },
+    {
+      "hex": "#555555",
+      "coverage": 0.0137,
+      "role": "other"
+    },
+    {
+      "hex": "#d59e94",
+      "coverage": 0.0011,
+      "role": "other"
+    }
+  ],
+  "source": {
+    "file": "play_720p (3).mp4",
+    "kind": "video",
+    "sha256": "c93524ef2097687a2669e668552b6f7b560a7d1c3b8130f17b8bc6e6b7bf9001"
+  },
+  "container": {
+    "duration_sec": 14.549333,
+    "has_audio": true,
+    "width": 720,
+    "height": 1280,
+    "fps": 60.0,
+    "codec": "h264",
+    "nb_frames": 868,
+    "audio": {
+      "codec": "aac",
+      "sample_rate": 48000,
+      "channels": 2
+    }
+  },
+  "motion": {
+    "frames": 868,
+    "duration_sec": 14.467,
+    "analysis_size": "96x54",
+    "motion_mean_luma_diff": 6.15,
+    "motion_median": 1.369,
+    "motion_p90": 16.401,
+    "static_share": 0.2018,
+    "cuts": [
+      0.5,
+      0.75,
+      1.2,
+      1.7,
+      2.8,
+      3.233,
+      4.117,
+      4.367,
+      4.45,
+      4.533,
+      4.6,
+      4.767,
+      4.833,
+      4.917,
+      5.067,
+      5.95,
+      6.067,
+      6.15,
+      6.317,
+      7.083,
+      7.233,
+      7.367,
+      7.783,
+      7.933,
+      8.083,
+      8.283,
+      8.417,
+      8.533,
+      8.65,
+      8.75,
+      8.85,
+      8.95,
+      9.033,
+      9.1,
+      9.217,
+      9.3,
+      9.583,
+      9.65,
+      9.717,
+      9.783,
+      9.85,
+      10.0,
+      10.717,
+      11.083,
+      12.067
+    ],
+    "cut_count": 45,
+    "cuts_per_min": 186.64,
+    "shot_length_median_sec": 0.15,
+    "shot_length_mean_sec": 0.314
+  },
+  "background_hex_per_sample": [
+    "#fdfdfd",
+    "#fcfcfc",
+    "#fdfdfd",
+    "#fbfbfb",
+    "#fcfcfc",
+    "#fcfcfc",
+    "#f5f5f6",
+    "#fafafa",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfcfc",
+    "#fcfcfc",
+    "#fdfdfd",
+    "#fbfbfb",
+    "#fbfbfb",
+    "#fcfcfc",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd",
+    "#fdfdfd"
+  ],
+  "audio": {
+    "loudness": {
+      "integrated_lufs": -14.3,
+      "lra_lu": 1.8,
+      "true_peak_dbtp": -0.9
+    }
+  }
+}

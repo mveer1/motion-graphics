@@ -66,6 +66,9 @@
     "film and documentary openers",
     "dramatic reveals"
   ],
+  "categories": [
+    "storytelling"
+  ],
   "validation": {
     "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-10-30. Not yet used in a rendered project.",
     "last_verified": "2026-10-30"

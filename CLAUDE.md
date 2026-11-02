@@ -4,11 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Motion Lab is a low-memory motion graphics pipeline for Apple Silicon macOS (M2, 8 GB). It produces narrated explainers and multi-format studio videos from `projects/<slug>/` folders. `AGENTS.md` holds the hard production rules, and `ARCHITECTURE.md` section 0 is the design reference for the studio. Read those before changing a render, audio or QA path.
 
+Business context (goals, scale, subjects, non-goals): @docs/VISION.md
+
 ## Hard constraints (read before running anything heavy)
 
 - **One render at a time.** Never run concurrent `hyperframes render`, headless Chrome or Kokoro jobs. Multi-session work goes through `scripts/session-guard.py` (`run render -- <cmd>`, `build`, `audio`, `review`), which takes the lock files in `.locks/`.
 - Always pass `--low-memory-mode` and redirect stdin: `hyperframes render . --fps 30 --quality looks --low-memory-mode --output ../renders/visuals.mp4 < /dev/null`. Without `< /dev/null` the rating survey blocks.
 - Render duration is not a constraint. Don't cut visual density to save time.
+- `studio.py build` takes the render lock itself and stamps each render (`renders/<fmt>/visuals.stamp.json`): an edited composition re-renders on its own, an unstamped legacy render is reused (delete it to force). Narration is still reused whenever `narration-full.wav` exists. Direct `build-audio.py`, `frame-review.py` and `build-project.sh` calls take no lock; run them through `session-guard.py run`. Per-stage timings go to `logs/build-timings.jsonl`. Audit evidence: `docs/architecture-audit.md`.
 - TTS goes through `src/pipeline/tts.py` (or `scripts/build-audio.py`). Never call `/opt/homebrew/bin/kokoro-tts` directly; it breaks on kokoro 0.9.x.
 - Use `python3.12` or `.venv/bin/python` for ML, TTS and schema work.
 
@@ -22,7 +25,7 @@ source .venv/bin/activate && pip install -e tools/earshot
 
 Studio projects (`project.json` present), the main path:
 ```bash
-python scripts/studio.py new <slug> --template illustrated-explainer --formats landscape,portrait,square
+python scripts/studio.py new <slug> --template illustrated-explainer --formats landscape,portrait,square --category history,finance
 python scripts/studio.py validate <slug>               # schema + cross-reference + determinism lint
 python scripts/frame-review.py <slug> --fonts google   # Playwright contact sheets in qa/frame-review/
 python scripts/studio.py build <slug> --dry-run        # print per-format plan; runs anywhere
@@ -32,6 +35,14 @@ python scripts/studio.py sync <slug>                   # refresh src/_studio/ fr
 python scripts/studio.py formats <slug>                # regenerate src/index.<format>.html
 ```
 
+Categories and series. `specs/categories.json` lists the subject categories (technology, finance, science, history, mathematics, news, storytelling). A brief takes one or more in `categories` (first is primary), and `validate` warns when it has none. Style records may be tagged with `categories`; a style with none is general-purpose. A series (`series/<slug>/series.json`, `specs/series-spec.json`) groups projects as `sequential` (numbered parts) or `collection` (unordered, same theme); the series owns membership:
+```bash
+python scripts/studio.py series new <slug> --kind sequential|collection --category history
+python scripts/studio.py series add <series> <project> [--part N] [--planned]
+python scripts/studio.py series show|list|validate [<series>]
+```
+Open decisions live in `TODO.md` (root), including what a visual style is.
+
 Legacy technical explainers (no `project.json`): `./scripts/build-project.sh <slug>` runs the full Stage 0–9 chain. Individual steps: `python3 scripts/validate-research.py projects/<slug>`, `python3 scripts/build-audio.py <slug> [--speed 1.15] [--voice am_adam]`, `./scripts/build-all.sh` for the whole portfolio.
 
 Catalogue and governance:
@@ -40,6 +51,17 @@ python scripts/motion-catalogue.py validate
 python scripts/motion-catalogue.py search "<intent>" --type effect|recipe|primitive|composition|template|style|technique|source
 python scripts/workspace-governance.py                 # run after any component change
 python scripts/reference-corpus.py report --backlog
+```
+
+Creative intelligence layer (optional; see `specs/creative-intelligence-guide.md`). Use `.venv/bin/python` for these; run heavy ones under `session-guard.py run render --`:
+```bash
+python scripts/beatmap.py arcs | init <slug> --arc <id> | validate <slug> | storyboard <slug>
+python scripts/design-dna.py kb for-beat projects/<slug>/beatmap.json <beat>   # also: measure, extract, verify, validate
+python scripts/bakeoff.py run <slug> --beat beat.json --profiles a,b,c         # then: decide
+python scripts/assets.py providers | procedural | import | list | export <slug> <ids>
+python scripts/motion-qa.py project <slug> --expect-audio                     # objective / measured / judgment; never a creative pass
+python scripts/scene-revise.py <slug> --scene s3                               # re-render one scene and splice it in
+python tests/test-creative-intelligence.py                                     # 54 tests; needs .venv (Pillow, NumPy, jsonschema)
 ```
 
 Tests. There is no test runner. Each `tests/test-*.py` is a standalone script, so run one file directly:
@@ -66,13 +88,13 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 
 **Capability catalogue.** `catalogue/data/` holds libraries, primitives, effects, recipes, compositions, styles, templates, techniques and reference sources. Each record validates against `catalogue/schemas/`, and `motion-catalogue.py validate` checks cross-references. New components start as `experimental` and are promoted only after a HyperFrames render on the render host. Components with `approved` status need render-host evidence, so don't mark one approved from a Windows or non-Mac host.
 
-**Reference corpus.** Videos stay outside the repo, and `scripts/reference-corpus.py` writes analysis caches to `out/reference-analysis/` (untracked). Only technique records (`catalogue/data/references/`) and source records (`catalogue/data/reference-sources/`) are committed. Learn techniques, never assets. Logos, footage and shot sequences are excluded.
+**Reference corpus.** Videos stay outside the repo, and `scripts/reference-corpus.py` writes analysis caches to `reference/analysis/` (untracked). Only technique records (`catalogue/data/references/`) and source records (`catalogue/data/reference-sources/`) are committed. Learn techniques, never assets. Logos, footage and shot sequences are excluded.
 
-**QA.** Three layers: `scripts/frame-review.py` (Playwright preview: clipped text, safe areas, contrast, dead stretches), `.agents/skills/video-assembler/scripts/run-qa-gates.sh` (the five technical gates: streams, EBU R128 loudness, black gaps, bitrate, Earshot), and `qa/creative-review.json` (12 criteria scored 1–5; passes when every score is ≥3 and the mean is ≥3.5). Automated checks do not replace looking at the frames.
+**QA.** Three layers: `scripts/frame-review.py` (Playwright preview: clipped text, safe areas, contrast, dead stretches), `.claude/skills/video-assembler/scripts/run-qa-gates.sh` (the five technical gates: streams, EBU R128 loudness, black gaps, bitrate, Earshot), and `qa/creative-review.json` (12 criteria scored 1–5; passes when every score is ≥3 and the mean is ≥3.5). Automated checks do not replace looking at the frames.
 
 **Audio.** Narration is 24 kHz mono WAV from Kokoro with measured durations (`ffprobe`), 0.5 s pause buffers between scenes, and the default voice `am_adam` at 1.15×. SFX come from `scripts/sfx-openverse.py` (CC0/CC BY, public preview CDN URLs only, never Freesound `apiv2`) or from `.venv/bin/earshot sfx render`. The final mix is FFmpeg `amix` of narration, ducked SFX and a dim background bed (about −22 to −28 dBFS). No whoosh sounds on educational scene cross-dissolves.
 
-**Governance.** `.agents/skills/` holds the project skills (including `workspace-steward`, which owns placement and registration of new components) and `.agents/skills/parallel-session/` for multi-session coordination. Consult `workspace-steward` before adding a library, tool, skill or integration. Never commit secrets or machine-specific credentials.
+**Governance.** `.claude/skills/` holds the project skills (including `workspace-steward`, which owns placement and registration of new components) and `.claude/skills/parallel-session/` for multi-session coordination. Consult `workspace-steward` before adding a library, tool, skill or integration. Never commit secrets or machine-specific credentials.
 
 **Output paths.** Renders go to `projects/<slug>/renders/` (gitignored), and finished files go to `out/<slug>-<format>.mp4`. `*.mp4`, `*.wav` under `audio/` and `.hyperframes/` are gitignored. Generated `index.<format>.html` files are tracked, and `studio.py validate` fails when they are stale.
 

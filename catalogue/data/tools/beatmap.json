@@ -1,0 +1,56 @@
+{
+  "id": "tool-beatmap",
+  "name": "Beat map and narrative arc planner",
+  "component_type": "tool",
+  "purpose": "Narrative layer before the storyboard: arc library, beat map scaffold, planning-level checks (visual restating narration, repeated compositions, over-spent emphasis, generate-without-fallback, unsourced claims) and storyboard derivation from measured audio timing.",
+  "capabilities": [
+    "arcs [--show]",
+    "init <slug> --arc <id>",
+    "validate: schema plus planning checks",
+    "storyboard: contiguous timed scenes from audio/timeline.json",
+    "status"
+  ],
+  "location": "scripts/beatmap.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "shared-storyboard-spec"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 or .venv (jsonschema)",
+    "notes": "Arc library in specs/narrative-arcs.json (12 arcs, 6 adapted from the Vox beat-layer reference)."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md",
+    "specs/beatmap-spec.json",
+    "specs/narrative-arcs.json"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Reads and writes projects/<slug>/beatmap.json and storyboard.json only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "planning",
+    "narrative",
+    "beats"
+  ]
+}

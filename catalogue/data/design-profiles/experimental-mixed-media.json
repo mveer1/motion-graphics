@@ -1,0 +1,157 @@
+{
+  "id": "experimental-mixed-media",
+  "name": "Experimental Mixed Media",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Photographs, illustration and type collide on an off-white base with hot accents, stepped timing and deliberate roughness; one element stays legible.",
+  "style": "mixed-media",
+  "archetype": "mixed-collision",
+  "intended_use": [
+    "culture and arts",
+    "music",
+    "essay and opinion",
+    "youth-oriented social"
+  ],
+  "avoid_for": [
+    "safety-critical or highly technical explanation"
+  ],
+  "identity": {
+    "mood": "raw, irreverent, charged",
+    "genre": "experimental editorial",
+    "visual_language": "collision of media with offsets and cuts",
+    "composition_philosophy": "controlled chaos: one legible anchor, everything else in conflict",
+    "environment": "base card plus layers",
+    "realism": "mixed"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#ece6d8",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#101010",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e0218a",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#ffd400",
+          "role": "highlight",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1f9d55",
+          "role": "secondary",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "black on bone; accents as blocks, never as small text"
+    },
+    "typography": {
+      "display": "Oswald 700 uppercase, mixed sizes",
+      "text": "Inter",
+      "mono": "IBM Plex Mono",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "overlap, rotation, scale conflict, photographic crops",
+      "hero_occupancy_pct": 65
+    },
+    "texture": "photocopy grain, misregistration, torn edges",
+    "visual_rhythm": "irregular with a repeating pulse"
+  },
+  "motion": {
+    "grammar": "Stepped timing, jump cuts and offset echoes; abruptness is the style but never at the cost of the one legible line.",
+    "easing": {
+      "entrances": "transition-hard-cut, enter-oversize",
+      "exits": "cut",
+      "vocabulary_ids": [
+        "transition-hard-cut",
+        "enter-oversize",
+        "enter-stagger-uneven",
+        "settle-lean",
+        "emphasis-pulse"
+      ]
+    },
+    "timing": {
+      "pace": "fast and irregular",
+      "typical_move_sec": 0.25,
+      "shot_length_sec": 1.2
+    },
+    "transitions": {
+      "vocabulary": [
+        "hard cut on motion",
+        "strip-slice offset",
+        "glitch swap"
+      ],
+      "avoid": [
+        "slow dissolves"
+      ],
+      "continuity": "one colour or figure recurs"
+    },
+    "camera": {
+      "language": "jump punch-ins, handheld-feel drift",
+      "moves": [
+        "push-in",
+        "handheld-drift",
+        "static"
+      ]
+    },
+    "distortion": "RGB offset and slice displacement",
+    "kinetic_typography": "letter shatter, glitch swaps",
+    "stillness_policy": "Rare; stillness lands as a shock."
+  },
+  "audio_direction": {
+    "narration": "conversational or absent",
+    "music": "driving, textured",
+    "sfx": "hits, scratches, glitches aligned to cuts"
+  },
+  "rendering": {
+    "strategy": "HyperFrames layers with stepped timing; photographic inputs from generated or licensed sources; distortions via CSS/SVG filters.",
+    "preferred_asset_types": [
+      "hybrid",
+      "generated-image",
+      "real-footage",
+      "typography"
+    ],
+    "feasibility": "approximation",
+    "resource_notes": "SVG filter distortions are fine for stills and short moves; heavy displacement over long durations is costly.",
+    "runtime_capabilities": [
+      "smear-motion",
+      "stamp-impact"
+    ]
+  },
+  "techniques": [
+    "glitch-type",
+    "letter-shatter",
+    "strip-slice-offset",
+    "sticker-brutalist-style",
+    "directional-smear"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Legibility collapses if too many layers compete.",
+    "Risks looking random without a repeating pulse.",
+    "Distortion filters are expensive over long durations."
+  ],
+  "example_scenes": [
+    "A cropped portrait cut into strips that slide apart to reveal a one-word headline."
+  ],
+  "tags": [
+    "mixed-media",
+    "experimental",
+    "glitch"
+  ]
+}

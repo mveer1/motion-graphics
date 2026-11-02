@@ -1,0 +1,163 @@
+{
+  "spec_version": 1,
+  "slug": "ocean-descent-documentary",
+  "generated_at": "2026-11-02T09:59:21+00:00",
+  "beat": {
+    "id": "s4-midnight",
+    "headline": "Where sunlight ends",
+    "message": "Below 1,000 m no sunlight reaches. In 17 years of video off California, 76% of observed individuals were bioluminescent.",
+    "key_figure": {
+      "value": "76%",
+      "label": "of animals seen made their own light"
+    },
+    "supporting": [
+      "No sunlight below 1,000 m",
+      "17 years of ROV video, off California",
+      "Martini & Haddock, 2017"
+    ],
+    "mood": "1,000 m"
+  },
+  "shortlist_reason": "Beat s4 is the payoff of a science piece about light and depth. A cinematic descent, a spatial lab diagram and a data-led figure are the three honest treatments. Paper, archival and mixed-media looks were not shortlisted: the subject is physical and sober.",
+  "candidates": [
+    {
+      "id": "cinematic-documentary",
+      "profile": "cinematic-documentary",
+      "archetype": "cinematic-depth",
+      "composition": "bakeoff/cinematic-documentary/index.html",
+      "still": "bakeoff/cinematic-documentary/still.png",
+      "metrics": {
+        "ink_coverage": 0.5358,
+        "hero_area_pct": 99.8,
+        "dominant_colors": [
+          "#10181f",
+          "#32383a",
+          "#ece7de",
+          "#939089"
+        ],
+        "layout_signature": "000011123333100001111113444336411111112444432221111222344442222112222233333222222223332223332222111112221222211102122121111111110000001111100000"
+      },
+      "implementation_cost": "medium",
+      "cost_basis": "feasibility=approximation; preferred assets: generated-image, generated-video, real-footage, hybrid. Photographic plates normally need a provider or licensed footage; procedural gradients and particles are the offline stand-in and look flatter.",
+      "risks": [
+        "Without real or generated plates, procedural depth reads flat.",
+        "Slow pacing punishes weak narration.",
+        "Dark grading hides compression banding; check gradients."
+      ]
+    },
+    {
+      "id": "scientific-visualization-3d",
+      "profile": "scientific-visualization-3d",
+      "archetype": "spatial-lab",
+      "composition": "bakeoff/scientific-visualization-3d/index.html",
+      "still": "bakeoff/scientific-visualization-3d/still.png",
+      "metrics": {
+        "ink_coverage": 0.214,
+        "hero_area_pct": 92.4,
+        "dominant_colors": [
+          "#0c1724",
+          "#72a4bc",
+          "#d89d47",
+          "#2a445c"
+        ],
+        "layout_signature": "111111111111111115421144111111111333489984111111111137aa8311111111115989951211111111578875122221111157888512211111111488521111111111111211111111"
+      },
+      "implementation_cost": "medium",
+      "cost_basis": "feasibility=approximation; preferred assets: scene-3d, programmatic, hybrid. True 3D (Three.js) is possible on this host but heavier; isometric SVG and CSS 3D approximate most needs.",
+      "risks": [
+        "Real 3D fidelity is limited to what CSS 3D, SVG or Three.js can do on 8 GB.",
+        "Pre-rendered Blender scenes are an additional dependency.",
+        "Dark field plus thin labels needs care for small-screen legibility."
+      ]
+    },
+    {
+      "id": "data-journalism-infographic",
+      "profile": "data-journalism-infographic",
+      "archetype": "chart-hero",
+      "composition": "bakeoff/data-journalism-infographic/index.html",
+      "still": "bakeoff/data-journalism-infographic/still.png",
+      "metrics": {
+        "ink_coverage": 0.2215,
+        "hero_area_pct": 74.1,
+        "dominant_colors": [
+          "#faf7f6",
+          "#404043",
+          "#18181b",
+          "#b6b0b1"
+        ],
+        "layout_signature": "fefffffffffffffffedddcddfc86668ffeeeeeeeec9999bfffffffffffffeedffffffffffffeeeefffffffffffdeeeefffffffffedeeeeefffeeeeeeeeeeeeffffffffffffffffff"
+      },
+      "implementation_cost": "low",
+      "cost_basis": "feasibility=native; preferred assets: data-visualization, programmatic, typography.",
+      "risks": [
+        "Truncated axes or invented values mislead: every number needs a source.",
+        "A chart on a dark crisis story can feel cold.",
+        "Dashboard cards are the failure mode: keep one chart per frame."
+      ]
+    }
+  ],
+  "distinctness": {
+    "layout_distance": {
+      "cinematic-documentary|scientific-visualization-3d": 0.3986,
+      "cinematic-documentary|data-journalism-infographic": 0.4396,
+      "scientific-visualization-3d|data-journalism-infographic": 0.3231
+    },
+    "palette_distance": {
+      "cinematic-documentary|scientific-visualization-3d": 14.7,
+      "cinematic-documentary|data-journalism-infographic": 6.5,
+      "scientific-visualization-3d|data-journalism-infographic": 16.5
+    },
+    "min_layout_distance": 0.3231,
+    "threshold": 0.03,
+    "distinct": true,
+    "control_reskin": {
+      "archetype": "cinematic-depth",
+      "styles": [
+        "cinematic-dark",
+        "sci-viz"
+      ],
+      "layout_distance": 0.0042
+    }
+  },
+  "criteria": [
+    "composition",
+    "legibility",
+    "visual-identity",
+    "storytelling",
+    "implementation-cost",
+    "consistency-with-direction"
+  ],
+  "sheet": "bakeoff/sheet.png",
+  "scores": {
+    "cinematic-documentary": {
+      "composition": 4,
+      "legibility": 4,
+      "visual-identity": 5,
+      "storytelling": 4,
+      "implementation-cost": 3,
+      "consistency-with-direction": 5
+    },
+    "scientific-visualization-3d": {
+      "composition": 3,
+      "legibility": 3,
+      "visual-identity": 4,
+      "storytelling": 3,
+      "implementation-cost": 3,
+      "consistency-with-direction": 3
+    },
+    "data-journalism-infographic": {
+      "composition": 2,
+      "legibility": 3,
+      "visual-identity": 2,
+      "storytelling": 1,
+      "implementation-cost": 5,
+      "consistency-with-direction": 1
+    }
+  },
+  "decision": {
+    "chosen": "cinematic-documentary",
+    "rationale": "The task brief asked for a cinematic documentary direction for this demo. On the payoff beat the cinematic treatment gives the clearest identity and keeps the figure large and quiet; the lab diagram's slab collided with its own label and the chart had no data to plot. Caveat: a still undersells this direction, whose strength is the camera descent, and none of the three stills shows the intended 100-dot pictogram; the final composition therefore departs from the bake-off frame by turning the 76% into a picture.",
+    "decided_by": "creative-director-agent",
+    "production_profile": "projects/ocean-descent-documentary/design-profile.json",
+    "decided_at": "2026-11-02T09:59:39+00:00"
+  }
+}

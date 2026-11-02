@@ -26,7 +26,7 @@
 | L4 | Effect vocabulary is technical: 8 effects (crossfade, packet, dashed stroke, clip reveal, glow, video underlay, brush, Lottie). No typography, masks/wipes, morphs, 2.5D, texture, rhythm or loop primitives. | `catalogue/data/effects/`. |
 | L5 | Catalogue has libraries/effects/recipes only. No primitives, reusable compositions, project templates, style systems, or a way to record reference-derived techniques without implying they are implemented. | `scripts/motion-catalogue.py` COLLECTIONS. |
 | L6 | Every composition re-implements helpers inline (PRNG, fades, builders). Nothing is shared or testable. HyperFrames serves only the project directory, so a shared runtime must be copied into each project. | `projects/*/src/index.html`, copied `p5-brush/vendor/brush.js`. |
-| L7 | QA is technical only and partly informational: Gate 1 prints but never asserts resolution/fps; a video without audio aborts Gate 2 (`grep` under `pipefail`); no creative review. | `.agents/skills/video-assembler/scripts/run-qa-gates.sh`. |
+| L7 | QA is technical only and partly informational: Gate 1 prints but never asserts resolution/fps; a video without audio aborts Gate 2 (`grep` under `pipefail`); no creative review. | `.claude/skills/video-assembler/scripts/run-qa-gates.sh`. |
 | L8 | Governance fails on Windows (backslash paths vs registered `/` paths) and treats a machine-local `.venv` binary as a missing workspace file. | Baseline run on this host: 22 false failures. |
 | L9 | Documentation describes features as verified that cannot be re-verified from the repo (absolute macOS paths, fixed loudness numbers that disagree between files). | `ARCHITECTURE.md`, `README.md` (-21.2 LUFS vs -16 to -14 LUFS). |
 

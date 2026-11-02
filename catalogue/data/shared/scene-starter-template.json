@@ -8,11 +8,11 @@
     "Pre-wired window.__timelines['root'] mounting",
     "mulberry32 seeded PRNG implementation"
   ],
-  "location": ".agents/skills/motion-graphics-designer/examples/scene-template.html",
+  "location": ".claude/skills/motion-graphics-designer/examples/scene-template.html",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Copied or inspected from .agents/skills/motion-graphics-designer/examples/."
+    "instructions": "Copied or inspected from .claude/skills/motion-graphics-designer/examples/."
   },
   "dependencies": [
     "gsap"
@@ -23,7 +23,7 @@
     "notes": "Renders with HyperFrames in low-memory mode."
   },
   "documentation_urls": [
-    ".agents/skills/motion-graphics-designer/examples/scene-template.html"
+    ".claude/skills/motion-graphics-designer/examples/scene-template.html"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

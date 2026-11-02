@@ -11,13 +11,13 @@
     "**/.venv": false,
     "**/__pycache__": true,
     "**/.hyperframes": true,
-    "**/out/reference-analysis": true,
+    "**/reference/analysis": true,
     "**/*.pyc": true
   },
   "search.exclude": {
     "**/node_modules": true,
     "**/.venv": true,
-    "**/out/reference-analysis": true,
+    "**/reference/analysis": true,
     "**/.hyperframes": true
   },
   "json.schemas": [

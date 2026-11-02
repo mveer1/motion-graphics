@@ -1,0 +1,38 @@
+/*
+ * Style system: archival. Aged cream paper, sepia ink, oxblood accent and serif documentary type; reads as documents, maps and press clippings with slow dissolves.
+ */
+:root {
+  --c-paper: #e8dfc9;
+  --c-paper-2: #d8cdb0;
+  --c-ink: #2a241b;
+  --c-ink-2: #5c5242;
+  --c-rule: #b9ab8a;
+  --c-accent: #8a2c1a;
+  --c-accent-2: #3d5a6c;
+  --c-accent-3: #b88a2b;
+  --c-highlight: rgba(184,138,43,0.34);
+  --c-positive: #4f6b3a;
+  --c-negative: #8a2c1a;
+  --c-info: #3d5a6c;
+  --c-caption-ink: #f4ecd8;
+  --c-caption-bg: rgba(42,36,27,0.86);
+
+  --font-display: 'EB Garamond', sans-serif;
+  --font-text: 'EB Garamond', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 500;
+  --fw-heading: 500;
+  --track-display: 0em;
+  --track-kicker: 0.18em;
+
+  --ease-out: power2.out;
+  --ease-in: power1.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 1.0;
+  --dur-exit: 0.7;
+  --stagger: 0.1;
+
+  --grain-blend: multiply;
+}
+
+.st-typewriter{font-family:var(--font-mono);letter-spacing:0.02em}

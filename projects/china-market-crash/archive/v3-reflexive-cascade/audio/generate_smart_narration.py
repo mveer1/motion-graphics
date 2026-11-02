@@ -17,7 +17,7 @@ import numpy as np
 
 # Load smart skill components
 REPO_ROOT = Path(__file__).resolve().parents[3]
-SMART_SKILL = REPO_ROOT / ".agents" / "skills" / "kokoro-smart-tts-skill" / "scripts"
+SMART_SKILL = REPO_ROOT / ".claude" / "skills" / "kokoro-smart-tts-skill" / "scripts"
 import sys
 if str(SMART_SKILL) not in sys.path:
     sys.path.insert(0, str(SMART_SKILL))

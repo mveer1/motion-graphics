@@ -1,0 +1,40 @@
+{
+  "id": "job-8aee1883ad49",
+  "project": "ocean-descent-documentary",
+  "provider": "procedural",
+  "task": "procedural-image",
+  "state": "succeeded",
+  "request": {
+    "recipe": "depth-haze",
+    "width": 1280,
+    "height": 720,
+    "seed": 33,
+    "colors": [
+      "#071a2c",
+      "#020711",
+      "#12466e"
+    ],
+    "options": {
+      "particles": 90
+    },
+    "prompt": "s3 pressure plate"
+  },
+  "request_key": "62c0c955c2c09f1c",
+  "attempts": 1,
+  "max_attempts": 3,
+  "created_at": "2026-11-02T09:59:40+00:00",
+  "deadline_sec": 600.0,
+  "poll_count": 1,
+  "_chain": [
+    "procedural"
+  ],
+  "_chain_pos": 0,
+  "model": "depth-haze",
+  "beat": "s3",
+  "updated_at": "2026-11-02T09:59:40+00:00",
+  "remote_id": "/Users/mahavir/Downloads/Repo/motion graphics/assets/library/incoming/job-8aee1883ad49/job-8aee1883ad49.png",
+  "submitted_at": "2026-11-02T09:59:40+00:00",
+  "asset_ids": [
+    "ast-00a5687c8cd1"
+  ]
+}

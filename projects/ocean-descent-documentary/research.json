@@ -1,0 +1,232 @@
+{
+  "$schema": "../../specs/research-spec.json",
+  "metadata": {
+    "topic_id": "ocean-light-depth",
+    "title": "Where the Light Goes: light, pressure and bioluminescence in the ocean",
+    "domain": "natural_sciences",
+    "difficulty": "introductory",
+    "target_duration_sec": {
+      "min": 36,
+      "max": 50,
+      "target": 42
+    },
+    "canonical_sources": [
+      {
+        "title": "How far does light travel in the ocean?",
+        "authors": "NOAA National Ocean Service",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://oceanservice.noaa.gov/facts/light_travel.html"
+      },
+      {
+        "title": "Why is the ocean blue? / red light is filtered out first",
+        "authors": "NOAA Ocean Exploration",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://oceanexplorer.noaa.gov/facts/red-color.html"
+      },
+      {
+        "title": "Water pressures at ocean depths",
+        "authors": "NOAA PMEL",
+        "year": 1998,
+        "source_type": "official_doc",
+        "url": "https://pmel.noaa.gov/eoi/nemo1998/education/pressure.html"
+      },
+      {
+        "title": "Quantification of bioluminescence from the surface to the deep sea demonstrates its predominance as an ecological trait",
+        "authors": "Séverine Martini, Steven H. D. Haddock",
+        "year": 2017,
+        "source_type": "academic_paper",
+        "url": "https://doi.org/10.1038/srep45750"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "The sea looks bright at the surface and black below. Where does the light go, and is the dark really empty?",
+    "core_thesis": "Sunlight is absorbed within a thousand metres, colour by colour, but most deep-sea animals produce their own light.",
+    "mental_model": "A descent in which the world loses colour, gains weight, and then lights itself.",
+    "key_takeaway": "Below the sunlight, the deep sea is dark of sunlight but full of animal-made light.",
+    "verified_claims": [
+      "Light may be detected as far as 1,000 m down, but there is rarely any significant light beyond 200 m [NOAA Ocean Service].",
+      "The upper 200 m is the euphotic (sunlight) zone; 200-1,000 m is the twilight (dysphotic) zone; below 1,000 m sunlight does not penetrate (aphotic) [NOAA Ocean Service].",
+      "Blue light penetrates best; red light is quickly filtered out as depth increases [NOAA Ocean Exploration].",
+      "Water pressure increases by about one atmosphere for every 10 m (33 ft) of depth [NOAA PMEL].",
+      "The Challenger Deep is roughly 10,900-11,000 m deep, so the rule gives roughly 1,100 atmospheres there [NOAA depth sources; the figure is the rule applied, not a measurement].",
+      "In 17 years of ROV video off California, from the surface to 3,900 m, 76% of observed individuals were bioluminescent (over 350,000 observations) [Martini & Haddock 2017, via the Europe PMC record]."
+    ],
+    "anti_patterns": [
+      "Do not state the 76% as a global figure",
+      "Do not give an exact depth at which red disappears (the consulted NOAA pages give none)",
+      "Do not describe procedural imagery as footage",
+      "Do not call the deep sea empty"
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "sunlight",
+        "symbol_latex": "\\text{sunlight}",
+        "name": "Sunlight zone",
+        "type_or_domain": "zone",
+        "role": "0 to 200 m"
+      },
+      {
+        "id": "twilight",
+        "symbol_latex": "\\text{twilight}",
+        "name": "Twilight zone",
+        "type_or_domain": "zone",
+        "role": "200 to 1,000 m"
+      },
+      {
+        "id": "midnight",
+        "symbol_latex": "\\text{midnight}",
+        "name": "Midnight zone",
+        "type_or_domain": "zone",
+        "role": "below 1,000 m, no sunlight"
+      },
+      {
+        "id": "biolum",
+        "symbol_latex": "\\text{bioluminescence}",
+        "name": "Bioluminescence",
+        "type_or_domain": "trait",
+        "role": "Animal-made light"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq_pressure",
+        "latex": "P \\approx 1\\,\\text{atm} + \\frac{h}{10\\,\\text{m}}\\,\\text{atm}",
+        "spoken_form": "pressure rises about one atmosphere for every ten metres",
+        "context": "Rule of thumb for seawater (NOAA PMEL)"
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Sunlight zone",
+        "mathematical_operation": "0 <= h <= 200 m",
+        "state_effect": "red filtered first; blue goes deepest"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Twilight zone",
+        "mathematical_operation": "200 < h <= 1000 m",
+        "state_effect": "rarely any significant light"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Pressure",
+        "mathematical_operation": "dP = 1 atm per 10 m",
+        "state_effect": "about 1,100 atm at the Challenger Deep"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Midnight zone",
+        "mathematical_operation": "h > 1000 m",
+        "state_effect": "no sunlight; 76% of observed individuals bioluminescent (study scope)"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "descent",
+      "abstract_concept": "Going down through the water column",
+      "visual_archetype": "depth_descent_layers",
+      "svg_primitives": [
+        "gradient",
+        "path",
+        "circle"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "camera sink with parallax",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "compression",
+      "abstract_concept": "Pressure as lines squeezing together",
+      "visual_archetype": "matrix_grid_transform",
+      "svg_primitives": [
+        "line"
+      ],
+      "spatial_anchor": "split_left_right",
+      "motion_pattern": "spacing shrinks as the counter rises",
+      "color_token": "neutral_grid_charcoal"
+    },
+    {
+      "concept_id": "three-in-four",
+      "abstract_concept": "76 of 100 individuals make light",
+      "visual_archetype": "counter_comparison",
+      "svg_primitives": [
+        "circle"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "dots ignite one by one",
+      "color_token": "state_active_emerald"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_michael",
+    "speech_rate": 1.0,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "Challenger Deep",
+        "phonetic_respelling": "Challenger Deep",
+        "rationale": "Standard English"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "Sunlight",
+      "target_duration_sec": 7.6,
+      "pedagogical_objective": "Light fades colour by colour",
+      "visual_action": "Spectrum bands vanish red first as the camera sinks",
+      "active_entities": [
+        "sunlight"
+      ]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Twilight",
+      "target_duration_sec": 8.5,
+      "pedagogical_objective": "Twilight zone 200-1000 m",
+      "visual_action": "Light shafts die; first drifting life",
+      "active_entities": [
+        "twilight"
+      ]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Pressure",
+      "target_duration_sec": 10,
+      "pedagogical_objective": "One atmosphere per ten metres",
+      "visual_action": "Lines compress while a counter climbs",
+      "active_entities": [
+        "twilight"
+      ]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Midnight",
+      "target_duration_sec": 9.8,
+      "pedagogical_objective": "No sunlight, but animal-made light",
+      "visual_action": "A hundred dots, seventy-six ignite",
+      "active_entities": [
+        "midnight",
+        "biolum"
+      ]
+    },
+    {
+      "scene_id": "s5",
+      "title": "Light",
+      "target_duration_sec": 3.5,
+      "pedagogical_objective": "Resolution",
+      "visual_action": "Everything dims to one line of text",
+      "active_entities": [
+        "biolum"
+      ]
+    }
+  ]
+}

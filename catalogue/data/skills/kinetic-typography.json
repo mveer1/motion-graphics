@@ -9,11 +9,11 @@
     "Word and character stagger choreography",
     "Accessibility protection with aria-label preserves on SplitText"
   ],
-  "location": ".agents/skills/kinetic-typography",
+  "location": ".claude/skills/kinetic-typography",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Installed in workspace under .agents/skills/kinetic-typography."
+    "instructions": "Installed in workspace under .claude/skills/kinetic-typography."
   },
   "dependencies": [
     "gsap"
@@ -24,7 +24,7 @@
     "notes": "Verified compatible with Antigravity and HyperFrames GSAP timeline architecture."
   },
   "documentation_urls": [
-    ".agents/skills/kinetic-typography/SKILL.md",
+    ".claude/skills/kinetic-typography/SKILL.md",
     "https://github.com/iart-ai/kinetic-typography-skills"
   ],
   "licensing": {

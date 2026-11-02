@@ -1,0 +1,36 @@
+{
+  "spec_version": 2,
+  "slug": "ocean-descent-documentary",
+  "title": "Where the Light Goes",
+  "template": "illustrated-explainer",
+  "style": "cinematic-dark",
+  "formats": [
+    {
+      "id": "landscape",
+      "width": 1280,
+      "height": 720,
+      "primary": true
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 49.5,
+  "quality": "looks",
+  "timing": {
+    "source": "narration"
+  },
+  "audio": {
+    "narration": true,
+    "music": {
+      "enabled": true,
+      "file": "audio/bed.wav",
+      "fade_out_sec": 1.5,
+      "license": "Original synthesized by audio/generate_bed_and_sfx.py (numpy filtered noise and sines, no samples). Project-owned; no third-party licence or attribution."
+    },
+    "sfx": true,
+    "captions": false,
+    "loudness_target_lufs": -16,
+    "loudness_tolerance_lu": 2,
+    "voice": "am_michael",
+    "speed": 1.0
+  }
+}

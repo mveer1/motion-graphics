@@ -1,0 +1,81 @@
+{
+  "id": "sci-viz",
+  "name": "Scientific Visualisation",
+  "status": "experimental",
+  "mode": "dark",
+  "default": false,
+  "description": "Deep blue-black laboratory field with teal and amber data accents, precise mono labels and slow instrument-like motion; for spatial models, cross-sections and exploded views.",
+  "location": "src/studio/styles/sci-viz.css",
+  "tokens": {
+    "colors": {
+      "paper": "#0a1420",
+      "paper-2": "#101e2e",
+      "ink": "#e8f1f8",
+      "ink-2": "#9db3c6",
+      "rule": "#25405a",
+      "accent": "#3ad0c4",
+      "accent-2": "#f2a93b",
+      "accent-3": "#7c9cff"
+    },
+    "typography": {
+      "display": "'Inter', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Optional faint grid (Studio.texture.grid) and film grain with screen blend",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Instrument-calm: smooth, damped, spatial",
+    "ease_in": "power2.in",
+    "ease_out": "power3.out",
+    "enter_duration_sec": 0.9,
+    "stagger_sec": 0.09,
+    "notes": "Prefer camera and parallax over pop; labels arrive after the form they name."
+  },
+  "fonts": [
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 16.2:1",
+    "ink-2/paper 8.6:1",
+    "accent/paper 9.7:1"
+  ],
+  "suitable_for": [
+    "science explainers",
+    "engineering and anatomy",
+    "spatial models and cross-sections"
+  ],
+  "categories": [
+    "science",
+    "technology"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-02. Not yet used in a rendered project.",
+    "last_verified": "2026-11-02"
+  },
+  "tags": [
+    "dark",
+    "scientific",
+    "spatial",
+    "instrument"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-02",
+    "updated_at": "2026-11-02"
+  },
+  "avoid_for": [
+    "playful or children's content",
+    "print-style editorial"
+  ]
+}

@@ -77,6 +77,13 @@
         "avoid": { "type": "array", "items": { "type": "string" } }
       }
     },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Subject categories (ids from specs/categories.json). Usually one; a piece that straddles subjects, e.g. history + finance, lists each. The first is the primary category.",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
     "constraints": { "type": "array", "items": { "type": "string" } },
     "assets_provided": {
       "type": "array",

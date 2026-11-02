@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabAssetEngine",
+  "description": "Contracts for the creative asset engine. Three definitions: capabilities (what a provider can do, declared by the adapter, never inferred from a model-name list), asset (a registered library record) and job (an asynchronous generation job). Validate an instance against one definition by pointer, e.g. #/definitions/asset. No credentials ever appear in any of these records: only the NAME of the environment variable that supplies them.",
+  "definitions": {
+    "task": { "enum": ["text-to-image", "image-to-image", "reference-image", "text-to-video", "image-to-video", "video-extend", "image-edit", "image-upscale", "lip-sync", "procedural-image", "import"] },
+
+    "capabilities": {
+      "type": "object",
+      "required": ["provider", "tasks", "auth", "verification"],
+      "additionalProperties": false,
+      "properties": {
+        "provider": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "summary": { "type": "string" },
+        "tasks": {
+          "type": "object",
+          "description": "Per task: limits and options. A task absent from this map is unsupported.",
+          "propertyNames": { "$ref": "#/definitions/task" },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "input_formats": { "type": "array", "items": { "type": "string" } },
+              "max_reference_images": { "type": "integer", "minimum": 0 },
+              "aspect_ratios": { "type": "array", "items": { "type": "string", "pattern": "^\\d+:\\d+$" } },
+              "resolutions": { "type": "array", "items": { "type": "string" } },
+              "duration_sec": { "type": "object", "additionalProperties": false, "properties": { "min": { "type": "number" }, "max": { "type": "number" } } },
+              "quality_settings": { "type": "array", "items": { "type": "string" } },
+              "requires": { "type": "array", "items": { "type": "string" }, "description": "Mandatory inputs, e.g. prompt, image." },
+              "models": { "type": "array", "items": { "type": "string" }, "description": "Model identifiers the adapter has actually been given metadata for. Not a promise of availability." },
+              "pricing": { "type": "object", "additionalProperties": true, "description": "Only when the provider publishes it; otherwise omitted, never guessed." }
+            }
+          }
+        },
+        "auth": {
+          "type": "object",
+          "required": ["method"],
+          "additionalProperties": false,
+          "properties": {
+            "method": { "enum": ["none", "env-bearer", "env-header", "manual-import"] },
+            "env_var": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]*$", "description": "Name of the environment variable holding the credential." }
+          }
+        },
+        "limits": { "type": "object", "additionalProperties": true, "description": "Rate limits, concurrency, e.g. {creates_per_10s: 20}." },
+        "local": { "type": "boolean", "description": "True when no network or credential is involved." },
+        "verification": {
+          "type": "object",
+          "required": ["level"],
+          "additionalProperties": false,
+          "properties": {
+            "level": { "enum": ["live-tested", "docs-verified", "partial", "contract-stub-only", "local"], "description": "How far the adapter has been checked against the real service." },
+            "checked_on": { "type": "string" },
+            "sources": { "type": "array", "items": { "type": "string" } },
+            "unverified": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "asset": {
+      "type": "object",
+      "required": ["id", "project", "type", "source", "path", "sha256", "created_at", "approval"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^ast-[0-9a-f]{12}$" },
+        "project": { "type": "string" },
+        "type": { "enum": ["image", "video", "audio", "texture", "vector", "document"] },
+        "source": { "enum": ["procedural", "generated", "imported", "stock", "captured", "derived"] },
+        "provider": { "type": "string" },
+        "model": { "type": "string" },
+        "task": { "$ref": "#/definitions/task" },
+        "prompt": { "type": "string" },
+        "negative_prompt": { "type": "string" },
+        "params": { "type": "object", "additionalProperties": true },
+        "request_key": { "type": "string", "pattern": "^[0-9a-f]{16}$", "description": "Hash of task+provider+model+prompt+params+reference hashes; identical requests resolve to the same asset (reuse)." },
+        "references": { "type": "array", "items": { "type": "string" }, "description": "Asset ids used as inputs." },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "duration_sec": { "type": "number", "minimum": 0 },
+        "path": { "type": "string", "description": "Workspace-relative path to the media file." },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "bytes": { "type": "integer", "minimum": 0 },
+        "created_at": { "type": "string" },
+        "license": { "type": "object", "additionalProperties": false, "properties": { "spdx": { "type": "string" }, "status": { "enum": ["verified", "unknown", "user-supplied", "provider-terms", "not-applicable"] }, "attribution": { "type": "string" }, "url": { "type": "string" }, "notes": { "type": "string" } } },
+        "beat": { "type": "string" },
+        "shot": { "type": "string" },
+        "job": { "type": "string" },
+        "approval": { "enum": ["pending", "approved", "rejected"] },
+        "notes": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+
+    "job": {
+      "type": "object",
+      "required": ["id", "project", "provider", "task", "state", "request_key", "created_at", "attempts", "max_attempts"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^job-[0-9a-f]{12}$" },
+        "project": { "type": "string" },
+        "provider": { "type": "string" },
+        "task": { "$ref": "#/definitions/task" },
+        "model": { "type": "string" },
+        "state": { "enum": ["queued", "submitted", "running", "succeeded", "failed", "timed_out", "cancelled"] },
+        "request": { "type": "object", "additionalProperties": true, "description": "Prompt and parameters (secret-free)." },
+        "request_key": { "type": "string", "pattern": "^[0-9a-f]{16}$" },
+        "remote_id": { "type": "string", "description": "Provider-side task id; kept so a crashed run resumes polling instead of re-submitting (and re-paying)." },
+        "attempts": { "type": "integer", "minimum": 0 },
+        "max_attempts": { "type": "integer", "minimum": 1 },
+        "created_at": { "type": "string" },
+        "submitted_at": { "type": "string" },
+        "updated_at": { "type": "string" },
+        "deadline_sec": { "type": "number", "exclusiveMinimum": 0 },
+        "poll_count": { "type": "integer", "minimum": 0 },
+        "result_urls": { "type": "array", "items": { "type": "string" } },
+        "asset_ids": { "type": "array", "items": { "type": "string" } },
+        "error": { "type": "object", "additionalProperties": false, "properties": { "kind": { "enum": ["auth", "rate-limit", "invalid-request", "provider", "network", "timeout", "unsupported", "unknown"] }, "retryable": { "type": "boolean" }, "message": { "type": "string" } } },
+        "cost": { "type": "object", "additionalProperties": true, "description": "Credits or currency reported by the provider after the fact; never estimated." },
+        "beat": { "type": "string" },
+        "shot": { "type": "string" }
+      }
+    }
+  }
+}

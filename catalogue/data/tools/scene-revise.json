@@ -1,0 +1,52 @@
+{
+  "id": "tool-scene-revise",
+  "name": "Scene revision",
+  "component_type": "tool",
+  "purpose": "Re-renders one scene (plus transition padding) and splices it into the existing visuals at exact frame boundaries, then re-muxes. Keeps the previous track.",
+  "capabilities": [
+    "--scene sN [--pad] [--crf] [--dry-run]",
+    "verifies frame counts and reports the measured change outside the range"
+  ],
+  "location": "scripts/scene-revise.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-hyperframes",
+    "tool-ffmpeg",
+    "tool-studio-cli"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 + hyperframes + ffmpeg",
+    "notes": "Re-encodes the picture track once: outside pixels are visually but not bit-identical (measured 0.09/255 mean)."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only under projects/<slug>/renders/."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "render",
+    "revision"
+  ]
+}

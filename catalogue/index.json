@@ -5183,7 +5183,7 @@
         "memory_impact": "Negligible (<1MB)"
       },
       "validation_steps": [
-        "Run .agents/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
+        "Run .claude/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
         "Verify black_start is null across scene transition boundaries.",
         "Snapshot at atTime - 0.2s and atTime + 0.2s to confirm both layers render smoothly without dark dip."
       ],
@@ -5212,11 +5212,11 @@
         "Blender/Shader integration",
         "Video loop export"
       ],
-      "location": ".agents/skills/algorithmic-art",
+      "location": ".claude/skills/algorithmic-art",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/algorithmic-art."
+        "instructions": "Built-in workspace skill under .claude/skills/algorithmic-art."
       },
       "dependencies": [],
       "compatibility": {
@@ -5224,7 +5224,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/algorithmic-art/SKILL.md"
+        ".claude/skills/algorithmic-art/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5315,11 +5315,11 @@
         "Blueprint grids, adhesive tape, and halftone texture overlays",
         "Headless Chromium SVG to PNG rasterization"
       ],
-      "location": ".agents/skills/collage-design",
+      "location": ".claude/skills/collage-design",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Installed in workspace under .agents/skills/collage-design."
+        "instructions": "Installed in workspace under .claude/skills/collage-design."
       },
       "dependencies": [],
       "compatibility": {
@@ -5328,7 +5328,7 @@
         "notes": "Tested in Chromium headless. Heavy host CLI dependencies (ImageMagick, Inkscape) are bypassed using browser-native SVG rasterization."
       },
       "documentation_urls": [
-        ".agents/skills/collage-design/SKILL.md",
+        ".claude/skills/collage-design/SKILL.md",
         "https://github.com/polgarp/collage-design"
       ],
       "licensing": {
@@ -5368,7 +5368,7 @@
         "Procedural micro-SFX synthesis (clicks, thocks, pops, risers)",
         "Acoustic quality auditing for Gate 5 signoff"
       ],
-      "location": ".agents/skills/earshot",
+      "location": ".claude/skills/earshot",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -5383,7 +5383,7 @@
         "notes": "Integrates with vendored tools/earshot and .venv/bin/earshot."
       },
       "documentation_urls": [
-        ".agents/skills/earshot/SKILL.md"
+        ".claude/skills/earshot/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -5423,11 +5423,11 @@
         "Directional clip-path reveals, curtain drops, and window pane iris transitions",
         "Automated 2.5D DOM layer validation (scripts/validate-layers.js)"
       ],
-      "location": ".agents/skills/epic-design",
+      "location": ".claude/skills/epic-design",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Installed in workspace under .agents/skills/epic-design."
+        "instructions": "Installed in workspace under .claude/skills/epic-design."
       },
       "dependencies": [
         "gsap"
@@ -5438,7 +5438,7 @@
         "notes": "Pure CSS/DOM and GSAP execution; zero WebGL overhead. Tested on Apple Silicon M2."
       },
       "documentation_urls": [
-        ".agents/skills/epic-design/SKILL.md",
+        ".claude/skills/epic-design/SKILL.md",
         "https://github.com/alirezarezvani/claude-skills/tree/main/engineering-team/skills/epic-design"
       ],
       "licensing": {
@@ -5532,11 +5532,11 @@
         "Easing functions",
         "Responsive matchMedia"
       ],
-      "location": ".agents/skills/gsap-core",
+      "location": ".claude/skills/gsap-core",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-core."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-core."
       },
       "dependencies": [
         "gsap"
@@ -5546,7 +5546,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-core/SKILL.md"
+        ".claude/skills/gsap-core/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5584,11 +5584,11 @@
         "Svelte onMount scoping",
         "Scoped selector querying"
       ],
-      "location": ".agents/skills/gsap-frameworks",
+      "location": ".claude/skills/gsap-frameworks",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-frameworks."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-frameworks."
       },
       "dependencies": [
         "gsap"
@@ -5598,7 +5598,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-frameworks/SKILL.md"
+        ".claude/skills/gsap-frameworks/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5636,11 +5636,11 @@
         "Batching reads and writes",
         "will-change management"
       ],
-      "location": ".agents/skills/gsap-performance",
+      "location": ".claude/skills/gsap-performance",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-performance."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-performance."
       },
       "dependencies": [
         "gsap"
@@ -5650,7 +5650,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-performance/SKILL.md"
+        ".claude/skills/gsap-performance/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5689,11 +5689,11 @@
         "MotionPath motion tracking",
         "CustomEase easing curves"
       ],
-      "location": ".agents/skills/gsap-plugins",
+      "location": ".claude/skills/gsap-plugins",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-plugins."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-plugins."
       },
       "dependencies": [
         "gsap"
@@ -5703,7 +5703,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-plugins/SKILL.md"
+        ".claude/skills/gsap-plugins/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5741,11 +5741,11 @@
         "Automatic tween cleanup on unmount",
         "React ref animation targets"
       ],
-      "location": ".agents/skills/gsap-react",
+      "location": ".claude/skills/gsap-react",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-react."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-react."
       },
       "dependencies": [
         "gsap"
@@ -5755,7 +5755,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-react/SKILL.md"
+        ".claude/skills/gsap-react/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5793,11 +5793,11 @@
         "Scroll scrub progress tracking",
         "Toggle actions"
       ],
-      "location": ".agents/skills/gsap-scrolltrigger",
+      "location": ".claude/skills/gsap-scrolltrigger",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-scrolltrigger."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-scrolltrigger."
       },
       "dependencies": [
         "gsap"
@@ -5807,7 +5807,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-scrolltrigger/SKILL.md"
+        ".claude/skills/gsap-scrolltrigger/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5845,11 +5845,11 @@
         "Nested timelines",
         "Timeline playback control"
       ],
-      "location": ".agents/skills/gsap-timeline",
+      "location": ".claude/skills/gsap-timeline",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-timeline."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-timeline."
       },
       "dependencies": [
         "gsap"
@@ -5859,7 +5859,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-timeline/SKILL.md"
+        ".claude/skills/gsap-timeline/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5898,11 +5898,11 @@
         "Snapping and wrapping",
         "Mulberry32-friendly math"
       ],
-      "location": ".agents/skills/gsap-utils",
+      "location": ".claude/skills/gsap-utils",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/gsap-utils."
+        "instructions": "Built-in workspace skill under .claude/skills/gsap-utils."
       },
       "dependencies": [
         "gsap"
@@ -5912,7 +5912,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/gsap-utils/SKILL.md"
+        ".claude/skills/gsap-utils/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -5951,11 +5951,11 @@
         "Word and character stagger choreography",
         "Accessibility protection with aria-label preserves on SplitText"
       ],
-      "location": ".agents/skills/kinetic-typography",
+      "location": ".claude/skills/kinetic-typography",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Installed in workspace under .agents/skills/kinetic-typography."
+        "instructions": "Installed in workspace under .claude/skills/kinetic-typography."
       },
       "dependencies": [
         "gsap"
@@ -5966,7 +5966,7 @@
         "notes": "Verified compatible with Antigravity and HyperFrames GSAP timeline architecture."
       },
       "documentation_urls": [
-        ".agents/skills/kinetic-typography/SKILL.md",
+        ".claude/skills/kinetic-typography/SKILL.md",
         "https://github.com/iart-ai/kinetic-typography-skills"
       ],
       "licensing": {
@@ -6008,7 +6008,7 @@
         "Misaki Markdown IPA phonetics injection",
         "Exact millisecond timeline marker generation for animation sync"
       ],
-      "location": ".agents/skills/kokoro-smart-tts-skill",
+      "location": ".claude/skills/kokoro-smart-tts-skill",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6023,7 +6023,7 @@
         "notes": "Tested with Kokoro 0.9.4 and Python 3.12 on Apple Silicon M2."
       },
       "documentation_urls": [
-        ".agents/skills/kokoro-smart-tts-skill/SKILL.md"
+        ".claude/skills/kokoro-smart-tts-skill/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6064,11 +6064,11 @@
         "Multi-element choreography",
         "State feedback transitions"
       ],
-      "location": ".agents/skills/motion-design",
+      "location": ".claude/skills/motion-design",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Built-in workspace skill under .agents/skills/motion-design."
+        "instructions": "Built-in workspace skill under .claude/skills/motion-design."
       },
       "dependencies": [],
       "compatibility": {
@@ -6076,7 +6076,7 @@
         "runtime": "agent-host"
       },
       "documentation_urls": [
-        ".agents/skills/motion-design/SKILL.md"
+        ".claude/skills/motion-design/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "MIT",
@@ -6115,7 +6115,7 @@
         "Paused GSAP root timeline authoring",
         "Deterministic mulberry32 PRNG enforcement"
       ],
-      "location": ".agents/skills/motion-graphics-designer",
+      "location": ".claude/skills/motion-graphics-designer",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6131,7 +6131,7 @@
         "notes": "Generates HTML5 + SVG + GSAP compositions."
       },
       "documentation_urls": [
-        ".agents/skills/motion-graphics-designer/SKILL.md"
+        ".claude/skills/motion-graphics-designer/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6171,7 +6171,7 @@
         "Licensing verification audit",
         "Recipe retrieval and timeline requirements guidance"
       ],
-      "location": ".agents/skills/motion-library-guide",
+      "location": ".claude/skills/motion-library-guide",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6187,7 +6187,7 @@
         "notes": "Integrates with scripts/motion-catalogue.py."
       },
       "documentation_urls": [
-        ".agents/skills/motion-library-guide/SKILL.md",
+        ".claude/skills/motion-library-guide/SKILL.md",
         "catalogue/README.md"
       ],
       "licensing": {
@@ -6229,7 +6229,7 @@
         "Git worktree isolation for concurrent project branches (session-start/end)",
         "Zero-quality-compromise pipeline orchestration"
       ],
-      "location": ".agents/skills/parallel-session",
+      "location": ".claude/skills/parallel-session",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6246,7 +6246,7 @@
         "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
       },
       "documentation_urls": [
-        ".agents/skills/parallel-session/SKILL.md",
+        ".claude/skills/parallel-session/SKILL.md",
         "ARCHITECTURE.md#lifecycle"
       ],
       "licensing": {
@@ -6286,7 +6286,7 @@
         "Multi-track audio bed rendering with ducking under voice",
         "Acoustic self-critique scoreboard generation"
       ],
-      "location": ".agents/skills/real-sfx",
+      "location": ".claude/skills/real-sfx",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6302,7 +6302,7 @@
         "notes": "Executes Python audio scripts in .venv/."
       },
       "documentation_urls": [
-        ".agents/skills/real-sfx/SKILL.md"
+        ".claude/skills/real-sfx/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6341,7 +6341,7 @@
         "Technique records: mechanics, parameters, failure modes, capability class, provenance, validation evidence",
         "Duplicate detection before new records; backlog reporting; brief recommendations"
       ],
-      "location": ".agents/skills/reference-analyst",
+      "location": ".claude/skills/reference-analyst",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6357,8 +6357,8 @@
         "notes": "Used on the Windows dev host for the first 14-video corpus (2026-10-30)."
       },
       "documentation_urls": [
-        ".agents/skills/reference-analyst/SKILL.md",
-        ".agents/skills/reference-analyst/references/analysis-protocol.md",
+        ".claude/skills/reference-analyst/SKILL.md",
+        ".claude/skills/reference-analyst/references/analysis-protocol.md",
         "ARCHITECTURE.md"
       ],
       "licensing": {
@@ -6398,7 +6398,7 @@
         "Visual metaphor formulation",
         "research.json dossier generation and validation"
       ],
-      "location": ".agents/skills/technical-researcher",
+      "location": ".claude/skills/technical-researcher",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6413,7 +6413,7 @@
         "notes": "Native markdown and JSON schema instructions."
       },
       "documentation_urls": [
-        ".agents/skills/technical-researcher/SKILL.md"
+        ".claude/skills/technical-researcher/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6505,7 +6505,7 @@
         "Automated QA gate auditing (run-qa-gates.sh)",
         "Loudness normalization and black screen gap detection"
       ],
-      "location": ".agents/skills/video-assembler",
+      "location": ".claude/skills/video-assembler",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6521,7 +6521,7 @@
         "notes": "Pins Chromium worker count to 1 for 8 GB RAM stability."
       },
       "documentation_urls": [
-        ".agents/skills/video-assembler/SKILL.md"
+        ".claude/skills/video-assembler/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6562,7 +6562,7 @@
         "Phonetic lexicon substitution and Markdown IPA injection",
         "Millisecond duration timeline mapping"
       ],
-      "location": ".agents/skills/voice-director",
+      "location": ".claude/skills/voice-director",
       "version": "1.1.0",
       "installation": {
         "required": false,
@@ -6578,7 +6578,7 @@
         "notes": "Directs Kokoro 0.9.4 TTS synthesis."
       },
       "documentation_urls": [
-        ".agents/skills/voice-director/SKILL.md"
+        ".claude/skills/voice-director/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -6669,7 +6669,7 @@
         "Automated drift detection and unregistered component auditing",
         "Architecture documentation synchronization"
       ],
-      "location": ".agents/skills/workspace-steward",
+      "location": ".claude/skills/workspace-steward",
       "version": "1.0.0",
       "installation": {
         "required": false,
@@ -6685,7 +6685,7 @@
         "notes": "Directs workspace governance and registry integrity."
       },
       "documentation_urls": [
-        ".agents/skills/workspace-steward/SKILL.md",
+        ".claude/skills/workspace-steward/SKILL.md",
         "catalogue/README.md"
       ],
       "licensing": {
@@ -7271,21 +7271,21 @@
       },
       "documentation_urls": [
         "ARCHITECTURE.md",
-        ".agents/skills/reference-analyst/SKILL.md",
+        ".claude/skills/reference-analyst/SKILL.md",
         "catalogue/README.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
         "status": "verified",
         "commercial_use": true,
-        "notes": "Internal workspace tool. Playwright is Apache-2.0; Pillow is MIT-CMU; numpy is BSD-3-Clause. Reference videos are third-party material of unknown rights: they stay outside the repository, and extracted frames and contact sheets stay in the untracked cache out/reference-analysis/."
+        "notes": "Internal workspace tool. Playwright is Apache-2.0; Pillow is MIT-CMU; numpy is BSD-3-Clause. Reference videos are third-party material of unknown rights: they stay outside the repository, and extracted frames and contact sheets stay in the untracked cache reference/analysis/."
       },
       "security": {
         "requires_filesystem_write": true,
         "requires_network": false,
         "requires_execution": true,
         "sensitive_data_exposure": false,
-        "notes": "Reads videos only from roots given with --root or MOTION_REFERENCE_ROOTS. Records store the file name, size and SHA-256, never an absolute path. The browser decoder opens the file through a file input as a blob URL (no HTTP server). Writes catalogue/data/reference-sources/ and out/reference-analysis/."
+        "notes": "Reads videos only from roots given with --root or MOTION_REFERENCE_ROOTS. Records store the file name, size and SHA-256, never an absolute path. The browser decoder opens the file through a file input as a blob URL (no HTTP server). Writes catalogue/data/reference-sources/ and reference/analysis/."
       },
       "owner": "motion-graphics",
       "status": "experimental",
@@ -7384,7 +7384,7 @@
       },
       "documentation_urls": [
         "ARCHITECTURE.md#lifecycle",
-        ".agents/skills/parallel-session/SKILL.md"
+        ".claude/skills/parallel-session/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -7659,7 +7659,7 @@
         "notes": "Executes in sub-second time on local machine."
       },
       "documentation_urls": [
-        ".agents/skills/workspace-steward/SKILL.md"
+        ".claude/skills/workspace-steward/SKILL.md"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -8321,11 +8321,11 @@
         "Pre-wired window.__timelines['root'] mounting",
         "mulberry32 seeded PRNG implementation"
       ],
-      "location": ".agents/skills/motion-graphics-designer/examples/scene-template.html",
+      "location": ".claude/skills/motion-graphics-designer/examples/scene-template.html",
       "version": "1.0.0",
       "installation": {
         "required": false,
-        "instructions": "Copied or inspected from .agents/skills/motion-graphics-designer/examples/."
+        "instructions": "Copied or inspected from .claude/skills/motion-graphics-designer/examples/."
       },
       "dependencies": [
         "gsap"
@@ -8336,7 +8336,7 @@
         "notes": "Renders with HyperFrames in low-memory mode."
       },
       "documentation_urls": [
-        ".agents/skills/motion-graphics-designer/examples/scene-template.html"
+        ".claude/skills/motion-graphics-designer/examples/scene-template.html"
       ],
       "licensing": {
         "spdx_identifier": "Proprietary-Workspace",
@@ -16450,13 +16450,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-0bf0254a3d",
-          "overview": "out/reference-analysis/ref-0bf0254a3d/overview.jpg",
-          "scenes": "out/reference-analysis/ref-0bf0254a3d/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-0bf0254a3d/transitions.jpg",
-          "motion": "out/reference-analysis/ref-0bf0254a3d/motion.jpg",
-          "audio": "out/reference-analysis/ref-0bf0254a3d/audio.png",
-          "frames": "out/reference-analysis/ref-0bf0254a3d/frames",
+          "cache_dir": "reference/analysis/ref-0bf0254a3d",
+          "overview": "reference/analysis/ref-0bf0254a3d/overview.jpg",
+          "scenes": "reference/analysis/ref-0bf0254a3d/scenes.jpg",
+          "transitions": "reference/analysis/ref-0bf0254a3d/transitions.jpg",
+          "motion": "reference/analysis/ref-0bf0254a3d/motion.jpg",
+          "audio": "reference/analysis/ref-0bf0254a3d/audio.png",
+          "frames": "reference/analysis/ref-0bf0254a3d/frames",
           "tracked": false
         }
       }
@@ -16943,13 +16943,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-1cbe55c987",
-          "overview": "out/reference-analysis/ref-1cbe55c987/overview.jpg",
-          "scenes": "out/reference-analysis/ref-1cbe55c987/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-1cbe55c987/transitions.jpg",
-          "motion": "out/reference-analysis/ref-1cbe55c987/motion.jpg",
-          "audio": "out/reference-analysis/ref-1cbe55c987/audio.png",
-          "frames": "out/reference-analysis/ref-1cbe55c987/frames",
+          "cache_dir": "reference/analysis/ref-1cbe55c987",
+          "overview": "reference/analysis/ref-1cbe55c987/overview.jpg",
+          "scenes": "reference/analysis/ref-1cbe55c987/scenes.jpg",
+          "transitions": "reference/analysis/ref-1cbe55c987/transitions.jpg",
+          "motion": "reference/analysis/ref-1cbe55c987/motion.jpg",
+          "audio": "reference/analysis/ref-1cbe55c987/audio.png",
+          "frames": "reference/analysis/ref-1cbe55c987/frames",
           "tracked": false
         }
       }
@@ -17964,13 +17964,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-37644838b5",
-          "overview": "out/reference-analysis/ref-37644838b5/overview.jpg",
-          "scenes": "out/reference-analysis/ref-37644838b5/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-37644838b5/transitions.jpg",
-          "motion": "out/reference-analysis/ref-37644838b5/motion.jpg",
-          "audio": "out/reference-analysis/ref-37644838b5/audio.png",
-          "frames": "out/reference-analysis/ref-37644838b5/frames",
+          "cache_dir": "reference/analysis/ref-37644838b5",
+          "overview": "reference/analysis/ref-37644838b5/overview.jpg",
+          "scenes": "reference/analysis/ref-37644838b5/scenes.jpg",
+          "transitions": "reference/analysis/ref-37644838b5/transitions.jpg",
+          "motion": "reference/analysis/ref-37644838b5/motion.jpg",
+          "audio": "reference/analysis/ref-37644838b5/audio.png",
+          "frames": "reference/analysis/ref-37644838b5/frames",
           "tracked": false
         }
       }
@@ -18446,13 +18446,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-392ee4d0f9",
-          "overview": "out/reference-analysis/ref-392ee4d0f9/overview.jpg",
-          "scenes": "out/reference-analysis/ref-392ee4d0f9/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-392ee4d0f9/transitions.jpg",
-          "motion": "out/reference-analysis/ref-392ee4d0f9/motion.jpg",
-          "audio": "out/reference-analysis/ref-392ee4d0f9/audio.png",
-          "frames": "out/reference-analysis/ref-392ee4d0f9/frames",
+          "cache_dir": "reference/analysis/ref-392ee4d0f9",
+          "overview": "reference/analysis/ref-392ee4d0f9/overview.jpg",
+          "scenes": "reference/analysis/ref-392ee4d0f9/scenes.jpg",
+          "transitions": "reference/analysis/ref-392ee4d0f9/transitions.jpg",
+          "motion": "reference/analysis/ref-392ee4d0f9/motion.jpg",
+          "audio": "reference/analysis/ref-392ee4d0f9/audio.png",
+          "frames": "reference/analysis/ref-392ee4d0f9/frames",
           "tracked": false
         }
       }
@@ -18905,13 +18905,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-49459ad8c1",
-          "overview": "out/reference-analysis/ref-49459ad8c1/overview.jpg",
-          "scenes": "out/reference-analysis/ref-49459ad8c1/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-49459ad8c1/transitions.jpg",
-          "motion": "out/reference-analysis/ref-49459ad8c1/motion.jpg",
-          "audio": "out/reference-analysis/ref-49459ad8c1/audio.png",
-          "frames": "out/reference-analysis/ref-49459ad8c1/frames",
+          "cache_dir": "reference/analysis/ref-49459ad8c1",
+          "overview": "reference/analysis/ref-49459ad8c1/overview.jpg",
+          "scenes": "reference/analysis/ref-49459ad8c1/scenes.jpg",
+          "transitions": "reference/analysis/ref-49459ad8c1/transitions.jpg",
+          "motion": "reference/analysis/ref-49459ad8c1/motion.jpg",
+          "audio": "reference/analysis/ref-49459ad8c1/audio.png",
+          "frames": "reference/analysis/ref-49459ad8c1/frames",
           "tracked": false
         }
       }
@@ -19441,13 +19441,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-5924215625",
-          "overview": "out/reference-analysis/ref-5924215625/overview.jpg",
-          "scenes": "out/reference-analysis/ref-5924215625/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-5924215625/transitions.jpg",
-          "motion": "out/reference-analysis/ref-5924215625/motion.jpg",
-          "audio": "out/reference-analysis/ref-5924215625/audio.png",
-          "frames": "out/reference-analysis/ref-5924215625/frames",
+          "cache_dir": "reference/analysis/ref-5924215625",
+          "overview": "reference/analysis/ref-5924215625/overview.jpg",
+          "scenes": "reference/analysis/ref-5924215625/scenes.jpg",
+          "transitions": "reference/analysis/ref-5924215625/transitions.jpg",
+          "motion": "reference/analysis/ref-5924215625/motion.jpg",
+          "audio": "reference/analysis/ref-5924215625/audio.png",
+          "frames": "reference/analysis/ref-5924215625/frames",
           "tracked": false
         }
       }
@@ -20055,13 +20055,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-736d4ef2c2",
-          "overview": "out/reference-analysis/ref-736d4ef2c2/overview.jpg",
-          "scenes": "out/reference-analysis/ref-736d4ef2c2/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-736d4ef2c2/transitions.jpg",
-          "motion": "out/reference-analysis/ref-736d4ef2c2/motion.jpg",
-          "audio": "out/reference-analysis/ref-736d4ef2c2/audio.png",
-          "frames": "out/reference-analysis/ref-736d4ef2c2/frames",
+          "cache_dir": "reference/analysis/ref-736d4ef2c2",
+          "overview": "reference/analysis/ref-736d4ef2c2/overview.jpg",
+          "scenes": "reference/analysis/ref-736d4ef2c2/scenes.jpg",
+          "transitions": "reference/analysis/ref-736d4ef2c2/transitions.jpg",
+          "motion": "reference/analysis/ref-736d4ef2c2/motion.jpg",
+          "audio": "reference/analysis/ref-736d4ef2c2/audio.png",
+          "frames": "reference/analysis/ref-736d4ef2c2/frames",
           "tracked": false
         }
       }
@@ -20679,13 +20679,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-910d9fc567",
-          "overview": "out/reference-analysis/ref-910d9fc567/overview.jpg",
-          "scenes": "out/reference-analysis/ref-910d9fc567/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-910d9fc567/transitions.jpg",
-          "motion": "out/reference-analysis/ref-910d9fc567/motion.jpg",
-          "audio": "out/reference-analysis/ref-910d9fc567/audio.png",
-          "frames": "out/reference-analysis/ref-910d9fc567/frames",
+          "cache_dir": "reference/analysis/ref-910d9fc567",
+          "overview": "reference/analysis/ref-910d9fc567/overview.jpg",
+          "scenes": "reference/analysis/ref-910d9fc567/scenes.jpg",
+          "transitions": "reference/analysis/ref-910d9fc567/transitions.jpg",
+          "motion": "reference/analysis/ref-910d9fc567/motion.jpg",
+          "audio": "reference/analysis/ref-910d9fc567/audio.png",
+          "frames": "reference/analysis/ref-910d9fc567/frames",
           "tracked": false
         }
       }
@@ -21379,13 +21379,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-92c22222a2",
-          "overview": "out/reference-analysis/ref-92c22222a2/overview.jpg",
-          "scenes": "out/reference-analysis/ref-92c22222a2/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-92c22222a2/transitions.jpg",
-          "motion": "out/reference-analysis/ref-92c22222a2/motion.jpg",
-          "audio": "out/reference-analysis/ref-92c22222a2/audio.png",
-          "frames": "out/reference-analysis/ref-92c22222a2/frames",
+          "cache_dir": "reference/analysis/ref-92c22222a2",
+          "overview": "reference/analysis/ref-92c22222a2/overview.jpg",
+          "scenes": "reference/analysis/ref-92c22222a2/scenes.jpg",
+          "transitions": "reference/analysis/ref-92c22222a2/transitions.jpg",
+          "motion": "reference/analysis/ref-92c22222a2/motion.jpg",
+          "audio": "reference/analysis/ref-92c22222a2/audio.png",
+          "frames": "reference/analysis/ref-92c22222a2/frames",
           "tracked": false
         }
       }
@@ -21863,13 +21863,13 @@
           "method": "decoded track is digital silence"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-95c96d5c47",
-          "overview": "out/reference-analysis/ref-95c96d5c47/overview.jpg",
-          "scenes": "out/reference-analysis/ref-95c96d5c47/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-95c96d5c47/transitions.jpg",
-          "motion": "out/reference-analysis/ref-95c96d5c47/motion.jpg",
-          "audio": "out/reference-analysis/ref-95c96d5c47/audio.png",
-          "frames": "out/reference-analysis/ref-95c96d5c47/frames",
+          "cache_dir": "reference/analysis/ref-95c96d5c47",
+          "overview": "reference/analysis/ref-95c96d5c47/overview.jpg",
+          "scenes": "reference/analysis/ref-95c96d5c47/scenes.jpg",
+          "transitions": "reference/analysis/ref-95c96d5c47/transitions.jpg",
+          "motion": "reference/analysis/ref-95c96d5c47/motion.jpg",
+          "audio": "reference/analysis/ref-95c96d5c47/audio.png",
+          "frames": "reference/analysis/ref-95c96d5c47/frames",
           "tracked": false
         }
       }
@@ -22645,13 +22645,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-b97f9168c6",
-          "overview": "out/reference-analysis/ref-b97f9168c6/overview.jpg",
-          "scenes": "out/reference-analysis/ref-b97f9168c6/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-b97f9168c6/transitions.jpg",
-          "motion": "out/reference-analysis/ref-b97f9168c6/motion.jpg",
-          "audio": "out/reference-analysis/ref-b97f9168c6/audio.png",
-          "frames": "out/reference-analysis/ref-b97f9168c6/frames",
+          "cache_dir": "reference/analysis/ref-b97f9168c6",
+          "overview": "reference/analysis/ref-b97f9168c6/overview.jpg",
+          "scenes": "reference/analysis/ref-b97f9168c6/scenes.jpg",
+          "transitions": "reference/analysis/ref-b97f9168c6/transitions.jpg",
+          "motion": "reference/analysis/ref-b97f9168c6/motion.jpg",
+          "audio": "reference/analysis/ref-b97f9168c6/audio.png",
+          "frames": "reference/analysis/ref-b97f9168c6/frames",
           "tracked": false
         }
       }
@@ -22917,13 +22917,13 @@
           "present": false
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-c3bc609841",
-          "overview": "out/reference-analysis/ref-c3bc609841/overview.jpg",
-          "scenes": "out/reference-analysis/ref-c3bc609841/scenes.jpg",
+          "cache_dir": "reference/analysis/ref-c3bc609841",
+          "overview": "reference/analysis/ref-c3bc609841/overview.jpg",
+          "scenes": "reference/analysis/ref-c3bc609841/scenes.jpg",
           "transitions": null,
-          "motion": "out/reference-analysis/ref-c3bc609841/motion.jpg",
+          "motion": "reference/analysis/ref-c3bc609841/motion.jpg",
           "audio": null,
-          "frames": "out/reference-analysis/ref-c3bc609841/frames",
+          "frames": "reference/analysis/ref-c3bc609841/frames",
           "tracked": false
         }
       }
@@ -23407,13 +23407,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-c93524ef20",
-          "overview": "out/reference-analysis/ref-c93524ef20/overview.jpg",
-          "scenes": "out/reference-analysis/ref-c93524ef20/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-c93524ef20/transitions.jpg",
-          "motion": "out/reference-analysis/ref-c93524ef20/motion.jpg",
-          "audio": "out/reference-analysis/ref-c93524ef20/audio.png",
-          "frames": "out/reference-analysis/ref-c93524ef20/frames",
+          "cache_dir": "reference/analysis/ref-c93524ef20",
+          "overview": "reference/analysis/ref-c93524ef20/overview.jpg",
+          "scenes": "reference/analysis/ref-c93524ef20/scenes.jpg",
+          "transitions": "reference/analysis/ref-c93524ef20/transitions.jpg",
+          "motion": "reference/analysis/ref-c93524ef20/motion.jpg",
+          "audio": "reference/analysis/ref-c93524ef20/audio.png",
+          "frames": "reference/analysis/ref-c93524ef20/frames",
           "tracked": false
         }
       }
@@ -23933,13 +23933,13 @@
           "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
         },
         "artifacts": {
-          "cache_dir": "out/reference-analysis/ref-ce769bc33e",
-          "overview": "out/reference-analysis/ref-ce769bc33e/overview.jpg",
-          "scenes": "out/reference-analysis/ref-ce769bc33e/scenes.jpg",
-          "transitions": "out/reference-analysis/ref-ce769bc33e/transitions.jpg",
-          "motion": "out/reference-analysis/ref-ce769bc33e/motion.jpg",
-          "audio": "out/reference-analysis/ref-ce769bc33e/audio.png",
-          "frames": "out/reference-analysis/ref-ce769bc33e/frames",
+          "cache_dir": "reference/analysis/ref-ce769bc33e",
+          "overview": "reference/analysis/ref-ce769bc33e/overview.jpg",
+          "scenes": "reference/analysis/ref-ce769bc33e/scenes.jpg",
+          "transitions": "reference/analysis/ref-ce769bc33e/transitions.jpg",
+          "motion": "reference/analysis/ref-ce769bc33e/motion.jpg",
+          "audio": "reference/analysis/ref-ce769bc33e/audio.png",
+          "frames": "reference/analysis/ref-ce769bc33e/frames",
           "tracked": false
         }
       }

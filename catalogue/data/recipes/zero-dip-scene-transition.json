@@ -45,7 +45,7 @@
     "memory_impact": "Negligible (<1MB)"
   },
   "validation_steps": [
-    "Run .agents/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
+    "Run .claude/skills/video-assembler/scripts/run-qa-gates.sh Gate 3 (blackdetect).",
     "Verify black_start is null across scene transition boundaries.",
     "Snapshot at atTime - 0.2s and atTime + 0.2s to confirm both layers render smoothly without dark dip."
   ],

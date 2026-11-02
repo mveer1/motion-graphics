@@ -11,7 +11,7 @@
     "Phonetic lexicon substitution and Markdown IPA injection",
     "Millisecond duration timeline mapping"
   ],
-  "location": ".agents/skills/voice-director",
+  "location": ".claude/skills/voice-director",
   "version": "1.1.0",
   "installation": {
     "required": false,
@@ -27,7 +27,7 @@
     "notes": "Directs Kokoro 0.9.4 TTS synthesis."
   },
   "documentation_urls": [
-    ".agents/skills/voice-director/SKILL.md"
+    ".claude/skills/voice-director/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

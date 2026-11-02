@@ -7,7 +7,7 @@ This repository is optimized for motion graphics production on Apple Silicon mac
 ## 0. Workspace Governance Entry Point (`workspace-steward`)
 Whenever discovering, introducing, installing, modifying, registering, or retiring any workspace component (libraries, tools, skills, subagents, integrations, shared assets):
 - **Always consult `workspace-steward` first** before creating files, changing dependencies, or altering architecture.
-- Enforce the **7-Domain Placement Policy** (`.agents/skills/workspace-steward/references/component-placement-policy.md`). Never copy third-party code without licence clearance and explicit justification.
+- Enforce the **7-Domain Placement Policy** (`.claude/skills/workspace-steward/references/component-placement-policy.md`). Never copy third-party code without licence clearance and explicit justification.
 - Ensure every component in active use is registered in `catalogue/data/` conforming to `catalogue/schemas/`.
 - **Zero Secrets Rule:** Never commit secrets, private keys, API tokens, or machine-specific credentials to source code or catalogue records.
 - Run `python3 scripts/workspace-governance.py` after component changes to verify schema validity and detect drift.
@@ -27,7 +27,7 @@ Two tracks share one toolchain (details: `ARCHITECTURE.md` section 0):
 
 **Legacy technical explainers** (no `project.json`) keep the original stages below; `scripts/build-project.sh` behaves as before.
 
-**Reference videos** (the user supplies examples to learn from): use `reference-analyst`. Videos stay outside the repository; `scripts/reference-corpus.py ingest` then `analyze --pending --root <folder>` write evidence to the untracked `out/reference-analysis/`; inspect it, write source and technique records, run `python scripts/motion-catalogue.py validate` and `python scripts/reference-corpus.py report --backlog`. Learn techniques, never assets: brand marks, characters, footage and shot sequences are excluded (`ARCHITECTURE.md` section 0.8).
+**Reference videos** (the user supplies examples to learn from): use `reference-analyst`. Videos stay outside the repository; `scripts/reference-corpus.py ingest` then `analyze --pending --root <folder>` write evidence to the untracked `reference/analysis/`; inspect it, write source and technique records, run `python scripts/motion-catalogue.py validate` and `python scripts/reference-corpus.py report --backlog`. Learn techniques, never assets: brand marks, characters, footage and shot sequences are excluded (`ARCHITECTURE.md` section 0.8).
 
 Every explainer video produced in this repository must follow the phased lifecycle defined in `ARCHITECTURE.md`:
 1. **Stage 0 (Research & Investigation):** Research the technical domain, verify formulas/algorithms, formulate visual metaphors, and produce both `projects/<project_name>/research.json` (validated against `specs/research-spec.json` via `scripts/validate-research.py`) and `projects/<project_name>/research.md`. **Never** write scripts before validating the research dossier.
@@ -43,7 +43,7 @@ Every explainer video produced in this repository must follow the phased lifecyc
 
 ## 2. Project-Specific Skills
 
-Specialized skills are available under `.agents/skills/`:
+Specialized skills are available under `.claude/skills/`:
 - **`workspace-steward`**: Workspace-wide governance over component discovery, 7-domain placement policy, registration, licensing audit, architecture documentation, and automated drift detection (`scripts/workspace-governance.py`).
 - **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation.
 - **`motion-library-guide`**: Capability catalogue navigation, dependency vetting, approval states (approved/proposed/blocked), verified licensing, and deterministic GSAP animation recipes.
@@ -154,4 +154,4 @@ Specialized skills are available under `.agents/skills/`:
     -map 0:v -map "[aout]" \
     -c:v copy -c:a aac -b:a 192k -shortest final.mp4
   ```
-- Always execute `.agents/skills/video-assembler/scripts/run-qa-gates.sh` after assembly.
+- Always execute `.claude/skills/video-assembler/scripts/run-qa-gates.sh` after assembly.

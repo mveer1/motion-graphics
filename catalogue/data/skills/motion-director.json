@@ -1,0 +1,56 @@
+{
+  "id": "skill-motion-director",
+  "name": "Motion Director Skill",
+  "component_type": "skill",
+  "purpose": "Reviews and polishes motion design: runs motion QA, reads measured leads, inspects sheets and seams, critiques with evidence, revises single scenes and records an honest creative review without self-certifying.",
+  "capabilities": [
+    "QA loop and report classes",
+    "Critique pack procedure",
+    "Scene revision",
+    "Motion vocabulary with evidence classes"
+  ],
+  "location": ".claude/skills/motion-director",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-motion-qa",
+    "tool-scene-revise"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Verification of audio still needs a listener."
+  },
+  "documentation_urls": [
+    ".claude/skills/motion-director/SKILL.md",
+    "specs/motion-vocabulary.json",
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs a local browser and ffmpeg."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "skill",
+    "qa",
+    "motion-design"
+  ]
+}

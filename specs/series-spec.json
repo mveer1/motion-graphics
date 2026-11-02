@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabSeries",
+  "description": "A series groups several projects. kind 'sequential' is an ordered run (part 1, part 2, ...); kind 'collection' clubs related projects with no order. Instance file: series/<slug>/series.json. The series owns membership; projects do not point back. Validate with `scripts/studio.py series validate`.",
+  "type": "object",
+  "required": ["spec_version", "slug", "title", "kind", "categories", "members"],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": { "const": 1 },
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "description": "What ties the projects together: the arc across parts, or the shared theme." },
+    "kind": { "type": "string", "enum": ["sequential", "collection"] },
+    "categories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Subject categories (ids from specs/categories.json). Same rules as brief.json.",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
+    "style": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Optional shared style id so the members look like one family. Members using another style get a warning." },
+    "members": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["project"],
+        "additionalProperties": false,
+        "properties": {
+          "project": { "type": "string", "minLength": 1, "description": "Project reference as accepted by studio.py: a slug, a folder name or projects/-relative path such as masala-chai/v3-chemistry-v2." },
+          "part": { "type": "integer", "minimum": 1, "description": "Position in a sequential series (required there, not allowed in a collection)." },
+          "title": { "type": "string", "description": "Part title, if different from the project title." },
+          "status": { "type": "string", "enum": ["planned", "in-production", "shipped"], "description": "planned members need no project folder yet. Default: in-production." }
+        }
+      }
+    }
+  }
+}

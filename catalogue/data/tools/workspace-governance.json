@@ -25,7 +25,7 @@
     "notes": "Executes in sub-second time on local machine."
   },
   "documentation_urls": [
-    ".agents/skills/workspace-steward/SKILL.md"
+    ".claude/skills/workspace-steward/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

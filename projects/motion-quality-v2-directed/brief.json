@@ -1,0 +1,84 @@
+{
+  "spec_version": 1,
+  "slug": "motion-quality-v2-directed",
+  "title": "Binary Search in 20 Checks",
+  "objective": "Show that binary search finds an item among 1,000,000 sorted items in at most 20 checks, because each check discards half.",
+  "categories": ["technology"],
+  "audience": "Programmers and curious viewers",
+  "platforms": [
+    "website"
+  ],
+  "deliverables": {
+    "formats": [
+      "landscape"
+    ],
+    "duration_sec": {
+      "min": 12,
+      "target": 14,
+      "max": 16
+    }
+  },
+  "message": {
+    "core_message": "Halving 1,000,000 repeatedly reaches 1 in 20 steps.",
+    "key_points": [
+      "A linear scan may need up to 1,000,000 checks",
+      "Each check discards half of what remains",
+      "ceil(log2(1,000,000)) = 20"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "clarity"
+    ],
+    "keywords": [
+      "precise"
+    ],
+    "avoid": []
+  },
+  "constraints": [
+    "Silent piece"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "none",
+    "music": "none",
+    "sfx": "none",
+    "captions": false
+  },
+  "research": {
+    "required": false,
+    "reason": "Only arithmetic: ceil(log2(1,000,000)) = 20 and repeated halving, both checked in code. No external factual claims."
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "bars-halving",
+      "name": "Bars halving",
+      "concept": "The million items are a field of bars; each check visibly discards half and the camera follows what remains, until one bar is left and the number 20 lands.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "off-white, charcoal, vermilion, marigold",
+        "typography": "Inter",
+        "texture": "none"
+      },
+      "motion_language": {
+        "personality": "exact, camera-led",
+        "signature_moves": [
+          "halving",
+          "follow-zoom"
+        ],
+        "transitions": "cut on motion, zoom-through"
+      },
+      "composition": {
+        "approach": "bar field, one numeral"
+      },
+      "pacing": "accelerating",
+      "why_it_fits": "The halving is the idea, so the picture is the halving."
+    }
+  ],
+  "selected_direction": "bars-halving",
+  "success_criteria": [
+    "QA findings are explained, not hidden"
+  ]
+}

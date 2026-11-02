@@ -1,0 +1,341 @@
+{
+  "id": "ocean-descent-documentary-direction",
+  "name": "ocean-descent-documentary production direction",
+  "profile_version": 1,
+  "kind": "project",
+  "status": "experimental",
+  "summary": "Production profile for ocean-descent-documentary: Cinematic Documentary chosen in a bake-off. The task brief asked for a cinematic documentary direction for this demo. On the payoff beat the cinematic treatment gives the clearest identity and keeps the figure large and quiet; the lab diagram's slab collided with its own label and the chart had no data to plot. Caveat: a still undersells this direction, whose strength is the camera descent, and none of the three stills shows the intended 100-dot pictogram; the final composition therefore departs from the bake-off frame by turning the 76% into a",
+  "extends": "cinematic-documentary",
+  "style": "cinematic-dark",
+  "archetype": "cinematic-depth",
+  "identity": {
+    "mood": {
+      "value": "The task brief asked for a cinematic documentary direction for this demo. On the payoff beat the cinematic treatment gives the clearest identity and keeps the figure large and quiet; the lab diagram's",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "projects/ocean-descent-documentary/bakeoff/bakeoff.json#decision"
+    },
+    "genre": {
+      "value": "documentary",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "visual_language": {
+      "value": "layered atmospheric planes, light and haze, restrained type",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "realism": {
+      "value": "photographic or painterly-realistic",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0b0b0c",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f2ede4",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#d4a24c",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#b0413e",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#7f9c96",
+          "role": "neutral",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": {
+        "value": "light type on near-black; accent reserved for the single thing being looked at",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Oswald 500-600 uppercase, wide tracking, small",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "text": {
+        "value": "Inter 400",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "mono": {
+        "value": "IBM Plex Mono for data",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "scale_and_hierarchy": {
+        "value": "sparse; titles small and placed, never centred slabs",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "case_and_tracking": {
+        "value": "uppercase display, 0.04-0.3em tracking",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": {
+        "value": "rule-of-thirds off-centre subject, long depth, strong foreground/background separation",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "negative_space": {
+        "value": "generous and purposeful (darkness is part of the shot)",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "layering_and_depth": {
+        "value": "6-layer depth: plate, midground, subject, haze, foreground particles, vignette",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "hero_occupancy_pct": 55
+    },
+    "texture": {
+      "value": "fine film grain, soft halation",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "materials": {
+      "value": "air, water, dust, glass",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "lighting": {
+      "value": "low-key, volumetric rays, rim light",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "contrast": {
+      "value": "high with crushed blacks",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "visual_rhythm": {
+      "value": "slow-slow-slow-event",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "image_treatment": {
+      "value": "graded, vignetted, slight bloom",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "The camera moves, objects barely do. Long eased moves, slow dissolves, and sound doing half the work.",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "easing": {
+      "entrances": {
+        "value": "settle-damped or slow enter-decel",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "exits": {
+        "value": "slow fades of single objects",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "emphasis": {
+        "value": "rack-focus resolves",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "vocabulary_ids": [
+        "camera-push",
+        "camera-descent",
+        "camera-parallax",
+        "reveal-focus",
+        "transition-dissolve",
+        "hold-breath",
+        "settle-damped"
+      ]
+    },
+    "timing": {
+      "pace": {
+        "value": "slow; shots of 4-10 s",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "typical_move_sec": 0.9,
+      "shot_length_sec": 6.0,
+      "holds": {
+        "value": "long and alive (drift, particles)",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "stagger_sec": 0.12
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "slow dissolve",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+        },
+        {
+          "value": "match-cut on form or light",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+        },
+        {
+          "value": "camera continuation (push through)",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+        }
+      ],
+      "avoid": [
+        "wipes",
+        "liquid shapes",
+        "hard cuts without motion"
+      ],
+      "continuity": {
+        "value": "light direction and horizon carry across",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      }
+    },
+    "camera": {
+      "language": {
+        "value": "slow push-ins, descents, lateral tracks, parallax between planes, rack focus",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      },
+      "moves": [
+        "push-in",
+        "pull-out",
+        "tracking",
+        "parallax",
+        "crane",
+        "rack-focus"
+      ],
+      "lens_character": {
+        "value": "long-lens compression for detail, wide for scale",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+      }
+    },
+    "object_movement": {
+      "value": "ambient drift, particles in light shafts",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "kinetic_typography": {
+      "value": "minimal; fade-in lines with long tracking",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "particles": {
+      "value": "dust, plankton or ash in the light",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "depth_parallax": {
+      "value": "strong; 3+ speeds",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "motion_blur": {
+      "value": "subtle on camera moves",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "light_behaviour": {
+      "value": "slow breathing of light; rays shift with camera",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "stillness_policy": {
+      "value": "Stillness is expected between events; keep grain and drift alive.",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "low, measured, 0.95-1.05x (am_michael or similar documentary voice)",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "music": {
+      "value": "sparse drone or piano, ducked under voice",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "sfx": {
+      "value": "layered environment beds, designed hits at reveals",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    },
+    "silence_and_space": {
+      "value": "deliberate silence before key reveals",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/cinematic-documentary.json"
+    }
+  },
+  "rendering": {
+    "strategy": "Layered 2.5D in HyperFrames over generated or licensed plates; grain and bloom as overlays; camera via Studio.space.",
+    "preferred_asset_types": [
+      "generated-image",
+      "generated-video",
+      "real-footage",
+      "hybrid"
+    ],
+    "feasibility": "approximation",
+    "resource_notes": "Photographic plates normally need a provider or licensed footage; procedural gradients and particles are the offline stand-in and look flatter.",
+    "runtime_capabilities": [
+      "parallax-camera",
+      "grain-boil",
+      "particle-drift",
+      "crossfade-dissolve",
+      "hybrid-video-underlay"
+    ]
+  },
+  "techniques": [
+    "layered-silhouette-stage",
+    "film-match-cut",
+    "zoom-through-transition",
+    "orbit-constellation"
+  ],
+  "provenance": {
+    "method": "Selected in a style bake-off; inherits the registry profile and records the choice.",
+    "bakeoff": "projects/ocean-descent-documentary/bakeoff/bakeoff.json",
+    "created_on": "2026-11-02"
+  },
+  "scene_variants": [],
+  "weaknesses": [
+    "Without real or generated plates, procedural depth reads flat.",
+    "Slow pacing punishes weak narration.",
+    "Dark grading hides compression banding; check gradients."
+  ],
+  "tags": [
+    "cinematic",
+    "documentary",
+    "dark",
+    "project"
+  ]
+}

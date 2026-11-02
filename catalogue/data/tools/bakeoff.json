@@ -1,0 +1,56 @@
+{
+  "id": "tool-bakeoff",
+  "name": "Style bake-off",
+  "component_type": "tool",
+  "purpose": "Renders one representative beat as structurally different composition archetypes (not re-skins) with HyperFrames snapshots, measures their distinctness against a re-skin control, writes a comparison sheet and bakeoff.json, and records the director's decision plus a derived project design profile.",
+  "capabilities": [
+    "run: archetype candidates, stills, metrics, control re-skin, distinctness verdict, sheet",
+    "decide: scores, rationale, decided_by, project design-profile.json",
+    "list-archetypes (9 built in; add one by writing a function)"
+  ],
+  "location": "scripts/bakeoff.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-hyperframes",
+    "tool-design-dna",
+    "tool-session-guard"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python .venv + hyperframes",
+    "notes": "Four candidates in about 12 s at 300 MB peak. Stills undersell motion-led directions; use --motion for short samples."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md",
+    "specs/bakeoff-spec.json",
+    "src/pipeline/archetypes.py"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs hyperframes under the render lock. Candidate folders are regenerated and gitignored."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "bakeoff",
+    "style",
+    "comparison"
+  ]
+}

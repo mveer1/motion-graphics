@@ -1,0 +1,260 @@
+{
+  "id": "x-ref-910d9fc567",
+  "name": "Reference 910d9fc567",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (13).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-910d9fc567.",
+  "identity": {
+    "mood": {
+      "value": "Reflective, intimate.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Gentle, nostalgic storytelling for vertical social video.",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#1f0d0a",
+          "role": "background",
+          "coverage": 0.5462,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#666290",
+          "role": "other",
+          "coverage": 0.1137,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#4a4c7b",
+          "role": "other",
+          "coverage": 0.0971,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#e0b182",
+          "role": "accent",
+          "coverage": 0.0754,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#493a41",
+          "role": "other",
+          "coverage": 0.0547,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#ac7765",
+          "role": "other",
+          "coverage": 0.0518,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#8f7e98",
+          "role": "other",
+          "coverage": 0.0482,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        },
+        {
+          "hex": "#efdebd",
+          "role": "text",
+          "coverage": 0.0127,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          3136,
+          3136
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          1.19,
+          3.57,
+          5.94,
+          8.32,
+          10.7,
+          13.08,
+          15.46,
+          17.83,
+          20.21,
+          22.59,
+          24.97,
+          27.34,
+          29.72,
+          32.1,
+          34.48,
+          36.86,
+          39.23,
+          41.61,
+          43.99,
+          46.37,
+          48.74,
+          51.12,
+          53.5,
+          55.88
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Italic serif on a dark plaque suspended by ropes.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Portrait stage: sign at the top, stage set in the middle, ground at the bottom; curtains at the sides.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.composition"
+      },
+      "layering_and_depth": {
+        "value": "Three to five silhouette planes; a camera pull-back reveals more of the village.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.depth_and_layering"
+      }
+    },
+    "shape_language": {
+      "value": "Flat silhouettes (hills, house, figure, trees) with paper-like layering.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.shapes_and_materials"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Slow walk cycle, house assembling, windows lighting in sequence, sun and moon arcs, smoke curl, door opening with light spill, birds and stars.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "1.05 hard cuts/min, median luma change 0.124/255 per frame, 68.5% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 28.5,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#motion",
+        "note": "1 cuts in 57.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Curtain open (about 0-2 s) and close (about 55-57 s); time-of-day colour shifts instead of cuts.",
+          "basis": "inferred",
+          "confidence": "medium",
+          "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "Slow pull-back late in the piece.",
+        "basis": "inferred",
+        "confidence": "medium",
+        "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.camera"
+      }
+    },
+    "choreography": {
+      "value": "No hard cuts; 12 soft boundaries; static hold 15.42-16.08 s.",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "Spectrogram viewed: discrete sustained notes and chord changes, fade-in over the first 2 s and fade-out at the end aligned with the curtains; a few high transients mid-piece. Boundaries not near onsets (0.17 vs 0.19 chance).",
+      "basis": "inferred",
+      "confidence": "medium",
+      "evidence": "catalogue/data/reference-sources/ref-910d9fc567.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -23.2,
+      "lra_lu": 1.8,
+      "true_peak_dbtp": -8.6,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-910d9fc567.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-910d9fc567"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Walk cycle of the silhouette figure (needs a cycle or rig)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

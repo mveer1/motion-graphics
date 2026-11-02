@@ -4,7 +4,7 @@ scripts/studio.py
 Project lifecycle CLI for the Motion Lab creative studio (stdlib + jsonschema).
 
 Subcommands:
-  new <slug> --template <id> [--title T] [--style S] [--formats a,b]   scaffold from templates/projects/<id>/
+  new <slug> --template <id> [--title T] [--style S] [--formats a,b] [--category a,b]   scaffold from templates/projects/<id>/
   sync <slug> [--force]          copy the canonical runtime (src/studio/) into projects/<slug>/src/_studio/
   formats <slug> [--size 1080p]  write per-format entry files (src/index.<format>.html) from src/index.html
   validate <slug> [--json]       schema + cross-reference + composition checks (exit 1 on errors)
@@ -12,6 +12,7 @@ Subcommands:
   captions <slug>                approximate caption cues from audio/timeline.json (src/captions.js + .vtt)
   review <slug> [--init]         creative-review rubric (qa/creative-review.json): create or summarise
   status <slug>                  which lifecycle artefacts exist and what comes next
+  series new|add|show|list|validate   groups of projects: sequential parts or a themed collection (series/<slug>/series.json)
 
 Projects without project.json are legacy technical explainers: `build` prints/runs the original
 single-format plan (1280x720 landscape, index.html) so existing workflows keep working.
@@ -19,25 +20,29 @@ single-format plan (1280x720 landscape, index.html) so existing workflows keep w
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import re
+import resource
 import shutil
 import subprocess
 import sys
-from datetime import date
+import time
+from datetime import date, datetime, timezone
 from html import escape as html_escape
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PROJECTS_DIR = REPO_ROOT / "projects"
+SERIES_DIR = REPO_ROOT / "series"
 RUNTIME_DIR = REPO_ROOT / "src" / "studio"
 TEMPLATES_DIR = REPO_ROOT / "templates" / "projects"
 SPECS_DIR = REPO_ROOT / "specs"
 PRESETS_FILE = SPECS_DIR / "format-presets.json"
 RUNTIME_DIRNAME = "_studio"
 LOCK_NAME = "studio.lock.json"
-QA_SCRIPT = REPO_ROOT / ".agents" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
+QA_SCRIPT = REPO_ROOT / ".claude" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
 
 # Families HyperFrames bundles and resolves by name (upstream docs: skills/hyperframes/references/format.md).
 HF_BUNDLED_FONTS = {
@@ -183,6 +188,47 @@ def schema_errors(instance: Any, schema_path: Path) -> List[str]:
     return out
 
 
+
+# --------------------------------------------------------------------------- categories
+def load_categories() -> Dict[str, Dict[str, Any]]:
+    """Subject categories from specs/categories.json, keyed by id (order preserved)."""
+    return {c["id"]: c for c in load_json(SPECS_DIR / "categories.json")["categories"]}
+
+
+def unknown_categories(values: List[str]) -> List[str]:
+    known = load_categories()
+    return [v for v in values if v not in known]
+
+
+def parse_category_arg(raw: Optional[str]) -> List[str]:
+    if not raw:
+        return []
+    values = [c.strip() for c in raw.split(",") if c.strip()]
+    bad = unknown_categories(values)
+    if bad:
+        raise SystemExit(f"Error: unknown category {bad}. Available: {', '.join(load_categories())}")
+    return list(dict.fromkeys(values))
+
+
+def find_project(ref: str) -> Optional[Path]:
+    """Like project_dir() but returns None instead of exiting."""
+    try:
+        return project_dir(ref)
+    except SystemExit:
+        return None
+
+
+
+def style_category_mismatch(style: Optional[Dict[str, Any]], categories: List[str]) -> Optional[str]:
+    """Warning text when a category-tagged style shares no category with the project; None otherwise.
+    A style with no categories is general-purpose and never mismatches."""
+    tagged = (style or {}).get("categories") or []
+    if not tagged or set(tagged) & set(categories):
+        return None
+    return (f"style '{style['id']}' is tagged for {', '.join(tagged)}, "
+            f"not for this project's {', '.join(categories)}. Fine if deliberate; otherwise pick a closer style.")
+
+
 # --------------------------------------------------------------------------- formats
 ROOT_TAG_RE = re.compile(r"<(?P<tag>div|main|section)\b(?P<attrs>[^>]*?\bdata-composition-id\s*=\s*\"root\"[^>]*?)>", re.S)
 ATTR_RE = re.compile(r"([\w:.-]+)(?:\s*=\s*\"([^\"]*)\")?")
@@ -307,7 +353,10 @@ def runtime_integrity(pdir: Path) -> Report:
             rep.error(f"{pdir.name}: vendored runtime file edited in place: {rel} (edit src/studio/ and re-sync).")
     canonical = {p.relative_to(RUNTIME_DIR).as_posix(): sha256_file(p) for p in runtime_files()}
     if canonical != lock.get("files", {}):
-        rep.warn(f"{pdir.name}: vendored runtime {lock.get('runtime_version')} differs from canonical src/studio ({runtime_version()}); re-sync when ready.")
+        vendored = lock.get("files", {})
+        changed = sorted(f for f in set(canonical) | set(vendored) if canonical.get(f) != vendored.get(f))
+        shown = ", ".join(changed[:4]) + (f" (+{len(changed) - 4} more)" if len(changed) > 4 else "")
+        rep.warn(f"{pdir.name}: vendored runtime {lock.get('runtime_version')} is behind canonical src/studio ({runtime_version()}, same version label, content differs in: {shown}); re-sync when ready.")
     return rep
 
 
@@ -358,6 +407,7 @@ def cmd_new(args: argparse.Namespace) -> int:
     if pdir.exists():
         raise SystemExit(f"Error: {rel_path(pdir)} already exists.")
     title = args.title or slug.replace("-", " ").title()
+    categories = parse_category_arg(getattr(args, "category", None))
     style = args.style or (trec or {}).get("default_style", "editorial-light")
     if style not in records.get("styles", {}):
         raise SystemExit(f"Error: style '{style}' is not registered in catalogue/data/styles/.")
@@ -395,6 +445,13 @@ def cmd_new(args: argparse.Namespace) -> int:
             project["formats"].append({"id": fid, "width": w, "height": h, "primary": i == 0})
     project["style"] = style
     write_json(pj, project)
+    if categories:
+        bj = pdir / "brief.json"
+        brief = load_json(bj)
+        brief = {**{k: v for k, v in brief.items() if k in ("spec_version", "slug", "title")},
+                 "categories": categories,
+                 **{k: v for k, v in brief.items() if k not in ("spec_version", "slug", "title")}}
+        write_json(bj, brief)
     html = (pdir / "src" / "index.html").read_text(encoding="utf-8")
     html = re.sub(r"_studio/styles/[a-z0-9-]+\.css", f"_studio/styles/{style}.css", html)
     (pdir / "src" / "index.html").write_text(html, encoding="utf-8", newline="\n")
@@ -403,6 +460,12 @@ def cmd_new(args: argparse.Namespace) -> int:
     cmd_sync(argparse.Namespace(slug=slug, force=True))
     cmd_formats(argparse.Namespace(slug=slug, size=None))
     print(f"\nScaffolded projects/{slug} from template '{args.template}' (style {style}).")
+    if categories:
+        fit = style_category_mismatch(records["styles"].get(style), categories)
+        if fit:
+            print(f"Note: {fit}")
+    else:
+        print(f"Note: no category set. Add \"categories\" to brief.json (one or more of: {', '.join(load_categories())}) or re-run with --category.")
     print("Next: fill brief.json (objective, audience, directions), then storyboard.json, then edit src/index.html.")
     print(f"      python scripts/studio.py validate {slug}")
     return 0
@@ -484,6 +547,68 @@ def capability_status(records: Dict[str, Dict[str, Any]], cap_id: str) -> Option
     return None
 
 
+def check_creative_artefacts(pdir: Path, project: Dict[str, Any], records: Dict[str, Dict[str, Any]], rep: Report) -> None:
+    """Optional creative-intelligence files (beatmap.json, design-profile.json, bakeoff, assets, motion QA).
+
+    Every file is optional: a project without them validates exactly as before. When present they are checked
+    against their specs; see specs/creative-intelligence-architecture.md."""
+    import importlib.util
+    pipe = str(REPO_ROOT / "src" / "pipeline")
+    if pipe not in sys.path:
+        sys.path.insert(0, pipe)
+    bm_path = pdir / "beatmap.json"
+    if bm_path.exists():
+        try:
+            spec = importlib.util.spec_from_file_location("beatmap_mod", REPO_ROOT / "scripts" / "beatmap.py")
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            doc = load_json(bm_path)
+            errs, warns = mod.check(doc, pdir)
+            rep.errors += [f"beatmap.json: {e}" for e in errs]
+            rep.warnings += [f"beatmap.json: {w}" for w in warns]
+            ids = {b["id"] for b in doc.get("beats", [])}
+            sbp = pdir / "storyboard.json"
+            if sbp.exists():
+                for s in load_json(sbp).get("scenes", []):
+                    if s.get("beat_id") and s["beat_id"] not in ids:
+                        rep.error(f"storyboard scene {s['id']} names beat_id {s['beat_id']!r} which is not in beatmap.json.")
+        except Exception as exc:  # a broken optional file must not hide the rest of the report
+            rep.warn(f"beatmap.json could not be checked: {exc}")
+    dp = pdir / "design-profile.json"
+    if dp.exists():
+        try:
+            import profiles as pf
+            prof = load_json(dp)
+            reg = pf.load_registry()
+            errs = pf.schema_errors(prof)
+            e2, w2 = pf.check_profile(prof, records.get("styles", {}), records.get("references", {}), records.get("reference-sources", {}), reg)
+            rep.errors += [f"design-profile.json: {e}" for e in errs + e2]
+            rep.warnings += [f"design-profile.json: {w}" for w in w2]
+            if prof.get("style") and prof["style"] != project.get("style"):
+                rep.warn(f"design-profile.json style {prof['style']!r} differs from project.json style {project.get('style')!r}.")
+        except Exception as exc:
+            rep.warn(f"design-profile.json could not be checked: {exc}")
+    bo = pdir / "bakeoff" / "bakeoff.json"
+    if bo.exists():
+        rec = load_json(bo)
+        if "decision" not in rec:
+            rep.warn("bakeoff/bakeoff.json has no recorded decision (scripts/bakeoff.py decide).")
+        elif not rec.get("distinctness", {}).get("distinct", True):
+            rep.warn("the bake-off compared candidates that were not structurally distinct; its decision is weak evidence.")
+    man = pdir / "src" / "assets" / "manifest.json"
+    if man.exists():
+        for name, rec in load_json(man).items():
+            if not (pdir / "src" / "assets" / rec.get("file", "")).exists():
+                rep.error(f"assets/manifest.json lists {name} but {rec.get('file')} is missing.")
+    qa = pdir / "qa" / "motion" / "motion-qa.json"
+    if qa.exists():
+        s = load_json(qa).get("summary", {})
+        if s.get("objective_failures"):
+            rep.error(f"qa/motion/motion-qa.json records {s['objective_failures']} objective failure(s); re-run scripts/motion-qa.py after fixing.")
+        else:
+            rep.note(f"motion QA: {s.get('measured_warnings', 0)} measured warning(s), {s.get('waived', 0)} waiver(s); technical_pass is not a quality verdict.")
+
+
 def validate_project(pdir: Path) -> Report:
     rep = Report()
     slug = pdir.name
@@ -544,6 +669,19 @@ def validate_project(pdir: Path) -> Report:
     if brief and not rep.errors:
         if brief["slug"] not in valid_slugs:
             rep.error(f"brief.json slug '{brief['slug']}' does not match folder '{slug}'.")
+        cats = brief.get("categories")
+        if not cats:
+            rep.warn(f"brief has no categories; add one or more of: {', '.join(load_categories())}.")
+        else:
+            bad = unknown_categories(cats)
+            if bad:
+                rep.error(f"brief categories {bad} are not in specs/categories.json.")
+            else:
+                fit = style_category_mismatch(style, cats)
+                if fit:
+                    rep.warn(fit)
+        for ser in series_containing(pdir):
+            rep.note(f"part of series '{ser['slug']}' ({ser['kind']})")
         dirs = brief["creative_directions"]
         dir_ids = [d["id"] for d in dirs]
         if brief["selected_direction"] is None:
@@ -625,6 +763,7 @@ def validate_project(pdir: Path) -> Report:
     if audio["captions"] and not (pdir / "src" / "captions.js").exists():
         rep.warn("captions are on but src/captions.js does not exist yet (`studio.py captions` or author cues).")
 
+    check_creative_artefacts(pdir, project, records, rep)
     integ = runtime_integrity(pdir)
     rep.errors += integ.errors
     rep.warnings += integ.warnings
@@ -700,6 +839,82 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
 
 # --------------------------------------------------------------------------- build
+# --------------------------------------------------------------------------- build bookkeeping
+STAMP_NAME = "visuals.stamp.json"
+TIMINGS_LOG = REPO_ROOT / "logs" / "build-timings.jsonl"
+
+
+def render_fingerprint(pdir: Path, entry: Dict[str, Any], fps: int, quality: str) -> str:
+    """Hash of everything a format's visuals depend on: the composition tree plus render settings.
+
+    Other formats' generated index.<id>.html files and HyperFrames caches are excluded, so
+    editing the portrait entry does not invalidate the landscape render.
+    """
+    src = pdir / "src"
+    h = hashlib.sha256()
+    h.update(f"{entry['id']}|{entry['file']}|{entry['width']}x{entry['height']}|{fps}|{quality}".encode())
+    for f in sorted(p for p in src.rglob("*") if p.is_file()):
+        rel = f.relative_to(src)
+        if ".hyperframes" in rel.parts or f.name.startswith("."):
+            continue
+        if rel.parent == Path(".") and f.name.startswith("index.") and f.name not in ("index.html", entry["file"]):
+            continue
+        h.update(rel.as_posix().encode())
+        h.update(sha256_file(f).encode())
+    return h.hexdigest()
+
+
+def render_stamp_state(pdir: Path, fid: str, fingerprint: str) -> str:
+    """'missing' (no render), 'unstamped' (render predates stamps), 'current' or 'stale'."""
+    base = pdir / "renders" / fid
+    if not (base / "visuals.mp4").exists():
+        return "missing"
+    stamp = base / STAMP_NAME
+    if not stamp.exists():
+        return "unstamped"
+    try:
+        return "current" if load_json(stamp).get("fingerprint") == fingerprint else "stale"
+    except (OSError, ValueError):
+        return "stale"
+
+
+def write_render_stamp(pdir: Path, fid: str, fingerprint: str) -> None:
+    hf = ""
+    try:
+        hf = subprocess.run(["hyperframes", "--version"], capture_output=True, text=True, timeout=30, stdin=subprocess.DEVNULL).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        pass
+    write_json(pdir / "renders" / fid / STAMP_NAME, {
+        "fingerprint": fingerprint,
+        "hyperframes": hf,
+        "rendered_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    })
+
+
+def render_lock(slug: str):
+    """The render-host lock from scripts/session-guard.py (re-entrant when an ancestor holds it)."""
+    spec = importlib.util.spec_from_file_location("session_guard", REPO_ROOT / "scripts" / "session-guard.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.acquire_lock(mod.RESOURCE_RENDER, slug=slug)
+
+
+def max_process_rss_mb() -> float:
+    """RSS of the largest single finished child so far (bytes on macOS, KB on Linux). Not a tree sum: Chrome helpers are not added up, so this under-reports the memory of a render."""
+    raw = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+    return round(raw / (1024 * 1024 if sys.platform == "darwin" else 1024), 1)
+
+
+def log_build_timings(slug: str, stages: List[Dict[str, Any]], ok: bool) -> None:
+    """One JSON line per build in logs/build-timings.jsonl (gitignored): the only render-time record."""
+    try:
+        TIMINGS_LOG.parent.mkdir(parents=True, exist_ok=True)
+        with TIMINGS_LOG.open("a", encoding="utf-8") as fh:
+            fh.write(json.dumps({"slug": slug, "at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "ok": ok, "stages": stages}) + "\n")
+    except OSError:
+        pass
+
+
 def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) -> List[Dict[str, Any]]:
     """Ordered command plan. Each step: {stage, cmd (list), cwd, optional}."""
     rel = rel_path
@@ -730,7 +945,7 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             continue
         fid = entry["id"]
         visuals = f"../renders/{fid}/visuals.mp4"
-        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4")})
+        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"), "fingerprint": render_fingerprint(pdir, entry, project["fps"], q)})
         inputs = ["-i", f"renders/{fid}/visuals.mp4"]
         filters, labels = [], []
         idx = 1
@@ -756,7 +971,7 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
         if labels:
             mix = ";".join(filters) + ";" + "".join(labels) + f"amix=inputs={len(labels)}:duration=longest:dropout_transition=2"
             if target is not None:
-                mix += f",loudnorm=I={target:g}:TP=-1.5:LRA=11[aout]"
+                mix += f",loudnorm=I={target:g}:TP=-1.5:LRA=11,aresample=48000[aout]"  # loudnorm upsamples to 192 kHz; deliver 48 kHz
             else:
                 mix += "[aout]"
             cmd = ["ffmpeg", "-y"] + inputs + ["-filter_complex", mix, "-map", "0:v", "-map", "[aout]", "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-t", f"{project['duration_sec']:g}", final]
@@ -786,20 +1001,39 @@ def cmd_build(args: argparse.Namespace) -> int:
             print(f"  {i:>2}. [{s['stage']}] (cwd {s['cwd']}) " + " ".join(s["cmd"]))
         return 0
     if plan[0]["stage"] == "legacy-build":
-        return subprocess.run(plan[0]["cmd"], cwd=REPO_ROOT).returncode
+        with render_lock(pdir.name):
+            return subprocess.run(plan[0]["cmd"], cwd=REPO_ROOT).returncode
     missing = [tool for tool in ("hyperframes", "ffmpeg", "ffprobe") if not shutil.which(tool)]
     if missing:
         print(f"Error: required tools not on PATH: {', '.join(missing)}. Use --dry-run to print the plan, or run on the render host.")
         return 1
+    with render_lock(pdir.name):
+        return run_build_plan(pdir, plan)
+
+
+def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
+    timings: List[Dict[str, Any]] = []
     for s in plan:
         cwd = REPO_ROOT / s["cwd"]
         if s.get("requires") and not (REPO_ROOT / s["requires"]).exists():
             print(f"[skip] {s['stage']}: {s['requires']} not found")
             continue
-        if s.get("requires_missing") and (REPO_ROOT / s["requires_missing"]).exists():
+        if s.get("fingerprint"):
+            fid = s["stage"].split(":", 1)[1]
+            state = render_stamp_state(pdir, fid, s["fingerprint"])
+            if state == "current":
+                print(f"[skip] {s['stage']}: renders/{fid}/visuals.mp4 matches the current composition")
+                continue
+            if state == "unstamped":
+                print(f"[skip] {s['stage']}: renders/{fid}/visuals.mp4 exists but has no build stamp, so it cannot be checked against the composition; delete it to force a re-render")
+                continue
+            if state == "stale":
+                print(f"[stale] {s['stage']}: composition, assets or settings changed since renders/{fid}/visuals.mp4 was rendered; re-rendering")
+        elif s.get("requires_missing") and (REPO_ROOT / s["requires_missing"]).exists():
             print(f"[skip] {s['stage']}: {s['requires_missing']} already exists")
             continue
         print(f"[{s['stage']}] " + " ".join(s["cmd"]))
+        started = time.monotonic()
         if s["cmd"][0] == "copy":
             dst = REPO_ROOT / s["cmd"][2]
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -821,9 +1055,14 @@ def cmd_build(args: argparse.Namespace) -> int:
                     tmp.rename(orig)
         else:
             res = subprocess.run(s["cmd"], cwd=cwd, stdin=subprocess.DEVNULL)
+        timings.append({"stage": s["stage"], "sec": round(time.monotonic() - started, 1), "exit": res.returncode, "max_process_rss_mb": max_process_rss_mb()})
         if res.returncode != 0:
+            log_build_timings(pdir.name, timings, ok=False)
             print(f"Error: stage {s['stage']} failed with exit code {res.returncode}.")
             return res.returncode
+        if s.get("fingerprint"):
+            write_render_stamp(pdir, s["stage"].split(":", 1)[1], s["fingerprint"])
+    log_build_timings(pdir.name, timings, ok=True)
     print("Build complete. Technical QA ran per format; creative review is separate: python scripts/studio.py review " + pdir.name)
     return 0
 
@@ -907,6 +1146,202 @@ def cmd_review(args: argparse.Namespace) -> int:
     return 0 if passed else 1
 
 
+# --------------------------------------------------------------------------- series
+def series_dir(slug: str) -> Path:
+    return SERIES_DIR / slug
+
+
+def load_series(slug: str) -> Dict[str, Any]:
+    path = series_dir(slug) / "series.json"
+    if not path.exists():
+        avail = ", ".join(sorted(p.parent.name for p in SERIES_DIR.glob("*/series.json"))) or "none"
+        raise SystemExit(f"Error: series '{slug}' not found (series/{slug}/series.json). Available: {avail}")
+    return load_json(path)
+
+
+def all_series() -> List[Dict[str, Any]]:
+    return [load_json(p) for p in sorted(SERIES_DIR.glob("*/series.json"))]
+
+
+def series_containing(pdir: Path) -> List[Dict[str, Any]]:
+    """Series whose members resolve to this project folder."""
+    out = []
+    for ser in all_series():
+        if any(find_project(m["project"]) == pdir.resolve() for m in ser.get("members", [])):
+            out.append(ser)
+    return out
+
+
+def validate_series(ser: Dict[str, Any], folder: str) -> Report:
+    rep = Report()
+    for e in schema_errors(ser, SPECS_DIR / "series-spec.json"):
+        rep.error(e)
+    if rep.errors:
+        return rep
+    if ser["slug"] != folder:
+        rep.error(f"series slug '{ser['slug']}' does not match folder 'series/{folder}'.")
+    bad = unknown_categories(ser["categories"])
+    if bad:
+        rep.error(f"series categories {bad} are not in specs/categories.json.")
+    records = catalogue_records()
+    style = ser.get("style")
+    if style and style not in records.get("styles", {}):
+        rep.error(f"series style '{style}' is not registered (catalogue/data/styles/).")
+    members = ser["members"]
+    if not members:
+        rep.warn("series has no members yet (series add).")
+    refs = [m["project"] for m in members]
+    if len(set(refs)) != len(refs):
+        rep.error("a project is listed more than once.")
+    if ser["kind"] == "sequential":
+        parts = [m.get("part") for m in members]
+        if any(p is None for p in parts):
+            rep.error("every member of a sequential series needs a 'part' number.")
+        else:
+            if len(set(parts)) != len(parts):
+                rep.error(f"part numbers repeat: {sorted(parts)}.")
+            elif sorted(parts) != list(range(1, len(parts) + 1)):
+                rep.warn(f"part numbers {sorted(parts)} are not 1..{len(parts)}; a part is missing or skipped.")
+    else:
+        if any("part" in m for m in members):
+            rep.error("a collection has no order; remove 'part' from members (or make the series sequential).")
+    for m in members:
+        ref = m["project"]
+        pdir = find_project(ref)
+        if pdir is None:
+            if m.get("status") == "planned":
+                rep.note(f"{ref}: planned (no project folder yet).")
+            else:
+                rep.error(f"{ref}: no such project under projects/ (mark it status 'planned' if it is not started).")
+            continue
+        brief_path = pdir / "brief.json"
+        if brief_path.exists():
+            bcats = load_json(brief_path).get("categories") or []
+            if bcats and not set(bcats) & set(ser["categories"]):
+                rep.warn(f"{ref}: brief categories {bcats} share nothing with the series' {ser['categories']}.")
+        pj = pdir / "project.json"
+        if style and pj.exists():
+            pstyle = load_json(pj).get("style")
+            if pstyle != style:
+                rep.warn(f"{ref}: uses style '{pstyle}', the series style is '{style}'.")
+    return rep
+
+
+def print_report(title: str, rep: Report) -> None:
+    print("=" * 70)
+    print(title)
+    print("=" * 70)
+    for i in rep.info:
+        print(f"  [INFO] {i}")
+    for w in rep.warnings:
+        print(f"  [WARN] {w}")
+    for e in rep.errors:
+        print(f"  [FAIL] {e}")
+    print("-" * 70)
+    print("[PASS] Series is consistent." if rep.ok else f"[FAIL] {len(rep.errors)} error(s).")
+
+
+def sorted_members(ser: Dict[str, Any]) -> List[Dict[str, Any]]:
+    return sorted(ser["members"], key=lambda m: m.get("part", 0))
+
+
+def cmd_series(args: argparse.Namespace) -> int:
+    return SERIES_HANDLERS[args.series_command](args)
+
+
+def cmd_series_new(args: argparse.Namespace) -> int:
+    slug = args.slug
+    if not re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", slug):
+        raise SystemExit("Error: slug must be kebab-case (a-z, 0-9, hyphens).")
+    sdir = series_dir(slug)
+    if sdir.exists():
+        raise SystemExit(f"Error: {rel_path(sdir)} already exists.")
+    cats = parse_category_arg(args.category)
+    if not cats:
+        raise SystemExit(f"Error: --category is required (one or more of: {', '.join(load_categories())}).")
+    ser: Dict[str, Any] = {
+        "spec_version": 1, "slug": slug, "title": args.title or slug.replace("-", " ").title(),
+        "description": "TODO: the arc across parts, or the theme that ties the projects together.",
+        "kind": args.kind, "categories": cats,
+    }
+    if args.style:
+        ser["style"] = args.style
+    ser["members"] = []
+    write_json(sdir / "series.json", ser)
+    print(f"Created {rel_path(sdir / 'series.json')} ({args.kind}, {', '.join(cats)}).")
+    print(f"Next: python scripts/studio.py series add {slug} <project>" + (" [--part N]" if args.kind == "sequential" else ""))
+    return 0
+
+
+def cmd_series_add(args: argparse.Namespace) -> int:
+    ser = load_series(args.series)
+    if any(m["project"] == args.project for m in ser["members"]):
+        raise SystemExit(f"Error: '{args.project}' is already in series '{args.series}'.")
+    member: Dict[str, Any] = {"project": args.project}
+    if ser["kind"] == "sequential":
+        used = {m["part"] for m in ser["members"] if "part" in m}
+        part = args.part or max(used, default=0) + 1
+        if part in used:
+            raise SystemExit(f"Error: part {part} is already taken in '{args.series}'.")
+        member["part"] = part
+    elif args.part:
+        raise SystemExit("Error: --part only applies to a sequential series.")
+    if args.title:
+        member["title"] = args.title
+    if args.planned:
+        member["status"] = "planned"
+    elif find_project(args.project) is None:
+        raise SystemExit(f"Error: project '{args.project}' not found under projects/ (use --planned if it is not started).")
+    ser["members"].append(member)
+    ser["members"] = sorted_members(ser) if ser["kind"] == "sequential" else ser["members"]
+    write_json(series_dir(args.series) / "series.json", ser)
+    where = f" as part {member['part']}" if "part" in member else ""
+    print(f"Added {args.project} to {args.series}{where}.")
+    return 0
+
+
+def cmd_series_show(args: argparse.Namespace) -> int:
+    ser = load_series(args.slug)
+    print(f"{ser['title']}  [{ser['slug']}]  {ser['kind']}  categories: {', '.join(ser['categories'])}"
+          + (f"  style: {ser['style']}" if ser.get("style") else ""))
+    if ser.get("description"):
+        print(f"  {ser['description']}")
+    for i, m in enumerate(sorted_members(ser), 1):
+        lead = f"part {m['part']}" if "part" in m else f"#{i}"
+        print(f"  {lead:<8} {m['project']:<44} {m.get('status', 'in-production'):<14} {m.get('title', '')}")
+    if not ser["members"]:
+        print("  (no members)")
+    return 0
+
+
+def cmd_series_list(args: argparse.Namespace) -> int:
+    rows = all_series()
+    if not rows:
+        print("No series yet. Create one: python scripts/studio.py series new <slug> --kind sequential|collection --category <c>")
+    for ser in rows:
+        print(f"{ser['slug']:<32} {ser['kind']:<11} {len(ser['members'])} project(s)  {', '.join(ser['categories'])}")
+    return 0
+
+
+def cmd_series_validate(args: argparse.Namespace) -> int:
+    slugs = [args.slug] if args.slug else [p.parent.name for p in sorted(SERIES_DIR.glob("*/series.json"))]
+    if not slugs:
+        print("No series to validate.")
+        return 0
+    worst = 0
+    for slug in slugs:
+        rep = validate_series(load_series(slug), slug)
+        print_report(f"SERIES VALIDATION: {slug}", rep)
+        worst = max(worst, 0 if rep.ok else 1)
+    return worst
+
+
+SERIES_HANDLERS = {
+    "new": cmd_series_new, "add": cmd_series_add, "show": cmd_series_show,
+    "list": cmd_series_list, "validate": cmd_series_validate,
+}
+
+
 # --------------------------------------------------------------------------- status
 def cmd_status(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
@@ -914,12 +1349,16 @@ def cmd_status(args: argparse.Namespace) -> int:
     rows = [
         ("brief.json", "Stage 0 creative brief + directions"),
         ("research.json", "Stage 0R research dossier (factual topics)"),
+        ("beatmap.json", "Stage 1a narrative arc, beats and shots (optional)"),
+        ("design-profile.json", "Stage 1b design profile / chosen direction (optional)"),
+        ("bakeoff/bakeoff.json", "Stage 1b style bake-off record (optional)"),
         ("storyboard.json", "Stage 1 scene plan"),
         ("src/narration.json", "Stage 2 narration script"),
         ("audio/timeline.json", "Stage 3 measured narration timing"),
         ("src/index.html", "Stage 4 composition"),
         (f"src/{RUNTIME_DIRNAME}/{LOCK_NAME}", "Studio runtime vendored"),
         ("qa/frame-review/report.json", "Stage 9 frame review (scripts/frame-review.py)"),
+        ("qa/motion/motion-qa.json", "Stage 9 motion QA report (scripts/motion-qa.py)"),
         ("qa/creative-review.json", "Stage 9 creative review rubric"),
     ]
     print(f"{pdir.name}: {'studio' if studio else 'legacy'} project")
@@ -943,6 +1382,7 @@ def main() -> int:
     p.add_argument("--title")
     p.add_argument("--style")
     p.add_argument("--formats", help="Comma-separated formats; first is primary (default: template's project.json)")
+    p.add_argument("--category", help="Comma-separated subject categories (specs/categories.json); usually one, e.g. history,finance for a mixed piece")
 
     p = sub.add_parser("sync", help="Vendor the canonical runtime into the project")
     p.add_argument("slug")
@@ -972,8 +1412,29 @@ def main() -> int:
     p = sub.add_parser("status", help="Lifecycle artefact checklist")
     p.add_argument("slug")
 
+    p = sub.add_parser("series", help="Groups of projects: sequential parts or a themed collection")
+    ssub = p.add_subparsers(dest="series_command", required=True)
+    sp = ssub.add_parser("new", help="Create series/<slug>/series.json")
+    sp.add_argument("slug")
+    sp.add_argument("--kind", required=True, choices=["sequential", "collection"])
+    sp.add_argument("--category", help="Comma-separated subject categories (required)")
+    sp.add_argument("--title")
+    sp.add_argument("--style", help="Optional shared style id")
+    sp = ssub.add_parser("add", help="Add a project to a series")
+    sp.add_argument("series")
+    sp.add_argument("project", help="Project slug, folder name or projects/-relative path")
+    sp.add_argument("--part", type=int, help="Part number (sequential; default: next free)")
+    sp.add_argument("--title", help="Part title if different from the project's")
+    sp.add_argument("--planned", action="store_true", help="Project folder does not exist yet")
+    sp = ssub.add_parser("show", help="Print one series and its members")
+    sp.add_argument("slug")
+    ssub.add_parser("list", help="List all series")
+    sp = ssub.add_parser("validate", help="Validate one series, or all when no slug is given")
+    sp.add_argument("slug", nargs="?")
+
     args = parser.parse_args()
     handlers = {
+        "series": cmd_series,
         "new": cmd_new, "sync": cmd_sync, "formats": cmd_formats, "validate": cmd_validate,
         "build": cmd_build, "captions": cmd_captions, "review": cmd_review, "status": cmd_status,
     }

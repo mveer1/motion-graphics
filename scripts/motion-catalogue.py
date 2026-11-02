@@ -62,7 +62,8 @@ COLLECTIONS = [
     "project-templates",
     "styles",
     "references",
-    "reference-sources"
+    "reference-sources",
+    "design-profiles"
 ]
 
 # Collection -> schema file. Component collections share component.schema.json.
@@ -76,6 +77,7 @@ SCHEMA_FILES = {
     "styles": "style.schema.json",
     "references": "reference.schema.json",
     "reference-sources": "reference-source.schema.json",
+    "design-profiles": "design-profile.schema.json",
     "skills": "component.schema.json",
     "tools": "component.schema.json",
     "agents": "component.schema.json",
@@ -87,7 +89,7 @@ SINGULAR = {
     "libraries": "library", "effects": "effect", "recipes": "recipe", "skills": "skill", "tools": "tool",
     "agents": "agent", "integrations": "integration", "shared": "shared", "primitives": "primitive",
     "compositions": "composition", "project-templates": "template", "styles": "style", "references": "reference",
-    "reference-sources": "source",
+    "reference-sources": "source", "design-profiles": "design profile",
 }
 
 # Searchable capability layers (CLI --type values map onto these collections). Technique records
@@ -95,7 +97,7 @@ SINGULAR = {
 CAPABILITY_TYPES = {
     "library": "libraries", "effect": "effects", "recipe": "recipes", "primitive": "primitives",
     "composition": "compositions", "template": "project-templates", "style": "styles", "reference": "references",
-    "technique": "references", "source": "reference-sources",
+    "technique": "references", "source": "reference-sources", "profile": "design-profiles",
 }
 
 STATUS_RANK = {"blocked": 0, "deprecated": 0, "proposed": 1, "experimental": 2, "approved": 3}
@@ -402,9 +404,34 @@ def validate_catalogue(verbose: bool = True) -> bool:
         for e in tpl.get("effects", []):
             check_dep("Template", tpl_id, tpl["status"], "effects", e)
 
+    category_ids = {c["id"] for c in load_json(REPO_ROOT / "specs" / "categories.json")["categories"]}
+    for sid, rec in records["styles"].items():
+        for cat in rec.get("categories", []):
+            if cat not in category_ids:
+                errors.append(f"Style '{sid}' is tagged with unknown category '{cat}' (specs/categories.json)")
+
     defaults = [s for s, rec in records["styles"].items() if rec.get("default")]
     if records["styles"] and len(defaults) != 1:
         errors.append(f"Exactly one style system must be marked default (found {defaults or 'none'})")
+
+    # Design profiles: provenance rules and cross-references (src/pipeline/profiles.py)
+    try:
+        sys.path.insert(0, str(REPO_ROOT / "src" / "pipeline"))
+        import profiles as _profiles
+        impl_caps = set()
+        for _c in ("effects", "recipes", "compositions", "primitives"):
+            impl_caps.update(records[_c])
+        for pid, prof in records["design-profiles"].items():
+            e2, w2 = _profiles.check_profile(prof, records["styles"], records["references"], records["reference-sources"], records["design-profiles"])
+            errors.extend(f"Design profile {m}" for m in e2)
+            warnings.extend(f"Design profile {m}" for m in w2)
+            for cap in prof.get("rendering", {}).get("runtime_capabilities", []):
+                if cap not in impl_caps:
+                    errors.append(f"Design profile '{pid}' lists unknown runtime capability '{cap}'")
+            if prof.get("status") == "approved" and not prof.get("validation", {}).get("evidence"):
+                errors.append(f"Design profile '{pid}' is approved without validation evidence")
+    except ImportError as exc:
+        warnings.append(f"Design profile semantic checks skipped: {exc}")
 
     implementers = {}
     for coll in ("effects", "recipes", "compositions", "primitives"):

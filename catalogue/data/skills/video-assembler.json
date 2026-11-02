@@ -9,7 +9,7 @@
     "Automated QA gate auditing (run-qa-gates.sh)",
     "Loudness normalization and black screen gap detection"
   ],
-  "location": ".agents/skills/video-assembler",
+  "location": ".claude/skills/video-assembler",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -25,7 +25,7 @@
     "notes": "Pins Chromium worker count to 1 for 8 GB RAM stability."
   },
   "documentation_urls": [
-    ".agents/skills/video-assembler/SKILL.md"
+    ".claude/skills/video-assembler/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

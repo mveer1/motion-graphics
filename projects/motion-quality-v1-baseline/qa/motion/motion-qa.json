@@ -1,0 +1,679 @@
+{
+  "spec_version": 1,
+  "target": {
+    "kind": "project",
+    "path": "projects/motion-quality-v1-baseline",
+    "slug": "motion-quality-v1-baseline",
+    "format": "landscape",
+    "sha256": "e4eb4a91e0c8fa69ece9670297fce6919fd9973bd0815e3ebe179e3849957728"
+  },
+  "generated_at": "2026-11-02T10:16:13+00:00",
+  "tool": {
+    "name": "motion-qa",
+    "version": "1.0",
+    "host": "darwin"
+  },
+  "expectations": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_sec": 14
+  },
+  "checks_run": [
+    {
+      "id": "dom-probe",
+      "status": "ran",
+      "reason": "6 samples",
+      "elapsed_sec": 1.03
+    },
+    {
+      "id": "composition-lint",
+      "status": "ran"
+    },
+    {
+      "id": "video-decode",
+      "status": "ran",
+      "elapsed_sec": 0.13
+    },
+    {
+      "id": "spec-compliance",
+      "status": "ran"
+    },
+    {
+      "id": "black-and-flat-frames",
+      "status": "ran"
+    },
+    {
+      "id": "static-holds",
+      "status": "ran"
+    },
+    {
+      "id": "repeated-composition",
+      "status": "ran"
+    },
+    {
+      "id": "transition-variety",
+      "status": "skipped",
+      "reason": "storyboard missing or fewer than five scenes"
+    },
+    {
+      "id": "scene-durations",
+      "status": "ran"
+    },
+    {
+      "id": "audio-levels",
+      "status": "skipped",
+      "reason": "no audio stream and none required"
+    },
+    {
+      "id": "audio-cut-alignment",
+      "status": "skipped",
+      "reason": "not implemented: no onset detector is wired in (hyperframes audio could supply onsets)"
+    }
+  ],
+  "findings": [
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'BINARY SEARCH // v1.0' is 12.0px = 1.7% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 12,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'BINARY SEARCH // v1.0' sits in a corner (1.7% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 12
+      },
+      "t_sec": 1.84,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '1280x720 @ 30' is 12.0px = 1.7% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 12,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text '1280x720 @ 30' sits in a corner (1.7% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 12
+      },
+      "t_sec": 1.84,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'STEP 01 / 03' is 12.0px = 1.7% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 12,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "chapter-counter",
+      "class": "measured",
+      "severity": "warn",
+      "message": "counter-style label 'STEP 01 / 03'",
+      "t_sec": 1.84,
+      "beat": "s1",
+      "suggestion": "legitimate in a stepped tutorial; declare progress-stepper"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Find one number among 1,000,000 sorted i' is 15.0px = 2.1% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 15,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Items' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '1,000,000' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Linear scan' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'up to 1,000,000 checks' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Sorted' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'yes' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "low-contrast",
+      "class": "measured",
+      "severity": "warn",
+      "message": "'BINARY SEARCH // v1.0' contrast 3.3:1 (needs 4.5:1 at this size); estimated against the nearest flat background shape",
+      "evidence": {
+        "ratio": 3.31,
+        "estimated": true
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "low-contrast",
+      "class": "measured",
+      "severity": "warn",
+      "message": "'1280x720 @ 30' contrast 3.3:1 (needs 4.5:1 at this size); estimated against the nearest flat background shape",
+      "evidence": {
+        "ratio": 3.31,
+        "estimated": true
+      },
+      "t_sec": 1.84,
+      "beat": "s1"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'STEP 02 / 03' is 12.0px = 1.7% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 12,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "chapter-counter",
+      "class": "measured",
+      "severity": "warn",
+      "message": "counter-style label 'STEP 02 / 03'",
+      "t_sec": 6.52,
+      "beat": "s2",
+      "suggestion": "legitimate in a stepped tutorial; declare progress-stepper"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Check the middle. Discard half.' is 15.0px = 2.1% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 15,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'After 1 check' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '500,000' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'After 2 checks' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '250,000' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'After 3 checks' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '125,000' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 6.52,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'STEP 03 / 03' is 12.0px = 1.7% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 12,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "chapter-counter",
+      "class": "measured",
+      "severity": "warn",
+      "message": "counter-style label 'STEP 03 / 03'",
+      "t_sec": 11.24,
+      "beat": "s3",
+      "suggestion": "legitimate in a stepped tutorial; declare progress-stepper"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'At most 20 checks.' is 15.0px = 2.1% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 15,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Checks' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '20' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Formula' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'ceil(log2 n)' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Speedup' is 13.0px = 1.8% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 13,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text '50,000x' is 14.0px = 1.9% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 14,
+        "floor_px": 18.7
+      },
+      "t_sec": 11.24,
+      "beat": "s3"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 21% of the frame",
+      "evidence": {
+        "occupancy": 0.211,
+        "grid": "32x18"
+      },
+      "t_sec": 3.68,
+      "beat": "s1",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 21% of the frame",
+      "evidence": {
+        "occupancy": 0.207,
+        "grid": "32x18"
+      },
+      "t_sec": 8.44,
+      "beat": "s2",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 21% of the frame",
+      "evidence": {
+        "occupancy": 0.207,
+        "grid": "32x18"
+      },
+      "t_sec": 13.08,
+      "beat": "s3",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "card-pile",
+      "class": "measured",
+      "severity": "warn",
+      "message": "3 of 3 scenes build the picture from 3 or more rounded cards with text inside (s1, s2, s3)",
+      "evidence": {
+        "scenes": [
+          "s1",
+          "s2",
+          "s3"
+        ]
+      },
+      "suggestion": "cards read as a dashboard; consider one connected picture"
+    },
+    {
+      "id": "repeat-layout-dom",
+      "class": "measured",
+      "severity": "warn",
+      "message": "3 of 3 scenes occupy nearly the same regions of the frame (s1, s2, s3)",
+      "evidence": {
+        "coverage_distance_below": 0.05,
+        "grid": "32x18",
+        "calibration": "same threshold as the rendered-frame check"
+      }
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 4.63s",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.236,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": false,
+        "narration_known": false,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        0.0,
+        4.633
+      ],
+      "beat": "s1",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 4.80s",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.198,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": false,
+        "narration_known": false,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        4.633,
+        9.433
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 4.57s at the end of the film",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.201,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": false,
+        "narration_known": false,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        9.433,
+        14.0
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "repeat-composition",
+      "class": "measured",
+      "severity": "warn",
+      "message": "3 of 3 scenes share one composition (s1, s2, s3)",
+      "evidence": {
+        "ink_map_distance_below": 0.05,
+        "calibration": "re-skin control 0.023, unrelated layouts >= 0.15"
+      },
+      "suggestion": "vary hero position, scale and structure, or declare the repetition as a deliberate system"
+    },
+    {
+      "id": "end-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "the picture is unchanged for the last 4.5s",
+      "evidence": {
+        "threshold_sec": 1.4,
+        "source": "Motionmaxxing G3, adopted-unverified"
+      }
+    },
+    {
+      "id": "motion-energy",
+      "class": "measured",
+      "severity": "note",
+      "message": "median frame-to-frame luma change 0.002/255, 100% of frames static, median shot 14.0s",
+      "evidence": {
+        "motion_mean_luma_diff": 0.028,
+        "motion_median": 0.002,
+        "motion_p90": 0.088,
+        "static_share": 0.9952,
+        "cut_count": 0,
+        "cuts_per_min": 0.0
+      }
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s1: does the picture show 'Header, kicker pill and three cards' and does it deliver 'State the problem'?",
+      "range_sec": [
+        0,
+        4.6
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s2: does the picture show 'Header, kicker pill and three cards' and does it deliver 'Explain halving'?",
+      "range_sec": [
+        4.6,
+        9.4
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s3: does the picture show 'Header, kicker pill and three cards' and does it deliver 'Give the result'?",
+      "range_sec": [
+        9.4,
+        14
+      ],
+      "beat": "s3"
+    }
+  ],
+  "summary": {
+    "objective_failures": 0,
+    "measured_warnings": 39,
+    "judgment_questions": 3,
+    "waived": 0,
+    "technical_pass": true
+  },
+  "artifacts": {
+    "scene_sheet": "projects/motion-quality-v1-baseline/qa/motion/scene-sheet.jpg",
+    "seams": "projects/motion-quality-v1-baseline/qa/motion/seams.jpg",
+    "critique_template": "projects/motion-quality-v1-baseline/qa/motion/critique.template.json"
+  },
+  "critique_prompts": [
+    "Describe each frame on the scene sheet in one sentence before judging: what is on screen, what is the hero, would it pass as a slide?",
+    "Does each beat make the viewer see the idea, or only read a description of it? Name the visual event that carries it.",
+    "Is emphasis spent or spread? Which beat is the point of the film, and does it get the hardest visual work?",
+    "At each seam (seams.jpg): what carries the eye across the transition (shape, position, colour, motion)? Is the transition motivated or decorative?",
+    "Is stillness anywhere designed (a reason you can state) or accidental? Is any motion decoration with no job?",
+    "Does the sound support pacing, with silence before what matters? (listen; the audio-cut-alignment check did not run)",
+    "Does the ending feel designed, and does it end smaller or quieter than it began?"
+  ]
+}

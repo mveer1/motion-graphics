@@ -1,0 +1,53 @@
+{
+  "id": "skill-asset-engine",
+  "name": "Asset Engine Skill",
+  "component_type": "skill",
+  "purpose": "Chooses the right medium per beat and runs provider-independent asset jobs with provenance, reuse, bounded retries and secret hygiene; honest about what each provider adapter has and has not verified.",
+  "capabilities": [
+    "Medium choice rules",
+    "Job lifecycle and failure handling",
+    "Secret and licence handling"
+  ],
+  "location": ".claude/skills/asset-engine",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-assets"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "No credential needed for the default workflow."
+  },
+  "documentation_urls": [
+    ".claude/skills/asset-engine/SKILL.md",
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Never stores or prints credentials."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "skill",
+    "assets",
+    "providers"
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "id": "data-journalism-infographic",
+  "name": "Data Journalism / Infographic",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "A single clear chart or map as the hero, drawn in the order of the argument, with one accent for the point and neutrals for context.",
+  "style": "data-journalism",
+  "archetype": "chart-hero",
+  "intended_use": [
+    "finance and economics",
+    "public data",
+    "comparisons and rankings",
+    "timelines"
+  ],
+  "avoid_for": [
+    "mood pieces with no data"
+  ],
+  "identity": {
+    "mood": "authoritative, clear, urgent when warranted",
+    "genre": "data journalism",
+    "visual_language": "charts, maps, annotated figures",
+    "editorial_approach": "the headline states the finding, the chart proves it",
+    "composition_philosophy": "chart first, annotation second",
+    "environment": "white page",
+    "realism": "abstract data"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#fbfbfa",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#17171a",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#c1272d",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1d5a8a",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#8a8a90",
+          "role": "neutral",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e0a100",
+          "role": "highlight",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "neutral context, one accent for the finding"
+    },
+    "typography": {
+      "display": "Playfair Display 700 for headline",
+      "text": "Inter",
+      "mono": "JetBrains Mono for axes and values",
+      "scale_and_hierarchy": "headline, chart, annotation, source",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "chart occupies 60-75% of the frame; annotations attach to data points",
+      "negative_space": "controlled",
+      "hero_occupancy_pct": 68
+    }
+  },
+  "motion": {
+    "grammar": "Reveal data in the order of the argument; draw lines, grow bars, then annotate the point.",
+    "easing": {
+      "entrances": "reveal-draw (linear) then enter-decel for labels",
+      "exits": "exit-accelerate",
+      "vocabulary_ids": [
+        "reveal-draw",
+        "enter-decel",
+        "emphasis-pulse",
+        "camera-push",
+        "reveal-mask-wipe",
+        "transition-push"
+      ]
+    },
+    "timing": {
+      "pace": "medium; the narration sets the beat",
+      "typical_move_sec": 0.6,
+      "shot_length_sec": 4.5
+    },
+    "transitions": {
+      "vocabulary": [
+        "axis-locked push",
+        "morph between chart types",
+        "match-cut on a highlighted value"
+      ],
+      "avoid": [
+        "decorative glows"
+      ],
+      "continuity": "axes persist"
+    },
+    "camera": {
+      "language": "push toward the annotated region",
+      "moves": [
+        "push-in",
+        "pan"
+      ]
+    },
+    "kinetic_typography": "counter rolls to the true value",
+    "stillness_policy": "Hold on the finished chart long enough to read it."
+  },
+  "audio_direction": {
+    "narration": "neutral, steady, 1.1x",
+    "music": "quiet pulse",
+    "sfx": "soft ticks as points land"
+  },
+  "rendering": {
+    "strategy": "Studio.draw.chart plus SVG; data supplied as JSON for reproducibility.",
+    "preferred_asset_types": [
+      "data-visualization",
+      "programmatic",
+      "typography"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "animated-chart",
+      "counter-roll",
+      "marker-highlight"
+    ]
+  },
+  "techniques": [
+    "step-progress-tracker",
+    "annotation-callouts",
+    "vessel-fill-pour"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Truncated axes or invented values mislead: every number needs a source.",
+    "A chart on a dark crisis story can feel cold.",
+    "Dashboard cards are the failure mode: keep one chart per frame."
+  ],
+  "example_scenes": [
+    "A line chart drawn left to right, with a vermilion marker stopping on the fall and a label counting to the exact value."
+  ],
+  "tags": [
+    "data",
+    "chart",
+    "journalism"
+  ]
+}

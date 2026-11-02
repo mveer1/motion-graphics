@@ -46,7 +46,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 CATALOGUE_DIR = REPO_ROOT / "catalogue"
 SCHEMAS_DIR = CATALOGUE_DIR / "schemas"
 DATA_DIR = CATALOGUE_DIR / "data"
-AGENTS_SKILLS_DIR = REPO_ROOT / ".agents" / "skills"
+CLAUDE_SKILLS_DIR = REPO_ROOT / ".claude" / "skills"
 SCRIPTS_DIR = REPO_ROOT / "scripts"
 TEMPLATES_DIR = REPO_ROOT / "templates"
 SPECS_DIR = REPO_ROOT / "specs"
@@ -165,14 +165,14 @@ class GovernanceAuditor:
     def audit_unregistered_workspace_components(self) -> None:
         """Gate 3: Detect active workspace skills, tools, and templates that lack catalogue records."""
         errors_before = len(self.errors)
-        # 1. Check all skills in .agents/skills/
+        # 1. Check all skills in .claude/skills/
         registered_skill_locs = {
             comp_data.get("location", "").rstrip("/")
             for comp_data in self.records["skills"].values()
         }
         
-        if AGENTS_SKILLS_DIR.exists():
-            for skill_path in AGENTS_SKILLS_DIR.iterdir():
+        if CLAUDE_SKILLS_DIR.exists():
+            for skill_path in CLAUDE_SKILLS_DIR.iterdir():
                 if skill_path.is_dir() and (skill_path / "SKILL.md").exists():
                     rel_loc = skill_path.relative_to(REPO_ROOT).as_posix()
                     if rel_loc not in registered_skill_locs:

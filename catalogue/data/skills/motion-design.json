@@ -9,11 +9,11 @@
     "Multi-element choreography",
     "State feedback transitions"
   ],
-  "location": ".agents/skills/motion-design",
+  "location": ".claude/skills/motion-design",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Built-in workspace skill under .agents/skills/motion-design."
+    "instructions": "Built-in workspace skill under .claude/skills/motion-design."
   },
   "dependencies": [],
   "compatibility": {
@@ -21,7 +21,7 @@
     "runtime": "agent-host"
   },
   "documentation_urls": [
-    ".agents/skills/motion-design/SKILL.md"
+    ".claude/skills/motion-design/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",

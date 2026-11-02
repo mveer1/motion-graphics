@@ -78,6 +78,12 @@
     },
     "suitable_for": { "type": "array", "minItems": 1, "items": { "type": "string" } },
     "avoid_for": { "type": "array", "items": { "type": "string" } },
+    "categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Subject categories (ids from specs/categories.json) this style is tagged for. Absent or empty means general-purpose: it fits any category and is never flagged as a mismatch.",
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
     "validation": {
       "type": "object",
       "required": ["evidence", "last_verified"],

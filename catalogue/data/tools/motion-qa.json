@@ -1,0 +1,56 @@
+{
+  "id": "tool-motion-qa",
+  "name": "Motion QA",
+  "component_type": "tool",
+  "purpose": "Unified motion QA: decode and spec compliance, true-black and very-dark frames, static holds (frozen versus slow drift), repeated compositions, transition variety, loudness and silence, plus a DOM probe for text size, collisions, contrast, HUD labels, counters, card piles and repeated layouts. Findings are objective, measured or judgment; waivers need a declared intent; writes a critique pack.",
+  "capabilities": [
+    "video | composition | project | critique-pack",
+    "scripts/dom-probe.mjs reuses the puppeteer-core and Chrome cache shipped with the hyperframes install",
+    "checks that did not run are listed with a reason; audio-cut-alignment is not implemented"
+  ],
+  "location": "scripts/motion-qa.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-hyperframes",
+    "tool-ffmpeg",
+    "tool-session-guard"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python .venv + node + ffmpeg",
+    "notes": "Reproduced the hand-measured defects of an archived film (font sizes matched exactly; freezes of 2.0-10.5 s quantified). Several thresholds are starting values; see the report."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md",
+    "specs/qa-report-spec.json",
+    ".claude/skills/motion-director/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Launches one headless Chrome through the hyperframes install; under the render lock."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "qa",
+    "motion",
+    "critique"
+  ]
+}

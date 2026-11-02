@@ -1,0 +1,187 @@
+{
+  "id": "cinematic-documentary",
+  "name": "Cinematic Documentary",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Low-key, atmospheric imagery in layered depth with slow deliberate camera movement, restrained condensed type and designed silence. The camera does the narrating.",
+  "style": "cinematic-dark",
+  "archetype": "cinematic-depth",
+  "intended_use": [
+    "science and nature",
+    "history reconstructions",
+    "investigations",
+    "title sequences"
+  ],
+  "avoid_for": [
+    "upbeat product promos",
+    "dense step-by-step instruction"
+  ],
+  "identity": {
+    "mood": "serious, immersive, quiet awe",
+    "genre": "documentary",
+    "visual_language": "layered atmospheric planes, light and haze, restrained type",
+    "cinematic_character": "filmic: contrast, bloom and grain; shallow-focus emphasis",
+    "photography_style": "low-key, single dominant light source, wide establishing then detail",
+    "composition_philosophy": "subject off-centre with deep space; the frame breathes",
+    "environment": "specific places or media, not abstract voids",
+    "realism": "photographic or painterly-realistic",
+    "storytelling_conventions": "establish, move closer, reveal, withdraw"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0b0b0c",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f2ede4",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#d4a24c",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#b0413e",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#7f9c96",
+          "role": "neutral",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "light type on near-black; accent reserved for the single thing being looked at"
+    },
+    "typography": {
+      "display": "Oswald 500-600 uppercase, wide tracking, small",
+      "text": "Inter 400",
+      "mono": "IBM Plex Mono for data",
+      "scale_and_hierarchy": "sparse; titles small and placed, never centred slabs",
+      "case_and_tracking": "uppercase display, 0.04-0.3em tracking",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "rule-of-thirds off-centre subject, long depth, strong foreground/background separation",
+      "negative_space": "generous and purposeful (darkness is part of the shot)",
+      "layering_and_depth": "6-layer depth: plate, midground, subject, haze, foreground particles, vignette",
+      "hero_occupancy_pct": 55
+    },
+    "texture": "fine film grain, soft halation",
+    "materials": "air, water, dust, glass",
+    "lighting": "low-key, volumetric rays, rim light",
+    "contrast": "high with crushed blacks",
+    "visual_rhythm": "slow-slow-slow-event",
+    "image_treatment": "graded, vignetted, slight bloom"
+  },
+  "motion": {
+    "grammar": "The camera moves, objects barely do. Long eased moves, slow dissolves, and sound doing half the work.",
+    "easing": {
+      "entrances": "settle-damped or slow enter-decel",
+      "exits": "slow fades of single objects",
+      "emphasis": "rack-focus resolves",
+      "vocabulary_ids": [
+        "camera-push",
+        "camera-descent",
+        "camera-parallax",
+        "reveal-focus",
+        "transition-dissolve",
+        "hold-breath",
+        "settle-damped"
+      ]
+    },
+    "timing": {
+      "pace": "slow; shots of 4-10 s",
+      "typical_move_sec": 0.9,
+      "shot_length_sec": 6.0,
+      "holds": "long and alive (drift, particles)",
+      "stagger_sec": 0.12
+    },
+    "transitions": {
+      "vocabulary": [
+        "slow dissolve",
+        "match-cut on form or light",
+        "camera continuation (push through)"
+      ],
+      "avoid": [
+        "wipes",
+        "liquid shapes",
+        "hard cuts without motion"
+      ],
+      "continuity": "light direction and horizon carry across"
+    },
+    "camera": {
+      "language": "slow push-ins, descents, lateral tracks, parallax between planes, rack focus",
+      "moves": [
+        "push-in",
+        "pull-out",
+        "tracking",
+        "parallax",
+        "crane",
+        "rack-focus"
+      ],
+      "lens_character": "long-lens compression for detail, wide for scale"
+    },
+    "object_movement": "ambient drift, particles in light shafts",
+    "kinetic_typography": "minimal; fade-in lines with long tracking",
+    "particles": "dust, plankton or ash in the light",
+    "depth_parallax": "strong; 3+ speeds",
+    "motion_blur": "subtle on camera moves",
+    "light_behaviour": "slow breathing of light; rays shift with camera",
+    "stillness_policy": "Stillness is expected between events; keep grain and drift alive."
+  },
+  "audio_direction": {
+    "narration": "low, measured, 0.95-1.05x (am_michael or similar documentary voice)",
+    "music": "sparse drone or piano, ducked under voice",
+    "sfx": "layered environment beds, designed hits at reveals",
+    "silence_and_space": "deliberate silence before key reveals"
+  },
+  "rendering": {
+    "strategy": "Layered 2.5D in HyperFrames over generated or licensed plates; grain and bloom as overlays; camera via Studio.space.",
+    "preferred_asset_types": [
+      "generated-image",
+      "generated-video",
+      "real-footage",
+      "hybrid"
+    ],
+    "feasibility": "approximation",
+    "resource_notes": "Photographic plates normally need a provider or licensed footage; procedural gradients and particles are the offline stand-in and look flatter.",
+    "runtime_capabilities": [
+      "parallax-camera",
+      "grain-boil",
+      "particle-drift",
+      "crossfade-dissolve",
+      "hybrid-video-underlay"
+    ]
+  },
+  "techniques": [
+    "layered-silhouette-stage",
+    "film-match-cut",
+    "zoom-through-transition",
+    "orbit-constellation"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Without real or generated plates, procedural depth reads flat.",
+    "Slow pacing punishes weak narration.",
+    "Dark grading hides compression banding; check gradients."
+  ],
+  "example_scenes": [
+    "A vertical descent through layered water with light shafts and one small label per depth."
+  ],
+  "tags": [
+    "cinematic",
+    "documentary",
+    "dark"
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "id": "great-fire-london-collage-direction",
+  "name": "great-fire-london-collage production direction",
+  "profile_version": 1,
+  "kind": "project",
+  "status": "experimental",
+  "summary": "Production profile for great-fire-london-collage: Editorial / Paper Collage chosen in a bake-off. The task brief asked for a paper-collage direction for this demo; the bake-off tested it on the anchor beat (the loss) against archival, data-led and Swiss treatments. Collage makes the scale the hero (a 150px numeral on a torn sheet) and stays warm for a grave subject. Archival would be more authentic but needs real period imagery this workspace cannot source offline (its photo slot rendered empty); the chart has no time-series to plot and had to label itself illustrative; Swiss is clean but read",
+  "extends": "editorial-paper-collage",
+  "style": "paper-cut",
+  "archetype": "collage-stack",
+  "identity": {
+    "mood": {
+      "value": "The task brief asked for a paper-collage direction for this demo; the bake-off tested it on the anchor beat (the loss) against archival, data-led and Swiss treatments. Collage makes the scale the hero",
+      "basis": "subjective",
+      "confidence": "medium",
+      "evidence": "projects/great-fire-london-collage/bakeoff/bakeoff.json#decision"
+    },
+    "genre": {
+      "value": "editorial explainer",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "visual_language": {
+      "value": "layered cut-outs with hard paper shadows, tape and halftone",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "realism": {
+      "value": "flat graphic, deliberately not photorealistic",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#f2e8d5",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#2a2522",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#b5401f",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#3f6f8f",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f0b23a",
+          "role": "highlight",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": {
+        "value": "dark ink on warm paper; accent only on large display type and shapes",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Archivo Black, sentence or all caps, tight tracking",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "text": {
+        "value": "Nunito 500-700",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "mono": {
+        "value": "Space Mono for annotations",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "scale_and_hierarchy": {
+        "value": "one huge headline word per beat, small captions on tape labels",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": {
+        "value": "asymmetric stack with overlap and rotation of 1-4 degrees; large occupancy",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "negative_space": {
+        "value": "minimal; paper texture fills quiet areas",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "layering_and_depth": {
+        "value": "4-6 sheets with offset hard shadows",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "hero_occupancy_pct": 60
+    },
+    "shape_language": {
+      "value": "torn and scissor-cut polygons, circles for stickers",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "texture": {
+      "value": "paper grain, halftone, misregistration",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "materials": {
+      "value": "paper, tape, card",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "lighting": {
+      "value": "flat, with a consistent top-left paper shadow",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "contrast": {
+      "value": "high",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "visual_rhythm": {
+      "value": "alternate full-bleed collages with typographic beats",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "image_treatment": {
+      "value": "halftone or duotone; no soft photographic gradients",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Things are placed, slid and flipped like paper on a table. Movement is slightly stepped and tactile; overshoot is small and rare.",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "easing": {
+      "entrances": {
+        "value": "settle-lean for hero scraps, enter-decel for the rest",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "exits": {
+        "value": "exit-accelerate (slide off)",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "emphasis": {
+        "value": "emphasis-pulse",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "vocabulary_ids": [
+        "enter-decel",
+        "settle-lean",
+        "exit-accelerate",
+        "transition-liquid",
+        "camera-parallax",
+        "hold-breath"
+      ]
+    },
+    "timing": {
+      "pace": {
+        "value": "medium-fast; a new picture every 2-3 s",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "typical_move_sec": 0.45,
+      "shot_length_sec": 3.0,
+      "holds": {
+        "value": "short; keep drift on the held sheet",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "stagger_sec": 0.07
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "paper slide-over (transition-push)",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+        },
+        {
+          "value": "torn-sheet wipe (transition-liquid / shape cover)",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+        },
+        {
+          "value": "match-cut on a shared shape",
+          "basis": "prescribed",
+          "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+        }
+      ],
+      "avoid": [
+        "glossy glows",
+        "long dissolves"
+      ],
+      "continuity": {
+        "value": "a shape or colour carries the eye across the cut",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      }
+    },
+    "camera": {
+      "language": {
+        "value": "flat-safe: uniform push, pull and parallax between sheets; no perspective warp of text",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      },
+      "moves": [
+        "push-in",
+        "pull-out",
+        "pan",
+        "parallax"
+      ],
+      "lens_character": {
+        "value": "none (flat-lay)",
+        "basis": "prescribed",
+        "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+      }
+    },
+    "object_movement": {
+      "value": "small bobs and drifts on cut-outs, assembling pieces",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "kinetic_typography": {
+      "value": "word-per-beat on banners, tape-label swaps",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "particles": {
+      "value": "confetti scraps sparingly",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "depth_parallax": {
+      "value": "sheet-to-sheet parallax of 2-3 speeds",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "stillness_policy": {
+      "value": "A held collage keeps one living scrap (drift or flutter).",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "warm, conversational, 1.1-1.15x",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "music": {
+      "value": "light acoustic or jazzy bed, low",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "sfx": {
+      "value": "paper rustle, tape, stamp thuds at 12-18 dB under voice",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    },
+    "silence_and_space": {
+      "value": "short breaths before the reveal",
+      "basis": "prescribed",
+      "evidence": "catalogue/data/design-profiles/editorial-paper-collage.json"
+    }
+  },
+  "rendering": {
+    "strategy": "Programmatic SVG/CSS collage in HyperFrames; photographic cut-outs from generated or licensed stills with a paper-edge filter; halftone and grain procedural.",
+    "preferred_asset_types": [
+      "hybrid",
+      "generated-image",
+      "illustration-2d",
+      "typography"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "paper-pop",
+      "grain-boil",
+      "parallax-camera",
+      "text-mask-rise",
+      "push-transition"
+    ],
+    "resource_notes": "Light; the deckle filter is the heaviest element."
+  },
+  "techniques": [
+    "cut-paper-title-sequence",
+    "archival-mono-collage",
+    "sticker-brutalist-style",
+    "layered-silhouette-stage",
+    "stamp-state-change"
+  ],
+  "provenance": {
+    "method": "Selected in a style bake-off; inherits the registry profile and records the choice.",
+    "bakeoff": "projects/great-fire-london-collage/bakeoff/bakeoff.json",
+    "created_on": "2026-11-02"
+  },
+  "scene_variants": [],
+  "weaknesses": [
+    "Paper imitation reads as cheap if shadows and rotation are inconsistent.",
+    "Generated cut-out figures can carry hallucinated detail; check each one.",
+    "Collage plus dense data fights for attention."
+  ],
+  "tags": [
+    "collage",
+    "paper",
+    "editorial",
+    "project"
+  ]
+}
