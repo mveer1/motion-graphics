@@ -1,6 +1,6 @@
 # Operational Guide for AI Agents (AGENTS.md)
 
-This repository is optimized for motion graphics production on Apple Silicon macOS, configured with **VS Code as the primary development workstation** and **Antigravity as the secondary autonomous accelerator**. For VS Code Copilot & IDE directives, see `.github/copilot-instructions.md` and `.vscode/`.
+This repository is optimized for motion graphics production on Apple Silicon macOS. **Claude Code is the primary owner of this repository**; its entry point is `CLAUDE.md`. Editor configuration for VS Code remains in `.vscode/` and `.github/copilot-instructions.md`.
 
 ---
 
