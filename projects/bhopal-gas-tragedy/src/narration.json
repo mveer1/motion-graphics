@@ -1,0 +1,34 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "A city falling asleep",
+      "text": "The second of December, nineteen eighty-four. In Bo-pahl, central India, almost nine hundred thousand people were falling asleep. At the edge of the city stood a pesticide factory."
+    },
+    {
+      "id": "s2",
+      "title": "The tank and the failing safeguards",
+      "text": "Inside, an underground tank held forty-two tons of METH-il eye-so-SIGH-uh-nate, a chemical used to make a pesticide called SEV-in. That night, the pressure in the tank began to climb. How water reached the tank is still disputed. What is not disputed is that the safeguards were failing. The cooling had been off since nineteen eighty-two. The scrubber was on standby. The flare tower was too small."
+    },
+    {
+      "id": "s3",
+      "title": "The cloud and the waking",
+      "text": "Near one in the morning, the gas escaped. About thirty tonnes drifted over sleeping streets in under an hour. A siren sounded briefly, and was switched off. People woke choking, their eyes burning. Hundreds of thousands ran into the dark. Within days, thousands were dead."
+    },
+    {
+      "id": "s4",
+      "title": "Nobody agrees",
+      "text": "Nobody agrees on how many. The government confirms three thousand, seven hundred and eighty-seven. Survivor groups count nearly twenty-three thousand."
+    },
+    {
+      "id": "s5",
+      "title": "Partial justice",
+      "text": "In nineteen eighty-nine, Union Carbide paid four hundred and seventy million dollars to settle. In twenty ten, seven former employees were convicted of negligence. The company's chief, Warren Anderson, never faced an Indian court."
+    },
+    {
+      "id": "s6",
+      "title": "Still here",
+      "text": "In January twenty twenty-five, hundreds of tonnes of waste were finally trucked out of the factory. More than a hundred thousand survivors still live with chronic illness. For them, that night has not ended."
+    }
+  ]
+}
