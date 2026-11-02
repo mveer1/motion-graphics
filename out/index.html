@@ -127,6 +127,11 @@
       transform: translateY(-2px);
       border-color: rgba(88, 166, 255, 0.3);
     }
+    .video-card.archived {
+      opacity: 0.85;
+      border-color: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.3);
+    }
     .player-wrapper {
       position: relative;
       background: #000;
@@ -185,6 +190,10 @@
       margin-bottom: 8px;
       width: fit-content;
     }
+    .version-tag.archive-tag {
+      color: #d29922;
+      background: rgba(210, 153, 34, 0.1);
+    }
     .card-desc {
       font-size: 13px;
       color: #8b949e;
@@ -192,18 +201,30 @@
       flex-grow: 1;
       line-height: 1.45;
     }
-    .specs-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      font-family: 'SF Mono', Menlo, monospace;
-      font-size: 11px;
-      color: #8b949e;
+    details.archive-section {
+      margin-top: 64px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.015);
+      padding: 24px;
     }
-    .specs-list span strong {
-      color: #f0f6fc;
+    details.archive-section summary {
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: 700;
+      color: #d29922;
+      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    details.archive-section summary::marker {
+      color: #d29922;
+    }
+    .archive-lead {
+      color: #8b949e;
+      font-size: 14px;
+      margin: 16px 0 24px 0;
     }
     footer {
       margin-top: 64px;
@@ -223,13 +244,13 @@
     <div class="badge">Motion Lab Production Showcase</div>
     <h1>Explainer Video Portfolio</h1>
     <p class="lead">
-      Autonomous motion graphics synthesized on Apple Silicon via Kokoro TTS, GSAP 3 timelines, and HyperFrames rendering. Grouped by project title with all production deliverables.
+      Autonomous motion graphics synthesized on Apple Silicon via Kokoro TTS, GSAP 3 timelines, and HyperFrames rendering. Showing active production master deliverables.
     </p>
 
     <div class="metrics-row">
-      <div class="metric-pill">Completed Projects: <strong>6 Titles</strong></div>
-      <div class="metric-pill">Production Deliverables: <strong>19 Videos in /out</strong></div>
-      <div class="metric-pill">Render Architecture: <strong>Multi-Format Studio + Legacy</strong></div>
+      <div class="metric-pill">Active Projects: <strong>6 Production Titles</strong></div>
+      <div class="metric-pill">Master Deliverables: <strong>10 Active Videos</strong></div>
+      <div class="metric-pill">Archived Iterations: <strong>9 Stored in /out/archive</strong></div>
       <div class="metric-pill">QA Verification: <strong>100% Passed (0 Gaps)</strong></div>
     </div>
   </header>
@@ -237,80 +258,12 @@
   <!-- 1. China Market Crash -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">1. China Market Crash <span class="version-count">7 Versions</span></h2>
+      <h2 class="project-title">1. China Market Crash <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      In-depth investigation of market microstructure, leverage feedback loops, reflexive cascading liquidation, and the 2015/2026 equity collapses.
+      Macro-financial investigation of leverage feedback loops, shadow margin debt, and reflexive cascading liquidations.
     </p>
     <div class="grid">
-      <div class="video-card">
-        <div class="player-wrapper">
-          <video controls playsinline preload="metadata">
-            <source src="china-market-crash-2026.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Macro Finance</span>
-            <span class="duration-tag">Landscape</span>
-          </div>
-          <span class="version-tag">v1-2026</span>
-          <h3 class="card-title">The Reflexive Cascade (Original)</h3>
-          <p class="card-desc">Foundational technical explainer deconstructing systemic margin calls and the feedback loop of forced liquidations.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper portrait">
-          <video controls playsinline preload="metadata">
-            <source src="china-market-crash-v2-portrait.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Macro Finance</span>
-            <span class="duration-tag">Portrait (Reels)</span>
-          </div>
-          <span class="version-tag">v2-reflexive-cascade</span>
-          <h3 class="card-title">Reflexive Cascade (Studio v2)</h3>
-          <p class="card-desc">Studio adaptation in 9:16 portrait format with timed narration and dynamic ticker callouts.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper portrait">
-          <video controls playsinline preload="metadata">
-            <source src="china-market-crash-v3-portrait.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Macro Finance</span>
-            <span class="duration-tag">Portrait (Reels)</span>
-          </div>
-          <span class="version-tag">v3-reflexive-cascade</span>
-          <h3 class="card-title">Reflexive Cascade (Studio v3)</h3>
-          <p class="card-desc">Refined visual pacing, enhanced liquidity indicators, and synchronized audio bed.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper portrait">
-          <video controls playsinline preload="metadata">
-            <source src="china-market-crash-stage3-portrait.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Macro Finance</span>
-            <span class="duration-tag">Portrait (Reels)</span>
-          </div>
-          <span class="version-tag">stage3-cascade</span>
-          <h3 class="card-title">Stage 3 Cascade</h3>
-          <p class="card-desc">Deep-dive into the terminal phase of liquidity contagion with multi-tier panic selling metrics.</p>
-        </div>
-      </div>
-
       <div class="video-card">
         <div class="player-wrapper portrait">
           <video controls playsinline preload="metadata">
@@ -322,26 +275,9 @@
             <span class="domain-tag">Macro Finance</span>
             <span class="duration-tag">Portrait (Reels)</span>
           </div>
-          <span class="version-tag">v5-leverage-feedback</span>
+          <span class="version-tag">Production Master • v5</span>
           <h3 class="card-title">A Leverage Feedback Loop (2015 Crash)</h3>
-          <p class="card-desc">Historical analysis of umbrella trusts, shadow margin financing, and the July 2015 state intervention.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper portrait">
-          <video controls playsinline preload="metadata">
-            <source src="china-market-crash-recreation-portrait.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Macro Finance</span>
-            <span class="duration-tag">Portrait (Reels)</span>
-          </div>
-          <span class="version-tag">recreation-v1</span>
-          <h3 class="card-title">Anatomy of a Liquidity Meltdown (v1)</h3>
-          <p class="card-desc">Creative recreation focusing on high-contrast kinetic typography and split-second momentum shifts.</p>
+          <p class="card-desc">The flagship production explainer on umbrella trusts, shadow margin financing, and the July 2015 state liquidity intervention.</p>
         </div>
       </div>
 
@@ -356,9 +292,9 @@
             <span class="domain-tag">Macro Finance</span>
             <span class="duration-tag">Portrait (Reels)</span>
           </div>
-          <span class="version-tag">recreation-v2</span>
+          <span class="version-tag">Production Master • Recreation v2</span>
           <h3 class="card-title">Anatomy of a Liquidity Meltdown (v2)</h3>
-          <p class="card-desc">Polished secondary version with perfected safe-zone typography and multi-track audio mix.</p>
+          <p class="card-desc">Polished kinetic recreation featuring dynamic typographic safe zones, high-contrast momentum charts, and a multi-track audio mix.</p>
         </div>
       </div>
     </div>
@@ -367,10 +303,10 @@
   <!-- 2. Neural Network Learning -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">2. Neural Network Learning <span class="version-count">4 Deliverables</span></h2>
+      <h2 class="project-title">2. Neural Network Learning <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      How forward propagation, loss computation, gradient backpropagation, and weight updates enable deep learning optimization.
+      Input vector matrix math, prediction vs ground truth loss computation, gradient backpropagation, and physical weight adjustment.
     </p>
     <div class="grid">
       <div class="video-card">
@@ -382,45 +318,11 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="domain-tag">Deep Learning</span>
-            <span class="duration-tag">24.75s • Landscape</span>
+            <span class="duration-tag">24.75s • 16:9 Landscape</span>
           </div>
-          <span class="version-tag">v1-baseline (Release)</span>
+          <span class="version-tag">Production Master • Landscape</span>
           <h3 class="card-title">How Does a Neural Network Learn?</h3>
-          <p class="card-desc">Complete landscape explainer showing input matrix math, backprop derivative waves, and weight adjustments.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper">
-          <video controls playsinline preload="metadata">
-            <source src="benchmark-neural-network-v1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Deep Learning</span>
-            <span class="duration-tag">Landscape</span>
-          </div>
-          <span class="version-tag">v1-baseline (Iter 1)</span>
-          <h3 class="card-title">Initial Baseline Proof</h3>
-          <p class="card-desc">First prototype pass validating vector propagation animations and initial narration timing.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper">
-          <video controls playsinline preload="metadata">
-            <source src="benchmark-neural-network-v2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Deep Learning</span>
-            <span class="duration-tag">Landscape</span>
-          </div>
-          <span class="version-tag">v1-baseline (Iter 2)</span>
-          <h3 class="card-title">Enhanced Foley & Timing</h3>
-          <p class="card-desc">Secondary iteration incorporating micro-foley sound effects and calibrated loss curves.</p>
+          <p class="card-desc">Complete widescreen explainer demonstrating forward vector propagation, derivative loss wave, and convergence.</p>
         </div>
       </div>
 
@@ -433,11 +335,11 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="domain-tag">Deep Learning</span>
-            <span class="duration-tag">Portrait (Reels)</span>
+            <span class="duration-tag">9:16 Portrait (Reels)</span>
           </div>
-          <span class="version-tag">v3-studio</span>
+          <span class="version-tag">Production Master • Vertical (v3)</span>
           <h3 class="card-title">Vertical Studio Edition</h3>
-          <p class="card-desc">Vertical re-composition for social reels with hero stage layout and continuous camera drift.</p>
+          <p class="card-desc">Vertical studio re-composition engineered for social reels with hero stage layout and continuous virtual camera drift.</p>
         </div>
       </div>
     </div>
@@ -446,46 +348,12 @@
   <!-- 3. Masala Chai -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">3. The Craft & Chemistry of Masala Chai <span class="version-count">3 Versions</span></h2>
+      <h2 class="project-title">3. The Craft & Chemistry of Masala Chai <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      Illustrated culinary science exploring spice emulsion, water-milk boiling dynamics, and tannin extraction chemistry.
+      Culinary science: lipid spice extraction, water-milk boiling physics, and casein micelle tannin binding.
     </p>
     <div class="grid">
-      <div class="video-card">
-        <div class="player-wrapper">
-          <video controls playsinline preload="metadata">
-            <source src="masala-chai-recipe-landscape.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Culinary Science</span>
-            <span class="duration-tag">31s • Landscape</span>
-          </div>
-          <span class="version-tag">v1-recipe</span>
-          <h3 class="card-title">Masala Chai (Illustrated Recipe)</h3>
-          <p class="card-desc">Silent editorial-light illustrated recipe using line-art reveal, liquid morphing, and paper pop transitions.</p>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="player-wrapper portrait">
-          <video controls playsinline preload="metadata">
-            <source src="chai-masala-portrait.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="domain-tag">Culinary Science</span>
-            <span class="duration-tag">63.6s • Portrait</span>
-          </div>
-          <span class="version-tag">v2-chemistry</span>
-          <h3 class="card-title">The Craft & Chemistry (v1)</h3>
-          <p class="card-desc">Full narrated explainer voiced by af_bella with warm acoustic ambient bed and spice extraction chemistry.</p>
-        </div>
-      </div>
-
       <div class="video-card">
         <div class="player-wrapper portrait">
           <video controls playsinline preload="metadata">
@@ -495,11 +363,11 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="domain-tag">Culinary Science</span>
-            <span class="duration-tag">63.6s • Portrait</span>
+            <span class="duration-tag">63.6s • Portrait (Reels)</span>
           </div>
-          <span class="version-tag">v3-chemistry-v2</span>
-          <h3 class="card-title">The Craft & Chemistry (v2 Refined)</h3>
-          <p class="card-desc">Refined animation choreography, perfect typographic safe zones, and enhanced foley design.</p>
+          <span class="version-tag">Production Master • v2 Refined</span>
+          <h3 class="card-title">The Craft & Chemistry (Refined)</h3>
+          <p class="card-desc">Complete multi-track culinary production: voice narration by af_bella, warm acoustic ambient bed, and animated spice chemistry.</p>
         </div>
       </div>
     </div>
@@ -508,10 +376,10 @@
   <!-- 4. B-Tree Database Indexing -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">4. B-Tree Database Indexing <span class="version-count">1 Deliverable</span></h2>
+      <h2 class="project-title">4. B-Tree Database Indexing <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      Database storage engine mechanics: how high fan-out B-Trees compress 30 disk seeks down to 3 levels.
+      Database storage engine internals: high fan-out B-Trees compressing 30 disk seeks down to 3 levels.
     </p>
     <div class="grid">
       <div class="video-card">
@@ -523,11 +391,11 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="domain-tag">Storage Engines</span>
-            <span class="duration-tag">46.5s • Landscape</span>
+            <span class="duration-tag">46.5s • 16:9 Landscape</span>
           </div>
-          <span class="version-tag">v1</span>
+          <span class="version-tag">Production Master</span>
           <h3 class="card-title">Why Do Databases Use B-Trees?</h3>
-          <p class="card-desc">Contrasting RAM speed with physical disk seek latency, 8KB page packing, and bottom-up node splits.</p>
+          <p class="card-desc">Contrasting RAM access with physical disk seek latency, 8KB page packing, and bottom-up node splits.</p>
         </div>
       </div>
     </div>
@@ -536,10 +404,10 @@
   <!-- 5. Distributed Consensus (Raft) -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">5. Distributed Consensus (Raft) <span class="version-count">1 Deliverable</span></h2>
+      <h2 class="project-title">5. Distributed Consensus (Raft) <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      Fault-tolerant distributed state replication: leader elections, randomized heartbeat timers, quorum majorities, and log commitment.
+      Distributed state replication: randomized election timeouts, vote solicitation, quorum majorities, and atomic log commitment.
     </p>
     <div class="grid">
       <div class="video-card">
@@ -551,9 +419,9 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="domain-tag">Distributed Systems</span>
-            <span class="duration-tag">26.7s • Landscape</span>
+            <span class="duration-tag">26.7s • 16:9 Landscape</span>
           </div>
-          <span class="version-tag">v1</span>
+          <span class="version-tag">Production Master</span>
           <h3 class="card-title">How Does Raft Reach Consensus?</h3>
           <p class="card-desc">Visualizes 5-node cluster state machines, split votes, quorum verification, and uncommitted log entry repairs.</p>
         </div>
@@ -564,10 +432,10 @@
   <!-- 6. Paper Plane Field Notes -->
   <section class="project-group">
     <div class="project-header">
-      <h2 class="project-title">6. Paper Plane Field Notes <span class="version-count">3 Formats</span></h2>
+      <h2 class="project-title">6. Paper Plane Field Notes <span class="version-count">Active Production</span></h2>
     </div>
     <p class="project-desc">
-      Aerodynamic principles, fold geometry, and launch telemetry animated across landscape, portrait, and square formats.
+      Aerodynamic principles, fold geometry, and launch telemetry animated across three aspect ratios.
     </p>
     <div class="grid">
       <div class="video-card">
@@ -581,9 +449,9 @@
             <span class="domain-tag">Aerodynamics</span>
             <span class="duration-tag">16:9 Landscape</span>
           </div>
-          <span class="version-tag">v1 (Landscape)</span>
+          <span class="version-tag">Production Master • Landscape</span>
           <h3 class="card-title">Field Notes • Wide</h3>
-          <p class="card-desc">Full panoramic grid view with aerodynamic glide vectors and technical fold annotations.</p>
+          <p class="card-desc">Panoramic grid view with aerodynamic glide vectors and technical fold annotations.</p>
         </div>
       </div>
 
@@ -598,7 +466,7 @@
             <span class="domain-tag">Aerodynamics</span>
             <span class="duration-tag">9:16 Portrait</span>
           </div>
-          <span class="version-tag">v1 (Portrait)</span>
+          <span class="version-tag">Production Master • Portrait</span>
           <h3 class="card-title">Field Notes • Reels</h3>
           <p class="card-desc">Vertical feed edition with step progress tracker and HUD frame overlay.</p>
         </div>
@@ -615,13 +483,143 @@
             <span class="domain-tag">Aerodynamics</span>
             <span class="duration-tag">1:1 Square</span>
           </div>
-          <span class="version-tag">v1 (Square)</span>
+          <span class="version-tag">Production Master • Square</span>
           <h3 class="card-title">Field Notes • Feed</h3>
-          <p class="card-desc">Balanced square aspect ratio with centered focal elements and compact telemetry.</p>
+          <p class="card-desc">Square format with centered focal elements and compact telemetry.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Archive Section -->
+  <details class="archive-section">
+    <summary>📦 Archived Iterations & Historical Versions (9 Files)</summary>
+    <p class="archive-lead">
+      These earlier iterations and proof-of-concept videos have been safely preserved in <code>out/archive/</code>. They are retained for provenance and historical review.
+    </p>
+
+    <div class="grid">
+      <!-- China Market Crash Archived -->
+      <div class="video-card archived">
+        <div class="player-wrapper">
+          <video controls playsinline preload="metadata">
+            <source src="archive/china-market-crash-2026.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • 2026 Original</span>
+          <h3 class="card-title">China Market Crash: 2026 Legacy</h3>
+          <p class="card-desc">Early landscape baseline version.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper portrait">
+          <video controls playsinline preload="metadata">
+            <source src="archive/china-market-crash-v2-portrait.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Studio v2</span>
+          <h3 class="card-title">China Market Crash v2</h3>
+          <p class="card-desc">First vertical studio iteration.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper portrait">
+          <video controls playsinline preload="metadata">
+            <source src="archive/china-market-crash-v3-portrait.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Studio v3</span>
+          <h3 class="card-title">China Market Crash v3</h3>
+          <p class="card-desc">Intermediate pacing iteration.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper portrait">
+          <video controls playsinline preload="metadata">
+            <source src="archive/china-market-crash-stage3-portrait.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Stage 3</span>
+          <h3 class="card-title">China Market Crash: Stage 3</h3>
+          <p class="card-desc">Stage 3 cascade iteration.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper portrait">
+          <video controls playsinline preload="metadata">
+            <source src="archive/china-market-crash-recreation-portrait.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Recreation v1</span>
+          <h3 class="card-title">Meltdown Recreation v1</h3>
+          <p class="card-desc">Initial recreation pass.</p>
+        </div>
+      </div>
+
+      <!-- Neural Network Archived -->
+      <div class="video-card archived">
+        <div class="player-wrapper">
+          <video controls playsinline preload="metadata">
+            <source src="archive/benchmark-neural-network-v1.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Baseline Iter 1</span>
+          <h3 class="card-title">Neural Network Learning (v1)</h3>
+          <p class="card-desc">Early visual test render.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper">
+          <video controls playsinline preload="metadata">
+            <source src="archive/benchmark-neural-network-v2.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Baseline Iter 2</span>
+          <h3 class="card-title">Neural Network Learning (v2)</h3>
+          <p class="card-desc">Pre-release milestone render.</p>
+        </div>
+      </div>
+
+      <!-- Masala Chai Archived -->
+      <div class="video-card archived">
+        <div class="player-wrapper">
+          <video controls playsinline preload="metadata">
+            <source src="archive/masala-chai-recipe-landscape.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Recipe PoC</span>
+          <h3 class="card-title">Masala Chai Recipe (Silent)</h3>
+          <p class="card-desc">Silent illustrated proof-of-concept.</p>
+        </div>
+      </div>
+
+      <div class="video-card archived">
+        <div class="player-wrapper portrait">
+          <video controls playsinline preload="metadata">
+            <source src="archive/chai-masala-portrait.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="card-body">
+          <span class="version-tag archive-tag">Archived • Chemistry v1</span>
+          <h3 class="card-title">Masala Chai Chemistry (v1)</h3>
+          <p class="card-desc">First narrated pass, superseded by v2.</p>
+        </div>
+      </div>
+    </div>
+  </details>
 
   <footer>
     Autonomous Production Pipeline • Apple Silicon Acceleration • Zero Black Gaps • Complete Delivery Catalog

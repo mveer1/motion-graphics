@@ -76,6 +76,7 @@ projects/**/audio/*.wav
 tests/_work/
 tests/sfx_test/
 tests/*.wav
+archive/tests/
 
 # Frame-review samples are regenerable (scripts/frame-review.py); keep only the report and the
 # cross-format matrix that creative reviews cite as evidence.
