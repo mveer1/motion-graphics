@@ -1,0 +1,32 @@
+{
+  "spec_version": 2,
+  "slug": "south-korea-data-center-fire",
+  "title": "The Day South Korea Lost Its Digital Memory",
+  "template": "illustrated-explainer",
+  "style": "editorial-light",
+  "formats": [
+    {
+      "id": "portrait",
+      "width": 720,
+      "height": 1280,
+      "primary": true,
+      "platform": "instagram-reels"
+    }
+  ],
+  "fps": 30,
+  "duration_sec": 80,
+  "quality": "looks",
+  "timing": {
+    "source": "narration"
+  },
+  "audio": {
+    "narration": true,
+    "music": {
+      "enabled": false
+    },
+    "sfx": true,
+    "captions": false,
+    "loudness_target_lufs": -16,
+    "loudness_tolerance_lu": 2
+  }
+}
