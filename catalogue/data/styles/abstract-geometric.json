@@ -1,0 +1,87 @@
+{
+  "id": "abstract-geometric",
+  "name": "Abstract / Geometric",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "Bone ground with hard-edged vermilion, ultramarine and marigold primitives, heavy grotesque type and exact transformations; for abstract ideas and mathematical motion.",
+  "location": "src/studio/styles/abstract-geometric.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f4efe6",
+      "paper-2": "#e8e1d3",
+      "ink": "#14141a",
+      "ink-2": "#4c4c58",
+      "rule": "#cfc7b6",
+      "accent": "#e8421e",
+      "accent-2": "#1f3dd1",
+      "accent-3": "#f2b21a"
+    },
+    "typography": {
+      "display": "'Archivo Black', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "texture": "Flat colour; optional fine grain; no gradients by default",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Exact and kinetic: rhythmic transformations, on-grid snaps with controlled overshoot",
+    "ease_in": "power3.in",
+    "ease_out": "expo.out",
+    "enter_duration_sec": 0.5,
+    "stagger_sec": 0.05,
+    "notes": "Motion is the content: derive timing from a repeating unit; avoid decorative drift."
+  },
+  "fonts": [
+    {
+      "family": "Archivo Black",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "JetBrains Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 16.0:1",
+    "ink-2/paper 7.4:1",
+    "accent/paper 3.5:1",
+    "accent/paper is below 4.5:1: use for display type 24px+ equivalent, shapes and rules only; never for body or caption text"
+  ],
+  "suitable_for": [
+    "abstract concepts",
+    "mathematics",
+    "brand and title pieces",
+    "music-driven visuals"
+  ],
+  "categories": [
+    "mathematics",
+    "technology"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-02. Not yet used in a rendered project.",
+    "last_verified": "2026-11-02"
+  },
+  "tags": [
+    "light",
+    "geometric",
+    "kinetic",
+    "bauhaus"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-02",
+    "updated_at": "2026-11-02"
+  },
+  "avoid_for": [
+    "photographic or emotionally naturalistic topics"
+  ]
+}

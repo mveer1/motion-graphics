@@ -9,11 +9,11 @@
     "Batching reads and writes",
     "will-change management"
   ],
-  "location": ".agents/skills/gsap-performance",
+  "location": ".claude/skills/gsap-performance",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Built-in workspace skill under .agents/skills/gsap-performance."
+    "instructions": "Built-in workspace skill under .claude/skills/gsap-performance."
   },
   "dependencies": [
     "gsap"
@@ -23,7 +23,7 @@
     "runtime": "agent-host"
   },
   "documentation_urls": [
-    ".agents/skills/gsap-performance/SKILL.md"
+    ".claude/skills/gsap-performance/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",

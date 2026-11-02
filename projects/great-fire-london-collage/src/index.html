@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Fire That Rebuilt London</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/paper-cut.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    /* Families are named literally so HyperFrames injects the bundled fonts (a var(--font-*) alone is not detected). */
+    .f-d { font-family: 'Archivo Black', sans-serif; }
+    .f-t { font-family: 'Nunito', sans-serif; }
+    .f-m { font-family: 'Space Mono', monospace; }
+    #root { background: #ecdfc4; }
+    #world img { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; }
+    #halftone { mix-blend-mode: multiply; opacity: .10; }
+    .stage { position: absolute; inset: 0; }
+    .abs { position: absolute; }
+    .sheet { position: absolute; filter: drop-shadow(0 0 0 transparent); }
+    .sheet img { width: 100%; height: 100%; display: block; }
+    .tape { position: absolute; background: #2a2522; color: #f2e8d5; box-shadow: 8px 9px 0 rgba(42,37,34,.24); white-space: nowrap; }
+    .note { position: absolute; background: #e6d6b8; color: #2a2522; box-shadow: 7px 8px 0 rgba(42,37,34,.22); white-space: nowrap; }
+    .ink { color: #2a2522; }
+    .shadow { filter: drop-shadow(7px 8px 0 rgba(42,37,34,.24)); }
+    .ln { overflow: hidden; display: block; }
+    /* s1 */
+    #map1 { left: 70px; top: 78px; width: 760px; height: 600px; transform: rotate(-3deg); }
+    #map1 svg { position: absolute; left: 0; top: 0; width: 760px; height: 600px; }
+    #banner { left: 640px; top: 70px; padding: 18px 30px 20px; font-size: 62px; line-height: 1; transform: rotate(2deg); }
+    #datetape { left: 760px; top: 238px; padding: 12px 20px; background: #f0b23a; color: #2a2522; font-size: 24px; font-weight: 700; transform: rotate(-2deg); }
+    #midnight { left: 872px; top: 322px; padding: 12px 22px; font-size: 32px; font-weight: 800; transform: rotate(1.5deg); }
+    #moon { left: 700px; top: 52px; width: 120px; height: 120px; }
+    #flame { left: 452px; top: 318px; width: 120px; height: 150px; }
+    #bakery { left: 892px; top: 420px; width: 250px; height: 230px; }
+    #stamp1666 { left: 1112px; top: 168px; width: 120px; height: 120px; border: 7px solid #b5401f; border-radius: 50%; color: #b5401f; display: flex; align-items: center; justify-content: center; font-size: 36px; transform: rotate(-14deg); background: rgba(242,232,213,.0); }
+    /* s2 */
+    .ticket { top: 44px; width: 268px; height: 120px; background: #e6d6b8; box-shadow: 7px 8px 0 rgba(42,37,34,.22); display: flex; align-items: center; justify-content: center; font-size: 54px; font-weight: 700; color: #2a2522; }
+    .ticket::after { content: ''; position: absolute; inset: 9px; border: 3px dashed rgba(42,37,34,.4); }
+    #city2 { left: 54px; top: 210px; width: 800px; height: 470px; transform: rotate(1.4deg); }
+    #city2 svg { position: absolute; left: 0; top: 0; width: 800px; height: 470px; }
+    #windnote { left: 880px; top: 300px; padding: 16px 26px; font-size: 32px; font-weight: 800; transform: rotate(-2.5deg); background: #3f6f8f; color: #f2e8d5; }
+    #firenote { left: 900px; top: 440px; padding: 16px 26px; font-size: 30px; font-weight: 800; transform: rotate(2deg); background: #f0b23a; }
+    #smoke { left: 0; top: 0; width: 1280px; height: 720px; pointer-events: none; }
+    /* s3 */
+    #losssheet { left: 40px; top: 52px; width: 820px; height: 600px; transform: rotate(-2deg); }
+    #count { left: 100px; top: 168px; font-size: 168px; line-height: 1; color: #f2e8d5; letter-spacing: -.01em; transform: rotate(-2deg); }
+    #countlab { left: 104px; top: 372px; font-size: 40px; font-weight: 800; color: #f2e8d5; text-transform: uppercase; letter-spacing: .04em; transform: rotate(-2deg); }
+    #countrange { left: 110px; top: 428px; font-size: 26px; color: #f2e8d5; transform: rotate(-2deg); }
+    #houses { left: 56px; top: 560px; width: 820px; height: 130px; }
+    #churchtape { left: 770px; top: 70px; padding: 12px 22px; font-size: 30px; font-weight: 700; transform: rotate(1.5deg); }
+    #churches { left: 862px; top: 116px; width: 380px; height: 230px; }
+    #dome3 { left: 910px; top: 352px; width: 300px; height: 300px; }
+    #ruin { left: 905px; top: 548px; padding: 8px 22px; border: 7px solid #b5401f; color: #b5401f; font-size: 62px; line-height: 1; transform: rotate(-9deg); background: #f2e8d5; box-shadow: 6px 7px 0 rgba(42,37,34,.24); }
+    /* s4 */
+    #quiet { left: 120px; top: 120px; width: 700px; height: 520px; transform: rotate(1deg); }
+    .qline { left: 180px; font-size: 40px; color: #2a2522; }
+    #six { left: 975px; top: 210px; width: 230px; height: 230px; border-radius: 50%; background: #f0b23a; color: #2a2522; display: flex; align-items: center; justify-content: center; font-size: 150px; box-shadow: 8px 9px 0 rgba(42,37,34,.24); }
+    #qmark { left: 640px; top: 40px; font-size: 520px; line-height: 1; color: #2a2522; opacity: 0; }
+    .gc { border-radius: 50%; background: #e6d6b8; box-shadow: 6px 7px 0 rgba(42,37,34,.16); display: flex; align-items: center; justify-content: center; color: rgba(42,37,34,.55); }
+    /* s5 */
+    #hor { left: 40px; top: 600px; width: 1200px; height: 8px; background: #2a2522; transform-origin: left; }
+    #dome5 { left: 120px; top: 270px; width: 330px; height: 330px; }
+    #d5disc { left: 204px; top: 376px; width: 163px; height: 163px; border-radius: 50%; background: #f0b23a; box-shadow: 8px 9px 0 rgba(42,37,34,.24); display: flex; align-items: center; justify-content: center; font-size: 100px; color: #2a2522; }
+    #skyline { left: 500px; top: 360px; width: 520px; height: 240px; }
+    #woodtape { left: 520px; top: 150px; padding: 12px 28px; font-size: 56px; line-height: 1; transform: rotate(-2deg); }
+    #strike { left: 508px; top: 180px; width: 240px; height: 10px; background: #b5401f; transform-origin: left; transform: rotate(-2deg); }
+    #bricktape { left: 520px; top: 150px; padding: 12px 24px; font-size: 46px; line-height: 1; transform: rotate(1.5deg); background: #b5401f; color: #f2e8d5; }
+    #wren { left: 120px; top: 150px; padding: 12px 22px; font-size: 28px; font-weight: 700; transform: rotate(-1.5deg); background: #e6d6b8; color: #2a2522; }
+    #monument { left: 1090px; top: 130px; width: 90px; height: 470px; }
+    #dim { left: 1020px; top: 130px; width: 46px; height: 470px; }
+    #dimlab { left: 1020px; top: 80px; padding: 8px 16px; font-size: 30px; font-weight: 700; background: #f0b23a; color: #2a2522; transform: rotate(-2deg); }
+    #title { left: 60px; top: 640px; padding: 8px 18px; font-size: 26px; letter-spacing: .12em; transform: rotate(-1deg); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="landscape"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="44.6">
+
+  <div id="world">
+    <img id="ground" src="assets/ground.png" alt="">
+    <img id="halftone" src="assets/halftone.png" alt="">
+  </div>
+
+  <!-- ============ s1 · Pudding Lane ============ -->
+  <section class="st-scene" id="s1"><div class="stage" id="s1-stage">
+    <div class="sheet shadow" id="map1">
+      <img src="assets/sheet-map.png" alt="">
+      <svg viewBox="0 0 760 600" aria-hidden="true">
+        <g fill="none" stroke="#2a2522" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+          <path d="M60 120 C180 90 300 140 420 112 S640 100 700 140"/>
+          <path d="M70 230 C190 200 280 260 410 232 S620 240 704 210"/>
+          <path d="M120 70 C130 190 118 300 140 440"/>
+          <path d="M260 66 C250 180 276 300 262 470"/>
+          <path d="M420 112 C432 220 410 330 430 470"/>
+          <path d="M580 96 C572 210 600 330 588 470"/>
+          <path d="M70 340 C200 322 320 360 450 338 S650 330 704 350"/>
+        </g>
+        <path d="M30 505 C150 470 260 540 390 505 S610 470 730 520 L730 580 L30 580 Z" fill="#3f6f8f" opacity=".85"/>
+        <text x="200" y="560" font-family="Space Mono, monospace" font-size="26" fill="#f2e8d5" font-weight="700" letter-spacing="3">RIVER THAMES</text>
+        <circle cx="440" cy="392" r="9" fill="#2a2522"/>
+      </svg>
+    </div>
+    <div class="abs shadow" id="moon"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="46" fill="#f0b23a"/><circle cx="82" cy="48" r="40" fill="#ecdfc4"/></svg></div>
+    <div class="tape f-d" id="banner">PUDDING LANE</div>
+    <div class="tape f-m" id="datetape">SUNDAY 2 SEPTEMBER 1666</div>
+    <div class="note f-t" id="midnight">just after midnight</div>
+    <div class="abs f-d" id="stamp1666">1666</div>
+    <div class="abs" id="flame"><svg viewBox="0 0 120 150" overflow="visible">
+      <g id="fl-a"><path d="M60 148 C14 140 6 92 34 60 C38 82 50 86 52 70 C54 48 44 28 62 4 C70 36 112 66 106 106 C104 130 88 146 60 148Z" fill="#b5401f"/></g>
+      <g id="fl-b"><path d="M60 146 C30 140 26 108 46 86 C50 100 58 102 60 90 C62 70 58 62 68 46 C78 70 98 88 92 114 C88 134 78 144 60 146Z" fill="#f0b23a"/></g>
+      <g id="fl-c"><path d="M60 146 C46 142 44 124 56 112 C60 120 66 118 68 108 C78 122 78 140 60 146Z" fill="#f4ecd8"/></g>
+      <g id="pin"><circle cx="60" cy="150" r="10" fill="#d24a26" stroke="#2a2522" stroke-width="3"/></g></svg></div>
+    <div class="abs shadow" id="bakery"><svg viewBox="0 0 250 230">
+      <rect x="22" y="92" width="206" height="126" fill="#c9a36a" stroke="#2a2522" stroke-width="5"/>
+      <polygon points="8,96 125,18 242,96" fill="#8f5a3a" stroke="#2a2522" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="40" y="108" width="170" height="40" fill="#f2e8d5" stroke="#2a2522" stroke-width="4"/>
+      <text x="125" y="138" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="30" fill="#2a2522">BAKERY</text>
+      <rect x="62" y="162" width="52" height="56" fill="#2a2522"/><rect x="138" y="162" width="52" height="40" fill="#e6d6b8" stroke="#2a2522" stroke-width="4"/></svg></div>
+  </div></section>
+
+  <!-- ============ s2 · Sunday to Wednesday ============ -->
+  <section class="st-scene" id="s2"><div class="stage" id="s2-stage">
+    <svg class="abs" id="smoke" viewBox="0 0 1280 720" aria-hidden="true"></svg>
+    <div class="note ticket f-m" id="tk1" style="left:48px">SUN 2</div>
+    <div class="note ticket f-m" id="tk2" style="left:344px">MON 3</div>
+    <div class="note ticket f-m" id="tk3" style="left:640px">TUE 4</div>
+    <div class="note ticket f-m" id="tk4" style="left:936px">WED 5</div>
+    <div class="sheet shadow" id="city2">
+      <img src="assets/sheet-map.png" alt="">
+      <svg viewBox="0 0 800 470" aria-hidden="true">
+        <g fill="none" stroke="#2a2522" stroke-width="3" stroke-linecap="round" opacity=".55">
+          <path d="M50 90 C170 70 300 112 430 90 S650 84 750 104"/><path d="M52 190 C180 170 300 220 440 194 S660 200 752 176"/>
+          <path d="M60 290 C190 270 320 316 450 292 S670 284 752 300"/><path d="M130 50 C140 160 128 280 150 400"/>
+          <path d="M290 46 C280 160 304 280 292 420"/><path d="M470 60 C482 170 458 290 478 420"/><path d="M640 56 C632 170 658 290 646 420"/></g>
+        <g id="burn" style="transform-origin:200px 250px">
+          <path d="M200 120 C270 98 350 130 372 200 C400 260 350 340 270 356 C190 380 110 340 96 270 C80 210 130 140 200 120Z" fill="#b5401f"/>
+          <path d="M204 160 C256 146 322 170 336 220 C354 270 316 322 262 332 C204 346 148 316 140 268 C130 222 160 176 204 160Z" fill="#f0b23a"/>
+          <path d="M208 206 C240 198 284 214 290 248 C298 282 262 304 230 300 C196 298 176 270 182 244 C186 222 194 210 208 206Z" fill="#f4ecd8"/></g>
+        <g id="fbreak" fill="none" stroke="#2a2522" stroke-width="7" stroke-linecap="round" stroke-dasharray="26 16" opacity="0">
+          <path d="M470 60 C486 150 450 270 480 430"/></g>
+        <g id="wind" fill="none" stroke="#3f6f8f" stroke-width="6" stroke-linecap="round" opacity="0">
+          <path d="M520 130 C580 110 640 150 700 128"/><path d="M500 210 C570 188 640 230 730 204"/><path d="M530 290 C590 270 650 308 716 288"/></g>
+      </svg>
+    </div>
+    <div class="note f-t" id="windnote">Wind drops.</div>
+    <div class="note f-t" id="firenote">Firebreaks hold.</div>
+  </div></section>
+
+  <!-- ============ s3 · The loss ============ -->
+  <section class="st-scene" id="s3"><div class="stage" id="s3-stage">
+    <div class="sheet shadow" id="losssheet"><img src="assets/sheet-loss.png" alt=""></div>
+    <div class="abs f-d" id="count">0</div>
+    <div class="abs f-t" id="countlab">houses destroyed</div>
+    <div class="abs f-m" id="countrange">estimated 13,200 to 13,500</div>
+    <div class="abs" id="houses"></div>
+    <div class="tape f-m" id="churchtape">86 OR 87 PARISH CHURCHES</div>
+    <div class="abs" id="churches"></div>
+    <div class="abs shadow" id="dome3"></div>
+    <div class="abs f-d" id="ruin">RUIN</div>
+  </div></section>
+
+  <!-- ============ s4 · How many died? ============ -->
+  <section class="st-scene" id="s4"><div class="stage" id="s4-stage">
+    <div class="sheet shadow" id="quiet"><img src="assets/sheet-quiet.png" alt=""></div>
+    <div class="abs f-d" id="qmark">?</div>
+    <div class="abs f-m qline ln" id="ql1" style="top:190px"><span>How many died?</span></div>
+    <div class="abs f-m qline ln" id="ql2" style="top:290px"><span>The traditional figure:</span></div>
+    <div class="abs f-m qline ln" id="ql3" style="top:470px"><span>Historians disagree.</span></div>
+    <div class="abs f-d" id="six">6</div>
+    <div id="ghosts"></div>
+  </div></section>
+
+  <!-- ============ s5 · Brick and stone ============ -->
+  <section class="st-scene" id="s5"><div class="stage" id="s5-stage">
+    <div class="abs" id="hor"></div>
+    <div class="abs f-d" id="d5disc"><span class="num">6</span></div>
+    <div class="abs shadow" id="dome5"></div>
+    <div class="abs" id="skyline"></div>
+    <div class="tape f-d" id="woodtape">WOOD</div>
+    <div class="abs" id="strike"></div>
+    <div class="tape f-d" id="bricktape">BRICK + STONE</div>
+    <div class="note f-t" id="wren">Christopher Wren</div>
+    <div class="abs" id="dim"></div>
+    <div class="abs shadow" id="monument"></div>
+    <div class="note f-m" id="dimlab">202 ft</div>
+    <div class="tape f-d" id="title">THE FIRE THAT REBUILT LONDON</div>
+  </div></section>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var $ = function (q) { return document.querySelector(q); };
+  var rnd = S.rng(1666);
+  var C = { s1: { map: .2, moon: 1.1, tape: 2.4, stamp: 4.5, flame: 5.9, bakery: 6.6, banner: 7.5 },
+            s2: { push: 9.0, d1: 9.3, d2: 10.0, d3: 10.7, d4: 11.4, wind: 12.0, firebreak: 13.2, char: 14.4 },
+            s3: { wipe: 16.3, counter: 16.8, houses: 17.4, houseChar: 19.3, churches: 19.8, churchChar: 21.6, dome: 22.1, domeChar: 23.2, ruin: 23.6 },
+            s4: { fade: 25.25, line1: 25.9, line2: 27.6, six: 28.6, ghost: 30.3, line3: 30.5, circles: 31.0 },
+            s5: { match: 32.9, horizon: 33.1, timber: 33.6, brick: 34.7, tape: 35.0, strike: 35.5, wren: 36.9, dome: 37.3, monument: 39.6, dim: 40.4, label: 41.8, title: 42.9 } };
+  var END = 44.6;
+
+  // ---------------------------------------------------------------- built shapes
+  function houseSVG(fill, roof) {
+    return '<svg viewBox="0 0 80 90" width="64" height="72"><polygon class="hr" points="2,38 40,6 78,38" fill="' + roof + '" stroke="#2a2522" stroke-width="4" stroke-linejoin="round"/>' +
+      '<rect class="hb" x="8" y="36" width="64" height="50" fill="' + fill + '" stroke="#2a2522" stroke-width="4"/><rect x="32" y="56" width="16" height="30" fill="#2a2522"/><rect x="14" y="46" width="12" height="12" fill="#f2e8d5" stroke="#2a2522" stroke-width="2"/><rect x="54" y="46" width="12" height="12" fill="#f2e8d5" stroke="#2a2522" stroke-width="2"/></svg>';
+  }
+  function churchSVG(fill) {
+    return '<svg viewBox="0 0 70 130" width="90" height="167"><polygon class="cr" points="35,2 52,40 18,40" fill="#8f5a3a" stroke="#2a2522" stroke-width="4" stroke-linejoin="round"/>' +
+      '<rect class="cb" x="18" y="40" width="34" height="86" fill="' + fill + '" stroke="#2a2522" stroke-width="4"/><path d="M28 112 V84 a7 7 0 0 1 14 0 V112Z" fill="#2a2522"/><path d="M35 -6 V12 M28 2 H42" stroke="#2a2522" stroke-width="4" fill="none"/></svg>';
+  }
+  function domeSVG(parts) {
+    return '<svg viewBox="0 0 300 300" width="100%" height="100%" overflow="visible">' +
+      '<g id="' + parts + '-base"><rect x="30" y="236" width="240" height="56" fill="#e6d6b8" stroke="#2a2522" stroke-width="5"/><path d="M52 236 V292 M86 236 V292 M120 236 V292 M154 236 V292 M188 236 V292 M222 236 V292 M248 236 V292" stroke="#2a2522" stroke-width="3"/></g>' +
+      '<g id="' + parts + '-drum"><rect x="70" y="170" width="160" height="66" fill="#f4ecd8" stroke="#2a2522" stroke-width="5"/><path d="M92 170 V236 M122 170 V236 M150 170 V236 M178 170 V236 M208 170 V236" stroke="#2a2522" stroke-width="3"/></g>' +
+      '<g id="' + parts + '-dome"><path class="dm" d="M76 170 C76 92 124 56 150 56 C176 56 224 92 224 170Z" fill="#8da47e" stroke="#2a2522" stroke-width="5"/><path d="M110 168 C112 110 130 76 150 60 M190 168 C188 110 170 76 150 60" fill="none" stroke="#2a2522" stroke-width="3"/></g>' +
+      '<g id="' + parts + '-lantern"><rect x="136" y="26" width="28" height="34" fill="#f4ecd8" stroke="#2a2522" stroke-width="4"/><circle cx="150" cy="20" r="8" fill="#f0b23a" stroke="#2a2522" stroke-width="3"/></g>' +
+      '<g id="' + parts + '-cross"><path d="M150 -14 V14 M138 -2 H162" stroke="#2a2522" stroke-width="5" fill="none"/></g>' +
+      '<g id="' + parts + '-scaf" fill="none" stroke="#2a2522" stroke-width="5" stroke-linecap="round" opacity="0"><path class="sc" d="M60 292 V30 M240 292 V30 M150 292 V0"/><path class="sc" d="M60 236 H240 M60 170 H240 M72 104 H228 M100 50 H200"/><path class="sc" d="M60 292 L240 170 M240 292 L60 170 M60 170 L240 50 M240 170 L60 50"/></g></svg>';
+  }
+  function brickHouse(i, fill) {
+    return '<svg viewBox="0 0 90 150" width="82" height="136"><rect class="kb" x="6" y="30" width="78" height="116" fill="' + fill + '" stroke="#2a2522" stroke-width="4"/>' +
+      '<polygon points="2,32 45,4 88,32" fill="#6b5a4a" stroke="#2a2522" stroke-width="4" stroke-linejoin="round"/>' +
+      '<g stroke="#2a2522" stroke-width="2" opacity=".55"><path d="M6 52 H84 M6 72 H84 M6 92 H84 M6 112 H84 M6 132 H84"/><path d="M30 52 V72 M58 72 V92 M30 92 V112 M58 112 V132"/></g>' +
+      '<rect x="36" y="104" width="18" height="42" fill="#2a2522"/><rect class="wn" x="14" y="44" width="16" height="18" fill="#f2e8d5" stroke="#2a2522" stroke-width="3"/><rect class="wn" x="60" y="44" width="16" height="18" fill="#f2e8d5" stroke="#2a2522" stroke-width="3"/></svg>';
+  }
+  function timberHouse(fill) {
+    return '<svg viewBox="0 0 90 150" width="82" height="136"><rect class="kb" x="6" y="30" width="78" height="116" fill="' + fill + '" stroke="#2a2522" stroke-width="4"/>' +
+      '<polygon points="2,32 45,4 88,32" fill="#8f5a3a" stroke="#2a2522" stroke-width="4" stroke-linejoin="round"/>' +
+      '<g stroke="#2a2522" stroke-width="2" opacity=".5"><path d="M20 34 V146 M34 34 V146 M48 34 V146 M62 34 V146 M76 34 V146"/><path d="M6 78 H84"/></g>' +
+      '<rect x="36" y="104" width="18" height="42" fill="#2a2522"/><rect class="wn" x="14" y="44" width="16" height="18" fill="#f2e8d5" stroke="#2a2522" stroke-width="3"/><rect class="wn" x="60" y="44" width="16" height="18" fill="#f2e8d5" stroke="#2a2522" stroke-width="3"/></svg>';
+  }
+  function put(id, html) { $(id).innerHTML = html; }
+
+  // s3: houses, churches, dome
+  var hh = '';
+  for (var i = 0; i < 11; i++) hh += '<div class="abs hs shadow" style="left:' + (i * 72) + 'px;top:' + (i % 2 ? 6 : 0) + 'px">' + houseSVG('#c9a36a', '#8f5a3a') + '</div>';
+  put('#houses', hh);
+  var ch = '';
+  for (var c = 0; c < 4; c++) ch += '<div class="abs cs shadow" style="left:' + (c * 96) + 'px;top:' + (c % 2 ? 18 : 0) + 'px">' + churchSVG('#e6d6b8') + '</div>';
+  put('#churches', ch);
+  put('#dome3', domeSVG('d3'));
+
+  // s5: skyline starts as timber houses; bricks replace them
+  var sk = '';
+  var heights = [0, 10, 0, 18, 6, 0];
+  for (var k = 0; k < 6; k++) sk += '<div class="abs sw shadow" style="left:' + (k * 86 - 6) + 'px;top:' + (84 + heights[k]) + 'px">' + timberHouse('#c9a36a') + '</div>' +
+    '<div class="abs sb shadow" style="left:' + (k * 86 - 6) + 'px;top:' + (84 + heights[k]) + 'px">' + brickHouse(k, k % 2 ? '#9e3b22' : '#b5401f') + '</div>';
+  put('#skyline', sk);
+  put('#dome5', domeSVG('d5'));
+  put('#monument', '<svg viewBox="0 0 90 470" width="90" height="470" overflow="visible"><g id="mo-body"><path d="M18 458 L28 120 H62 L72 458 Z" fill="#e6d6b8" stroke="#2a2522" stroke-width="5" stroke-linejoin="round"/><path d="M34 458 L38 120 M45 458 V120 M56 458 L52 120" stroke="#2a2522" stroke-width="3" fill="none"/><rect x="8" y="440" width="74" height="26" fill="#f4ecd8" stroke="#2a2522" stroke-width="5"/><rect x="22" y="112" width="46" height="14" fill="#f4ecd8" stroke="#2a2522" stroke-width="4"/></g><g id="mo-top"><path d="M45 18 C26 40 28 78 45 110 C62 78 64 40 45 18Z" fill="#f0b23a" stroke="#2a2522" stroke-width="4"/><path d="M45 52 C38 66 40 86 45 100 C50 86 52 66 45 52Z" fill="#b5401f"/></g></svg>');
+  put('#dim', '<svg viewBox="0 0 46 470" width="46" height="470" overflow="visible"><path id="dimline" d="M23 8 V462 M8 8 H38 M8 462 H38" stroke="#b5401f" stroke-width="5" fill="none" stroke-linecap="round"/></svg>');
+
+  // s2: smoke scraps drifting up (seeded)
+    var smk = $('#smoke'); var shapes = '';
+  for (var q = 0; q < 12; q++) {
+    var cx = 190 + rnd() * 140, cy = 380 + rnd() * 120, r = 26 + rnd() * 30;
+    var pts = [];
+    for (var a = 0; a < 7; a++) { var ang = a / 7 * Math.PI * 2, rr = r * (0.7 + rnd() * 0.5); pts.push((cx + Math.cos(ang) * rr).toFixed(1) + ',' + (cy + Math.sin(ang) * rr * 0.8).toFixed(1)); }
+    shapes += '<polygon class="smk" points="' + pts.join(' ') + '" fill="' + (q % 3 ? '#6b625a' : '#4a433d') + '" opacity="0"/>';
+  }
+  smk.innerHTML = shapes;
+
+  // s4: ghost circles ("far higher"), question marks inside
+  var gh = '';
+  var gc = [[780, 470, 120], [960, 520, 90], [1090, 430, 150], [1010, 150, 100], [820, 120, 80]];
+  gc.forEach(function (g, n) { gh += '<div class="abs gc f-d" id="gc' + n + '" style="left:' + g[0] + 'px;top:' + g[1] + 'px;width:' + g[2] + 'px;height:' + g[2] + 'px;font-size:' + (g[2] * 0.55) + 'px;opacity:0">?</div>'; });
+  put('#ghosts', gh);
+
+  // ---------------------------------------------------------------- scene switching
+  S.show(tl, '#s1', 0);
+  S.fx.push(tl, '#s1', '#s2', C.s2.push, { from: 'right', duration: .7 });
+  S.fx.wipe(tl, '#s2', '#s3', C.s3.wipe, { from: 'left', duration: .7, edge: '#b5401f', edgeWidth: 2.2 });
+  S.crossfade(tl, '#s3', '#s4', C.s4.fade, 0.9);
+  S.fx.matchCut(tl, '#six', '#d5disc', '#s4', '#s5', C.s5.match, { duration: 0.8 });
+
+  // slow paper-table drift under everything
+  tl.fromTo('#halftone', { x: 0 }, { x: -40, duration: END, ease: 'none', immediateRender: true }, 0);
+  function pop(target, at, o) {
+    o = o || {};
+    tl.fromTo(target, { scale: o.from === undefined ? 0 : o.from, opacity: 0, transformOrigin: o.origin || '50% 100%' }, { scale: 1, opacity: 1, duration: o.dur || .45, ease: o.ease || 'back.out(1.7)', immediateRender: true, stagger: o.stagger || 0 }, at);
+  }
+  function stamp(target, at, from) { // lands from oversize with a small thud, then settles
+    tl.fromTo(target, { scale: from || 1.9, opacity: 0, transformOrigin: '50% 50%' }, { scale: 1, opacity: 1, duration: .22, ease: 'power4.in', immediateRender: true }, at);
+  }
+  function typeIn(target, at, n) {
+    tl.fromTo(target + ' > span', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: n * 0.075, ease: 'steps(' + n + ')', immediateRender: true }, at);
+  }
+
+  // ================= s1 =================
+  var a = C.s1;
+  tl.fromTo('#map1', { x: -900, rotation: -16 }, { x: 0, rotation: -3, duration: .75, ease: 'back.out(1.1)', immediateRender: true }, 0);
+  pop('#moon', a.moon, { from: 0, origin: '50% 50%' });
+  tl.fromTo('#moon', { rotation: -40 }, { rotation: 0, duration: .5, ease: 'power3.out', immediateRender: true }, a.moon);
+  tl.fromTo('#datetape', { y: -300, rotation: -9, opacity: 0 }, { y: 0, rotation: -2, opacity: 1, duration: .5, ease: 'back.out(1.3)', immediateRender: true }, a.tape);
+  tl.fromTo('#midnight', { x: 300, opacity: 0, rotation: 8 }, { x: 0, opacity: 1, rotation: 1.5, duration: .5, ease: 'power3.out', immediateRender: true }, a.moon + .15);
+  stamp('#stamp1666', a.stamp, 2.2);
+  tl.fromTo('#pin', { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: .32, ease: 'power4.in', immediateRender: true }, a.flame);
+  ['#fl-a', '#fl-b', '#fl-c'].forEach(function (id, n) {
+    tl.fromTo(id, { scaleY: 0, scaleX: .6, transformOrigin: '60px 148px' }, { scaleY: 1, scaleX: 1, duration: .5, ease: 'back.out(2)', immediateRender: true }, a.flame + .2 + n * .06);
+    var cyc = S.cycles(a.flame + .8, C.s2.push, .5 + n * .07);
+    tl.to(id, { scaleY: 1.1 - n * .02, scaleX: .94 + n * .02, rotation: n % 2 ? 2.5 : -2.5, duration: .25 + n * .035, ease: 'sine.inOut', yoyo: true, repeat: Math.max(1, cyc * 2), transformOrigin: '60px 148px' }, a.flame + .8);
+  });
+  pop('#bakery', a.bakery, { dur: .5 });
+  tl.fromTo('#banner', { x: 900, rotation: 12 }, { x: 0, rotation: 2, duration: .55, ease: 'back.out(1.2)', immediateRender: true }, a.banner);
+  tl.to('#banner', { scale: 1.04, duration: .16, yoyo: true, repeat: 1, ease: 'power2.out', transformOrigin: '50% 50%' }, a.banner + .55);
+  S.space.drift(tl, '#s1-stage', 0, C.s2.push + .7, { endScale: 1.05, origin: '45% 55%' });
+
+  // ================= s2 =================
+  var b = C.s2;
+  ['d1', 'd2', 'd3', 'd4'].forEach(function (k, n) {
+    stamp('#tk' + (n + 1), b[k], 1.7);
+    var rotate = [-2, 1.5, -1, 2][n];
+    tl.fromTo('#tk' + (n + 1), { rotation: rotate * 3 }, { rotation: rotate, duration: .3, ease: 'power2.out', immediateRender: true }, b[k]);
+  });
+  tl.fromTo('#city2', { x: 400, opacity: 0, rotation: 5 }, { x: 0, opacity: 1, rotation: 1.4, duration: .6, ease: 'power3.out', immediateRender: true }, b.push + .1);
+  var steps = [[b.d1, .28], [b.d2, .5], [b.d3, .78], [b.d4, 1.0]];
+  tl.fromTo('#burn', { scale: .12, opacity: 0, transformOrigin: '200px 250px' }, { scale: .28, opacity: 1, duration: .35, ease: 'back.out(1.8)', immediateRender: true }, b.d1);
+  steps.slice(1).forEach(function (s) { tl.to('#burn', { scale: s[1], duration: .55, ease: 'power2.out', transformOrigin: '200px 250px' }, s[0]); });
+  tl.fromTo('.smk', { y: 0, opacity: 0 }, { y: -170, x: 60, opacity: .8, duration: 2.6, ease: 'power1.out', stagger: .22, immediateRender: true }, b.d1 + .2);
+  tl.to('.smk', { opacity: 0, duration: 1.2, stagger: .1, ease: 'power1.in' }, b.char + .6);
+  tl.fromTo('#windnote', { y: -260, opacity: 0, rotation: -10 }, { y: 0, opacity: 1, rotation: -2.5, duration: .5, ease: 'back.out(1.4)', immediateRender: true }, b.wind);
+  tl.fromTo('#wind', { opacity: 0, x: -120 }, { opacity: 1, x: 40, duration: 1.2, ease: 'power1.out', immediateRender: true }, b.wind + .1);
+  tl.to('#wind', { opacity: 0, duration: .5 }, b.wind + 1.3);
+  tl.fromTo('#fbreak', { opacity: 0 }, { opacity: 1, duration: .4, ease: 'none', immediateRender: true }, b.firebreak);
+  tl.fromTo('#fbreak path', { strokeDasharray: '26 16', strokeDashoffset: 460 }, { strokeDashoffset: 0, duration: .9, ease: 'none', immediateRender: true }, b.firebreak);
+  tl.fromTo('#firenote', { x: 300, opacity: 0, rotation: 9 }, { x: 0, opacity: 1, rotation: 2, duration: .5, ease: 'back.out(1.3)', immediateRender: true }, b.firebreak + .1);
+  tl.to('#burn path:nth-child(1)', { fill: '#2a2522', duration: 1.1, ease: 'power1.in' }, b.char);
+  tl.to('#burn path:nth-child(2)', { fill: '#5a4a40', duration: 1.1, ease: 'power1.in' }, b.char);
+  tl.to('#burn path:nth-child(3)', { fill: '#8f8173', duration: 1.1, ease: 'power1.in' }, b.char);
+  tl.to('#burn', { scale: 1.02, duration: 1.4, ease: 'sine.inOut', transformOrigin: '200px 250px' }, b.char);
+  S.space.drift(tl, '#s2-stage', b.push + .7, C.s3.wipe + .7, { endScale: 1.045, origin: '35% 60%' });
+
+  // ================= s3 =================
+  var c3 = C.s3;
+  tl.fromTo('#losssheet', { x: -300, rotation: -9, opacity: 0 }, { x: 0, rotation: -2, opacity: 1, duration: .6, ease: 'power3.out', immediateRender: true }, c3.wipe + .2);
+  S.type.formatCount(tl, '#count', c3.counter, { from: 0, to: 13200, duration: 2.6, ease: 'power2.out' });
+  tl.fromTo(['#countlab', '#countrange'], { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: .45, stagger: .14, ease: 'power3.out', immediateRender: true }, c3.counter + .3);
+  tl.fromTo('.hs', { scale: 0, opacity: 0, transformOrigin: '50% 100%' }, { scale: 1, opacity: 1, duration: .38, ease: 'back.out(1.8)', stagger: .15, immediateRender: true }, c3.houses);
+  tl.to('.hs .hb', { fill: '#2a2522', duration: .3, stagger: .09, ease: 'power1.in' }, c3.houseChar);
+  tl.to('.hs .hr', { fill: '#4a433d', duration: .3, stagger: .09, ease: 'power1.in' }, c3.houseChar);
+  tl.fromTo('#churchtape', { y: -200, opacity: 0, rotation: 7 }, { y: 0, opacity: 1, rotation: 1.5, duration: .45, ease: 'back.out(1.4)', immediateRender: true }, c3.churches - .1);
+  tl.fromTo('.cs', { y: 120, opacity: 0, scale: .8, transformOrigin: '50% 100%' }, { y: 0, opacity: 1, scale: 1, duration: .45, ease: 'back.out(1.5)', stagger: .15, immediateRender: true }, c3.churches);
+  tl.to('.cs .cb', { fill: '#2a2522', duration: .35, stagger: .12 }, c3.churchChar);
+  tl.to('.cs .cr', { fill: '#4a433d', duration: .35, stagger: .12 }, c3.churchChar);
+  tl.to('.cs', { rotation: function (i) { return [-4, 6, -7, 5][i]; }, y: function (i) { return [6, 12, 8, 14][i]; }, duration: .5, stagger: .12, ease: 'power2.in', transformOrigin: '50% 100%' }, c3.churchChar + .2);
+  tl.fromTo('#dome3', { y: 160, opacity: 0 }, { y: 0, opacity: 1, duration: .55, ease: 'back.out(1.3)', immediateRender: true }, c3.dome);
+  tl.to('#d3-dome .dm', { fill: '#2a2522', duration: .6, ease: 'power1.in' }, c3.domeChar);
+  tl.to('#d3-drum rect', { fill: '#6b625a', duration: .6 }, c3.domeChar);
+  tl.to('#d3-lantern', { rotation: 24, y: 24, opacity: .9, duration: .5, ease: 'power2.in', transformOrigin: '150px 60px' }, c3.domeChar + .1);
+  stamp('#ruin', c3.ruin, 2.2);
+  tl.to('#count', { scale: 1.03, duration: 3.5, ease: 'sine.inOut', transformOrigin: '0% 50%' }, c3.houseChar);
+  S.space.drift(tl, '#s3-stage', c3.wipe + .7, C.s4.fade + .4, { endScale: 1.04, origin: '30% 50%' });
+
+  // ================= s4 =================
+  var d = C.s4;
+  tl.fromTo('#quiet', { opacity: 0 }, { opacity: 1, duration: .9, ease: 'none', immediateRender: true }, d.fade);
+  typeIn('#ql1', d.line1, 14);
+  typeIn('#ql2', d.line2, 23);
+  stamp('#six', d.six, 1.5);
+  tl.fromTo('#qmark', { opacity: 0, scale: .8, transformOrigin: '50% 50%' }, { opacity: .07, scale: 1.06, duration: 3.2, ease: 'sine.out', immediateRender: true }, d.ghost);
+  typeIn('#ql3', d.line3, 20);
+  tl.fromTo('.gc', { scale: .3, opacity: 0, transformOrigin: '50% 50%' }, { scale: 1, opacity: 1, duration: .5, ease: 'back.out(1.6)', stagger: .22, immediateRender: true }, d.circles);
+  tl.to('#six', { y: -8, duration: 2.6, ease: 'sine.inOut' }, d.six + .5);
+  tl.to('.gc', { y: -10, duration: 2.0, ease: 'sine.inOut', stagger: .15 }, d.circles + .9);
+
+  // ================= s5 =================
+  var e = C.s5;
+  tl.to('#d5disc .num', { opacity: 0, duration: .35, ease: 'power1.in' }, e.match + .25);
+  tl.to('#d5disc', { backgroundColor: '#8da47e', duration: .9, ease: 'power1.inOut' }, e.match + .5);
+  tl.fromTo('#d5-base', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'power3.out', immediateRender: true }, e.match + .3);
+  tl.fromTo('#d5-drum', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'power3.out', immediateRender: true }, e.match + .5);
+  tl.fromTo('#hor', { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: 'power3.inOut', immediateRender: true }, e.horizon);
+  tl.fromTo('.sw', { scale: 0, opacity: 0, transformOrigin: '50% 100%' }, { scale: 1, opacity: 1, duration: .4, ease: 'back.out(1.6)', stagger: .12, immediateRender: true }, e.timber);
+  tl.fromTo('#woodtape', { y: -200, opacity: 0, rotation: -8 }, { y: 0, opacity: 1, rotation: -2, duration: .45, ease: 'back.out(1.4)', immediateRender: true }, e.timber + .1);
+  // bricks replace timber, one house at a time
+  tl.fromTo('.sb', { y: -260, opacity: 0, transformOrigin: '50% 100%' }, { y: 0, opacity: 1, duration: .38, ease: 'power3.in', stagger: .2, immediateRender: true }, e.brick);
+  tl.to('.sw', { opacity: 0, duration: .15, stagger: .2 }, e.brick + .3);
+  tl.fromTo('#strike', { scaleX: 0 }, { scaleX: 1, duration: .45, ease: 'power3.in', immediateRender: true }, e.strike);
+  tl.fromTo('#bricktape', { x: 400, opacity: 0, rotation: 9 }, { x: 0, opacity: 1, rotation: 1.5, duration: .5, ease: 'back.out(1.3)', immediateRender: true }, e.tape);
+  tl.to(['#woodtape', '#strike'], { opacity: 0, y: 30, duration: .5, ease: 'power2.in' }, e.tape + .7);
+  tl.fromTo('#wren', { y: -200, opacity: 0, rotation: 7 }, { y: 0, opacity: 1, rotation: -1.5, duration: .45, ease: 'back.out(1.4)', immediateRender: true }, e.wren);
+  tl.fromTo('#d5-dome', { y: 90, opacity: 0, scale: .8, transformOrigin: '150px 170px' }, { y: 0, opacity: 1, scale: 1, duration: .6, ease: 'back.out(1.4)', immediateRender: true }, e.dome);
+  tl.to('#d5disc', { opacity: 0, duration: .3, ease: 'none' }, e.dome + .3);
+  tl.fromTo('#d5-lantern', { y: -60, opacity: 0 }, { y: 0, opacity: 1, duration: .4, ease: 'back.out(1.6)', immediateRender: true }, e.dome + .35);
+  tl.fromTo('#d5-cross', { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: .35, ease: 'back.out(1.8)', immediateRender: true }, e.dome + .6);
+  // St Paul's under scaffolding, then revealed: the one big visual event during 'Wren rebuilt Saint Paul's'
+  tl.fromTo('#d5-scaf', { opacity: 0 }, { opacity: 1, duration: .05, immediateRender: true }, e.wren + .2);
+  tl.fromTo('#d5-scaf .sc', { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: .7, ease: 'power2.out', stagger: .22, immediateRender: true }, e.wren + .2);
+  tl.to('#d5-scaf', { y: -30, opacity: 0, duration: .8, ease: 'power2.in', transformOrigin: '150px 150px' }, e.dome + 1.5);
+  // rebuilt homes: windows light up one by one while the narration is on Wren and St Paul's (replaces a 3 s hold)
+  tl.to('.sb .wn', { fill: '#f0b23a', duration: .25, stagger: .11, ease: 'power1.out' }, e.wren + 1.2);
+  tl.fromTo('#wren', { scale: 1 }, { scale: 1.06, duration: .18, yoyo: true, repeat: 1, ease: 'power2.out', transformOrigin: '50% 50%' }, e.wren + 1.0);
+  tl.fromTo('#d5-cross', { scale: 1, transformOrigin: '150px 0px' }, { scale: 1.5, duration: .22, yoyo: true, repeat: 1, ease: 'power2.out', transformOrigin: '150px 0px' }, e.dome + 1.3);
+  tl.fromTo('#mo-body', { scaleY: 0, transformOrigin: '45px 458px' }, { scaleY: 1, duration: 2.0, ease: 'power2.inOut', immediateRender: true }, e.monument);
+  tl.fromTo('#mo-top', { y: 330, opacity: 0 }, { y: 0, opacity: 1, duration: .5, ease: 'back.out(1.5)', immediateRender: true }, e.monument + 1.9);
+  tl.fromTo('#dimline', { strokeDasharray: 470, strokeDashoffset: 470 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', immediateRender: true }, e.dim);
+  tl.fromTo('#dimlab', { y: -80, opacity: 0, rotation: 8 }, { y: 0, opacity: 1, rotation: -2, duration: .45, ease: 'back.out(1.5)', immediateRender: true }, e.label);
+  tl.fromTo('#title', { x: -300, opacity: 0, scale: 1.0 }, { x: 0, opacity: 1, duration: .5, ease: 'power3.out', immediateRender: true }, e.title);
+  // the film ends smaller and quieter than it began: the big shapes settle back, the title is the smallest voice
+  tl.to(['#dome5', '#skyline'], { y: 6, duration: 1.4, ease: 'sine.inOut' }, e.title);
+  S.space.drift(tl, '#s5-stage', e.match + .8, END, { endScale: 1.035, origin: '40% 70%' });
+});
+</script>
+</body>
+</html>

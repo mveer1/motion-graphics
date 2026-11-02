@@ -1,0 +1,475 @@
+{
+ "spec_version": 1,
+ "note": "Arc library. Arcs are starting structures: a project may use a subset or reorder stages and records why in beatmap.arc.notes. Add an arc by appending an entry; nothing else changes.",
+ "arcs": [
+  {
+   "id": "question-investigation-revelation",
+   "name": "Question -> investigation -> revelation",
+   "best_for": [
+    "science",
+    "history mysteries",
+    "myth-busting",
+    "explainers built on a surprising fact"
+   ],
+   "stages": [
+    {
+     "id": "question",
+     "function": "hook",
+     "emotion": "curiosity",
+     "guidance": "Open on the question as an image or a contradiction, not as a sentence read aloud."
+    },
+    {
+     "id": "investigation",
+     "function": "complication",
+     "emotion": "tension",
+     "guidance": "Show the tools: what is measured, compared, ruled out. Each clue changes the picture."
+    },
+    {
+     "id": "revelation",
+     "function": "reveal",
+     "emotion": "release",
+     "guidance": "Spend the biggest visual move here; the answer should be seen before it is explained."
+    },
+    {
+     "id": "implication",
+     "function": "consequence",
+     "emotion": "reflection",
+     "guidance": "What the answer changes. End smaller than the reveal."
+    }
+   ],
+   "pitfall": "Posing a question the narration answers in the next sentence; no investigation means no tension.",
+   "origin": "original"
+  },
+  {
+   "id": "chronological",
+   "name": "Chronological progression",
+   "best_for": [
+    "history",
+    "biography",
+    "product evolution",
+    "timelines"
+   ],
+   "stages": [
+    {
+     "id": "origin",
+     "function": "hook",
+     "emotion": "orientation",
+     "guidance": "Place and time as a concrete scene."
+    },
+    {
+     "id": "development",
+     "function": "context",
+     "emotion": "momentum",
+     "guidance": "Pick 3-5 turning points, not every date; each gets a distinct visual setting."
+    },
+    {
+     "id": "climax",
+     "function": "turn",
+     "emotion": "intensity",
+     "guidance": "The event the sequence was building toward."
+    },
+    {
+     "id": "aftermath",
+     "function": "consequence",
+     "emotion": "reflection",
+     "guidance": "What remained; link back to the present."
+    }
+   ],
+   "pitfall": "A date list. A timeline is a structure, not a story; each step needs a cause.",
+   "origin": "original"
+  },
+  {
+   "id": "problem-mechanism-consequence",
+   "name": "Problem -> mechanism -> consequence",
+   "best_for": [
+    "engineering",
+    "finance",
+    "medicine",
+    "systems"
+   ],
+   "stages": [
+    {
+     "id": "problem",
+     "function": "hook",
+     "emotion": "unease",
+     "guidance": "Make the failure or gap felt before it is explained."
+    },
+    {
+     "id": "mechanism",
+     "function": "mechanism",
+     "emotion": "understanding",
+     "guidance": "Reveal how it works spatially and over time; this is where diagrams earn their place."
+    },
+    {
+     "id": "consequence",
+     "function": "consequence",
+     "emotion": "weight",
+     "guidance": "Show the outcome at human or system scale."
+    },
+    {
+     "id": "resolution",
+     "function": "resolution",
+     "emotion": "closure",
+     "guidance": "What changes, or what remains unresolved."
+    }
+   ],
+   "pitfall": "Mechanism told in words over a static diagram; the mechanism must move.",
+   "origin": "original"
+  },
+  {
+   "id": "parallel-narratives",
+   "name": "Parallel narratives",
+   "best_for": [
+    "comparisons",
+    "before/after worlds",
+    "two-sided stories"
+   ],
+   "stages": [
+    {
+     "id": "setup-a",
+     "function": "context",
+     "emotion": "orientation",
+     "guidance": "First thread, with its own visual world."
+    },
+    {
+     "id": "setup-b",
+     "function": "context",
+     "emotion": "contrast",
+     "guidance": "Second thread; deliberately different palette or camera so the viewer can tell them apart."
+    },
+    {
+     "id": "interleave",
+     "function": "complication",
+     "emotion": "rising tension",
+     "guidance": "Alternate with shortening intervals; match-cut across threads."
+    },
+    {
+     "id": "convergence",
+     "function": "reveal",
+     "emotion": "payoff",
+     "guidance": "Threads meet; unify the visual language at last."
+    },
+    {
+     "id": "meaning",
+     "function": "reflection",
+     "emotion": "reflection",
+     "guidance": "What the pairing shows that neither did alone."
+    }
+   ],
+   "pitfall": "Interleaving without a reason; the cut between threads needs a rhyme (shape, motion, sound).",
+   "origin": "original"
+  },
+  {
+   "id": "cause-and-effect",
+   "name": "Cause and effect",
+   "best_for": [
+    "economics",
+    "climate",
+    "engineering failures",
+    "chain reactions"
+   ],
+   "stages": [
+    {
+     "id": "trigger",
+     "function": "hook",
+     "emotion": "anticipation",
+     "guidance": "The first domino, concrete and small."
+    },
+    {
+     "id": "chain",
+     "function": "mechanism",
+     "emotion": "escalation",
+     "guidance": "Each link visibly causes the next; reuse one motion across links so the chain reads as one system."
+    },
+    {
+     "id": "tipping-point",
+     "function": "turn",
+     "emotion": "shock",
+     "guidance": "The link where scale changes."
+    },
+    {
+     "id": "outcome",
+     "function": "consequence",
+     "emotion": "weight",
+     "guidance": "The end state against the starting state."
+    }
+   ],
+   "pitfall": "Links that are only asserted. Each causal step needs a visible transfer.",
+   "origin": "original"
+  },
+  {
+   "id": "journey-of-discovery",
+   "name": "Journey of discovery",
+   "best_for": [
+    "exploration",
+    "learning a concept from zero",
+    "travel through scale or depth"
+   ],
+   "stages": [
+    {
+     "id": "threshold",
+     "function": "hook",
+     "emotion": "wonder",
+     "guidance": "Leave the familiar; establish scale."
+    },
+    {
+     "id": "descent",
+     "function": "context",
+     "emotion": "immersion",
+     "guidance": "Move through layers; camera does the narrating."
+    },
+    {
+     "id": "discovery",
+     "function": "reveal",
+     "emotion": "awe",
+     "guidance": "The thing at the end of the journey."
+    },
+    {
+     "id": "return",
+     "function": "resolution",
+     "emotion": "reflection",
+     "guidance": "Bring the viewer back with a changed view of the start."
+    }
+   ],
+   "pitfall": "A journey with no destination; or camera moves unconnected to meaning.",
+   "origin": "original"
+  },
+  {
+   "id": "documentary-investigation",
+   "name": "Documentary investigation",
+   "best_for": [
+    "journalism",
+    "corporate or historical inquiry",
+    "evidence-led stories"
+   ],
+   "stages": [
+    {
+     "id": "incident",
+     "function": "hook",
+     "emotion": "unease",
+     "guidance": "The event, documented."
+    },
+    {
+     "id": "evidence",
+     "function": "evidence",
+     "emotion": "scrutiny",
+     "guidance": "Sources on screen: documents, records, figures. Cite visually."
+    },
+    {
+     "id": "counter-evidence",
+     "function": "complication",
+     "emotion": "doubt",
+     "guidance": "What does not fit."
+    },
+    {
+     "id": "finding",
+     "function": "reveal",
+     "emotion": "clarity",
+     "guidance": "State what is established and what is not."
+    },
+    {
+     "id": "stakes",
+     "function": "consequence",
+     "emotion": "gravity",
+     "guidance": "Why it matters."
+    }
+   ],
+   "pitfall": "Evidence shown as decoration; if a source appears it must be legible and attributable.",
+   "origin": "original"
+  },
+  {
+   "id": "visual-metaphor",
+   "name": "Visual metaphor-driven",
+   "best_for": [
+    "abstract subjects",
+    "psychology",
+    "economics",
+    "ideas with no natural picture"
+   ],
+   "stages": [
+    {
+     "id": "image",
+     "function": "hook",
+     "emotion": "intrigue",
+     "guidance": "Introduce the metaphor as an object or place."
+    },
+    {
+     "id": "mapping",
+     "function": "mechanism",
+     "emotion": "insight",
+     "guidance": "Map each part of the metaphor to a part of the idea, one at a time."
+    },
+    {
+     "id": "stress",
+     "function": "complication",
+     "emotion": "tension",
+     "guidance": "Push the metaphor until it shows the idea's limit or failure case."
+    },
+    {
+     "id": "release",
+     "function": "resolution",
+     "emotion": "release",
+     "guidance": "Let the metaphor resolve; name the idea plainly once."
+    }
+   ],
+   "pitfall": "A decorative metaphor that is never mapped to the claim, or one pushed past where it is true.",
+   "origin": "original"
+  },
+  {
+   "id": "hook-payoff",
+   "name": "Hook -> context -> build -> payoff -> wrap",
+   "best_for": [
+    "general short-form explainers"
+   ],
+   "stages": [
+    {
+     "id": "hook",
+     "function": "hook",
+     "emotion": "curiosity",
+     "guidance": "Within the first seconds: a surprising fact, mistake or question as a visual."
+    },
+    {
+     "id": "context",
+     "function": "context",
+     "emotion": "orientation",
+     "guidance": "Only what the build needs."
+    },
+    {
+     "id": "build",
+     "function": "mechanism",
+     "emotion": "momentum",
+     "guidance": "Two or three steps, each with a changed picture."
+    },
+    {
+     "id": "payoff",
+     "function": "reveal",
+     "emotion": "satisfaction",
+     "guidance": "Deliver on the hook."
+    },
+    {
+     "id": "wrap",
+     "function": "resolution",
+     "emotion": "closure",
+     "guidance": "One line, then stop."
+    }
+   ],
+   "pitfall": "Hook that the payoff does not answer.",
+   "origin": "adapted: Vox beat-layer reference (hook_payoff)"
+  },
+  {
+   "id": "problem-agitate-solve",
+   "name": "Problem -> agitate -> solve",
+   "best_for": [
+    "product films",
+    "persuasion"
+   ],
+   "stages": [
+    {
+     "id": "problem",
+     "function": "hook",
+     "emotion": "unease",
+     "guidance": "A specific pain."
+    },
+    {
+     "id": "agitate",
+     "function": "complication",
+     "emotion": "tension",
+     "guidance": "Make the cost of the problem concrete."
+    },
+    {
+     "id": "solve",
+     "function": "reveal",
+     "emotion": "relief",
+     "guidance": "The solution performing, not described."
+    },
+    {
+     "id": "proof",
+     "function": "evidence",
+     "emotion": "trust",
+     "guidance": "Evidence the solution works."
+    },
+    {
+     "id": "action",
+     "function": "resolution",
+     "emotion": "resolve",
+     "guidance": "One clear next step."
+    }
+   ],
+   "pitfall": "Unsupported claims in the proof stage.",
+   "origin": "adapted: Vox beat-layer reference (pas)"
+  },
+  {
+   "id": "before-after-bridge",
+   "name": "Before -> after -> bridge",
+   "best_for": [
+    "transformations",
+    "comparisons"
+   ],
+   "stages": [
+    {
+     "id": "before",
+     "function": "context",
+     "emotion": "contrast",
+     "guidance": "The old state, concrete."
+    },
+    {
+     "id": "after",
+     "function": "reveal",
+     "emotion": "desire",
+     "guidance": "The new state, same framing so the difference is readable."
+    },
+    {
+     "id": "bridge",
+     "function": "mechanism",
+     "emotion": "understanding",
+     "guidance": "How to get from one to the other."
+    }
+   ],
+   "pitfall": "Different framings for before and after; the comparison loses its force.",
+   "origin": "adapted: Vox beat-layer reference (bab)"
+  },
+  {
+   "id": "man-in-hole",
+   "name": "Man in hole (fall and recovery)",
+   "best_for": [
+    "case studies",
+    "comebacks",
+    "crisis stories"
+   ],
+   "stages": [
+    {
+     "id": "baseline",
+     "function": "context",
+     "emotion": "stability",
+     "guidance": "What normal looks like."
+    },
+    {
+     "id": "fall",
+     "function": "complication",
+     "emotion": "shock",
+     "guidance": "The drop."
+    },
+    {
+     "id": "trough",
+     "function": "turn",
+     "emotion": "weight",
+     "guidance": "Stay in the low point long enough to feel it."
+    },
+    {
+     "id": "ascent",
+     "function": "consequence",
+     "emotion": "hope",
+     "guidance": "What changed to start recovery."
+    },
+    {
+     "id": "resolution",
+     "function": "resolution",
+     "emotion": "closure",
+     "guidance": "The new normal."
+    }
+   ],
+   "pitfall": "A fall that is only a line going down; the trough needs its own scene.",
+   "origin": "adapted: Vox beat-layer reference (man_in_hole)"
+  }
+ ]
+}

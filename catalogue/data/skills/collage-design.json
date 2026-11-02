@@ -9,11 +9,11 @@
     "Blueprint grids, adhesive tape, and halftone texture overlays",
     "Headless Chromium SVG to PNG rasterization"
   ],
-  "location": ".agents/skills/collage-design",
+  "location": ".claude/skills/collage-design",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Installed in workspace under .agents/skills/collage-design."
+    "instructions": "Installed in workspace under .claude/skills/collage-design."
   },
   "dependencies": [],
   "compatibility": {
@@ -22,7 +22,7 @@
     "notes": "Tested in Chromium headless. Heavy host CLI dependencies (ImageMagick, Inkscape) are bypassed using browser-native SVG rasterization."
   },
   "documentation_urls": [
-    ".agents/skills/collage-design/SKILL.md",
+    ".claude/skills/collage-design/SKILL.md",
     "https://github.com/polgarp/collage-design"
   ],
   "licensing": {

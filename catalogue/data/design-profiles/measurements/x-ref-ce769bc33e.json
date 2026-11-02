@@ -1,0 +1,149 @@
+{
+  "measured": true,
+  "measurement": {
+    "method": "deterministic_stratified+farthest_point_kmeans",
+    "k": 8,
+    "max_pixels": 160000,
+    "sampled_pixels": 160000,
+    "merge_delta_e76": 2.5,
+    "source_size": [
+      1763,
+      1763
+    ],
+    "pooled_from_frames": 24,
+    "sample_times_sec": [
+      0.42,
+      1.26,
+      2.09,
+      2.93,
+      3.77,
+      4.61,
+      5.44,
+      6.28,
+      7.12,
+      7.95,
+      8.79,
+      9.63,
+      10.47,
+      11.3,
+      12.14,
+      12.98,
+      13.82,
+      14.65,
+      15.49,
+      16.33,
+      17.17,
+      18.0,
+      18.84,
+      19.68
+    ]
+  },
+  "palette": [
+    {
+      "hex": "#0c0c0c",
+      "coverage": 0.6858,
+      "role": "background"
+    },
+    {
+      "hex": "#f5f2ef",
+      "coverage": 0.2127,
+      "role": "text"
+    },
+    {
+      "hex": "#6f5c52",
+      "coverage": 0.0295,
+      "role": "other"
+    },
+    {
+      "hex": "#3a302b",
+      "coverage": 0.0271,
+      "role": "other"
+    },
+    {
+      "hex": "#a1887c",
+      "coverage": 0.0244,
+      "role": "other"
+    },
+    {
+      "hex": "#c1b5b1",
+      "coverage": 0.0157,
+      "role": "other"
+    },
+    {
+      "hex": "#f35b3e",
+      "coverage": 0.0033,
+      "role": "accent"
+    },
+    {
+      "hex": "#36ab94",
+      "coverage": 0.0013,
+      "role": "other"
+    }
+  ],
+  "source": {
+    "file": "play_720p (5).mp4",
+    "kind": "video",
+    "sha256": "ce769bc33e3e025007e34c5a00f268b839de9330a76f319276f4ec8444aa408a"
+  },
+  "container": {
+    "duration_sec": 20.096,
+    "has_audio": true,
+    "width": 1280,
+    "height": 720,
+    "fps": 60.0,
+    "codec": "h264",
+    "nb_frames": 1200,
+    "audio": {
+      "codec": "aac",
+      "sample_rate": 48000,
+      "channels": 2
+    }
+  },
+  "motion": {
+    "frames": 1200,
+    "duration_sec": 20.0,
+    "analysis_size": "96x54",
+    "motion_mean_luma_diff": 1.888,
+    "motion_median": 0.367,
+    "motion_p90": 4.887,
+    "static_share": 0.4929,
+    "cuts": [],
+    "cut_count": 0,
+    "cuts_per_min": 0.0,
+    "shot_length_median_sec": 20.0,
+    "shot_length_mean_sec": 20.0
+  },
+  "background_hex_per_sample": [
+    "#f4f1ec",
+    "#f4f1ec",
+    "#f4f0ec",
+    "#f9f9f7",
+    "#f7f5f3",
+    "#0e0d0d",
+    "#0e0d0d",
+    "#0c0c0c",
+    "#0c0c0c",
+    "#0c0c0c",
+    "#0f0e0d",
+    "#0e0d0d",
+    "#0e0d0d",
+    "#0e0d0d",
+    "#0e0d0d",
+    "#0e0e0e",
+    "#0f0e0e",
+    "#0c0b0b",
+    "#0c0c0c",
+    "#0c0c0b",
+    "#0c0c0c",
+    "#0c0c0b",
+    "#0c0c0c",
+    "#0c0c0c"
+  ],
+  "audio": {
+    "loudness": {
+      "integrated_lufs": -13.6,
+      "lra_lu": 1.6,
+      "true_peak_dbtp": -1.0
+    }
+  }
+}

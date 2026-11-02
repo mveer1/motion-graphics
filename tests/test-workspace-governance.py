@@ -99,7 +99,7 @@ class TestWorkspaceGovernance(unittest.TestCase):
                 self.assertTrue(path.exists(), f"Registered component '{comp_id}' location does not exist: {path}")
 
     def test_all_active_skills_are_registered(self):
-        skills_dir = REPO_ROOT / ".agents" / "skills"
+        skills_dir = REPO_ROOT / ".claude" / "skills"
         registered_locations = {
             data.get("location", "").rstrip("/") for data in self.records["skills"].values()
         }

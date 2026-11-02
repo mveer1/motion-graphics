@@ -1,0 +1,29 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Pudding Lane",
+      "text": "A little after midnight on Sunday the second of September, sixteen sixty-six, a fire broke out in a baker's shop on Pudding Lane."
+    },
+    {
+      "id": "s2",
+      "title": "Sunday to Wednesday",
+      "text": "It burned until Wednesday. Only when the wind dropped and firebreaks took hold was the fire finally over."
+    },
+    {
+      "id": "s3",
+      "title": "The loss",
+      "text": "By then, an estimated thirteen thousand houses, about eighty-seven parish churches, and Saint Paul's Cathedral had been destroyed."
+    },
+    {
+      "id": "s4",
+      "title": "How many died?",
+      "text": "The death toll is still debated. The traditional figure is just six, but some historians think it was far higher."
+    },
+    {
+      "id": "s5",
+      "title": "Brick and stone",
+      "text": "London was rebuilt in brick and stone, not wood. Christopher Wren rebuilt Saint Paul's, and the Monument, two hundred and two feet tall, still marks the fire."
+    }
+  ]
+}

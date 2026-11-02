@@ -1,0 +1,86 @@
+{
+  "id": "mixed-media",
+  "name": "Experimental Mixed Media",
+  "status": "experimental",
+  "mode": "mixed",
+  "default": false,
+  "description": "Off-white base broken by hot magenta, acid yellow and green; collided photographic, illustrated and typographic layers with deliberate roughness.",
+  "location": "src/studio/styles/mixed-media.css",
+  "tokens": {
+    "colors": {
+      "paper": "#ece6d8",
+      "paper-2": "#ddd4c0",
+      "ink": "#101010",
+      "ink-2": "#45413a",
+      "rule": "#b7ab92",
+      "accent": "#e0218a",
+      "accent-2": "#1f9d55",
+      "accent-3": "#ffd400"
+    },
+    "typography": {
+      "display": "'Oswald', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Photocopy grain, misregistration offsets, torn edges",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Abrupt and tactile: stepped timing, jump cuts, glitchy offsets",
+    "ease_in": "steps(4)",
+    "ease_out": "power4.out",
+    "enter_duration_sec": 0.35,
+    "stagger_sec": 0.04,
+    "notes": "Use on-twos stepping and hard cuts on motion; keep one element legible at all times."
+  },
+  "fonts": [
+    {
+      "family": "Oswald",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 15.3:1",
+    "ink-2/paper 8.2:1",
+    "accent/paper 3.6:1",
+    "accent/paper is below 4.5:1: use for display type 24px+ equivalent, shapes and rules only; never for body or caption text"
+  ],
+  "suitable_for": [
+    "culture and arts",
+    "music",
+    "opinion and essay pieces",
+    "youth-oriented social video"
+  ],
+  "categories": [
+    "storytelling"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-02. Not yet used in a rendered project.",
+    "last_verified": "2026-11-02"
+  },
+  "tags": [
+    "mixed",
+    "experimental",
+    "collage",
+    "glitch"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-02",
+    "updated_at": "2026-11-02"
+  },
+  "avoid_for": [
+    "safety-critical or highly technical explanation"
+  ]
+}

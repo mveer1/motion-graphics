@@ -1,0 +1,147 @@
+{
+  "spec_version": 1,
+  "slug": "ocean-descent-documentary",
+  "direction": "cinematic-descent",
+  "timing_source": "narration",
+  "duration_sec": 49.5,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Sunlight",
+      "start_sec": 0.0,
+      "end_sec": 9.45,
+      "purpose": "Start at the bright surface and show light being used up: colour by colour.",
+      "visual": "A water plate with caustics and light beams; the surface and a boat leave the top of the frame as the camera sinks; a five-band colour strip loses red, orange, yellow and green in turn, and blue is left, glowing.",
+      "capabilities": [
+        "parallax-camera",
+        "particle-drift",
+        "grain-boil"
+      ],
+      "beat_id": "s1",
+      "transition_out": {
+        "type": "push",
+        "duration_sec": 0.9,
+        "continuity": "a vertical push reads as the camera continuing downward"
+      },
+      "narration": "The sea looks bright from the surface. But sunlight does not travel far. Red light is filtered out first, and blue goes deepest.",
+      "layout": {
+        "landscape": "surface leaving frame top, strip right, gauge left"
+      },
+      "on_screen_text": [
+        "Sunlight zone \u00b7 0 to 200 m",
+        "RED",
+        "ORANGE",
+        "YELLOW",
+        "GREEN",
+        "BLUE"
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "Twilight",
+      "start_sec": 9.45,
+      "end_sec": 19.85,
+      "purpose": "Mark the twilight zone and make the dimming felt.",
+      "visual": "The camera continues down; light shafts die; a pale jelly drifts up through marine snow; the depth gauge brackets 200 to 1,000 m.",
+      "capabilities": [
+        "parallax-camera",
+        "ambient-float",
+        "push-transition"
+      ],
+      "beat_id": "s2",
+      "transition_out": {
+        "type": "crossfade",
+        "duration_sec": 1.2,
+        "continuity": "a slow dissolve: depth as a change of state, not a place"
+      },
+      "narration": "Below two hundred metres, there is rarely any significant light. This is the twilight zone, and it reaches down to one thousand metres.",
+      "layout": {
+        "landscape": "jelly lower-right, zone label lower-left, gauge left"
+      },
+      "on_screen_text": [
+        "Twilight zone",
+        "200 to 1,000 m"
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "Pressure",
+      "start_sec": 19.85,
+      "end_sec": 33.15,
+      "purpose": "Make pressure felt as weight, not as a fact.",
+      "visual": "A field of horizontal lines slowly closes as a counter climbs from 1 to 1,090 atm and the gauge runs to 10,900 m; the numeral warms to amber as it climbs.",
+      "capabilities": [
+        "counter-roll",
+        "crossfade-dissolve"
+      ],
+      "beat_id": "s3",
+      "transition_out": {
+        "type": "mask",
+        "duration_sec": 1.2,
+        "continuity": "an iris opens like a porthole onto the dark"
+      },
+      "narration": "Going down, the pressure builds. It rises by about one atmosphere for every ten metres. At the bottom of the Challenger Deep, that adds up to roughly eleven hundred atmospheres.",
+      "layout": {
+        "landscape": "big numeral centre-left, line field right"
+      },
+      "on_screen_text": [
+        "1 atmosphere",
+        "+1 ATM PER 10 M",
+        "Challenger Deep"
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "Midnight",
+      "start_sec": 33.15,
+      "end_sec": 45.025,
+      "purpose": "Turn the surprise into a picture: no sunlight, yet three in four make light.",
+      "visual": "A hundred dim dots; seventy-six ignite one by one, each with a soft bell; then 76% resolves beside them with its scope.",
+      "capabilities": [
+        "iris-transition",
+        "counter-roll",
+        "glow-pulse"
+      ],
+      "beat_id": "s4",
+      "transition_out": {
+        "type": "crossfade",
+        "duration_sec": 0.8,
+        "continuity": "stillness after the reveal"
+      },
+      "narration": "Below one thousand metres, no sunlight reaches at all. Yet in seventeen years of video off California, about three in four animals seen made their own light.",
+      "layout": {
+        "landscape": "dot field right, big percentage left"
+      },
+      "on_screen_text": [
+        "Below 1,000 m: no sunlight",
+        "76%",
+        "of animals seen made their own light"
+      ],
+      "intent": "dark"
+    },
+    {
+      "id": "s5",
+      "title": "Light",
+      "start_sec": 45.025,
+      "end_sec": 49.5,
+      "purpose": "End quietly on the idea.",
+      "visual": "Everything dims; the dots drift aside and one line of type remains.",
+      "capabilities": [
+        "crossfade-dissolve",
+        "text-mask-rise"
+      ],
+      "beat_id": "s5",
+      "transition_out": {
+        "type": "hold-end"
+      },
+      "narration": "Sunlight ends. Light does not.",
+      "intent": "minimal",
+      "layout": {
+        "landscape": "one centred line"
+      },
+      "on_screen_text": [
+        "Sunlight ends. Light does not."
+      ]
+    }
+  ]
+}

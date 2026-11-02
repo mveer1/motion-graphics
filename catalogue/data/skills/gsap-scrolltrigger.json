@@ -9,11 +9,11 @@
     "Scroll scrub progress tracking",
     "Toggle actions"
   ],
-  "location": ".agents/skills/gsap-scrolltrigger",
+  "location": ".claude/skills/gsap-scrolltrigger",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Built-in workspace skill under .agents/skills/gsap-scrolltrigger."
+    "instructions": "Built-in workspace skill under .claude/skills/gsap-scrolltrigger."
   },
   "dependencies": [
     "gsap"
@@ -23,7 +23,7 @@
     "runtime": "agent-host"
   },
   "documentation_urls": [
-    ".agents/skills/gsap-scrolltrigger/SKILL.md"
+    ".claude/skills/gsap-scrolltrigger/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",

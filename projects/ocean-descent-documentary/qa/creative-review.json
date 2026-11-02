@@ -1,0 +1,144 @@
+{
+  "project": "ocean-descent-documentary",
+  "reviewer": "Claude (agent). Judged from contact sheets, seam strips, frame snapshots and measured QA. The film was not auditioned by ear and not watched end-to-end at real speed.",
+  "reviewed_on": "2026-11-02",
+  "renders_reviewed": [
+    "projects/ocean-descent-documentary/renders/landscape/final.mp4"
+  ],
+  "criteria": [
+    {
+      "id": "visual_hierarchy",
+      "question": "One clear focal point per beat; reading order is obvious.",
+      "score": 4,
+      "notes": "One idea per zone: the colour strip (s1), the jelly and zone label (s2), the counter (s3), the dot field and 76% (s4). The 100-dot pictogram is the strongest image in the film. s2 is the weakest hierarchy: a small jelly and one label in a lot of water.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "typography",
+      "question": "Type roles are consistent; sizes respect the floor; no orphans or awkward breaks.",
+      "score": 4,
+      "notes": "Oswald uppercase with wide tracking for labels and Inter/Plex Mono for support; all above the size floor (no text-size-floor finding). The mono labels are small and dim by design (24 px, low contrast ink on dark); they carry secondary information only.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "composition",
+      "question": "Layouts are intentional in every format (not stretched or cropped landscape).",
+      "score": 3,
+      "notes": "Landscape only. Off-centre subjects and deep negative space as the profile prescribes, but the tool flags four scenes at 17-26% content coverage; I accepted this as the idiom and did not waive it, so it stays visible as an open lead.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "pacing",
+      "question": "Holds match reading time; rhythm varies; nothing drags or rushes.",
+      "score": 4,
+      "notes": "Slow by design (7-13 s beats). s4's opening was an empty near-black stretch of ~8 s; it now has the sweeping 1,000 m line and foreshadowing sparks. s3's first half (the '1' with slowly closing lines) is still quiet.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "readability",
+      "question": "All text is legible at delivery size with sufficient contrast.",
+      "score": 3,
+      "notes": "Contrast by eye is good on the numerals and the closing line; the small mono captions and the 76% source line are low in contrast and size and would be hard on a phone in daylight. Not measured on image backgrounds (the tool declines to guess).",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "colour_and_style",
+      "question": "Palette and texture follow the chosen style system and direction.",
+      "score": 4,
+      "notes": "Teal to black, one amber accent and one bioluminescent green; reads as cinematic-dark. The plates are procedural gradients with particles and caustics, so they read as stylised water, not photographed water: that is stated in the brief and report, not hidden.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "transitions",
+      "question": "Each transition carries meaning or continuity; none are decorative filler.",
+      "score": 4,
+      "notes": "Vertical push (the camera continues downward), a slow dissolve into the pressure abstraction, an iris onto the dark, and a dissolve into the close. The iris shows a black disc growing over the amber '1,090' for ~0.3 s, which reads as a porthole closing on the dark but is the least elegant seam.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "visual_language",
+      "question": "Motion vocabulary is consistent across scenes.",
+      "score": 4,
+      "notes": "Consistent vocabulary: a persistent depth gauge, slow parallax, light that is subtracted then re-added as animal-made light. The gauge sits out the surface-pressure baseline and returns counting the same descent as the atmospheres, which fixed an earlier contradiction.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "no_filler_motion",
+      "question": "No repetitive looping filler or motion without purpose.",
+      "score": 4,
+      "notes": "Particles, caustics and jelly pulses are continuous but each belongs to the water column. The grain and vignette are static overlays.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "no_dead_time",
+      "question": "No unintended static stretches; intentional holds are marked.",
+      "score": 4,
+      "notes": "No objective failures; slow drifts are reported as 'slow-drift' notes, not holds. Two stretches were low-energy before fixing (s4 opening, the end), now covered by a luminous line and sparks; the end hold is declared minimal and reported as a waiver.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "no_collisions",
+      "question": "No accidental overlaps, clipping or safe-area violations.",
+      "score": 4,
+      "notes": "Text-collision and clipping checks clean on the final composition. Earlier defects found and fixed: depth needle over numerals, counter against the gauge, labels overlapping the dot grid, closing line through the dots, dots clipped by the frame edge.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    },
+    {
+      "id": "arc",
+      "question": "Clear opening, progression and ending; the last frame holds long enough.",
+      "score": 4,
+      "notes": "Descent in four steps then a one-line landing; the 76% payoff is a picture and its scope (17 years of video off California) is on screen. The film ends smaller and quieter than it began.",
+      "evidence": [
+        "projects/ocean-descent-documentary/qa/motion/scene-sheet.jpg",
+        "projects/ocean-descent-documentary/qa/motion/seams.jpg",
+        "projects/ocean-descent-documentary/qa/motion/motion-qa.json"
+      ]
+    }
+  ],
+  "verdict": "An agent's critique, not user acceptance. Sound design (a bed per zone, 76 synchronised bells) was verified only by measurement: loudness -17.8 LUFS (inside the +/-2 LU tolerance, at its edge), no clipping gate failures.",
+  "pass_rule": "Every criterion scored 1-5 with evidence (frame or contact-sheet paths); all >= 3 and mean >= 3.5."
+}

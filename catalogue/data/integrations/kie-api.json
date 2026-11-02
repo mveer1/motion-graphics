@@ -1,0 +1,55 @@
+{
+  "id": "integration-kie-api",
+  "name": "kie.ai Market API (image and video generation)",
+  "component_type": "integration",
+  "purpose": "Optional remote generation behind one API key. The adapter implements the documented status envelope and polling; the create path and per-model inputs are NOT verified from a primary source. Never run without the user's key and approval.",
+  "capabilities": [
+    "API-key authorization header, value taken from the KIE_API_KEY environment variable",
+    "POST /api/v1/jobs/createTask (corroborated, unverified)",
+    "GET /api/v1/jobs/recordInfo (documented): states waiting, queuing, generating, success, fail; resultJson string; credits reported afterwards",
+    "20 creates per 10 s per account"
+  ],
+  "location": "https://api.kie.ai",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-assets"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3 urllib",
+    "notes": "Verification level: partial (checked 2026-11-02). Contract-tested only against a local stub."
+  },
+  "documentation_urls": [
+    "https://docs.kie.ai/",
+    "https://docs.kie.ai/market/common/get-task-detail",
+    "src/pipeline/assets/providers/kie.py"
+  ],
+  "licensing": {
+    "spdx_identifier": "Third-Party-Service",
+    "status": "unverified",
+    "commercial_use": false,
+    "notes": "Third-party paid service; terms and pricing are the provider's. No code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Sends the API key only to the API host (never to result CDNs). Requires outbound HTTPS and a paid account; makes billable calls."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Local stub contract tests (tests/test-creative-intelligence.py TestKie). No live call has been made.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "integration",
+    "generation",
+    "optional",
+    "paid"
+  ]
+}

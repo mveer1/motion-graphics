@@ -8,11 +8,11 @@
     "Automatic tween cleanup on unmount",
     "React ref animation targets"
   ],
-  "location": ".agents/skills/gsap-react",
+  "location": ".claude/skills/gsap-react",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Built-in workspace skill under .agents/skills/gsap-react."
+    "instructions": "Built-in workspace skill under .claude/skills/gsap-react."
   },
   "dependencies": [
     "gsap"
@@ -22,7 +22,7 @@
     "runtime": "agent-host"
   },
   "documentation_urls": [
-    ".agents/skills/gsap-react/SKILL.md"
+    ".claude/skills/gsap-react/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",

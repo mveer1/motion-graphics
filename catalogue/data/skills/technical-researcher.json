@@ -9,7 +9,7 @@
     "Visual metaphor formulation",
     "research.json dossier generation and validation"
   ],
-  "location": ".agents/skills/technical-researcher",
+  "location": ".claude/skills/technical-researcher",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -24,7 +24,7 @@
     "notes": "Native markdown and JSON schema instructions."
   },
   "documentation_urls": [
-    ".agents/skills/technical-researcher/SKILL.md"
+    ".claude/skills/technical-researcher/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

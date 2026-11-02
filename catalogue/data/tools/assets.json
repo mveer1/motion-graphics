@@ -1,0 +1,54 @@
+{
+  "id": "tool-assets",
+  "name": "Creative asset engine CLI",
+  "component_type": "tool",
+  "purpose": "Provider-independent asset acquisition: capability planning, asynchronous jobs with bounded retries, timeouts, resume without re-submitting, fallback chains, secret redaction, a content-addressed asset library with provenance, reuse by request hash and export into a project.",
+  "capabilities": [
+    "providers, plan, procedural, import, generate, jobs, resume, list, show, approve, reject, export",
+    "procedural recipes: paper-grain, halftone, gradient-field, torn-paper, depth-haze, silhouette-layer, caustics",
+    "kie adapter with documented partial verification; no MuAPI adapter"
+  ],
+  "location": "scripts/assets.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "integration-kie-api"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python .venv (Pillow, NumPy)",
+    "notes": "Default workflow needs no credential. Library under assets/library/ (index and jobs tracked, media ignored)."
+  },
+  "documentation_urls": [
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md",
+    "specs/asset-spec.json",
+    ".claude/skills/asset-engine/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Credentials from environment variables only; redacted from every record. Network only when a remote provider is used."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "assets",
+    "providers",
+    "jobs"
+  ]
+}

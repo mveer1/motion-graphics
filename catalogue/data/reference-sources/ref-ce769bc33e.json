@@ -513,13 +513,13 @@
       "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
     },
     "artifacts": {
-      "cache_dir": "out/reference-analysis/ref-ce769bc33e",
-      "overview": "out/reference-analysis/ref-ce769bc33e/overview.jpg",
-      "scenes": "out/reference-analysis/ref-ce769bc33e/scenes.jpg",
-      "transitions": "out/reference-analysis/ref-ce769bc33e/transitions.jpg",
-      "motion": "out/reference-analysis/ref-ce769bc33e/motion.jpg",
-      "audio": "out/reference-analysis/ref-ce769bc33e/audio.png",
-      "frames": "out/reference-analysis/ref-ce769bc33e/frames",
+      "cache_dir": "reference/analysis/ref-ce769bc33e",
+      "overview": "reference/analysis/ref-ce769bc33e/overview.jpg",
+      "scenes": "reference/analysis/ref-ce769bc33e/scenes.jpg",
+      "transitions": "reference/analysis/ref-ce769bc33e/transitions.jpg",
+      "motion": "reference/analysis/ref-ce769bc33e/motion.jpg",
+      "audio": "reference/analysis/ref-ce769bc33e/audio.png",
+      "frames": "reference/analysis/ref-ce769bc33e/frames",
       "tracked": false
     }
   }

@@ -1,0 +1,167 @@
+{
+  "id": "illustrated-explainer-2d",
+  "name": "2D Illustrated Explainer",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Hand-built vector objects in a single stage, each step changing the picture: diagrams that perform the idea. Friendly, legible and sequential.",
+  "style": "editorial-light",
+  "archetype": "diagram-stage",
+  "intended_use": [
+    "technical and educational explainers",
+    "process and system diagrams",
+    "product explanation"
+  ],
+  "avoid_for": [
+    "mood pieces",
+    "photographic subjects"
+  ],
+  "identity": {
+    "mood": "clear, friendly, curious",
+    "genre": "explainer",
+    "visual_language": "flat vector objects with thick consistent strokes and a few accent colours",
+    "editorial_approach": "one stage, progressive disclosure",
+    "illustration_style": "geometric characters and objects, consistent line weight",
+    "composition_philosophy": "a single hero stage occupying most of the frame",
+    "environment": "plain light ground with subtle depth",
+    "realism": "stylised flat",
+    "storytelling_conventions": "objects move to show cause and effect"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#fbfbfa",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1f1d1b",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e8421e",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1f3dd1",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f2b21a",
+          "role": "highlight",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1c8a5a",
+          "role": "secondary",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "charcoal on off-white; each accent has one meaning"
+    },
+    "typography": {
+      "display": "Playfair Display or Inter, large",
+      "text": "Inter",
+      "mono": "JetBrains Mono for values",
+      "scale_and_hierarchy": "title, one-line label, value",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "hero stage 65%+ of the frame; annotations attach to objects",
+      "layering_and_depth": "2-3 layers",
+      "hero_occupancy_pct": 70
+    }
+  },
+  "motion": {
+    "grammar": "Objects enter, connect, transform and carry the explanation; camera pushes toward what is being explained.",
+    "easing": {
+      "entrances": "enter-decel, enter-stagger-uneven",
+      "exits": "exit-accelerate",
+      "emphasis": "emphasis-pulse",
+      "vocabulary_ids": [
+        "enter-decel",
+        "enter-stagger-uneven",
+        "reveal-draw",
+        "transform-assemble",
+        "morph-shape",
+        "emphasis-pulse",
+        "match-cut"
+      ]
+    },
+    "timing": {
+      "pace": "a new change every 2-3 s",
+      "typical_move_sec": 0.5,
+      "shot_length_sec": 4.0,
+      "holds": "short",
+      "stagger_sec": 0.07
+    },
+    "transitions": {
+      "vocabulary": [
+        "match-cut on the hero object",
+        "push to the next stage",
+        "morph"
+      ],
+      "avoid": [
+        "repeated crossfades"
+      ],
+      "continuity": "the carried object stays in frame"
+    },
+    "camera": {
+      "language": "gentle push and pan on the stage",
+      "moves": [
+        "push-in",
+        "pan"
+      ]
+    },
+    "object_movement": "assembly, connection, flow along paths",
+    "kinetic_typography": "labels rise on mask",
+    "stillness_policy": "No stillness while narration explains changing content."
+  },
+  "audio_direction": {
+    "narration": "conversational, 1.15x (am_adam / af_bella)",
+    "music": "light modular bed",
+    "sfx": "soft ticks on state changes"
+  },
+  "rendering": {
+    "strategy": "Native HyperFrames compositions on the studio runtime; the default workspace path.",
+    "preferred_asset_types": [
+      "programmatic",
+      "illustration-2d",
+      "data-visualization"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "connector-draw",
+      "object-assembly",
+      "shape-morph",
+      "match-cut"
+    ]
+  },
+  "techniques": [
+    "diagram-connectors",
+    "single-stage-progression",
+    "morph-ready-shape-sequence",
+    "pen-led-stroke"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Turns into a dashboard of cards unless the stage is one connected picture.",
+    "Illustration consistency is hard to maintain if some objects are generated."
+  ],
+  "example_scenes": [
+    "A packet travelling along a path between two nodes while a label counts the hops."
+  ],
+  "tags": [
+    "illustrated",
+    "diagram",
+    "explainer"
+  ]
+}

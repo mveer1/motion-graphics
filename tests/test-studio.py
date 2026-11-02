@@ -27,7 +27,7 @@ studio = importlib.import_module("studio")
 
 CHAI = studio.project_dir("masala-chai/v1-recipe")
 LEGACY = studio.project_dir("neural-network-learning/v1-baseline")
-QA_SCRIPT = REPO_ROOT / ".agents" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
+QA_SCRIPT = REPO_ROOT / ".claude" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
 BUILD_SH = REPO_ROOT / "scripts" / "build-project.sh"
 
 
@@ -207,6 +207,80 @@ class StudioCliTests(unittest.TestCase):
         self.assertEqual(studio.cmd_review(argparse.Namespace(slug=str(CHAI), init=False)), 0)
 
 
+    # ---------------------------------------------------------------- categories and series
+    def _scaffold(self, slug, **kw):
+        ns = dict(slug=slug, template="illustrated-explainer", title=None, style=None, formats=None, category=None)
+        ns.update(kw)
+        studio.cmd_new(argparse.Namespace(**ns))
+        return self.tmpdir / slug
+
+    def test_new_writes_multiple_categories_into_brief(self):
+        original = studio.PROJECTS_DIR
+        studio.PROJECTS_DIR = self.tmpdir
+        try:
+            pdir = self._scaffold("cat-multi", category="history,finance")
+            brief = json.loads((pdir / "brief.json").read_text(encoding="utf-8"))
+            self.assertEqual(brief["categories"], ["history", "finance"])
+            self.assertEqual(studio.validate_project(pdir).errors, [])
+            with self.assertRaises(SystemExit):
+                self._scaffold("cat-bad", category="cooking")
+        finally:
+            studio.PROJECTS_DIR = original
+
+    def test_missing_category_warns_and_style_mismatch_warns(self):
+        original = studio.PROJECTS_DIR
+        studio.PROJECTS_DIR = self.tmpdir
+        try:
+            plain = studio.validate_project(self._scaffold("cat-none"))
+            self.assertTrue(any("no categories" in w for w in plain.warnings))
+            odd = studio.validate_project(self._scaffold("cat-odd", category="science", style="archival"))
+            self.assertTrue(any("archival" in w and "tagged for" in w for w in odd.warnings))
+            fine = studio.validate_project(self._scaffold("cat-fine", category="history", style="archival"))
+            self.assertFalse(any("tagged for" in w for w in fine.warnings))
+            general = studio.validate_project(self._scaffold("cat-gen", category="science", style="editorial-light"))
+            self.assertFalse(any("tagged for" in w for w in general.warnings))
+        finally:
+            studio.PROJECTS_DIR = original
+
+    def test_category_list_and_style_tags_are_consistent(self):
+        ids = list(studio.load_categories())
+        self.assertEqual(len(ids), len(set(ids)))
+        for sid, rec in studio.catalogue_records()["styles"].items():
+            self.assertEqual(studio.unknown_categories(rec.get("categories", [])), [], sid)
+
+    def test_series_sequential_and_collection_rules(self):
+        orig_p, orig_s = studio.PROJECTS_DIR, studio.SERIES_DIR
+        studio.PROJECTS_DIR, studio.SERIES_DIR = self.tmpdir / "projects", self.tmpdir / "series"
+        studio.PROJECTS_DIR.mkdir()
+        try:
+            self._scaffold_in_projects("part-one", "history")
+            self._scaffold_in_projects("part-two", "finance")
+            studio.cmd_series_new(argparse.Namespace(slug="saga", kind="sequential", category="history", title=None, style=None))
+            studio.cmd_series_add(argparse.Namespace(series="saga", project="part-one", part=None, title=None, planned=False))
+            studio.cmd_series_add(argparse.Namespace(series="saga", project="part-two", part=None, title=None, planned=False))
+            studio.cmd_series_add(argparse.Namespace(series="saga", project="part-three", part=None, title=None, planned=True))
+            ser = studio.load_series("saga")
+            self.assertEqual([m["part"] for m in ser["members"]], [1, 2, 3])
+            rep = studio.validate_series(ser, "saga")
+            self.assertEqual(rep.errors, [])
+            self.assertTrue(any("part-two" in w for w in rep.warnings), "brief categories outside the series should warn")
+            with self.assertRaises(SystemExit):  # a real project that does not exist must be marked planned
+                studio.cmd_series_add(argparse.Namespace(series="saga", project="ghost", part=None, title=None, planned=False))
+            ser["members"][1]["part"] = 1
+            self.assertTrue(any("repeat" in e for e in studio.validate_series(ser, "saga").errors))
+            coll = {"spec_version": 1, "slug": "themed", "title": "Themed", "kind": "collection",
+                    "categories": ["history", "finance"], "members": [{"project": "part-one", "part": 1}]}
+            self.assertTrue(any("no order" in e for e in studio.validate_series(coll, "themed").errors))
+            coll["members"] = [{"project": "part-one"}, {"project": "part-two"}]
+            self.assertEqual(studio.validate_series(coll, "themed").errors, [])
+        finally:
+            studio.PROJECTS_DIR, studio.SERIES_DIR = orig_p, orig_s
+
+    def _scaffold_in_projects(self, slug, category):
+        studio.cmd_new(argparse.Namespace(slug=slug, template="illustrated-explainer", title=None, style=None,
+                                          formats=None, category=category))
+
+
 @unittest.skipUnless(BASH, "bash not available")
 class ShellScriptTests(unittest.TestCase):
     FFPROBE = """#!/usr/bin/env bash
@@ -297,6 +371,111 @@ exit 0
         self.assertEqual(res.returncode, 0, out)
         self.assertIn("delegating to the multi-format studio build", out)
         self.assertRegex(out, rf"FAKEPY .*scripts/studio\.py build {re.escape(chai_slug)}")
+
+
+SESSION_GUARD = REPO_ROOT / "scripts" / "session-guard.py"
+
+
+class BuildBookkeepingTests(unittest.TestCase):
+    """Render stamps, 48 kHz delivery audio and the shared render lock."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.tmpdir = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_loudnorm_mix_is_resampled_to_48k(self):
+        pdir = copy_project(CHAI, self.tmpdir)
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        project["audio"].update(narration=True, loudness_target_lufs=-16)
+        (pdir / "project.json").write_text(json.dumps(project), encoding="utf-8")
+        plan = studio.build_plan(pdir, None, ["portrait"])
+        mux = next(s for s in plan if s["stage"] == "mux:portrait")
+        graph = mux["cmd"][mux["cmd"].index("-filter_complex") + 1]
+        self.assertRegex(graph, r"loudnorm=[^\[]*,aresample=48000\[aout\]")
+
+    def _first_render(self, pdir):
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        entry = studio.format_entries(project)[0]
+        q = project.get("quality", "looks")
+        return entry, studio.render_fingerprint(pdir, entry, project["fps"], q), (project["fps"], q)
+
+    def test_render_stamp_detects_stale_and_unstamped_renders(self):
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        entry, fp, _ = self._first_render(pdir)
+        fid = entry["id"]
+        self.assertEqual(studio.render_stamp_state(pdir, fid, fp), "missing")
+        (pdir / "renders" / fid).mkdir(parents=True)
+        (pdir / "renders" / fid / "visuals.mp4").write_bytes(b"x")
+        self.assertEqual(studio.render_stamp_state(pdir, fid, fp), "unstamped")
+        studio.write_render_stamp(pdir, fid, fp)
+        self.assertEqual(studio.render_stamp_state(pdir, fid, fp), "current")
+        index = pdir / "src" / entry["file"]
+        index.write_text(index.read_text(encoding="utf-8") + "\n<!-- edit -->\n", encoding="utf-8")
+        _, fp2, _ = self._first_render(pdir)
+        self.assertNotEqual(fp, fp2)
+        self.assertEqual(studio.render_stamp_state(pdir, fid, fp), "current")
+        self.assertEqual(studio.render_stamp_state(pdir, fid, fp2), "stale")
+
+    def test_fingerprint_ignores_other_formats_and_caches(self):
+        pdir = copy_project(CHAI, self.tmpdir)
+        entry, fp, _ = self._first_render(pdir)
+        other = "index.square.html" if entry["file"] != "index.square.html" else "index.portrait.html"
+        (pdir / "src" / other).write_text("<html>changed</html>", encoding="utf-8")
+        (pdir / "src" / ".hyperframes").mkdir(exist_ok=True)
+        (pdir / "src" / ".hyperframes" / "cache.json").write_text("{}", encoding="utf-8")
+        self.assertEqual(self._first_render(pdir)[1], fp)
+
+    def _guard(self, env_extra, code):
+        env = {k: v for k, v in os.environ.items() if k != "MOTION_LAB_LOCKS_HELD"}
+        env.update(env_extra)
+        return subprocess.run([sys.executable, "-c", code], env=env, capture_output=True, text=True, cwd=REPO_ROOT, timeout=60)
+
+    def test_render_lock_is_reentrant_for_child_processes_but_excludes_others(self):
+        lock_dir = str(self.tmpdir / "locks")
+        probe = (
+            "import importlib.util as u;"
+            f"s=u.spec_from_file_location('g', r'{SESSION_GUARD}');m=u.module_from_spec(s);s.loader.exec_module(m);"
+            "import sys\n"
+            "try:\n"
+            "    with m.acquire_lock('render', slug='probe', timeout_sec=1, poll_interval=0.2): print('GOT')\n"
+            "except TimeoutError: print('BUSY')\n"
+        )
+        holder = (
+            "import importlib.util as u,subprocess,sys;"
+            f"s=u.spec_from_file_location('g', r'{SESSION_GUARD}');m=u.module_from_spec(s);s.loader.exec_module(m);"
+            "import os\n"
+            "with m.acquire_lock('render', slug='holder'):\n"
+            f"    child=subprocess.run([sys.executable,'-c',{probe!r}],capture_output=True,text=True)\n"
+            "    print('CHILD', 'GOT' if 'GOT' in child.stdout else 'BUSY')\n"
+            f"    env={{k:v for k,v in os.environ.items() if k!='MOTION_LAB_LOCKS_HELD'}}\n"
+            f"    other=subprocess.run([sys.executable,'-c',{probe!r}],capture_output=True,text=True,env=env)\n"
+            "    print('OTHER', 'GOT' if 'GOT' in other.stdout else 'BUSY')\n"
+        )
+        res = self._guard({"MOTION_LAB_LOCK_DIR": lock_dir}, holder)
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertIn("CHILD GOT", res.stdout)
+        self.assertIn("OTHER BUSY", res.stdout)
+
+    @unittest.skipUnless(shutil.which("git"), "git not available")
+    def test_worktree_resolves_to_the_main_checkout_lock_dir(self):
+        main = self.tmpdir / "main"
+        (main / "scripts").mkdir(parents=True)
+        shutil.copyfile(SESSION_GUARD, main / "scripts" / "session-guard.py")
+        git = lambda *a, cwd=main: subprocess.run(["git", "-c", "user.email=t@t", "-c", "user.name=t", *a], cwd=cwd, capture_output=True, text=True)
+        git("init", "-q")
+        git("add", ".")
+        self.assertEqual(git("commit", "-q", "-m", "init").returncode, 0)
+        wt = self.tmpdir / "wt"
+        self.assertEqual(git("worktree", "add", "-q", "-b", "s", str(wt)).returncode, 0)
+        code = "import importlib.util as u;s=u.spec_from_file_location('g','scripts/session-guard.py');m=u.module_from_spec(s);s.loader.exec_module(m);print(m.LOCK_DIR)"
+        env = {k: v for k, v in os.environ.items() if k != "MOTION_LAB_LOCK_DIR"}
+        out = lambda cwd: Path(subprocess.run([sys.executable, "-c", code], cwd=cwd, env=env, capture_output=True, text=True).stdout.strip()).resolve()
+        self.assertEqual(out(wt), (main / ".locks").resolve())
+        self.assertEqual(out(main), (main / ".locks").resolve())
 
 
 if __name__ == "__main__":

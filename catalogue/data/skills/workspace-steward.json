@@ -10,7 +10,7 @@
     "Automated drift detection and unregistered component auditing",
     "Architecture documentation synchronization"
   ],
-  "location": ".agents/skills/workspace-steward",
+  "location": ".claude/skills/workspace-steward",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -26,7 +26,7 @@
     "notes": "Directs workspace governance and registry integrity."
   },
   "documentation_urls": [
-    ".agents/skills/workspace-steward/SKILL.md",
+    ".claude/skills/workspace-steward/SKILL.md",
     "catalogue/README.md"
   ],
   "licensing": {

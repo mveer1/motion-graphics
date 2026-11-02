@@ -11,7 +11,7 @@
     "Git worktree isolation for concurrent project branches (session-start/end)",
     "Zero-quality-compromise pipeline orchestration"
   ],
-  "location": ".agents/skills/parallel-session",
+  "location": ".claude/skills/parallel-session",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -28,7 +28,7 @@
     "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
   },
   "documentation_urls": [
-    ".agents/skills/parallel-session/SKILL.md",
+    ".claude/skills/parallel-session/SKILL.md",
     "ARCHITECTURE.md#lifecycle"
   ],
   "licensing": {

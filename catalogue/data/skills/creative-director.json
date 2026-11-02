@@ -1,0 +1,55 @@
+{
+  "id": "skill-creative-director",
+  "name": "Creative Director Skill",
+  "component_type": "skill",
+  "purpose": "Plans before building: narrative arc and beat map, knowledge-base retrieval, structural style bake-off on one anchor beat, recorded decision, derived project profile and storyboard.",
+  "capabilities": [
+    "Arc and beat planning with planning-level checks",
+    "Bake-off shortlist, scoring and decision record",
+    "Provenance discipline: measured, inferred, subjective, prescribed, unknown"
+  ],
+  "location": ".claude/skills/creative-director",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-beatmap",
+    "tool-bakeoff",
+    "tool-design-dna"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Produces files; creates no new agents."
+  },
+  "documentation_urls": [
+    ".claude/skills/creative-director/SKILL.md",
+    "specs/creative-intelligence-architecture.md",
+    "specs/creative-intelligence-report.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Writes project planning files."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Exercised in tests/test-creative-intelligence.py (54 tests) and on three demonstration projects on the M2 host (2026-11-02). Experimental: not promoted to approved because that requires a render-host evidence trail over more than one session.",
+  "architecture_ref": "specs/creative-intelligence-architecture.md",
+  "last_verified": "2026-11-02",
+  "tags": [
+    "skill",
+    "planning",
+    "art-direction"
+  ]
+}

@@ -19,7 +19,7 @@ import numpy as np
 
 # Locate kokoro-smart-tts-skill scripts
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-SMART_SKILL_SCRIPTS = REPO_ROOT / ".agents" / "skills" / "kokoro-smart-tts-skill" / "scripts"
+SMART_SKILL_SCRIPTS = REPO_ROOT / ".claude" / "skills" / "kokoro-smart-tts-skill" / "scripts"
 
 
 def synth(

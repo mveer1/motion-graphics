@@ -1,0 +1,275 @@
+{
+  "id": "x-ref-92c22222a2",
+  "name": "Reference 92c22222a2",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p.mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-92c22222a2.",
+  "identity": {
+    "mood": {
+      "value": "Confident, playful, designer-to-designer.",
+      "basis": "subjective",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Demonstrates motion craft by enacting motion vocabulary; reads as a capability showcase.",
+      "basis": "subjective",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "editorial_approach": {
+      "value": "Near-black, saturated orange-red, ultramarine blue and cream fields; persistent corner frame with micro labels.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.visual_identity"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0f0e10",
+          "role": "background",
+          "coverage": 0.4268,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#ed4939",
+          "role": "other",
+          "coverage": 0.2348,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#efede5",
+          "role": "text",
+          "coverage": 0.1573,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#302ff3",
+          "role": "accent",
+          "coverage": 0.1171,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#e0ff44",
+          "role": "other",
+          "coverage": 0.0352,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#66443d",
+          "role": "other",
+          "coverage": 0.0174,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#bd9d9d",
+          "role": "other",
+          "coverage": 0.0099,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        },
+        {
+          "hex": "#89aa2d",
+          "role": "other",
+          "coverage": 0.0015,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          0.31,
+          0.94,
+          1.57,
+          2.2,
+          2.83,
+          3.46,
+          4.08,
+          4.71,
+          5.34,
+          5.97,
+          6.6,
+          7.23,
+          7.86,
+          8.48,
+          9.11,
+          9.74,
+          10.37,
+          11.0,
+          11.63,
+          12.25,
+          12.88,
+          13.51,
+          14.14,
+          14.77
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Heavy condensed caps for single words, italic serif for a subtitle, tiny mono labels; accent full stops.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Centred single subjects; full-bleed colour fields; words fill the frame width.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.composition"
+      },
+      "layering_and_depth": {
+        "value": "Mostly flat; one rotating point-cloud sphere-to-torus (9.7-11.2 s).",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.depth_and_layering"
+      }
+    },
+    "shape_language": {
+      "value": "Flat dots, rings, triangles, squares, Truchet-like arcs, dot grids; one 3D point cloud.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.shapes_and_materials"
+    },
+    "texture": {
+      "value": "Directional motion smear on fast words; no grain.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.texture_and_effects"
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Dots travel on arcs with trails; shapes morph with orbiting satellites; tiles rotate in a wave; letters fall and tile.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "An on-screen chart compares six ways to move between two points; moves mostly strong ease-in-out with hard stops.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.easing"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "32.0 hard cuts/min, median luma change 1.583/255 per frame, 21.2% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 0.467,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#motion",
+        "note": "8 cuts in 15.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Point-to-iris bloom with a leading ring (1.88 s), letters collapsing to dots plus a diagonal wipe (3.50 s), figure-ground colour swap on a held dot (5.63 s), held square over a background change (7.50 s), radial dissolve of tiles (9.67 s), hard cuts in the word section.",
+          "basis": "inferred",
+          "confidence": "high",
+          "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "Locked frame; motion lives in the elements.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.camera"
+      }
+    },
+    "choreography": {
+      "value": "Measured median shot 1.87 s; word section cuts every 0.23-0.47 s (11.25-13.10 s).",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "Music-like bed, peak -1.8 dBFS, 5.2 onsets/s, tempo estimate 129 bpm (medium confidence); 80% of boundaries within 50 ms of an onset (chance 41%), 60% within 60 ms of the beat grid (chance 26%; analyzer 1.2).",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-92c22222a2.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -13.1,
+      "lra_lu": 2.9,
+      "true_peak_dbtp": -1.2,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-92c22222a2.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-92c22222a2"
+    ]
+  },
+  "weaknesses": [
+    "Analyst-listed difficulty: Point-cloud sphere-to-torus morph with depth (needs 3D projection; approximable with sampled SVG points)",
+    "Analyst-listed difficulty: Brand lockup animation (excluded)"
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

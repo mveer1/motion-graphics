@@ -1,0 +1,748 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionDesignProfile",
+  "description": "Design DNA for motion graphics: a versioned, machine-readable visual-intelligence profile. Three dimensions (visual design system, visual identity and artistic direction, motion and effects) plus camera, transition and audio language, rendering feasibility and provenance. Every leaf is a 'fact' that states HOW it is known (measured, inferred, subjective, prescribed or unknown) so measured values are never confused with taste. kind=registry profiles are authored rules (basis defaults to prescribed); kind=extracted profiles describe a reference and may not use prescribed; kind=project profiles extend a registry profile for one production.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "profile_version",
+    "kind",
+    "status",
+    "summary",
+    "identity",
+    "design_system",
+    "motion",
+    "audio_direction",
+    "rendering",
+    "provenance",
+    "weaknesses",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string"
+    },
+    "profile_version": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "registry",
+        "extracted",
+        "project"
+      ]
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "experimental",
+        "approved",
+        "deprecated",
+        "blocked"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 20
+    },
+    "extends": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Registry profile this one overrides (kind=project)."
+    },
+    "style": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Style system (catalogue/data/styles) that implements the tokens. Required for registry and project profiles; extracted profiles describe somebody else's work and carry none."
+    },
+    "archetype": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Default composition archetype used by the bake-off (scripts/bakeoff.py)."
+    },
+    "intended_use": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "avoid_for": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "identity": {
+      "type": "object",
+      "description": "Dimension B: visual identity and artistic direction.",
+      "additionalProperties": false,
+      "required": [
+        "mood",
+        "genre",
+        "visual_language",
+        "realism"
+      ],
+      "properties": {
+        "mood": {
+          "$ref": "#/definitions/fact"
+        },
+        "genre": {
+          "$ref": "#/definitions/fact"
+        },
+        "visual_language": {
+          "$ref": "#/definitions/fact"
+        },
+        "editorial_approach": {
+          "$ref": "#/definitions/fact"
+        },
+        "cinematic_character": {
+          "$ref": "#/definitions/fact"
+        },
+        "illustration_style": {
+          "$ref": "#/definitions/fact"
+        },
+        "photography_style": {
+          "$ref": "#/definitions/fact"
+        },
+        "composition_philosophy": {
+          "$ref": "#/definitions/fact"
+        },
+        "environment": {
+          "$ref": "#/definitions/fact"
+        },
+        "realism": {
+          "$ref": "#/definitions/fact",
+          "description": "Level of realism, e.g. flat-graphic, stylised, photographic."
+        },
+        "storytelling_conventions": {
+          "$ref": "#/definitions/fact"
+        }
+      }
+    },
+    "design_system": {
+      "type": "object",
+      "description": "Dimension A: visual design system.",
+      "additionalProperties": false,
+      "required": [
+        "palette",
+        "typography",
+        "composition"
+      ],
+      "properties": {
+        "palette": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "colors"
+          ],
+          "properties": {
+            "colors": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": [
+                  "hex",
+                  "role",
+                  "basis"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "hex": {
+                    "type": "string",
+                    "pattern": "^#[0-9a-fA-F]{6}$"
+                  },
+                  "role": {
+                    "enum": [
+                      "background",
+                      "text",
+                      "accent",
+                      "secondary",
+                      "neutral",
+                      "highlight",
+                      "shadow",
+                      "semantic",
+                      "other"
+                    ]
+                  },
+                  "coverage": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "basis": {
+                    "enum": [
+                      "measured",
+                      "inferred",
+                      "subjective",
+                      "prescribed",
+                      "unknown"
+                    ]
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "contrast_strategy": {
+              "$ref": "#/definitions/fact"
+            },
+            "measurement": {
+              "type": "object",
+              "description": "Reproducibility record for measured palettes (method, k, sampling, delta-E formula).",
+              "additionalProperties": true
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "display"
+          ],
+          "properties": {
+            "display": {
+              "$ref": "#/definitions/fact"
+            },
+            "text": {
+              "$ref": "#/definitions/fact"
+            },
+            "mono": {
+              "$ref": "#/definitions/fact"
+            },
+            "scale_and_hierarchy": {
+              "$ref": "#/definitions/fact"
+            },
+            "case_and_tracking": {
+              "$ref": "#/definitions/fact"
+            },
+            "size_floor_pct_short_side": {
+              "$ref": "#/definitions/numeric_fact"
+            }
+          }
+        },
+        "composition": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "principles"
+          ],
+          "properties": {
+            "principles": {
+              "$ref": "#/definitions/fact"
+            },
+            "grid_and_alignment": {
+              "$ref": "#/definitions/fact"
+            },
+            "spatial_density": {
+              "$ref": "#/definitions/fact"
+            },
+            "negative_space": {
+              "$ref": "#/definitions/fact"
+            },
+            "layering_and_depth": {
+              "$ref": "#/definitions/fact"
+            },
+            "hero_occupancy_pct": {
+              "$ref": "#/definitions/numeric_fact"
+            }
+          }
+        },
+        "shape_language": {
+          "$ref": "#/definitions/fact"
+        },
+        "texture": {
+          "$ref": "#/definitions/fact"
+        },
+        "materials": {
+          "$ref": "#/definitions/fact"
+        },
+        "lighting": {
+          "$ref": "#/definitions/fact"
+        },
+        "contrast": {
+          "$ref": "#/definitions/fact"
+        },
+        "visual_rhythm": {
+          "$ref": "#/definitions/fact"
+        },
+        "image_treatment": {
+          "$ref": "#/definitions/fact"
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "description": "Dimension C: motion and effects DNA, including camera and transition language.",
+      "additionalProperties": false,
+      "required": [
+        "grammar",
+        "easing",
+        "timing",
+        "transitions",
+        "camera"
+      ],
+      "properties": {
+        "grammar": {
+          "$ref": "#/definitions/fact",
+          "description": "One-paragraph motion philosophy."
+        },
+        "easing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "entrances",
+            "exits"
+          ],
+          "properties": {
+            "entrances": {
+              "$ref": "#/definitions/fact"
+            },
+            "exits": {
+              "$ref": "#/definitions/fact"
+            },
+            "emphasis": {
+              "$ref": "#/definitions/fact"
+            },
+            "vocabulary_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Ids from specs/motion-vocabulary.json."
+            }
+          }
+        },
+        "timing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "pace"
+          ],
+          "properties": {
+            "pace": {
+              "$ref": "#/definitions/fact"
+            },
+            "typical_move_sec": {
+              "$ref": "#/definitions/numeric_fact"
+            },
+            "shot_length_sec": {
+              "$ref": "#/definitions/numeric_fact"
+            },
+            "holds": {
+              "$ref": "#/definitions/fact"
+            },
+            "stagger_sec": {
+              "$ref": "#/definitions/numeric_fact"
+            }
+          }
+        },
+        "transitions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "vocabulary"
+          ],
+          "properties": {
+            "vocabulary": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/definitions/fact"
+              }
+            },
+            "avoid": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "continuity": {
+              "$ref": "#/definitions/fact"
+            }
+          }
+        },
+        "camera": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "language"
+          ],
+          "properties": {
+            "language": {
+              "$ref": "#/definitions/fact"
+            },
+            "moves": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "static",
+                  "push-in",
+                  "pull-out",
+                  "pan",
+                  "tilt",
+                  "tracking",
+                  "parallax",
+                  "orbit",
+                  "crane",
+                  "handheld-drift",
+                  "rack-focus",
+                  "none"
+                ]
+              }
+            },
+            "lens_character": {
+              "$ref": "#/definitions/fact"
+            }
+          }
+        },
+        "object_movement": {
+          "$ref": "#/definitions/fact"
+        },
+        "kinetic_typography": {
+          "$ref": "#/definitions/fact"
+        },
+        "particles": {
+          "$ref": "#/definitions/fact"
+        },
+        "effects_2d3d": {
+          "$ref": "#/definitions/fact"
+        },
+        "shaders": {
+          "$ref": "#/definitions/fact"
+        },
+        "depth_parallax": {
+          "$ref": "#/definitions/fact"
+        },
+        "motion_blur": {
+          "$ref": "#/definitions/fact"
+        },
+        "distortion": {
+          "$ref": "#/definitions/fact"
+        },
+        "light_behaviour": {
+          "$ref": "#/definitions/fact"
+        },
+        "choreography": {
+          "$ref": "#/definitions/fact"
+        },
+        "stillness_policy": {
+          "$ref": "#/definitions/fact",
+          "description": "When holding still is correct for this style."
+        }
+      }
+    },
+    "audio_direction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "narration",
+        "music",
+        "sfx"
+      ],
+      "properties": {
+        "narration": {
+          "$ref": "#/definitions/fact"
+        },
+        "music": {
+          "$ref": "#/definitions/fact"
+        },
+        "sfx": {
+          "$ref": "#/definitions/fact"
+        },
+        "silence_and_space": {
+          "$ref": "#/definitions/fact"
+        },
+        "measured": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Measured audio properties (tempo, onset rate) when extracted from a reference."
+        }
+      }
+    },
+    "rendering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy",
+        "preferred_asset_types",
+        "feasibility"
+      ],
+      "properties": {
+        "strategy": {
+          "type": "string",
+          "description": "How this look is produced in this workspace."
+        },
+        "preferred_asset_types": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "programmatic",
+              "generated-image",
+              "generated-video",
+              "real-footage",
+              "archival",
+              "typography",
+              "data-visualization",
+              "illustration-2d",
+              "scene-3d",
+              "hybrid"
+            ]
+          }
+        },
+        "feasibility": {
+          "enum": [
+            "native",
+            "approximation",
+            "additional-dependencies",
+            "resource-constrained",
+            "research-required"
+          ],
+          "description": "Same capability classes as reference techniques."
+        },
+        "resource_notes": {
+          "type": "string"
+        },
+        "runtime_capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "description": "Catalogue capability ids the look leans on."
+        },
+        "formats": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "landscape",
+              "portrait",
+              "square"
+            ]
+          }
+        }
+      }
+    },
+    "techniques": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "description": "Technique record ids (catalogue/data/references) that realise this profile."
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method"
+      ],
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "How the profile was produced (authored rule set, reference extraction, bake-off selection)."
+        },
+        "reference_sources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ref-[0-9a-f]{10}$"
+          },
+          "description": "Inspected reference-source ids."
+        },
+        "bakeoff": {
+          "type": "string",
+          "description": "Path to the bake-off record that chose this profile."
+        },
+        "created_on": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "scene_variants": {
+      "type": "array",
+      "description": "Scene-level departures from the global profile. A variant overrides named fields; unnamed fields inherit.",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "applies_to",
+          "reason",
+          "overrides"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "applies_to": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "description": "Beat ids or scene ids."
+          },
+          "reason": {
+            "type": "string"
+          },
+          "style": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "archetype": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "overrides": {
+            "type": "object",
+            "additionalProperties": true,
+            "description": "Dotted-path -> replacement fact, e.g. motion.camera.language."
+          },
+          "coherence_anchor": {
+            "type": "string",
+            "description": "What stays shared with the global profile so the film still reads as one piece."
+          }
+        }
+      }
+    },
+    "weaknesses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "description": "Known failure modes. Required: no profile is without them."
+    },
+    "example_scenes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Evidence of use (project path, render, QA report). Absent means untested."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "fact": {
+      "description": "A value plus how it is known. Plain strings are accepted only on kind=registry profiles (read as basis=prescribed); the profile validator enforces that.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "required": [
+            "value",
+            "basis"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "string",
+              "minLength": 1
+            },
+            "basis": {
+              "enum": [
+                "measured",
+                "inferred",
+                "subjective",
+                "prescribed",
+                "unknown"
+              ]
+            },
+            "confidence": {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "evidence": {
+              "type": "string",
+              "description": "Pointer to the measurement, frame, timestamp or source record."
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "numeric_fact": {
+      "oneOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "object",
+          "required": [
+            "value",
+            "basis"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string"
+            },
+            "basis": {
+              "enum": [
+                "measured",
+                "inferred",
+                "subjective",
+                "prescribed",
+                "unknown"
+              ]
+            },
+            "confidence": {
+              "enum": [
+                "low",
+                "medium",
+                "high"
+              ]
+            },
+            "evidence": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

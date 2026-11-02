@@ -1,0 +1,163 @@
+{
+  "id": "scientific-visualization-3d",
+  "name": "3D Scientific Visualization",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "A spatial model on a dark instrument field: cross-sections, exploded views, controlled camera orbits and labelled structure. Precision over drama.",
+  "style": "sci-viz",
+  "archetype": "spatial-lab",
+  "intended_use": [
+    "anatomy, physics, engineering",
+    "structure and mechanism",
+    "scale journeys"
+  ],
+  "avoid_for": [
+    "emotive or personal stories"
+  ],
+  "identity": {
+    "mood": "precise, curious, calm",
+    "genre": "science visualisation",
+    "visual_language": "lit forms on a dark field with thin technical overlays",
+    "cinematic_character": "instrument-like, slow",
+    "composition_philosophy": "the object is the hero; labels hang off it on leader lines",
+    "environment": "empty lab space with a faint grid",
+    "realism": "stylised-3D to photoreal depending on assets",
+    "storytelling_conventions": "orbit, section, explode, label"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#0a1420",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e8f1f8",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#3ad0c4",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f2a93b",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#7c9cff",
+          "role": "secondary",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "light text on dark; accent marks the part being discussed"
+    },
+    "typography": {
+      "display": "Inter 600",
+      "text": "Inter 400",
+      "mono": "IBM Plex Mono labels uppercase",
+      "scale_and_hierarchy": "small labels, one large figure per beat",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "centred or off-centre object with radial label placement",
+      "layering_and_depth": "object, grid floor, label layer",
+      "hero_occupancy_pct": 60
+    },
+    "lighting": "key and rim, soft shadow on the grid",
+    "materials": "matte and glass, emissive accents",
+    "texture": "faint grid and grain"
+  },
+  "motion": {
+    "grammar": "Smooth, damped camera and part motion; labels arrive after the form they name.",
+    "easing": {
+      "entrances": "settle-damped",
+      "exits": "exit-accelerate",
+      "vocabulary_ids": [
+        "camera-push",
+        "rotate-turn",
+        "transform-assemble",
+        "reveal-draw",
+        "settle-damped",
+        "camera-parallax"
+      ]
+    },
+    "timing": {
+      "pace": "medium-slow",
+      "typical_move_sec": 0.8,
+      "shot_length_sec": 5.0,
+      "holds": "alive with slow orbit"
+    },
+    "transitions": {
+      "vocabulary": [
+        "camera continuation",
+        "zoom-through into the object",
+        "match-cut on form"
+      ],
+      "avoid": [
+        "comedic wipes"
+      ]
+    },
+    "camera": {
+      "language": "orbits and pushes around the object",
+      "moves": [
+        "orbit",
+        "push-in",
+        "pull-out",
+        "parallax"
+      ],
+      "lens_character": "moderate telephoto, little distortion"
+    },
+    "object_movement": "explode and reassemble along axes",
+    "effects_2d3d": "CSS 3D transforms or Three.js; section planes",
+    "stillness_policy": "slow orbit keeps the frame alive"
+  },
+  "audio_direction": {
+    "narration": "clear, academic (af_sarah / bm_george)",
+    "music": "soft synth drone, low",
+    "sfx": "quiet instrument ticks on label arrival"
+  },
+  "rendering": {
+    "strategy": "CSS 3D / SVG isometric for most cases; Three.js only when a real model is needed. Pre-rendered Blender plates are an additional dependency and not available here.",
+    "preferred_asset_types": [
+      "scene-3d",
+      "programmatic",
+      "hybrid"
+    ],
+    "feasibility": "approximation",
+    "resource_notes": "True 3D (Three.js) is possible on this host but heavier; isometric SVG and CSS 3D approximate most needs.",
+    "runtime_capabilities": [
+      "parallax-camera",
+      "object-assembly"
+    ]
+  },
+  "techniques": [
+    "isometric-exploded-view",
+    "css-3d-staging",
+    "rendered-3d-objects",
+    "product-hero-turntable",
+    "orbit-constellation"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Real 3D fidelity is limited to what CSS 3D, SVG or Three.js can do on 8 GB.",
+    "Pre-rendered Blender scenes are an additional dependency.",
+    "Dark field plus thin labels needs care for small-screen legibility."
+  ],
+  "example_scenes": [
+    "An exploded isometric stack with leader-line labels that rise one by one."
+  ],
+  "tags": [
+    "3d",
+    "scientific",
+    "spatial"
+  ]
+}

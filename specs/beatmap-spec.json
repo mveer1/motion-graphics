@@ -1,0 +1,427 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "title": "MotionLabBeatMap",
+ "description": "Narrative layer that sits between the brief and the timed storyboard: concept, arc, and a beat map where every beat has a narrative purpose and communicates something visually. Shots are optional and nested. Only the narrative core is required; everything else is filled where it is relevant (a data visualisation and a documentary montage should not share one shot template). Instance file: projects/<slug>/beatmap.json. Timing is a target here; measured timing is applied when the storyboard is derived (scripts/beatmap.py storyboard).",
+ "type": "object",
+ "required": [
+  "spec_version",
+  "slug",
+  "concept",
+  "arc",
+  "beats"
+ ],
+ "additionalProperties": false,
+ "properties": {
+  "spec_version": {
+   "const": 1
+  },
+  "slug": {
+   "type": "string",
+   "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+  },
+  "concept": {
+   "type": "object",
+   "required": [
+    "logline",
+    "viewer_change"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "logline": {
+     "type": "string",
+     "minLength": 10
+    },
+    "viewer_change": {
+     "type": "string",
+     "description": "What the viewer knows or feels at the end that they did not at the start."
+    },
+    "central_metaphor": {
+     "type": "string"
+    },
+    "audience": {
+     "type": "string"
+    },
+    "research": {
+     "type": "string",
+     "description": "Path to research.json/md when facts are asserted."
+    }
+   }
+  },
+  "arc": {
+   "type": "object",
+   "required": [
+    "id",
+    "stages"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^[a-z0-9-]+$",
+     "description": "An id from specs/narrative-arcs.json, or 'custom'."
+    },
+    "stages": {
+     "type": "array",
+     "minItems": 2,
+     "items": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+     },
+     "description": "Ordered stage ids actually used (may be a subset or reordering of the library arc; the reason goes in notes)."
+    },
+    "emotional_curve": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Intended emotional progression, one phrase per stage."
+    },
+    "notes": {
+     "type": "string"
+    }
+   }
+  },
+  "target_duration_sec": {
+   "type": "number",
+   "exclusiveMinimum": 0
+  },
+  "global_direction": {
+   "type": "object",
+   "additionalProperties": false,
+   "properties": {
+    "design_profile": {
+     "type": "string",
+     "description": "Path to design-profile.json or a registry profile id."
+    },
+    "sound_design": {
+     "type": "string",
+     "description": "Overall sound-design intent, decided at planning time."
+    },
+    "pacing": {
+     "type": "string"
+    }
+   }
+  },
+  "beats": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "$ref": "#/definitions/beat"
+   }
+  }
+ },
+ "definitions": {
+  "beat": {
+   "type": "object",
+   "required": [
+    "id",
+    "stage",
+    "purpose",
+    "viewer_takeaway",
+    "visual_concept"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^[a-z0-9-]+$"
+    },
+    "stage": {
+     "type": "string",
+     "pattern": "^[a-z0-9-]+$",
+     "description": "Arc stage this beat serves."
+    },
+    "purpose": {
+     "type": "string",
+     "minLength": 8,
+     "description": "Narrative purpose: why this beat exists."
+    },
+    "story_function": {
+     "enum": [
+      "hook",
+      "context",
+      "complication",
+      "mechanism",
+      "evidence",
+      "reveal",
+      "turn",
+      "consequence",
+      "reflection",
+      "resolution",
+      "bridge",
+      "other"
+     ]
+    },
+    "key_information": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "claims": {
+     "type": "array",
+     "description": "Factual claims asserted in this beat, each pointing at its source so the research gate can be checked.",
+     "items": {
+      "type": "object",
+      "required": [
+       "text",
+       "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+       "text": {
+        "type": "string"
+       },
+       "source": {
+        "type": "string",
+        "description": "Source id or URL from the research dossier."
+       }
+      }
+     }
+    },
+    "viewer_takeaway": {
+     "type": "string",
+     "minLength": 5
+    },
+    "narration": {
+     "type": "string"
+    },
+    "emotional_tone": {
+     "type": "string"
+    },
+    "target_duration_sec": {
+     "type": "number",
+     "exclusiveMinimum": 0
+    },
+    "importance": {
+     "enum": [
+      "anchor",
+      "supporting",
+      "breath"
+     ],
+     "description": "Emphasis is spent, not spread: anchors are the beats the film is about."
+    },
+    "visual_concept": {
+     "type": "string",
+     "minLength": 8,
+     "description": "What the viewer SEES that carries the idea (not a description of the narration)."
+    },
+    "intent": {
+     "enum": [
+      "motion",
+      "still",
+      "minimal",
+      "dense",
+      "dark"
+     ],
+     "description": "Declared intent. 'still' and 'minimal' waive hold/occupancy findings; 'dark' waives the very-dark lead. Waivers are reported, never silent."
+    },
+    "style_variant": {
+     "type": "string",
+     "description": "Scene variant id from the design profile."
+    },
+    "shots": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/shot"
+     }
+    },
+    "transition_in": {
+     "$ref": "#/definitions/transition"
+    },
+    "audio": {
+     "type": "object",
+     "additionalProperties": false,
+     "properties": {
+      "intent": {
+       "type": "string"
+      },
+      "music": {
+       "type": "string"
+      },
+      "sfx": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "silence_before_sec": {
+       "type": "number",
+       "minimum": 0
+      }
+     }
+    },
+    "assets": {
+     "type": "array",
+     "items": {
+      "$ref": "#/definitions/asset_need"
+     }
+    },
+    "implementation": {
+     "type": "string",
+     "description": "How it is built: capability ids, composition or recipe names."
+    },
+    "notes": {
+     "type": "string"
+    }
+   }
+  },
+  "shot": {
+   "type": "object",
+   "required": [
+    "id"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^[a-z0-9-]+$"
+    },
+    "shot_type": {
+     "enum": [
+      "establishing",
+      "wide",
+      "medium",
+      "close",
+      "detail",
+      "macro",
+      "overhead",
+      "data-hero",
+      "diagram",
+      "typographic",
+      "montage",
+      "title",
+      "insert"
+     ]
+    },
+    "composition": {
+     "type": "string"
+    },
+    "foreground": {
+     "type": "string"
+    },
+    "background": {
+     "type": "string"
+    },
+    "camera_movement": {
+     "enum": [
+      "static",
+      "push-in",
+      "pull-out",
+      "pan",
+      "tilt",
+      "tracking",
+      "parallax",
+      "orbit",
+      "crane",
+      "handheld-drift",
+      "rack-focus",
+      "none"
+     ]
+    },
+    "object_movement": {
+     "type": "string"
+    },
+    "typography": {
+     "type": "string"
+    },
+    "target_duration_sec": {
+     "type": "number",
+     "exclusiveMinimum": 0
+    },
+    "transition_out": {
+     "$ref": "#/definitions/transition"
+    },
+    "motion_vocabulary": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "Ids from specs/motion-vocabulary.json."
+    }
+   }
+  },
+  "transition": {
+   "type": "object",
+   "required": [
+    "type"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "type": {
+     "enum": [
+      "cut",
+      "crossfade",
+      "wipe",
+      "mask",
+      "match-cut",
+      "morph",
+      "push",
+      "liquid",
+      "zoom-through",
+      "hold-end",
+      "none"
+     ]
+    },
+    "motivation": {
+     "type": "string",
+     "description": "Why this transition: what carries the eye."
+    },
+    "duration_sec": {
+     "type": "number",
+     "minimum": 0
+    }
+   }
+  },
+  "asset_need": {
+   "type": "object",
+   "required": [
+    "role",
+    "medium"
+   ],
+   "additionalProperties": false,
+   "properties": {
+    "role": {
+     "type": "string",
+     "description": "What the asset is for (background plate, cut-out figure, map, texture...)."
+    },
+    "medium": {
+     "enum": [
+      "programmatic",
+      "generated-image",
+      "generated-video",
+      "real-footage",
+      "archival",
+      "typography",
+      "data-visualization",
+      "illustration-2d",
+      "scene-3d",
+      "hybrid"
+     ]
+    },
+    "strategy": {
+     "enum": [
+      "build-in-code",
+      "procedural-asset",
+      "generate",
+      "import",
+      "reuse",
+      "source-stock"
+     ],
+     "description": "How to obtain it. 'generate' needs a provider; the plan must name a fallback."
+    },
+    "fallback": {
+     "type": "string"
+    },
+    "asset_id": {
+     "type": "string",
+     "description": "Library id once registered."
+    },
+    "reason": {
+     "type": "string",
+     "description": "Why this medium beats the alternatives for this beat."
+    }
+   }
+  }
+ }
+}

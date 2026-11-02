@@ -30,7 +30,36 @@ from pathlib import Path
 from typing import Generator, Optional
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LOCK_DIR = REPO_ROOT / ".locks"
+
+
+def resolve_lock_dir() -> Path:
+    """One lock directory per machine checkout, shared by every git worktree.
+
+    A worktree carries its own copy of this script, so deriving the lock directory from
+    __file__ gave each parallel session a private .locks/ and the render lock never
+    excluded anything. Resolve to the main worktree through the git common dir instead.
+    MOTION_LAB_LOCK_DIR overrides (tests, unusual layouts).
+    """
+    override = os.environ.get("MOTION_LAB_LOCK_DIR")
+    if override:
+        return Path(override)
+    try:
+        res = subprocess.run(
+            ["git", "rev-parse", "--git-common-dir"],
+            cwd=REPO_ROOT, capture_output=True, text=True, timeout=10,
+        )
+        if res.returncode == 0 and res.stdout.strip():
+            common = Path(res.stdout.strip())
+            common = (common if common.is_absolute() else REPO_ROOT / common).resolve()
+            if common.name == ".git":
+                return common.parent / ".locks"
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return REPO_ROOT / ".locks"
+
+
+LOCK_DIR = resolve_lock_dir()
+HELD_ENV = "MOTION_LAB_LOCKS_HELD"  # comma list of resources held by an ancestor process
 PROJECTS_DIR = REPO_ROOT / "projects"
 WORKTREES_DIR = REPO_ROOT / ".worktrees"
 
@@ -63,6 +92,12 @@ def acquire_lock(
     If the lock is busy, waits and logs a heartbeat until released or timed out.
     Automatically detects and cleans stale locks if the holding PID died.
     """
+    held = [r for r in os.environ.get(HELD_ENV, "").split(",") if r]
+    if resource in held:
+        # An ancestor (e.g. session-guard build -> studio.py build) already holds this lock.
+        yield LOCK_DIR / f"{resource}.lock"
+        return
+
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
     lock_file = LOCK_DIR / f"{resource}.lock"
     meta_file = LOCK_DIR / f"{resource}.json"
@@ -127,11 +162,17 @@ def acquire_lock(
             "timestamp": time.time(),
         }
         meta_file.write_text(json.dumps(lock_meta, indent=2), encoding="utf-8")
+        previous_held = os.environ.get(HELD_ENV)
+        os.environ[HELD_ENV] = ",".join(held + [resource])
         print(f"[SessionGuard] 🔒 Lock '{resource}' acquired for project '{slug or 'workspace'}' (PID {os.getpid()}).")
 
         try:
             yield lock_file
         finally:
+            if previous_held is None:
+                os.environ.pop(HELD_ENV, None)
+            else:
+                os.environ[HELD_ENV] = previous_held
             meta_file.unlink(missing_ok=True)
             try:
                 fcntl.flock(fd, fcntl.LOCK_UN)

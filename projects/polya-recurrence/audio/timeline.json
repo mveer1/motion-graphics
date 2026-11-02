@@ -1,0 +1,65 @@
+{
+  "project": "polya-recurrence",
+  "voice": "am_adam",
+  "speed": 1.15,
+  "pause_sec": 0.5,
+  "total_duration_sec": 70.55,
+  "target_fps": 30,
+  "total_frames": 2117,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Hook",
+      "text": "Two drunks, both walking completely at random. One will always find his way home. The other may be lost forever.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 6.825,
+      "start_time_sec": 0.0,
+      "end_time_sec": 6.825
+    },
+    {
+      "id": "s2",
+      "title": "The Man",
+      "text": "The man leaves his door. Every step is random: north, south, east, or west. He drifts away, loops, doubles back. And with probability one, he ends up at his door again. The average wait is infinite, but he always arrives.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 12.4,
+      "start_time_sec": 7.325,
+      "end_time_sec": 19.725
+    },
+    {
+      "id": "s3",
+      "title": "The Bird",
+      "text": "Now the bird. Same rule, except it can also climb and dive. Six directions, not four. This time there is room to get lost. The chance it ever returns is only about thirty-four percent. About two times in three, it never comes back.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 12.875,
+      "start_time_sec": 20.225,
+      "end_time_sec": 33.1
+    },
+    {
+      "id": "s4",
+      "title": "The Theorem",
+      "text": "George Poya proved this in nineteen twenty-one. A random walk on a lattice is recurrent in one and two dimensions, and transient from three upward. And the higher the dimension, the smaller the chance of coming home.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 11.775,
+      "start_time_sec": 33.6,
+      "end_time_sec": 45.375
+    },
+    {
+      "id": "s5",
+      "title": "Why",
+      "text": "Why? Count the odds of standing back at the start after two n steps. In two dimensions, they shrink like one over n. In three, like n to the minus three halves. Add them up. One over n sums to infinity, so returns never stop. The other sum is finite, so sooner or later the walker escapes for good.",
+      "clip_path": "audio/s5.wav",
+      "duration_sec": 15.875,
+      "start_time_sec": 45.875,
+      "end_time_sec": 61.75
+    },
+    {
+      "id": "s6",
+      "title": "Close",
+      "text": "As the mathematician [Shizuo](/\u0283iz\u02c8uO/) [Kakutani](/k\u0251kut\u02c8\u0251ni/) is said to have put it: a drunk man will find his way home, but a drunk bird may get lost forever.",
+      "clip_path": "audio/s6.wav",
+      "duration_sec": 8.3,
+      "start_time_sec": 62.25,
+      "end_time_sec": 70.55
+    }
+  ]
+}

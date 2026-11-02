@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionLabQAReport",
+  "description": "Unified motion QA report (qa/motion-qa.json). Findings are separated into three classes that must never be blurred: 'objective' (a spec or decode failure; a fail here means the file is wrong), 'measured' (a number compared to a stated threshold; a lead to look at, not a verdict) and 'judgment' (artistic questions no script can answer; emitted as prompts for the critic and never as pass/fail). Any finding waived by a declared intent is kept, with the waiver recorded.",
+  "type": "object",
+  "required": ["spec_version", "target", "generated_at", "tool", "checks_run", "findings", "summary"],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": { "const": 1 },
+    "target": {
+      "type": "object",
+      "required": ["kind", "path"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["video", "composition", "project"] },
+        "path": { "type": "string" },
+        "slug": { "type": "string" },
+        "format": { "type": "string" },
+        "sha256": { "type": "string" }
+      }
+    },
+    "generated_at": { "type": "string" },
+    "tool": { "type": "object", "required": ["name", "version"], "additionalProperties": false, "properties": { "name": { "type": "string" }, "version": { "type": "string" }, "host": { "type": "string" } } },
+    "expectations": { "type": "object", "additionalProperties": true, "description": "Width, height, fps, duration the checks were run against." },
+    "checks_run": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "status": { "enum": ["ran", "skipped", "unavailable"] },
+          "reason": { "type": "string", "description": "Required when skipped/unavailable: a check that did not run must say so." },
+          "elapsed_sec": { "type": "number" }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "class", "severity", "message"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "description": "Stable rule id, e.g. static-hold, repeat-composition." },
+          "class": { "enum": ["objective", "measured", "judgment"] },
+          "severity": { "enum": ["fail", "warn", "note", "question"] },
+          "message": { "type": "string" },
+          "evidence": { "type": "object", "additionalProperties": true, "description": "Numbers, times, frames, thresholds." },
+          "t_sec": { "type": "number" },
+          "range_sec": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2 },
+          "beat": { "type": "string" },
+          "waived_by": { "type": "object", "additionalProperties": false, "properties": { "intent": { "type": "string" }, "source": { "type": "string" } } },
+          "suggestion": { "type": "string" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["objective_failures", "measured_warnings", "judgment_questions", "waived"],
+      "additionalProperties": false,
+      "properties": {
+        "objective_failures": { "type": "integer", "minimum": 0 },
+        "measured_warnings": { "type": "integer", "minimum": 0 },
+        "judgment_questions": { "type": "integer", "minimum": 0 },
+        "waived": { "type": "integer", "minimum": 0 },
+        "technical_pass": { "type": "boolean", "description": "True only when no objective failure exists and every required check ran. Says nothing about quality." }
+      }
+    },
+    "artifacts": { "type": "object", "additionalProperties": { "type": "string" }, "description": "Contact sheets and strips written beside the report." },
+    "critique_prompts": { "type": "array", "items": { "type": "string" } }
+  }
+}

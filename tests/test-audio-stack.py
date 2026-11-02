@@ -19,7 +19,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PYTHON_VENV = REPO_ROOT / ".venv" / "bin" / "python"
 EARSHOT_BIN = REPO_ROOT / ".venv" / "bin" / "earshot"
-REAL_SFX_DIR = REPO_ROOT / ".agents" / "skills" / "real-sfx"
+REAL_SFX_DIR = REPO_ROOT / ".claude" / "skills" / "real-sfx"
 
 test_results = []
 
@@ -161,7 +161,7 @@ def test_earshot():
 # ==============================================================================
 def test_real_sfx():
     print("\n" + "=" * 60)
-    print("RUNNING SUITE 3: Real SFX Engine (.agents/skills/real-sfx)")
+    print("RUNNING SUITE 3: Real SFX Engine (.claude/skills/real-sfx)")
     print("=" * 60)
 
     # Test 3.1: Toolchain check
@@ -260,7 +260,7 @@ def test_pipeline_qa():
     final_render = project_dir / "renders" / "final.mp4"
 
     # Test 4.1: Automated QA script with Gate 5 Earshot
-    qa_script = REPO_ROOT / ".agents" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
+    qa_script = REPO_ROOT / ".claude" / "skills" / "video-assembler" / "scripts" / "run-qa-gates.sh"
     code, stdout, stderr = run_cmd([str(qa_script), str(final_render)])
 
     g1_ok = "[Gate 1/4] Stream Verification:" in stdout and "1280x720" in stdout

@@ -1,0 +1,565 @@
+{
+ "spec_version": 1,
+ "evidence_classes": {
+  "workspace-measured": "Measured on this workspace's own renders or reference corpus (none yet; see specs/creative-intelligence-report.md).",
+  "adopted-unverified": "Taken from Motionmaxxing's published measurements; its corpus is private and the numbers were NOT reproduced here. Use as a starting default, never as a limit.",
+  "convention": "Common animation practice; no measurement is claimed."
+ },
+ "note": "Durations are [min, typical, max] seconds and are starting values for a style profile to override, not rules. Eases use GSAP core only (no CustomEase plugin).",
+ "vocabulary": [
+  {
+   "id": "enter-decel",
+   "name": "Decelerating entrance",
+   "category": "entrance",
+   "gsap": {
+    "ease": "power3.out",
+    "duration_sec": [
+     0.25,
+     0.4,
+     0.7
+    ]
+   },
+   "use_when": "Most things arriving on screen: travel front-loaded, long soft tail.",
+   "avoid_when": "Playful or physical styles that want a bounce; use settle-lean instead.",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing reports 58% of landings are ease-out and a median translate/scale entry of 12 frames (0.4 s) over 50 moments; corpus private, not reproduced."
+   },
+   "runtime": "Studio.type.rise / FX.reveal"
+  },
+  {
+   "id": "enter-oversize",
+   "name": "Arrive from oversize",
+   "category": "entrance",
+   "gsap": {
+    "ease": "power3.out",
+    "duration_sec": [
+     0.3,
+     0.5,
+     0.8
+    ]
+   },
+   "use_when": "Hero object or logo: arrives large and settles, so it feels placed, not grown.",
+   "avoid_when": "Small supporting items; grows-from-zero is a different, weaker idea.",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing craft law 7 (arrival decelerates from oversize). Treated as a starting point; counter-example: calm/archival styles."
+   }
+  },
+  {
+   "id": "enter-mask-rise",
+   "name": "Masked rise",
+   "category": "entrance",
+   "gsap": {
+    "ease": "power3.out",
+    "duration_sec": [
+     0.35,
+     0.55,
+     0.8
+    ]
+   },
+   "use_when": "Headlines and key words: text rises through an overflow mask.",
+   "avoid_when": "Body copy; long text blocks.",
+   "evidence": {
+    "class": "convention",
+    "note": "Standard kinetic-type practice; implemented by the runtime."
+   },
+   "runtime": "Studio.type.rise"
+  },
+  {
+   "id": "enter-stagger-uneven",
+   "name": "Uneven stagger",
+   "category": "entrance",
+   "gsap": {
+    "ease": "power2.out",
+    "duration_sec": [
+     0.3,
+     0.45,
+     0.7
+    ]
+   },
+   "use_when": "Sibling groups (letters, rows, tiles): onsets 1-3 frames apart with uneven gaps, tails overlapping.",
+   "avoid_when": "Two or three items; uniform delay reads as a loading list but may suit a rigid grid style.",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing rule R1.8 (uneven gaps); unverified here."
+   }
+  },
+  {
+   "id": "exit-accelerate",
+   "name": "Accelerating exit",
+   "category": "exit",
+   "gsap": {
+    "ease": "power2.in",
+    "duration_sec": [
+     0.2,
+     0.35,
+     0.5
+    ]
+   },
+   "use_when": "Things leaving: ease-in then out of frame or shrink.",
+   "avoid_when": "When the exit is itself a reveal (use a wipe).",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing reports 37% of leaves are ease-in vs 16% of landings; unverified here."
+   }
+  },
+  {
+   "id": "exit-fade-single",
+   "name": "Fade a single object",
+   "category": "exit",
+   "gsap": {
+    "ease": "power1.inOut",
+    "duration_sec": [
+     0.2,
+     0.35,
+     0.6
+    ]
+   },
+   "use_when": "One object that should dissolve (breath, memory, privacy, calm styles).",
+   "avoid_when": "Between whole scenes in a style that wants momentum.",
+   "evidence": {
+    "class": "convention",
+    "note": "Motionmaxxing argues against default fades; its own judgment doc lists calm brands as an exception. Context decides."
+   },
+   "runtime": "Studio.transition crossfade"
+  },
+  {
+   "id": "settle-lean",
+   "name": "Small late lean (overshoot)",
+   "category": "settle",
+   "gsap": {
+    "ease": "back.out(1.2)",
+    "duration_sec": [
+     0.35,
+     0.5,
+     0.8
+    ]
+   },
+   "use_when": "A physical reward: a card docks, a stamp lands. At most once or twice per film.",
+   "avoid_when": "Every element; data and legal copy.",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing reports overshoot on under 9% of moves, mostly late and small; unverified here."
+   },
+   "runtime": "SP.pop / SP.bounce"
+  },
+  {
+   "id": "settle-damped",
+   "name": "Damped settle",
+   "category": "settle",
+   "gsap": {
+    "ease": "power4.out",
+    "duration_sec": [
+     0.4,
+     0.7,
+     1.2
+    ]
+   },
+   "use_when": "Heavy objects, cinematic reveals; no overshoot.",
+   "avoid_when": "Playful styles.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   }
+  },
+  {
+   "id": "reveal-mask-wipe",
+   "name": "Mask wipe reveal",
+   "category": "reveal",
+   "gsap": {
+    "ease": "power3.inOut",
+    "duration_sec": [
+     0.4,
+     0.7,
+     1.1
+    ]
+   },
+   "use_when": "Reveal a figure, line or label by uncovering it in the direction of reading or of cause.",
+   "avoid_when": "Wipes between unrelated scenes (nothing motivates the direction).",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "FX.wipe / FX.reveal"
+  },
+  {
+   "id": "reveal-draw",
+   "name": "Stroke draw",
+   "category": "reveal",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     0.6,
+     1.2,
+     2.5
+    ]
+   },
+   "use_when": "Lines, paths, charts: the drawing is the explanation.",
+   "avoid_when": "Decorative strokes with no meaning.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention; linear draw keeps data honest."
+   },
+   "runtime": "Studio.draw.stroke"
+  },
+  {
+   "id": "reveal-focus",
+   "name": "Rack-focus reveal",
+   "category": "reveal",
+   "gsap": {
+    "ease": "power2.inOut",
+    "duration_sec": [
+     0.5,
+     0.9,
+     1.5
+    ]
+   },
+   "use_when": "Cinematic: blur resolves onto the subject.",
+   "avoid_when": "Flat graphic styles.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention; blur radius should be driven by the style profile."
+   }
+  },
+  {
+   "id": "camera-push",
+   "name": "Camera push-in",
+   "category": "camera",
+   "gsap": {
+    "ease": "sine.inOut",
+    "duration_sec": [
+     1.5,
+     4,
+     10
+    ]
+   },
+   "use_when": "Build attention toward one subject over a beat; scale 1.00 to about 1.06.",
+   "avoid_when": "When there are several co-equal subjects.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention; the workspace's earlier report used 1.00 to 1.06."
+   },
+   "runtime": "Studio.space.camera"
+  },
+  {
+   "id": "camera-pull",
+   "name": "Camera pull-out",
+   "category": "camera",
+   "gsap": {
+    "ease": "sine.inOut",
+    "duration_sec": [
+     1.5,
+     4,
+     10
+    ]
+   },
+   "use_when": "Reveal context or scale after a close detail.",
+   "avoid_when": "Opening on a wide already.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "Studio.space.camera"
+  },
+  {
+   "id": "camera-track",
+   "name": "Lateral tracking",
+   "category": "camera",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     2,
+     6,
+     14
+    ]
+   },
+   "use_when": "Scanning a timeline, a list or an environment; constant velocity feels like a dolly.",
+   "avoid_when": "Short beats.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "Studio.space.panTo"
+  },
+  {
+   "id": "camera-parallax",
+   "name": "Parallax drift",
+   "category": "camera",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     2,
+     6,
+     14
+    ]
+   },
+   "use_when": "Layered scenes: layers move at different speeds for depth.",
+   "avoid_when": "Single flat layer (nothing to separate).",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention; rule of thumb uses 3 to 6 layers."
+   },
+   "runtime": "Studio.space.drift"
+  },
+  {
+   "id": "camera-descent",
+   "name": "Vertical descent",
+   "category": "camera",
+   "gsap": {
+    "ease": "sine.inOut",
+    "duration_sec": [
+     4,
+     10,
+     25
+    ]
+   },
+   "use_when": "Journey through layers or depth (ocean, atmosphere, a stack).",
+   "avoid_when": "Anything without a spatial axis.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "Studio.space.panTo"
+  },
+  {
+   "id": "rotate-turn",
+   "name": "Rotation / turntable",
+   "category": "transform",
+   "gsap": {
+    "ease": "sine.inOut",
+    "duration_sec": [
+     0.6,
+     1.5,
+     4
+    ]
+   },
+   "use_when": "Showing an object from another angle.",
+   "avoid_when": "Text and data.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "SP.float"
+  },
+  {
+   "id": "morph-shape",
+   "name": "Shape morph",
+   "category": "transform",
+   "gsap": {
+    "ease": "power2.inOut",
+    "duration_sec": [
+     0.5,
+     0.9,
+     1.6
+    ]
+   },
+   "use_when": "One thing becoming another where the identity carries over.",
+   "avoid_when": "Unrelated shapes (reads as a glitch).",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "Studio.draw.morph"
+  },
+  {
+   "id": "transform-assemble",
+   "name": "Assemble / disassemble",
+   "category": "transform",
+   "gsap": {
+    "ease": "power3.out",
+    "duration_sec": [
+     0.6,
+     1.0,
+     1.8
+    ]
+   },
+   "use_when": "Showing how parts make a whole.",
+   "avoid_when": "When the whole is the point.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "SP.assemble / SP.disassemble"
+  },
+  {
+   "id": "match-cut",
+   "name": "Match cut",
+   "category": "transition",
+   "gsap": {
+    "ease": "power2.inOut",
+    "duration_sec": [
+     0.3,
+     0.6,
+     1.0
+    ]
+   },
+   "use_when": "Shape, position or motion carries across a cut; the eye keeps the object.",
+   "avoid_when": "No shared geometry between shots (do not force it).",
+   "evidence": {
+    "class": "convention",
+    "note": "Film convention."
+   },
+   "runtime": "FX.matchCut"
+  },
+  {
+   "id": "transition-push",
+   "name": "Directional push",
+   "category": "transition",
+   "gsap": {
+    "ease": "power3.inOut",
+    "duration_sec": [
+     0.4,
+     0.7,
+     1.1
+    ]
+   },
+   "use_when": "Direction means something: forward in time, down a hierarchy.",
+   "avoid_when": "Direction with no meaning.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "FX.push"
+  },
+  {
+   "id": "transition-zoom-through",
+   "name": "Zoom through",
+   "category": "transition",
+   "gsap": {
+    "ease": "power3.in",
+    "duration_sec": [
+     0.5,
+     0.9,
+     1.4
+    ]
+   },
+   "use_when": "Entering an object or scale change.",
+   "avoid_when": "Repeated at every seam.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "FX.zoomThrough"
+  },
+  {
+   "id": "transition-liquid",
+   "name": "Liquid / shape cover",
+   "category": "transition",
+   "gsap": {
+    "ease": "power2.inOut",
+    "duration_sec": [
+     0.6,
+     1.0,
+     1.6
+    ]
+   },
+   "use_when": "Organic, playful or paper styles.",
+   "avoid_when": "Technical or sober subjects.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "FX.liquid / FX.shapeCover"
+  },
+  {
+   "id": "transition-hard-cut",
+   "name": "Hard cut on motion",
+   "category": "transition",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     0,
+     0,
+     0
+    ]
+   },
+   "use_when": "Energy, shock, or when the incoming shot is already moving; the cut should mean something.",
+   "avoid_when": "Between calm, still shots (looks like an error).",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing: cut on motion, never on rest; treated as an option, not a rule."
+   },
+   "runtime": "Studio.cut"
+  },
+  {
+   "id": "transition-dissolve",
+   "name": "Slow dissolve",
+   "category": "transition",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     0.6,
+     1.2,
+     2.4
+    ]
+   },
+   "use_when": "Passage of time, reflection, archival feel.",
+   "avoid_when": "Fast, high-energy styles.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "Studio.transition crossfade"
+  },
+  {
+   "id": "hold-breath",
+   "name": "Designed breath",
+   "category": "hold",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     0.6,
+     1.0,
+     1.8
+    ]
+   },
+   "use_when": "Before a payoff or after a reveal; keep one living element (drift, grain, light).",
+   "avoid_when": "Over narration that is still giving information.",
+   "evidence": {
+    "class": "adopted-unverified",
+    "note": "Motionmaxxing allows 0.6-1.5 s breaths with a stated reason; unverified here."
+   },
+   "runtime": "SP.drift"
+  },
+  {
+   "id": "hold-still",
+   "name": "Intentional stillness",
+   "category": "hold",
+   "gsap": {
+    "ease": "none",
+    "duration_sec": [
+     1.0,
+     2.5,
+     6
+    ]
+   },
+   "use_when": "A frame that should simply be read or felt (title, quote, a single figure). Declare intent: still.",
+   "avoid_when": "Over spoken explanation of changing content.",
+   "evidence": {
+    "class": "convention",
+    "note": "Stillness is legitimate; it must be declared so QA records a waiver and not a silent pass."
+   }
+  },
+  {
+   "id": "emphasis-pulse",
+   "name": "Emphasis pulse",
+   "category": "emphasis",
+   "gsap": {
+    "ease": "sine.inOut",
+    "duration_sec": [
+     0.3,
+     0.5,
+     0.9
+    ]
+   },
+   "use_when": "Spoken keyword gets a brief highlight.",
+   "avoid_when": "More than one per sentence.",
+   "evidence": {
+    "class": "convention",
+    "note": "Convention."
+   },
+   "runtime": "FX.pulse"
+  }
+ ]
+}

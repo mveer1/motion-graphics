@@ -471,13 +471,13 @@
       "method": "decoded track is digital silence"
     },
     "artifacts": {
-      "cache_dir": "out/reference-analysis/ref-95c96d5c47",
-      "overview": "out/reference-analysis/ref-95c96d5c47/overview.jpg",
-      "scenes": "out/reference-analysis/ref-95c96d5c47/scenes.jpg",
-      "transitions": "out/reference-analysis/ref-95c96d5c47/transitions.jpg",
-      "motion": "out/reference-analysis/ref-95c96d5c47/motion.jpg",
-      "audio": "out/reference-analysis/ref-95c96d5c47/audio.png",
-      "frames": "out/reference-analysis/ref-95c96d5c47/frames",
+      "cache_dir": "reference/analysis/ref-95c96d5c47",
+      "overview": "reference/analysis/ref-95c96d5c47/overview.jpg",
+      "scenes": "reference/analysis/ref-95c96d5c47/scenes.jpg",
+      "transitions": "reference/analysis/ref-95c96d5c47/transitions.jpg",
+      "motion": "reference/analysis/ref-95c96d5c47/motion.jpg",
+      "audio": "reference/analysis/ref-95c96d5c47/audio.png",
+      "frames": "reference/analysis/ref-95c96d5c47/frames",
       "tracked": false
     }
   }

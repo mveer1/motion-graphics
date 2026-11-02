@@ -1,0 +1,160 @@
+{
+  "id": "abstract-geometric-motion",
+  "name": "Abstract / Geometric Motion Graphics",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "A bone ground and hard-edged primitives in vermilion, ultramarine and marigold. Transformations are the content; timing derives from a repeating unit.",
+  "style": "abstract-geometric",
+  "archetype": "geometric-field",
+  "intended_use": [
+    "abstract concepts",
+    "mathematics",
+    "music and rhythm pieces",
+    "title and brand sequences"
+  ],
+  "avoid_for": [
+    "naturalistic or emotional realism"
+  ],
+  "identity": {
+    "mood": "energetic, exact, playful",
+    "genre": "motion design",
+    "visual_language": "primitives, grids, transformations",
+    "composition_philosophy": "tension between a few strong shapes and the frame",
+    "environment": "flat ground",
+    "realism": "abstract"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#f4efe6",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#14141a",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e8421e",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#1f3dd1",
+          "role": "secondary",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#f2b21a",
+          "role": "highlight",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "flat colour blocks; ink for line and text"
+    },
+    "typography": {
+      "display": "Archivo Black, huge, cropped by the frame",
+      "text": "Inter",
+      "mono": "JetBrains Mono",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "diagonals, overlap, scale shifts",
+      "hero_occupancy_pct": 70
+    },
+    "shape_language": "circle, square, triangle, line",
+    "contrast": "high",
+    "visual_rhythm": "repeating unit with variation"
+  },
+  "motion": {
+    "grammar": "Exact on-beat transformations with controlled overshoot; one visible spring at most per section.",
+    "easing": {
+      "entrances": "enter-oversize / enter-stagger-uneven",
+      "exits": "exit-accelerate",
+      "vocabulary_ids": [
+        "enter-oversize",
+        "enter-stagger-uneven",
+        "morph-shape",
+        "transform-assemble",
+        "match-cut",
+        "transition-hard-cut",
+        "settle-lean"
+      ]
+    },
+    "timing": {
+      "pace": "fast, rhythmic",
+      "typical_move_sec": 0.35,
+      "shot_length_sec": 1.5,
+      "stagger_sec": 0.05
+    },
+    "transitions": {
+      "vocabulary": [
+        "match-cut by shape",
+        "shape-cover wipe",
+        "hard cut on motion"
+      ],
+      "avoid": [
+        "fades"
+      ],
+      "continuity": "one shape carried through"
+    },
+    "camera": {
+      "language": "flat; punch-ins and rotations",
+      "moves": [
+        "push-in",
+        "pan",
+        "static"
+      ]
+    },
+    "kinetic_typography": "split and slot-roll words",
+    "stillness_policy": "Brief locks on beat."
+  },
+  "audio_direction": {
+    "narration": "optional; if present, rhythmic and brief",
+    "music": "rhythmic bed that sets the unit",
+    "sfx": "tight percussive hits aligned to transformations"
+  },
+  "rendering": {
+    "strategy": "HTML/SVG/CSS with GSAP; deterministic math-driven motion.",
+    "preferred_asset_types": [
+      "programmatic",
+      "typography"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "shape-morph",
+      "grid-wave",
+      "slot-roll",
+      "match-cut",
+      "shape-cover-transition"
+    ]
+  },
+  "techniques": [
+    "swiss-kinetic-grid",
+    "morph-ready-shape-sequence",
+    "grid-wave-propagation",
+    "word-slot-roll",
+    "strip-slice-offset"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Without a narrative anchor it becomes screensaver.",
+    "High energy fatigues quickly past ~30 s.",
+    "Accent contrast is low for small text."
+  ],
+  "example_scenes": [
+    "A square becomes a circle becomes the numeral that names the idea, on the beat."
+  ],
+  "tags": [
+    "geometric",
+    "kinetic",
+    "abstract"
+  ]
+}

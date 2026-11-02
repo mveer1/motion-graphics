@@ -480,13 +480,13 @@
       "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
     },
     "artifacts": {
-      "cache_dir": "out/reference-analysis/ref-1cbe55c987",
-      "overview": "out/reference-analysis/ref-1cbe55c987/overview.jpg",
-      "scenes": "out/reference-analysis/ref-1cbe55c987/scenes.jpg",
-      "transitions": "out/reference-analysis/ref-1cbe55c987/transitions.jpg",
-      "motion": "out/reference-analysis/ref-1cbe55c987/motion.jpg",
-      "audio": "out/reference-analysis/ref-1cbe55c987/audio.png",
-      "frames": "out/reference-analysis/ref-1cbe55c987/frames",
+      "cache_dir": "reference/analysis/ref-1cbe55c987",
+      "overview": "reference/analysis/ref-1cbe55c987/overview.jpg",
+      "scenes": "reference/analysis/ref-1cbe55c987/scenes.jpg",
+      "transitions": "reference/analysis/ref-1cbe55c987/transitions.jpg",
+      "motion": "reference/analysis/ref-1cbe55c987/motion.jpg",
+      "audio": "reference/analysis/ref-1cbe55c987/audio.png",
+      "frames": "reference/analysis/ref-1cbe55c987/frames",
       "tracked": false
     }
   }

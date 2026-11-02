@@ -18,7 +18,7 @@ Each studio project lives in `projects/<slug>/` and is driven by `scripts/studio
 
 | Stage | Artefact | Tools and skills | When |
 | --- | --- | --- | --- |
-| <a id="s0"></a>0 Brief and creative direction | `brief.json` (`specs/brief-spec.json`): objective, audience, platforms, formats, tone, 1–3 distinct directions, the selected one and why | `motion-graphics-designer` | always |
+| <a id="s0"></a>0 Brief and creative direction | `brief.json` (`specs/brief-spec.json`): objective, audience, subject categories (`specs/categories.json`, one or more), platforms, formats, tone, 1–3 distinct directions, the selected one and why | `motion-graphics-designer` | always |
 | <a id="s0r"></a>0R Research | `research.json` + `research.md` | `technical-researcher`, `scripts/validate-research.py` | only when `brief.research.required` (factual topics) |
 | <a id="s1"></a>1 Storyboard and style | `storyboard.json` (`specs/storyboard-spec.json`); style system from the catalogue | `motion-graphics-designer`, `motion-library-guide` | standard/complex briefs, or when the template requires it |
 | <a id="s2"></a>2 Script | `src/narration.json` | `voice-director` | only with narration |
@@ -108,7 +108,7 @@ Reference videos teach techniques; they are never source material. `scripts/refe
 | Layer | Location | Tracked | Written by |
 | --- | --- | --- | --- |
 | Videos | outside the repository, found through `--root DIR` or `MOTION_REFERENCE_ROOTS` | never | the user |
-| Analysis cache: sampled frames, overview/scene/transition/motion sheets, audio panel, `signal.json` | `out/reference-analysis/<id>/` | never (third-party imagery, possibly brand marks) | `reference-corpus.py analyze` |
+| Analysis cache: sampled frames, overview/scene/transition/motion sheets, audio panel, `signal.json` | `reference/analysis/<id>/` | never (third-party imagery, possibly brand marks) | `reference-corpus.py analyze` |
 | Source record: file name, size, SHA-256, rights and brand assets, `media` and `automated` evidence, the analyst's notes | `catalogue/data/reference-sources/ref-<sha256[:10]>.json` (`reference-source.schema.json`) | yes | the tool writes `media` and `automated` only; the analyst writes `analysis`, `techniques`, `rights`, `categories` |
 | Technique record | `catalogue/data/references/<id>.json` (`reference.schema.json`) | yes | the analyst |
 | Implementation | runtime APIs in `src/studio/` plus effect, recipe and composition records | yes | development |
@@ -124,7 +124,7 @@ Reference videos teach techniques; they are never source material. `scripts/refe
 
 ```bash
 python scripts/reference-corpus.py ingest "<file-or-folder>"                 # hash, probe, create or alias records
-python scripts/reference-corpus.py analyze --pending --root "<folder>"       # evidence into out/reference-analysis/<id>/
+python scripts/reference-corpus.py analyze --pending --root "<folder>"       # evidence into reference/analysis/<id>/
 # look at overview/scenes/transitions/motion/audio sheets, then write analysis + techniques (reference-analyst skill)
 python scripts/reference-corpus.py check --name "<candidate technique>"      # extend an existing record when it is a duplicate
 python scripts/motion-catalogue.py validate
@@ -134,6 +134,21 @@ python scripts/reference-corpus.py report --backlog
 **Rights.** Every source defaults to `inspiration-only` with unknown licence. Logos, wordmarks, characters, product UI, footage and exact shot sequences are recorded as `brand_assets` with policy `exclude`; demos and projects reuse principles with original copy, drawing and choreography. Nothing from the cache or the videos may be committed or used as an asset.
 
 **Cost.** Analysis runs at about 0.5x real time on the Windows dev host with the Edge decoder (one headless Edge, roughly 0.8 GB working set observed); the FFmpeg backend is implemented but untested. On the M2, analyse one video at a time and never alongside a render.
+
+### 0.9 Creative Intelligence Layer (optional, additive)
+
+Planning, visual intelligence, asset acquisition and motion QA on top of the studio; every file is optional and a project without them behaves as before. Audit and design: `specs/creative-intelligence-architecture.md`; operation: `specs/creative-intelligence-guide.md`; what was built, tested and measured: `specs/creative-intelligence-report.md`.
+
+| Layer | Artefact | Tool |
+| --- | --- | --- |
+| Narrative | `beatmap.json` (arc, beats, shots), `specs/narrative-arcs.json` | `scripts/beatmap.py` |
+| Visual intelligence | design profiles (`catalogue/data/design-profiles/`, fact + basis: measured / inferred / subjective / prescribed / unknown), knowledge-base facets | `scripts/design-dna.py`, `src/pipeline/colorscience.py` |
+| Style bake-off | `bakeoff/bakeoff.json`, `design-profile.json` | `scripts/bakeoff.py`, `src/pipeline/archetypes.py` |
+| Assets | `assets/library/`, `<project>/src/assets/manifest.json` | `scripts/assets.py`, `src/pipeline/assets/` |
+| Motion QA | `qa/motion/motion-qa.json` (objective / measured / judgment), critique pack | `scripts/motion-qa.py`, `scripts/dom-probe.mjs` |
+| Revision | spliced `renders/<format>/visuals.mp4` | `scripts/scene-revise.py` |
+
+Skills: `creative-director`, `asset-engine`, `motion-director`. `studio.py validate` checks these files when present. Credentials come from environment variables only.
 
 ---
 
@@ -400,7 +415,7 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 ---
 
 ### Step 2: Speech Synthesis & Audio Measurement
-- **Owner:** Deterministic (`src/pipeline/tts.py` or `.agents/skills/voice-director/scripts/synth-and-measure.py`)
+- **Owner:** Deterministic (`src/pipeline/tts.py` or `.claude/skills/voice-director/scripts/synth-and-measure.py`)
 - **Command:**
   ```bash
   python3.12 src/pipeline/tts.py --text "<scene text>" --out audio/s1.wav --voice am_adam --speed 0.95
@@ -431,7 +446,7 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 - **Protocol:**
   1. **Visual Moment Extraction:** Parse DOM elements and GSAP tweens from `index.html` to extract frame-accurate timestamps for entrances, burst scales, and scene cuts:
      ```bash
-     .venv/bin/python .agents/skills/real-sfx/scripts/from_hyperframes.py src/index.html --video renders/visuals.mp4 --out renders/moments.json
+     .venv/bin/python .claude/skills/real-sfx/scripts/from_hyperframes.py src/index.html --video renders/visuals.mp4 --out renders/moments.json
      ```
   2. **Asset Sourcing & Generation:**
      - Query Openverse for free Creative Commons sound assets:
@@ -444,16 +459,16 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
        ```
   3. **Sound Cue Planning:** Map extracted moments to audio roles (whoosh, click, pop, impact) with target levels:
      ```bash
-     .venv/bin/python .agents/skills/real-sfx/scripts/suggest_cues.py renders/moments.json --out renders/cues.json
+     .venv/bin/python .claude/skills/real-sfx/scripts/suggest_cues.py renders/moments.json --out renders/cues.json
      ```
   4. **Multi-Track Mixing:** Render deterministic audio bed beneath voice narration:
      ```bash
-     .venv/bin/python .agents/skills/real-sfx/scripts/mix.py renders/cues.json --out renders/film_sfx.mp4
+     .venv/bin/python .claude/skills/real-sfx/scripts/mix.py renders/cues.json --out renders/film_sfx.mp4
      cp renders/film_sfx_sfx_track.wav audio/sfx-track.wav
      ```
   5. **Soundtrack Self-Critique:** Audit acoustic quality against calibrated benchmarks:
      ```bash
-     .venv/bin/python .agents/skills/real-sfx/scripts/critique.py renders/film_sfx_resolved_cues.json audio/sfx-track.wav
+     .venv/bin/python .claude/skills/real-sfx/scripts/critique.py renders/film_sfx_resolved_cues.json audio/sfx-track.wav
      ```
      Verifies sync (10.0/10), initial hook (<2s), headroom, and stereo-to-mono compatibility.
 
@@ -500,10 +515,10 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 ---
 
 ### Step 7: Automated QA Gates
-- **Owner:** Deterministic (`.agents/skills/video-assembler/scripts/run-qa-gates.sh`)
+- **Owner:** Deterministic (`.claude/skills/video-assembler/scripts/run-qa-gates.sh`)
 - **Command:**
   ```bash
-  ./.agents/skills/video-assembler/scripts/run-qa-gates.sh projects/<project_name>/renders/final.mp4
+  ./.claude/skills/video-assembler/scripts/run-qa-gates.sh projects/<project_name>/renders/final.mp4
   ```
 - **Verification Gates:**
   1. **Gate 1 (Codec / Streams):** Video is H.264 High Profile (yuv420p) at 1280×720 @ 30fps; Audio is AAC-LC.
@@ -558,7 +573,7 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 │       ├── integrations/              # External service integrations
 │       └── shared/                    # Shared templates & specifications
 │
-├── .agents/skills/                    # Specialized AI skills
+├── .claude/skills/                    # Specialized AI skills
 │   ├── workspace-steward/             # Governance, placement policy, drift detection
 │   ├── technical-researcher/          # Topic research, math truth, visual metaphors
 │   ├── motion-library-guide/          # Capability catalogue search, vetting, recipes
@@ -654,9 +669,9 @@ python3 scripts/sfx-openverse.py "whoosh" --limit 5 --download --out-dir assets/
 .venv/bin/earshot sfx render cut_hit/kick -o assets/audio/sfx/kick.wav
 
 # Extract moments and mix sound design for a project:
-.venv/bin/python .agents/skills/real-sfx/scripts/from_hyperframes.py projects/btree-database-indexing/src/index.html --video projects/btree-database-indexing/renders/visuals.mp4 --out projects/btree-database-indexing/renders/moments.json
-.venv/bin/python .agents/skills/real-sfx/scripts/suggest_cues.py projects/btree-database-indexing/renders/moments.json --out projects/btree-database-indexing/renders/cues.json
-.venv/bin/python .agents/skills/real-sfx/scripts/mix.py projects/btree-database-indexing/renders/cues.json --out projects/btree-database-indexing/renders/film_sfx.mp4
+.venv/bin/python .claude/skills/real-sfx/scripts/from_hyperframes.py projects/btree-database-indexing/src/index.html --video projects/btree-database-indexing/renders/visuals.mp4 --out projects/btree-database-indexing/renders/moments.json
+.venv/bin/python .claude/skills/real-sfx/scripts/suggest_cues.py projects/btree-database-indexing/renders/moments.json --out projects/btree-database-indexing/renders/cues.json
+.venv/bin/python .claude/skills/real-sfx/scripts/mix.py projects/btree-database-indexing/renders/cues.json --out projects/btree-database-indexing/renders/film_sfx.mp4
 cp projects/btree-database-indexing/renders/film_sfx_sfx_track.wav projects/btree-database-indexing/audio/sfx-track.wav
 
 # Measure acoustic metrics with Earshot:
@@ -742,7 +757,7 @@ flowchart LR
 ### 7.3 The 7-Domain Component Placement Taxonomy
 All workspace files must strictly reside in their designated domain:
 1. **Workspace-Owned Source & Config:** `src/`, `scripts/`, `specs/`, `templates/`.
-2. **Agent Skills & Resources:** `.agents/skills/<skill-name>/` (`SKILL.md`, `references/`).
+2. **Agent Skills & Resources:** `.claude/skills/<skill-name>/` (`SKILL.md`, `references/`).
 3. **Third-Party Dependencies:** Declared via `.venv/` or system package managers; vendoring requires explicit justification under `tools/` with verified upstream licence.
 4. **Reusable Motion Components:** `catalogue/data/recipes/`, `catalogue/data/effects/`, `templates/`.
 5. **Generated Assets & Outputs:** `projects/*/renders/`, `out/`, `audio/`, `logs/` (ephemeral; ignored by git).

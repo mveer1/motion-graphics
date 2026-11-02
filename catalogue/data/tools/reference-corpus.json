@@ -24,7 +24,7 @@
   },
   "documentation_urls": [
     "ARCHITECTURE.md",
-    ".agents/skills/reference-analyst/SKILL.md",
+    ".claude/skills/reference-analyst/SKILL.md",
     "catalogue/README.md"
   ],
   "licensing": {

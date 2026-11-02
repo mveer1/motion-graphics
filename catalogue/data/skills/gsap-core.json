@@ -9,11 +9,11 @@
     "Easing functions",
     "Responsive matchMedia"
   ],
-  "location": ".agents/skills/gsap-core",
+  "location": ".claude/skills/gsap-core",
   "version": "1.0.0",
   "installation": {
     "required": false,
-    "instructions": "Built-in workspace skill under .agents/skills/gsap-core."
+    "instructions": "Built-in workspace skill under .claude/skills/gsap-core."
   },
   "dependencies": [
     "gsap"
@@ -23,7 +23,7 @@
     "runtime": "agent-host"
   },
   "documentation_urls": [
-    ".agents/skills/gsap-core/SKILL.md"
+    ".claude/skills/gsap-core/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",

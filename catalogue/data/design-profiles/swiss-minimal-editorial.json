@@ -1,0 +1,165 @@
+{
+  "id": "swiss-minimal-editorial",
+  "name": "Swiss / Minimalist Editorial",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "Strict grid, one typeface family, restrained colour and exact transitions. Whitespace is structure. Meaning is carried by type scale and position.",
+  "style": "swiss-minimal",
+  "archetype": "swiss-grid",
+  "intended_use": [
+    "explanatory essays",
+    "brand and announcement pieces",
+    "finance and policy",
+    "typographic films"
+  ],
+  "avoid_for": [
+    "tactile or playful subjects",
+    "imagery-led stories"
+  ],
+  "identity": {
+    "mood": "precise, confident, calm",
+    "genre": "modernist editorial",
+    "visual_language": "grid, scale contrast, rules",
+    "editorial_approach": "a statement per frame, resolved by position",
+    "composition_philosophy": "asymmetric grid; empty space is a design element",
+    "environment": "flat ground",
+    "realism": "flat graphic",
+    "storytelling_conventions": "build a sentence by moving type on the grid"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#ffffff",
+          "role": "background",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#111111",
+          "role": "text",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#e8341c",
+          "role": "accent",
+          "basis": "prescribed"
+        },
+        {
+          "hex": "#8a8a8a",
+          "role": "neutral",
+          "basis": "prescribed"
+        }
+      ],
+      "contrast_strategy": "black on white with one red accent used once per frame"
+    },
+    "typography": {
+      "display": "Inter or a grotesque, 600-800, large scale contrast",
+      "text": "same family 400",
+      "mono": "JetBrains Mono for data",
+      "scale_and_hierarchy": "3 sizes per frame at most; ratio 4:1 or more",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "12-column grid, flush-left ragged-right, large margins",
+      "grid_and_alignment": "hard alignment to grid lines",
+      "negative_space": "deliberate; at least a third of the frame",
+      "hero_occupancy_pct": 45
+    },
+    "shape_language": "rules and rectangles",
+    "texture": "none; optional fine print grain",
+    "lighting": "none",
+    "contrast": "maximum",
+    "visual_rhythm": "alternating dense and empty frames"
+  },
+  "motion": {
+    "grammar": "Precise: type and rules move on the grid with decisive, short eases and clean holds.",
+    "easing": {
+      "entrances": "enter-mask-rise and enter-decel",
+      "exits": "exit-accelerate",
+      "vocabulary_ids": [
+        "enter-mask-rise",
+        "enter-decel",
+        "reveal-mask-wipe",
+        "transition-push",
+        "hold-still",
+        "transition-hard-cut"
+      ]
+    },
+    "timing": {
+      "pace": "medium; moves 0.3-0.5 s, holds 1-2 s",
+      "typical_move_sec": 0.4,
+      "shot_length_sec": 2.5,
+      "holds": "clean stillness is intended and should be declared",
+      "stagger_sec": 0.05
+    },
+    "transitions": {
+      "vocabulary": [
+        "push along the grid axis",
+        "mask wipe",
+        "hard cut on a move"
+      ],
+      "avoid": [
+        "glows",
+        "blurs",
+        "liquid"
+      ],
+      "continuity": "a rule or baseline persists across the cut"
+    },
+    "camera": {
+      "language": "static or axis-locked pans only",
+      "moves": [
+        "static",
+        "pan"
+      ],
+      "lens_character": "none"
+    },
+    "kinetic_typography": "line and word build on baselines",
+    "stillness_policy": "Stillness is part of the style; declare intent: still so QA records a waiver."
+  },
+  "audio_direction": {
+    "narration": "clear, dry, 1.1x",
+    "music": "minimal pulse or none",
+    "sfx": "sparse ticks and low thuds",
+    "silence_and_space": "silence between statements"
+  },
+  "rendering": {
+    "strategy": "Pure HTML/SVG/GSAP; the cheapest and most deterministic look.",
+    "preferred_asset_types": [
+      "typography",
+      "programmatic",
+      "data-visualization"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "text-mask-rise",
+      "mask-wipe",
+      "clip-path-reveal",
+      "push-transition"
+    ]
+  },
+  "techniques": [
+    "swiss-kinetic-grid",
+    "typographic-repetition",
+    "centred-word-build",
+    "word-per-beat-sequence"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed). Derived from the style system's tokens, the workspace motion vocabulary and the technique records listed; not extracted from a single reference.",
+    "created_on": "2026-11-02",
+    "notes": "Every value here is prescribed intent, not a measurement. Evidence of use is recorded under 'validation' only after a render exists."
+  },
+  "weaknesses": [
+    "Easily becomes slides if every frame is a headline plus a block.",
+    "Needs real typographic judgement; defaults look generic.",
+    "No imagery means narrative load falls on narration."
+  ],
+  "example_scenes": [
+    "A single large number on the grid with a rule that draws to a baseline label."
+  ],
+  "tags": [
+    "swiss",
+    "typographic",
+    "minimal"
+  ]
+}

@@ -259,13 +259,13 @@
       "present": false
     },
     "artifacts": {
-      "cache_dir": "out/reference-analysis/ref-c3bc609841",
-      "overview": "out/reference-analysis/ref-c3bc609841/overview.jpg",
-      "scenes": "out/reference-analysis/ref-c3bc609841/scenes.jpg",
+      "cache_dir": "reference/analysis/ref-c3bc609841",
+      "overview": "reference/analysis/ref-c3bc609841/overview.jpg",
+      "scenes": "reference/analysis/ref-c3bc609841/scenes.jpg",
       "transitions": null,
-      "motion": "out/reference-analysis/ref-c3bc609841/motion.jpg",
+      "motion": "reference/analysis/ref-c3bc609841/motion.jpg",
       "audio": null,
-      "frames": "out/reference-analysis/ref-c3bc609841/frames",
+      "frames": "reference/analysis/ref-c3bc609841/frames",
       "tracked": false
     }
   }

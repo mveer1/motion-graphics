@@ -1,0 +1,215 @@
+{
+  "$schema": "../../specs/research-spec.json",
+  "metadata": {
+    "topic_id": "great-fire-london",
+    "title": "The Great Fire of London, 1666",
+    "domain": "general_knowledge",
+    "difficulty": "introductory",
+    "target_duration_sec": {
+      "min": 40,
+      "max": 55,
+      "target": 48
+    },
+    "canonical_sources": [
+      {
+        "title": "Great Fire of London (consulted 2026-11-02; secondary summary of Tinniswood, Porter, Field, Hanson)",
+        "authors": "Wikipedia contributors",
+        "year": 2026,
+        "source_type": "textbook",
+        "url": "https://en.wikipedia.org/wiki/Great_Fire_of_London"
+      },
+      {
+        "title": "The Monument to the Great Fire of London",
+        "authors": "City of London Corporation",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://www.themonument.org.uk/"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "A city built largely of timber, and a spark in one bakery.",
+    "core_thesis": "The fire began in one bakery, destroyed a large part of the old City, and prompted rebuilding in brick and stone.",
+    "mental_model": "A story told as paper being assembled, then burned away, then rebuilt as a different material.",
+    "key_takeaway": "London's brick-and-stone rebuilding was a response to the fire, and the fire's human cost is still uncertain.",
+    "verified_claims": [
+      "A short time after midnight on Sunday 2 September 1666 a fire broke out at Thomas Farriner's bakery in Pudding Lane [Wikipedia, citing Tinniswood].",
+      "The fire ran from Sunday 2 to Wednesday 5 September 1666; the wind dropped on Tuesday evening and firebreaks took effect on Wednesday [Wikipedia, citing Tinniswood, Field].",
+      "An estimated 13,200-13,500 houses were destroyed [Wikipedia, citing Porter, Tinniswood, Field].",
+      "86 or 87 parish churches were destroyed, and St Paul's Cathedral was destroyed [Wikipedia, citing Porter, Tinniswood, Field].",
+      "The recorded death toll is traditionally very few (six is the traditional figure) and is disputed; some historians argue for far more [Wikipedia, citing Tinniswood, Porter, Hanson, Field].",
+      "The Rebuilding of London Act 1666 banned wood from building exteriors; rebuilt buildings were required to be brick and stone [Wikipedia, citing Field].",
+      "Christopher Wren rebuilt St Paul's Cathedral [Wikipedia].",
+      "The Monument is 202 ft (61.5 m) tall, designed by Wren and Robert Hooke, built 1671-1676 [themonument.org.uk for height and designers; Wikipedia for dates]."
+    ],
+    "anti_patterns": [
+      "Do not present any single death toll as established fact",
+      "Do not claim the Monument's height equals its distance from the bakery (not verified in the consulted sources)",
+      "Do not show generated or procedural imagery as archival material",
+      "Do not state a percentage of the City destroyed (the consulted source gives only a share of housing, with unclear base)"
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "bakery",
+        "symbol_latex": "\\text{bakery}",
+        "name": "Thomas Farriner's bakery, Pudding Lane",
+        "type_or_domain": "place",
+        "role": "Origin of the fire"
+      },
+      {
+        "id": "fire",
+        "symbol_latex": "\\text{fire}",
+        "name": "The Great Fire",
+        "type_or_domain": "event",
+        "role": "Sunday 2 to Wednesday 5 September 1666"
+      },
+      {
+        "id": "act",
+        "symbol_latex": "\\text{Act}",
+        "name": "Rebuilding of London Act 1666",
+        "type_or_domain": "law",
+        "role": "Required brick and stone, banned wooden exteriors"
+      },
+      {
+        "id": "monument",
+        "symbol_latex": "\\text{Monument}",
+        "name": "The Monument",
+        "type_or_domain": "structure",
+        "role": "202 ft memorial column by Wren and Hooke"
+      }
+    ],
+    "equations": [],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Ignition",
+        "mathematical_operation": "fire(bakery, night of 1-2 Sep 1666)",
+        "state_effect": "Fire starts on Pudding Lane"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Spread and containment",
+        "mathematical_operation": "burn(Sun 2 -> Wed 5 Sep); wind drops Tue evening; firebreaks Wed",
+        "state_effect": "Fire ends Wednesday"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Loss",
+        "mathematical_operation": "houses ~ 13,200-13,500; churches 86-87; St Paul's lost",
+        "state_effect": "Large part of the old City destroyed"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Reconstruction",
+        "mathematical_operation": "Act(1666): exteriors in brick/stone",
+        "state_effect": "A different built city"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "assembled-poster",
+      "abstract_concept": "A story told as paper pieces placed on a table",
+      "visual_archetype": "paper_collage_assembly",
+      "svg_primitives": [
+        "polygon",
+        "path",
+        "filter"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "slide, stamp, tape",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "day-tickets",
+      "abstract_concept": "Four days as four stamped tickets",
+      "visual_archetype": "timeline_sequence",
+      "svg_primitives": [
+        "rect",
+        "text"
+      ],
+      "spatial_anchor": "bottom_dock_timeline",
+      "motion_pattern": "stamp thud",
+      "color_token": "gradient_error_coral"
+    },
+    {
+      "concept_id": "bricks-rise",
+      "abstract_concept": "Rebuilding in a new material",
+      "visual_archetype": "before_after_transformation",
+      "svg_primitives": [
+        "rect",
+        "pattern"
+      ],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "stacking",
+      "color_token": "accent_primary_blue"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "af_bella",
+    "speech_rate": 1.1,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "Pudding Lane",
+        "phonetic_respelling": "Pudding Lane",
+        "rationale": "Standard English; no respelling needed"
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "Pudding Lane",
+      "target_duration_sec": 9,
+      "pedagogical_objective": "Place and time of the start",
+      "visual_action": "A map sheet slides in, a flame pins to Pudding Lane",
+      "active_entities": [
+        "bakery"
+      ]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Sunday to Wednesday",
+      "target_duration_sec": 9,
+      "pedagogical_objective": "Duration and how it ended",
+      "visual_action": "Four day tickets stamp; the burn spreads then stops",
+      "active_entities": [
+        "fire"
+      ]
+    },
+    {
+      "scene_id": "s3",
+      "title": "The loss",
+      "target_duration_sec": 10,
+      "pedagogical_objective": "Scale with honest ranges",
+      "visual_action": "A counter rolls to 13,200; houses char; churches and St Paul's",
+      "active_entities": [
+        "fire"
+      ]
+    },
+    {
+      "scene_id": "s4",
+      "title": "How many died?",
+      "target_duration_sec": 8,
+      "pedagogical_objective": "Uncertainty about the death toll",
+      "visual_action": "One typed line and a paper six",
+      "active_entities": [
+        "fire"
+      ]
+    },
+    {
+      "scene_id": "s5",
+      "title": "Brick and stone",
+      "target_duration_sec": 12,
+      "pedagogical_objective": "Aftermath and legacy",
+      "visual_action": "Bricks stack into a skyline; the Monument rises with a 202 ft measure",
+      "active_entities": [
+        "act",
+        "monument"
+      ]
+    }
+  ]
+}

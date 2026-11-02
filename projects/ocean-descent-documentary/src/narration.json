@@ -1,0 +1,29 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Sunlight",
+      "text": "The sea looks bright from the surface. But sunlight does not travel far. Red light is filtered out first, and blue goes deepest."
+    },
+    {
+      "id": "s2",
+      "title": "Twilight",
+      "text": "Below two hundred metres, there is rarely any significant light. This is the twilight zone, and it reaches down to one thousand metres."
+    },
+    {
+      "id": "s3",
+      "title": "Pressure",
+      "text": "Going down, the pressure builds. It rises by about one atmosphere for every ten metres. At the bottom of the Challenger Deep, that adds up to roughly eleven hundred atmospheres."
+    },
+    {
+      "id": "s4",
+      "title": "Midnight",
+      "text": "Below one thousand metres, no sunlight reaches at all. Yet in seventeen years of video off California, about three in four animals seen made their own light."
+    },
+    {
+      "id": "s5",
+      "title": "Light",
+      "text": "Sunlight ends. Light does not."
+    }
+  ]
+}

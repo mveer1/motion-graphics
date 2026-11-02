@@ -9,7 +9,7 @@
     "Multi-track audio bed rendering with ducking under voice",
     "Acoustic self-critique scoreboard generation"
   ],
-  "location": ".agents/skills/real-sfx",
+  "location": ".claude/skills/real-sfx",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -25,7 +25,7 @@
     "notes": "Executes Python audio scripts in .venv/."
   },
   "documentation_urls": [
-    ".agents/skills/real-sfx/SKILL.md"
+    ".claude/skills/real-sfx/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

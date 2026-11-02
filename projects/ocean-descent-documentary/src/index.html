@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Where the Light Goes</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/cinematic-dark.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    /* Families named literally so HyperFrames injects the bundled fonts. */
+    .f-d { font-family: 'Oswald', sans-serif; }
+    .f-t { font-family: 'Inter', sans-serif; }
+    .f-m { font-family: 'IBM Plex Mono', monospace; }
+    #root { background: #020711; color: #e8f1f4; }
+    .abs { position: absolute; }
+    .plate { position: absolute; left: 0; top: -40px; width: 1280px; height: 800px; }
+    .stage { position: absolute; inset: 0; }
+    .lab { color: #cfe6ec; text-transform: uppercase; letter-spacing: .32em; font-size: 24px; white-space: nowrap; }
+    .dim { color: #86a9b5; }
+    #grain { position: absolute; inset: 0; width: 1280px; height: 720px; mix-blend-mode: overlay; opacity: .16; pointer-events: none; z-index: 40; }
+    #vig { position: absolute; inset: 0; background: radial-gradient(ellipse at 52% 48%, rgba(0,0,0,0) 45%, rgba(0,0,0,.62) 100%); pointer-events: none; z-index: 39; }
+    /* s1 */
+    #caustics { mix-blend-mode: screen; opacity: .35; }
+    .beam { position: absolute; top: -200px; width: 170px; height: 1100px; background: linear-gradient(180deg, rgba(190,245,255,.45), rgba(190,245,255,0)); transform-origin: 50% 0; mix-blend-mode: screen; filter: blur(14px); }
+    #sunglare { position: absolute; left: 760px; top: -260px; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(255,244,214,.95), rgba(255,244,214,0) 65%); mix-blend-mode: screen; }
+    #surface { position: absolute; left: -40px; top: 0; width: 1360px; height: 90px; }
+    #boat { position: absolute; left: 860px; top: 8px; width: 240px; height: 120px; }
+    #spec { left: 1030px; top: 120px; width: 96px; height: 480px; }
+    .band { position: absolute; left: 0; width: 96px; height: 96px; }
+    .bl { position: absolute; left: 1144px; font-size: 22px; letter-spacing: .24em; text-transform: uppercase; color: #cfe6ec; white-space: nowrap; }
+    /* depth gauge (root level, scenes 1-3) */
+    #gauge { position: absolute; left: 70px; top: 0; width: 200px; height: 720px; z-index: 30; }
+    #depth { position: absolute; left: 190px; top: 326px; font-size: 50px; font-weight: 600; letter-spacing: .04em; color: #f2ede4; z-index: 31; white-space: nowrap; }
+    #depthlab { position: absolute; left: 192px; top: 296px; font-size: 20px; letter-spacing: .3em; z-index: 31; }
+    /* s2 */
+    #jelly { left: 860px; top: 380px; width: 200px; height: 300px; filter: drop-shadow(0 0 26px rgba(180,150,255,.55)); }
+    #zonelab { left: 330px; top: 560px; font-size: 38px; letter-spacing: .34em; }
+    #zonerange { left: 334px; top: 616px; font-size: 24px; letter-spacing: .24em; }
+    /* s3 */
+    #atm { left: 470px; top: 250px; font-size: 170px; font-weight: 500; line-height: 1; letter-spacing: .01em; color: #f2ede4; }
+    #atmlab, #atmlab2 { left: 476px; top: 436px; }
+    #rule10 { left: 476px; top: 490px; font-size: 26px; letter-spacing: .2em; color: #d4a24c; }
+    #deeplab { left: 476px; top: 646px; font-size: 24px; letter-spacing: .26em; }
+    .pl { position: absolute; left: 460px; width: 760px; height: 3px; background: rgba(150,214,230,.38); }
+    /* s4 + dots */
+    #dotswrap { position: absolute; left: 640px; top: 80px; width: 560px; height: 560px; z-index: 20; }
+    .dot { position: absolute; width: 42px; height: 42px; border-radius: 50%; background: #0a2b3d; box-shadow: inset 0 0 0 2px rgba(120,200,220,.25); }
+    .gl { position: absolute; left: -17px; top: -17px; width: 76px; height: 76px; border-radius: 50%; background: radial-gradient(circle, rgba(53,255,192,.85), rgba(53,255,192,0) 70%); opacity: 0; }
+    #bnum { left: 110px; top: 220px; font-size: 220px; font-weight: 500; line-height: 1; color: #e9fff6; text-shadow: 0 0 40px rgba(70,255,200,.45); }
+    #bnumlab { left: 116px; top: 456px; font-size: 28px; letter-spacing: .22em; line-height: 1.5; max-width: 330px; white-space: normal; }
+    #bsrc { left: 116px; top: 640px; font-size: 22px; letter-spacing: .08em; color: #86a9b5; }
+    #below { left: 116px; top: 80px; }
+    #thr { position: absolute; left: 0; top: 0; width: 1280px; height: 4px; background: #f0c070; box-shadow: 0 0 30px 10px rgba(240,192,112,.55); opacity: 0; }
+    #thrglow { position: absolute; left: 0; top: -700px; width: 1280px; height: 700px; background: linear-gradient(180deg, rgba(20,80,120,0), rgba(20,80,120,.35)); opacity: 0; }
+    #thrlab { position: absolute; left: 116px; top: -40px; font-size: 24px; letter-spacing: .28em; color: #f0c070; opacity: 0; white-space: nowrap; }
+    /* s5 */
+    #closer { left: 116px; top: 280px; width: 520px; text-align: left; font-size: 46px; line-height: 1.5; letter-spacing: .26em; text-transform: uppercase; color: #e9fff6; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="landscape"
+     data-width="1280"
+     data-height="720"
+     data-fps="30"
+     data-duration="49.5">
+
+  <!-- ====== s1 · Sunlight ====== -->
+  <section class="st-scene" id="s1"><div class="stage" id="s1-stage">
+    <img class="plate" id="p1" src="assets/plate-sunlit.png" alt="">
+    <img class="plate" id="caustics" src="assets/caustics.png" alt="">
+    <div id="sunglare"></div>
+    <div class="beam" style="left:560px;transform:rotate(14deg)"></div><div class="beam" style="left:760px;transform:rotate(18deg);width:240px"></div><div class="beam" style="left:380px;transform:rotate(10deg);width:120px"></div>
+    <svg id="surface" viewBox="0 0 1360 90" aria-hidden="true"><path d="M0 40 C120 10 240 70 380 36 S640 12 800 44 S1120 70 1360 30 V0 H0Z" fill="#dff8ff" opacity=".85"/><path d="M0 52 C140 28 260 80 400 50 S660 28 820 56 S1140 80 1360 46" fill="none" stroke="#ffffff" stroke-width="3" opacity=".7"/></svg>
+    <svg id="boat" viewBox="0 0 240 120" aria-hidden="true"><path d="M10 78 H230 L206 108 H36 Z" fill="#06202e"/><rect x="110" y="30" width="6" height="48" fill="#06202e"/><path d="M118 32 L190 74 H118Z" fill="#0b3a50"/><rect x="60" y="56" width="50" height="22" fill="#06202e"/></svg>
+    <div id="spec" class="abs"></div>
+    <div id="spec-labels"></div>
+    <div class="abs lab f-m dim" id="sunlab" style="left:330px;top:560px">Sunlight zone · 0 to 200 m</div>
+  </div></section>
+
+  <!-- ====== s2 · Twilight ====== -->
+  <section class="st-scene" id="s2"><div class="stage" id="s2-stage">
+    <img class="plate" id="p2" src="assets/plate-twilight.png" alt="">
+    <div class="beam" style="left:640px;transform:rotate(16deg);opacity:0" id="b2a"></div><div class="beam" style="left:420px;transform:rotate(12deg);width:120px;opacity:0" id="b2b"></div>
+    <div class="abs" id="jelly"><svg viewBox="0 0 200 300" width="200" height="300" aria-hidden="true"><g id="jbell"><path d="M20 120 C20 40 70 6 100 6 C130 6 180 40 180 120 C150 108 126 126 100 112 C74 126 50 108 20 120Z" fill="rgba(190,160,255,.42)" stroke="rgba(230,215,255,.85)" stroke-width="3"/><path d="M60 100 C70 60 90 40 100 36 C110 40 130 60 140 100" fill="none" stroke="rgba(240,230,255,.55)" stroke-width="3"/></g><g id="jtent" fill="none" stroke="rgba(220,200,255,.7)" stroke-width="3" stroke-linecap="round"><path d="M50 118 C40 170 66 200 54 270"/><path d="M80 120 C72 180 92 220 84 290"/><path d="M110 120 C118 190 98 230 110 292"/><path d="M140 118 C152 172 130 214 144 272"/></g></svg></div>
+    <div class="abs lab f-d" id="zonelab">Twilight zone</div>
+    <div class="abs lab f-m dim" id="zonerange">200 to 1,000 m</div>
+  </div></section>
+
+  <!-- ====== s3 · Pressure ====== -->
+  <section class="st-scene" id="s3"><div class="stage" id="s3-stage">
+    <img class="plate" id="p3" src="assets/plate-pressure.png" alt="">
+    <div id="plines"></div>
+    <div class="abs f-d" id="atm">1</div>
+    <div class="abs lab f-m" id="atmlab">atmosphere at the surface</div>
+    <div class="abs lab f-m" id="atmlab2" style="opacity:0">atmospheres</div>
+    <div class="abs f-m" id="rule10">+1 ATM PER 10 M</div>
+    <div class="abs lab f-m dim" id="deeplab">Challenger Deep · about 10,900 m</div>
+  </div></section>
+
+  <!-- ====== s4 · Midnight ====== -->
+  <section class="st-scene" id="s4"><div class="stage" id="s4-stage">
+    <img class="plate" id="p4" src="assets/plate-midnight.png" alt="">
+    <div id="thrglow"></div><div id="thr"></div><div class="abs lab f-m" id="thrlab">1,000 m · last sunlight</div>
+    <div class="abs lab f-d" id="below">Below 1,000 m: no sunlight</div>
+    <div class="abs f-d" id="bnum">0%</div>
+    <div class="abs lab f-t" id="bnumlab">of animals seen made their own light</div>
+    <div class="abs f-m" id="bsrc">17 years of ROV video off California · Martini &amp; Haddock 2017</div>
+  </div></section>
+
+  <!-- ====== s5 · Light ====== -->
+  <section class="st-scene" id="s5"><div class="stage" id="s5-stage">
+    <img class="plate" id="p5" src="assets/plate-midnight.png" alt="">
+    <div class="abs f-d" id="closer"><span class="ln" style="display:block;overflow:hidden"><span style="display:block">Sunlight ends.</span></span><span class="ln" style="display:block;overflow:hidden"><span style="display:block">Light does not.</span></span></div>
+  </div></section>
+
+  <!-- root-level continuity: depth gauge, dots, grain -->
+  <svg id="gauge" viewBox="0 0 200 720" aria-hidden="true"><g id="ruler"></g><path d="M60 360 H100" stroke="#d4a24c" stroke-width="4"/><path d="M72 351 L58 360 L72 369Z" fill="#d4a24c"/></svg>
+  <div class="abs lab f-m dim" id="depthlab">Depth</div>
+  <div class="abs f-d" id="depth">0 m</div>
+  <div id="dotswrap"></div>
+  <svg id="grain" aria-hidden="true"><filter id="gf"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="1280" height="720" filter="url(#gf)"/></svg>
+  <div id="vig"></div>
+</div>
+
+<script src="cues.js"></script>
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var $ = function (q) { return document.querySelector(q); };
+  var C = window.CUES, END = C.end, rnd = S.rng(2026);
+  function put(id, html) { $(id).innerHTML = html; }
+
+  // ---- spectrum bands (s1): the order they vanish is the claim
+  var bands = [['red', '#ff4a3d'], ['orange', '#ff9a3a'], ['yellow', '#ffe14a'], ['green', '#3fd58a'], ['blue', '#4aa8ff']];
+  var sp = '', lb = '';
+  bands.forEach(function (b, i) { sp += '<div class="band" id="bd-' + b[0] + '" style="top:' + (i * 96) + 'px;background:' + b[1] + '"></div>'; lb += '<div class="bl f-m" id="bl-' + b[0] + '" style="top:' + (120 + i * 96 + 34) + 'px">' + b[0] + '</div>'; });
+  put('#spec', sp); put('#spec-labels', lb);
+
+  // ---- depth ruler (long), moved up so the gauge feels like a descent
+  var rl = '<path d="M30 0 V4000" stroke="#86a9b5" stroke-width="2" opacity=".7"/>';
+  for (var m = 0; m <= 1000; m += 25) rl += '<path d="M' + (m % 100 === 0 ? 14 : 22) + ' ' + (m * 3 + 360) + ' H30" stroke="#86a9b5" stroke-width="2" opacity="' + (m % 100 === 0 ? .9 : .5) + '"/>';
+  put('#ruler', rl);
+
+  // ---- marine snow, seeded, parallax speeds
+  function snow(host, n, seed, speed) {
+    var r = S.rng(seed), h = '';
+    for (var i = 0; i < n; i++) h += '<div class="abs sn" style="left:' + (r() * 1280).toFixed(0) + 'px;top:' + (r() * 760).toFixed(0) + 'px;width:' + (2 + r() * 4).toFixed(1) + 'px;height:' + (2 + r() * 4).toFixed(1) + 'px;border-radius:50%;background:rgba(210,240,250,' + (.25 + r() * .5).toFixed(2) + ')" data-k="' + (0.5 + r() * speed).toFixed(2) + '"></div>';
+    var d = document.createElement('div'); d.className = 'abs snw'; d.style.cssText = 'inset:0;pointer-events:none'; d.innerHTML = h; host.appendChild(d); return d;
+  }
+  var sn4 = snow($('#s4-stage'), 50, 14, 0.9);
+  var sp4 = '';
+  (function () { var r = S.rng(77); for (var q = 0; q < 16; q++) sp4 += '<div class="abs spk" style="left:' + (60 + r() * 640).toFixed(0) + 'px;top:' + (120 + r() * 540).toFixed(0) + 'px;width:6px;height:6px;border-radius:50%;background:#7dffd9;box-shadow:0 0 14px 4px rgba(90,255,210,.6);opacity:0"></div>'; })();
+  $('#s4-stage').insertAdjacentHTML('beforeend', sp4);
+  var sn1 = snow($('#s1-stage'), 60, 11, 1.4), sn2 = snow($('#s2-stage'), 110, 12, 1.4), sn3 = snow($('#s3-stage'), 70, 13, 1.0);
+
+  // ---- pressure lines
+  var pl = '';
+  for (var i = 0; i < 27; i++) pl += '<div class="pl" id="pl' + i + '" style="top:' + (28 + i * 25) + 'px"></div>';
+  put('#plines', pl);
+
+  // ---- dots
+  var dd = '';
+  for (var k = 0; k < 100; k++) dd += '<div class="dot" id="dt' + k + '" style="left:' + ((k % 10) * 56) + 'px;top:' + (Math.floor(k / 10) * 56) + 'px"><i class="gl"></i></div>';
+  put('#dotswrap', dd);
+
+  // ---------------------------------------------------------------- scene switching
+  S.show(tl, '#s1', 0);
+  S.fx.push(tl, '#s1', '#s2', C.s2.push, { from: 'bottom', duration: .9, ease: 'power2.inOut' });
+  S.crossfade(tl, '#s2', '#s3', C.s3.fade, 1.2);
+  S.fx.iris(tl, '#s3', '#s4', C.s4.iris, { cx: 63, cy: 46, duration: 1.2, ease: 'power2.inOut' });
+  S.crossfade(tl, '#s4', '#s5', C.s5.text - .4, .8);
+
+  // ---------------------------------------------------------------- s1
+  tl.fromTo('#surface', { y: 0 }, { y: -260, duration: 3.2, ease: 'power2.in', immediateRender: true }, 0);
+  tl.fromTo('#boat', { y: 0, x: 0 }, { y: -300, x: 40, duration: 3.4, ease: 'power2.in', immediateRender: true }, 0);
+  tl.fromTo('#sunglare', { opacity: 1, y: 0 }, { opacity: 0, y: -160, duration: 5, ease: 'power1.in', immediateRender: true }, 0);
+  tl.fromTo('#caustics', { y: 0, scale: 1, opacity: .4, transformOrigin: '50% 0' }, { y: -70, scale: 1.12, opacity: .12, duration: C.s2.push, ease: 'none', immediateRender: true }, 0);
+  tl.fromTo('#s1 .beam', { opacity: .9, y: 0 }, { opacity: 0, y: -60, duration: 8.5, ease: 'power1.in', stagger: .3, immediateRender: true }, 0);
+  tl.fromTo('#p1', { y: 0, scale: 1.0, transformOrigin: '50% 0' }, { y: -34, scale: 1.04, duration: C.s2.push + .9, ease: 'none', immediateRender: true }, 0);
+  tl.fromTo(sn1, { y: 40 }, { y: -190, duration: C.s2.push + .9, ease: 'none', immediateRender: true }, 0);
+  tl.fromTo('#sunlab', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: .9, ease: 'power2.out', immediateRender: true }, .8);
+  tl.fromTo('#spec', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: .8, ease: 'power2.out', immediateRender: true }, C.s1.spectrum);
+  tl.fromTo('.bl', { opacity: 0 }, { opacity: 1, duration: .5, stagger: .08, immediateRender: true }, C.s1.spectrum + .2);
+  ['red', 'orange', 'yellow', 'green'].forEach(function (c) {
+    tl.to('#bd-' + c, { opacity: 0, scaleY: .15, duration: .7, ease: 'power2.in', transformOrigin: '50% 50%' }, C.s1[c]);
+    tl.to('#bl-' + c, { opacity: .2, duration: .5 }, C.s1[c]);
+  });
+  tl.to('#bd-blue', { scaleY: 1.5, scaleX: 1.35, duration: 1.3, ease: 'power2.out', transformOrigin: '50% 50%' }, C.s1.blue);
+  tl.to('#bl-blue', { color: '#8ad0ff', duration: .6 }, C.s1.blue);
+  // depth ruler + readout run from the surface to 200 m over s1 (3 px per metre: 600 px)
+  tl.fromTo('#ruler', { y: 0 }, { y: -600, duration: C.s2.push, ease: 'power1.inOut', immediateRender: true }, 0);
+  S.type.formatCount(tl, '#depth', 0, { from: 0, to: 200, duration: C.s2.push, suffix: ' m', ease: 'power1.inOut' });
+
+  // ---------------------------------------------------------------- s2
+  tl.fromTo('#p2', { y: 0, scale: 1.02, transformOrigin: '50% 0' }, { y: -44, scale: 1.07, duration: C.s3.fade - C.s2.push + .5, ease: 'none', immediateRender: true }, C.s2.push);
+  tl.fromTo('#b2a', { opacity: 0, y: 0 }, { opacity: .5, duration: .8, immediateRender: true }, C.s2.shafts);
+  tl.to('#b2a', { opacity: 0, y: -30, duration: 4.2, ease: 'power1.in' }, C.s2.shafts + .9);
+  tl.fromTo('#b2b', { opacity: 0 }, { opacity: .35, duration: .8, immediateRender: true }, C.s2.shafts + .3);
+  tl.to('#b2b', { opacity: 0, duration: 3.6, ease: 'power1.in' }, C.s2.shafts + 1.4);
+  tl.fromTo(sn2, { y: 60 }, { y: -260, duration: C.s3.fade - C.s2.push + .5, ease: 'none', immediateRender: true }, C.s2.push);
+  tl.fromTo('#jelly', { y: 160, x: 90, opacity: 0, rotation: 6, transformOrigin: '50% 40%' }, { y: -240, x: -20, opacity: 1, rotation: -4, duration: 9, ease: 'sine.inOut', immediateRender: true }, C.s2.jelly);
+  var pulses = S.cycles(C.s2.jelly, C.s3.fade, 1.6);
+  tl.to('#jbell', { scaleY: .86, scaleX: 1.07, duration: .8, ease: 'sine.inOut', yoyo: true, repeat: Math.max(1, pulses * 2 - 1), transformOrigin: '100px 60px' }, C.s2.jelly);
+  tl.to('#jtent path', { x: 5, duration: .8, ease: 'sine.inOut', yoyo: true, repeat: Math.max(1, pulses * 2 - 1), stagger: .1 }, C.s2.jelly);
+  tl.fromTo('#zonelab', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out', immediateRender: true }, C.s2.zone);
+  tl.fromTo('#zonerange', { opacity: 0 }, { opacity: 1, duration: .8, immediateRender: true }, C.s2.bracket);
+  tl.fromTo('#sunlab', { opacity: 1 }, { opacity: 0, duration: .5, immediateRender: false }, C.s2.push);
+  // ruler continues 200 m -> 1,000 m across s2 and s3's start (compressed: 3 px per metre would be 2,400 px; the gauge eases through it)
+  tl.fromTo('#ruler', { y: -600 }, { y: -2400, duration: C.s3.fade - C.s2.push + .8, ease: 'power1.inOut', immediateRender: false }, C.s2.push);
+  S.type.formatCount(tl, '#depth', C.s2.push, { from: 200, to: 1000, duration: C.s3.fade - C.s2.push + .8, suffix: ' m', ease: 'power1.inOut' });
+
+  // ---------------------------------------------------------------- s3
+  tl.fromTo('#p3', { y: 0, scale: 1.02, transformOrigin: '50% 0' }, { y: -30, scale: 1.05, duration: C.s4.iris - C.s3.fade + .6, ease: 'none', immediateRender: true }, C.s3.fade);
+  tl.fromTo(sn3, { y: 20 }, { y: -140, duration: C.s4.iris - C.s3.fade + .6, ease: 'none', immediateRender: true }, C.s3.fade);
+  tl.fromTo('#atm', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.1, ease: 'power2.out', immediateRender: true }, C.s3.one);
+  tl.fromTo('#atmlab', { opacity: 0 }, { opacity: 1, duration: .8, immediateRender: true }, C.s3.one + .5);
+  tl.fromTo('.pl', { opacity: 0, scaleX: 0, transformOrigin: '0% 50%' }, { opacity: 1, scaleX: 1, duration: .9, ease: 'power2.out', stagger: .03, immediateRender: true }, C.s3.one + .2);
+  tl.fromTo('#rule10', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: .7, ease: 'power2.out', immediateRender: true }, C.s3.lines);
+  // pressure builds: lines creep together slowly, then squeeze hard while the counters run
+  var mid = 360;
+  for (var j = 0; j < 27; j++) {
+    var y0 = 28 + j * 25, tgt = mid + (y0 - mid) * 0.16;
+    tl.to('#pl' + j, { y: (mid + (y0 - mid) * .8) - y0, duration: C.s3.roll - C.s3.lines, ease: 'sine.inOut' }, C.s3.lines);
+    tl.to('#pl' + j, { y: tgt - y0, duration: 4.8, ease: 'power3.in' }, C.s3.roll);
+  }
+  tl.to('#atmlab', { opacity: 0, duration: .5 }, C.s3.roll - .3);
+  tl.fromTo('#atmlab2', { opacity: 0 }, { opacity: 1, duration: .6, immediateRender: true }, C.s3.roll + .1);
+  S.type.formatCount(tl, '#atm', C.s3.roll, { from: 1, to: 1090, duration: 4.8, ease: 'power3.in' });
+  tl.fromTo('#deeplab', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: .8, ease: 'power2.out', immediateRender: true }, C.s3.deep);
+  tl.to('#atm', { color: '#d4a24c', duration: 2.4, ease: 'power1.in' }, C.s3.roll + 1.5);
+  S.type.formatCount(tl, '#depth', C.s3.roll, { from: 0, to: 10900, duration: 4.8, suffix: ' m', ease: 'power3.in' });
+  // the gauge sits out the surface baseline, then returns counting the same descent the atmospheres count
+  tl.to(['#depth', '#depthlab', '#gauge'], { opacity: 0, duration: .6, ease: 'power1.in' }, C.s3.fade + .3);
+  tl.to(['#depth', '#depthlab'], { opacity: 1, duration: .6, ease: 'power1.out' }, C.s3.roll - .5);
+  tl.fromTo('#ruler', { y: -2400 }, { y: -2480, duration: 4.8, ease: 'power3.in', immediateRender: false }, C.s3.roll);
+  tl.to(['#depth', '#depthlab'], { opacity: 0, duration: .8, ease: 'power1.in' }, C.s4.iris - .6);
+
+  // ---------------------------------------------------------------- s4
+  tl.fromTo('#p4', { scale: 1.04, y: 0, transformOrigin: '50% 40%' }, { scale: 1.0, y: 0, duration: 12.5, ease: 'sine.inOut', immediateRender: true }, C.s4.iris);
+  tl.fromTo(sn4, { y: 60 }, { y: -150, duration: 12, ease: 'none', immediateRender: true }, C.s4.iris);
+  var sparkAt = [34.4, 35.1, 35.6, 36.2, 36.6, 37.0, 37.4, 37.8, 38.1, 38.4, 38.6, 38.9, 39.1, 39.4, 39.6, 39.9];
+  sparkAt.forEach(function (st, n) { tl.fromTo('.spk:nth-of-type(' + (n + 1) + ')', { opacity: 0, scale: .4, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: .5, ease: 'power2.out', yoyo: true, repeat: 1, immediateRender: true }, st); });
+  // the last of the sunlight: a luminous 1,000 m line sweeps up past the camera as it sinks (the dark opening has a real event)
+  tl.fromTo(['#thr', '#thrglow', '#thrlab'], { y: 780, opacity: 0 }, { y: -80, opacity: 1, duration: 3.8, ease: 'power1.inOut', immediateRender: true }, C.s4.iris + .5);
+  tl.to(['#thr', '#thrglow', '#thrlab'], { opacity: 0, duration: .5, ease: 'power1.in' }, C.s4.iris + 3.8);
+  tl.fromTo('#below', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out', immediateRender: true }, C.s4.label);
+  tl.fromTo('.dot', { opacity: 0, scale: .4, transformOrigin: '50% 50%' }, { opacity: 1, scale: 1, duration: .5, ease: 'power2.out', stagger: .012, immediateRender: true }, C.s4.grid);
+  C.dots.forEach(function (d) {
+    tl.to('#dt' + d.i, { backgroundColor: '#35ffc0', scale: 1.14, duration: .35, ease: 'power2.out', transformOrigin: '50% 50%' }, d.t);
+    tl.to('#dt' + d.i + ' .gl', { opacity: 1, duration: .35, ease: 'power2.out' }, d.t);
+    tl.to('#dt' + d.i, { scale: 1.0, duration: .9, ease: 'sine.out' }, d.t + .35);
+  });
+  tl.fromTo('#bnum', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .8, ease: 'power2.out', immediateRender: true }, C.s4.number - .6);
+  S.type.formatCount(tl, '#bnum', C.s4.number - .6, { from: 0, to: 76, duration: 1.8, suffix: '%', ease: 'power2.out' });
+  tl.fromTo(['#bnumlab', '#bsrc'], { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: .8, ease: 'power2.out', stagger: .3, immediateRender: true }, C.s4.number);
+
+  // ---------------------------------------------------------------- s5
+  tl.fromTo('#closer .ln:nth-child(1) span', { yPercent: 110 }, { yPercent: 0, duration: 1.0, ease: 'power3.out', immediateRender: true }, C.s5.text);
+  tl.fromTo('#closer .ln:nth-child(2) span', { yPercent: 110 }, { yPercent: 0, duration: 1.0, ease: 'power3.out', immediateRender: true }, C.s5.text + 1.0);
+  tl.to(['#bnum', '#bnumlab', '#bsrc', '#below'], { opacity: 0, duration: 1.2, ease: 'power1.inOut' }, C.s5.text - .2);
+  tl.to('#dotswrap', { x: 140, y: 200, scale: .42, opacity: .6, duration: 2.2, ease: 'power2.inOut', transformOrigin: '50% 50%' }, C.s5.text - .2);
+  tl.to('#dotswrap', { opacity: .25, duration: 1.6, ease: 'power1.in' }, C.s5.dim);
+  tl.to('#closer', { opacity: .55, duration: 1.4, ease: 'power1.in' }, C.s5.dim + .3);
+});
+</script>
+</body>
+</html>

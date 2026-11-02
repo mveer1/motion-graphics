@@ -1,0 +1,86 @@
+{
+  "id": "data-journalism",
+  "name": "Data Journalism",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "White ground, serif headlines, one strong accent and neutral greys so the data carries the colour; strict hierarchy for charts, maps and comparisons.",
+  "location": "src/studio/styles/data-journalism.css",
+  "tokens": {
+    "colors": {
+      "paper": "#fbfbfa",
+      "paper-2": "#f0efec",
+      "ink": "#17171a",
+      "ink-2": "#5b5b63",
+      "rule": "#d9d8d4",
+      "accent": "#c1272d",
+      "accent-2": "#1d5a8a",
+      "accent-3": "#e0a100"
+    },
+    "typography": {
+      "display": "'Playfair Display', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "texture": "None; thin rules and subtle tints only",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Clear and sequential: reveal the data in the order of the argument",
+    "ease_in": "power2.in",
+    "ease_out": "power3.out",
+    "enter_duration_sec": 0.6,
+    "stagger_sec": 0.06,
+    "notes": "Draw lines and bars with linear or near-linear easing so slopes are not distorted; annotate after the shape lands."
+  },
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "Inter",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "JetBrains Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 17.3:1",
+    "ink-2/paper 6.5:1",
+    "accent/paper 5.6:1"
+  ],
+  "suitable_for": [
+    "finance and economics",
+    "public data",
+    "comparisons and rankings",
+    "maps and timelines"
+  ],
+  "categories": [
+    "finance",
+    "news"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-02. Not yet used in a rendered project.",
+    "last_verified": "2026-11-02"
+  },
+  "tags": [
+    "light",
+    "data",
+    "editorial",
+    "charts"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-02",
+    "updated_at": "2026-11-02"
+  },
+  "avoid_for": [
+    "mood pieces with no data"
+  ]
+}

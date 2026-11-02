@@ -215,7 +215,7 @@ fi
 # ----------------------------------------------------------------------
 echo ""
 echo "[Stage 9] Executing automated QA gates (Loudness, Luminance, Codecs)..."
-QA_SCRIPT="$BASE_DIR/.agents/skills/video-assembler/scripts/run-qa-gates.sh"
+QA_SCRIPT="$BASE_DIR/.claude/skills/video-assembler/scripts/run-qa-gates.sh"
 if [[ -x "$QA_SCRIPT" ]]; then
   "$QA_SCRIPT" "$FINAL_RENDER"
 else

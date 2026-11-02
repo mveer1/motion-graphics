@@ -9,7 +9,7 @@
     "Technique records: mechanics, parameters, failure modes, capability class, provenance, validation evidence",
     "Duplicate detection before new records; backlog reporting; brief recommendations"
   ],
-  "location": ".agents/skills/reference-analyst",
+  "location": ".claude/skills/reference-analyst",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -22,8 +22,8 @@
     "notes": "Used on the Windows dev host for the first 14-video corpus (2026-10-30)."
   },
   "documentation_urls": [
-    ".agents/skills/reference-analyst/SKILL.md",
-    ".agents/skills/reference-analyst/references/analysis-protocol.md",
+    ".claude/skills/reference-analyst/SKILL.md",
+    ".claude/skills/reference-analyst/references/analysis-protocol.md",
     "ARCHITECTURE.md"
   ],
   "licensing": {

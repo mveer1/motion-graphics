@@ -1,0 +1,15 @@
+{
+  "id": "s3-the-loss",
+  "headline": "What the fire took",
+  "message": "An estimated 13,200 to 13,500 houses, 86 or 87 parish churches and St Paul's Cathedral were destroyed.",
+  "key_figure": {
+    "value": "13,200+",
+    "label": "houses destroyed (est. 13,200-13,500)"
+  },
+  "supporting": [
+    "86 or 87 parish churches",
+    "St Paul's Cathedral",
+    "Sunday 2 - Wednesday 5 September 1666"
+  ],
+  "mood": "1666"
+}

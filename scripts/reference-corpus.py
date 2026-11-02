@@ -6,7 +6,7 @@ Reference corpus: ingest reference videos, measure them and prepare evidence for
 The corpus is a set of user-supplied videos that stay OUTSIDE the repository. Each one gets a
 stable content-derived ID (ref-<first 10 hex of SHA-256>) and a record in
 catalogue/data/reference-sources/. Analysis artefacts (sampled frames, contact sheets, strips,
-signal data) are a regenerable local cache under out/reference-analysis/<id>/ and are never
+signal data) are a regenerable local cache under reference/analysis/<id>/ and are never
 committed: they contain third-party imagery, possibly including brand marks.
 
 What the tool does (measurement):            What it does not do (judgement):
@@ -56,7 +56,7 @@ DATA_DIR = REPO_ROOT / "catalogue" / "data"
 SOURCES_DIR = DATA_DIR / "reference-sources"
 TECHNIQUES_DIR = DATA_DIR / "references"
 SCHEMA_PATH = REPO_ROOT / "catalogue" / "schemas" / "reference-source.schema.json"
-CACHE_DIR = REPO_ROOT / "out" / "reference-analysis"
+CACHE_DIR = REPO_ROOT / "reference" / "analysis"
 ANALYZER_VERSION = "1.2"
 VIDEO_EXTS = {".mp4", ".m4v", ".mov"}
 ROOTS_ENV = "MOTION_REFERENCE_ROOTS"

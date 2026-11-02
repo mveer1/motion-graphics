@@ -1,0 +1,252 @@
+{
+  "id": "x-ref-95c96d5c47",
+  "name": "Reference 95c96d5c47",
+  "profile_version": 1,
+  "kind": "extracted",
+  "status": "proposed",
+  "summary": "Extracted from play_720p (7).mp4 (video). Palette and timing are measured; every other field is unknown until an analyst has looked at the frames. Qualitative facts bridged from the analyst record ref-95c96d5c47.",
+  "identity": {
+    "mood": {
+      "value": "Friendly, direct, slightly playful.",
+      "basis": "subjective",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.communication_style.interpreted"
+    },
+    "genre": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "visual_language": {
+      "value": "Problem-solution technical explainer for developers.",
+      "basis": "subjective",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.concept.interpreted"
+    },
+    "realism": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "editorial_approach": {
+      "value": "Thick black outlines, pastel fills (pink, cyan, yellow, green), hard offset shadows, diagonal hatching, pill labels, small sparkles.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.visual_identity"
+    }
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        {
+          "hex": "#f9fcf5",
+          "role": "background",
+          "coverage": 0.6873,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#a4f58f",
+          "role": "other",
+          "coverage": 0.0861,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#eed15e",
+          "role": "accent",
+          "coverage": 0.061,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#0b0a07",
+          "role": "text",
+          "coverage": 0.0516,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#514e3e",
+          "role": "other",
+          "coverage": 0.0302,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#86847a",
+          "role": "other",
+          "coverage": 0.0296,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#c3c6bd",
+          "role": "other",
+          "coverage": 0.0277,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        },
+        {
+          "hex": "#ef80df",
+          "role": "other",
+          "coverage": 0.0265,
+          "basis": "measured",
+          "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#palette"
+        }
+      ],
+      "measurement": {
+        "method": "deterministic_stratified+farthest_point_kmeans",
+        "k": 8,
+        "max_pixels": 160000,
+        "sampled_pixels": 160000,
+        "merge_delta_e76": 2.5,
+        "source_size": [
+          1763,
+          1763
+        ],
+        "pooled_from_frames": 24,
+        "sample_times_sec": [
+          1.11,
+          3.32,
+          5.53,
+          7.74,
+          9.95,
+          12.16,
+          14.38,
+          16.59,
+          18.8,
+          21.01,
+          23.22,
+          25.43,
+          27.64,
+          29.86,
+          32.07,
+          34.28,
+          36.49,
+          38.7,
+          40.91,
+          43.13,
+          45.34,
+          47.55,
+          49.76,
+          51.97
+        ]
+      }
+    },
+    "typography": {
+      "display": {
+        "value": "Heavy condensed uppercase headers, monospace labels and values.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.typography"
+      }
+    },
+    "composition": {
+      "principles": {
+        "value": "Header top-left, persistent diagram centre, notes as stickies; generous white space.",
+        "basis": "inferred",
+        "confidence": "high",
+        "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.composition"
+      }
+    }
+  },
+  "motion": {
+    "grammar": {
+      "value": "Cards pop in, values change in place (clock 7:59 to 8:00, owner A to B), bars fill and drain, stamps land.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.motion"
+    },
+    "easing": {
+      "entrances": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      },
+      "exits": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "timing": {
+      "pace": {
+        "value": "1.13 hard cuts/min, median luma change 0.254/255 per frame, 57.8% of frames static",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#motion"
+      },
+      "shot_length_sec": {
+        "value": 26.5,
+        "unit": "s",
+        "basis": "measured",
+        "confidence": "medium",
+        "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#motion",
+        "note": "1 cuts in 53.0 s at 96x54 luma; soft transitions are not counted as cuts"
+      }
+    },
+    "transitions": {
+      "vocabulary": [
+        {
+          "value": "Push to a green field for the 'two machines' idea (6.27 s); crossfades and reframes between steps.",
+          "basis": "inferred",
+          "confidence": "high",
+          "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.transitions"
+        }
+      ]
+    },
+    "camera": {
+      "language": {
+        "value": "not yet assessed",
+        "basis": "unknown"
+      }
+    },
+    "choreography": {
+      "value": "Measured median section 5.97 s; static holds 3.58-4.42 s and 52.08-52.92 s.",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.timing_and_rhythm"
+    }
+  },
+  "audio_direction": {
+    "narration": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "music": {
+      "value": "Audio track present but silent (peak below -80 dBFS).",
+      "basis": "inferred",
+      "confidence": "high",
+      "evidence": "catalogue/data/reference-sources/ref-95c96d5c47.json#analysis.aspects.audio_and_sync"
+    },
+    "sfx": {
+      "value": "not yet assessed",
+      "basis": "unknown"
+    },
+    "measured": {
+      "integrated_lufs": -70.0,
+      "lra_lu": 0.0,
+      "true_peak_dbtp": null,
+      "evidence": "catalogue/data/design-profiles/measurements/x-ref-95c96d5c47.json#audio"
+    }
+  },
+  "rendering": {
+    "strategy": "Not assessed.",
+    "preferred_asset_types": [
+      "programmatic"
+    ],
+    "feasibility": "research-required"
+  },
+  "provenance": {
+    "method": "deterministic video measurement via scripts/design-dna.py extract",
+    "created_on": "2026-11-02",
+    "notes": "Palette, shot rhythm and loudness are measured by this tool; qualitative facts are the reference analyst's notes (observed -> inferred, interpreted -> subjective). Unlisted fields are unknown.",
+    "reference_sources": [
+      "ref-95c96d5c47"
+    ]
+  },
+  "weaknesses": [
+    "Unassessed: this profile has only measured properties."
+  ],
+  "tags": [
+    "extracted",
+    "video"
+  ]
+}

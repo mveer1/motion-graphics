@@ -1,0 +1,131 @@
+{
+  "ground": {
+    "asset_id": "ast-3b23c8912842",
+    "file": "ground.png",
+    "sha256": "3b23c89128420ea05f377ffdbc1260e12eca7356a2565cb0f98898ae4369d5e1",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "paper-grain",
+    "prompt": "kraft ground, used by s1-s5",
+    "params": {
+      "recipe": "paper-grain",
+      "width": 1280,
+      "height": 720,
+      "seed": 11,
+      "colors": [
+        "#ecdfc4"
+      ],
+      "options": {}
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "9cb9ac284f896e41"
+  },
+  "halftone": {
+    "asset_id": "ast-f95ad16c2188",
+    "file": "halftone.png",
+    "sha256": "f95ad16c21888e64c6f1ceb643b25d3d480078c10f18df87666cd6f381790749",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "halftone",
+    "prompt": "halftone multiply overlay",
+    "params": {
+      "recipe": "halftone",
+      "width": 1280,
+      "height": 720,
+      "seed": 4,
+      "colors": [
+        "#ffffff",
+        "#2a2522"
+      ],
+      "options": {
+        "cell": 14
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "21b00a9d64e5c536"
+  },
+  "sheet-map": {
+    "asset_id": "ast-81f8b9464d17",
+    "file": "sheet-map.png",
+    "sha256": "81f8b9464d17a0283a1ba4dddb81df6a09789cbe19b6136abbb3f779f34e407d",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "torn-paper",
+    "prompt": "map sheet (s1,s2)",
+    "params": {
+      "recipe": "torn-paper",
+      "width": 760,
+      "height": 600,
+      "seed": 22,
+      "colors": [
+        "#f4ecd8"
+      ],
+      "options": {
+        "roughness": 14
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "3fe3cef21f17cfb8"
+  },
+  "sheet-loss": {
+    "asset_id": "ast-27cd6e126fc6",
+    "file": "sheet-loss.png",
+    "sha256": "27cd6e126fc6a7d9914673bc1d3eb137f7502a4a97397d193359a40f657c50ba",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "torn-paper",
+    "prompt": "vermilion loss sheet (s3)",
+    "params": {
+      "recipe": "torn-paper",
+      "width": 820,
+      "height": 600,
+      "seed": 21,
+      "colors": [
+        "#b5401f"
+      ],
+      "options": {
+        "roughness": 16
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "17bf0682270abbe4"
+  },
+  "sheet-quiet": {
+    "asset_id": "ast-eff1812a2c5b",
+    "file": "sheet-quiet.png",
+    "sha256": "eff1812a2c5b5dbcce168564f1d307738d5525bf74686163243da9cab4988390",
+    "source": "procedural",
+    "provider": "procedural",
+    "model": "torn-paper",
+    "prompt": "quiet sheet (s4)",
+    "params": {
+      "recipe": "torn-paper",
+      "width": 700,
+      "height": 520,
+      "seed": 23,
+      "colors": [
+        "#e6d6b8"
+      ],
+      "options": {
+        "roughness": 12
+      }
+    },
+    "license": {
+      "status": "not-applicable",
+      "notes": "generated procedurally by this workspace"
+    },
+    "request_key": "7ea4151169ce0037"
+  }
+}

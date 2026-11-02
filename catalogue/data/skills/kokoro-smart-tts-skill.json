@@ -11,7 +11,7 @@
     "Misaki Markdown IPA phonetics injection",
     "Exact millisecond timeline marker generation for animation sync"
   ],
-  "location": ".agents/skills/kokoro-smart-tts-skill",
+  "location": ".claude/skills/kokoro-smart-tts-skill",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -26,7 +26,7 @@
     "notes": "Tested with Kokoro 0.9.4 and Python 3.12 on Apple Silicon M2."
   },
   "documentation_urls": [
-    ".agents/skills/kokoro-smart-tts-skill/SKILL.md"
+    ".claude/skills/kokoro-smart-tts-skill/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",

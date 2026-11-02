@@ -9,7 +9,7 @@
     "Licensing verification audit",
     "Recipe retrieval and timeline requirements guidance"
   ],
-  "location": ".agents/skills/motion-library-guide",
+  "location": ".claude/skills/motion-library-guide",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -25,7 +25,7 @@
     "notes": "Integrates with scripts/motion-catalogue.py."
   },
   "documentation_urls": [
-    ".agents/skills/motion-library-guide/SKILL.md",
+    ".claude/skills/motion-library-guide/SKILL.md",
     "catalogue/README.md"
   ],
   "licensing": {

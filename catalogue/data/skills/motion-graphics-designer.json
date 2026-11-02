@@ -9,7 +9,7 @@
     "Paused GSAP root timeline authoring",
     "Deterministic mulberry32 PRNG enforcement"
   ],
-  "location": ".agents/skills/motion-graphics-designer",
+  "location": ".claude/skills/motion-graphics-designer",
   "version": "1.0.0",
   "installation": {
     "required": false,
@@ -25,7 +25,7 @@
     "notes": "Generates HTML5 + SVG + GSAP compositions."
   },
   "documentation_urls": [
-    ".agents/skills/motion-graphics-designer/SKILL.md"
+    ".claude/skills/motion-graphics-designer/SKILL.md"
   ],
   "licensing": {
     "spdx_identifier": "Proprietary-Workspace",
