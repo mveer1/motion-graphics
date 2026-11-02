@@ -3,12 +3,25 @@
   "slug": "south-korea-data-center-fire",
   "title": "The Day South Korea Lost Its Digital Memory",
   "objective": "Explain what happened when a battery fire at a South Korean government data center in September 2025 took down hundreds of public systems and permanently destroyed the 858 TB G-Drive, and what the episode shows about backups and putting everything in one building.",
-  "categories": ["news", "technology"],
+  "categories": [
+    "news",
+    "technology"
+  ],
   "audience": "General viewers on short-form platforms; no knowledge of data centers, cloud storage or Korean government IT assumed.",
-  "platforms": ["instagram-reels", "youtube-shorts", "website"],
+  "platforms": [
+    "instagram-reels",
+    "youtube-shorts",
+    "website"
+  ],
   "deliverables": {
-    "formats": ["portrait"],
-    "duration_sec": { "min": 60, "target": 80, "max": 100 }
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 60,
+      "target": 95,
+      "max": 100
+    }
   },
   "message": {
     "core_message": "One fire in one server room erased eight years of government work, because the biggest drive was too large to back up and sat in the same building as everything it served.",
@@ -22,8 +35,18 @@
     ]
   },
   "tone": {
-    "emotional_response": ["unease", "clarity", "sober curiosity"],
-    "keywords": ["editorial", "archival", "documentary", "restrained", "newsroom"],
+    "emotional_response": [
+      "unease",
+      "clarity",
+      "sober curiosity"
+    ],
+    "keywords": [
+      "editorial",
+      "archival",
+      "documentary",
+      "restrained",
+      "newsroom"
+    ],
     "avoid": [
       "a single unsourced number stated as settled where sources disagree",
       "the unverified claim that the fire disrupted 'more than 160' services: reporting says 647 systems, so use the sourced figure",
@@ -97,7 +120,10 @@
       },
       "motion_language": {
         "personality": "diagrammatic, precise",
-        "signature_moves": ["floor-by-floor extinguish", "arrow draw-on to the backup site"],
+        "signature_moves": [
+          "floor-by-floor extinguish",
+          "arrow draw-on to the backup site"
+        ],
         "transitions": "camera pushes through floors"
       },
       "composition": {
@@ -107,7 +133,7 @@
       "why_it_fits": "Explains the mechanism clearly, but drifts toward the glowing-diagram look the project avoids and carries less emotional weight."
     }
   ],
-  "selected_direction": null,
+  "selected_direction": "folders-burn-out",
   "success_criteria": [
     "Every on-screen figure matches research.json including disagreements between sources",
     "The hook (records, services and identities disappearing as the facility burns) lands inside the first 10 s",

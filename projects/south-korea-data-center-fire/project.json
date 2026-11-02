@@ -14,7 +14,7 @@
     }
   ],
   "fps": 30,
-  "duration_sec": 80,
+  "duration_sec": 98,
   "quality": "looks",
   "timing": {
     "source": "narration"
@@ -22,11 +22,16 @@
   "audio": {
     "narration": true,
     "music": {
-      "enabled": false
+      "enabled": true,
+      "file": "audio/bed.wav",
+      "fade_out_sec": 2.5,
+      "license": "Original synthesized by audio/generate_bed_and_sfx.py (numpy sines and noise, no samples). Project-owned; no third-party licence or attribution."
     },
     "sfx": true,
     "captions": false,
     "loudness_target_lufs": -16,
-    "loudness_tolerance_lu": 2
+    "loudness_tolerance_lu": 2,
+    "voice": "am_michael",
+    "speed": 1.0
   }
 }
