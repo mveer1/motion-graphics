@@ -1,0 +1,38 @@
+/*
+ * Style system: mixed-media. Off-white base broken by hot magenta, acid yellow and green; collided photographic, illustrated and typographic layers with deliberate roughness.
+ */
+:root {
+  --c-paper: #ece6d8;
+  --c-paper-2: #ddd4c0;
+  --c-ink: #101010;
+  --c-ink-2: #45413a;
+  --c-rule: #b7ab92;
+  --c-accent: #e0218a;
+  --c-accent-2: #1f9d55;
+  --c-accent-3: #ffd400;
+  --c-highlight: rgba(255,212,0,0.45);
+  --c-positive: #1f9d55;
+  --c-negative: #d1131f;
+  --c-info: #2447d6;
+  --c-caption-ink: #101010;
+  --c-caption-bg: rgba(255,212,0,0.92);
+
+  --font-display: 'Oswald', sans-serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: 0.01em;
+  --track-kicker: 0.16em;
+
+  --ease-out: power4.out;
+  --ease-in: steps(4);
+  --ease-in-out: power2.inOut;
+  --dur-enter: 0.35;
+  --dur-exit: 0.24;
+  --stagger: 0.04;
+
+  --grain-blend: multiply;
+}
+
+.st-offset{text-shadow:calc(var(--u)*0.4) calc(var(--u)*0.4) 0 var(--c-accent)}
