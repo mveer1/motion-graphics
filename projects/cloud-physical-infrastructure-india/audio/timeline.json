@@ -1,0 +1,65 @@
+{
+  "project": "cloud-physical-infrastructure-india",
+  "voice": "am_adam",
+  "speed": 1.15,
+  "pause_sec": 0.5,
+  "total_duration_sec": 66.15,
+  "target_fps": 30,
+  "total_frames": 1985,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The weightless feeling",
+      "text": "You tap an app, and it answers instantly. It feels like nothing is there. But the cloud is a place, with walls, with power, and with an address.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 7.825,
+      "start_time_sec": 0.0,
+      "end_time_sec": 7.825
+    },
+    {
+      "id": "s2",
+      "title": "A fire in someone else's building",
+      "text": "In June twenty twenty-six, a fire broke out at a third-party data center in Dell-ee. Google's servers were not the problem. But a network junction there, called a point of presence, was forced offline by an emergency power shutdown. Google has not said what started the fire.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 15.45,
+      "start_time_sec": 8.325,
+      "end_time_sec": 23.775
+    },
+    {
+      "id": "s3",
+      "title": "One junction, three cities",
+      "text": "That junction is where traffic enters Google's network. When it went dark, people in Dell-ee, Chen-eye, and Mumbai felt it. Connections slowed down, and some data may have been lost along the way.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 10.675,
+      "start_time_sec": 24.275,
+      "end_time_sec": 34.95
+    },
+    {
+      "id": "s4",
+      "title": "The detour has less room",
+      "text": "Google rerouted the traffic. But the detours were narrower than the road they replaced. Demand was bigger than capacity, so traffic queued up. And for a while, Google said, there was no workaround.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 10.7,
+      "start_time_sec": 35.45,
+      "end_time_sec": 46.15
+    },
+    {
+      "id": "s5",
+      "title": "Weeks to rebuild",
+      "text": "Recovery took weeks. Google added capacity, route by route, in Dell-ee, and then in Chen-eye. Crews reached the damaged site on June twenty-second. By June twenty-sixth, service was back to normal.",
+      "clip_path": "audio/s5.wav",
+      "duration_sec": 11.225,
+      "start_time_sec": 46.65,
+      "end_time_sec": 57.875
+    },
+    {
+      "id": "s6",
+      "title": "The cloud has an address",
+      "text": "A backup only works if it has room. The cloud is not weightless. It is buildings, power, and cables. And every one of them has an address.",
+      "clip_path": "audio/s6.wav",
+      "duration_sec": 7.775,
+      "start_time_sec": 58.375,
+      "end_time_sec": 66.15
+    }
+  ]
+}
