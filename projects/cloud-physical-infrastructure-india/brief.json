@@ -1,0 +1,120 @@
+{
+  "spec_version": 1,
+  "slug": "cloud-physical-infrastructure-india",
+  "title": "The Cloud Has an Address",
+  "objective": "Show that the cloud is a physical place: when a fire at one third-party data center facility in India forced an emergency shutdown in 2026, Google Cloud network traffic in India was disrupted, and an intangible-feeling digital service was shown to depend on one building.",
+  "categories": ["technology", "news"],
+  "audience": "General short-form viewers in India and beyond who use cloud-backed apps daily and have never thought about where the cloud physically lives.",
+  "platforms": ["instagram-reels", "youtube-shorts", "website"],
+  "deliverables": {
+    "formats": ["portrait"],
+    "duration_sec": { "min": 55, "target": 70, "max": 90 }
+  },
+  "message": {
+    "core_message": "The cloud is not weightless: it runs in buildings with power, cooling and fire risk, and a physical incident at one facility can ripple out through services that feel intangible.",
+    "key_points": [
+      "2026, India: a fire at a third-party data center facility triggered an emergency shutdown",
+      "The shutdown disrupted Google Cloud network traffic in India",
+      "The facility was operated by a third party, not by the cloud provider itself (confirm exact relationship in research)",
+      "How a cloud service reaches you: app, network, data center, power, cooling, building",
+      "Why a fire leads to a shutdown: safety systems cut power and cooling to protect people and equipment (confirm in research)",
+      "Why one building matters: dependencies, regions, zones and routing (confirm what failed over and what did not)",
+      "What resilience means in practice: redundancy across buildings, not just across servers"
+    ]
+  },
+  "tone": {
+    "emotional_response": ["curiosity", "quiet surprise", "clarity"],
+    "keywords": ["editorial", "illustrated", "isometric", "infrastructure", "ripple", "light"],
+    "avoid": [
+      "dark backgrounds by default",
+      "fear framing or outage panic",
+      "blaming a named company beyond what sources confirm",
+      "unverified numbers (affected users, downtime, cost) on screen",
+      "generic glowing node and cloud-icon imagery",
+      "real company logos or brand marks",
+      "filler motion"
+    ]
+  },
+  "constraints": [
+    "Readable with sound off: key beats carry on-screen text",
+    "Portrait only unless more formats are requested; layout is composed for 720x1280, not cropped",
+    "No claim about cause, scale, duration or named parties unless it is in research.json with a source",
+    "No logos or brand marks, including Google's; refer to Google Cloud in text only",
+    "Light canvas; vermilion marks the incident, ultramarine marks traffic and services",
+    "Visual changes at least every 2-3 seconds while narration plays"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": { "narration": "required", "music": "optional", "sfx": "optional", "captions": true },
+  "research": {
+    "required": true,
+    "reason": "A news event with specifics (date, location, operator, affected services, duration, official statements) and technical claims about data center fire safety and cloud networking. Brief currently holds only the user-supplied summary; every detail beyond it must be sourced before scripting."
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "Ripple Map",
+      "concept": "Open on a calm phone screen of everyday apps. Pull the camera back through the screen into an illustrated India map where a single building glows vermilion. As the fire event lands, ink-ripples spread from that building along thin ultramarine routes to cities and services, which flicker one by one. It makes the hook literal: one physical point, a widening digital consequence. Closes by pulling back to the phone, now with a visible address under the cloud icon.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Off-white canvas #FBFBFA, charcoal linework, vermilion for the incident, ultramarine for traffic and routes, marigold for warnings and numbers",
+        "typography": "Editorial serif headlines with a clean sans for labels and place names",
+        "texture": "Subtle paper grain, hand-inked map outlines, halftone shading on the building"
+      },
+      "motion_language": {
+        "personality": "Calm and precise, with one sharp event beat",
+        "signature_moves": ["camera pull-back through the phone", "radial ink ripple", "route lines drawing outward", "service tiles flickering off in sequence"],
+        "transitions": "Continuous camera moves on a shared map; cross-dissolves only between chapters, no whooshes"
+      },
+      "composition": { "approach": "Portrait: map and building in the upper two thirds, copy and labels in the lower third inside the safe area; the ripple expands toward the edges to use the tall frame." },
+      "pacing": "Slow open, event beat at roughly 20-25 percent, ripple spread through the middle, resilience and close in the last 25 percent.",
+      "why_it_fits": "Directly answers the visual hook (a physical incident rippling through intangible services) with one continuous metaphor and no jargon."
+    },
+    {
+      "id": "direction-b",
+      "name": "Cutaway Building",
+      "concept": "An isometric cutaway of a data center that peels layer by layer: the app on the phone, the network, the racks, the power and cooling plant, the walls. The fire starts in the plant layer, the safety shutdown cascades up through the stack, and the phone layer at the top goes quiet. The story is told vertically as a stack of dependencies.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Off-white canvas, charcoal isometric linework, vermilion fire and shutdown, ultramarine data, emerald for failover and recovery",
+        "typography": "Condensed sans labels with a serif title",
+        "texture": "Flat isometric illustration with soft drop-shadows and fine hatching"
+      },
+      "motion_language": {
+        "personality": "Explanatory and tactile, like a pop-up book",
+        "signature_moves": ["layer peel-away", "isometric build-up", "shutdown wave travelling upward through the stack", "emerald reroute arc at the end"],
+        "transitions": "Vertical camera travel along the stack; layers act as scene boundaries"
+      },
+      "composition": { "approach": "Portrait suits a vertical stack: the building fills the frame and the camera climbs from plant room to phone." },
+      "pacing": "Even, with a dwell on each layer, accelerating once the shutdown cascade begins.",
+      "why_it_fits": "Explains why a building problem becomes a service problem, with the best use of the tall frame, but is less about the wider ripple across India."
+    },
+    {
+      "id": "direction-c",
+      "name": "Receipt of a Click",
+      "concept": "Follow one ordinary tap, such as paying for chai on a phone, as a glowing dot through every physical hop: tower, fibre, exchange, data center, back. At the data center the dot stops. The same tap is replayed as thousands of dots piling up at a closed door, then taking the long way round through a second building. A human-scale story that reaches the infrastructure from the user's side.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Warm off-white #F5F3EF, charcoal, marigold for the tap and dot, vermilion for the blocked door, ultramarine for fibre routes",
+        "typography": "Friendly rounded sans for UI moments, serif for narrative lines",
+        "texture": "Clean vector with a printed-receipt motif and dotted route lines"
+      },
+      "motion_language": {
+        "personality": "Warm, narrative, slightly playful until the stop",
+        "signature_moves": ["single dot travelling a route", "queue of dots at a closed door", "route redraw around the blockage"],
+        "transitions": "Match-cuts on the travelling dot"
+      },
+      "composition": { "approach": "Portrait: route snakes top to bottom so the dot always moves down the frame; labels sit beside the path." },
+      "pacing": "Brisk journey, hard stop at the incident, reflective resolution.",
+      "why_it_fits": "Most relatable, but a single-payment story risks implying specific services were affected that sources may not confirm."
+    }
+  ],
+  "selected_direction": "direction-a",
+  "success_criteria": [
+    "A viewer can say in one sentence why a fire in one building affected a cloud service",
+    "Every factual statement and number on screen traces to research.json",
+    "The ripple spread is readable at phone size with sound off",
+    "The ending holds for at least 2 seconds"
+  ]
+}

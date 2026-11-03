@@ -1,0 +1,34 @@
+{
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "The weightless feeling",
+      "text": "You tap an app, and it answers instantly. It feels like nothing is there. But the cloud is a place, with walls, with power, and with an address."
+    },
+    {
+      "id": "s2",
+      "title": "A fire in someone else's building",
+      "text": "In June twenty twenty-six, a fire broke out at a third-party data center in Dell-ee. Google's servers were not the problem. But a network junction there, called a point of presence, was forced offline by an emergency power shutdown. Google has not said what started the fire."
+    },
+    {
+      "id": "s3",
+      "title": "One junction, three cities",
+      "text": "That junction is where traffic enters Google's network. When it went dark, people in Dell-ee, Chen-eye, and Mumbai felt it. Connections slowed down, and some data may have been lost along the way."
+    },
+    {
+      "id": "s4",
+      "title": "The detour has less room",
+      "text": "Google rerouted the traffic. But the detours were narrower than the road they replaced. Demand was bigger than capacity, so traffic queued up. And for a while, Google said, there was no workaround."
+    },
+    {
+      "id": "s5",
+      "title": "Weeks to rebuild",
+      "text": "Recovery took weeks. Google added capacity, route by route, in Dell-ee, and then in Chen-eye. Crews reached the damaged site on June twenty-second. By June twenty-sixth, service was back to normal."
+    },
+    {
+      "id": "s6",
+      "title": "The cloud has an address",
+      "text": "A backup only works if it has room. The cloud is not weightless. It is buildings, power, and cables. And every one of them has an address."
+    }
+  ]
+}
