@@ -470,6 +470,49 @@
    ],
    "pitfall": "A fall that is only a line going down; the trough needs its own scene.",
    "origin": "adapted: Vox beat-layer reference (man_in_hole)"
+  },
+  {
+   "id": "reel-loop",
+   "name": "Hook -> stake -> body -> payoff -> loop (reel length)",
+   "best_for": [
+    "reel-length portrait films of 15-45 s",
+    "one idea with one surprising fact or number",
+    "news briefs and quick explainers"
+   ],
+   "stages": [
+    {
+     "id": "hook",
+     "function": "hook",
+     "emotion": "intrigue",
+     "guidance": "0-2 s. The claim, with the hero object already on screen and the hook card up at frame 1. No greeting, no title, no logo. Spoken line and on-screen line are written separately (the card is 6 words or fewer)."
+    },
+    {
+     "id": "stake",
+     "function": "context",
+     "emotion": "orientation",
+     "guidance": "2-7 s. Why this matters to the person watching, in one line. Only what the body needs."
+    },
+    {
+     "id": "body",
+     "function": "mechanism",
+     "emotion": "momentum",
+     "guidance": "One idea per beat and a different picture every beat, with a different object each time rather than one template repeated. If the script holds two ideas, it is two films."
+    },
+    {
+     "id": "payoff",
+     "function": "reveal",
+     "emotion": "satisfaction",
+     "guidance": "The last 3-5 s. Deliver exactly what the hook promised, with the biggest visual move of the film."
+    },
+    {
+     "id": "loop",
+     "function": "resolution",
+     "emotion": "closure",
+     "guidance": "The last line echoes one word or image from the hook so a replay lands clean. End on one action or none, never two."
+    }
+   ],
+   "pitfall": "A hook the payoff does not answer, or a loop line that is only a sign-off. Under 7 s there is no room for a stake; over 45 s use another arc.",
+   "origin": "adapted: ig-reel shape (Jake Schincariol, MIT); see docs/short-form-lessons.md"
   }
  ]
 }

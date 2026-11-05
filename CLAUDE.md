@@ -8,12 +8,22 @@ Business context (goals, scale, subjects, non-goals): @docs/VISION.md
 
 ## Hard constraints (read before running anything heavy)
 
-- **One render at a time.** Never run concurrent `hyperframes render`, headless Chrome or Kokoro jobs. Multi-session work goes through `scripts/session-guard.py` (`run render -- <cmd>`, `build`, `audio`, `review`), which takes the lock files in `.locks/`.
+- **One heavy job at a time.** Never run concurrent `hyperframes render`, headless Chrome or Kokoro jobs. Any number of sessions may author in parallel (`session-guard.py session-start <slug>`, one git worktree each), but render, TTS and analysis share one host lock in `.locks/` and queue first-come-first-served. Anything not listed below as self-locking goes through `scripts/session-guard.py` (`run [--slug S] [--cwd D] render -- <cmd>`, `build`, `audio`, `review`); `session-guard.py status` shows the holder, the queue and free memory. Full playbook: `.claude/skills/parallel-session/SKILL.md`.
 - Always pass `--low-memory-mode` and redirect stdin: `hyperframes render . --fps 30 --quality looks --low-memory-mode --output ../renders/visuals.mp4 < /dev/null`. Without `< /dev/null` the rating survey blocks.
 - Render duration is not a constraint. Don't cut visual density to save time.
-- `studio.py build` takes the render lock itself and stamps each render (`renders/<fmt>/visuals.stamp.json`): an edited composition re-renders on its own, an unstamped legacy render is reused (delete it to force). Narration is still reused whenever `narration-full.wav` exists. Direct `build-audio.py`, `frame-review.py` and `build-project.sh` calls take no lock; run them through `session-guard.py run`. Per-stage timings go to `logs/build-timings.jsonl`. Audit evidence: `docs/architecture-audit.md`.
+- Never hold back a runtime, preset or template upgrade because it makes earlier videos stale. Make the upgrade, run `studio.py upgrade --all` (re-syncs `src/_studio/`, regenerates entry files, moves superseded renders to `renders/history/`), and re-render what needs it, one build at a time.
+- `studio.py build` takes the render lock itself and stamps each render (`renders/<fmt>/visuals.stamp.json`): an edited composition re-renders on its own, and the stale render is first moved to `renders/history/<fmt>/<when>/` (its `out/` copy to `out/archive/`) with a `history.json` naming the files that changed, so nothing is overwritten. An unstamped legacy render is reused until `studio.py renders <slug> --archive --unstamped` retires it. Narration is still reused whenever `narration-full.wav` exists. `build-audio.py`, `src/pipeline/tts.py`, `frame-review.py`, `reference-corpus.py doctor|analyze|strip` and the render stage of `build-project.sh`/`render.sh` take the same host lock themselves (re-entrant under a parent that holds it), so calling them directly is safe. Per-stage timings go to `logs/build-timings.jsonl`. Audit evidence: `docs/architecture-audit.md`.
 - TTS goes through `src/pipeline/tts.py` (or `scripts/build-audio.py`). Never call `/opt/homebrew/bin/kokoro-tts` directly; it breaks on kokoro 0.9.x.
 - Use `python3.12` or `.venv/bin/python` for ML, TTS and schema work.
+
+## Delegating to Gemini (`agy`) to save Claude tokens
+
+`agy` (Antigravity CLI, already installed) runs Gemini headless and reads workspace files itself, so only its short answer enters your context. Use the `agy` skill (`.claude/skills/agy/SKILL.md`) for any task that is **low in complexity and large in input or output**: summarizing long files, research dossiers or logs, bulk extraction, boilerplate and first drafts (catalogue records, docs, commit text), mechanical edits, and test-output triage. Call it through `.claude/skills/agy/scripts/agy-ask.sh`, default model `gemini-3.8-flash-medium` (`-m gemini-3.8-flash-low` for mechanical work).
+
+- Delegate before reading or generating a big chunk yourself. Don't delegate what one `Grep` or a small `Read` answers: each call has a fixed overhead and takes 4–30 s.
+- Never delegate renders, TTS, QA verdicts, creative review or frame judgment, determinism-critical composition code, architecture or governance decisions, or anything with secrets. Prompts and files go to Google.
+- agy cannot write files or run commands unless granted (`-w <exact file>`). Prefer having it return text and writing the file yourself. Never use `--dangerously-skip-permissions`.
+- Treat output as a draft: check numbers, names and quotes against the source before they reach narration or on-screen text, validate generated JSON, and read `git diff` after any edit. After two failed delegations on the same task, do it yourself.
 
 ## Commands
 
@@ -31,7 +41,13 @@ python scripts/frame-review.py <slug> --fonts google   # Playwright contact shee
 python scripts/studio.py build <slug> --dry-run        # print per-format plan; runs anywhere
 python scripts/studio.py build <slug>                  # render host only: render, mux, QA
 python scripts/studio.py review <slug> --init          # then score qa/creative-review.json
+python scripts/studio.py hook score "line one" "line two"   # rank hook lines (a lint, not a view predictor); `hook formulas` lists specs/hook-formulas.json
+python scripts/studio.py script <slug>                 # pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, storyboard why-table
+python scripts/studio.py captions <slug> --timing words --grouping phrase   # local Whisper word times (takes the analysis lock itself) -> 1-3 word reel captions + audio/words.json
+python scripts/studio.py words <slug> "four degrees"   # film time a phrase is spoken, to snap a storyboard beat to its noun
 python scripts/studio.py sync <slug>                   # refresh src/_studio/ from src/studio/
+python scripts/studio.py upgrade <slug>... | --all     # after a runtime or preset change: sync + formats, superseded renders -> renders/history/
+python scripts/studio.py renders [<slug>...] [--archive [--unstamped]]   # render state per format (current/stale + changed files/unstamped/missing)
 python scripts/studio.py formats <slug>                # regenerate src/index.<format>.html
 ```
 
@@ -41,7 +57,16 @@ python scripts/studio.py series new <slug> --kind sequential|collection --catego
 python scripts/studio.py series add <series> <project> [--part N] [--planned]
 python scripts/studio.py series show|list|validate [<series>]
 ```
-Open decisions live in `TODO.md` (root), including what a visual style is.
+Style templates. A style template (`catalogue/data/style-templates/`, `docs/style-templates.md`) is the unit you pick per film and the unit you refine: seven records split by visual job (`systems-blueprint`, `proof-canvas`, `data-ledger`, `chronicle`, `storybook`, `news-brief`, `science-atlas`). Each binds a style system and a design profile and adds scene grammar, measurable pacing rules, anti-patterns and a versioned revision log. `project.json` pins `style_template: {id, version}`; refine a template, bump its version, and `style check` lists every project that is behind. `validate` prints the same findings as warnings, never errors:
+```bash
+python scripts/studio.py style recommend <slug>        # or --category finance --text "..."
+python scripts/studio.py style show <id> | list
+python scripts/studio.py style adopt <slug> <id>       # pin id and current version (also re-pins)
+python scripts/studio.py style check [<slug>]          # one project, or the whole portfolio
+python scripts/studio.py new <slug> --template illustrated-explainer --style-template <id> --category <c>
+python tests/test-style-templates.py
+```
+Open decisions live in `TODO.md` (root).
 
 Legacy technical explainers (no `project.json`): `./scripts/build-project.sh <slug>` runs the full Stage 0–9 chain. Individual steps: `python3 scripts/validate-research.py projects/<slug>`, `python3 scripts/build-audio.py <slug> [--speed 1.15] [--voice am_adam]`, `./scripts/build-all.sh` for the whole portfolio.
 
@@ -68,6 +93,7 @@ Tests. There is no test runner. Each `tests/test-*.py` is a standalone script, s
 ```bash
 python tests/test-studio.py              # CLI, QA-gate scripts, build delegation (needs bash; stubs ffmpeg/ffprobe)
 python tests/test-studio-runtime.py      # headless Chromium via Playwright; skips without it
+python tests/test-short-form.py          # hooks, word-timed captions, script/story lint, tween variety and conflicts (pure Python, no browser)
 python tests/test-motion-catalogue.py
 python tests/test-motion-primitives.py
 python tests/test-reference-corpus.py
@@ -82,7 +108,7 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 
 **Studio lifecycle.** `brief.json` → optional `research.json`/`research.md` (only when `brief.research.required`) → `storyboard.json` → `src/narration.json` and `audio/` (only with narration) → `src/index.html` (plus generated `src/index.<format>.html`) → `studio.py validate` → `build` (per-format HyperFrames render, FFmpeg mux, QA gates) → `review`. Specs for each file are in `specs/`, and project templates are in `templates/projects/`.
 
-**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
+**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
 
 **Layouts are composed per format, not cropped.** Each format is set by `specs/format-presets.json`. Authors write one `src/index.html`, and layout adapts through `#root[data-format=…]` rules and `Studio.pick({landscape, portrait, square})`. Sizes use `--u` (1% of the short side) and `--safe-*`, not pixel values.
 

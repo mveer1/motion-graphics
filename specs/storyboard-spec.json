@@ -86,6 +86,10 @@
      "type": "string",
      "description": "What this scene must communicate or make the viewer feel."
     },
+    "why": {
+     "type": "string",
+     "description": "The scene's job in the story, traced back to the brief's core message (for example: 'Lands the value claim', 'Evidence that the controller faced the internet'). A scene whose why cannot be traced to the message is a scene to cut. Read by `studio.py script`, which prints the storyboard as a Frame | On screen | Why table."
+    },
     "on_screen_text": {
      "type": "array",
      "items": {
@@ -133,7 +137,8 @@
       "properties": {
        "at_sec": {
         "type": "number",
-        "minimum": 0
+        "minimum": 0,
+        "description": "Film time in seconds (not time since the scene started). style_templates.beat_gaps still reads scene-relative beats, because older storyboards use them."
        },
        "action": {
         "type": "string"

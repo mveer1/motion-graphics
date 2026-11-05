@@ -1,0 +1,199 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MotionStyleTemplateRecord",
+  "description": "Layer 6 of the component model: the decision unit for 'what should this video look like'. A style template is a versioned contract for one kind of visual job (explain a mechanism, build a proof, show a quantity, ...). It BINDS a style system (paint: tokens and CSS) and a design profile (DNA: identity, motion, camera, audio) and adds what neither has: when to pick it, the scene grammar, measurable production rules that studio.py checks before a render, anti-patterns learned from reviews, and a revision log. Refine the template and every project that subscribes to it is flagged as behind. It never repeats colours, fonts or easing; those stay in the style system.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "version",
+    "status",
+    "summary",
+    "visual_job",
+    "selection",
+    "look",
+    "scene_grammar",
+    "motion",
+    "rules",
+    "anti_patterns",
+    "revisions",
+    "tags"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Bumped on every change that alters what a conforming video looks like or what is checked. Must equal the highest version in `revisions`. Projects pin the version they were built against."
+    },
+    "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
+    "summary": { "type": "string", "minLength": 20 },
+    "visual_job": {
+      "type": "object",
+      "description": "What the picture has to do. This, more than the subject, decides which template fits.",
+      "required": ["kind", "viewer_leaves_able_to", "hero"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["mechanism", "proof", "quantity", "sequence", "narrative", "evidence", "natural-world"],
+          "description": "mechanism: how parts interact. proof: an abstract argument built step by step. quantity: how much, and how it changes. sequence: what happened, in what order, where. narrative: people, stakes and an emotional arc. evidence: what is known, from whom, how sure. natural-world: physical structure, scale and process."
+        },
+        "viewer_leaves_able_to": { "type": "string", "description": "The one thing the viewer can do or say afterwards." },
+        "hero": { "type": "string", "description": "What is on screen most of the time." }
+      }
+    },
+    "selection": {
+      "type": "object",
+      "required": ["categories", "use_when", "avoid_when", "keywords"],
+      "additionalProperties": false,
+      "properties": {
+        "categories": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "description": "Subject categories (specs/categories.json) this template usually serves. A hint, not a gate: the visual job decides."
+        },
+        "use_when": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "avoid_when": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "keywords": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string" },
+          "description": "Lower-case words and short phrases that, found in a brief's objective, message or tone, point to this template. Used by `studio.py style recommend`."
+        }
+      }
+    },
+    "look": {
+      "type": "object",
+      "required": ["style"],
+      "additionalProperties": false,
+      "properties": {
+        "style": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Default style system (catalogue/data/styles/). Light unless the brief asks otherwise." },
+        "alternates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["style", "when"],
+            "additionalProperties": false,
+            "properties": {
+              "style": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+              "when": { "type": "string", "description": "The condition that justifies leaving the default." }
+            }
+          }
+        },
+        "design_profile": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Registry design profile (catalogue/data/design-profiles/) that supplies camera, transition and audio DNA." }
+      }
+    },
+    "scene_grammar": {
+      "type": "array",
+      "minItems": 3,
+      "description": "The reusable scene roles of this kind of film and the visual formula for each. A storyboard is a sequence of these.",
+      "items": {
+        "type": "object",
+        "required": ["role", "formula"],
+        "additionalProperties": false,
+        "properties": {
+          "role": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "formula": { "type": "string" },
+          "capabilities": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Catalogue ids (primitives, effects, recipes, compositions) that usually build this role."
+          }
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "required": ["signature", "continuous_layer", "avoid"],
+      "additionalProperties": false,
+      "properties": {
+        "signature": { "type": "string", "description": "The one motion idea that makes a film of this kind recognisable." },
+        "continuous_layer": { "type": "string", "description": "What keeps the frame alive between events (the per-scene drift layer)." },
+        "avoid": { "type": "array", "items": { "type": "string" } },
+        "preferred_capabilities": { "type": "array", "items": { "type": "string" } },
+        "discouraged_capabilities": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "description": "Measurable production rules. Each one is checked by `studio.py style check` against storyboard.json, narration and audio/timeline.json, before any render.",
+      "required": ["hook_within_sec", "max_beat_gap_sec", "max_scene_sec", "words_per_10s_max", "ending"],
+      "additionalProperties": false,
+      "properties": {
+        "hook_within_sec": { "type": "number", "exclusiveMinimum": 0, "description": "The hero is on screen and a first beat lands by this time." },
+        "max_beat_gap_sec": { "type": "number", "exclusiveMinimum": 0, "description": "Longest stretch inside a scene without a planned visual event (storyboard beats)." },
+        "max_scene_sec": { "type": "number", "exclusiveMinimum": 0, "description": "A scene longer than this must be split or carry storyboard beats; once it has beats, max_beat_gap_sec governs it." },
+        "words_per_10s_max": { "type": "number", "exclusiveMinimum": 0, "description": "Narration budget per scene, words per 10 s of measured clip. Fix by cutting words, not by raising speed." },
+        "ending": { "type": "string", "description": "How the film must close. Judged in review; not machine-checked." },
+        "short_form": {
+          "type": "object",
+          "description": "Extra rules for reel-length, portrait-first delivery (a project whose only or primary format is portrait). Optional.",
+          "required": ["max_card_words"],
+          "additionalProperties": false,
+          "properties": {
+            "max_card_words": { "type": "integer", "minimum": 1, "description": "Longest on-screen text item, in words. A card is read at arm's length before the viewer is listening. Checked against storyboard on_screen_text by `studio.py style check`." },
+            "closing": { "type": "string", "description": "How a reel-length film closes so a replay lands cleanly (for example, echo a word or image from the hook). Judged in review; `studio.py script` checks the word echo." }
+          }
+        }
+      }
+    },
+    "anti_patterns": {
+      "type": "array",
+      "description": "Mistakes that were seen, each traced to the review or render that showed it.",
+      "items": {
+        "type": "object",
+        "required": ["pattern", "why", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "pattern": { "type": "string" },
+          "why": { "type": "string" },
+          "source": { "type": "string", "description": "Project, review or memory note that evidenced it." }
+        }
+      }
+    },
+    "reference_projects": {
+      "type": "array",
+      "description": "Existing projects that approximate this template, for calibration. Listing one is not a claim that it conforms.",
+      "items": {
+        "type": "object",
+        "required": ["project", "note"],
+        "additionalProperties": false,
+        "properties": {
+          "project": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" }, "description": "Known gaps. A template is honest about what it has not settled." },
+    "revisions": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The refinement log. Newest last.",
+      "items": {
+        "type": "object",
+        "required": ["version", "date", "change", "reason"],
+        "additionalProperties": false,
+        "properties": {
+          "version": { "type": "integer", "minimum": 1 },
+          "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+          "change": { "type": "string" },
+          "reason": { "type": "string", "description": "The evidence that prompted it: a review, a render, a measured result." }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["evidence", "last_verified"],
+      "additionalProperties": false,
+      "properties": {
+        "evidence": { "type": "string" },
+        "last_verified": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "tags": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+  }
+}

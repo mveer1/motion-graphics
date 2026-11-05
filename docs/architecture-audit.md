@@ -258,3 +258,15 @@ Risks: fingerprints can mark a render stale when only an irrelevant asset change
 | `studio.py build --dry-run` | plan prints |
 | `ruff check` | **not run**: ruff is not installed |
 | Not tested | narrated end-to-end build with `loudnorm` (the 48 kHz fix is proven on a 5 s clip and in the plan, not on a full film); Kokoro synthesis; true two-session contention; multi-format build; frame-review |
+
+## Follow-up 2026-11-05: parallel sessions
+
+Closes the concurrency gaps left open by finding 4 (`docs/architecture-audit.md` score row C), so any number of worktree sessions can run:
+
+- **One host lock.** `render`, `tts` and `analysis` shared no lock with each other, so a Kokoro job (1.4 GB) and a render (0.8 GB) could overlap, and `studio.py build` ran its narration stage under the render lock only. All three now map to one `heavy` flock in `.locks/`.
+- **FIFO queue** (`.locks/queue/`) with dead-waiter pruning replaces the unordered race; `status` lists holder and queue. A job that dies frees the lock itself, and SIGTERM/SIGHUP/SIGINT on a holder first kills its process tree (Chrome detaches into its own process group), so a killed agent no longer leaves an unguarded render running.
+- **No unlocked heavy entry points left** among the repo's own scripts: `build-audio.py`, `src/pipeline/tts.py`, `frame-review.py`, `reference-corpus.py doctor|analyze|strip` and the render stage of `build-project.sh`/`render.sh` take the lock through `src/pipeline/hostlock.py`. Raw `hyperframes`/browser calls by hand are still unguarded by construction.
+- **Worktree lifecycle.** `session-end` copies gitignored renders, audio and `out/*.mp4` into the main checkout before removing the worktree (they were deleted with it), refuses a conflicting `--merge` before touching anything and merges with `--no-edit`; `session-list` reports ahead/behind, uncommitted files, unmerged renders, predicted conflicts and lock activity; `session-start` warns about uncommitted tooling that a worktree branched from HEAD will not contain.
+- **Evidence:** `tests/test-studio.py SessionGuardTests` (12 cross-process tests, including SIGTERM teardown of a detached grandchild and the older-worktree lock), plus an 8-worktree run in a scratch repo: no overlapping jobs, 8.5 s wall for 8 one-second jobs. Memory headroom on the M2 is the real ceiling and was ~1.4 GB available at the time of measurement; nothing here measured a full multi-session render on this host.
+- **Not fixed:** `kill -9` on the guard cannot be intercepted; worktrees made before this change keep the old script (covered for same-resource exclusion by a compatibility lock, see `_take_legacy_lock`).
+

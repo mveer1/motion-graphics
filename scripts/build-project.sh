@@ -128,11 +128,13 @@ echo "[Stage 5] Linting HyperFrames composition..."
 echo ""
 echo "[Stage 6] Rendering visual track (Headless Chrome + Metal GPU)..."
 mkdir -p "$PROJECT_DIR/renders"
-(cd "$PROJECT_DIR/src" && hyperframes render . \
+# One heavy job at a time on 8 GB: queue behind any other session's render, TTS or review (re-entrant when an ancestor holds the lock).
+python3 "$BASE_DIR/scripts/session-guard.py" run --slug "$SLUG" --cwd "$PROJECT_DIR/src" render -- \
+  hyperframes render . \
   --fps 30 \
   --quality looks \
   --low-memory-mode \
-  --output ../renders/visuals.mp4 < /dev/null)
+  --output ../renders/visuals.mp4 < /dev/null
 
 # ----------------------------------------------------------------------
 # Stage 8: Audio/Video Stream Multiplexing

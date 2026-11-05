@@ -73,3 +73,20 @@ Run automated checks on every build before declaring it complete:
   `ffmpeg -i final.mp4 -vf "blackdetect=d=0.3:pix_th=0.05" -f null -` (Ensure no accidental dark holds).
 - **Stream Verification:**
   `ffprobe -v error -show_entries stream=codec_name,width,height,duration final.mp4`.
+
+### Audio findings from the three newest films (2026-11-03)
+
+Measured on `out/*-portrait.mp4` with ffmpeg `ebur128` and `earshot critique --fast`. Not listened to.
+
+| Film | ffmpeg LUFS | earshot LUFS | Final moment vs body | Earshot verdict |
+|---|---|---|---|---|
+| cloud-physical-infrastructure-india | −16.8 | −13.8 | −19.1 LU (major) | close |
+| fridge-hack-europe | −16.9 | −13.9 | −4.2 LU (major) | close |
+| south-korea-data-center-fire | −17.0 | −14.0 | −0.2 LU (ok) | launch-grade |
+
+- **Loudness numbers differ by 3.0 LU between the two meters.** The mixes are mono AAC (`ffprobe`: 1 channel). The ffmpeg gate counts one channel; earshot's web range (−16 to −9 LUFS) compares like stereo. A mono file played from both phone speakers measures about 3 LU louder than the gate says, which matches the gap. This is an inference; confirm by measuring a stereo downmix. Keep the −16 ± 2 gate on ffmpeg and do not mix the two numbers in one report.
+- **Land the ending.** Korea ends with a thud at 95.7 s on a bed that is still present and a 2.0 s ring-out. Cloud's last sound is a quiet chime (gain 0.35) at 64.2 s and its bed `level` envelope ramps from 0.45 at 66 s to 0 at 70 s (earshot measured a 3.1 s fade-out), so the last moment is 19 LU under the body, with about 4.5 s of near-silence after the narration. Fridge's last visual event (86.0 s) lands 4.2 LU under the body; its closing thud (89.7 s) and the returning hum come after it. Rule: put the heaviest soft landing (low thud plus a short ring) on the last visual event, do not ramp the bed to zero over the last 4 s (hold it, then cut or ring out), and keep the tail after the last word to 2–3 s.
+- **Cues that have no sound.** Cloud: 5 of 47 visual events had no onset within 100 ms (3.7, 23.1, 32.1, 57.2, 60.3 s). Generate the SFX cue list from the composition's event times, not by hand against the storyboard.
+- **Levels, for reference.** All three use the same normalisation: SFX peak 0.16 (measured −15.6 to −15.9 dBFS, about 13 dB under the voice peak) and bed about 15 dB under the voice loudness before the mux. Earshot raised no level or balance issue on any of them (its findings were the ending, mono, mids and, on cloud, sub-bass). Keep it.
+- **Optional, minor, all three:** mono mix (earshot suggests stereo bed with panned SFX); 1–3 kHz "honky" share on cloud and fridge (−8.6 dB against a −10.5 dB limit), which a 2 dB cut on the loudest layer would fix.
+- **Tail length.** Final MP4 is 2.4–3.9 s longer than the narration in each film (70 vs 66.15 s, 98 vs 94.98 s, 92 vs 89.6 s). Treat that as the designed outro, and give it motion and a sound (see above).

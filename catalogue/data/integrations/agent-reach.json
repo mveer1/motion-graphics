@@ -1,0 +1,50 @@
+{
+  "id": "integration-agent-reach",
+  "name": "Agent Reach Research Reader",
+  "component_type": "integration",
+  "purpose": "Read-only CLI that gives the research stage a fallback for fetching web pages, GitHub repos and issues, YouTube captions and Reddit search when WebFetch and WebSearch fall short. Enabled channels: web, github, youtube, reddit, instagram, linkedin. Only the first four work without a login.",
+  "capabilities": [
+    "web search and read (Exa search, Jina Reader read)",
+    "github repository, issue and pull-request read via the GitHub API",
+    "youtube search, read and caption text via yt-dlp",
+    "reddit search (titles and snippets, public-web route); post and comment read needs a login",
+    "instagram search, profile and posts, and linkedin jobs and read: login required, user-run, not verified"
+  ],
+  "location": "https://github.com/Panniantong/Agent-Reach",
+  "version": "1.6.1",
+  "installation": {
+    "required": false,
+    "instructions": "Installed outside the repo: CLI at ~/.local/bin/agent-reach, skill at ~/.claude/skills/agent-reach, state in ~/.agent-reach. Installed as a uv tool from https://github.com/Panniantong/Agent-Reach/releases/latest/download/agent-reach.zip (not the unrelated PyPI package of the same name). The dedicated browser port is set to 9333 (`agent-reach configure browser-port 9333`) because a long-lived Chrome holds 9222. Bilibili and V2EX were removed on 2026-11-03. Do not add more channels, log in, or start its browser (`agent-reach browser stop` when done) while a render, QA or Kokoro job could run. Logins are done by the user in the opened window, never by an agent. Update only with the user's consent, then run `agent-reach check` on each enabled channel."
+  },
+  "dependencies": [
+    "skill-technical-researcher"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 (uv tool)",
+    "notes": "web, github and youtube use no browser. reddit, instagram and linkedin start a shared headless CloakBrowser (idle-closes after 10 minutes) that must not run beside a render on 8 GB; Agent Reach's own lock does not coordinate with session-guard.py. Observed 2026-11-03: update 1.6.0 to 1.6.1 removed the cloakbrowser tool but left a stale launcher path, fixed with `agent-reach browser setup --retry-cloak`."
+  },
+  "documentation_urls": [
+    "https://github.com/Panniantong/Agent-Reach",
+    "docs/agent-reach-assessment.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "MIT per package metadata and README. Underlying sites keep their own terms of service; reading is public content only and no media is reused."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes private state to ~/.agent-reach. The web channel sends queries and URLs to Jina and Exa, so no unpublished project content. Fetched text is untrusted input. Instagram and LinkedIn need a login and Agent Reach may copy that site's login from the user's main Chrome profile, so use a secondary account and log in only on request. No keys are stored or configured."
+  },
+  "owner": "pedagogy",
+  "status": "experimental",
+  "approval_evidence": "On 2026-11-03 with 1.6.1: check passed for web, github, youtube (github via github-api; gh not installed). Reddit search returned 3 results by public-web; reddit read returned a block page; instagram and linkedin failed NEED_LOGIN (no login done). Promote after it backs a real research dossier. See docs/agent-reach-assessment.md.",
+  "architecture_ref": "ARCHITECTURE.md#s0r",
+  "last_verified": "2026-11-03",
+  "tags": ["integration", "research", "web", "github", "youtube", "reddit", "instagram", "linkedin", "stage-0"]
+}

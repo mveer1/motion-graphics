@@ -2,17 +2,18 @@
   "id": "tool-session-guard",
   "name": "Session Guard Concurrency Coordinator",
   "component_type": "tool",
-  "purpose": "Coordinates parallel project execution across independent sessions, providing non-blocking queues and mutual exclusion locks for hardware-bound bottlenecks (Chromium render host, Kokoro TTS, Playwright frame-review) on Apple Silicon macOS without compromising rendering quality.",
+  "purpose": "Coordinates any number of parallel project sessions (git worktrees) on one 8 GB Apple Silicon host: authoring runs in parallel, while every heavy job (Chromium render and frame-review, Kokoro TTS, reference analysis) shares one host lock and queues first-come-first-served, without compromising rendering quality.",
   "capabilities": [
-    "Exclusive render host lock: serializes Chromium + Metal GPU rendering and frame-review across concurrent sessions",
-    "Exclusive TTS lock: serializes neural speech synthesis to prevent PyTorch resident memory pressure",
-    "Stale lock self-healing: detects dead holder PIDs and automatically cleans stale locks",
+    "Single host lock: render, tts and analysis share one flock so a Kokoro job and a render never overlap; re-entrant for child processes",
+    "First-come-first-served wait queue with queue positions, dead-waiter pruning and a configurable timeout (MOTION_LAB_LOCK_TIMEOUT)",
+    "Crash safety: SIGTERM/SIGHUP/SIGINT on a holder kills its whole job tree (including detached Chrome helpers) before the lock is released; a dead holder frees the flock automatically",
+    "status: lock holder, ordered queue and free-memory advisory; unlock [--force] clears stale state or stops a hung holder",
     "Project-scoped governance execution: wraps workspace-governance.py --project <slug>",
-    "Heartbeat wait logging: informs background sessions of resource lock holders while waiting",
-    "Isolated Git worktree management: session-start, session-list, session-end with automated branch isolation and virtualenv linking"
+    "Git worktree sessions without a session cap: session-start (warns about uncommitted tooling), session-list (ahead/behind, uncommitted, unmerged renders, predicted merge conflicts, shared files touched, lock activity), session-end (conflict pre-check, copies gitignored renders/audio/out back to main, non-interactive merge)",
+    "Self-guarding entry points via src/pipeline/hostlock.py: build-audio, tts, frame-review, reference-corpus and the shell render stages lock without a wrapper"
   ],
   "location": "scripts/session-guard.py",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "installation": {
     "required": false,
     "instructions": "Built-in workspace tool. Run via python3 scripts/session-guard.py <subcommand>."
@@ -25,7 +26,7 @@
   "compatibility": {
     "apple_silicon_tested": true,
     "runtime": "python3",
-    "notes": "Uses standard library fcntl.flock on POSIX macOS."
+    "notes": "Uses standard library fcntl.flock on POSIX macOS; reads vm_stat and ps for the memory advisory and process-tree teardown."
   },
   "documentation_urls": [
     "ARCHITECTURE.md#lifecycle",
@@ -42,13 +43,12 @@
     "requires_network": false,
     "requires_execution": true,
     "sensitive_data_exposure": false,
-    "notes": "Writes lockfiles to .locks/ and coordinates local subprocess execution."
+    "notes": "Writes lockfiles and queue tickets to .locks/, signals only its own descendant processes, and runs git worktree/merge commands in this repository."
   },
   "owner": "workspace-governance",
   "status": "approved",
-  "approval_evidence": "Validated via cross-process concurrency tests and scoped governance checks.",
+  "approval_evidence": "Cross-process tests in tests/test-studio.py (SessionGuardTests): shared tts/render lock, FIFO order, dead-waiter pruning, SIGTERM teardown of a detached grandchild, worktree rescue/conflict/merge lifecycle, re-entrancy. Run on the macOS host on 2026-11-05.",
   "architecture_ref": "ARCHITECTURE.md#lifecycle",
-  "last_verified": "2026-10-31",
+  "last_verified": "2026-11-05",
   "tags": ["concurrency", "locking", "parallel", "session-guard", "mutex"]
 }
-

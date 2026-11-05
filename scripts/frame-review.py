@@ -36,6 +36,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
+sys.path.insert(0, str(REPO_ROOT / "src"))
+
+from pipeline.hostlock import heavy_lock  # noqa: E402  Chromium is a heavy job: one at a time on 8 GB
 
 try:
     from playwright.sync_api import sync_playwright
@@ -639,7 +642,7 @@ def main() -> int:
         base_url = f"http://127.0.0.1:{server.server_address[1]}" + (f"/{prefix}" if prefix not in ("", ".") else "")
     reports = []
     try:
-        with sync_playwright() as p:
+        with heavy_lock("render", slug=pdir.name if pdir else None), sync_playwright() as p:
             browser = p.chromium.launch()
             for entry in entries:
                 print(f"[frame-review] {entry['id']} {entry['width']}x{entry['height']} ({entry['file']})", flush=True)

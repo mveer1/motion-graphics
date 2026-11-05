@@ -1,0 +1,251 @@
+{
+  "id": "news-brief",
+  "name": "News Brief",
+  "version": 2,
+  "status": "experimental",
+  "summary": "An evidence board in which every claim carries its state: confirmed claims are solid and stamped, unconfirmed ones are dashed and grey. One reusable object (map, tile grid, timeline) changes state across the film.",
+  "visual_job": {
+    "kind": "evidence",
+    "viewer_leaves_able_to": "Say what happened, what is confirmed, what is not, and what to watch next.",
+    "hero": "A map, tile grid or timeline with a visible confidence state per claim."
+  },
+  "selection": {
+    "categories": [
+      "news"
+    ],
+    "use_when": [
+      "An event is recent or still developing.",
+      "Sources disagree or part of the story is unconfirmed.",
+      "The film is short-form and portrait."
+    ],
+    "avoid_when": [
+      "The event is settled history (use chronicle).",
+      "The story is a feeling rather than a set of claims (use storybook)."
+    ],
+    "keywords": [
+      "breaking",
+      "fire",
+      "outage",
+      "attack",
+      "report",
+      "investigation",
+      "confirmed",
+      "officials",
+      "hack",
+      "leak",
+      "shutdown",
+      "recall",
+      "crisis",
+      "announced",
+      "regulator"
+    ]
+  },
+  "look": {
+    "style": "data-journalism",
+    "alternates": [
+      {
+        "style": "editorial-light",
+        "when": "Illustrated treatment, as in the Korea and cloud films."
+      },
+      {
+        "style": "archival",
+        "when": "Document-led investigation."
+      }
+    ],
+    "design_profile": "data-journalism-infographic"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-event",
+      "formula": "What, where, when stamped in the first second, with the hero object already on screen.",
+      "capabilities": [
+        "stamp-impact",
+        "typewriter-reveal"
+      ]
+    },
+    {
+      "role": "facts",
+      "formula": "Confirmed facts one at a time, each with a source chip.",
+      "capabilities": [
+        "text-mask-rise",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "where-when",
+      "formula": "Map pins or dated ticks on a timeline.",
+      "capabilities": [
+        "timeline",
+        "stroke-draw"
+      ]
+    },
+    {
+      "role": "scale",
+      "formula": "How big: a counter or a one-cell-one-unit grid whose state changes.",
+      "capabilities": [
+        "counter-roll",
+        "monument-stat"
+      ]
+    },
+    {
+      "role": "unknowns",
+      "formula": "What is not confirmed, drawn differently from what is: dashed, grey, labelled.",
+      "capabilities": [
+        "marching-dashed-stroke",
+        "marker-highlight"
+      ]
+    },
+    {
+      "role": "response",
+      "formula": "What officials or companies did, as dated steps.",
+      "capabilities": [
+        "progress-stepper",
+        "timeline"
+      ]
+    },
+    {
+      "role": "what-next",
+      "formula": "The open questions and what to watch.",
+      "capabilities": [
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "source-close",
+      "formula": "Sources and the 'as of' date; the picture still moves.",
+      "capabilities": [
+        "end-card",
+        "caption-band"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Evidence appears with its state, and one reusable object changes state across the film.",
+    "continuous_layer": "A drift layer on the hero object plus a second moving layer (counter, travelling dot, label sweep) so the whole frame changes.",
+    "avoid": [
+      "A new graphic per sentence.",
+      "Confirmed and unconfirmed claims drawn the same way.",
+      "Dramatic music over unverified claims."
+    ],
+    "preferred_capabilities": [
+      "stamp-impact",
+      "counter-roll",
+      "timeline",
+      "caption-band"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "liquid-transition"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 2.0,
+    "max_scene_sec": 12,
+    "words_per_10s_max": 27,
+    "ending": "Land a soft thud and ring on the last visual event; hold the bed; tail after the last word 2-3 s.",
+    "short_form": {
+      "max_card_words": 6,
+      "closing": "Reel-length films (60 s or less): close on a word or image from the hook so a replay lands clean, then keep the soft thud and the tail above."
+    }
+  },
+  "anti_patterns": [
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "A hero grid or map where only a few cells change per beat.",
+      "why": "The detector reads the whole frame: Korea's tile grid changed 4-11% of the frame and was flagged idle. Add a second moving layer (counter, travelling dot, label sweep).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Labels below the type floor (2.6% of the short side) to fit more on screen.",
+      "why": "Cloud had 21 text-size-floor warnings at 12.5-17 px and still shipped at readability 3. Cut the label or split the beat; never shrink the type.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Leader lines or tags that touch other text or sit on their own node.",
+      "why": "Fridge's dotted leader ran through 'ONLINE'; cloud's 'DELHI' tag sat on its node; a phone touched a kicker. No check catches this; open the full-size frame at each scene's first and last beat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "A headline that restates the narration.",
+      "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "The same empty stage in most scenes.",
+      "why": "repeat-layout-dom fired in all three films (3-5 of 6 scenes). A recurring grid is fine when its state changes; vary the hero's position or scale between scenes.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Over-budget narration in the hook and closing scenes.",
+      "why": "They are written last. Cloud's s1 and s6 ran 35-36 words per 10 s against a 33 budget and the film read rushed. Cut words; do not raise the speed.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Ramping the bed to zero over the last seconds.",
+      "why": "Cloud's last moment measured 19 LU under the body. Land a soft thud and ring on the last visual event, hold the bed, keep the tail after the last word to 2-3 s.",
+      "source": "video-assembler skill, review-top3-films-2026-11-03"
+    },
+    {
+      "pattern": "Opening on a flat field.",
+      "why": "Korea opened on 0.33 s of empty frame (flat-frame warning). Start the hero already drawn or fading in from frame 1.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "A greeting, a title card or a framing sentence before the claim.",
+      "why": "The film starts at the sentence you would normally reach at second six. No welcome, no 'in this video', no logo sting. A stamped event opens on the date and the fact.",
+      "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md."
+    },
+    {
+      "pattern": "More than one ask at the end.",
+      "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
+      "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
+    },
+    {
+      "pattern": "A hook sentence longer than the three-second window.",
+      "why": "south-korea-data-center-fire opens on one 9.8 s sentence (date, place, event and agency together). Say the claim first and move the detail to the next sentence.",
+      "source": "`studio.py script south-korea-data-center-fire`, 2026-11-05."
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "south-korea-data-center-fire",
+      "note": "Best audio, calmest pace; one 647-tile grid reused for burn and recovery."
+    },
+    {
+      "project": "cloud-physical-infrastructure-india",
+      "note": "Phone and cloud bookend; most label and layout problems."
+    },
+    {
+      "project": "fridge-hack-europe",
+      "note": "Tile grid that heats and returns cooled; diegetic compressor bed."
+    }
+  ],
+  "open_questions": [
+    "motion-qa does not yet waive low-contrast and text-echo for a declared caption band (TODO.md).",
+    "No rule for how stale a 'latest' figure may be before it needs an 'as of' date on screen."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Built from the 2026-11-03 review of the three newest films: most anti-patterns and the 2.0 s beat gap come from it.",
+      "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-05",
+      "change": "Added rules.short_form (cards of 6 words or fewer, loop ending for reel-length films) and three anti-patterns: framing sentence before the claim, more than one ask, hook longer than 3 s.",
+      "reason": "docs/short-form-lessons.md; the card limit is measured against the three newest films (cloud 2 of 35 cards over 6 words, fridge 3 of 27, Korea 9 of 51)."
+    }
+  ],
+  "tags": [
+    "news",
+    "evidence",
+    "short-form"
+  ]
+}

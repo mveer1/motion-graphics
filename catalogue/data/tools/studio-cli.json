@@ -9,8 +9,13 @@
     "formats: write src/index.<format>.html entry files for 16:9, 9:16 and 1:1 from one index.html",
     "validate: JSON Schema checks, catalogue status of capabilities, reading-time floors, determinism lint, font policy, stale generated files",
     "build: per-format render plan (HyperFrames --composition), audio mux and QA gates; legacy projects delegate to scripts/build-project.sh",
-    "captions: approximate cues from measured narration timing (WebVTT + src/captions.js)",
-    "review: creative-review rubric with evidence and pass rule"
+    "captions: approximate cues from measured narration timing (WebVTT + src/captions.js); --timing words transcribes each clip locally (hyperframes transcribe, under the analysis lock), aligns the script to the measured word times and writes audio/words.json; --grouping phrase makes 1-3 word reel captions",
+    "words: film time at which a phrase is spoken (from audio/words.json), to snap a storyboard beat to its noun",
+    "script: pre-render script and story lint (timed sentence sheet, hook, abstract runs, loop, asks, storyboard why-table); validate prints its warnings",
+    "hook: score hook lines (a lint, not a view predictor) and list the formulas in specs/hook-formulas.json",
+    "review: creative-review rubric with evidence and pass rule",
+    "upgrade: re-sync the runtime and regenerate entry files for named projects or --all (including projects/<group>/<version>/), moving every render it supersedes to renders/history/<format>/<when>/ and its out/ copy to out/archive/, with a history.json naming the changed src/ files",
+    "renders: per-format render state (current, stale with the changed files, unstamped, missing); --archive [--unstamped] moves stale renders to history; build also archives a stale render before re-rendering it instead of overwriting it"
   ],
   "location": "scripts/studio.py",
   "version": "1.0.0",
@@ -39,7 +44,7 @@
     "requires_network": false,
     "requires_execution": true,
     "sensitive_data_exposure": false,
-    "notes": "Writes only inside projects/<slug>/ (and out/ on build). build invokes hyperframes, ffmpeg and the QA script as subprocesses with argument lists (no shell)."
+    "notes": "Writes only inside projects/<slug>/ and out/ (build delivers there; upgrade, renders --archive and build move superseded deliverables to out/archive/). build invokes hyperframes, ffmpeg and the QA script as subprocesses with argument lists (no shell)."
   },
   "owner": "workspace-governance",
   "status": "experimental",

@@ -6,6 +6,8 @@
   "capabilities": [
     "video | composition | project | critique-pack",
     "scripts/dom-probe.mjs reuses the puppeteer-core and Chrome cache shipped with the hyperframes install",
+    "scripts/tween-probe.mjs dumps every GSAP tween from the paused timeline; src/pipeline/tweens.py reports motion variety (ease, speed, entrance direction, ease direction, start on the cut) and same-property tween conflicts as measured leads",
+    "platform-ui-zone note: text reaching the reel-app interface bands (specs/format-presets.json platform_ui_reference, uncertified); connector-line judgment prompt when connector capabilities are used",
     "checks that did not run are listed with a reason; audio-cut-alignment is not implemented"
   ],
   "location": "scripts/motion-qa.py",

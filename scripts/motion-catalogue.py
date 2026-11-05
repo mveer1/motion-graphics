@@ -28,8 +28,9 @@ import argparse
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 
-# Auto-delegate to Python 3.12 if current python lacks jsonschema
-if sys.executable != "/opt/homebrew/bin/python3.12":
+# Auto-delegate to Python 3.12 if current python lacks jsonschema. An importer that is already part-way
+# through a command sets MOTION_LAB_NO_REEXEC: re-executing would restart that whole command from the top.
+if sys.executable != "/opt/homebrew/bin/python3.12" and not os.environ.get("MOTION_LAB_NO_REEXEC"):
     py12 = shutil.which("python3.12") or "/opt/homebrew/bin/python3.12"
     if os.path.exists(py12):
         try:
@@ -63,7 +64,8 @@ COLLECTIONS = [
     "styles",
     "references",
     "reference-sources",
-    "design-profiles"
+    "design-profiles",
+    "style-templates"
 ]
 
 # Collection -> schema file. Component collections share component.schema.json.
@@ -78,6 +80,7 @@ SCHEMA_FILES = {
     "references": "reference.schema.json",
     "reference-sources": "reference-source.schema.json",
     "design-profiles": "design-profile.schema.json",
+    "style-templates": "style-template.schema.json",
     "skills": "component.schema.json",
     "tools": "component.schema.json",
     "agents": "component.schema.json",
@@ -90,6 +93,7 @@ SINGULAR = {
     "agents": "agent", "integrations": "integration", "shared": "shared", "primitives": "primitive",
     "compositions": "composition", "project-templates": "template", "styles": "style", "references": "reference",
     "reference-sources": "source", "design-profiles": "design profile",
+    "style-templates": "style template",
 }
 
 # Searchable capability layers (CLI --type values map onto these collections). Technique records
@@ -98,6 +102,7 @@ CAPABILITY_TYPES = {
     "library": "libraries", "effect": "effects", "recipe": "recipes", "primitive": "primitives",
     "composition": "compositions", "template": "project-templates", "style": "styles", "reference": "references",
     "technique": "references", "source": "reference-sources", "profile": "design-profiles",
+    "style-template": "style-templates",
 }
 
 STATUS_RANK = {"blocked": 0, "deprecated": 0, "proposed": 1, "experimental": 2, "approved": 3}
@@ -433,6 +438,17 @@ def validate_catalogue(verbose: bool = True) -> bool:
     except ImportError as exc:
         warnings.append(f"Design profile semantic checks skipped: {exc}")
 
+    # Style templates: cross-references and consistency (src/pipeline/style_templates.py)
+    try:
+        sys.path.insert(0, str(REPO_ROOT / "src" / "pipeline"))
+        import style_templates as _stt
+        for tid, tpl in records["style-templates"].items():
+            e3, w3 = _stt.check_template(tpl, records, category_ids, REPO_ROOT / "projects")
+            errors.extend(f"Style template {m}" for m in e3)
+            warnings.extend(f"Style template {m}" for m in w3)
+    except ImportError as exc:
+        warnings.append(f"Style template semantic checks skipped: {exc}")
+
     implementers = {}
     for coll in ("effects", "recipes", "compositions", "primitives"):
         implementers.update({k: coll for k in records[coll]})
@@ -698,7 +714,7 @@ def list_records() -> None:
     print("MOTION GRAPHICS CAPABILITY CATALOGUE REGISTRY")
     print("=" * 70)
 
-    for rtype in ["libraries", "effects", "recipes", "primitives", "compositions", "project-templates", "styles", "references", "reference-sources"]:
+    for rtype in ["libraries", "effects", "recipes", "primitives", "compositions", "project-templates", "styles", "style-templates", "references", "reference-sources"]:
         items = records[rtype]
         print(f"\n[{rtype.upper()}] ({len(items)} records)")
         rows = []
@@ -710,7 +726,8 @@ def list_records() -> None:
             elif rtype == "reference-sources":
                 cat = f"{rec.get('analysis', {}).get('state')}; {', '.join(rec.get('categories', [])[:2])}"
             else:
-                cat = rec.get("category", "") or rec.get("kind", "") or rec.get("deliverable_type", "") or rec.get("mode", "")
+                cat = (rec.get("category", "") or rec.get("kind", "") or rec.get("deliverable_type", "") or rec.get("mode", "")
+                       or rec.get("visual_job", {}).get("kind", ""))
             if rtype == "styles" and rec.get("default"):
                 cat += " (default)"
             rows.append([rec_id, rec.get("name", "")[:30], rec.get("status", "").upper(), cat])

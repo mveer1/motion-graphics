@@ -144,7 +144,8 @@
     var list = S.comp.itemList(holder, [{ qty: '1 cup', label: 'water' }, { qty: '2', label: 'cardamom pods' }]);
     var step = S.comp.stepHeader(holder, { index: 2, total: 4, title: 'Simmer', body: 'Two minutes.' });
     var end = S.comp.endCard(holder, { title: 'Done', lines: ['Serves 2'] });
-    var caps = S.comp.captions(document.getElementById('root'), [{ start: 0.5, end: 1.5, text: 'First' }, { start: 1.6, end: 2.6, text: 'Second' }]);
+    var caps = S.comp.captions(document.getElementById('root'), [{ start: 0.5, end: 1.5, text: 'First' }, { start: 1.6, end: 2.6, text: 'Second' },
+      { start: 2.7, end: 3.6, text: 'Two words', words: [{ text: 'Two', start: 2.7, end: 3.1 }, { text: 'words', start: 3.15, end: 3.5 }] }]);
     var e1 = card.enter(tl, 10.0), e2 = list.enter(tl, 10.2), e3 = step.enter(tl, 10.4), e4 = end.enter(tl, 10.6);
     caps.schedule(tl);
     check('composition enter returns times', [e1, e2, e3, e4].every(function (t) { return typeof t === 'number' && t > 10; }), [e1, e2, e3, e4].join(','));
@@ -204,6 +205,19 @@
     check('caption 1 visible at 1.0', getComputedStyle(caps[0]).visibility === 'visible' && getComputedStyle(caps[1]).visibility === 'hidden');
     tl.seek(2.0);
     check('caption 2 visible at 2.0', getComputedStyle(caps[1]).visibility === 'visible' && getComputedStyle(caps[0]).visibility === 'hidden');
+    var hlWords = caps[2].querySelectorAll('.st-caption-word');
+    function hl(i) { return parseFloat(hlWords[i].style.getPropertyValue('--st-hl')) || 0; }
+    check('word-timed cue renders one span per word', hlWords.length === 2 && caps[2].textContent === 'Two words', caps[2].textContent);
+    tl.seek(2.95);
+    check('spoken word is highlighted, the next is not', hl(0) > 0.99 && hl(1) < 0.01, hl(0) + '/' + hl(1));
+    var c0 = getComputedStyle(hlWords[0]).color, c1 = getComputedStyle(hlWords[1]).color;
+    check('highlighted word takes a different colour', c0 !== c1, c0 + ' vs ' + c1);
+    tl.seek(3.4);
+    check('highlight moves to the second word', hl(0) < 0.01 && hl(1) > 0.99, hl(0) + '/' + hl(1));
+    tl.seek(2.95);
+    check('backward seek restores the word highlight', hl(0) > 0.99 && hl(1) < 0.01, hl(0) + '/' + hl(1));
+    tl.seek(2.0);
+    check('word-timed cue hidden before its start', getComputedStyle(caps[2]).visibility === 'hidden');
     window.__studioTestResults = results;
   }
   waitTimeline();

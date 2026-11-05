@@ -251,5 +251,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     p_dir = resolve_project_dir(args.project)
-    build_audio(p_dir, speed_override=args.speed, voice_override=args.voice, pause_sec=args.pause)
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+    from pipeline.hostlock import heavy_lock  # Kokoro is a heavy job: one at a time on 8 GB, shared with renders
+
+    with heavy_lock("tts", slug=p_dir.name):
+        build_audio(p_dir, speed_override=args.speed, voice_override=args.voice, pause_sec=args.pause)
 

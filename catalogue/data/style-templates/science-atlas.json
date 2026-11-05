@@ -1,0 +1,185 @@
+{
+  "id": "science-atlas",
+  "name": "Science Atlas",
+  "version": 1,
+  "status": "experimental",
+  "summary": "A specimen plate: one object shown whole, then opened up, with scale always visible. For structures, organisms, processes and findings in the natural world.",
+  "visual_job": {
+    "kind": "natural-world",
+    "viewer_leaves_able_to": "Picture the structure or process at its real scale and name its parts.",
+    "hero": "One specimen shown whole, then cut away, with a live scale reference."
+  },
+  "selection": {
+    "categories": [
+      "science"
+    ],
+    "use_when": [
+      "The subject has physical structure, scale or a process over time.",
+      "A study's finding is the payoff.",
+      "Orders of magnitude are part of the surprise."
+    ],
+    "avoid_when": [
+      "The subject is man-made software or infrastructure (use systems-blueprint).",
+      "The finding is only a number (use data-ledger)."
+    ],
+    "keywords": [
+      "cell",
+      "molecule",
+      "species",
+      "ocean",
+      "planet",
+      "anatomy",
+      "physics",
+      "climate",
+      "evolution",
+      "experiment",
+      "study",
+      "enzyme",
+      "galaxy",
+      "depth",
+      "temperature"
+    ]
+  },
+  "look": {
+    "style": "editorial-light",
+    "alternates": [
+      {
+        "style": "sci-viz",
+        "when": "The brief asks for a dark, spatial or cross-section look."
+      },
+      {
+        "style": "cinematic-dark",
+        "when": "Depth, night or space scale journeys (ocean-descent-documentary)."
+      }
+    ],
+    "design_profile": "scientific-visualization-3d"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-specimen",
+      "formula": "The object whole, with a scale bar from frame 1.",
+      "capabilities": [
+        "line-art-reveal",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "scale-ladder",
+      "formula": "Zoom or compare through orders of magnitude, always with a unit bar.",
+      "capabilities": [
+        "depth-camera-push",
+        "counter-roll"
+      ]
+    },
+    {
+      "role": "cutaway",
+      "formula": "Open the object: cross-section with labelled parts.",
+      "capabilities": [
+        "element-mask-reveal",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "process",
+      "formula": "One variable changes over time; arrows carry the direction.",
+      "capabilities": [
+        "stroke-draw",
+        "metric-curve-draw"
+      ]
+    },
+    {
+      "role": "evidence",
+      "formula": "The finding as a before/after or chart, with sample size and uncertainty.",
+      "capabilities": [
+        "animated-chart",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "limits",
+      "formula": "What the result does not show.",
+      "capabilities": [
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "close",
+      "formula": "Back to the whole specimen at the starting scale, with the one-sentence finding.",
+      "capabilities": [
+        "end-card"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Scale is always visible; objects are opened, not swapped.",
+    "continuous_layer": "Slow push or drift, plus seeded particles that follow the physical process.",
+    "avoid": [
+      "A zoom with no scale reference.",
+      "Decorative particles unrelated to the process.",
+      "A finding stated without sample size or uncertainty."
+    ],
+    "preferred_capabilities": [
+      "parallax-camera",
+      "depth-camera-push",
+      "line-art-reveal"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "liquid-transition"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 3.0,
+    "max_scene_sec": 15,
+    "words_per_10s_max": 26,
+    "ending": "Return to the whole specimen at the scale it started, with the one-sentence finding."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "A zoom or comparison with no scale reference.",
+      "why": "Scale is the point of the template; without a unit bar the viewer cannot judge size.",
+      "source": "Authored from the design profile and VISION.md; not yet render-tested."
+    },
+    {
+      "pattern": "A finding without sample size or uncertainty.",
+      "why": "VISION.md: clear, accurate explanation is as important as visual craft.",
+      "source": "docs/VISION.md"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "ocean-descent-documentary",
+      "note": "Scale by depth, cinematic-dark, 50 s landscape."
+    },
+    {
+      "project": "masala-chai",
+      "note": "Legacy science film on editorial-light."
+    },
+    {
+      "project": "paper-plane-field-notes",
+      "note": "Legacy science film."
+    }
+  ],
+  "open_questions": [
+    "No light-mode scientific style system exists: sci-viz and cinematic-dark are both dark, so the light default falls back to editorial-light. Build a light 'plate' style and make it the default here."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Default is light to follow the workspace rule that dark themes need a brief that asks for them.",
+      "reason": "CLAUDE.md visual defaults"
+    }
+  ],
+  "tags": [
+    "science",
+    "scale",
+    "light"
+  ]
+}
