@@ -69,6 +69,16 @@
         "narration": { "type": "boolean" },
         "voice": { "type": "string" },
         "speed": { "type": "number", "minimum": 0.5, "maximum": 2.0 },
+        "prosody": {
+          "type": "string",
+          "enum": ["raw", "smart"],
+          "description": "raw (default): plain Kokoro per scene. smart: kokoro-smart-tts-skill text normalisation, breath-group pauses and edge fades. Switching re-makes every scene's narration."
+        },
+        "prosody_preset": {
+          "type": "string",
+          "enum": ["technical-explainer", "documentary", "conversational", "storytelling", "energetic"],
+          "description": "Smart-prosody preset: sentence and clause pause lengths only (voice and speed still come from voice/speed). Default technical-explainer."
+        },
         "music": {
           "type": "object",
           "required": ["enabled"],

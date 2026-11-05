@@ -76,7 +76,8 @@ def guarded(cmd: List[str], timeout: int = 300) -> subprocess.CompletedProcess:
 
 def write_candidate(cdir: Path, archetype: str, beat: Dict[str, Any], style: str, duration: float) -> Path:
     (cdir / "_studio" / "styles").mkdir(parents=True, exist_ok=True)
-    for f in ("studio-core.js", "studio-base.css"):
+    (cdir / "_studio" / "vendor").mkdir(exist_ok=True)
+    for f in ("studio-core.js", "studio-base.css", "vendor/gsap.min.js"):
         shutil.copy2(RUNTIME / f, cdir / "_studio" / f)
     shutil.copy2(RUNTIME / "styles" / f"{style}.css", cdir / "_studio" / "styles" / f"{style}.css")
     (cdir / "index.html").write_text(arch.page(archetype, beat, style, duration), encoding="utf-8")

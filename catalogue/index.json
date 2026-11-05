@@ -160,6 +160,8 @@
       "runtime_environment": {
         "type": "browser_script",
         "cdn_url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+        "vendored_path": "src/studio/vendor/gsap.min.js",
+        "vendored_sri": "sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==",
         "npm_package": "gsap",
         "bundle_size_kb": 67.5
       },
@@ -168,7 +170,7 @@
         "target_fps": 30,
         "headless_chromium_compatible": true,
         "deterministic_mode_supported": true,
-        "notes": "Must instantiate timeline paused: true and mount to window.__timelines['root']. HyperFrames steps time deterministically."
+        "notes": "Must instantiate timeline paused: true and mount to window.__timelines['root']. HyperFrames steps time deterministically. Studio compositions load the vendored copy (_studio/vendor/gsap.min.js, synced with the runtime since 1.2.0); `studio.py validate` warns on any script loaded over the network."
       },
       "compatibility": {
         "apple_silicon_tested": true,
@@ -186,7 +188,7 @@
       "metadata": {
         "author": "MotionLab",
         "created_at": "2026-10-30",
-        "updated_at": "2026-10-30",
+        "updated_at": "2026-11-05",
         "tags": [
           "timeline",
           "tweening",
@@ -6435,17 +6437,17 @@
       "id": "skill-parallel-session",
       "name": "Parallel Session Concurrency Skill",
       "component_type": "skill",
-      "purpose": "Coordinates multi-project concurrent production sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions.",
+      "purpose": "Coordinates any number of concurrent project sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions: authoring runs in parallel, heavy jobs queue one at a time.",
       "capabilities": [
-        "Hardware resource locking (Render and TTS mutexes via scripts/session-guard.py)",
+        "Unlimited worktree sessions: authoring stages run in parallel, heavy jobs (render, TTS, analysis) share one host lock via scripts/session-guard.py",
+        "First-come-first-served wait queue with periodic progress logging and crash-safe job-tree teardown",
         "Project-scoped workspace governance execution (--project <slug>)",
-        "Non-blocking wait queues with periodic progress logging",
-        "Stale lock self-healing and recovery",
-        "Git worktree isolation for concurrent project branches (session-start/end)",
+        "Session lifecycle: session-start, session-list dashboard, session-end with render/audio rescue and merge-conflict pre-check",
+        "Playbook for N parallel sessions: commit first, stay inside projects/<slug>/, finish with session-end --merge",
         "Zero-quality-compromise pipeline orchestration"
       ],
       "location": ".claude/skills/parallel-session",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "installation": {
         "required": false,
         "instructions": "Built-in workspace skill. No installation needed."
@@ -6458,7 +6460,7 @@
       "compatibility": {
         "apple_silicon_tested": true,
         "runtime": "agent-host",
-        "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
+        "notes": "Protects Apple Silicon M2 unified memory by running one Chromium or PyTorch workload at a time across all sessions."
       },
       "documentation_urls": [
         ".claude/skills/parallel-session/SKILL.md",
@@ -7455,7 +7457,7 @@
         "requires_network": true,
         "requires_execution": true,
         "sensitive_data_exposure": false,
-        "notes": "Serves the project's src/ directory on 127.0.0.1 with an ephemeral port for the duration of the run. Network: the page loads GSAP from cdnjs and, with --fonts google, Google Fonts CSS. Writes only to projects/<slug>/qa/frame-review/ or --out."
+        "notes": "Serves the project's src/ directory on 127.0.0.1 with an ephemeral port for the duration of the run. Network: studio compositions load the vendored GSAP from _studio/vendor/; with --fonts google the page fetches Google Fonts CSS. Writes only to projects/<slug>/qa/frame-review/ or --out."
       },
       "owner": "workspace-governance",
       "status": "experimental",
@@ -7637,6 +7639,8 @@
       "capabilities": [
         "video | composition | project | critique-pack",
         "scripts/dom-probe.mjs reuses the puppeteer-core and Chrome cache shipped with the hyperframes install",
+        "scripts/tween-probe.mjs dumps every GSAP tween from the paused timeline; src/pipeline/tweens.py reports motion variety (ease, speed, entrance direction, ease direction, start on the cut) and same-property tween conflicts as measured leads",
+        "platform-ui-zone note: text reaching the reel-app interface bands (specs/format-presets.json platform_ui_reference, uncertified); connector-line judgment prompt when connector capabilities are used",
         "checks that did not run are listed with a reason; audio-cut-alignment is not implemented"
       ],
       "location": "scripts/motion-qa.py",
@@ -7903,17 +7907,18 @@
       "id": "tool-session-guard",
       "name": "Session Guard Concurrency Coordinator",
       "component_type": "tool",
-      "purpose": "Coordinates parallel project execution across independent sessions, providing non-blocking queues and mutual exclusion locks for hardware-bound bottlenecks (Chromium render host, Kokoro TTS, Playwright frame-review) on Apple Silicon macOS without compromising rendering quality.",
+      "purpose": "Coordinates any number of parallel project sessions (git worktrees) on one 8 GB Apple Silicon host: authoring runs in parallel, while every heavy job (Chromium render and frame-review, Kokoro TTS, reference analysis) shares one host lock and queues first-come-first-served, without compromising rendering quality.",
       "capabilities": [
-        "Exclusive render host lock: serializes Chromium + Metal GPU rendering and frame-review across concurrent sessions",
-        "Exclusive TTS lock: serializes neural speech synthesis to prevent PyTorch resident memory pressure",
-        "Stale lock self-healing: detects dead holder PIDs and automatically cleans stale locks",
+        "Single host lock: render, tts and analysis share one flock so a Kokoro job and a render never overlap; re-entrant for child processes",
+        "First-come-first-served wait queue with queue positions, dead-waiter pruning and a configurable timeout (MOTION_LAB_LOCK_TIMEOUT)",
+        "Crash safety: SIGTERM/SIGHUP/SIGINT on a holder kills its whole job tree (including detached Chrome helpers) before the lock is released; a dead holder frees the flock automatically",
+        "status: lock holder, ordered queue and free-memory advisory; unlock [--force] clears stale state or stops a hung holder",
         "Project-scoped governance execution: wraps workspace-governance.py --project <slug>",
-        "Heartbeat wait logging: informs background sessions of resource lock holders while waiting",
-        "Isolated Git worktree management: session-start, session-list, session-end with automated branch isolation and virtualenv linking"
+        "Git worktree sessions without a session cap: session-start (warns about uncommitted tooling), session-list (ahead/behind, uncommitted, unmerged renders, predicted merge conflicts, shared files touched, lock activity), session-end (conflict pre-check, copies gitignored renders/audio/out back to main, non-interactive merge)",
+        "Self-guarding entry points via src/pipeline/hostlock.py: build-audio, tts, frame-review, reference-corpus and the shell render stages lock without a wrapper"
       ],
       "location": "scripts/session-guard.py",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "installation": {
         "required": false,
         "instructions": "Built-in workspace tool. Run via python3 scripts/session-guard.py <subcommand>."
@@ -7926,7 +7931,7 @@
       "compatibility": {
         "apple_silicon_tested": true,
         "runtime": "python3",
-        "notes": "Uses standard library fcntl.flock on POSIX macOS."
+        "notes": "Uses standard library fcntl.flock on POSIX macOS; reads vm_stat and ps for the memory advisory and process-tree teardown."
       },
       "documentation_urls": [
         "ARCHITECTURE.md#lifecycle",
@@ -7943,13 +7948,13 @@
         "requires_network": false,
         "requires_execution": true,
         "sensitive_data_exposure": false,
-        "notes": "Writes lockfiles to .locks/ and coordinates local subprocess execution."
+        "notes": "Writes lockfiles and queue tickets to .locks/, signals only its own descendant processes, and runs git worktree/merge commands in this repository."
       },
       "owner": "workspace-governance",
       "status": "approved",
-      "approval_evidence": "Validated via cross-process concurrency tests and scoped governance checks.",
+      "approval_evidence": "Cross-process tests in tests/test-studio.py (SessionGuardTests): shared tts/render lock, FIFO order, dead-waiter pruning, SIGTERM teardown of a detached grandchild, worktree rescue/conflict/merge lifecycle, re-entrancy. Run on the macOS host on 2026-11-05.",
       "architecture_ref": "ARCHITECTURE.md#lifecycle",
-      "last_verified": "2026-10-31",
+      "last_verified": "2026-11-05",
       "tags": [
         "concurrency",
         "locking",
@@ -8020,8 +8025,13 @@
         "formats: write src/index.<format>.html entry files for 16:9, 9:16 and 1:1 from one index.html",
         "validate: JSON Schema checks, catalogue status of capabilities, reading-time floors, determinism lint, font policy, stale generated files",
         "build: per-format render plan (HyperFrames --composition), audio mux and QA gates; legacy projects delegate to scripts/build-project.sh",
-        "captions: approximate cues from measured narration timing (WebVTT + src/captions.js)",
-        "review: creative-review rubric with evidence and pass rule"
+        "captions: approximate cues from measured narration timing (WebVTT + src/captions.js); --timing words transcribes each clip locally (hyperframes transcribe, under the analysis lock), aligns the script to the measured word times and writes audio/words.json; --grouping phrase makes 1-3 word reel captions",
+        "words: film time at which a phrase is spoken (from audio/words.json), to snap a storyboard beat to its noun",
+        "script: pre-render script and story lint (timed sentence sheet, hook, abstract runs, loop, asks, storyboard why-table); validate prints its warnings",
+        "hook: score hook lines (a lint, not a view predictor) and list the formulas in specs/hook-formulas.json",
+        "review: creative-review rubric with evidence and pass rule",
+        "upgrade: re-sync the runtime and regenerate entry files for named projects or --all (including projects/<group>/<version>/), moving every render it supersedes to renders/history/<format>/<when>/ and its out/ copy to out/archive/, with a history.json naming the changed src/ files",
+        "renders: per-format render state (current, stale with the changed files, unstamped, missing); --archive [--unstamped] moves stale renders to history; build also archives a stale render before re-rendering it instead of overwriting it"
       ],
       "location": "scripts/studio.py",
       "version": "1.0.0",
@@ -8058,7 +8068,7 @@
         "requires_network": false,
         "requires_execution": true,
         "sensitive_data_exposure": false,
-        "notes": "Writes only inside projects/<slug>/ (and out/ on build). build invokes hyperframes, ffmpeg and the QA script as subprocesses with argument lists (no shell)."
+        "notes": "Writes only inside projects/<slug>/ and out/ (build delivers there; upgrade, renders --archive and build move superseded deliverables to out/archive/). build invokes hyperframes, ffmpeg and the QA script as subprocesses with argument lists (no shell)."
       },
       "owner": "workspace-governance",
       "status": "experimental",
@@ -30759,7 +30769,7 @@
     "data-ledger": {
       "id": "data-ledger",
       "name": "Data Ledger",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
       "visual_job": {
@@ -30868,12 +30878,14 @@
       ],
       "motion": {
         "signature": "Data draws itself at the speed the narrator says it.",
-        "continuous_layer": "Axes and gridlines persist; a value readout follows the data front; slow scale on the chart group.",
+        "continuous_layer": "Axes persist with the unit and the period labelled; gridlines only at labelled values and kept faint; a value readout follows the data front; slow scale on the chart group.",
         "avoid": [
           "A chart that appears fully formed.",
           "Truncated or unlabelled axes.",
           "More than one chart type in a scene.",
-          "3D charts."
+          "3D charts.",
+          "Pie charts, dual-axis charts, or more than three related metrics at once.",
+          "A legend box: label each series on the line itself."
         ],
         "preferred_capabilities": [
           "counter-roll",
@@ -30917,6 +30929,26 @@
           "pattern": "Axis without a unit, or a period without dates.",
           "why": "A chart that cannot be read from the frame alone cannot be fact-checked.",
           "source": "Authored from the design profile and VISION.md; not yet render-tested."
+        },
+        {
+          "pattern": "A pie chart, a dual-axis chart, or a panel of four or more metrics.",
+          "why": "A viewer has about three seconds per beat. Angles cannot be compared, two scales cannot be read together and four panels cannot be studied. Two or three related metrics side by side is the ceiling.",
+          "source": "hyperframes-creative data-in-motion.md (HeyGen, Apache-2.0), adopted 2026-11-05 via docs/short-form-lessons.md; not yet render-tested here."
+        },
+        {
+          "pattern": "A bare number floating on an empty canvas.",
+          "why": "A figure with no visual weight reads as text. Pair every number with something proportional to it: a fill bar, a ring, or a shape sized by value.",
+          "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+        },
+        {
+          "pattern": "Successive figures for one concept drawn in different visual spaces.",
+          "why": "Keep the space and the look and change only the value. A change of look should signal a new concept, not just a new number.",
+          "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+        },
+        {
+          "pattern": "A legend box, or default chart-library output.",
+          "why": "A legend sends the eye away from the data. Label the series where it is drawn, and build the chart in SVG with the studio runtime so it draws itself at the speed of the narration.",
+          "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
         }
       ],
       "reference_projects": [
@@ -30938,6 +30970,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Draws on the reusable-data-object lesson from Korea (waffle grid) and fridge (tile grid).",
           "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-05",
+          "change": "Added four data-in-motion anti-patterns (no pie or dual-axis charts, no bare numbers, one visual space per concept, no legend box). Gridlines are now faint and only at labelled values instead of persistent.",
+          "reason": "docs/short-form-lessons.md (HeyGen hyperframes-creative data-in-motion.md). Unrendered: promote only after a film is made to v2."
         }
       ],
       "tags": [
@@ -30949,7 +30987,7 @@
     "news-brief": {
       "id": "news-brief",
       "name": "News Brief",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "An evidence board in which every claim carries its state: confirmed claims are solid and stamped, unconfirmed ones are dashed and grey. One reusable object (map, tile grid, timeline) changes state across the film.",
       "visual_job": {
@@ -30959,9 +30997,7 @@
       },
       "selection": {
         "categories": [
-          "news",
-          "technology",
-          "finance"
+          "news"
         ],
         "use_when": [
           "An event is recent or still developing.",
@@ -31093,7 +31129,11 @@
         "max_beat_gap_sec": 2.0,
         "max_scene_sec": 12,
         "words_per_10s_max": 27,
-        "ending": "Land a soft thud and ring on the last visual event; hold the bed; tail after the last word 2-3 s."
+        "ending": "Land a soft thud and ring on the last visual event; hold the bed; tail after the last word 2-3 s.",
+        "short_form": {
+          "max_card_words": 6,
+          "closing": "Reel-length films (60 s or less): close on a word or image from the hook so a replay lands clean, then keep the soft thud and the tail above."
+        }
       },
       "anti_patterns": [
         {
@@ -31140,6 +31180,21 @@
           "pattern": "Opening on a flat field.",
           "why": "Korea opened on 0.33 s of empty frame (flat-frame warning). Start the hero already drawn or fading in from frame 1.",
           "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "pattern": "A greeting, a title card or a framing sentence before the claim.",
+          "why": "The film starts at the sentence you would normally reach at second six. No welcome, no 'in this video', no logo sting. A stamped event opens on the date and the fact.",
+          "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md."
+        },
+        {
+          "pattern": "More than one ask at the end.",
+          "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
+          "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
+        },
+        {
+          "pattern": "A hook sentence longer than the three-second window.",
+          "why": "south-korea-data-center-fire opens on one 9.8 s sentence (date, place, event and agency together). Say the claim first and move the detail to the next sentence.",
+          "source": "`studio.py script south-korea-data-center-fire`, 2026-11-05."
         }
       ],
       "reference_projects": [
@@ -31166,6 +31221,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Built from the 2026-11-03 review of the three newest films: most anti-patterns and the 2.0 s beat gap come from it.",
           "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-05",
+          "change": "Added rules.short_form (cards of 6 words or fewer, loop ending for reel-length films) and three anti-patterns: framing sentence before the claim, more than one ask, hook longer than 3 s.",
+          "reason": "docs/short-form-lessons.md; the card limit is measured against the three newest films (cloud 2 of 35 cards over 6 words, fridge 3 of 27, Korea 9 of 51)."
         }
       ],
       "tags": [
@@ -31301,7 +31362,7 @@
         "hook_within_sec": 1.0,
         "max_beat_gap_sec": 3.0,
         "max_scene_sec": 16,
-        "words_per_10s_max": 24,
+        "words_per_10s_max": 27,
         "ending": "Restate the claim over the final state of the constructed object."
       },
       "anti_patterns": [
@@ -31339,7 +31400,7 @@
         {
           "version": 1,
           "date": "2026-11-03",
-          "change": "Initial version. Narration budget is the deliberate (documentary) 24 words per 10 s because the viewer needs time to think.",
+          "change": "Initial version. Narration budget is the top of the deliberate (documentary) range, 27 words per 10 s, because the viewer needs time to think. Not yet calibrated against a film made to it: polya-recurrence (29-39 words per 10 s at am_adam 1.15) exceeds it in every scene.",
           "reason": "lessons-polya-recurrence-build; voice-director budgets"
         }
       ],
@@ -31537,7 +31598,7 @@
     "storybook": {
       "id": "storybook",
       "name": "Storybook",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "Staged scenes of layered cut shapes with parallax, where act changes are told by palette and light rather than captions. For people, stakes and an emotional arc.",
       "visual_job": {
@@ -31671,7 +31732,11 @@
         "max_beat_gap_sec": 3.0,
         "max_scene_sec": 16,
         "words_per_10s_max": 26,
-        "ending": "Return to the opening composition, altered; hold the last image with drift under a low sound."
+        "ending": "Return to the opening composition, altered; hold the last image with drift under a low sound.",
+        "short_form": {
+          "max_card_words": 6,
+          "closing": "Reel-length films: the return to the opening composition doubles as the loop; echo one word or image from the hook in the last line."
+        }
       },
       "anti_patterns": [
         {
@@ -31688,6 +31753,16 @@
           "pattern": "Narration that restates what the picture already says.",
           "why": "In a story the picture carries the feeling; the voice should add what cannot be drawn.",
           "source": "Authored from the design profile and VISION.md; not yet render-tested."
+        },
+        {
+          "pattern": "A greeting, a title card or a framing sentence before the claim.",
+          "why": "The film starts at the sentence you would normally reach at second six. No welcome, no 'in this video', no logo sting. A stamped event opens on the date and the fact.",
+          "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md."
+        },
+        {
+          "pattern": "More than one ask at the end.",
+          "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
+          "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
         }
       ],
       "reference_projects": [
@@ -31713,6 +31788,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Acts-by-palette approach taken from the editorial-paper-collage profile.",
           "reason": "design profile editorial-paper-collage"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-05",
+          "change": "Added rules.short_form (cards of 6 words or fewer, the return-to-opening ending as the loop) and two anti-patterns: framing sentence before the claim, more than one ask.",
+          "reason": "docs/short-form-lessons.md."
         }
       ],
       "tags": [

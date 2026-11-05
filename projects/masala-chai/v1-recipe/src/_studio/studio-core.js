@@ -15,7 +15,7 @@
   'use strict';
 
   var Studio = global.Studio || (global.Studio = {});
-  Studio.version = '1.1.0';
+  Studio.version = '1.2.0';
 
   // Mirrors specs/format-presets.json; used only when the generated #studio-format block is missing.
   var SAFE_DEFAULTS = {

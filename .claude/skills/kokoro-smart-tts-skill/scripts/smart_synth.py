@@ -111,15 +111,16 @@ def synthesize_smart(
     sentence_pause: Optional[float] = None,
     lang: Optional[str] = None,
     custom_phonetics: Optional[Dict[str, str]] = None,
-    raw_baseline: bool = False
+    raw_baseline: bool = False,
+    pipe: Any = None
 ) -> Dict[str, Any]:
     """
     Synthesize audio using Kokoro with intelligent preprocessing and voice blending.
-    """
-    from kokoro import KPipeline
 
+    Pass `pipe` (a KPipeline for the same language) to reuse a loaded model across calls.
+    """
     os.makedirs(os.path.dirname(os.path.abspath(out_path)) or '.', exist_ok=True)
-    
+
     preset_cfg = PRESETS.get(preset, PRESETS["conversational"])
     active_voice_spec = voice or preset_cfg["voice"]
     active_speed = speed if speed is not None else preset_cfg["speed"]
@@ -127,7 +128,9 @@ def synthesize_smart(
     active_clause_pause = preset_cfg["clause_pause"]
     active_lang = lang or preset_cfg["lang"]
 
-    pipe = KPipeline(lang_code=active_lang)
+    if pipe is None:
+        from kokoro import KPipeline
+        pipe = KPipeline(lang_code=active_lang)
 
     # 1. Resolve Voice / Blend
     voice_weights = parse_voice_weights(active_voice_spec)

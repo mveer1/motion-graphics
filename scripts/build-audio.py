@@ -34,6 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 from pipeline import narration  # noqa: E402
 
 SAMPLE_RATE = 24000
+SMART_SKILL_SCRIPTS = Path(__file__).resolve().parent.parent / ".claude" / "skills" / "kokoro-smart-tts-skill" / "scripts"
 
 
 def delegate_to_py312() -> None:
@@ -110,12 +111,22 @@ def archive_previous(audio_dir: Path, scene_ids) -> Path:
     return dest
 
 
+def synth_smart(pipe, text: str, out_wav: Path, voice: str, speed: float, preset: str):
+    """One scene through kokoro-smart-tts-skill (normalisation, breath groups, edge fades); returns its PCM."""
+    if str(SMART_SKILL_SCRIPTS) not in sys.path:
+        sys.path.insert(0, str(SMART_SKILL_SCRIPTS))
+    from smart_synth import synthesize_smart
+    synthesize_smart(text=text, out_path=str(out_wav), preset=preset, voice=voice, speed=speed, lang=voice[0], pipe=pipe)
+    return read_pcm(out_wav)
+
+
 def build_audio(project_dir: Path, speed_override: float = None, voice_override: str = None, pause_sec: float = None,
-                force: bool = False):
+                force: bool = False, prosody: str = None, preset: str = None):
     audio_dir = project_dir / "audio"
     audio_dir.mkdir(parents=True, exist_ok=True)
 
-    req = narration.resolve_request(project_dir, speed=speed_override, voice=voice_override, pause=pause_sec)
+    req = narration.resolve_request(project_dir, speed=speed_override, voice=voice_override, pause=pause_sec,
+                                    prosody=prosody, preset=preset)
     voice, speed, pause_sec, scenes = req["voice"], req["speed"], req["pause"], req["scenes"]
     engine = narration.engine_label()
     fps = 30
@@ -128,6 +139,7 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
     print(f"  • Voice Persona:  {voice}")
     print(f"  • Speech Speed:   {speed}x (configurable)")
     print(f"  • Inter-Scene:    {pause_sec}s pause buffer")
+    print(f"  • Prosody:        {req['prosody']}")
 
     if not scenes:
         print(f"Error: No scenes found to synthesize (neither {project_dir / 'src' / 'narration.json'} "
@@ -177,10 +189,15 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
 
         pcm = read_pcm(out_wav) if scene_id in previous else None
         reused = pcm is not None
+        if pcm is None and pipe is None:
+            from kokoro import KPipeline
+            pipe = KPipeline(lang_code=voice[0])  # Kokoro voice ids start with their language code (am_ -> a)
+        if pcm is None and req["prosody"] != "raw":
+            pcm = synth_smart(pipe, text, out_wav, voice, speed, req["prosody"].split(":", 1)[1])
+            if pcm is None or not len(pcm):
+                print(f"Error: No audio produced for scene '{scene_id}'", file=sys.stderr)
+                sys.exit(1)
         if pcm is None:
-            if pipe is None:
-                from kokoro import KPipeline
-                pipe = KPipeline(lang_code="a")
             # Synthesize via Kokoro
             chunks = []
             for res in pipe(text, voice=voice, speed=speed):
@@ -245,6 +262,7 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
         "speed": speed,
         "pause_sec": pause_sec,
         "engine": engine,
+        "prosody": req["prosody"],
         "total_duration_sec": total_duration,
         "target_fps": fps,
         "total_frames": int(np.ceil(total_duration * fps)),
@@ -278,6 +296,9 @@ if __name__ == "__main__":
     parser.add_argument("--pause", type=float, default=None,
                         help="Inter-scene pause in seconds (default: research.json acoustic_guidance, else 0.5)")
     parser.add_argument("--force", action="store_true", help="Re-synthesise every scene, even unchanged ones")
+    parser.add_argument("--prosody", choices=["raw", "smart"], default=None,
+                        help="raw (default): plain Kokoro; smart: kokoro-smart-tts-skill breath groups and pauses")
+    parser.add_argument("--preset", default=None, help="Smart-prosody preset (default technical-explainer)")
     args = parser.parse_args()
 
     delegate_to_py312()
@@ -286,4 +307,5 @@ if __name__ == "__main__":
     from pipeline.hostlock import heavy_lock
 
     with heavy_lock("tts", slug=p_dir.name):
-        build_audio(p_dir, speed_override=args.speed, voice_override=args.voice, pause_sec=args.pause, force=args.force)
+        build_audio(p_dir, speed_override=args.speed, voice_override=args.voice, pause_sec=args.pause, force=args.force,
+                    prosody=args.prosody, preset=args.preset)

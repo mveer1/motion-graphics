@@ -112,7 +112,15 @@
         },
         "cdn_url": {
           "type": "string",
-          "description": "Preferred CDN URL for headless browser injection."
+          "description": "Upstream CDN URL (the source of the vendored copy, if any)."
+        },
+        "vendored_path": {
+          "type": "string",
+          "description": "Repo path of a pinned local copy that compositions load instead of the CDN, so renders work offline."
+        },
+        "vendored_sri": {
+          "type": "string",
+          "description": "Subresource-integrity hash of the vendored copy, matching the CDN's published one."
         },
         "npm_package": {
           "type": "string",

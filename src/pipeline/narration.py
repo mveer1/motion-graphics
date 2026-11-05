@@ -14,6 +14,7 @@ from typing import Any, Dict, List, Optional, Tuple
 DEFAULT_VOICE = "am_adam"
 DEFAULT_SPEED = 1.15
 DEFAULT_PAUSE = 0.5
+DEFAULT_PRESET = "technical-explainer"
 
 
 def _load(path: Path) -> Any:
@@ -34,9 +35,17 @@ def load_scenes(pdir: Path) -> List[Dict[str, str]]:
             for i, sc in enumerate(scenes)]
 
 
+def prosody_label(prosody: Optional[str] = None, preset: Optional[str] = None) -> str:
+    """'raw', or 'smart:<preset>' for kokoro-smart-tts-skill synthesis (default preset technical-explainer)."""
+    return f"smart:{preset or DEFAULT_PRESET}" if prosody == "smart" else "raw"
+
+
 def resolve_request(pdir: Path, speed: Optional[float] = None, voice: Optional[str] = None,
-                    pause: Optional[float] = None) -> Dict[str, Any]:
-    """What build-audio.py will synthesise: explicit arguments, then research.json acoustic_guidance, then defaults."""
+                    pause: Optional[float] = None, prosody: Optional[str] = None,
+                    preset: Optional[str] = None) -> Dict[str, Any]:
+    """What build-audio.py will synthesise: explicit arguments, then research.json acoustic_guidance, then defaults.
+
+    Voice and speed resolve the same way in both prosody modes; a smart preset sets only the pauses."""
     acoustic: Dict[str, Any] = {}
     research = pdir / "research.json"
     if research.exists():
@@ -48,6 +57,7 @@ def resolve_request(pdir: Path, speed: Optional[float] = None, voice: Optional[s
         "voice": voice or acoustic.get("recommended_voice") or DEFAULT_VOICE,
         "speed": float(speed if speed is not None else acoustic.get("speech_rate") or DEFAULT_SPEED),
         "pause": float(pause if pause is not None else acoustic.get("inter_scene_pause_sec", DEFAULT_PAUSE)),
+        "prosody": prosody_label(prosody, preset),
         "scenes": load_scenes(pdir),
     }
 
@@ -67,6 +77,8 @@ def scene_matches(old: Dict[str, Any], scene: Dict[str, str], timeline: Dict[str
 
     The engine check keeps one film in one voice: after a Kokoro upgrade an edit re-makes every scene, not one."""
     if engine and timeline.get("engine") and timeline["engine"] != engine:
+        return False
+    if timeline.get("prosody", "raw") != req.get("prosody", "raw"):
         return False
     return (old.get("id") == scene["id"] and old.get("text") == scene["text"]
             and timeline.get("voice") == req["voice"] and _same(timeline.get("speed"), req["speed"]))
@@ -101,6 +113,8 @@ def narration_state(pdir: Path, req: Dict[str, Any]) -> Tuple[str, List[str]]:
         reasons.append(f"speed {timeline['speed']} -> {req['speed']:g}")
     if timeline.get("pause_sec") is not None and not _same(timeline["pause_sec"], req["pause"]):
         reasons.append(f"pause {timeline['pause_sec']} -> {req['pause']:g}")
+    if timeline.get("prosody", "raw") != req.get("prosody", "raw"):
+        reasons.append(f"prosody {timeline.get('prosody', 'raw')} -> {req['prosody']}")
     old_ids, new_ids = [s.get("id") for s in old], [s["id"] for s in req["scenes"]]
     if old_ids != new_ids:
         reasons.append(f"scenes {old_ids} -> {new_ids}")
