@@ -15,12 +15,12 @@
   'use strict';
 
   var Studio = global.Studio || (global.Studio = {});
-  Studio.version = '1.0.0';
+  Studio.version = '1.1.0';
 
   // Mirrors specs/format-presets.json; used only when the generated #studio-format block is missing.
   var SAFE_DEFAULTS = {
     landscape: { top: 0.06, right: 0.05, bottom: 0.08, left: 0.05 },
-    portrait: { top: 0.10, right: 0.10, bottom: 0.20, left: 0.06 },
+    portrait: { top: 0.10, right: 0.10, bottom: 0.234, left: 0.06 },
     square: { top: 0.07, right: 0.07, bottom: 0.09, left: 0.07 }
   };
 

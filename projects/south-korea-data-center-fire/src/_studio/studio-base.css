@@ -517,6 +517,12 @@ body {
   border-radius: calc(var(--u) * 0.6);
 }
 
+/* Word-timed cues: the spoken word mixes toward the highlight as the timeline drives --st-hl from 0 to 1. */
+.st-caption-word {
+  --st-hl: 0;
+  color: color-mix(in srgb, var(--c-caption-hl, var(--c-accent-3, #e8b04a)) calc(var(--st-hl) * 100%), var(--c-caption-ink, #fffaf2));
+}
+
 /* ------------------------------------------------------------------ reference-derived capabilities */
 .st-bloom {
   position: absolute;
