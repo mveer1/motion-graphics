@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Style sample: storybook</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/paper-cut.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:300px;--safe-left:43px;}</style>
+  <style>
+    /* storybook sample: layered cut paper; the act changes through palette and light, not new scenes. */
+    #root { background: var(--c-paper); }
+    #stage, .layer { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+    .layer svg { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; overflow: visible; }
+    .cut { filter: url(#st-deckle); }
+    .shadow { filter: drop-shadow(3px 5px 0 rgba(42, 37, 34, 0.22)); }
+
+    .card { position: absolute; left: 43px; top: 150px; max-width: 605px; padding: 18px 26px 22px; background: #fff8ec; box-shadow: 6px 8px 0 rgba(42, 37, 34, 0.22); }
+    .card .k { display: block; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-accent); margin-bottom: 6px; }
+    .card .t { display: block; font-family: 'Archivo Black', sans-serif; font-size: 44px; line-height: 1.05; color: var(--c-ink); }
+    .tag { position: absolute; left: 43px; top: 1036px; padding: 4px 12px; background: #fff8ec; font-family: 'Space Mono', monospace; font-size: 22px; letter-spacing: 0.04em; color: var(--c-ink); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="22">
+
+  <div id="stage">
+    <div class="layer" data-depth="0"><svg viewBox="0 0 720 1280" aria-hidden="true">
+      <rect x="-200" y="-200" width="1120" height="1680" fill="#f3d6a2"/>
+      <circle id="sun" cx="540" cy="640" r="70" fill="#f0b23a"/>
+      <rect id="skyStorm" x="-200" y="-200" width="1120" height="1680" fill="#75848d" style="opacity:0"/>
+      <rect id="skyDawn" x="-200" y="-200" width="1120" height="1680" fill="#f5e0b4" style="opacity:0"/>
+      <g id="gulls" fill="none" stroke="#2a2522" stroke-width="3" stroke-linecap="round">
+        <path d="M420 420 Q432 408 444 420 Q456 408 468 420"/>
+        <path d="M500 470 Q509 461 518 470 Q527 461 536 470"/>
+      </g>
+    </svg></div>
+    <div class="layer" data-depth="1"><svg viewBox="0 0 720 1280" aria-hidden="true">
+      <path id="seaBack" class="cut" fill="#3f6f8f"/>
+      <path id="seaBackStorm" class="cut" fill="#2c4a5c" style="opacity:0"/>
+    </svg></div>
+    <div class="layer" data-depth="2"><svg viewBox="0 0 720 1280" aria-hidden="true">
+      <path id="beam" d="M170 450 L760 380 L760 540 Z" fill="rgba(240, 178, 58, 0.38)"/>
+      <path class="cut shadow" d="M30 790 C60 752 120 748 170 756 C230 744 300 760 330 800 L330 860 L30 860 Z" fill="#5e554d"/>
+      <g id="tower" class="shadow">
+        <path d="M128 772 L212 772 L200 470 L140 470 Z" fill="#b5401f"/>
+        <path d="M134 620 L206 620 L203 560 L137 560 Z" fill="#fff8ec"/>
+        <rect x="134" y="456" width="72" height="14" fill="#2a2522"/>
+        <rect id="lamp" x="144" y="420" width="52" height="36" fill="#f0b23a"/>
+        <path d="M134 420 L170 388 L206 420 Z" fill="#2a2522"/>
+        <rect x="162" y="664" width="16" height="26" fill="#2a2522"/>
+      </g>
+      <g id="grace0"></g>
+      <path class="cut shadow" d="M440 830 C470 790 540 784 600 792 C650 790 690 812 700 840 L700 880 L440 880 Z" fill="#5e554d"/>
+      <g id="ship"></g>
+      <g id="survivors"></g>
+      <g id="saved"></g>
+    </svg></div>
+    <div class="layer" data-depth="3"><svg viewBox="0 0 720 1280" aria-hidden="true">
+      <g id="boat"></g>
+    </svg></div>
+    <div class="layer" data-depth="4"><svg viewBox="0 0 720 1280" aria-hidden="true">
+      <path id="waveA" class="cut" fill="#5d8aa6"/>
+      <path id="waveB" class="cut" fill="#2f5873"/>
+      <path id="waveStorm" class="cut" fill="#3d5f74" style="opacity:0"/>
+    </svg></div>
+    <div class="layer" data-depth="5"><svg id="rain" viewBox="0 0 720 1280" aria-hidden="true"></svg></div>
+  </div>
+
+  <div class="card" id="card1"><span class="k">7 September 1838</span><span class="t">Longstone Lighthouse</span></div>
+  <div class="card" id="card2"><span class="t">A steamer strikes the rocks.</span></div>
+  <div class="card" id="card3"><span class="t">Grace Darling, 22, sees survivors.</span></div>
+  <div class="card" id="card4"><span class="t">She and her father row out.</span></div>
+  <div class="card" id="card5"><span class="k">Longstone Lighthouse</span><span class="t">They saved nine people.</span></div>
+  <div class="tag" id="tag" style="opacity:0;visibility:hidden">STYLE SAMPLE · storybook v2 · paper-cut</div>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var cue = S.cues({ s1: 0, s2: 3.6, s3: 7.6, s4: 11.8, s5: 16.4, end: 22 });
+  var $ = function (id) { return document.getElementById(id); };
+  var svg = function (tag, attrs, parent) { return S.svg(tag, attrs, typeof parent === 'string' ? $(parent) : parent); };
+  S.texture.defs();
+
+  // ---- cut-paper waves: same point count for every phase, so they can morph into each other.
+  function wave(y, amp, wl, phase) {
+    var d = 'M-60 1300 L-60 ' + y.toFixed(1);
+    for (var x = -60; x <= 780; x += 20) d += ' L' + x + ' ' + (y + amp * Math.sin(2 * Math.PI * x / wl + phase)).toFixed(1);
+    return d + ' L780 1300 Z';
+  }
+  function swell(id, y, amp, wl, from, to, period, ampTo) {
+    var a = wave(y, amp, wl, 0), b = wave(y, ampTo || amp, wl, Math.PI);
+    $(id).setAttribute('d', a);
+    var reps = Math.max(1, Math.floor((to - from) / period));
+    tl.fromTo('#' + id, { attr: { d: a } }, { attr: { d: b }, duration: period, ease: 'sine.inOut', yoyo: true, repeat: reps - 1, immediateRender: false }, from);
+  }
+  swell('seaBack', 790, 6, 180, 0, 22, 1.6);
+  swell('seaBackStorm', 784, 14, 150, 0, 22, 1.1);
+  swell('waveA', 900, 10, 220, 0, 22, 1.4);
+  swell('waveB', 975, 12, 260, 0, 22, 1.8);
+  swell('waveStorm', 880, 26, 200, 0, 22, 0.9);
+
+  // ---- figures: a head and a cut body; colour is the only individual detail.
+  function figure(parent, x, y, color, s) {
+    var outer = svg('g', { transform: 'translate(' + x + ' ' + y + ') scale(' + (s || 1) + ')' }, parent);
+    var g = svg('g', null, outer);   // tweens move this inner group; the outer one keeps the placement
+    svg('path', { d: 'M-7 0 C-7 -14 7 -14 7 0 Z', fill: color }, g);
+    svg('circle', { cx: 0, cy: -18, r: 5, fill: '#2a2522' }, g);
+    return g;
+  }
+  var cols = ['#7b4b6a', '#3f6f8f', '#b5401f', '#5e554d', '#8da47e', '#f0b23a', '#3f6f8f', '#7b4b6a', '#b5401f'];
+  var surv = [], saved = [];
+  for (var i = 0; i < 9; i++) {
+    surv.push(figure('survivors', 520 + (i % 5) * 26 + (i > 4 ? 13 : 0), 806 + (i > 4 ? 10 : 0), cols[i], 1));
+    saved.push(figure('saved', 60 + i * 22, 770 + (i % 2) * 6, cols[i], 1));
+  }
+  figure('grace0', 214, 470, '#7b4b6a', 1.1);
+
+  // ---- the steamer, built around its bow so it can tip onto the rock.
+  var ship = $('ship');
+  var hull = svg('g', null, ship);   // ship moves; hull tips about its bow
+  svg('path', { d: 'M-118 -22 L126 -22 L104 12 L-100 12 Z', fill: '#2a2522' }, hull);
+  svg('rect', { x: -12, y: -74, width: 24, height: 52, fill: '#b5401f' }, hull);
+  svg('path', { d: 'M-70 -22 L-70 -112 M70 -22 L70 -102', stroke: '#2a2522', 'stroke-width': 5 }, hull);
+  svg('path', { d: 'M-34 -22 A34 34 0 0 1 34 -22 Z', fill: '#e6d6b8' }, hull);
+  svg('path', { d: 'M0 -22 L0 -52 M-24 -32 L24 -32', stroke: '#5e554d', 'stroke-width': 3 }, hull);
+
+  // ---- the coble: two rowers and their oars.
+  var boat = $('boat');
+  svg('path', { d: 'M-50 -2 L52 -2 L40 16 L-38 16 Z', fill: '#7b4b6a' }, boat);
+  figure(boat, -16, -2, '#f0b23a', 1.0);
+  figure(boat, 18, -2, '#3f6f8f', 1.0);
+  var oars = svg('path', { d: 'M-16 -10 L-58 22 M18 -10 L60 22', stroke: '#2a2522', 'stroke-width': 3.5, 'stroke-linecap': 'round' }, boat);
+
+  // ---- rain: four seeded batches so the storm never stops while it lasts.
+  var rain = [];
+  for (var b = 0; b < 4; b++) rain.push(S.draw.particles($('rain'), 46, 300 + b, { box: { x: 0, y: -300, width: 900, height: 700 }, minR: 1.4, maxR: 2.8, fill: '#e8f0f4' }));
+
+  // ---------------------------------------------------------------- s1 hook: one place, one evening
+  S.space.assemble(tl, '#tower > *', cue('s1', 0.05), { spread: 8, rotate: 10, stagger: 0.05, duration: 0.6, ease: 'power3.out' });
+  tl.fromTo('#beam', { autoAlpha: 0, rotation: -14, svgOrigin: '170 450' }, { autoAlpha: 1, rotation: -14, svgOrigin: '170 450', duration: 0.5 }, cue('s1', 0.8));
+  tl.fromTo('#beam', { rotation: -14 }, { rotation: 14, duration: 2.2, ease: 'sine.inOut', yoyo: true, repeat: 8, immediateRender: false }, cue('s1', 1.3));
+  S.space.pop(tl, '#card1', cue('s1', 0.3), { overshoot: 1.2, tilt: 2, fromScale: 0.8 });
+  tl.fromTo('#sun', { attr: { cy: 640 } }, { attr: { cy: 900 }, duration: 6.0, ease: 'sine.in' }, cue('s1'));
+  S.space.float(tl, '#gulls path', cue('s1'), cue('s2', 1.0), { amplitude: 1.2, period: 2.4 });
+  tl.fromTo('#gulls', { x: 0 }, { x: -90, duration: 4.6, ease: 'none' }, cue('s1'));
+
+  // ---------------------------------------------------------------- s2 disruption: the light changes; a ship goes wrong
+  tl.fromTo('#card1', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s2', 0.1));
+  tl.fromTo(['#skyStorm', '#seaBackStorm', '#waveStorm'], { opacity: 0 }, { opacity: 1, duration: 1.4, ease: 'power1.inOut' }, cue('s2', 0.0));
+  tl.fromTo('#gulls', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.6, immediateRender: false }, cue('s2', 0.2));
+  tl.fromTo(ship, { x: 980, y: 790 }, { x: 580, y: 790, duration: 1.8, ease: 'power1.out' }, cue('s2', 0.3));
+  S.space.pop(tl, '#card2', cue('s2', 0.6), { overshoot: 1.1, tilt: 2, fromScale: 0.85 });
+  tl.fromTo(hull, { rotation: 0, transformOrigin: '12% 100%' }, { rotation: 13, transformOrigin: '12% 100%', duration: 0.3, ease: 'power3.out' }, cue('s2', 2.2));
+  tl.fromTo(ship, { y: 790 }, { y: 798, duration: 0.3, ease: 'power3.out', immediateRender: false }, cue('s2', 2.2));
+  tl.fromTo('#stage', { x: 0 }, { x: 6, duration: 0.05, ease: 'none', yoyo: true, repeat: 3, immediateRender: false }, cue('s2', 2.3));
+  rain.forEach(function (batch, k) { S.draw.drift(tl, batch, cue('s2', 0.4 + k * 1.9), cue('s2', 3.6 + k * 1.9), { dy: 900, dx: -260, jitterX: 30, spread: 1.2, ease: 'none' }); });
+  tl.fromTo(hull, { rotation: 13 }, { rotation: 10, duration: 1.2, ease: 'sine.inOut', yoyo: true, repeat: 9, immediateRender: false }, cue('s2', 2.6));
+
+  // ---------------------------------------------------------------- s3 escalation: closer, to the woman at the gallery
+  tl.fromTo('#card2', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s3', 0.0));
+  S.space.camera(tl, '#stage', cue('s3', 0.0), { scale: 1.22, x: -70, y: -70, duration: 3.2, ease: 'power2.inOut' });
+  tl.fromTo('#grace0', { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out' }, cue('s3', 0.8));
+  S.space.pop(tl, '#card3', cue('s3', 0.5), { overshoot: 1.1, tilt: 2, fromScale: 0.85 });
+  tl.fromTo(surv, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.14, ease: 'power2.out' }, cue('s3', 1.8));
+  tl.fromTo('#lamp', { fill: '#f0b23a' }, { fill: '#ffd36b', duration: 0.6, yoyo: true, repeat: 5, ease: 'sine.inOut' }, cue('s3', 0.4));
+
+  // ---------------------------------------------------------------- s4 turn: the quiet beat, a small boat on a big sea
+  tl.fromTo('#card3', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s4', 0.0));
+  S.space.pop(tl, '#card4', cue('s4', 0.4), { overshoot: 1.05, tilt: 1.5, fromScale: 0.9 });
+  S.space.camera(tl, '#stage', cue('s4', 0.2), { scale: 1.12, x: 40, y: -30, duration: 4.0, ease: 'sine.inOut' });
+  tl.fromTo(boat, { autoAlpha: 0, x: 300, y: 856 }, { autoAlpha: 1, x: 300, y: 856, duration: 0.4 }, cue('s4', 0.3));
+  tl.fromTo(boat, { x: 300 }, { x: 430, duration: 3.8, ease: 'sine.inOut', immediateRender: false }, cue('s4', 0.6));
+  tl.fromTo(boat, { rotation: -5, transformOrigin: '50% 100%' }, { rotation: 5, transformOrigin: '50% 100%', duration: 0.8, ease: 'sine.inOut', yoyo: true, repeat: 6, immediateRender: false }, cue('s4', 0.3));
+  tl.fromTo(oars, { rotation: 0, transformOrigin: '50% 0%' }, { rotation: 18, transformOrigin: '50% 0%', duration: 0.6, ease: 'sine.inOut', yoyo: true, repeat: 6, immediateRender: false }, cue('s4', 0.6));
+  tl.fromTo(['#skyStorm', '#waveStorm'], { opacity: 1 }, { opacity: 0.75, duration: 3.0, ease: 'sine.inOut', immediateRender: false }, cue('s4', 0.5));
+
+  // ---------------------------------------------------------------- s5 aftermath and coda: the opening composition, changed
+  tl.fromTo('#card4', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s5', 0.0));
+  S.space.camera(tl, '#stage', cue('s5', 0.0), { scale: 1, x: 0, y: 0, duration: 2.6, ease: 'power2.inOut' });
+  tl.fromTo('#skyDawn', { opacity: 0 }, { opacity: 1, duration: 2.0, ease: 'power1.inOut' }, cue('s5', 0.2));
+  tl.fromTo(['#seaBackStorm'], { opacity: 1 }, { opacity: 0, duration: 2.0, ease: 'power1.inOut', immediateRender: false }, cue('s5', 0.2));
+  tl.fromTo(['#waveStorm'], { opacity: 0.75 }, { opacity: 0, duration: 2.0, ease: 'power1.inOut', immediateRender: false }, cue('s5', 0.2));
+  tl.fromTo(surv, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.5, immediateRender: false }, cue('s5', 0.4));
+  tl.fromTo(boat, { x: 430, y: 856 }, { x: 300, y: 852, duration: 0.01, immediateRender: false }, cue('s5', 0.6));
+  tl.fromTo(saved, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.12, ease: 'power2.out' }, cue('s5', 1.2));
+  S.space.pop(tl, '#card5', cue('s5', 1.8), { overshoot: 1.05, tilt: 1.5, fromScale: 0.9 });
+  tl.fromTo('#grace0', { x: 0 }, { x: -4, duration: 1.5, ease: 'sine.inOut', yoyo: true, repeat: 2, immediateRender: false }, cue('s5', 1.0));
+  tl.fromTo('#tag', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6 }, cue('s5', 3.0));
+});
+</script>
+</body>
+</html>

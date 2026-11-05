@@ -1,0 +1,693 @@
+{
+  "spec_version": 1,
+  "target": {
+    "kind": "project",
+    "path": "projects/fridge-hack-europe",
+    "slug": "fridge-hack-europe",
+    "format": "portrait",
+    "sha256": "c4bda36cc2ce408542d6cd2da8258a177d1d5708b1c3c997b4692c61a4481dbd"
+  },
+  "generated_at": "2026-11-02T19:56:15+00:00",
+  "tool": {
+    "name": "motion-qa",
+    "version": "1.0",
+    "host": "darwin"
+  },
+  "expectations": {
+    "width": 720,
+    "height": 1280,
+    "fps": 30,
+    "duration_sec": 92,
+    "audio": true
+  },
+  "checks_run": [
+    {
+      "id": "dom-probe",
+      "status": "ran",
+      "reason": "12 samples",
+      "elapsed_sec": 5.53
+    },
+    {
+      "id": "composition-lint",
+      "status": "ran"
+    },
+    {
+      "id": "video-decode",
+      "status": "ran",
+      "elapsed_sec": 0.79
+    },
+    {
+      "id": "spec-compliance",
+      "status": "ran"
+    },
+    {
+      "id": "black-and-flat-frames",
+      "status": "ran"
+    },
+    {
+      "id": "static-holds",
+      "status": "ran"
+    },
+    {
+      "id": "repeated-composition",
+      "status": "ran"
+    },
+    {
+      "id": "transition-variety",
+      "status": "ran"
+    },
+    {
+      "id": "scene-durations",
+      "status": "ran"
+    },
+    {
+      "id": "audio-levels",
+      "status": "ran",
+      "elapsed_sec": 0.43
+    },
+    {
+      "id": "audio-cut-alignment",
+      "status": "skipped",
+      "reason": "not implemented: no onset detector is wired in (hyperframes audio could supply onsets)"
+    }
+  ],
+  "findings": [
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 3% of the frame",
+      "evidence": {
+        "occupancy": 0.028,
+        "grid": "32x18"
+      },
+      "t_sec": 11.12,
+      "beat": "s1",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 7% of the frame",
+      "evidence": {
+        "occupancy": 0.071,
+        "grid": "32x18"
+      },
+      "t_sec": 23.884,
+      "beat": "s2",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 4% of the frame",
+      "evidence": {
+        "occupancy": 0.037,
+        "grid": "32x18"
+      },
+      "t_sec": 40.74,
+      "beat": "s3",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 8% of the frame",
+      "evidence": {
+        "occupancy": 0.083,
+        "grid": "32x18"
+      },
+      "t_sec": 57.682,
+      "beat": "s4",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 7% of the frame",
+      "evidence": {
+        "occupancy": 0.067,
+        "grid": "32x18"
+      },
+      "t_sec": 72.044,
+      "beat": "s5",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 11% of the frame",
+      "evidence": {
+        "occupancy": 0.111,
+        "grid": "32x18"
+      },
+      "t_sec": 88.56,
+      "beat": "s6",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "repeat-layout-dom",
+      "class": "measured",
+      "severity": "warn",
+      "message": "4 of 6 scenes occupy nearly the same regions of the frame (s1, s2, s3, s5)",
+      "evidence": {
+        "coverage_distance_below": 0.05,
+        "grid": "32x18",
+        "calibration": "same threshold as the rendered-frame check"
+      }
+    },
+    {
+      "id": "text-echoes-narration",
+      "class": "measured",
+      "severity": "warn",
+      "message": "on-screen text in s3 repeats 83% of its own words from the narration",
+      "evidence": {
+        "scene": "s3"
+      },
+      "beat": "s3",
+      "suggestion": "show what is said instead of captioning it, unless this is a caption band"
+    },
+    {
+      "id": "text-echoes-narration",
+      "class": "measured",
+      "severity": "warn",
+      "message": "on-screen text in s6 repeats 82% of its own words from the narration",
+      "evidence": {
+        "scene": "s6"
+      },
+      "beat": "s6",
+      "suggestion": "show what is said instead of captioning it, unless this is a caption band"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "6.9s of slow drift (per-frame change tiny, but the picture moves: lag energy 0.88)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.882,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        0.0,
+        6.867
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 2.17s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.689,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        11.3,
+        13.467
+      ],
+      "beat": "s1",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 1.90s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.249,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        16.067,
+        17.967
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 1.97s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.415,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        17.967,
+        19.933
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 1.73s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.128,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        20.0,
+        21.733
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "4.1s of slow drift (per-frame change tiny, but the picture moves: lag energy 1.45)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 1.448,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        21.733,
+        25.833
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 3.33s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.472,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        27.333,
+        30.667
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 1.70s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.148,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        32.133,
+        33.833
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 2.83s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.256,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        33.9,
+        36.733
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 3.60s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.321,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        37.033,
+        40.633
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 3.23s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.387,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        44.8,
+        48.033
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 3.47s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.411,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        49.867,
+        53.333
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 2.23s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.051,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        58.267,
+        60.5
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 2.23s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.324,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        61.4,
+        63.633
+      ],
+      "beat": "s5",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "4.9s of slow drift (per-frame change tiny, but the picture moves: lag energy 1.01)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 1.01,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        63.733,
+        68.633
+      ],
+      "beat": "s5"
+    },
+    {
+      "id": "slow-drift",
+      "class": "measured",
+      "severity": "note",
+      "message": "5.1s of slow drift (per-frame change tiny, but the picture moves: lag energy 0.82)",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.822,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        69.067,
+        74.167
+      ],
+      "beat": "s5"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 5.23s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.527,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        75.267,
+        80.5
+      ],
+      "beat": "s6",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 5.43s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.497,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        80.6,
+        86.033
+      ],
+      "beat": "s6",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture frozen for 3.33s while narration speaks at the end of the film",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.176,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        88.667,
+        92.0
+      ],
+      "beat": "s6",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "end-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "the picture is unchanged for the last 3.3s",
+      "evidence": {
+        "threshold_sec": 1.4,
+        "source": "Motionmaxxing G3, adopted-unverified"
+      }
+    },
+    {
+      "id": "motion-energy",
+      "class": "measured",
+      "severity": "note",
+      "message": "median frame-to-frame luma change 0.103/255, 81% of frames static, median shot 92.0s",
+      "evidence": {
+        "motion_mean_luma_diff": 0.238,
+        "motion_median": 0.103,
+        "motion_p90": 0.551,
+        "static_share": 0.8123,
+        "cut_count": 0,
+        "cuts_per_min": 0.0
+      }
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s1: does the picture show 'A grid of 8 x 14 fridge-door tiles on a cool white sheet, each a mono readout (4 on chille' and does it deliver 'Hook: the pitched visual. Show normal, then one tile warming and the colour spreading unti'?",
+      "range_sec": [
+        0,
+        13.9
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s2: does the picture show 'The hot tile opens into a flat cutaway of a freezer case: frost furring a coil. A heater g' and does it deliver 'Explain defrost: every freezer does it on purpose; forcing it, for hours, is enough to spo'?",
+      "range_sec": [
+        13.9,
+        26.38
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s3: does the picture show 'The tile now shows a small controller box behind the fridges. A thin line runs from it up ' and does it deliver 'Why it worked: a back-room controller with a web page on the open internet, many of them o'?",
+      "range_sec": [
+        26.38,
+        44.33
+      ],
+      "beat": "s3"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s4: does the picture show 'A hero thermometer numeral in Playfair counts 4 to 50 in the top third; a mono timeline un' and does it deliver 'The damage: temperatures, fires, why the food had to go, and the scale with its source.'?",
+      "range_sec": [
+        44.33,
+        61.02
+      ],
+      "beat": "s4"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s5: does the picture show 'The grid dissolves into a tile-grid map of Europe in the same tile language (each country ' and does it deliver 'The second wave: same method, several countries, and a fix that is more than an update.'?",
+      "range_sec": [
+        61.02,
+        74.8
+      ],
+      "beat": "s5"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s6: does the picture show 'The full grid returns hot at 70% scale. The centre tile flips to an ink-outlined '?' tile ' and does it deliver 'No attribution; the three official steps; one closing idea; end hold.'?",
+      "range_sec": [
+        74.8,
+        92
+      ],
+      "beat": "s6"
+    }
+  ],
+  "summary": {
+    "objective_failures": 0,
+    "measured_warnings": 19,
+    "judgment_questions": 6,
+    "waived": 0,
+    "technical_pass": true
+  },
+  "artifacts": {
+    "scene_sheet": "projects/fridge-hack-europe/qa/motion/scene-sheet.jpg",
+    "seams": "projects/fridge-hack-europe/qa/motion/seams.jpg",
+    "critique_template": "projects/fridge-hack-europe/qa/motion/critique.template.json"
+  },
+  "critique_prompts": [
+    "Describe each frame on the scene sheet in one sentence before judging: what is on screen, what is the hero, would it pass as a slide?",
+    "Does each beat make the viewer see the idea, or only read a description of it? Name the visual event that carries it.",
+    "Is emphasis spent or spread? Which beat is the point of the film, and does it get the hardest visual work?",
+    "At each seam (seams.jpg): what carries the eye across the transition (shape, position, colour, motion)? Is the transition motivated or decorative?",
+    "Is stillness anywhere designed (a reason you can state) or accidental? Is any motion decoration with no job?",
+    "Does the sound support pacing, with silence before what matters? (listen; the audio-cut-alignment check did not run)",
+    "Does the ending feel designed, and does it end smaller or quieter than it began?"
+  ]
+}

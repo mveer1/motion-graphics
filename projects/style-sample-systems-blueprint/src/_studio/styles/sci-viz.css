@@ -1,0 +1,38 @@
+/*
+ * Style system: sci-viz. Deep blue-black laboratory field with teal and amber data accents, precise mono labels and slow instrument-like motion; for spatial models, cross-sections and exploded views.
+ */
+:root {
+  --c-paper: #0a1420;
+  --c-paper-2: #101e2e;
+  --c-ink: #e8f1f8;
+  --c-ink-2: #9db3c6;
+  --c-rule: #25405a;
+  --c-accent: #3ad0c4;
+  --c-accent-2: #f2a93b;
+  --c-accent-3: #7c9cff;
+  --c-highlight: rgba(58,208,196,0.28);
+  --c-positive: #6fd39a;
+  --c-negative: #ff7a6b;
+  --c-info: #7c9cff;
+  --c-caption-ink: #e8f1f8;
+  --c-caption-bg: rgba(10,20,32,0.82);
+
+  --font-display: 'Inter', sans-serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 600;
+  --fw-heading: 500;
+  --track-display: -0.01em;
+  --track-kicker: 0.2em;
+
+  --ease-out: power3.out;
+  --ease-in: power2.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 0.9;
+  --dur-exit: 0.63;
+  --stagger: 0.09;
+
+  --grain-blend: screen;
+}
+
+.st-label{font-family:var(--font-mono);letter-spacing:var(--track-kicker);text-transform:uppercase}

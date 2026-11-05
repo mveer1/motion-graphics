@@ -1,0 +1,271 @@
+{
+  "$schema": "../../specs/research-spec.json",
+  "metadata": {
+    "topic_id": "fridge-hack-europe",
+    "title": "The 2026 European supermarket refrigeration attacks",
+    "domain": "networking",
+    "difficulty": "introductory",
+    "target_duration_sec": {
+      "min": 70,
+      "max": 105,
+      "target": 90
+    },
+    "canonical_sources": [
+      {
+        "title": "2026 French supermarket refrigerator hack (consulted 2026-11-02)",
+        "authors": "Wikipedia contributors",
+        "year": 2026,
+        "source_type": "textbook",
+        "url": "https://en.wikipedia.org/wiki/2026_French_supermarket_refrigerator_hack"
+      },
+      {
+        "title": "Cyberattack on supermarkets' refrigerators in France: fires and food losses (consulted 2026-11-02)",
+        "authors": "CBS News / AFP",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://www.cbsnews.com/news/cyberattack-supermarkets-refrigerators-france-fires-food-losses/"
+      },
+      {
+        "title": "Second wave of refrigeration cyberattacks hits European supermarkets (consulted 2026-11-02)",
+        "authors": "Help Net Security",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://helpnetsecurity.com/2026/11/02/european-supermarkets-refrigeration-units-cyberattacks"
+      },
+      {
+        "title": "A fresh wave of cyberattacks has hit Europe's supermarket refrigerators (consulted 2026-11-02)",
+        "authors": "TechCrunch",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://techcrunch.com/2026/11/02/a-fresh-wave-of-cyberattacks-has-hit-europes-supermarket-refrigerators-destroying-food-across-countries/"
+      },
+      {
+        "title": "Freeze the Controller, Defrost the Food: vulnerabilities in Danfoss refrigeration controllers (consulted 2026-11-02)",
+        "authors": "Claroty Team82",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://claroty.com/team82/research/freeze-the-controller-defrost-the-food-uncovering-vulnerabilities-in-danfoss-refrigeration-controllers"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "Cyberattacks usually mean stolen data or locked screens. In October and November 2026 attackers used the internet to heat supermarket fridges and spoil food, with no malware on any shop floor.",
+    "core_thesis": "Attackers forced defrost mode on internet-exposed refrigeration controllers in France (11-12 October 2026) and again across several European countries (1-2 November 2026); the controllers were often old, unpatched and online, and nobody has been identified.",
+    "mental_model": "A grid of fridge doors, each showing its temperature. A cyberattack is a colour that spreads across the grid, from cold ultramarine to hot vermilion, with no break-in visible anywhere.",
+    "key_takeaway": "The weak point was not the fridge but the forgotten controller behind it: a web page on the open internet deciding whether food stays safe.",
+    "verified_claims": [
+      "First wave: overnight 11-12 October 2026 in France; Intermarche, Cooperative U and E.Leclerc confirmed to AFP on Monday 12 October [CBS News, Wikipedia].",
+      "Attackers forced defrost mode on refrigeration controllers; some freezers were reportedly extended from a one-hour to an eight-hour defrost [Wikipedia; search summary of Reuters-syndicated coverage; medium confidence].",
+      "Many cases reached about 50 C after about six hours; one Normandy store reported 80 C [Wikipedia].",
+      "Paris prosecutors confirmed the attack sparked fires and opened an investigation; Intermarche said affected branches must discard all fresh and frozen products [CBS News].",
+      "The French economy minister cited about 700 of roughly 10,000 supermarket locations; chain-level counts conflict (300+ Intermarche/Netto, Carrefour 80, Cooperative U 80 to 100+) [Wikipedia, CBS News, BFM TV via CBS].",
+      "Danfoss named the AK-SM800 and AK-SC355 regulators and said most affected equipment was legacy product no longer receiving security updates; ANSSI also named Copeland and Dixell systems [CBS News, Help Net Security].",
+      "The controllers' web interfaces were reachable from the public internet; Claroty's Censys scan counted 2,765 exposed AK-SM 800A devices [Claroty Team82].",
+      "Claroty documented a code-of-the-day authentication bypass (CVE-2025-41450, CVSS 8.2) in which the accepted password is derived from the device's current date, plus a command injection (CVE-2025-41451); fixed in firmware R4.3.1 [Claroty Team82].",
+      "Whether the attackers used those exact flaws is not confirmed [Wikipedia and several outlets].",
+      "Alarms were reportedly disabled or went unnoticed, so stores found out when staff arrived [search summary; medium confidence].",
+      "Second wave: overnight Sunday 1 to Monday 2 November 2026 in Belgium, Luxembourg, Sweden, Ireland, Estonia, the Netherlands and Finland; Ahold Delhaize and Colruyt confirmed hacks [Help Net Security, TechCrunch, BBC via Help Net Security].",
+      "A Belgian refrigeration firm (Sabcobel) says a thorough fix needs both a software update and physical modification of the units [Help Net Security].",
+      "No attribution for either wave; Ken Munro (Pen Test Partners) said it could be 'kids messing around' given how easy the exploit is [Wikipedia].",
+      "Food safety: danger zone begins at about 5 C; bacteria can double in as little as 20 minutes in the zone [USDA FSIS; Australian state food authorities]."
+    ],
+    "anti_patterns": [
+      "Do not say the fridges were 'turned off'; they were forced into defrost and heated.",
+      "Do not state that the Claroty flaws were the attack path; say it is unconfirmed.",
+      "Do not name a culprit, a country or a state actor; no attribution exists.",
+      "Do not give a single store count as fact; attribute it ('per the economy minister').",
+      "Do not quote euro loss totals; sources conflict and none is audited.",
+      "Do not name vendors for the November wave; they are unconfirmed.",
+      "Do not show real brand logos or store fronts; use neutral fridge-door tiles and plain-text retailer names only where reporting names them.",
+      "Do not imply the attack endangered people directly; the harm reported is spoiled food and equipment fires.",
+      "Do not use red-alert HUD, hacker-in-hoodie or green-matrix imagery."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "fridge",
+        "symbol_latex": "\\text{fridge}",
+        "name": "Supermarket refrigerated case or freezer",
+        "type_or_domain": "equipment",
+        "role": "Holds food at about 4 C (chilled) or -18 C (frozen); the thing that warms"
+      },
+      {
+        "id": "controller",
+        "symbol_latex": "\\text{controller}",
+        "name": "Refrigeration system manager (for example Danfoss AK-SM800 series, Copeland and Dixell XWEB)",
+        "type_or_domain": "network device",
+        "role": "Back-room box with a web page that sets temperatures, defrost schedules and alarms"
+      },
+      {
+        "id": "defrost",
+        "symbol_latex": "\\text{defrost}",
+        "name": "Defrost cycle",
+        "type_or_domain": "process",
+        "role": "Heats the evaporator coil to melt frost; normally short, here forced and extended"
+      },
+      {
+        "id": "internet",
+        "symbol_latex": "\\text{internet}",
+        "name": "Public internet exposure",
+        "type_or_domain": "network",
+        "role": "The controller web page reachable by anyone who finds it"
+      },
+      {
+        "id": "waves",
+        "symbol_latex": "\\text{waves}",
+        "name": "Two attack waves",
+        "type_or_domain": "timeline",
+        "role": "France 11-12 Oct 2026; Belgium, Luxembourg, Sweden, Ireland and others 1-2 Nov 2026"
+      }
+    ],
+    "equations": [],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Normal night",
+        "mathematical_operation": "chilled case = 4 C; freezer = -18 C; compressor running",
+        "state_effect": "Grid of fridge tiles, all cold"
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Forced defrost",
+        "mathematical_operation": "controller.defrost = ON; duration normally short, reportedly stretched to 8 h",
+        "state_effect": "Compressor hum stops; coil heaters run; tiles begin to warm"
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Heat spreads",
+        "mathematical_operation": "case temperature reaches about 50 C after about 6 h; one store reports 80 C",
+        "state_effect": "Whole grid turns vermilion; fires reported at some stores"
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Food is lost",
+        "mathematical_operation": "temperature > 5 C for hours => bacterial growth; stock discarded",
+        "state_effect": "Tiles empty; about 700 stores per the French economy minister"
+      },
+      {
+        "step_number": 5,
+        "phase_name": "Second wave",
+        "mathematical_operation": "same method, 1-2 Nov 2026, several countries",
+        "state_effect": "The grid becomes a map of Europe; new dots warm"
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "thermal-grid",
+      "abstract_concept": "A cyberattack made visible as heat spreading through a grid of fridges",
+      "visual_archetype": "matrix_grid_transform",
+      "svg_primitives": ["rect", "text", "circle"],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "grid-wave colour contagion, counter-roll degrees",
+      "color_token": "gradient_error_coral"
+    },
+    {
+      "concept_id": "defrost-cutaway",
+      "abstract_concept": "Defrost as a feature turned against the machine",
+      "visual_archetype": "before_after_transformation",
+      "svg_primitives": ["path", "rect", "line"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "frost melts off the coil; heater glow; cycle timer stretches",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "exposed-controller",
+      "abstract_concept": "The forgotten back-room box facing the open internet",
+      "visual_archetype": "spatial_map_spread",
+      "svg_primitives": ["rect", "circle", "line"],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "single controller tile with a line out to a field of dots (exposed devices)",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "two-sunday-nights",
+      "abstract_concept": "Two waves three weeks apart, both beginning on a Sunday night",
+      "visual_archetype": "timeline_sequence",
+      "svg_primitives": ["line", "circle", "text"],
+      "spatial_anchor": "bottom_dock_timeline",
+      "motion_pattern": "two stamped dates on a thin timeline; the second ignites a map of countries",
+      "color_token": "gradient_error_coral"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_adam",
+    "speech_rate": 1.15,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "Danfoss",
+        "phonetic_respelling": "DAN-foss",
+        "rationale": "Danish company name; Kokoro may stress it wrongly."
+      },
+      {
+        "term": "Claroty",
+        "phonetic_respelling": "kla-ROH-tee",
+        "rationale": "Security firm; unfamiliar spelling. Only voiced if the script names it."
+      },
+      {
+        "term": "Luxembourg",
+        "phonetic_respelling": "LUK-sem-burg",
+        "rationale": "Keeps the stress on the first syllable."
+      },
+      {
+        "term": "eighteen below",
+        "phonetic_respelling": "eighteen below",
+        "rationale": "Say 'minus eighteen' only if 'below' reads ambiguously in the take."
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "Four degrees",
+      "target_duration_sec": 13,
+      "pedagogical_objective": "Date, place, what normal looks like, then the first tile warms and the grid follows",
+      "visual_action": "A grid of fridge tiles reading 4 and -18; one tile ticks up; colour spreads in a wave until the grid is hot",
+      "active_entities": ["fridge", "waves"]
+    },
+    {
+      "scene_id": "s2",
+      "title": "A feature, not a bug",
+      "target_duration_sec": 14,
+      "pedagogical_objective": "Explain defrost and why forcing it is enough to spoil food",
+      "visual_action": "One tile expands into a cutaway: frost on a coil melts, a short cycle timer is dragged out to eight hours",
+      "active_entities": ["fridge", "defrost"]
+    },
+    {
+      "scene_id": "s3",
+      "title": "The open door",
+      "target_duration_sec": 18,
+      "pedagogical_objective": "The controller on the internet, old and unpatched; the known flaw, honestly caveated",
+      "visual_action": "A small controller box sits behind the fridges; a line runs from it to a field of exposed dots; a daily code is stamped and a question mark hangs over 'used?'",
+      "active_entities": ["controller", "internet"]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Hours in the dark",
+      "target_duration_sec": 16,
+      "pedagogical_objective": "Temperatures, fires, the danger zone, scale",
+      "visual_action": "Thermometer-style readout counts 4 to 50, one tile spikes to 80; the 5 C line is marked; tiles empty out; about 700 of about 10,000 stores marked",
+      "active_entities": ["fridge", "defrost"]
+    },
+    {
+      "scene_id": "s5",
+      "title": "Again",
+      "target_duration_sec": 12,
+      "pedagogical_objective": "Second wave, countries, the fix needs more than an update",
+      "visual_action": "Grid dissolves into a dot map of Europe; second date stamped; countries light up; 'software + physical change' label",
+      "active_entities": ["waves", "controller"]
+    },
+    {
+      "scene_id": "s6",
+      "title": "Who, and what now",
+      "target_duration_sec": 18,
+      "pedagogical_objective": "No attribution; officials' three steps; the closing idea",
+      "visual_action": "Question-mark tile; three checklist lines write on; the grid cools back to ultramarine one tile at a time and holds",
+      "active_entities": ["controller", "fridge"]
+    }
+  ]
+}

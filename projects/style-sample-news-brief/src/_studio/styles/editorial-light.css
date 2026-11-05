@@ -1,0 +1,37 @@
+/*
+ * Style system: editorial-light (workspace default). Warm paper, ink and one purposeful accent.
+ * Fonts are HyperFrames-bundled families (resolve by name at render) with generic fallbacks.
+ */
+:root {
+  --c-paper: #f4efe6;
+  --c-paper-2: #ebe3d4;
+  --c-ink: #1e1b16;
+  --c-ink-2: #5b5347;
+  --c-rule: #cfc5b3;
+  --c-accent: #b8432a;
+  --c-accent-2: #2f5d50;
+  --c-accent-3: #d9a441;
+  --c-highlight: rgba(217, 164, 65, 0.42);
+  --c-positive: #2f7d4f;
+  --c-negative: #b23a2e;
+  --c-info: #2d5b8c;
+  --c-caption-ink: #fffaf2;
+  --c-caption-bg: rgba(30, 27, 22, 0.84);
+
+  --font-display: 'Playfair Display', serif;
+  --font-text: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: -0.015em;
+  --track-kicker: 0.16em;
+
+  --ease-out: power3.out;
+  --ease-in: power2.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 0.75;
+  --dur-exit: 0.45;
+  --stagger: 0.06;
+
+  --grain-blend: multiply;
+}

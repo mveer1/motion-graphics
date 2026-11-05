@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Style sample: science-atlas</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:300px;--safe-left:43px;}</style>
+  <style>
+    /* science-atlas sample: one specimen at true scale, opened rather than swapped; the scale bar never leaves. */
+    #root { background: var(--c-paper); }
+    #art, #fixed { position: absolute; left: 0; top: 0; width: 720px; height: 1280px; }
+    .ns { vector-effect: non-scaling-stroke; }
+    .edge { fill: none; stroke: var(--c-ink); stroke-width: 2.5; }
+    .lead { fill: none; stroke: var(--c-ink); stroke-width: 1.8; }
+    .field { fill: none; stroke: var(--c-info); stroke-width: 2.2; stroke-linecap: round; }
+    .bar { fill: none; stroke: var(--c-ink); stroke-width: 3; }
+    .bore { fill: none; stroke: var(--c-ink); stroke-width: 3; stroke-linecap: round; }
+    .lbl { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 23px; fill: var(--c-ink); }
+    .lbl .m { font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 21px; fill: var(--c-ink-2); }
+    .sw { stroke: var(--c-ink); stroke-width: 1.2; }
+    .barl { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 22px; fill: var(--c-ink); }
+
+    .kick { position: absolute; left: 43px; top: 140px; width: 605px; font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 22px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-accent-2); }
+    .head { position: absolute; left: 43px; top: 180px; width: 605px; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 46px; line-height: 1.08; color: var(--c-ink); }
+    .head em { font-style: normal; color: var(--c-accent); }
+    .note { position: absolute; left: 400px; top: 640px; width: 250px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 23px; line-height: 1.25; color: var(--c-ink); }
+    #noteC small { color: #f1e2c6; }
+    .note small { display: block; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 21px; color: var(--c-ink-2); }
+    .tag { position: absolute; left: 43px; top: 1040px; width: 640px; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 22px; letter-spacing: 0.06em; color: var(--c-ink-2); }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="22">
+
+  <svg id="art" viewBox="0 0 720 1280" aria-hidden="true">
+    <defs>
+      <clipPath id="disc"><circle cx="270" cy="590" r="210"/></clipPath>
+      <clipPath id="cut"><path id="sector"/></clipPath>
+    </defs>
+    <g id="breathe"><g id="specimen">
+      <g id="outside" clip-path="url(#disc)">
+        <circle cx="270" cy="590" r="210" fill="#8fb3c9"/>
+        <g id="land"></g>
+      </g>
+      <g id="inside" clip-path="url(#cut)">
+        <circle cx="270" cy="590" r="209.6" fill="#e2b664"/>
+        <path id="crust" fill="#7a5236"/>
+        <circle cx="270" cy="590" r="114.7" fill="#cf7440"/>
+        <g id="flow"></g>
+        <circle cx="270" cy="590" r="40.2" fill="#b8432a"/>
+        <path id="boreLine" class="bore ns"/>
+      </g>
+      <circle class="edge ns" cx="270" cy="590" r="210"/>
+      <path id="radius" class="lead ns" d="M270 380 L270 590"/>
+    </g></g>
+    <g id="fieldLines"></g>
+    <g id="labels"></g>
+  </svg>
+
+  <svg id="fixed" viewBox="0 0 720 1280" aria-hidden="true">
+    <g id="scale">
+      <path class="bar" d="M45 822 L45 810 M45 816 L143.9 816 M143.9 810 L143.9 822"/>
+      <text class="barl" id="b3000" x="45" y="854">3,000 km</text>
+      <text class="barl" id="b50" x="45" y="854">50 km</text>
+    </g>
+  </svg>
+
+  <div class="kick" id="kick">Inside the Earth, to scale</div>
+  <div class="head" id="h1">6,371 km from your feet to the centre</div>
+  <div class="head" id="h2">Cut it open: four layers</div>
+  <div class="head" id="h3">At true scale, the crust is a <em>thin skin</em></div>
+  <div class="head" id="h4">Flowing liquid iron makes the magnetic field</div>
+  <div class="head" id="h5">Our deepest hole: <em>0.2%</em> of the way down</div>
+  <div class="note" id="noteC" style="top:570px;color:#fff8ec">Crust<small>5 to 70 km thick</small></div>
+  <div class="note" id="noteB" style="top:690px">Deepest hole, 12.3 km<small>Kola borehole, 1989</small></div>
+  <div class="tag" id="tag" style="opacity:0;visibility:hidden">STYLE SAMPLE · science-atlas v1 · editorial-light</div>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var cue = S.cues({ s1: 0, s2: 3.6, s3: 9.0, s4: 14.0, s5: 18.0, end: 22 });
+  var $ = function (id) { return document.getElementById(id); };
+  var CX = 270, CY = 590, R = 210;              // R stands for 6,371 km: 1 px = 30.3 km
+  var KM = R / 6371;
+
+  // Crust as a real annulus, 35 km thick (1.15 px): a hairline at 1x, a band at 60x.
+  function ring(r1, r2) {
+    return 'M' + (CX - r1) + ' ' + CY + ' A' + r1 + ' ' + r1 + ' 0 1 0 ' + (CX + r1) + ' ' + CY + ' A' + r1 + ' ' + r1 + ' 0 1 0 ' + (CX - r1) + ' ' + CY + ' Z' +
+      ' M' + (CX - r2) + ' ' + CY + ' A' + r2 + ' ' + r2 + ' 0 1 1 ' + (CX + r2) + ' ' + CY + ' A' + r2 + ' ' + r2 + ' 0 1 1 ' + (CX - r2) + ' ' + CY + ' Z';
+  }
+  $('crust').setAttribute('d', ring(R, R - 35 * KM));
+  $('boreLine').setAttribute('d', 'M270 380 L270 ' + (380 + 12.262 * KM).toFixed(3));
+
+  // The cut: a sector with a fixed vertex count from angle 0 (3 o'clock), so every opening morphs cleanly.
+  function sector(deg) {
+    var n = 48, d = 'M' + CX + ' ' + CY;
+    for (var i = 0; i <= n; i++) {
+      var a = (deg * i / n) * Math.PI / 180;
+      d += ' L' + (CX + 260 * Math.cos(a)).toFixed(2) + ' ' + (CY + 260 * Math.sin(a)).toFixed(2);
+    }
+    return d + ' Z';
+  }
+  $('sector').setAttribute('d', sector(0.01));
+
+  // Land: a few seeded blobs, clipped to the disc.
+  [[210, 470, 70, 11], [360, 560, 54, 23], [240, 690, 60, 37], [380, 700, 36, 51]].forEach(function (b) {
+    var d = S.draw.blob(b[3], { cx: b[0], cy: b[1], r: b[2], points: 9, wobble: 0.35 });
+    S.svg('path', { d: d, fill: '#c9c99b' }, $('land'));
+  });
+
+  // Labels under the disc, each with a leader into the opened quadrant.
+  // [name, detail, baseline y, target point in the opened quadrant]
+  var LB = [
+    ['crust', '5 to 70 km', 600, [477, 626]],
+    ['mantle', 'to 2,890 km', 690, [413, 672]],
+    ['outer core', 'liquid', 780, [321, 651]],
+    ['inner core', 'solid', 870, [280, 607]]
+  ];
+  var swatch = ['#7a5236', '#e2b664', '#cf7440', '#b8432a'];
+  var labelEls = LB.map(function (l, i) {
+    var g = S.svg('g', null, $('labels'));
+    var lead = S.svg('path', { 'class': 'lead', d: 'M496 ' + (l[2] - 8) + ' L' + l[3][0] + ' ' + l[3][1] }, g);
+    S.svg('circle', { cx: l[3][0], cy: l[3][1], r: 4, fill: 'var(--c-ink)' }, g);
+    S.svg('rect', { 'class': 'sw', x: 504, y: l[2] - 17, width: 16, height: 16, fill: swatch[i] }, g);
+    var t = S.svg('text', { 'class': 'lbl', x: 528, y: l[2] }, g);
+    t.textContent = l[0];
+    var m = S.svg('text', { 'class': 'lbl', x: 504, y: l[2] + 28 }, g);
+    S.svg('tspan', { 'class': 'm' }, m).textContent = l[1];
+    return { g: g, lead: lead };
+  });
+
+  // Outer-core flow: seeded particles that circulate with the liquid.
+  var parts = [], r = S.rng(77);
+  for (var i = 0; i < 46; i++) {
+    var rad = 50 + r() * 58, a = r() * Math.PI * 2;
+    parts.push(S.svg('circle', { cx: (CX + rad * Math.cos(a)).toFixed(1), cy: (CY + rad * Math.sin(a)).toFixed(1), r: (1.6 + r() * 1.8).toFixed(1), fill: '#fff2d6' }, $('flow')));
+  }
+  // Dipole field lines outside the planet.
+  [[1.45, 0.9], [1.9, 1.25], [2.4, 1.6]].forEach(function (k) {
+    ['L', 'R'].forEach(function (side) {
+      var s = side === 'L' ? -1 : 1, w = R * k[0] * 0.55 * s, h = R * k[1];
+      var d = 'M' + CX + ' ' + (CY - R * 0.92) + ' C' + (CX + w * 1.6) + ' ' + (CY - h) + ' ' + (CX + w * 1.6) + ' ' + (CY + h) + ' ' + CX + ' ' + (CY + R * 0.92);
+      S.svg('path', { 'class': 'field', d: d }, $('fieldLines'));
+    });
+  });
+
+  function lines(sel) { return S.type.split(sel, { type: 'lines', mask: 'lines' }).lines; }
+  var kick = lines('#kick'), H = [1, 2, 3, 4, 5].map(function (n) { return lines('#h' + n); });
+  function swapHead(a, b, at) { if (a) S.type.exit(tl, H[a - 1], at - 0.25); S.type.rise(tl, H[b - 1], at); }
+  function cut(fromDeg, toDeg, at, dur) {
+    tl.fromTo('#sector', { attr: { d: sector(fromDeg) } }, { attr: { d: sector(toDeg) }, duration: dur, ease: 'power2.inOut', immediateRender: false }, at);
+  }
+  var Z = 60, focus = { x: 270, y: 380 }, to = { x: 360, y: 560 };
+  function camera(fromS, toS, at, dur) {
+    var tx = function (s) { return s === 1 ? 0 : to.x - focus.x; }, ty = function (s) { return s === 1 ? 0 : to.y - focus.y; };
+    tl.fromTo('#specimen', { scale: fromS, x: tx(fromS), y: ty(fromS), svgOrigin: focus.x + ' ' + focus.y },
+      { scale: toS, x: tx(toS), y: ty(toS), svgOrigin: focus.x + ' ' + focus.y, smoothOrigin: false, duration: dur, ease: 'power3.inOut', immediateRender: false }, at);
+  }
+  gsap.set('#specimen', { scale: 1, x: 0, y: 0, svgOrigin: focus.x + ' ' + focus.y });
+
+  // ---------------------------------------------------------------- s1 hook: the specimen whole, a scale bar from frame 1
+  S.type.rise(tl, kick, cue('s1', 0.1));
+  swapHead(0, 1, cue('s1', 0.4));
+  S.draw.stroke(tl, '#radius', cue('s1', 1.4), { duration: 1.0, ease: 'power2.inOut' });
+  tl.fromTo('#land', { rotation: 0, svgOrigin: CX + ' ' + CY }, { rotation: -14, svgOrigin: CX + ' ' + CY, duration: 22, ease: 'none' }, cue('s1'));
+  tl.fromTo('#radius', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4, immediateRender: false }, cue('s2', 0.2));
+
+  // ---------------------------------------------------------------- s2 cutaway: open one quadrant, label the parts
+  swapHead(1, 2, cue('s2', 0.2));
+  cut(0.01, 90, cue('s2', 0.3), 1.4);
+  labelEls.forEach(function (l, i) {
+    var t = cue('s2', 1.8 + i * 0.8);
+    S.draw.stroke(tl, l.lead, t, { duration: 0.4 });
+    tl.fromTo(l.g.querySelectorAll('rect, text, circle'), { autoAlpha: 0, x: -6 }, { autoAlpha: 1, x: 0, duration: 0.35, ease: 'power2.out' }, t + 0.25);
+  });
+
+  // ---------------------------------------------------------------- s3 scale ladder: 60x into the crust, the bar re-labelled
+  tl.fromTo('#labels', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.4, immediateRender: false }, cue('s3', 0.0));
+  cut(90, 360, cue('s3', 0.1), 1.2);
+  swapHead(2, 3, cue('s3', 0.4));
+  camera(1, Z, cue('s3', 1.2), 2.4);
+  tl.fromTo('#b3000', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s3', 1.4));
+  tl.fromTo('#b50', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, cue('s3', 3.4));
+  tl.fromTo('#noteC', { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, cue('s3', 3.5));
+  tl.fromTo('#noteB', { autoAlpha: 0, x: -10 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power2.out' }, cue('s3', 4.2));
+  tl.fromTo('#boreLine', { strokeWidth: 3 }, { strokeWidth: 6, duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, cue('s3', 4.3));
+
+  // ---------------------------------------------------------------- s4 process: back out; the outer core flows, the field draws
+  tl.fromTo(['#noteC', '#noteB'], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s4', -0.1));
+  camera(Z, 1, cue('s4', 0.0), 1.8);
+  tl.fromTo('#b50', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.3, immediateRender: false }, cue('s4', 0.1));
+  tl.fromTo('#b3000', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: false }, cue('s4', 1.7));
+  swapHead(3, 4, cue('s4', 0.4));
+  tl.fromTo(parts, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.01 }, cue('s4', 1.0));
+  tl.fromTo('#flow', { rotation: 0, svgOrigin: CX + ' ' + CY }, { rotation: 130, svgOrigin: CX + ' ' + CY, duration: 7.0, ease: 'none' }, cue('s4', 1.0));
+  S.draw.stroke(tl, '#fieldLines path', cue('s4', 1.8), { duration: 1.1, stagger: 0.15 });
+
+  // ---------------------------------------------------------------- s5 close: the whole specimen again, with the finding
+  cut(360, 0.01, cue('s5', 0.2), 1.2);
+  tl.fromTo('#fieldLines', { autoAlpha: 1 }, { autoAlpha: 0.35, duration: 0.8, immediateRender: false }, cue('s5', 0.4));
+  swapHead(4, 5, cue('s5', 0.8));
+  // Second draw of the radius: immediateRender:false so it never hides the first one early.
+  tl.fromTo('#radius', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01, immediateRender: false }, cue('s5', 1.8));
+  tl.fromTo('#radius', { strokeDashoffset: $('radius').__studioLen }, { strokeDashoffset: 0, duration: 1.0, ease: 'power2.inOut', immediateRender: false }, cue('s5', 1.8));
+  tl.fromTo('#breathe', { scale: 1, svgOrigin: CX + ' ' + CY }, { scale: 1.03, svgOrigin: CX + ' ' + CY, duration: 3.0, ease: 'sine.inOut' }, cue('s5', 1.0));
+  tl.fromTo('#tag', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, cue('s5', 2.6));
+});
+</script>
+</body>
+</html>

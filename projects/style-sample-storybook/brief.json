@@ -1,0 +1,100 @@
+{
+  "spec_version": 1,
+  "slug": "style-sample-storybook",
+  "title": "Style sample: storybook",
+  "categories": [
+    "storytelling",
+    "history"
+  ],
+  "objective": "Show what a storybook film looks like: layered cut paper whose acts change through palette and light.",
+  "audience": "The Motion Lab team, reviewing what each style template looks like before using it.",
+  "platforms": [
+    "instagram-reels"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 18,
+      "target": 22,
+      "max": 30
+    }
+  },
+  "message": {
+    "core_message": "On 7 September 1838 Grace Darling and her father rowed out from Longstone Lighthouse and saved nine people.",
+    "key_points": [
+      "Sets the place and date.",
+      "Brings in the stakes.",
+      "Introduces the person who acts next.",
+      "The act of courage.",
+      "Returns to the start with the outcome."
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "clarity"
+    ],
+    "keywords": [
+      "storybook",
+      "paper-cut",
+      "style sample"
+    ],
+    "avoid": [
+      "dark backgrounds by default",
+      "filler motion",
+      "static holds over 3 seconds"
+    ]
+  },
+  "constraints": [
+    "Silent: no narration, music or effects; the picture carries it.",
+    "Built to style template storybook v2; scene roles follow its scene grammar."
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "none",
+    "music": "none",
+    "sfx": "none",
+    "captions": false
+  },
+  "research": {
+    "required": false,
+    "reason": "Style sample for look review, not a release. On-screen facts are a few well-established figures checked by hand; the source is named on screen. The Forfarshire wreck and the Darlings' rescue of nine survivors (7 September 1838) are well documented."
+  },
+  "complexity": "simple",
+  "creative_directions": [
+    {
+      "id": "template",
+      "name": "storybook template",
+      "concept": "A 22-second walk through the storybook template's scene grammar on a subject that fits its visual job: The keeper's daughter.",
+      "visual_identity": {
+        "style_system": "paper-cut",
+        "palette": "paper-cut tokens",
+        "typography": "paper-cut families",
+        "texture": "per style system"
+      },
+      "motion_language": {
+        "personality": "per template motion signature",
+        "signature_moves": [
+          "hook-scene",
+          "disruption",
+          "escalation",
+          "turn",
+          "aftermath"
+        ],
+        "transitions": "per template"
+      },
+      "composition": {
+        "approach": "Portrait only: copy in the top band, the hero in the middle, captions above the bottom UI zone."
+      },
+      "pacing": "A planned visual event at least every 2 seconds.",
+      "why_it_fits": "It is the template's own grammar, so the sample shows the template rather than one film's choices."
+    }
+  ],
+  "selected_direction": "template",
+  "success_criteria": [
+    "Each scene role of the template is recognisable",
+    "No frame holds still for more than 2.5 s"
+  ]
+}

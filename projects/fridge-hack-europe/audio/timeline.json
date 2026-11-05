@@ -1,0 +1,65 @@
+{
+  "project": "fridge-hack-europe",
+  "voice": "am_adam",
+  "speed": 1.15,
+  "pause_sec": 0.5,
+  "total_duration_sec": 89.6,
+  "target_fps": 30,
+  "total_frames": 2688,
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Four degrees",
+      "text": "Sunday night, October eleventh. Across France, supermarket fridges hummed at four degrees, freezers at eighteen below. By Monday, hundreds of stores were throwing everything out. Nobody had broken in. The machines had been told to warm up.",
+      "clip_path": "audio/s1.wav",
+      "duration_sec": 13.4,
+      "start_time_sec": 0.0,
+      "end_time_sec": 13.4
+    },
+    {
+      "id": "s2",
+      "title": "A feature, not a bug",
+      "text": "The weapon was a feature. Every freezer ices up, so it regularly heats its own coils to melt the frost. Normally that's a short cycle. This time defrost was forced on, and reports say some ran for eight hours.",
+      "clip_path": "audio/s2.wav",
+      "duration_sec": 11.975,
+      "start_time_sec": 13.9,
+      "end_time_sec": 25.875
+    },
+    {
+      "id": "s3",
+      "title": "The open door",
+      "text": "Behind the cases sits a controller with its own web page, and in many stores it faced the open internet. DAN-foss says most affected units were old models with no security updates. Researchers had already found a hidden daily password, built from the date. Whether that exact flaw was used is unconfirmed.",
+      "clip_path": "audio/s3.wav",
+      "duration_sec": 17.45,
+      "start_time_sec": 26.375,
+      "end_time_sec": 43.825
+    },
+    {
+      "id": "s4",
+      "title": "Hours in the dark",
+      "text": "The alarms were reportedly silenced, so staff found out at opening. Cases reached about fifty degrees. One store reported eighty. Some equipment caught fire. Above five degrees, bacteria multiply fast, so it all went. France's economy minister cited about seven hundred stores.",
+      "clip_path": "audio/s4.wav",
+      "duration_sec": 16.2,
+      "start_time_sec": 44.325,
+      "end_time_sec": 60.525
+    },
+    {
+      "id": "s5",
+      "title": "Again",
+      "text": "Three weeks later, another Sunday night. Belgium, LUK-sem-burg, Sweden, Ireland and others reported the same pattern. A Belgian refrigeration firm says a real fix needs new software and a physical change to the unit.",
+      "clip_path": "audio/s5.wav",
+      "duration_sec": 13.275,
+      "start_time_sec": 61.025,
+      "end_time_sec": 74.3
+    },
+    {
+      "id": "s6",
+      "title": "Who, and what now",
+      "text": "Nobody has claimed it. One expert said it could be kids messing around; governments have the skills too. Officials' advice is plain: take controllers off the internet, update the firmware, check the defrost schedule. When the thermostat is online, so is the food supply.",
+      "clip_path": "audio/s6.wav",
+      "duration_sec": 14.8,
+      "start_time_sec": 74.8,
+      "end_time_sec": 89.6
+    }
+  ]
+}
