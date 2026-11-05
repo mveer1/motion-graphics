@@ -156,14 +156,28 @@
   };
 
   /**
-   * Caption band in the bottom safe area. cues: [{start, end, text}] in seconds, non-overlapping.
-   * The band carries data-layout-allow-caption-zone for HyperFrames' caption-zone gate.
+   * Caption band in the bottom safe area. cues: [{start, end, text, words?}] in seconds, non-overlapping.
+   * A cue with measured word times (words: [{text, start, end}], written by `studio.py captions --timing words`)
+   * shows the word being spoken in --c-caption-hl (default: the style's third accent); options.highlight
+   * false turns that off. The band carries data-layout-allow-caption-zone for HyperFrames' caption-zone gate.
    */
   C.captions = function (parent, cues, options) {
     var o = options || {};
     var band = Studio.el('div', 'st-captions' + (o.className ? ' ' + o.className : ''), null, parent);
     band.setAttribute('data-layout-allow-caption-zone', '');
-    var els = cues.map(function (c) { return Studio.el('p', 'st-caption', c.text, band); });
+    var spans = [];
+    var els = cues.map(function (c, i) {
+      var timed = o.highlight !== false && c.words && c.words.length;
+      var p = Studio.el('p', 'st-caption', timed ? null : c.text, band);
+      spans[i] = [];
+      if (timed) {
+        c.words.forEach(function (w, k) {
+          if (k) p.appendChild(document.createTextNode(' '));
+          spans[i].push(Studio.el('span', 'st-caption-word', w.text, p));
+        });
+      }
+      return p;
+    });
     return {
       el: band,
       schedule: function (tl) {
@@ -171,6 +185,16 @@
           var fade = Math.min(0.12, (c.end - c.start) / 4);
           tl.fromTo(els[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: fade, ease: 'none', immediateRender: false }, c.start);
           tl.fromTo(els[i], { autoAlpha: 1 }, { autoAlpha: 0, duration: fade, ease: 'none', immediateRender: false }, c.end - fade);
+          // the spoken word lights up from its onset until the next word's onset; the last one holds to the cue's end
+          spans[i].forEach(function (span, k) {
+            var on = Math.max(c.start, c.words[k].start);
+            var off = k + 1 < spans[i].length ? Math.max(on, c.words[k + 1].start) : c.end;
+            var d = Math.min(0.06, (off - on) / 2);
+            tl.fromTo(span, { '--st-hl': 0 }, { '--st-hl': 1, duration: d, ease: 'none', immediateRender: false }, on);
+            if (k + 1 < spans[i].length) {
+              tl.fromTo(span, { '--st-hl': 1 }, { '--st-hl': 0, duration: d, ease: 'none', immediateRender: false }, off);
+            }
+          });
         });
         return cues.length ? cues[cues.length - 1].end : 0;
       }

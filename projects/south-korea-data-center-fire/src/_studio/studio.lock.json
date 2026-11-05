@@ -1,11 +1,11 @@
 {
-  "runtime_version": "1.0.0",
+  "runtime_version": "1.1.0",
   "source": "src/studio",
-  "synced_on": "2026-11-02",
+  "synced_on": "2026-11-05",
   "files": {
-    "studio-base.css": "5660232af2b939821252c90cf7e8a95e2fb4ecbfb6df16e4025c6ed33a8325da",
-    "studio-compositions.js": "5b702a241b3a00409daf01ae3a5822bfdfc0d7ad4b1f864a85d791b2114dc4d5",
-    "studio-core.js": "c229d945b92c2d619a3aab6fd8ed30f4c78576b33ccff41b7c78f04637c337a9",
+    "studio-base.css": "7feb4bceb65a42df448b51b955803bcbb6714cb07b069deda659f5fbe4d9b356",
+    "studio-compositions.js": "776d6e2107a8ab7f3a8af4eb98e048c2338beeaf4d0ac9adb16002ecfeedd31c",
+    "studio-core.js": "b0b100d8e8352d01d6f66a3d201ca4e2353269701e403e9949385adc4b0ed3b6",
     "studio-draw.js": "613ed000f41bb796a33e1ddde5a4dafa00e8309fcc19b4ac1b7ca1c7c60aa0ec",
     "studio-motion.js": "463f0015a709aac1ef9ee4d6c6cd2c04d76ce88c1939b66e02b7513391ed1e91",
     "studio-type.js": "195a9ae40f46e6cfd81577b85a73c2951a64a9007738a6bb0d3513769790ca59",
