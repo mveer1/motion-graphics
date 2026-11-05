@@ -38,6 +38,7 @@ sys.path.insert(0, str(ROOT / "src" / "pipeline"))
 import numpy as np  # noqa: E402
 
 import colorscience as cs  # noqa: E402
+import tweens as tw  # noqa: E402
 import videoscan as vs  # noqa: E402
 
 TOOL = {"name": "motion-qa", "version": "1.0"}
@@ -372,6 +373,32 @@ def probe(index: Path, times: List[float], size: Tuple[int, int]) -> Optional[Di
     return None
 
 
+def probe_tweens(index: Path, size: Tuple[int, int]) -> Optional[Dict[str, Any]]:
+    cmd = [sys.executable, str(ROOT / "scripts" / "session-guard.py"), "run", "render", "--", "node", str(ROOT / "scripts" / "tween-probe.mjs"), str(index),
+           "--width", str(size[0]), "--height", str(size[1])]
+    r = subprocess.run(cmd, capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=300)
+    for line in r.stdout.splitlines():
+        if line.startswith("{"):
+            return json.loads(line)
+    sys.stderr.write((r.stderr or r.stdout)[-400:])
+    return None
+
+
+def tween_checks(rep: Report, ctx: Context, index: Path, fmt: str) -> None:
+    """Motion variety and tween conflicts from the GSAP timeline (src/pipeline/tweens.py). Measured leads only."""
+    t0 = time.time()
+    res = probe_tweens(index, ctx.size_for(fmt))
+    if not res:
+        rep.check("tween-probe", "unavailable", "browser probe failed (puppeteer-core inside the hyperframes install, or the cached Chrome, missing)")
+        return
+    rep.check("tween-probe", "ran", f"{len(res['tweens'])} tweens", time.time() - t0)
+    for f in tw.analyse(res["tweens"], ctx.scenes):
+        ev = dict(f.get("evidence") or {})
+        rep.add(f["id"], "measured", f["severity"], f["message"], ev or None,
+                suggestion="thresholds are adopted from HyperFrames motion-principles and calibrated on three films only; read the timeline before acting")
+    rep.check("tween-summary", "ran", json.dumps(tw.summarise(res["tweens"])))
+
+
 def rgb_of(css: str) -> Optional[Tuple[int, int, int]]:
     m = re.match(r"rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)", css or "")
     if not m or (m.group(4) is not None and float(m.group(4)) < 0.5):
@@ -430,6 +457,9 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
     short = min(W, H)
     floor = PRESETS["text_floor_fraction"] * short
     safe = PRESETS["formats"].get(fmt, PRESETS["formats"]["landscape"])["safe_area"]
+    ui = PRESETS["formats"].get(fmt, {}).get("platform_ui_reference")
+    seen_ui: set = set()
+    ui_hits: Dict[str, List[Dict[str, Any]]] = {}
     per_scene: Dict[str, List[Dict[str, Any]]] = {}
     for smp, lab in zip(res["samples"], labels):
         per_scene.setdefault(lab or f"t{smp['t']}", []).append(smp)
@@ -450,6 +480,13 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
             if (it["x"] < -2 or it["y"] < -2 or it["x"] + it["w"] > W + 2 or it["y"] + it["h"] > H + 2) and key not in seen_out:
                 seen_out.add(key)
                 rep.add("text-outside-frame", "measured", "warn", f"text '{key}' extends past the frame edge", {"box": [round(it[k]) for k in ("x", "y", "w", "h")]}, t=smp["t"], beat=lab, waivers=sc_w)
+            if ui and key not in seen_ui:
+                zone = ("top" if it["y"] < ui["top"] * H else "bottom" if it["y"] + it["h"] > (1 - ui["bottom"]) * H
+                        else "right rail" if it["x"] + it["w"] > (1 - ui["right"]) * W and it["y"] + it["h"] > ui["right_from_y"] * H else None)
+                if zone:
+                    seen_ui.add(key)
+                    reach = {"top": it["y"] / H, "bottom": (it["y"] + it["h"]) / H, "right rail": (it["x"] + it["w"]) / W}[zone]
+                    ui_hits.setdefault(zone, []).append({"text": key, "t": smp["t"], "reach": reach, "beat": lab})
             corner = (it["x"] + it["w"] / 2 < CORNER[0] * W or it["x"] + it["w"] / 2 > (1 - CORNER[0]) * W) and (it["y"] + it["h"] / 2 < CORNER[1] * H or it["y"] + it["h"] / 2 > (1 - CORNER[1]) * H)
             if corner and it["fs"] <= 0.04 * H and key not in seen_hud:
                 seen_hud.add(key)
@@ -490,6 +527,15 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
                 if ratio < need and key not in seen_contrast:
                     seen_contrast.add(key)
                     rep.add("low-contrast", "measured", "warn", f"'{key}' contrast {ratio:.1f}:1 (needs {need}:1 at this size); estimated against the nearest flat background shape", {"ratio": round(ratio, 2), "estimated": True}, t=smp["t"], beat=lab, waivers=sc_w)
+    # reel-app interface bands: one note per band with the deepest reach, not one per caption line
+    for zone, hits in ui_hits.items():
+        limit = {"top": ui["top"], "bottom": 1 - ui["bottom"], "right rail": 1 - ui["right"]}[zone]
+        deepest = min(hits, key=lambda h: h["reach"]) if zone == "top" else max(hits, key=lambda h: h["reach"])
+        rep.add("platform-ui-zone", "measured", "note",
+                f"{len(hits)} text item(s) reach the {zone} band that reel apps cover with their own interface (deepest: '{deepest['text']}' at {deepest['reach'] * 100:.1f}% against the {limit * 100:.1f}% reference line). Reference margins, not certified.",
+                {"zone": zone, "count": len(hits), "reference_line": round(limit, 3), "deepest_reach": round(deepest["reach"], 3), "examples": [h["text"] for h in hits[:4]]},
+                t=hits[0]["t"], beat=hits[0]["beat"],
+                suggestion="a caption band that ends below the reference line can sit under the app's caption and handle; keep key words above it for reel delivery. Ignore for a landscape-first film.")
     # per-scene structural checks
     sigs: Dict[str, np.ndarray] = {}
     left_head = []
@@ -579,6 +625,9 @@ def critique_pack(rep: Report, ctx: Context, video: Path, spans: List[Tuple[floa
         "Does the sound support pacing, with silence before what matters? (listen; the audio-cut-alignment check did not run)",
         "Does the ending feel designed, and does it end smaller or quieter than it began?",
     ]
+    if any(caps & {"connector-draw", "stroke-draw", "hand-underline", "marching-dashed-stroke", "pen-stroke", "line-art-reveal"} for caps in ctx.caps.values()):
+        rep.prompts.append("For every connector, rail, leader line or drawn underline: name its start anchor, its end anchor (real elements, not empty space) and its job "
+                           "(revealing, routing, validating or emphasising). A line the frame can lose without losing meaning is decoration: cut it.")
     tmpl = {"video": str(video), "generated_for": "human or model critic; fill after looking at scene-sheet.jpg and seams.jpg and watching the film",
             "beats": [{"beat": i, "span_sec": [round(a_, 2), round(b_, 2)], "frame_description": "", "hero": "", "reads_as_slide": None, "seam_in": "", "scores": {c: None for c in ("composition", "hierarchy", "motion", "transition", "story", "sound")}, "evidence": ""} for a_, b_, i in spans],
             "overall": {"strongest": "", "weakest": "", "would_change_first": ""},
@@ -651,6 +700,7 @@ def cmd_composition(a: argparse.Namespace) -> int:
     if m:
         dur = float(m.group(1))
     composition_checks(rep, ctx, index, fmt, ctx.scenes, dur)
+    tween_checks(rep, ctx, index, fmt)
     return finish(rep, Path(a.out) if a.out else (pdir / "qa" / "motion" / "composition-qa.json" if pdir else None))
 
 
@@ -662,6 +712,7 @@ def cmd_project(a: argparse.Namespace) -> int:
     index, _ = resolve_index(a.target, fmt)
     m = re.search(r'data-duration="([\d.]+)"', index.read_text(encoding="utf-8"))
     composition_checks(rep, ctx, index, fmt, ctx.scenes, float(m.group(1)) if m else None)
+    tween_checks(rep, ctx, index, fmt)
     video = Path(a.video) if a.video else next(iter(sorted((pdir / "renders" / fmt).glob("final.mp4"))), None) if (pdir / "renders" / fmt).exists() else None
     if video and video.exists():
         ns = argparse.Namespace(expect_size=None, expect_fps=None, expect_duration=None, expect_audio=a.expect_audio, lufs=None, format=fmt)

@@ -1,0 +1,218 @@
+{
+  "id": "data-ledger",
+  "name": "Data Ledger",
+  "version": 2,
+  "status": "experimental",
+  "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
+  "visual_job": {
+    "kind": "quantity",
+    "viewer_leaves_able_to": "State how big the thing is, how it changed, and what it is compared against.",
+    "hero": "One chart or counter that the narration reads aloud."
+  },
+  "selection": {
+    "categories": [
+      "finance"
+    ],
+    "use_when": [
+      "The point is a number, a trend or a comparison.",
+      "The film can be told as a baseline, a change and a so-what.",
+      "Figures come from a source that can be cited on screen."
+    ],
+    "avoid_when": [
+      "The numbers support a mechanism the viewer must trace (use systems-blueprint).",
+      "The figures are not sourced; an unsourced chart is decoration."
+    ],
+    "keywords": [
+      "price",
+      "market",
+      "revenue",
+      "gdp",
+      "inflation",
+      "interest rate",
+      "percent",
+      "billion",
+      "cost",
+      "profit",
+      "crash",
+      "growth",
+      "debt",
+      "budget",
+      "tax",
+      "ranking"
+    ]
+  },
+  "look": {
+    "style": "data-journalism",
+    "alternates": [
+      {
+        "style": "swiss-minimal",
+        "when": "Very few numbers and a type-led treatment."
+      }
+    ],
+    "design_profile": "data-journalism-infographic"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-number",
+      "formula": "The largest or most surprising figure, counted up in the first second.",
+      "capabilities": [
+        "counter-roll",
+        "monument-stat"
+      ]
+    },
+    {
+      "role": "baseline",
+      "formula": "The normal: axis, unit and period labelled before any change is drawn.",
+      "capabilities": [
+        "animated-chart",
+        "stroke-draw"
+      ]
+    },
+    {
+      "role": "change",
+      "formula": "Draw the line or fill the bars as the figure is spoken; annotate the inflection.",
+      "capabilities": [
+        "metric-curve-draw",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "compare",
+      "formula": "The same axis with a second series or benchmark.",
+      "capabilities": [
+        "animated-chart",
+        "marker-highlight"
+      ]
+    },
+    {
+      "role": "cause",
+      "formula": "Tie the event to the move with callouts on the timeline.",
+      "capabilities": [
+        "timeline",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "so-what",
+      "formula": "The number at human scale: per person, per day, equivalent to something.",
+      "capabilities": [
+        "counter-roll",
+        "monument-stat"
+      ]
+    },
+    {
+      "role": "source-close",
+      "formula": "Source and date range, with the chart still alive.",
+      "capabilities": [
+        "end-card"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Data draws itself at the speed the narrator says it.",
+    "continuous_layer": "Axes persist with the unit and the period labelled; gridlines only at labelled values and kept faint; a value readout follows the data front; slow scale on the chart group.",
+    "avoid": [
+      "A chart that appears fully formed.",
+      "Truncated or unlabelled axes.",
+      "More than one chart type in a scene.",
+      "3D charts.",
+      "Pie charts, dual-axis charts, or more than three related metrics at once.",
+      "A legend box: label each series on the line itself."
+    ],
+    "preferred_capabilities": [
+      "counter-roll",
+      "metric-curve-draw",
+      "animated-chart"
+    ],
+    "discouraged_capabilities": [
+      "liquid-transition",
+      "squash-bounce"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 2.5,
+    "max_scene_sec": 12,
+    "words_per_10s_max": 28,
+    "ending": "Close on the human-scale number or the source line, with the chart still moving."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "A hero grid or map where only a few cells change per beat.",
+      "why": "The detector reads the whole frame: Korea's tile grid changed 4-11% of the frame and was flagged idle. Add a second moving layer (counter, travelling dot, label sweep).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "A headline that restates the narration.",
+      "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "Illustrative data not labelled as illustrative.",
+      "why": "The accuracy half of the quality bar. Label constructed series and say when reports differ; this worked in all three recent films.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Axis without a unit, or a period without dates.",
+      "why": "A chart that cannot be read from the frame alone cannot be fact-checked.",
+      "source": "Authored from the design profile and VISION.md; not yet render-tested."
+    },
+    {
+      "pattern": "A pie chart, a dual-axis chart, or a panel of four or more metrics.",
+      "why": "A viewer has about three seconds per beat. Angles cannot be compared, two scales cannot be read together and four panels cannot be studied. Two or three related metrics side by side is the ceiling.",
+      "source": "hyperframes-creative data-in-motion.md (HeyGen, Apache-2.0), adopted 2026-11-05 via docs/short-form-lessons.md; not yet render-tested here."
+    },
+    {
+      "pattern": "A bare number floating on an empty canvas.",
+      "why": "A figure with no visual weight reads as text. Pair every number with something proportional to it: a fill bar, a ring, or a shape sized by value.",
+      "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+    },
+    {
+      "pattern": "Successive figures for one concept drawn in different visual spaces.",
+      "why": "Keep the space and the look and change only the value. A change of look should signal a new concept, not just a new number.",
+      "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+    },
+    {
+      "pattern": "A legend box, or default chart-library output.",
+      "why": "A legend sends the eye away from the data. Label the series where it is drawn, and build the chart in SVG with the studio runtime so it draws itself at the speed of the narration.",
+      "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "china-market-crash",
+      "note": "Legacy finance and history film; the subject type."
+    },
+    {
+      "project": "fridge-hack-europe",
+      "note": "Uses data-journalism; its 4 C / -18 C tile grid is the model for one object changing state."
+    }
+  ],
+  "open_questions": [
+    "No check that plotted values match the figures in research.json."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Draws on the reusable-data-object lesson from Korea (waffle grid) and fridge (tile grid).",
+      "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-05",
+      "change": "Added four data-in-motion anti-patterns (no pie or dual-axis charts, no bare numbers, one visual space per concept, no legend box). Gridlines are now faint and only at labelled values instead of persistent.",
+      "reason": "docs/short-form-lessons.md (HeyGen hyperframes-creative data-in-motion.md). Unrendered: promote only after a film is made to v2."
+    }
+  ],
+  "tags": [
+    "finance",
+    "chart",
+    "light"
+  ]
+}

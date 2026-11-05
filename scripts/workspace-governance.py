@@ -303,6 +303,9 @@ class GovernanceAuditor:
             for pdir in pdirs:
                 integ = studio.runtime_integrity(pdir)
                 self.errors.extend(integ.errors)
+                if "archive" in pdir.relative_to(PROJECTS_DIR).parts:
+                    # superseded versions stay as built: a later preset or runtime upgrade does not reopen them
+                    continue
                 self.warnings.extend(integ.warnings)
                 try:
                     project = studio.load_json(pdir / "project.json")

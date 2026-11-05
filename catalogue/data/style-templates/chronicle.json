@@ -1,0 +1,190 @@
+{
+  "id": "chronicle",
+  "name": "Chronicle",
+  "version": 1,
+  "status": "experimental",
+  "summary": "A slow camera over a surface (map, document, timeline) that stamps dates, pushes into a detail and dissolves to mark time passing. For history, biography and anything told as what happened in what order.",
+  "visual_job": {
+    "kind": "sequence",
+    "viewer_leaves_able_to": "Place the events in order, in place and in time, and say what led to what.",
+    "hero": "A surface the camera moves over: map, document or timeline."
+  },
+  "selection": {
+    "categories": [
+      "history"
+    ],
+    "use_when": [
+      "The structure is chronological.",
+      "Places and dates carry the meaning.",
+      "Primary documents, maps or photographs exist or can be honestly recreated."
+    ],
+    "avoid_when": [
+      "The film is about one person's inner arc (use storybook).",
+      "The past is only a backdrop for a technical or financial argument."
+    ],
+    "keywords": [
+      "century",
+      "war",
+      "empire",
+      "revolution",
+      "founded",
+      "timeline",
+      "dynasty",
+      "ancient",
+      "medieval",
+      "archive",
+      "treaty",
+      "disaster",
+      "history",
+      "year"
+    ]
+  },
+  "look": {
+    "style": "archival",
+    "alternates": [
+      {
+        "style": "paper-cut",
+        "when": "Collage treatment, as in great-fire-london-collage."
+      },
+      {
+        "style": "editorial-light",
+        "when": "Recent history where sepia would feel false."
+      }
+    ],
+    "design_profile": "archival-historical"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-date",
+      "formula": "Date and place stamped on a surface with the first image already visible.",
+      "capabilities": [
+        "stamp-impact",
+        "typewriter-reveal"
+      ]
+    },
+    {
+      "role": "setting",
+      "formula": "A map or establishing document, framed so the place is readable.",
+      "capabilities": [
+        "parallax-camera",
+        "tracking-reveal"
+      ]
+    },
+    {
+      "role": "event-run",
+      "formula": "The timeline advances; each event is date stamp, place mark, one-line fact.",
+      "capabilities": [
+        "timeline",
+        "marker-highlight",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "turning-point",
+      "formula": "Slow push into the document or photograph detail that mattered.",
+      "capabilities": [
+        "parallax-camera",
+        "match-cut"
+      ]
+    },
+    {
+      "role": "consequence",
+      "formula": "Before and after on the same surface.",
+      "capabilities": [
+        "crossfade-dissolve",
+        "element-mask-reveal"
+      ]
+    },
+    {
+      "role": "reckoning",
+      "formula": "Numbers and human cost, set with restraint.",
+      "capabilities": [
+        "counter-roll",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "close",
+      "formula": "Pull back to the whole surface with the date range and source.",
+      "capabilities": [
+        "end-card"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "A camera over a surface: push into a detail, pull back to the whole, dissolve to mark time passing.",
+    "continuous_layer": "Slow push or pan on the surface with grain boil, so a held document is never a held frame.",
+    "avoid": [
+      "Bouncy or elastic motion.",
+      "Whoosh sounds on cross-dissolves.",
+      "Modern UI elements on period material.",
+      "Generated period imagery that is not labelled as generated."
+    ],
+    "preferred_capabilities": [
+      "parallax-camera",
+      "crossfade-dissolve",
+      "grain-boil",
+      "typewriter-reveal"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "liquid-transition",
+      "smear-motion"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.5,
+    "max_beat_gap_sec": 3.0,
+    "max_scene_sec": 15,
+    "words_per_10s_max": 25,
+    "ending": "Pull back to the whole surface with the date range and source; hold the bed, no ramp to silence."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "Ramping the bed to zero over the last seconds.",
+      "why": "Cloud's last moment measured 19 LU under the body. Land a soft thud and ring on the last visual event, hold the bed, keep the tail after the last word to 2-3 s.",
+      "source": "video-assembler skill, review-top3-films-2026-11-03"
+    },
+    {
+      "pattern": "The same empty stage in most scenes.",
+      "why": "repeat-layout-dom fired in all three films (3-5 of 6 scenes). A recurring grid is fine when its state changes; vary the hero's position or scale between scenes.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Generated or recreated period imagery presented as archive.",
+      "why": "The design profile requires licensed or generated imagery to be labelled as such.",
+      "source": "design profile archival-historical (rendering.strategy)"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "bhopal-gas-tragedy",
+      "note": "History and storytelling; 105 s portrait on editorial-light."
+    },
+    {
+      "project": "great-fire-london-collage",
+      "note": "Collage treatment of a dated event."
+    }
+  ],
+  "open_questions": [
+    "The archival style system has never been used in a rendered project (its own validation record says so). The first render decides whether it holds."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Rules from the archival-historical profile (5 s shots, slow dissolves) and the documentary narration budget.",
+      "reason": "design profile archival-historical; voice-director budgets"
+    }
+  ],
+  "tags": [
+    "history",
+    "documentary",
+    "light"
+  ]
+}

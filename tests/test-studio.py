@@ -15,15 +15,18 @@ import json
 import os
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 studio = importlib.import_module("studio")
+studio.ensure_schema_python()  # validate needs jsonschema; switch interpreters now, before any test runs
 
 CHAI = studio.project_dir("masala-chai/v1-recipe")
 LEGACY = studio.project_dir("neural-network-learning/v1-baseline")
@@ -420,6 +423,134 @@ class BuildBookkeepingTests(unittest.TestCase):
         self.assertEqual(studio.render_stamp_state(pdir, fid, fp), "current")
         self.assertEqual(studio.render_stamp_state(pdir, fid, fp2), "stale")
 
+    def _fake_render(self, pdir, fid, payload=b"old"):
+        base = pdir / "renders" / fid
+        base.mkdir(parents=True, exist_ok=True)
+        (base / "visuals.mp4").write_bytes(payload)
+        (base / "final.mp4").write_bytes(payload + b"-final")
+
+    def _isolated_out(self):
+        """Point delivered files at a temp out/ so no test touches the real deliverables."""
+        out = self.tmpdir / "out"
+        out.mkdir(exist_ok=True)
+        old = studio.OUT_DIR
+        studio.OUT_DIR = out
+        self.addCleanup(setattr, studio, "OUT_DIR", old)
+        return out
+
+    def test_stale_render_moves_to_history_with_the_changed_files(self):
+        out = self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        entry, _, (fps, q) = self._first_render(pdir)
+        fid = entry["id"]
+        inputs = studio.render_inputs(pdir, entry)
+        self._fake_render(pdir, fid)
+        studio.write_render_stamp(pdir, fid, studio.render_fingerprint(pdir, entry, fps, q, inputs), inputs)
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        delivered = studio.delivered_path(pdir, project, fid)
+        self.assertEqual(delivered.parent, out)
+        delivered.write_bytes(b"old-final")
+        core = pdir / "src" / "_studio" / "studio-core.js"
+        core.write_text(core.read_text(encoding="utf-8") + "\n// upgraded\n", encoding="utf-8")
+        rows = {r["format"]: r for r in studio.render_states(pdir)}
+        self.assertEqual(rows[fid]["state"], "stale")
+        self.assertEqual(rows[fid]["changed"], ["_studio/studio-core.js"])
+
+        dest = studio.archive_render(pdir, fid, "test", rows[fid]["inputs"])
+        self.assertEqual(dest.parent, pdir / "renders" / "history" / fid)
+        self.assertEqual((dest / "visuals.mp4").read_bytes(), b"old")
+        self.assertTrue((dest / "final.mp4").exists() and (dest / studio.STAMP_NAME).exists())
+        self.assertFalse((pdir / "renders" / fid / "visuals.mp4").exists(), "the stale render must leave the working slot")
+        self.assertFalse(delivered.exists(), "the stale deliverable must leave out/")
+        self.assertEqual((out / "archive" / f"{delivered.stem}.{dest.name}.mp4").read_bytes(), b"old-final")
+        hist = json.loads((dest / "history.json").read_text(encoding="utf-8"))
+        self.assertEqual(hist["changed_inputs"], ["_studio/studio-core.js"])
+        self.assertEqual(hist["reason"], "test")
+        self.assertEqual(studio.render_stamp_state(pdir, fid, "anything"), "missing")
+        # a second archive of the same render time never overwrites the first
+        self._fake_render(pdir, fid, b"again")
+        shutil.copy(dest / studio.STAMP_NAME, pdir / "renders" / fid / studio.STAMP_NAME)
+        dest2 = studio.archive_render(pdir, fid, "test", None)
+        self.assertNotEqual(dest2, dest)
+        self.assertEqual((dest / "visuals.mp4").read_bytes(), b"old")
+        self.assertIsNone(studio.archive_render(pdir, fid, "nothing left", None))
+
+    def test_build_archives_a_stale_render_before_rendering_again(self):
+        self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        entry, _, (fps, q) = self._first_render(pdir)
+        fid = entry["id"]
+        self._fake_render(pdir, fid)
+        studio.write_render_stamp(pdir, fid, "an-older-fingerprint", {})
+        render = next(s for s in studio.build_plan(pdir, None, [fid]) if s["stage"] == f"render:{fid}")
+        fake = dict(render, cmd=[sys.executable, "-c", "open('../renders/%s/visuals.mp4', 'wb').write(b'new')" % fid])
+        self.assertEqual(studio.run_build_plan(pdir, [fake]), 0)
+        self.assertEqual((pdir / "renders" / fid / "visuals.mp4").read_bytes(), b"new")
+        history = list((pdir / "renders" / "history" / fid).iterdir())
+        self.assertEqual(len(history), 1)
+        self.assertEqual((history[0] / "visuals.mp4").read_bytes(), b"old")
+        stamp = json.loads((pdir / "renders" / fid / studio.STAMP_NAME).read_text(encoding="utf-8"))
+        self.assertEqual(stamp["inputs"], studio.render_inputs(pdir, entry))
+        self.assertEqual(studio.render_stamp_state(pdir, fid, studio.render_fingerprint(pdir, entry, fps, q)), "current")
+
+    def test_build_regenerates_format_files_before_validating(self):
+        stages = [s["stage"] for s in studio.build_plan(CHAI, None, None)]
+        self.assertLess(stages.index("formats"), stages.index("validate"))
+
+    def test_upgrade_resyncs_regenerates_and_moves_superseded_renders(self):
+        self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        entries = studio.format_entries(project)
+        stamped, unstamped = entries[0], entries[1]
+        # an older runtime in the project, as after a canonical src/studio upgrade; both renders were made with it
+        core = pdir / "src" / "_studio" / "studio-core.js"
+        core.write_text(core.read_text(encoding="utf-8").replace("Studio.version = '", "Studio.version = 'old-"), encoding="utf-8")
+        lock = json.loads(studio.lock_path(pdir).read_text(encoding="utf-8"))
+        lock["files"]["studio-core.js"] = studio.sha256_file(core)
+        lock["runtime_version"] = "old"
+        studio.lock_path(pdir).write_text(json.dumps(lock), encoding="utf-8")
+        self._fake_render(pdir, stamped["id"])
+        inputs = studio.render_inputs(pdir, stamped)
+        studio.write_render_stamp(pdir, stamped["id"], studio.render_fingerprint(pdir, stamped, project["fps"], project.get("quality", "looks"), inputs), inputs)
+        self._fake_render(pdir, unstamped["id"])
+        rc = studio.cmd_upgrade(argparse.Namespace(slugs=[str(pdir)], all=False, keep_renders=False, force=False))
+        self.assertEqual(rc, 0)
+        self.assertFalse(studio.runtime_integrity(pdir).warnings, "project should be on the canonical runtime")
+        self.assertFalse(studio.validate_project(pdir).errors)
+        for e in (stamped, unstamped):
+            self.assertFalse((pdir / "renders" / e["id"] / "visuals.mp4").exists(), f"{e['id']} render was superseded")
+            hist = next((pdir / "renders" / "history" / e["id"]).iterdir())
+            self.assertIn("superseded by upgrade", json.loads((hist / "history.json").read_text(encoding="utf-8"))["reason"])
+        stamped_hist = next((pdir / "renders" / "history" / stamped["id"]).iterdir())
+        self.assertIn("_studio/studio-core.js", json.loads((stamped_hist / "history.json").read_text(encoding="utf-8"))["changed_inputs"])
+        # a second upgrade is a no-op: nothing changes, so the lock and the renders stay as they are
+        before = studio.lock_path(pdir).read_text(encoding="utf-8")
+        self._fake_render(pdir, stamped["id"], b"fresh")
+        inputs = studio.render_inputs(pdir, stamped)
+        studio.write_render_stamp(pdir, stamped["id"], studio.render_fingerprint(pdir, stamped, project["fps"], project.get("quality", "looks"), inputs), inputs)
+        self.assertEqual(studio.cmd_upgrade(argparse.Namespace(slugs=[str(pdir)], all=False, keep_renders=False, force=False)), 0)
+        self.assertEqual(studio.lock_path(pdir).read_text(encoding="utf-8"), before)
+        self.assertEqual((pdir / "renders" / stamped["id"] / "visuals.mp4").read_bytes(), b"fresh")
+
+    def test_renders_archive_moves_only_what_was_asked(self):
+        self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        a, b = studio.format_entries(project)[:2]
+        self._fake_render(pdir, a["id"])
+        studio.write_render_stamp(pdir, a["id"], "stale-one", {})
+        self._fake_render(pdir, b["id"])  # unstamped
+        studio.cmd_renders(argparse.Namespace(slugs=[str(pdir)], archive=True, unstamped=False, quality=None))
+        self.assertFalse((pdir / "renders" / a["id"] / "visuals.mp4").exists())
+        self.assertTrue((pdir / "renders" / b["id"] / "visuals.mp4").exists(), "unstamped renders stay without --unstamped")
+        studio.cmd_renders(argparse.Namespace(slugs=[str(pdir)], archive=True, unstamped=True, quality=None))
+        self.assertFalse((pdir / "renders" / b["id"] / "visuals.mp4").exists())
+
     def test_fingerprint_ignores_other_formats_and_caches(self):
         pdir = copy_project(CHAI, self.tmpdir)
         entry, fp, _ = self._first_render(pdir)
@@ -476,6 +607,263 @@ class BuildBookkeepingTests(unittest.TestCase):
         out = lambda cwd: Path(subprocess.run([sys.executable, "-c", code], cwd=cwd, env=env, capture_output=True, text=True).stdout.strip()).resolve()
         self.assertEqual(out(wt), (main / ".locks").resolve())
         self.assertEqual(out(main), (main / ".locks").resolve())
+
+
+@unittest.skipIf(sys.platform == "win32", "session-guard uses fcntl locks (macOS/Linux render host)")
+class SessionGuardTests(unittest.TestCase):
+    """Many parallel sessions, one heavy job at a time: shared host lock, FIFO queue, teardown, worktree lifecycle."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.tmpdir = Path(self.tmp.name)
+        self.locks = self.tmpdir / "locks"
+        self.env = {k: v for k, v in os.environ.items() if k not in ("MOTION_LAB_LOCKS_HELD", "MOTION_LAB_LOCK_DIR")}
+        self.env.update(MOTION_LAB_LOCK_DIR=str(self.locks), MOTION_LAB_LOCK_POLL="0.1")
+        self.procs = []
+
+    def tearDown(self):
+        for proc in self.procs:
+            if proc.poll() is None:
+                proc.terminate()  # the guard kills its own job tree on SIGTERM
+                try:
+                    proc.wait(timeout=20)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    proc.wait()
+            if proc.stdout:
+                proc.stdout.close()
+        self.tmp.cleanup()
+
+    def guard(self, *args, env=None, wait=True, **kw):
+        cmd = [sys.executable, str(SESSION_GUARD), *args]
+        if not wait:
+            proc = subprocess.Popen(cmd, env=env or self.env, cwd=REPO_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+            self.procs.append(proc)
+            return proc
+        return subprocess.run(cmd, env=env or self.env, cwd=REPO_ROOT, capture_output=True, text=True, timeout=60, **kw)
+
+    def wait_for(self, predicate, timeout=10.0):
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            if predicate():
+                return True
+            time.sleep(0.05)
+        return False
+
+    def holder(self, resource="render", seconds=60):
+        """A session holding the host lock; returns once it really holds it."""
+        proc = self.guard("run", "--slug", "holder", resource, "--", sys.executable, "-c", f"import time; time.sleep({seconds})", wait=False)
+        self.assertTrue(self.wait_for(lambda: (self.locks / "heavy.json").exists()), "holder never acquired the lock")
+        return proc
+
+    def test_tts_and_render_exclude_each_other(self):
+        self.holder("render")
+        probe = self.guard("run", "--slug", "probe", "tts", "--", "true", env=dict(self.env, MOTION_LAB_LOCK_TIMEOUT="1"))
+        self.assertEqual(probe.returncode, 75, probe.stdout + probe.stderr)
+        self.assertIn("Timed out", probe.stderr)
+
+    def test_same_job_tree_is_reentrant_across_resources(self):
+        code = (
+            "import importlib.util as u;"
+            f"s=u.spec_from_file_location('g', r'{SESSION_GUARD}');m=u.module_from_spec(s);s.loader.exec_module(m)\n"
+            "with m.acquire_lock('tts', slug='inner', timeout_sec=1, poll_interval=0.1): print('INNER-OK')\n"
+        )
+        res = self.guard("run", "--slug", "outer", "render", "--", sys.executable, "-c", code)
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertIn("INNER-OK", res.stdout)
+
+    def test_waiters_are_served_first_come_first_served(self):
+        order = self.tmpdir / "order.txt"
+        holder = self.holder()
+        waiters = []
+        for i in range(1, 5):
+            waiters.append(self.guard("run", "--slug", f"w{i}", "render", "--", sys.executable, "-c",
+                                      f"open(r'{order}', 'a').write('w{i}\\n')", wait=False))
+            self.assertTrue(self.wait_for(lambda n=i: len(list((self.locks / "queue").glob("*.ticket"))) == n), "waiter never queued")
+        holder.terminate()
+        holder.wait(timeout=20)
+        for w in waiters:
+            w.wait(timeout=30)
+        self.assertEqual(order.read_text().split(), ["w1", "w2", "w3", "w4"])
+
+    def test_dead_waiter_does_not_block_the_queue(self):
+        holder = self.holder()
+        queue = self.locks / "queue"
+        queue.mkdir(exist_ok=True)
+        dead = subprocess.Popen([sys.executable, "-c", "pass"])
+        dead.wait()
+        stale = queue / f"{1:020d}-{dead.pid}-heavy.ticket"
+        stale.write_text("{}")  # oldest ticket, owner gone
+        waiter = self.guard("run", "--slug", "next", "render", "--", "true", wait=False)
+        self.assertTrue(self.wait_for(lambda: not stale.exists()), "dead waiter's ticket was not pruned while the holder still runs")
+        self.assertEqual(len(list(queue.glob("*.ticket"))), 1, "only the live waiter should be queued")
+        self.assertIsNone(waiter.poll(), "waiter must still be waiting for the holder")
+        holder.terminate()
+        holder.wait(timeout=20)
+        self.assertEqual(waiter.wait(timeout=30), 0, waiter.stdout.read())
+        self.assertEqual(list(queue.glob("*.ticket")), [])
+
+    def test_sigterm_kills_the_whole_job_tree_before_freeing_the_lock(self):
+        pidfile = self.tmpdir / "grandchild.pid"
+        job = self.tmpdir / "job.py"
+        job.write_text(
+            "import subprocess, sys, time\n"
+            "gc = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'], start_new_session=True)\n"  # detached, like Chrome
+            f"open(r'{pidfile}', 'w').write(str(gc.pid))\n"
+            "time.sleep(120)\n", encoding="utf-8")
+        guard = self.guard("run", "--slug", "victim", "render", "--", sys.executable, str(job), wait=False)
+        self.assertTrue(self.wait_for(lambda: pidfile.exists() and pidfile.read_text()), "job never started")
+        grandchild = int(pidfile.read_text())
+        os.kill(guard.pid, signal.SIGTERM)
+        guard.wait(timeout=30)
+
+        def dead(pid):
+            try:
+                os.kill(pid, 0)
+                return False
+            except OSError:
+                return True
+        self.assertTrue(self.wait_for(lambda: dead(grandchild)), "detached grandchild survived the guard (orphaned job)")
+        nxt = self.guard("run", "--slug", "next", "tts", "--", "true", env=dict(self.env, MOTION_LAB_LOCK_TIMEOUT="5"))
+        self.assertEqual(nxt.returncode, 0, nxt.stdout + nxt.stderr)
+
+    def test_older_sessions_per_resource_lock_still_excludes_same_resource(self):
+        """A worktree made before the unified lock locks only render.lock; a new render must wait for it."""
+        import fcntl
+        self.locks.mkdir(parents=True, exist_ok=True)
+        old_style = os.open(str(self.locks / "render.lock"), os.O_CREAT | os.O_RDWR)
+        fcntl.flock(old_style, fcntl.LOCK_EX)
+        try:
+            env = dict(self.env, MOTION_LAB_LOCK_TIMEOUT="1")
+            blocked = self.guard("run", "--slug", "new", "render", "--", "true", env=env)
+            self.assertEqual(blocked.returncode, 75, blocked.stdout + blocked.stderr)
+            self.assertIn("older session", blocked.stdout + blocked.stderr)
+            other = self.guard("run", "--slug", "new", "tts", "--", "true", env=env)
+            self.assertEqual(other.returncode, 0, "only the same resource is held back, as before the unification")
+        finally:
+            os.close(old_style)
+        after = self.guard("run", "--slug", "new", "render", "--", "true", env=dict(self.env, MOTION_LAB_LOCK_TIMEOUT="5"))
+        self.assertEqual(after.returncode, 0, after.stdout + after.stderr)
+        self.assertFalse(any((self.locks / "queue").glob("*.ticket")), "a timed-out job must not leave a queue ticket")
+
+    def test_status_reports_holder_and_queue(self):
+        self.holder("render")
+        self.guard("run", "--slug", "second", "tts", "--", "true", wait=False)
+        self.assertTrue(self.wait_for(lambda: any((self.locks / "queue").glob("*.ticket"))))
+        out = self.guard("status").stdout
+        self.assertIn("BUSY", out)
+        self.assertIn("render for project 'holder'", out)
+        self.assertIn("tts for 'second'", out)
+
+    def test_hostlock_helper_is_reentrant_under_the_guard(self):
+        code = (
+            f"import sys; sys.path.insert(0, r'{REPO_ROOT / 'src'}')\n"
+            "from pipeline.hostlock import heavy_lock\n"
+            "with heavy_lock('tts', slug='x'): print('HELPER-OK')\n"
+        )
+        res = self.guard("run", "--slug", "outer", "render", "--", sys.executable, "-c", code)
+        self.assertIn("HELPER-OK", res.stdout)
+        alone = subprocess.run([sys.executable, "-c", code], env=self.env, capture_output=True, text=True, timeout=30)
+        self.assertIn("HELPER-OK", alone.stdout, alone.stdout + alone.stderr)
+
+    # ----- worktree lifecycle, in a throwaway repo so the real one is never touched
+    def make_repo(self):
+        main = self.tmpdir / "main"
+        (main / "scripts").mkdir(parents=True)
+        shutil.copyfile(SESSION_GUARD, main / "scripts" / "session-guard.py")
+        (main / ".gitignore").write_text("renders/\n*.wav\nout/*.mp4\n.locks/\n.worktrees/\n__pycache__/\nlogs/\n.venv\n")
+        (main / "shared.txt").write_text("base\n")
+        (main / "projects" / "p").mkdir(parents=True)
+        (main / "projects" / "p" / "brief.json").write_text("{}")
+        self.git_env = dict(self.env, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t")
+        self.git_env.pop("MOTION_LAB_LOCK_DIR")
+        self.git(main, "init", "-q")
+        self.git(main, "add", ".")
+        self.git(main, "commit", "-q", "-m", "init")
+        return main
+
+    def git(self, cwd, *args):
+        res = subprocess.run(["git", *args], cwd=cwd, env=self.git_env, capture_output=True, text=True)
+        self.assertEqual(res.returncode, 0, f"git {args}: {res.stdout}{res.stderr}")
+        return res.stdout
+
+    def repo_guard(self, main, *args):
+        return subprocess.run([sys.executable, "scripts/session-guard.py", *args], cwd=main, env=self.git_env, capture_output=True, text=True, timeout=60)
+
+    @unittest.skipUnless(shutil.which("git"), "git not available")
+    def test_session_end_copies_renders_and_audio_back_to_main_before_removing_the_worktree(self):
+        main = self.make_repo()
+        (main / "logs").mkdir()
+        (main / "logs" / "build-timings.jsonl").write_text('{"a": 1}\n')
+        self.assertEqual(self.repo_guard(main, "session-start", "p").returncode, 0)
+        wt = main / ".worktrees" / "p"
+        files = {"projects/p/renders/portrait/final.mp4": b"RENDER", "projects/p/audio/s1.wav": b"WAV", "out/p-portrait.mp4": b"OUT"}
+        for rel, data in files.items():
+            (wt / rel).parent.mkdir(parents=True, exist_ok=True)
+            (wt / rel).write_bytes(data)
+        (wt / "scripts" / "__pycache__").mkdir()
+        (wt / "scripts" / "__pycache__" / "x.pyc").write_bytes(b"cache")
+        (wt / "logs").mkdir()
+        (wt / "logs" / "build-timings.jsonl").write_text('{"a": 1}\n{"b": 2}\n')
+        main_render = main / "projects/p/renders/portrait/final.mp4"
+        main_render.parent.mkdir(parents=True)
+        main_render.write_bytes(b"OLDER MAIN RENDER")
+
+        res = self.repo_guard(main, "session-end", "p")
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertFalse(wt.exists())
+        self.assertEqual((main / "projects/p/audio/s1.wav").read_bytes(), b"WAV")
+        self.assertEqual((main / "out/p-portrait.mp4").read_bytes(), b"OUT")
+        self.assertEqual(main_render.read_bytes(), b"OLDER MAIN RENDER", "an existing, different file in main must not be overwritten")
+        self.assertEqual(Path(str(main_render) + ".session-p").read_bytes(), b"RENDER")
+        self.assertFalse((main / "scripts" / "__pycache__" / "x.pyc").exists(), "caches are not session output")
+        self.assertEqual((main / "logs" / "build-timings.jsonl").read_text().splitlines(), ['{"a": 1}', '{"b": 2}'])
+
+    @unittest.skipUnless(shutil.which("git"), "git not available")
+    def test_session_end_merge_refuses_conflicts_and_leaves_everything_untouched(self):
+        main = self.make_repo()
+        self.assertEqual(self.repo_guard(main, "session-start", "p").returncode, 0)
+        wt = main / ".worktrees" / "p"
+        (wt / "shared.txt").write_text("session edit\n")
+        self.git(wt, "commit", "-qam", "session")
+        (main / "shared.txt").write_text("main edit\n")
+        self.git(main, "commit", "-qam", "main")
+        head = self.git(main, "rev-parse", "HEAD")
+
+        res = self.repo_guard(main, "session-end", "p", "--merge")
+        self.assertEqual(res.returncode, 1, res.stdout + res.stderr)
+        self.assertIn("shared.txt", res.stderr)
+        self.assertTrue(wt.exists(), "worktree must be kept when the merge would conflict")
+        self.assertEqual(self.git(main, "rev-parse", "HEAD"), head)
+        self.assertEqual((main / "shared.txt").read_text(), "main edit\n")
+
+    @unittest.skipUnless(shutil.which("git"), "git not available")
+    def test_session_end_merge_succeeds_and_session_list_reports_the_session(self):
+        main = self.make_repo()
+        self.assertEqual(self.repo_guard(main, "session-start", "p").returncode, 0)
+        wt = main / ".worktrees" / "p"
+        (wt / "projects" / "p" / "storyboard.json").write_text("{}")
+        self.git(wt, "add", ".")
+        self.git(wt, "commit", "-qm", "storyboard")
+        listing = self.repo_guard(main, "session-list").stdout
+        self.assertIn("p   [session/p]", listing)
+        self.assertIn("1 commit(s) ahead", listing)
+        self.assertIn("merge conflicts with", listing)
+
+        res = self.repo_guard(main, "session-end", "p", "--merge")
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertTrue((main / "projects" / "p" / "storyboard.json").exists())
+        self.assertFalse(wt.exists())
+
+    @unittest.skipUnless(shutil.which("git"), "git not available")
+    def test_session_start_warns_about_uncommitted_tooling(self):
+        main = self.make_repo()
+        (main / "scripts" / "new-tool.py").write_text("print('hi')\n")
+        res = self.repo_guard(main, "session-start", "p")
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertIn("uncommitted tooling change", res.stdout)
+        self.assertIn("scripts/new-tool.py", res.stdout)
+        self.assertEqual(self.repo_guard(main, "session-start", "bad/slug").returncode, 1)
 
 
 if __name__ == "__main__":

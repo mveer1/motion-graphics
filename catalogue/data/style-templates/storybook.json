@@ -1,0 +1,207 @@
+{
+  "id": "storybook",
+  "name": "Storybook",
+  "version": 2,
+  "status": "experimental",
+  "summary": "Staged scenes of layered cut shapes with parallax, where act changes are told by palette and light rather than captions. For people, stakes and an emotional arc.",
+  "visual_job": {
+    "kind": "narrative",
+    "viewer_leaves_able_to": "Remember the people and what was at stake, and feel the turn.",
+    "hero": "Characters or one emblematic object in a staged scene whose mood changes across acts."
+  },
+  "selection": {
+    "categories": [
+      "storytelling",
+      "history"
+    ],
+    "use_when": [
+      "There are specific people, a place and a turning point.",
+      "The feeling is the point as much as the facts.",
+      "The piece is built as acts: normal, disruption, aftermath."
+    ],
+    "avoid_when": [
+      "The facts must be checked at a glance (use news-brief or data-ledger).",
+      "The subject has no people or place to stage."
+    ],
+    "keywords": [
+      "story",
+      "tale",
+      "character",
+      "journey",
+      "family",
+      "village",
+      "memory",
+      "myth",
+      "legend",
+      "tragedy",
+      "survivor",
+      "night",
+      "childhood",
+      "lost"
+    ]
+  },
+  "look": {
+    "style": "paper-cut",
+    "alternates": [
+      {
+        "style": "cinematic-dark",
+        "when": "The brief asks for night, depth or dread."
+      },
+      {
+        "style": "mixed-media",
+        "when": "Culture, music or youth-oriented pieces."
+      }
+    ],
+    "design_profile": "editorial-paper-collage"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-scene",
+      "formula": "One specific person or place at one specific moment.",
+      "capabilities": [
+        "paper-pop",
+        "parallax-camera"
+      ]
+    },
+    {
+      "role": "world",
+      "formula": "The normal, with warmth: full palette, layered depth.",
+      "capabilities": [
+        "ambient-float",
+        "parallax-camera"
+      ]
+    },
+    {
+      "role": "disruption",
+      "formula": "Colour or light shifts; one element goes wrong.",
+      "capabilities": [
+        "element-bloom",
+        "organic-wobble"
+      ]
+    },
+    {
+      "role": "escalation",
+      "formula": "Stakes grow: camera closer, palette narrows.",
+      "capabilities": [
+        "depth-camera-push",
+        "grain-boil"
+      ]
+    },
+    {
+      "role": "turn",
+      "formula": "The quiet beat. Stillness is allowed only with drift and a sound under it.",
+      "capabilities": [
+        "ambient-float",
+        "crossfade-dissolve"
+      ]
+    },
+    {
+      "role": "aftermath",
+      "formula": "The opening composition, changed.",
+      "capabilities": [
+        "match-cut",
+        "crossfade-dissolve"
+      ]
+    },
+    {
+      "role": "coda",
+      "formula": "One image, one line.",
+      "capabilities": [
+        "text-mask-rise"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Layered cut shapes with parallax; the act changes through palette and light.",
+    "continuous_layer": "Parallax drift between layers and ambient float on small elements.",
+    "avoid": [
+      "Stock-diagram look.",
+      "Text-heavy scenes.",
+      "A music swell laid over a fact.",
+      "Playful bounce on a tragic subject."
+    ],
+    "preferred_capabilities": [
+      "parallax-camera",
+      "ambient-float",
+      "crossfade-dissolve"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "counter-roll"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 3.0,
+    "max_scene_sec": 16,
+    "words_per_10s_max": 26,
+    "ending": "Return to the opening composition, altered; hold the last image with drift under a low sound.",
+    "short_form": {
+      "max_card_words": 6,
+      "closing": "Reel-length films: the return to the opening composition doubles as the loop; echo one word or image from the hook in the last line."
+    }
+  },
+  "anti_patterns": [
+    {
+      "pattern": "The same empty stage in most scenes.",
+      "why": "repeat-layout-dom fired in all three films (3-5 of 6 scenes). A recurring grid is fine when its state changes; vary the hero's position or scale between scenes.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "Narration that restates what the picture already says.",
+      "why": "In a story the picture carries the feeling; the voice should add what cannot be drawn.",
+      "source": "Authored from the design profile and VISION.md; not yet render-tested."
+    },
+    {
+      "pattern": "A greeting, a title card or a framing sentence before the claim.",
+      "why": "The film starts at the sentence you would normally reach at second six. No welcome, no 'in this video', no logo sting. A stamped event opens on the date and the fact.",
+      "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md."
+    },
+    {
+      "pattern": "More than one ask at the end.",
+      "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
+      "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "great-fire-london-collage",
+      "note": "Paper-cut, 45 s landscape."
+    },
+    {
+      "project": "bhopal-gas-tragedy",
+      "note": "Story-led history, 105 s portrait."
+    },
+    {
+      "project": "ocean-descent-documentary",
+      "note": "Mood by depth, cinematic-dark."
+    }
+  ],
+  "open_questions": [
+    "Rules for depicting real casualties (restraint, figures versus faces) are not written down."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Acts-by-palette approach taken from the editorial-paper-collage profile.",
+      "reason": "design profile editorial-paper-collage"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-05",
+      "change": "Added rules.short_form (cards of 6 words or fewer, the return-to-opening ending as the loop) and two anti-patterns: framing sentence before the claim, more than one ask.",
+      "reason": "docs/short-form-lessons.md."
+    }
+  ],
+  "tags": [
+    "storytelling",
+    "narrative",
+    "collage"
+  ]
+}

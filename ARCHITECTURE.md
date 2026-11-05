@@ -62,7 +62,7 @@ Technique records (`catalogue/data/references/`) describe a visual or motion tec
 
 ### 0.3 Studio Runtime
 
-`src/studio/` is canonical: `studio-core.js` (format, safe area, seeded randomness, timeline registration, scene switches), `studio-draw.js`, `studio-type.js`, `studio-motion.js`, `studio-compositions.js`, `studio-base.css` and `styles/`. HyperFrames serves only the project folder, so `studio.py sync` copies the runtime into `projects/<slug>/src/_studio/` with `studio.lock.json` (SHA-256 per file). Local edits there are rejected: change `src/studio/` and re-sync.
+`src/studio/` is canonical: `studio-core.js` (format, safe area, seeded randomness, timeline registration, scene switches), `studio-draw.js`, `studio-type.js`, `studio-motion.js`, `studio-compositions.js`, `studio-base.css` and `styles/`. HyperFrames serves only the project folder, so `studio.py sync` copies the runtime into `projects/<slug>/src/_studio/` with `studio.lock.json` (SHA-256 per file). Local edits there are rejected: change `src/studio/` and re-sync. `studio.py upgrade <slug>... | --all` applies a runtime or preset upgrade to projects (sync, then `formats`) and moves every render it supersedes to `renders/history/<format>/<when>/` with a `history.json` (reason, old render time, changed `src/` files); the delivered copy moves to `out/archive/<slug>-<format>.<when>.mp4`. `build` does the same for any stale render before re-rendering it, and stamps record their per-file inputs so a later archive can name what changed. Upgrades are never held back because earlier videos would go stale. Versions under `archive/` stay as built: governance still rejects edits to their vendored runtime but no longer asks their entry files to follow later presets.
 
 Determinism rules (linted by `studio.py validate`): one paused GSAP timeline registered last through `Studio.build`; no `Math.random`, wall-clock time, timers, `requestAnimationFrame` or infinite repeats; entrances use `fromTo` with `immediateRender`; scene visibility switches 1 ms after the cue so backward seeks restore state; fonts are HyperFrames-bundled families or declared with `@font-face`. Self-test: `tests/test-studio-runtime.py`.
 
@@ -145,7 +145,8 @@ Planning, visual intelligence, asset acquisition and motion QA on top of the stu
 | Visual intelligence | design profiles (`catalogue/data/design-profiles/`, fact + basis: measured / inferred / subjective / prescribed / unknown), knowledge-base facets | `scripts/design-dna.py`, `src/pipeline/colorscience.py` |
 | Style bake-off | `bakeoff/bakeoff.json`, `design-profile.json` | `scripts/bakeoff.py`, `src/pipeline/archetypes.py` |
 | Assets | `assets/library/`, `<project>/src/assets/manifest.json` | `scripts/assets.py`, `src/pipeline/assets/` |
-| Motion QA | `qa/motion/motion-qa.json` (objective / measured / judgment), critique pack | `scripts/motion-qa.py`, `scripts/dom-probe.mjs` |
+| Motion QA | `qa/motion/motion-qa.json` (objective / measured / judgment), critique pack; motion-variety and tween-conflict leads from the GSAP timeline | `scripts/motion-qa.py`, `scripts/dom-probe.mjs`, `scripts/tween-probe.mjs`, `src/pipeline/tweens.py` |
+| Script and story lint | timed sentence sheet, hook score, storyboard `why` table (pre-render, no browser); `audio/words.json` word times for captions and beats | `studio.py script`, `studio.py hook`, `studio.py captions --timing words`, `src/pipeline/scriptlint.py`, `hooks.py`, `captions.py`, `specs/hook-formulas.json` |
 | Revision | spliced `renders/<format>/visuals.mp4` | `scripts/scene-revise.py` |
 
 Skills: `creative-director`, `asset-engine`, `motion-director`. `studio.py validate` checks these files when present. Credentials come from environment variables only.

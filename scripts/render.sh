@@ -32,11 +32,13 @@ echo "[1/4] Linting HyperFrames composition..."
 
 # 2. Render visuals
 echo "[2/4] Rendering visual track (HyperFrames)..."
-(cd "$PROJECT_DIR/src" && hyperframes render . \
+# One heavy job at a time on 8 GB: queue behind any other session's render, TTS or review (re-entrant when an ancestor holds the lock).
+python3 "$BASE_DIR/scripts/session-guard.py" run --slug "$PROJECT_NAME" --cwd "$PROJECT_DIR/src" render -- \
+  hyperframes render . \
   --fps 30 \
   --quality looks \
   --low-memory-mode \
-  --output ../renders/visuals.mp4 < /dev/null)
+  --output ../renders/visuals.mp4 < /dev/null
 
 # 3. Assemble audio & video
 echo "[3/4] Multiplexing video and audio with FFmpeg..."

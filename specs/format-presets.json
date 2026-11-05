@@ -12,7 +12,11 @@
       "aspect": "9:16",
       "default_size": "720p",
       "sizes": { "720p": [720, 1280], "1080p": [1080, 1920], "4k": [2160, 3840] },
-      "safe_area": { "top": 0.10, "right": 0.10, "bottom": 0.20, "left": 0.06 }
+      "safe_area": { "top": 0.10, "right": 0.10, "bottom": 0.234, "left": 0.06 },
+      "platform_ui_reference": {
+        "top": 0.12, "bottom": 0.234, "right": 0.12, "right_from_y": 0.52, "certified": false,
+        "source": "Third-party reel-editing guidance on 1080x1920: keep text and key UI inside x 90-950 and y 240-1470, with the button rail covering x > 950 below y 1000. Two repos by the same author disagree on the right margin (130 px and 230 px), so only the narrower one is used. Not published by any platform. safe_area.bottom adopted this bottom margin on 2026-11-05 (it was 0.20); top and right stay at the workspace defaults because the sources disagree on them, and motion-qa reports text in those bands as a note."
+      }
     },
     "square": {
       "aspect": "1:1",

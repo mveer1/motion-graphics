@@ -1,0 +1,196 @@
+{
+  "id": "systems-blueprint",
+  "name": "Systems Blueprint",
+  "version": 1,
+  "status": "experimental",
+  "summary": "One persistent diagram of a system that the film lights up part by part: a signal travels the path, a part fails, the consequence spreads. For software, networks, infrastructure and machines.",
+  "visual_job": {
+    "kind": "mechanism",
+    "viewer_leaves_able_to": "Trace what happens from input to output and name the part that fails or limits the system.",
+    "hero": "One diagram drawn once, whose parts change state (light, dim, fill) instead of being replaced."
+  },
+  "selection": {
+    "categories": [
+      "technology",
+      "science"
+    ],
+    "use_when": [
+      "The point is how parts connect, pass data or fail.",
+      "A process has stages, actors or a causal chain.",
+      "The subject is a system the viewer cannot see: software, networks, infrastructure, machines."
+    ],
+    "avoid_when": [
+      "The point is a number or its trend (use data-ledger).",
+      "The piece derives or proves something (use proof-canvas).",
+      "The story is about people rather than parts (use storybook)."
+    ],
+    "keywords": [
+      "system",
+      "architecture",
+      "how it works",
+      "pipeline",
+      "protocol",
+      "network",
+      "database",
+      "algorithm",
+      "infrastructure",
+      "request",
+      "server",
+      "index",
+      "consensus",
+      "flow",
+      "stack",
+      "cache"
+    ]
+  },
+  "look": {
+    "style": "editorial-light",
+    "alternates": [
+      {
+        "style": "swiss-minimal",
+        "when": "Type-led film with very few objects."
+      },
+      {
+        "style": "dark-tech",
+        "when": "The brief asks for a dark technical look."
+      }
+    ],
+    "design_profile": "illustrated-explainer-2d"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook",
+      "formula": "The hero object on screen from frame 1, then the question it raises.",
+      "capabilities": [
+        "stroke-draw",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "map",
+      "formula": "Draw the whole system once, small and labelled. This is the diagram the rest of the film reuses.",
+      "capabilities": [
+        "object-assembly",
+        "connector-draw",
+        "step-header"
+      ]
+    },
+    {
+      "role": "trace",
+      "formula": "A packet or token travels the path; one stage is lit at a time, the rest dimmed.",
+      "capabilities": [
+        "traveling-packet",
+        "active-entity-glow",
+        "node-network-signal-transfer"
+      ]
+    },
+    {
+      "role": "failure-or-limit",
+      "formula": "Break or overload one part and show the consequence propagate along the connectors.",
+      "capabilities": [
+        "stamp-impact",
+        "glow-pulse",
+        "counter-roll"
+      ]
+    },
+    {
+      "role": "scale",
+      "formula": "The same diagram under load or at scale: copies, counters, a changed colour state.",
+      "capabilities": [
+        "counter-roll",
+        "ambient-float"
+      ]
+    },
+    {
+      "role": "takeaway",
+      "formula": "The diagram returns collapsed to the one idea, in the state it started in or resolved to (bookend).",
+      "capabilities": [
+        "annotation-callout",
+        "text-mask-rise"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "A persistent diagram: parts are drawn once, then change state rather than being swapped for a new graphic per sentence.",
+    "continuous_layer": "Slow scale or pan on the diagram group for the whole scene, plus a travelling signal on the active path.",
+    "avoid": [
+      "A new diagram per sentence.",
+      "Labels that appear without a connector to their part.",
+      "Decorative particles that carry no data."
+    ],
+    "preferred_capabilities": [
+      "stroke-draw",
+      "connector-draw",
+      "traveling-packet",
+      "active-entity-glow"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "liquid-transition"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 2.5,
+    "max_scene_sec": 14,
+    "words_per_10s_max": 30,
+    "ending": "Bookend: return to the opening object in its resolved state; land the last sound on the last visual event; tail after the last word 2-3 s."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "Labels below the type floor (2.6% of the short side) to fit more on screen.",
+      "why": "Cloud had 21 text-size-floor warnings at 12.5-17 px and still shipped at readability 3. Cut the label or split the beat; never shrink the type.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Leader lines or tags that touch other text or sit on their own node.",
+      "why": "Fridge's dotted leader ran through 'ONLINE'; cloud's 'DELHI' tag sat on its node; a phone touched a kicker. No check catches this; open the full-size frame at each scene's first and last beat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "A headline that restates the narration.",
+      "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Over-budget narration in the hook and closing scenes.",
+      "why": "They are written last. Cloud's s1 and s6 ran 35-36 words per 10 s against a 33 budget and the film read rushed. Cut words; do not raise the speed.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "distributed-consensus-raft",
+      "note": "Legacy technical explainer; the subject type this template targets."
+    },
+    {
+      "project": "btree-database-indexing",
+      "note": "Legacy technical explainer."
+    },
+    {
+      "project": "cloud-physical-infrastructure-india",
+      "note": "Mechanism film whose review produced most of the anti-patterns above."
+    }
+  ],
+  "open_questions": [
+    "dark-tech is experimental and was used by polya-recurrence; decide whether this template needs a documented dark mode or leaves dark to proof-canvas."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Rules taken from the neutral-technical narration budget (30 words per 10 s) and the 2026-11-03 review of the three newest films.",
+      "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    }
+  ],
+  "tags": [
+    "technology",
+    "diagram",
+    "light"
+  ]
+}

@@ -109,4 +109,8 @@ if __name__ == "__main__":
     ap.add_argument("--raw",    action="store_true", help="Disable smart preprocessing and use raw baseline synthesis")
     a = ap.parse_args()
 
-    synth(a.text, a.out, a.voice, a.speed, a.lang, preset=a.preset, smart=not a.raw)
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from pipeline.hostlock import heavy_lock  # Kokoro is a heavy job: one at a time on 8 GB, shared with renders
+
+    with heavy_lock("tts"):
+        synth(a.text, a.out, a.voice, a.speed, a.lang, preset=a.preset, smart=not a.raw)

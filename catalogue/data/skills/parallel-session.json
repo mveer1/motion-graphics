@@ -2,17 +2,17 @@
   "id": "skill-parallel-session",
   "name": "Parallel Session Concurrency Skill",
   "component_type": "skill",
-  "purpose": "Coordinates multi-project concurrent production sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions.",
+  "purpose": "Coordinates any number of concurrent project sessions without hardware resource contention, memory exhaustion on Apple Silicon, or workspace governance collisions: authoring runs in parallel, heavy jobs queue one at a time.",
   "capabilities": [
-    "Hardware resource locking (Render and TTS mutexes via scripts/session-guard.py)",
+    "Unlimited worktree sessions: authoring stages run in parallel, heavy jobs (render, TTS, analysis) share one host lock via scripts/session-guard.py",
+    "First-come-first-served wait queue with periodic progress logging and crash-safe job-tree teardown",
     "Project-scoped workspace governance execution (--project <slug>)",
-    "Non-blocking wait queues with periodic progress logging",
-    "Stale lock self-healing and recovery",
-    "Git worktree isolation for concurrent project branches (session-start/end)",
+    "Session lifecycle: session-start, session-list dashboard, session-end with render/audio rescue and merge-conflict pre-check",
+    "Playbook for N parallel sessions: commit first, stay inside projects/<slug>/, finish with session-end --merge",
     "Zero-quality-compromise pipeline orchestration"
   ],
   "location": ".claude/skills/parallel-session",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "installation": {
     "required": false,
     "instructions": "Built-in workspace skill. No installation needed."
@@ -25,7 +25,7 @@
   "compatibility": {
     "apple_silicon_tested": true,
     "runtime": "agent-host",
-    "notes": "Protects Apple Silicon M2 unified memory by serializing Chromium and PyTorch workloads."
+    "notes": "Protects Apple Silicon M2 unified memory by running one Chromium or PyTorch workload at a time across all sessions."
   },
   "documentation_urls": [
     ".claude/skills/parallel-session/SKILL.md",
@@ -51,4 +51,3 @@
   "last_verified": "2026-10-31",
   "tags": ["concurrency", "parallel", "session", "locking", "governance"]
 }
-

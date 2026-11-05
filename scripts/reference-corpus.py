@@ -1349,8 +1349,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.cmd == "analyze" and not (args.ids or args.all or args.pending):
         print("Give reference ids, --pending or --all.")
         return 2
-    return {"doctor": cmd_doctor, "ingest": cmd_ingest, "analyze": cmd_analyze, "strip": cmd_strip, "status": cmd_status,
-            "locate": cmd_locate, "check": cmd_check, "report": cmd_report}[args.cmd](args)
+    handler = {"doctor": cmd_doctor, "ingest": cmd_ingest, "analyze": cmd_analyze, "strip": cmd_strip, "status": cmd_status,
+               "locate": cmd_locate, "check": cmd_check, "report": cmd_report}[args.cmd]
+    if args.cmd in ("doctor", "analyze", "strip"):  # these start a Chromium or ffmpeg decoder: one heavy job at a time on 8 GB
+        sys.path.insert(0, str(REPO_ROOT / "src"))
+        from pipeline.hostlock import heavy_lock
+        with heavy_lock("analysis", slug="reference-corpus"):
+            return handler(args)
+    return handler(args)
 
 
 if __name__ == "__main__":

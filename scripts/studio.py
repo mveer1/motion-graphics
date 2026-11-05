@@ -4,24 +4,36 @@ scripts/studio.py
 Project lifecycle CLI for the Motion Lab creative studio (stdlib + jsonschema).
 
 Subcommands:
-  new <slug> --template <id> [--title T] [--style S] [--formats a,b] [--category a,b]   scaffold from templates/projects/<id>/
+  new <slug> --template <id> [--title T] [--style S] [--style-template T] [--formats a,b] [--category a,b]   scaffold from templates/projects/<id>/
   sync <slug> [--force]          copy the canonical runtime (src/studio/) into projects/<slug>/src/_studio/
   formats <slug> [--size 1080p]  write per-format entry files (src/index.<format>.html) from src/index.html
+  upgrade <slug>... | --all [--keep-renders]   re-sync the runtime and regenerate entry files after a runtime or preset
+                                 upgrade; renders it supersedes move to renders/history/<format>/<when>/ (out/ copies to out/archive/)
+  renders [<slug>...] [--archive [--unstamped]]   render state per format (current, stale with the changed files,
+                                 unstamped, missing); --archive moves stale renders to history
   validate <slug> [--json]       schema + cross-reference + composition checks (exit 1 on errors)
-  build <slug> [--dry-run]       render every format with HyperFrames, mux audio, run QA gates
-  captions <slug>                approximate caption cues from audio/timeline.json (src/captions.js + .vtt)
+  build <slug> [--dry-run]       render every format with HyperFrames, mux audio, run QA gates; a stale render is
+                                 moved to renders/history/ before it is rendered again, never overwritten
+  captions <slug> [--timing words] [--grouping phrase]   caption cues from audio/timeline.json: approximate sentences, or measured word times
+  words <slug> "<phrase>"        film time at which a phrase is spoken (from audio/words.json)
+  script <slug> [--json]         pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, story table
+  hook score|formulas            rank hook lines; list the hook formulas (specs/hook-formulas.json)
   review <slug> [--init]         creative-review rubric (qa/creative-review.json): create or summarise
   status <slug>                  which lifecycle artefacts exist and what comes next
   series new|add|show|list|validate   groups of projects: sequential parts or a themed collection (series/<slug>/series.json)
+  style list|show|recommend|adopt|check   style templates: pick one per video, check a video against it, see which videos are behind
 
 Projects without project.json are legacy technical explainers: `build` prints/runs the original
 single-format plan (1280x720 landscape, index.html) so existing workflows keep working.
 """
 
 import argparse
+import contextlib
 import hashlib
 import importlib.util
+import io
 import json
+import os
 import re
 import resource
 import shutil
@@ -36,6 +48,7 @@ from typing import Any, Dict, List, Optional, Tuple
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PROJECTS_DIR = REPO_ROOT / "projects"
 SERIES_DIR = REPO_ROOT / "series"
+OUT_DIR = REPO_ROOT / "out"
 RUNTIME_DIR = REPO_ROOT / "src" / "studio"
 TEMPLATES_DIR = REPO_ROOT / "templates" / "projects"
 SPECS_DIR = REPO_ROOT / "specs"
@@ -75,7 +88,7 @@ CREATIVE_CRITERIA = [
     ("no_filler_motion", "No repetitive looping filler or motion without purpose."),
     ("no_dead_time", "No unintended static stretches; intentional holds are marked."),
     ("no_collisions", "No accidental overlaps, clipping or safe-area violations."),
-    ("arc", "Clear opening, progression and ending; the last frame holds long enough."),
+    ("arc", "Clear opening, progression and ending; the last frame holds long enough; the value claim lands by scene 2 and the film survives the delete test (docs/short-form-lessons.md)."),
 ]
 
 
@@ -167,11 +180,48 @@ def runtime_files() -> List[Path]:
     return sorted(p for p in RUNTIME_DIR.rglob("*") if p.is_file() and p.suffix in {".js", ".css"})
 
 
+def ensure_schema_python() -> None:
+    """Re-run the current command under python3.12 when this interpreter lacks jsonschema.
+
+    Call it first thing, before any work: re-executing later would start the command over."""
+    try:
+        import jsonschema  # noqa: F401
+        return
+    except ImportError:
+        pass
+    py12 = shutil.which("python3.12") or "/opt/homebrew/bin/python3.12"
+    if os.path.exists(py12) and os.path.realpath(sys.executable) != os.path.realpath(py12):
+        os.execv(py12, [py12] + sys.argv)
+
+
 def catalogue_records() -> Dict[str, Dict[str, Any]]:
     sys.path.insert(0, str(REPO_ROOT / "scripts"))
     import importlib
-    mc = importlib.import_module("motion-catalogue")
+    # Loading records needs no jsonschema, and motion-catalogue's re-exec into python3.12 would restart this
+    # command from the top (an upgrade or a build would run its first steps twice).
+    previous = os.environ.get("MOTION_LAB_NO_REEXEC")
+    os.environ["MOTION_LAB_NO_REEXEC"] = "1"
+    try:
+        mc = importlib.import_module("motion-catalogue")
+    finally:
+        if previous is None:
+            os.environ.pop("MOTION_LAB_NO_REEXEC", None)
+        else:
+            os.environ["MOTION_LAB_NO_REEXEC"] = previous
     return mc.load_all_records()
+
+
+def pipeline_module(name: str) -> Any:
+    """Import a module from src/pipeline/ (pure Python helpers shared with the other scripts)."""
+    pipeline = str(REPO_ROOT / "src" / "pipeline")
+    if pipeline not in sys.path:
+        sys.path.insert(0, pipeline)
+    import importlib
+    return importlib.import_module(name)
+
+
+def style_templates_module() -> Any:
+    return pipeline_module("style_templates")
 
 
 def schema_errors(instance: Any, schema_path: Path) -> List[str]:
@@ -356,7 +406,9 @@ def runtime_integrity(pdir: Path) -> Report:
         vendored = lock.get("files", {})
         changed = sorted(f for f in set(canonical) | set(vendored) if canonical.get(f) != vendored.get(f))
         shown = ", ".join(changed[:4]) + (f" (+{len(changed) - 4} more)" if len(changed) > 4 else "")
-        rep.warn(f"{pdir.name}: vendored runtime {lock.get('runtime_version')} is behind canonical src/studio ({runtime_version()}, same version label, content differs in: {shown}); re-sync when ready.")
+        label = "same version label, " if lock.get("runtime_version") == runtime_version() else ""
+        rep.warn(f"{pdir.name}: vendored runtime {lock.get('runtime_version')} is behind canonical src/studio ({runtime_version()}, {label}content differs in: {shown}); "
+                 f"`python scripts/studio.py upgrade {pdir.name}` re-syncs it and moves the renders it supersedes to renders/{HISTORY_DIRNAME}/.")
     return rep
 
 
@@ -368,6 +420,10 @@ def cmd_sync(args: argparse.Namespace) -> int:
         if any("edited in place" in e for e in integ.errors):
             print("Refusing to overwrite locally edited runtime files (use --force):\n  " + "\n  ".join(integ.errors))
             return 1
+        if integ.ok and not integ.warnings and load_json(lock_path(pdir)).get("runtime_version") == runtime_version():
+            # rewriting the lock would only change synced_on, and that alone would mark every render stale
+            print(f"Studio runtime {runtime_version()} in {rel_path(base)} is already current.")
+            return 0
     if base.exists():
         shutil.rmtree(base)
     files = {}
@@ -408,7 +464,14 @@ def cmd_new(args: argparse.Namespace) -> int:
         raise SystemExit(f"Error: {rel_path(pdir)} already exists.")
     title = args.title or slug.replace("-", " ").title()
     categories = parse_category_arg(getattr(args, "category", None))
-    style = args.style or (trec or {}).get("default_style", "editorial-light")
+    stpl = None
+    if getattr(args, "style_template", None):
+        stpl = records.get("style-templates", {}).get(args.style_template)
+        if not stpl:
+            raise SystemExit(f"Error: style template '{args.style_template}' not found. Available: {', '.join(records.get('style-templates', {}))}")
+        if stpl.get("status") in {"blocked", "deprecated"}:
+            raise SystemExit(f"Error: style template '{args.style_template}' is {stpl['status']}.")
+    style = args.style or (stpl["look"]["style"] if stpl else None) or (trec or {}).get("default_style", "editorial-light")
     if style not in records.get("styles", {}):
         raise SystemExit(f"Error: style '{style}' is not registered in catalogue/data/styles/.")
     subs = {"{{SLUG}}": slug, "{{TITLE}}": title, "{{STYLE}}": style, "{{DATE}}": date.today().isoformat()}
@@ -444,6 +507,8 @@ def cmd_new(args: argparse.Namespace) -> int:
             w, h = pre["formats"][fid]["sizes"][size]
             project["formats"].append({"id": fid, "width": w, "height": h, "primary": i == 0})
     project["style"] = style
+    if stpl:
+        project["style_template"] = {"id": stpl["id"], "version": stpl["version"]}
     write_json(pj, project)
     if categories:
         bj = pdir / "brief.json"
@@ -459,7 +524,10 @@ def cmd_new(args: argparse.Namespace) -> int:
         (pdir / sub).mkdir(exist_ok=True)
     cmd_sync(argparse.Namespace(slug=slug, force=True))
     cmd_formats(argparse.Namespace(slug=slug, size=None))
-    print(f"\nScaffolded projects/{slug} from template '{args.template}' (style {style}).")
+    print(f"\nScaffolded projects/{slug} from template '{args.template}' (style {style}"
+          + (f", style template {stpl['id']} v{stpl['version']}" if stpl else "") + ").")
+    if not stpl:
+        print("Note: no style template. Once the brief is written: python scripts/studio.py style recommend " + slug)
     if categories:
         fit = style_category_mismatch(records["styles"].get(style), categories)
         if fit:
@@ -746,6 +814,24 @@ def validate_project(pdir: Path) -> Report:
     elif needs_storyboard:
         rep.error("storyboard.json is missing (required for standard/complex briefs or this template).")
 
+    pin = project.get("style_template")
+    if pin:
+        stpl = records.get("style-templates", {}).get(pin["id"])
+        if not stpl:
+            rep.error(f"style template '{pin['id']}' is not registered (catalogue/data/style-templates/).")
+        elif stpl.get("status") in {"blocked", "deprecated"}:
+            rep.error(f"style template '{pin['id']}' is {stpl['status']}.")
+        else:
+            for level, msg in style_templates_module().check_project(pdir, project, brief, stpl):
+                (rep.warn if level == "warn" else rep.note)(f"style template {pin['id']}: {msg}")
+    else:
+        rep.note("no style_template in project.json; run `python scripts/studio.py style recommend " + pdir.name + "`.")
+
+    # Pre-render script and story lint (hook, rhythm, loop, asks, `why`). Warnings only; notes stay in `studio.py script`.
+    for level, fid, msg in pipeline_module("scriptlint").script_report(pdir)["findings"]:
+        if level == "warn":
+            rep.warn(f"script ({fid}): {msg}")
+
     audio = project["audio"]
     if audio["narration"]:
         if project["timing"]["source"] != "narration":
@@ -844,23 +930,35 @@ STAMP_NAME = "visuals.stamp.json"
 TIMINGS_LOG = REPO_ROOT / "logs" / "build-timings.jsonl"
 
 
-def render_fingerprint(pdir: Path, entry: Dict[str, Any], fps: int, quality: str) -> str:
-    """Hash of everything a format's visuals depend on: the composition tree plus render settings.
+HISTORY_DIRNAME = "history"
+
+
+def render_inputs(pdir: Path, entry: Dict[str, Any]) -> Dict[str, str]:
+    """{path under src/: sha256} for every file a format's visuals depend on.
 
     Other formats' generated index.<id>.html files and HyperFrames caches are excluded, so
     editing the portrait entry does not invalidate the landscape render.
     """
     src = pdir / "src"
-    h = hashlib.sha256()
-    h.update(f"{entry['id']}|{entry['file']}|{entry['width']}x{entry['height']}|{fps}|{quality}".encode())
+    out = {}
     for f in sorted(p for p in src.rglob("*") if p.is_file()):
         rel = f.relative_to(src)
         if ".hyperframes" in rel.parts or f.name.startswith("."):
             continue
         if rel.parent == Path(".") and f.name.startswith("index.") and f.name not in ("index.html", entry["file"]):
             continue
-        h.update(rel.as_posix().encode())
-        h.update(sha256_file(f).encode())
+        out[rel.as_posix()] = sha256_file(f)
+    return out
+
+
+def render_fingerprint(pdir: Path, entry: Dict[str, Any], fps: int, quality: str,
+                       inputs: Optional[Dict[str, str]] = None) -> str:
+    """Hash of everything a format's visuals depend on: the composition tree plus render settings."""
+    h = hashlib.sha256()
+    h.update(f"{entry['id']}|{entry['file']}|{entry['width']}x{entry['height']}|{fps}|{quality}".encode())
+    for rel, digest in (inputs if inputs is not None else render_inputs(pdir, entry)).items():
+        h.update(rel.encode())
+        h.update(digest.encode())
     return h.hexdigest()
 
 
@@ -878,17 +976,104 @@ def render_stamp_state(pdir: Path, fid: str, fingerprint: str) -> str:
         return "stale"
 
 
-def write_render_stamp(pdir: Path, fid: str, fingerprint: str) -> None:
+def write_render_stamp(pdir: Path, fid: str, fingerprint: str, inputs: Optional[Dict[str, str]] = None) -> None:
     hf = ""
     try:
         hf = subprocess.run(["hyperframes", "--version"], capture_output=True, text=True, timeout=30, stdin=subprocess.DEVNULL).stdout.strip()
     except (OSError, subprocess.SubprocessError):
         pass
-    write_json(pdir / "renders" / fid / STAMP_NAME, {
+    stamp = {
         "fingerprint": fingerprint,
         "hyperframes": hf,
         "rendered_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    }
+    if inputs is not None:
+        stamp["inputs"] = inputs  # lets a later archive say which files made this render stale
+    write_json(pdir / "renders" / fid / STAMP_NAME, stamp)
+
+
+def delivered_path(pdir: Path, project: Dict[str, Any], fid: str) -> Path:
+    """Where `build` copies a format's finished file: out/<slug>-<format>.mp4."""
+    deliv_slug = project.get("slug") or (f"{pdir.parent.name}-{pdir.name}" if pdir.parent != PROJECTS_DIR else pdir.name)
+    return OUT_DIR / f"{deliv_slug}-{fid}.mp4"
+
+
+def changed_inputs(old: Optional[Dict[str, str]], new: Optional[Dict[str, str]]) -> Optional[List[str]]:
+    """Paths under src/ that differ between two input maps; None when either side is unknown."""
+    if old is None or new is None:
+        return None
+    return sorted(k for k in set(old) | set(new) if old.get(k) != new.get(k))
+
+
+def archive_render(pdir: Path, fid: str, reason: str, inputs: Optional[Dict[str, str]] = None) -> Optional[Path]:
+    """Move a format's superseded render out of the way instead of overwriting it.
+
+    renders/<fid>/{visuals.mp4, final.mp4, visuals.stamp.json} move to renders/history/<fid>/<when>/, and the
+    delivered out/<slug>-<fid>.mp4 moves to out/archive/<slug>-<fid>.<when>.mp4. <when> is the old render's
+    time (its stamp, else the file's mtime). A history.json beside them records the reason and, when the old
+    stamp listed its inputs, which src/ files changed. Returns the history folder, or None when nothing to move.
+    """
+    base = pdir / "renders" / fid
+    moving = [n for n in ("visuals.mp4", "final.mp4", STAMP_NAME) if (base / n).exists()]
+    if not any(n.endswith(".mp4") for n in moving):
+        return None
+    stamp: Dict[str, Any] = {}
+    if (base / STAMP_NAME).exists():
+        try:
+            stamp = load_json(base / STAMP_NAME)
+        except (OSError, ValueError):
+            stamp = {}
+    video = base / ("visuals.mp4" if "visuals.mp4" in moving else "final.mp4")
+    try:
+        when = datetime.fromisoformat(stamp["rendered_at"]).astimezone(timezone.utc)
+    except (KeyError, TypeError, ValueError):
+        when = datetime.fromtimestamp(video.stat().st_mtime, timezone.utc)
+    label = when.strftime("%Y%m%dT%H%M%SZ")
+    dest = base.parent / HISTORY_DIRNAME / fid / label
+    n = 1
+    while dest.exists():
+        n += 1
+        dest = base.parent / HISTORY_DIRNAME / fid / f"{label}-{n}"
+    dest.mkdir(parents=True)
+    moved = {}
+    for name in moving:
+        shutil.move(str(base / name), str(dest / name))
+        moved[name] = rel_path(base / name)
+    project = load_json(pdir / "project.json") if (pdir / "project.json").exists() else {}
+    out = delivered_path(pdir, project, fid)
+    if out.exists():
+        target = out.parent / "archive" / f"{out.stem}.{dest.name}{out.suffix}"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(out), str(target))
+        moved[rel_path(target)] = rel_path(out)
+    write_json(dest / "history.json", {
+        "format": fid,
+        "reason": reason,
+        "archived_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "rendered_at": stamp.get("rendered_at") or when.isoformat(timespec="seconds"),
+        "fingerprint": stamp.get("fingerprint"),
+        "changed_inputs": changed_inputs(stamp.get("inputs"), inputs),
+        "moved_from": moved,
     })
+    return dest
+
+
+def render_states(pdir: Path, quality: Optional[str] = None) -> List[Dict[str, Any]]:
+    """Per format: {format, state (missing|unstamped|current|stale), changed (src/ paths or None), inputs}."""
+    project = load_json(pdir / "project.json")
+    q = quality or project.get("quality", "looks")
+    rows = []
+    for entry in format_entries(project):
+        inputs = render_inputs(pdir, entry)
+        state = render_stamp_state(pdir, entry["id"], render_fingerprint(pdir, entry, project["fps"], q, inputs))
+        changed = None
+        if state == "stale":
+            try:
+                changed = changed_inputs(load_json(pdir / "renders" / entry["id"] / STAMP_NAME).get("inputs"), inputs)
+            except (OSError, ValueError):
+                pass
+        rows.append({"format": entry["id"], "state": state, "changed": changed, "inputs": inputs})
+    return rows
 
 
 def render_lock(slug: str):
@@ -928,8 +1113,9 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
 
     project = load_json(pj)
     q = quality or project.get("quality", "looks")
-    steps.append({"stage": "validate", "cmd": [sys.executable, "scripts/studio.py", "validate", pdir.name], "cwd": "."})
+    # formats first: a preset or project.json change regenerates the entry files instead of failing validate
     steps.append({"stage": "formats", "cmd": [sys.executable, "scripts/studio.py", "formats", pdir.name], "cwd": "."})
+    steps.append({"stage": "validate", "cmd": [sys.executable, "scripts/studio.py", "validate", pdir.name], "cwd": "."})
     if project["audio"]["narration"]:
         narr = [sys.executable, "scripts/build-audio.py", pdir.name]
         if project["audio"].get("voice"):
@@ -945,7 +1131,10 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             continue
         fid = entry["id"]
         visuals = f"../renders/{fid}/visuals.mp4"
-        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"), "fingerprint": render_fingerprint(pdir, entry, project["fps"], q)})
+        inputs = render_inputs(pdir, entry)
+        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"),
+                      "fingerprint": render_fingerprint(pdir, entry, project["fps"], q, inputs), "inputs": inputs,
+                      "fingerprint_of": {"entry": entry, "fps": project["fps"], "quality": q}})
         inputs = ["-i", f"renders/{fid}/visuals.mp4"]
         filters, labels = [], []
         idx = 1
@@ -986,8 +1175,7 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
         if not labels:
             qa += ["--allow-silent"]
         steps.append({"stage": f"qa:{fid}", "cmd": qa, "cwd": "."})
-        deliv_slug = project.get("slug") or (f"{pdir.parent.name}-{pdir.name}" if pdir.parent != PROJECTS_DIR else pdir.name)
-        steps.append({"stage": f"deliver:{fid}", "cmd": ["copy", rel(pdir / "renders" / fid / "final.mp4"), f"out/{deliv_slug}-{fid}.mp4"], "cwd": "."})
+        steps.append({"stage": f"deliver:{fid}", "cmd": ["copy", rel(pdir / "renders" / fid / "final.mp4"), rel(delivered_path(pdir, project, fid))], "cwd": "."})
     return steps
 
 
@@ -1020,15 +1208,22 @@ def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
             continue
         if s.get("fingerprint"):
             fid = s["stage"].split(":", 1)[1]
+            if s.get("fingerprint_of"):  # earlier stages (formats) may have rewritten the entry file since the plan was made
+                f = s["fingerprint_of"]
+                s["inputs"] = render_inputs(pdir, f["entry"])
+                s["fingerprint"] = render_fingerprint(pdir, f["entry"], f["fps"], f["quality"], s["inputs"])
             state = render_stamp_state(pdir, fid, s["fingerprint"])
             if state == "current":
                 print(f"[skip] {s['stage']}: renders/{fid}/visuals.mp4 matches the current composition")
                 continue
             if state == "unstamped":
-                print(f"[skip] {s['stage']}: renders/{fid}/visuals.mp4 exists but has no build stamp, so it cannot be checked against the composition; delete it to force a re-render")
+                print(f"[skip] {s['stage']}: renders/{fid}/visuals.mp4 exists but has no build stamp, so it cannot be checked against the composition; "
+                      f"`python scripts/studio.py renders {pdir.name} --archive --unstamped` moves it to renders/history/ and the next build re-renders")
                 continue
             if state == "stale":
-                print(f"[stale] {s['stage']}: composition, assets or settings changed since renders/{fid}/visuals.mp4 was rendered; re-rendering")
+                dest = archive_render(pdir, fid, "stale at build", s.get("inputs"))
+                print(f"[stale] {s['stage']}: composition, assets or settings changed since renders/{fid}/visuals.mp4 was rendered; "
+                      f"previous render moved to {rel_path(dest) if dest else 'nowhere (nothing to move)'}; re-rendering")
         elif s.get("requires_missing") and (REPO_ROOT / s["requires_missing"]).exists():
             print(f"[skip] {s['stage']}: {s['requires_missing']} already exists")
             continue
@@ -1061,10 +1256,101 @@ def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
             print(f"Error: stage {s['stage']} failed with exit code {res.returncode}.")
             return res.returncode
         if s.get("fingerprint"):
-            write_render_stamp(pdir, s["stage"].split(":", 1)[1], s["fingerprint"])
+            write_render_stamp(pdir, s["stage"].split(":", 1)[1], s["fingerprint"], s.get("inputs"))
     log_build_timings(pdir.name, timings, ok=True)
     print("Build complete. Technical QA ran per format; creative review is separate: python scripts/studio.py review " + pdir.name)
     return 0
+
+
+# --------------------------------------------------------------------------- render history and upgrades
+def all_studio_projects() -> List[Path]:
+    """Every studio project, including versioned ones one level down (projects/<group>/<version>/); never archive/."""
+    found = list(PROJECTS_DIR.glob("*/project.json")) + list(PROJECTS_DIR.glob("*/*/project.json"))
+    return sorted(p.parent for p in found if "archive" not in p.relative_to(PROJECTS_DIR).parts)
+
+
+def project_label(pdir: Path) -> str:
+    return pdir.relative_to(PROJECTS_DIR).as_posix() if PROJECTS_DIR in pdir.parents else pdir.name
+
+
+def cmd_renders(args: argparse.Namespace) -> int:
+    targets = [project_dir(s) for s in args.slugs] if args.slugs else all_studio_projects()
+    moved = 0
+    for pdir in targets:
+        if not (pdir / "project.json").exists():
+            print(f"{project_label(pdir)}: legacy project (no project.json); renders are not stamped")
+            continue
+        for row in render_states(pdir, args.quality):
+            fid, state = row["format"], row["state"]
+            note = ""
+            if state == "stale" and row["changed"] is not None:
+                shown = ", ".join(row["changed"][:4]) + (f" (+{len(row['changed']) - 4} more)" if len(row["changed"]) > 4 else "")
+                note = f" (changed: {shown or 'render settings only'})"
+            if args.archive and (state == "stale" or (state == "unstamped" and args.unstamped)):
+                dest = archive_render(pdir, fid, f"{state}, archived by `studio.py renders --archive`", row["inputs"])
+                if dest:
+                    moved += 1
+                    note += f" -> moved to {rel_path(dest)}"
+            print(f"{project_label(pdir)} [{fid}]: {state}{note}")
+    if args.archive:
+        print(f"{moved} render(s) moved to renders/{HISTORY_DIRNAME}/; the next `studio.py build` renders them again.")
+    return 0
+
+
+def cmd_upgrade(args: argparse.Namespace) -> int:
+    """Bring projects onto the current runtime and format presets, and move the renders that supersedes to history.
+
+    An upgrade is never held back because it makes earlier videos stale: those videos move to
+    renders/history/<format>/<when>/ (and out/archive/) with a history.json naming the change, and the next
+    build renders the format again."""
+    if not args.slugs and not args.all:
+        raise SystemExit("Error: name one or more projects, or pass --all.")
+    targets = [project_dir(s) for s in args.slugs] if args.slugs else all_studio_projects()
+    failed = 0
+    for pdir in targets:
+        label = project_label(pdir)
+        if not (pdir / "project.json").exists():
+            print(f"{label}: legacy project, skipped")
+            continue
+        project = load_json(pdir / "project.json")
+        entries = format_entries(project)
+        before = {e["id"]: render_inputs(pdir, e) for e in entries}
+        old_version = load_json(lock_path(pdir)).get("runtime_version") if lock_path(pdir).exists() else None
+        with contextlib.redirect_stdout(io.StringIO()) as quiet:
+            rc = cmd_sync(argparse.Namespace(slug=str(pdir), force=args.force))
+        if rc != 0:
+            failed += 1
+            print(f"{label}: not upgraded. {quiet.getvalue().strip()}")
+            continue
+        try:
+            with contextlib.redirect_stdout(io.StringIO()):
+                cmd_formats(argparse.Namespace(slug=str(pdir), size=None))
+        except ValueError as exc:
+            failed += 1
+            print(f"{label}: runtime synced, but the format entry files could not be generated: {exc}")
+            continue
+        parts = []
+        for e in entries:
+            after = render_inputs(pdir, e)
+            changed = changed_inputs(before[e["id"]], after) or []
+            fp = render_fingerprint(pdir, e, project["fps"], project.get("quality", "looks"), after)
+            state = render_stamp_state(pdir, e["id"], fp)
+            if state == "current" or (not changed and state != "stale"):
+                parts.append(f"{e['id']} {'changed, but its render already matches' if changed else 'unchanged'} ({state})")
+                continue
+            if args.keep_renders or state == "missing":
+                parts.append(f"{e['id']} changed ({len(changed)} file(s)); render {state}")
+                continue
+            if state in ("stale", "unstamped"):
+                dest = archive_render(pdir, e["id"], f"superseded by upgrade (runtime {old_version} -> {runtime_version()}; "
+                                      f"changed: {', '.join(changed[:6]) or 'render settings'})", after)
+                parts.append(f"{e['id']} changed ({len(changed)} file(s)); previous render moved to {rel_path(dest)}" if dest
+                             else f"{e['id']} changed ({len(changed)} file(s))")
+        errors = validate_project(pdir).errors
+        tail = f"; validate: {len(errors)} error(s), first: {errors[0]}" if errors else ""
+        print(f"{label}: runtime {old_version} -> {runtime_version()}; " + "; ".join(parts) + tail)
+    print(f"{len(targets) - failed} of {len(targets)} project(s) upgraded. Re-render with `python scripts/studio.py build <slug>` (one at a time).")
+    return 1 if failed else 0
 
 
 # --------------------------------------------------------------------------- captions
@@ -1081,7 +1367,7 @@ def vtt_time(t: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}.{ms:03d}"
 
 
-def cmd_captions(args: argparse.Namespace) -> int:
+def captions_approx(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
     tl_path = pdir / "audio" / "timeline.json"
     if not tl_path.exists():
@@ -1105,6 +1391,146 @@ def cmd_captions(args: argparse.Namespace) -> int:
         lines += [str(i), f"{vtt_time(c['start'])} --> {vtt_time(c['end'])}", c["text"], ""]
     (out / f"{pdir.name}.vtt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
     print(f"Wrote {len(cues)} approximate cues to src/captions.js and captions/{pdir.name}.vtt")
+    return 0
+
+
+def transcribe_clip(clip: Path, slug: str, model: str) -> List[Dict[str, Any]]:
+    """Word times for one narration clip from the local `hyperframes transcribe`, under the analysis lock.
+
+    The recogniser writes transcript.json into --dir, so it gets a throwaway folder and the project stays clean."""
+    import tempfile
+    with tempfile.TemporaryDirectory(prefix="studio-asr-") as tmp:
+        cmd = [sys.executable, str(REPO_ROOT / "scripts" / "session-guard.py"), "run", "--slug", slug, "analysis", "--",
+               "hyperframes", "transcribe", str(clip.resolve()), "--dir", tmp, "--json", "--no-runtime-install", "--model", model]
+        r = subprocess.run(cmd, capture_output=True, text=True, stdin=subprocess.DEVNULL)
+        out = Path(tmp) / "transcript.json"
+        if r.returncode != 0 or not out.exists():
+            raise SystemExit(f"Error: transcription of {clip.name} failed.\n{(r.stderr or r.stdout)[-600:]}")
+        return [{"text": w["text"], "start": w["start"], "end": w["end"]} for w in load_json(out)]
+
+
+def cmd_captions(args: argparse.Namespace) -> int:
+    """Captions from the narration. Default: approximate sentence cues. --timing words: measured word times."""
+    # older callers pass only the slug, so every new option has a default
+    timing, grouping = getattr(args, "timing", "approx"), getattr(args, "grouping", "sentence")
+    model, max_words, retranscribe = getattr(args, "model", "small.en"), getattr(args, "max_words", 3), getattr(args, "retranscribe", False)
+    if timing == "approx" and grouping == "sentence":
+        return captions_approx(args)
+    if timing == "approx":
+        raise SystemExit("Error: phrase grouping needs measured word times; add --timing words.")
+    pdir = project_dir(args.slug)
+    tl_path = pdir / "audio" / "timeline.json"
+    if not tl_path.exists():
+        raise SystemExit("Error: audio/timeline.json not found; synthesise narration first (scripts/build-audio.py).")
+    caps = pipeline_module("captions")
+    timeline = load_json(tl_path)
+    words_path = pdir / "audio" / "words.json"
+    cached = load_json(words_path) if words_path.exists() else {}
+    asr_all: Dict[str, Any] = {}
+    clips: Dict[str, str] = {}
+    scene_words: Dict[str, Any] = {}
+    coverage: Dict[str, float] = {}
+    cues: List[Dict[str, Any]] = []
+    for sc in timeline["scenes"]:
+        sid = sc["id"]
+        clip = pdir / sc["clip_path"]
+        if not clip.exists():
+            raise SystemExit(f"Error: {clip} not found.")
+        sha = sha256_file(clip)
+        asr = cached.get("asr", {}).get(sid)
+        if retranscribe or asr is None or cached.get("clips", {}).get(sid) != sha or cached.get("model") != model:
+            print(f"  transcribing {sid} ({sc['duration_sec']:.1f}s) with {model} ...")
+            asr = transcribe_clip(clip, pdir.name, model)
+        asr_all[sid], clips[sid] = asr, sha
+        tokens = caps.tokenize(sc["text"])
+        local, cov = caps.align(tokens, asr, (0.0, float(sc["duration_sec"])))
+        off = float(sc["start_time_sec"])
+        film = [(a + off, b + off) for a, b in local]
+        coverage[sid] = round(cov, 2)
+        scene_words[sid] = [{"text": t["text"], "start": round(a, 3), "end": round(b, 3)} for t, (a, b) in zip(tokens, film)]
+        if grouping == "phrase":
+            cues += caps.phrases(tokens, film, max_words=max_words)
+        else:
+            cues += caps.sentence_cues(tokens, film)
+    # Cache first: a problem below must not cost the transcription again.
+    write_json(words_path, {"spec_version": 1, "engine": "hyperframes transcribe (whisper)", "model": model,
+                            "note": "Word times in film seconds, aligned to the script text. `asr` is the raw recogniser output per scene clip; clips holds each clip's sha256 so unchanged scenes are not transcribed again.",
+                            "scenes": scene_words, "asr": asr_all, "clips": clips, "coverage": coverage})
+    problems = caps.check_cues(cues)
+    if problems:
+        raise SystemExit("Error: caption cues are inconsistent: " + "; ".join(problems[:3]))
+    head = ("// GENERATED by scripts/studio.py captions --timing words from audio/words.json.\n"
+            f"// Word times are measured ({model}) and aligned to the script; grouping: {grouping}.\n"
+            "// Each cue carries its words, so Studio.comp.captions highlights the word being spoken.\n")
+    (pdir / "src" / "captions.js").write_text(head + "window.STUDIO_CAPTIONS = " + json.dumps(cues, indent=2, ensure_ascii=False) + ";\n", encoding="utf-8", newline="\n")
+    out = pdir / "captions"
+    out.mkdir(exist_ok=True)
+    lines = ["WEBVTT", ""]
+    for i, c in enumerate(cues, 1):
+        lines += [str(i), f"{vtt_time(c['start'])} --> {vtt_time(c['end'])}", c["text"], ""]
+    (out / f"{pdir.name}.vtt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    low = {k: v for k, v in coverage.items() if v < 0.8}
+    print(f"Wrote {len(cues)} {grouping} cues with measured word times to src/captions.js, captions/{pdir.name}.vtt and audio/words.json")
+    print("  recogniser match per scene: " + ", ".join(f"{k} {v:.0%}" for k, v in coverage.items()))
+    if low:
+        print(f"  WARN: scenes {', '.join(low)} matched under 80% of the script; unmatched words were interpolated. Listen to those scenes.")
+    return 0
+
+
+def cmd_words(args: argparse.Namespace) -> int:
+    """Film time at which a phrase is spoken, to snap a storyboard beat or a visual to its noun."""
+    pdir = project_dir(args.slug)
+    wp = pdir / "audio" / "words.json"
+    if not wp.exists():
+        raise SystemExit("Error: audio/words.json not found; run `studio.py captions <slug> --timing words` first.")
+    hits = pipeline_module("captions").word_index(load_json(wp)["scenes"], args.phrase)
+    if not hits:
+        print(f"'{args.phrase}' is not in the narration.")
+        return 1
+    for h in hits:
+        print(f"{h['start']:7.2f}s - {h['end']:7.2f}s  scene {h['scene']}: {h['text']}")
+    return 0
+
+
+def cmd_script(args: argparse.Namespace) -> int:
+    """Timed sentence sheet, hook and rhythm checks, and the story proposal table. Lint only: exit 0."""
+    sl = pipeline_module("scriptlint")
+    rep = sl.script_report(project_dir(args.slug), wps=args.wps)
+    if args.json:
+        print(json.dumps(rep, indent=2, ensure_ascii=False))
+    else:
+        print(sl.render_text(rep, sheet=not args.no_sheet))
+    return 0
+
+
+def cmd_hook(args: argparse.Namespace) -> int:
+    hk = pipeline_module("hooks")
+    if args.hook_command == "formulas":
+        for f in hk.formulas_for(args.category):
+            print(f"{f['id']:<26} {f['name']}  [{', '.join(f.get('best_for', []))}]")
+            print(f"    template: {f['template']}")
+            print(f"    example:  {f['example']}")
+            print(f"    fails when: {f['fails_when']}")
+        return 0
+    lines = list(args.lines)
+    if args.file:
+        lines += [ln.strip() for ln in Path(args.file).read_text(encoding="utf-8").splitlines() if ln.strip()]
+    if args.slug:
+        sl = pipeline_module("scriptlint")
+        rows, _ = sl.sentence_rows(sl.load_inputs(project_dir(args.slug)), args.wps)
+        if rows:
+            lines.append(rows[0]["text"])
+            print(f"(project hook = first sentence of {args.slug}: \"{rows[0]['text']}\")")
+    if not lines:
+        raise SystemExit("Error: give at least one hook line, --file, or --slug.")
+    for i, r in enumerate(hk.rank(lines, args.wps), 1):
+        print(f"{i}. {r['score']:3d}/100 {r['verdict']:<6} {r['spoken_sec']:.1f}s  {('formula: ' + r['formula']) if r['formula'] else 'no formula matched'}")
+        print(f"   \"{r['text']}\"")
+        print("   points: " + ", ".join(f"{k} {v:g}/{hk.WEIGHTS[k]}" for k, v in r["points"].items()))
+        for n in r["notes"]:
+            print(f"   - {n}")
+    print("\nA lint, not a prediction: it catches greetings, preambles, vague lines and slow openings. "
+          "Pick from three hooks written from different formulas (`studio.py hook formulas`).")
     return 0
 
 
@@ -1342,6 +1768,193 @@ SERIES_HANDLERS = {
 }
 
 
+# --------------------------------------------------------------------------- style templates
+def studio_projects() -> List[Path]:
+    """Every studio project (project.json present), top level of projects/ only."""
+    return sorted(p.parent for p in PROJECTS_DIR.glob("*/project.json"))
+
+
+def get_style_template(records: Dict[str, Dict[str, Any]], tid: str) -> Dict[str, Any]:
+    tpl = records.get("style-templates", {}).get(tid)
+    if not tpl:
+        raise SystemExit(f"Error: style template '{tid}' not found. Available: {', '.join(records.get('style-templates', {})) or 'none'}")
+    return tpl
+
+
+def cmd_style(args: argparse.Namespace) -> int:
+    return STYLE_HANDLERS[args.style_command](args)
+
+
+def cmd_style_list(args: argparse.Namespace) -> int:
+    records = catalogue_records()
+    used: Dict[str, int] = {}
+    for pdir in studio_projects():
+        pin = load_json(pdir / "project.json").get("style_template")
+        if pin:
+            used[pin["id"]] = used.get(pin["id"], 0) + 1
+    print(f"{'id':<20} {'ver':<4} {'visual job':<14} {'default style':<16} {'status':<13} {'categories':<28} projects")
+    for tid, t in records.get("style-templates", {}).items():
+        print(f"{tid:<20} v{t['version']:<3} {t['visual_job']['kind']:<14} {t['look']['style']:<16} {t['status']:<13} "
+              f"{', '.join(t['selection']['categories']):<28} {used.get(tid, 0)}")
+    return 0
+
+
+def cmd_style_show(args: argparse.Namespace) -> int:
+    t = get_style_template(catalogue_records(), args.id)
+    print(f"{t['name']} [{t['id']}]  v{t['version']}  {t['status']}")
+    print(t["summary"], "\n")
+    print(f"Visual job:   {t['visual_job']['kind']}. The viewer leaves able to: {t['visual_job']['viewer_leaves_able_to']}")
+    print(f"Hero:         {t['visual_job']['hero']}")
+    print(f"Use when:     " + "\n              ".join(t["selection"]["use_when"]))
+    print(f"Avoid when:   " + "\n              ".join(t["selection"]["avoid_when"]))
+    look = t["look"]
+    print(f"\nStyle:        {look['style']} (default)" + "".join(f"\n              {a['style']}: {a['when']}" for a in look.get("alternates", [])))
+    if look.get("design_profile"):
+        print(f"Profile:      {look['design_profile']}")
+    print("\nScene grammar:")
+    for sg in t["scene_grammar"]:
+        print(f"  {sg['role']:<18} {sg['formula']}")
+    m = t["motion"]
+    print(f"\nMotion:       {m['signature']}\nAlive between events: {m['continuous_layer']}")
+    r = t["rules"]
+    print(f"\nRules (checked by `style check`): hook by {r['hook_within_sec']:g}s, beat gap <= {r['max_beat_gap_sec']:g}s, "
+          f"scene <= {r['max_scene_sec']:g}s, <= {r['words_per_10s_max']:g} words per 10 s")
+    print(f"Ending:       {r['ending']}")
+    print("\nAnti-patterns:")
+    for a in t["anti_patterns"]:
+        print(f"  - {a['pattern']}  [{a['source']}]")
+    if t.get("open_questions"):
+        print("\nOpen questions:")
+        for q in t["open_questions"]:
+            print(f"  - {q}")
+    print("\nRevisions:")
+    for rv in t["revisions"]:
+        print(f"  v{rv['version']} {rv['date']}  {rv['change']}  (why: {rv['reason']})")
+    return 0
+
+
+def _recommend_inputs(args: argparse.Namespace) -> Tuple[List[str], str, Optional[Path]]:
+    cats = parse_category_arg(getattr(args, "category", None))
+    text = getattr(args, "text", None) or ""
+    pdir = project_dir(args.slug) if getattr(args, "slug", None) else None
+    if pdir and (pdir / "brief.json").exists():
+        brief = load_json(pdir / "brief.json")
+        cats = cats or brief.get("categories", [])
+        text = (text + " " + style_templates_module().brief_text(brief)).strip()
+    if not cats and not text:
+        raise SystemExit("Error: give a project slug with a brief, or --category and/or --text.")
+    return cats, text, pdir
+
+
+def cmd_style_recommend(args: argparse.Namespace) -> int:
+    records = catalogue_records()
+    cats, text, pdir = _recommend_inputs(args)
+    ranked = style_templates_module().recommend(records, cats, text)
+    print(f"Categories: {', '.join(cats) or '(none)'}" + (f"   project: {pdir.name}" if pdir else ""))
+    if not any(r["score"] for r in ranked):
+        print("No template matched by category or keyword. Decide by visual job:")
+        for r in ranked:
+            t = records["style-templates"][r["id"]]
+            print(f"  {r['id']:<20} {t['visual_job']['viewer_leaves_able_to']}")
+        return 0
+    print(f"\n{'rank':<5}{'template':<20}{'job':<14}{'score':<7}why")
+    for i, r in enumerate(ranked[:4], 1):
+        print(f"{i:<5}{r['id']:<20}{r['job']:<14}{r['score']:<7}{'; '.join(r['why'])}")
+    top = records["style-templates"][ranked[0]["id"]]
+    print(f"\nTop pick: {top['name']}. Confirm by the visual job: the viewer should leave able to\n  \"{top['visual_job']['viewer_leaves_able_to']}\"")
+    print("Do not use it when:\n  - " + "\n  - ".join(top["selection"]["avoid_when"]))
+    if len(ranked) > 1 and ranked[0]["score"] - ranked[1]["score"] <= 1.5:
+        print(f"\nClose call with {ranked[1]['id']} ({ranked[0]['score']} vs {ranked[1]['score']}): decide by the visual job above, not the score.")
+    print("\nScores are keyword and category evidence only. Pin the choice with:")
+    print(f"  python scripts/studio.py style adopt {pdir.name if pdir else '<slug>'} {ranked[0]['id']}")
+    return 0
+
+
+def cmd_style_adopt(args: argparse.Namespace) -> int:
+    records = catalogue_records()
+    tpl = get_style_template(records, args.template)
+    if tpl.get("status") in {"blocked", "deprecated"}:
+        raise SystemExit(f"Error: style template '{args.template}' is {tpl['status']}.")
+    pdir = project_dir(args.slug)
+    pj = pdir / "project.json"
+    if not pj.exists():
+        raise SystemExit("Error: legacy project (no project.json); style templates apply to studio projects.")
+    project = load_json(pj)
+    old = project.get("style_template")
+    project["style_template"] = {"id": tpl["id"], "version": tpl["version"]}
+    write_json(pj, project)
+    if old and old["id"] == tpl["id"]:
+        news = style_templates_module().revisions_since(tpl, old["version"])
+        print(f"Re-pinned {pdir.name} to {tpl['id']} v{tpl['version']} (was v{old['version']}).")
+        for r in news:
+            print(f"  v{r['version']}: {r['change']}")
+        if news:
+            print("Re-pinning records that you reviewed these changes; it does not apply them. Run `style check` and revise the project.")
+    else:
+        print(f"{pdir.name} now follows {tpl['id']} v{tpl['version']}.")
+    allowed = {tpl["look"]["style"]} | {a["style"] for a in tpl["look"].get("alternates", [])}
+    if project["style"] not in allowed:
+        print(f"Note: project style '{project['style']}' is not this template's default ('{tpl['look']['style']}') or a listed alternate.")
+    return 0
+
+
+def cmd_style_check(args: argparse.Namespace) -> int:
+    records = catalogue_records()
+    stm = style_templates_module()
+    if args.slug:
+        pdir = project_dir(args.slug)
+        project = load_json(pdir / "project.json")
+        brief = load_json(pdir / "brief.json") if (pdir / "brief.json").exists() else None
+        pin = project.get("style_template")
+        if not pin:
+            print(f"{pdir.name} follows no style template. Run: python scripts/studio.py style recommend {pdir.name}")
+            return 0
+        tpl = get_style_template(records, pin["id"])
+        print(f"{pdir.name} vs {tpl['id']} (pinned v{pin['version']}, current v{tpl['version']})")
+        findings = stm.check_project(pdir, project, brief, tpl)
+        for level, msg in findings:
+            print(f"  [{level.upper()}] {msg}")
+        if not findings:
+            print("  Nothing to flag.")
+        warns = sum(1 for lv, _ in findings if lv == "warn")
+        print(f"{warns} warning(s). These are pre-render checks on the storyboard and narration; motion-qa and the creative review still apply.")
+        return 1 if warns and args.strict else 0
+
+    # Portfolio view: which videos follow which template, and which are behind.
+    print(f"{'project':<36}{'template':<20}{'pinned':<8}{'current':<8}{'warnings':<9}note")
+    behind = 0
+    for pdir in studio_projects():
+        project = load_json(pdir / "project.json")
+        brief = load_json(pdir / "brief.json") if (pdir / "brief.json").exists() else None
+        pin = project.get("style_template")
+        if not pin:
+            sug = ""
+            if brief:
+                ranked = stm.recommend(records, brief.get("categories", []), stm.brief_text(brief))
+                if ranked and ranked[0]["score"]:
+                    sug = f"suggested: {ranked[0]['id']}"
+            print(f"{pdir.name:<36}{'-':<20}{'-':<8}{'-':<8}{'-':<9}{sug}")
+            continue
+        tpl = records.get("style-templates", {}).get(pin["id"])
+        if not tpl:
+            print(f"{pdir.name:<36}{pin['id']:<20}v{pin['version']:<7}{'?':<8}{'-':<9}template not registered")
+            continue
+        findings = stm.check_project(pdir, project, brief, tpl)
+        warns = sum(1 for lv, _ in findings if lv == "warn")
+        is_behind = pin["version"] < tpl["version"]
+        behind += is_behind
+        print(f"{pdir.name:<36}{tpl['id']:<20}v{pin['version']:<7}v{tpl['version']:<7}{warns:<9}{'BEHIND the template' if is_behind else ''}")
+    if behind:
+        print(f"\n{behind} project(s) behind. `style check <slug>` shows what changed; `style adopt <slug> <template>` re-pins after you revise.")
+    return 0
+
+
+STYLE_HANDLERS = {
+    "list": cmd_style_list, "show": cmd_style_show, "recommend": cmd_style_recommend,
+    "adopt": cmd_style_adopt, "check": cmd_style_check,
+}
+
+
 # --------------------------------------------------------------------------- status
 def cmd_status(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
@@ -1381,6 +1994,7 @@ def main() -> int:
     p.add_argument("--template", required=True)
     p.add_argument("--title")
     p.add_argument("--style")
+    p.add_argument("--style-template", dest="style_template", help="Style template id (catalogue/data/style-templates/); sets the default style and pins the project to it")
     p.add_argument("--formats", help="Comma-separated formats; first is primary (default: template's project.json)")
     p.add_argument("--category", help="Comma-separated subject categories (specs/categories.json); usually one, e.g. history,finance for a mixed piece")
 
@@ -1402,8 +2016,45 @@ def main() -> int:
     p.add_argument("--quality", choices=["draft", "looks", "delivery"])
     p.add_argument("--formats", help="Only these formats (comma-separated)")
 
-    p = sub.add_parser("captions", help="Approximate caption cues from narration timing")
+    p = sub.add_parser("renders", help="Per-format render state (current, stale, unstamped, missing); --archive moves stale renders to renders/history/")
+    p.add_argument("slugs", nargs="*", help="Projects (default: every studio project)")
+    p.add_argument("--archive", action="store_true", help="Move stale renders (and their out/ copies) to history so the next build renders them again")
+    p.add_argument("--unstamped", action="store_true", help="With --archive, also move renders that predate build stamps")
+    p.add_argument("--quality", choices=["draft", "looks", "delivery"], help="Compare against this quality instead of project.json's")
+
+    p = sub.add_parser("upgrade", help="Re-sync the runtime and regenerate format entry files; superseded renders move to renders/history/")
+    p.add_argument("slugs", nargs="*")
+    p.add_argument("--all", action="store_true", help="Every studio project, including versioned ones (projects/<group>/<version>/)")
+    p.add_argument("--keep-renders", action="store_true", help="Leave superseded renders in place (build will still archive them before re-rendering)")
+    p.add_argument("--force", action="store_true", help="Overwrite a vendored runtime that was edited in place")
+
+    p = sub.add_parser("captions", help="Caption cues from narration: approximate sentences, or measured word times grouped into short phrases")
     p.add_argument("slug")
+    p.add_argument("--timing", choices=["approx", "words"], default="approx", help="approx: split by character count (default). words: transcribe each narration clip locally and align the script to the measured word times")
+    p.add_argument("--grouping", choices=["sentence", "phrase"], default="sentence", help="phrase: 1-3 word reel captions (needs --timing words)")
+    p.add_argument("--max-words", dest="max_words", type=int, default=3, help="Words per phrase cue (default 3)")
+    p.add_argument("--model", default="small.en", help="Whisper model for --timing words (default small.en)")
+    p.add_argument("--retranscribe", action="store_true", help="Ignore the cache in audio/words.json")
+
+    p = sub.add_parser("words", help="Film time at which a phrase is spoken (needs audio/words.json)")
+    p.add_argument("slug")
+    p.add_argument("phrase")
+
+    p = sub.add_parser("script", help="Pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, and the story table")
+    p.add_argument("slug")
+    p.add_argument("--wps", type=float, default=2.9, help="Words per second used only when narration is not yet measured")
+    p.add_argument("--json", action="store_true")
+    p.add_argument("--no-sheet", dest="no_sheet", action="store_true", help="Findings and story table only")
+
+    p = sub.add_parser("hook", help="Score hook lines and list the hook formulas")
+    hsub = p.add_subparsers(dest="hook_command", required=True)
+    hp = hsub.add_parser("score", help="Rank hook lines (a lint for greetings, vagueness and slow openings; not a view predictor)")
+    hp.add_argument("lines", nargs="*", help="Hook lines, quoted")
+    hp.add_argument("--file", help="A text file with one hook per line")
+    hp.add_argument("--slug", help="Also score this project's actual first sentence")
+    hp.add_argument("--wps", type=float, default=2.9)
+    hp = hsub.add_parser("formulas", help="List the hook formulas (specs/hook-formulas.json)")
+    hp.add_argument("--category", help="Only formulas that suit this subject category")
 
     p = sub.add_parser("review", help="Creative review rubric")
     p.add_argument("slug")
@@ -1432,10 +2083,27 @@ def main() -> int:
     sp = ssub.add_parser("validate", help="Validate one series, or all when no slug is given")
     sp.add_argument("slug", nargs="?")
 
+    p = sub.add_parser("style", help="Style templates: choose one per video, check a video against it, see which are behind")
+    stsub = p.add_subparsers(dest="style_command", required=True)
+    stsub.add_parser("list", help="List style templates and how many projects follow each")
+    sp = stsub.add_parser("show", help="Print one style template")
+    sp.add_argument("id")
+    sp = stsub.add_parser("recommend", help="Rank templates for a project's brief, or for --category / --text")
+    sp.add_argument("slug", nargs="?")
+    sp.add_argument("--category", help="Comma-separated subject categories (overrides the brief's)")
+    sp.add_argument("--text", help="Free text describing the film; matched against template keywords")
+    sp = stsub.add_parser("adopt", help="Pin a project to a template and its current version (also re-pins after a revision)")
+    sp.add_argument("slug")
+    sp.add_argument("template")
+    sp = stsub.add_parser("check", help="Check one project against its template, or list every project's status when no slug is given")
+    sp.add_argument("slug", nargs="?")
+    sp.add_argument("--strict", action="store_true", help="Exit 1 when there are warnings (one project only)")
+
     args = parser.parse_args()
     handlers = {
-        "series": cmd_series,
+        "series": cmd_series, "style": cmd_style, "script": cmd_script, "hook": cmd_hook, "words": cmd_words,
         "new": cmd_new, "sync": cmd_sync, "formats": cmd_formats, "validate": cmd_validate,
+        "renders": cmd_renders, "upgrade": cmd_upgrade,
         "build": cmd_build, "captions": cmd_captions, "review": cmd_review, "status": cmd_status,
     }
     if args.command not in handlers:
@@ -1445,4 +2113,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    ensure_schema_python()
     sys.exit(main())

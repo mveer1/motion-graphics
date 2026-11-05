@@ -1,0 +1,45 @@
+{
+  "id": "skill-agy",
+  "name": "Antigravity CLI Delegation Skill",
+  "component_type": "skill",
+  "purpose": "Delegates low-complexity, high-volume tasks (summaries, bulk extraction, boilerplate drafts, mechanical edits, log triage) to Gemini models through the Antigravity CLI agy, to reduce Claude token cost.",
+  "capabilities": [
+    "Headless agy wrapper with JSON result parsing and denied-action reporting",
+    "Structured extraction with JSON schema output",
+    "Single-file write grants via exact-path permission rules",
+    "Delegation and verification policy for what agy may and may not handle"
+  ],
+  "location": ".claude/skills/agy",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Requires the agy CLI (Antigravity 1.4.x) at ~/.local/bin/agy, installed and signed in outside the repo. Run `agy models` to confirm it is available."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Network calls to Google's Antigravity service. Light on memory, but run calls one at a time while a render or Kokoro job is active."
+  },
+  "documentation_urls": [
+    ".claude/skills/agy/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace-owned skill and wrapper script. The agy CLI itself is a separately installed third-party tool under its own terms."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Prompts and the files agy reads are sent to Google, so the skill forbids delegating secrets, .env content or credentials. Headless agy denies writes and commands by default; the wrapper grants only exact file paths and never uses --dangerously-skip-permissions."
+  },
+  "owner": "workspace-governance",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md#governance",
+  "last_verified": "2026-11-03",
+  "tags": ["delegation", "gemini", "antigravity", "token-cost", "cli"]
+}

@@ -1,0 +1,175 @@
+{
+  "id": "proof-canvas",
+  "name": "Proof Canvas",
+  "version": 1,
+  "status": "experimental",
+  "summary": "One mathematical object built step by step and then transformed, with every variable keeping its colour for the whole film. For theorems, probability, geometry and quantitative arguments.",
+  "visual_job": {
+    "kind": "proof",
+    "viewer_leaves_able_to": "Restate the claim and say why it has to be true.",
+    "hero": "A single mathematical object (lattice, curve, construction) that is constructed, then transformed."
+  },
+  "selection": {
+    "categories": [
+      "mathematics"
+    ],
+    "use_when": [
+      "The film builds an argument, derivation or construction.",
+      "A surprising claim is resolved by a visible key move.",
+      "Quantities are abstract (probabilities, sequences, geometry), not measurements."
+    ],
+    "avoid_when": [
+      "The numbers are real-world measurements over time (use data-ledger).",
+      "The subject is a software or physical system (use systems-blueprint)."
+    ],
+    "keywords": [
+      "theorem",
+      "proof",
+      "probability",
+      "equation",
+      "geometry",
+      "sequence",
+      "prime",
+      "lemma",
+      "random walk",
+      "recurrence",
+      "infinity",
+      "paradox",
+      "derive",
+      "formula"
+    ]
+  },
+  "look": {
+    "style": "abstract-geometric",
+    "alternates": [
+      {
+        "style": "swiss-minimal",
+        "when": "Equation-led film with almost no diagram."
+      },
+      {
+        "style": "dark-tech",
+        "when": "The brief asks for dark (polya-recurrence used it)."
+      }
+    ],
+    "design_profile": "abstract-geometric-motion"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-paradox",
+      "formula": "State the surprising claim as a contrast between two objects shown side by side.",
+      "capabilities": [
+        "stroke-draw",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "setup",
+      "formula": "Define the object by building it from nothing; name each variable once and give it a colour.",
+      "capabilities": [
+        "stroke-draw",
+        "step-header"
+      ]
+    },
+    {
+      "role": "construct",
+      "formula": "Build the argument one visible change at a time; a variable keeps its colour and position throughout.",
+      "capabilities": [
+        "progress-stepper",
+        "marker-highlight",
+        "counter-roll"
+      ]
+    },
+    {
+      "role": "turn",
+      "formula": "The key move: highlight, transform or collapse the object so the reason is visible.",
+      "capabilities": [
+        "shape-morph",
+        "marker-highlight"
+      ]
+    },
+    {
+      "role": "result",
+      "formula": "The claim restated over the final state of the object, with the numbers.",
+      "capabilities": [
+        "monument-stat",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "limit",
+      "formula": "What changes in the next case (another dimension, another rule), shown on the same object.",
+      "capabilities": [
+        "metric-curve-draw"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Construction, not appearance: each element is drawn or derived from the previous one.",
+    "continuous_layer": "The constructed object keeps running (seeded walkers, slow rotation, scale drift) so a held argument is never a held frame.",
+    "avoid": [
+      "An equation fading in whole.",
+      "Decorative motion unrelated to the argument.",
+      "Bounce or overshoot."
+    ],
+    "preferred_capabilities": [
+      "stroke-draw",
+      "shape-morph",
+      "marker-highlight"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "paper-pop"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 3.0,
+    "max_scene_sec": 16,
+    "words_per_10s_max": 27,
+    "ending": "Restate the claim over the final state of the constructed object."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "A scene tail with nothing left to build.",
+      "why": "Polya's closing scene had ~5.5 s of near-empty frame while narration continued; found only after the render. List every visual change time against audio/timeline.json before rendering, closing and quote scenes first.",
+      "source": "lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "The important minority buried under the majority.",
+      "why": "In the 12-bird swarm the returned birds were hidden under escaped trails. Draw the important minority last and thicker, and check a snapshot before the full render.",
+      "source": "lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Breaks the anti-laziness rule. motion-qa flagged 41 s of 70 (cloud), 44 s of 92 (fridge), 79 s of 98 (Korea) as static or low-energy. Plan one visual event per 2-3 s from measured onsets and give every scene a drift layer (Studio.space.drift).",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge); lessons-polya-recurrence-build"
+    },
+    {
+      "pattern": "A headline that restates the narration.",
+      "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
+      "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "polya-recurrence",
+      "note": "Only mathematics film so far; used dark-tech, 73 s portrait."
+    }
+  ],
+  "open_questions": [
+    "No equation typesetting (KaTeX or similar) exists in the studio runtime; equations are set as ordinary text. Decide whether that is enough for derivations."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-03",
+      "change": "Initial version. Narration budget is the top of the deliberate (documentary) range, 27 words per 10 s, because the viewer needs time to think. Not yet calibrated against a film made to it: polya-recurrence (29-39 words per 10 s at am_adam 1.15) exceeds it in every scene.",
+      "reason": "lessons-polya-recurrence-build; voice-director budgets"
+    }
+  ],
+  "tags": [
+    "mathematics",
+    "construction",
+    "light"
+  ]
+}
