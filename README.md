@@ -114,7 +114,7 @@ python scripts/studio.py review <slug> --init        # then score qa/creative-re
 
 Use `.venv/bin/python` for these. Legacy: `./scripts/build-project.sh <slug>`. Catalogue: `python scripts/motion-catalogue.py search "<intent>"`. Governance after any component change: `python scripts/workspace-governance.py`.
 
-Build behaviour to know (Verified in this audit, scratch build): a render whose composition tree, assets, format, fps or quality changed since it was rendered prints `[stale]` and re-renders. A render with no `visuals.stamp.json` (made before stamps existed) is reused with a message; delete it to force a re-render. Narration is still reused whenever `narration-full.wav` exists, so delete it after editing `narration.json`.
+Build behaviour to know (Verified in this audit, scratch build): a render whose composition tree, assets, format, fps or quality changed since it was rendered prints `[stale]` and re-renders. A render with no `visuals.stamp.json` (made before stamps existed) is reused with a message; delete it to force a re-render. Narration is re-made when `narration.json`, the voice or the speed changed since `audio/timeline.json` was written (only the changed scenes, the replaced audio kept in `audio/history/`), and the build stops if that moved scene timing, because compositions hard-code cue times copied from the timeline (2026-11-05 follow-up in `docs/architecture-audit.md`).
 
 ## 9. Concurrency model
 

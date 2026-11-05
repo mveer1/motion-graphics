@@ -838,6 +838,18 @@ def validate_project(pdir: Path) -> Report:
             rep.warn("Narration is on but timing.source is not 'narration'; scene times may drift from speech.")
         if not (pdir / "src" / "narration.json").exists():
             rep.error("audio.narration is true but src/narration.json is missing.")
+        else:
+            nar = pipeline_module("narration")
+            state, reasons = nar.narration_state(pdir, nar.resolve_request(pdir, speed=audio.get("speed"), voice=audio.get("voice")))
+            if state == "stale":
+                rep.warn("audio/narration-full.wav is stale (" + "; ".join(reasons) + "). `studio.py build` re-synthesises it and stops "
+                         "if scene timing moves; run `python scripts/build-audio.py " + pdir.name + "` first and re-time the cues in src/.")
+        tl_path = pdir / "audio" / "timeline.json"
+        if tl_path.exists():
+            total = load_json(tl_path).get("total_duration_sec") or load_json(tl_path).get("duration_sec")
+            if total and float(total) > project["duration_sec"] + 1e-3:
+                rep.error(f"narration runs {float(total):.2f}s but duration_sec is {project['duration_sec']}s; the mux cuts the speech at "
+                          f"duration_sec. Raise duration_sec or shorten the script.")
     music = audio["music"]
     if music["enabled"]:
         if not music.get("file"):
@@ -927,6 +939,7 @@ def cmd_validate(args: argparse.Namespace) -> int:
 # --------------------------------------------------------------------------- build
 # --------------------------------------------------------------------------- build bookkeeping
 STAMP_NAME = "visuals.stamp.json"
+PARTIAL_NAME = "visuals.partial.mp4"
 TIMINGS_LOG = REPO_ROOT / "logs" / "build-timings.jsonl"
 
 
@@ -976,7 +989,8 @@ def render_stamp_state(pdir: Path, fid: str, fingerprint: str) -> str:
         return "stale"
 
 
-def write_render_stamp(pdir: Path, fid: str, fingerprint: str, inputs: Optional[Dict[str, str]] = None) -> None:
+def write_render_stamp(pdir: Path, fid: str, fingerprint: str, inputs: Optional[Dict[str, str]] = None,
+                       extra: Optional[Dict[str, Any]] = None) -> None:
     hf = ""
     try:
         hf = subprocess.run(["hyperframes", "--version"], capture_output=True, text=True, timeout=30, stdin=subprocess.DEVNULL).stdout.strip()
@@ -989,6 +1003,7 @@ def write_render_stamp(pdir: Path, fid: str, fingerprint: str, inputs: Optional[
     }
     if inputs is not None:
         stamp["inputs"] = inputs  # lets a later archive say which files made this render stale
+    stamp.update(extra or {})
     write_json(pdir / "renders" / fid / STAMP_NAME, stamp)
 
 
@@ -1014,7 +1029,7 @@ def archive_render(pdir: Path, fid: str, reason: str, inputs: Optional[Dict[str,
     stamp listed its inputs, which src/ files changed. Returns the history folder, or None when nothing to move.
     """
     base = pdir / "renders" / fid
-    moving = [n for n in ("visuals.mp4", "final.mp4", STAMP_NAME) if (base / n).exists()]
+    moving = [n for n in ("visuals.mp4", "final.mp4", STAMP_NAME, "visuals.prev.mp4") if (base / n).exists()]
     if not any(n.endswith(".mp4") for n in moving):
         return None
     stamp: Dict[str, Any] = {}
@@ -1122,7 +1137,9 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             narr += ["--voice", project["audio"]["voice"]]
         if project["audio"].get("speed"):
             narr += ["--speed", f"{project['audio']['speed']:g}"]
-        steps.append({"stage": "narration", "cmd": narr, "cwd": ".", "requires_missing": rel(pdir / "audio" / "narration-full.wav")})
+        # skipped only when audio/timeline.json records the current script, voice and speed (see run_build_plan)
+        steps.append({"stage": "narration", "cmd": narr, "cwd": ".",
+                      "narration_args": {"voice": project["audio"].get("voice"), "speed": project["audio"].get("speed")}})
     steps.append({"stage": "lint", "cmd": ["hyperframes", "lint", "."], "cwd": rel(pdir / "src")})
     target = project.get("audio", {}).get("loudness_target_lufs")
     tol = project.get("audio", {}).get("loudness_tolerance_lu", 2)
@@ -1130,9 +1147,11 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
         if only and entry["id"] not in only:
             continue
         fid = entry["id"]
-        visuals = f"../renders/{fid}/visuals.mp4"
+        # render to a partial file and rename it on success, so a killed render never leaves a truncated visuals.mp4
+        partial = f"../renders/{fid}/{PARTIAL_NAME}"
         inputs = render_inputs(pdir, entry)
-        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", visuals], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"),
+        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", partial], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"),
+                      "promote": [rel(pdir / "renders" / fid / PARTIAL_NAME), rel(pdir / "renders" / fid / "visuals.mp4")],
                       "fingerprint": render_fingerprint(pdir, entry, project["fps"], q, inputs), "inputs": inputs,
                       "fingerprint_of": {"entry": entry, "fps": project["fps"], "quality": q}})
         inputs = ["-i", f"renders/{fid}/visuals.mp4"]
@@ -1196,17 +1215,31 @@ def cmd_build(args: argparse.Namespace) -> int:
         print(f"Error: required tools not on PATH: {', '.join(missing)}. Use --dry-run to print the plan, or run on the render host.")
         return 1
     with render_lock(pdir.name):
-        return run_build_plan(pdir, plan)
+        return run_build_plan(pdir, plan, allow_narration_shift=args.allow_narration_shift)
 
 
-def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
+def run_build_plan(pdir: Path, plan: List[Dict[str, Any]], allow_narration_shift: bool = False) -> int:
     timings: List[Dict[str, Any]] = []
     for s in plan:
         cwd = REPO_ROOT / s["cwd"]
+        old_timeline = None
         if s.get("requires") and not (REPO_ROOT / s["requires"]).exists():
             print(f"[skip] {s['stage']}: {s['requires']} not found")
             continue
-        if s.get("fingerprint"):
+        if s.get("narration_args") is not None:
+            nar = pipeline_module("narration")
+            state, reasons = nar.narration_state(pdir, nar.resolve_request(pdir, **s["narration_args"]))
+            if state == "current":
+                print(f"[skip] {s['stage']}: audio/narration-full.wav matches src/narration.json, voice and speed")
+                continue
+            if state == "unknown":
+                print(f"[skip] {s['stage']}: audio/narration-full.wav reused unchecked ({reasons[0]}); "
+                      f"`python scripts/build-audio.py {pdir.name} --force` re-synthesises it")
+                continue
+            print(f"[{state}] {s['stage']}: {'; '.join(reasons)}")
+            if state == "stale" and (pdir / "audio" / "timeline.json").exists():
+                old_timeline = load_json(pdir / "audio" / "timeline.json")
+        elif s.get("fingerprint"):
             fid = s["stage"].split(":", 1)[1]
             if s.get("fingerprint_of"):  # earlier stages (formats) may have rewritten the entry file since the plan was made
                 f = s["fingerprint_of"]
@@ -1236,6 +1269,8 @@ def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
             continue
         if s["stage"].startswith("render:"):
             (pdir / "renders" / s["stage"].split(":", 1)[1]).mkdir(parents=True, exist_ok=True)
+        if s.get("promote"):
+            (REPO_ROOT / s["promote"][0]).unlink(missing_ok=True)  # a leftover from a killed render
         if s["stage"] == "lint":
             stashed = []
             for vf in cwd.glob("index.*.html"):
@@ -1255,6 +1290,23 @@ def run_build_plan(pdir: Path, plan: List[Dict[str, Any]]) -> int:
             log_build_timings(pdir.name, timings, ok=False)
             print(f"Error: stage {s['stage']} failed with exit code {res.returncode}.")
             return res.returncode
+        if s.get("promote"):
+            src, dst = (REPO_ROOT / p for p in s["promote"])
+            if not src.exists():
+                log_build_timings(pdir.name, timings, ok=False)
+                print(f"Error: stage {s['stage']} exited 0 but wrote no {s['promote'][0]}.")
+                return 1
+            src.replace(dst)
+        if old_timeline is not None:
+            fps = load_json(pdir / "project.json").get("fps", 30)
+            shifts = pipeline_module("narration").scene_shifts(old_timeline, load_json(pdir / "audio" / "timeline.json"), 1.0 / fps)
+            if shifts and not allow_narration_shift:
+                log_build_timings(pdir.name, timings, ok=False)
+                print("Error: the new narration moved scene timing, so cue times copied into src/ from the old audio/timeline.json "
+                      "would play against the wrong words:\n  " + "\n  ".join(shifts) +
+                      f"\nRe-time the composition (`studio.py words {pdir.name} \"<phrase>\"` gives film times), then build again; "
+                      "pass --allow-narration-shift if the composition reads its times from the timeline. The previous audio is in audio/history/.")
+                return 3
         if s.get("fingerprint"):
             write_render_stamp(pdir, s["stage"].split(":", 1)[1], s["fingerprint"], s.get("inputs"))
     log_build_timings(pdir.name, timings, ok=True)
@@ -2015,6 +2067,8 @@ def main() -> int:
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--quality", choices=["draft", "looks", "delivery"])
     p.add_argument("--formats", help="Only these formats (comma-separated)")
+    p.add_argument("--allow-narration-shift", action="store_true",
+                   help="Keep going when re-synthesised narration moves scene timing (the composition must not hard-code cue times)")
 
     p = sub.add_parser("renders", help="Per-format render state (current, stale, unstamped, missing); --archive moves stale renders to renders/history/")
     p.add_argument("slugs", nargs="*", help="Projects (default: every studio project)")

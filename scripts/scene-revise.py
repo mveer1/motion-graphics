@@ -7,6 +7,11 @@ Renders only the time range of the scene (plus `--pad` seconds each side, becaus
 scene boundary reaches into its neighbours), splices that clip into renders/<format>/visuals.mp4 at exact frame
 boundaries with ffmpeg, keeps the previous visuals as visuals.prev.mp4, and re-runs the studio's mux step.
 
+After the splice it re-stamps renders/<format>/visuals.stamp.json for the edited composition (recording the
+spliced range), so the mux build that follows reuses the spliced track instead of seeing a stale render and
+re-rendering the whole film. It refuses when the runtime (src/_studio/) changed since the render: that touches
+every scene.
+
 What it does NOT do: the splice re-encodes the whole picture track once (so pixels outside the range are visually
 identical but not bit-identical; the report prints the measured difference), and it cannot detect which scene a
 code edit affected: you name the scene. If a change alters timing outside the padded range, do a full build.
@@ -15,10 +20,12 @@ Needs the render host (hyperframes, ffmpeg). One render at a time: the render ru
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import shutil
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -48,6 +55,13 @@ def frames_of(path: Path) -> int:
     return int(r.stdout.strip())
 
 
+def studio_module():
+    spec = importlib.util.spec_from_file_location("studio", ROOT / "scripts" / "studio.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
 def run(cmd, cwd=None, guarded=False) -> int:
     if guarded:
         cmd = [sys.executable, str(ROOT / "scripts" / "session-guard.py"), "run", "render", "--"] + cmd
@@ -67,7 +81,9 @@ def main() -> int:
     if not scene:
         sys.exit(f"error: scene {a.scene!r} not in storyboard: {[s['id'] for s in sb['scenes']]}")
     fmt = a.format or next((f["id"] for f in project["formats"] if f.get("primary")), project["formats"][0]["id"])
-    entry = next(f for f in project["formats"] if f["id"] == fmt)
+    studio = studio_module()
+    entry = next(f for f in studio.format_entries(project) if f["id"] == fmt)
+    quality = project.get("quality", "looks")
     fps = project["fps"]
     dur = project["duration_sec"]
     n_total = round(dur * fps)
@@ -77,17 +93,29 @@ def main() -> int:
     renders = pdir / "renders" / fmt
     visuals = renders / "visuals.mp4"
     seg = renders / "segments" / f"{a.scene}.mp4"
-    comp = "index.html" if fmt == load(pdir / "project.json")["formats"][0]["id"] and (pdir / "src" / "index.html").exists() else f"index.{fmt}.html"
-    comp = f"index.{fmt}.html" if (pdir / "src" / f"index.{fmt}.html").exists() else "index.html"
+    comp = entry["file"]
     print(f"scene {a.scene}: {scene['start_sec']}-{scene['end_sec']} s; re-rendering {t0:.2f}-{t1:.2f} s (frames {f0}-{f1}) of {dur} s = {100 * (t1 - t0) / dur:.0f}% of the film")
     if a.dry_run:
         return 0
     if not visuals.exists():
         sys.exit(f"error: {visuals} does not exist; do a full build first")
+    # an edit to index.html reaches index.<format>.html only through `formats`
+    if run([sys.executable, str(ROOT / "scripts" / "studio.py"), "formats", pdir.name]) != 0:
+        sys.exit("error: `studio.py formats` failed; visuals untouched")
+    stamp_path = renders / studio.STAMP_NAME
+    old_stamp = load(stamp_path) if stamp_path.exists() else {}
+    inputs = studio.render_inputs(pdir, entry)
+    changed = studio.changed_inputs(old_stamp.get("inputs"), inputs)
+    if changed is None:
+        sys.exit(f"error: {visuals} has no build stamp listing its inputs, so a splice cannot be checked; do a full build")
+    if any(c.startswith(studio.RUNTIME_DIRNAME + "/") for c in changed):
+        sys.exit(f"error: the runtime changed since this render ({', '.join(c for c in changed if c.startswith(studio.RUNTIME_DIRNAME + '/'))}); "
+                 "that affects every scene: do a full build")
+    print(f"changed since the render: {', '.join(changed) or 'nothing'}")
     seg.parent.mkdir(parents=True, exist_ok=True)
     if seg.exists():
         seg.unlink()
-    rc = run(["hyperframes", "render", str((pdir / "src").resolve()), "--composition", comp, "--fps", str(fps), "--quality", project.get("quality", "looks"), "--low-memory-mode",
+    rc = run(["hyperframes", "render", str((pdir / "src").resolve()), "--composition", comp, "--fps", str(fps), "--quality", quality, "--low-memory-mode",
               "--start", f"{t0:.4f}", "--end", f"{t1:.4f}", "--output", str(seg.resolve())], guarded=True)
     if rc != 0 or not seg.exists():
         sys.exit("error: partial render failed; visuals untouched")
@@ -114,7 +142,11 @@ def main() -> int:
         prev.unlink()
     shutil.move(str(visuals), str(prev))
     shutil.move(str(new), str(visuals))
-    print(f"spliced. previous track kept at {prev.relative_to(ROOT)}")
+    spliced = old_stamp.get("spliced", []) + [{"scene": a.scene, "frames": [f0, f1], "changed": changed,
+                                                "at": datetime.now(timezone.utc).isoformat(timespec="seconds")}]
+    studio.write_render_stamp(pdir, fmt, studio.render_fingerprint(pdir, entry, fps, quality, inputs), inputs,
+                              {"spliced": spliced})
+    print(f"spliced. previous track kept at {prev.relative_to(ROOT)}; stamp updated so the mux build reuses this track")
     try:
         import numpy as np
         import videoscan as vs

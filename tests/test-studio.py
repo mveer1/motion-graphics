@@ -485,7 +485,7 @@ class BuildBookkeepingTests(unittest.TestCase):
         self._fake_render(pdir, fid)
         studio.write_render_stamp(pdir, fid, "an-older-fingerprint", {})
         render = next(s for s in studio.build_plan(pdir, None, [fid]) if s["stage"] == f"render:{fid}")
-        fake = dict(render, cmd=[sys.executable, "-c", "open('../renders/%s/visuals.mp4', 'wb').write(b'new')" % fid])
+        fake = dict(render, cmd=[sys.executable, "-c", "open('../renders/%s/%s', 'wb').write(b'new')" % (fid, studio.PARTIAL_NAME)])
         self.assertEqual(studio.run_build_plan(pdir, [fake]), 0)
         self.assertEqual((pdir / "renders" / fid / "visuals.mp4").read_bytes(), b"new")
         history = list((pdir / "renders" / "history" / fid).iterdir())
@@ -607,6 +607,158 @@ class BuildBookkeepingTests(unittest.TestCase):
         out = lambda cwd: Path(subprocess.run([sys.executable, "-c", code], cwd=cwd, env=env, capture_output=True, text=True).stdout.strip()).resolve()
         self.assertEqual(out(wt), (main / ".locks").resolve())
         self.assertEqual(out(main), (main / ".locks").resolve())
+
+    def test_render_goes_to_a_partial_file_and_only_a_finished_one_becomes_visuals(self):
+        self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(pdir / "renders", ignore_errors=True)
+        entry, _, _ = self._first_render(pdir)
+        fid = entry["id"]
+        render = next(s for s in studio.build_plan(pdir, None, [fid]) if s["stage"] == f"render:{fid}")
+        self.assertIn(f"../renders/{fid}/{studio.PARTIAL_NAME}", render["cmd"])
+        killed = dict(render, cmd=[sys.executable, "-c", "open('../renders/%s/%s', 'wb').write(b'half'); raise SystemExit(1)" % (fid, studio.PARTIAL_NAME)])
+        self.assertEqual(studio.run_build_plan(pdir, [killed]), 1)
+        self.assertEqual(studio.render_stamp_state(pdir, fid, render["fingerprint"]), "missing", "a failed render must not leave a visuals.mp4 to reuse")
+        silent = dict(render, cmd=[sys.executable, "-c", "pass"])
+        self.assertEqual(studio.run_build_plan(pdir, [silent]), 1)
+        self.assertFalse((pdir / "renders" / fid / "visuals.mp4").exists())
+
+
+def write_wav(path: Path, seconds: float, rate: int = 24000) -> None:
+    import wave
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(rate)
+        w.writeframes(b"\x00\x00" * int(seconds * rate))
+
+
+class NarrationCurrencyTests(unittest.TestCase):
+    """Narration is re-synthesised when its script or voice changes, and a timing shift stops the build."""
+
+    SCENES = [{"id": "s1", "title": "One", "text": "First line."}, {"id": "s2", "title": "Two", "text": "Second line, a bit longer."}]
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.tmpdir = Path(self.tmp.name)
+        self.pdir = copy_project(CHAI, self.tmpdir)
+        shutil.rmtree(self.pdir / "audio", ignore_errors=True)
+        project = json.loads((self.pdir / "project.json").read_text(encoding="utf-8"))
+        project["audio"].update(narration=True, voice="am_adam", speed=1.15)
+        (self.pdir / "project.json").write_text(json.dumps(project), encoding="utf-8")
+        self.write_script(self.SCENES)
+        self.nar = studio.pipeline_module("narration")
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def write_script(self, scenes):
+        (self.pdir / "src" / "narration.json").write_text(json.dumps({"scenes": scenes}), encoding="utf-8")
+
+    def request(self):
+        return self.nar.resolve_request(self.pdir, speed=1.15, voice="am_adam")
+
+    def build_audio_module(self):
+        """scripts/build-audio.py with a stand-in Kokoro whose clips last 0.05 s per character."""
+        import types
+
+        import numpy as np
+        calls = []
+
+        class FakePipeline:
+            def __init__(self, lang_code):
+                pass
+
+            def __call__(self, text, voice, speed):
+                calls.append(text)
+                samples = np.zeros(int(24000 * 0.05 * len(text)), dtype=np.float32)
+                yield types.SimpleNamespace(audio=types.SimpleNamespace(numpy=lambda: samples))
+
+        fake = types.ModuleType("kokoro")
+        fake.KPipeline = FakePipeline
+        self.addCleanup(sys.modules.pop, "kokoro", None)
+        sys.modules["kokoro"] = fake
+        spec = importlib.util.spec_from_file_location("build_audio", REPO_ROOT / "scripts" / "build-audio.py")
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod, calls
+
+    def test_build_audio_reuses_unchanged_scenes_and_keeps_what_it_replaces(self):
+        mod, calls = self.build_audio_module()
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "current")
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual(len(calls), 2, "an unchanged script must not load Kokoro again")
+        self.assertFalse((self.pdir / "audio" / "history").exists())
+
+        self.write_script([self.SCENES[0], dict(self.SCENES[1], text="Second line, rewritten and longer still.")])
+        state, reasons = self.nar.narration_state(self.pdir, self.request())
+        self.assertEqual((state, reasons), ("stale", ["text edited in s2"]))
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual(calls[2:], ["Second line, rewritten and longer still."], "only the edited scene is re-synthesised")
+        kept = list((self.pdir / "audio" / "history").iterdir())
+        self.assertEqual(len(kept), 1)
+        self.assertEqual(sorted(p.name for p in kept[0].iterdir()), ["narration-full.wav", "s2.wav", "timeline.json"])
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "current")
+
+        tl = self.pdir / "audio" / "timeline.json"
+        tl.write_text(json.dumps(dict(json.loads(tl.read_text(encoding="utf-8")), engine="kokoro 0.0.1")), encoding="utf-8")
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual(len(calls), 5, "clips from another engine version are all re-made, so the film keeps one voice")
+        self.assertEqual(len(list((self.pdir / "audio" / "history").iterdir())), 2)
+
+    def test_state_reports_voice_speed_scene_changes_and_old_formats(self):
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "missing")
+        write_wav(self.pdir / "audio" / "narration-full.wav", 1.0)
+        timeline = {"voice": "am_adam", "speed": 1.15, "pause_sec": 0.5,
+                    "scenes": [dict(s, start_time_sec=0.0, end_time_sec=1.0) for s in self.SCENES]}
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps(timeline), encoding="utf-8")
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request()), ("current", []))
+        state, reasons = self.nar.narration_state(self.pdir, self.nar.resolve_request(self.pdir, speed=1.0, voice="af_bella"))
+        self.assertEqual(state, "stale")
+        self.assertEqual(reasons, ["voice am_adam -> af_bella", "speed 1.15 -> 1"])
+        self.write_script(self.SCENES[:1])
+        self.assertIn("scenes ['s1', 's2'] -> ['s1']", self.nar.narration_state(self.pdir, self.request())[1])
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps({"scenes": [{"id": "s1", "start_time_sec": 0}]}), encoding="utf-8")
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "unknown")
+
+    def _timeline(self, s2_end):
+        return {"voice": "am_adam", "speed": 1.15, "pause_sec": 0.5, "total_duration_sec": s2_end,
+                "scenes": [dict(self.SCENES[0], start_time_sec=0.0, end_time_sec=2.0, duration_sec=2.0),
+                           dict(self.SCENES[1], start_time_sec=2.5, end_time_sec=s2_end, duration_sec=s2_end - 2.5)]}
+
+    def _narration_step(self, writes_timeline=None, exit_code=0):
+        step = next(s for s in studio.build_plan(self.pdir, None, None) if s["stage"] == "narration")
+        code = "import json,sys\n"
+        if writes_timeline is not None:
+            code += f"open({str(self.pdir / 'audio' / 'timeline.json')!r}, 'w').write({json.dumps(writes_timeline)!r})\n"
+        code += f"sys.exit({exit_code})"
+        return dict(step, cmd=[sys.executable, "-c", code])
+
+    def test_build_skips_current_narration_and_stops_when_new_narration_moves_timing(self):
+        write_wav(self.pdir / "audio" / "narration-full.wav", 5.0)
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps(self._timeline(5.0)), encoding="utf-8")
+        self.assertEqual(studio.run_build_plan(self.pdir, [self._narration_step(exit_code=9)]), 0, "current narration is not re-made")
+
+        self.write_script([self.SCENES[0], dict(self.SCENES[1], text="Second line, now different.")])
+        moved = dict(self._timeline(6.2), scenes=[self._timeline(6.2)["scenes"][0], dict(self._timeline(6.2)["scenes"][1], text="Second line, now different.")])
+        self.assertEqual(studio.run_build_plan(self.pdir, [self._narration_step(moved)]), 3, "a timing shift must stop the build")
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps(self._timeline(5.0)), encoding="utf-8")
+        self.assertEqual(studio.run_build_plan(self.pdir, [self._narration_step(moved)], allow_narration_shift=True), 0)
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps(self._timeline(5.0)), encoding="utf-8")
+        same = dict(self._timeline(5.0), scenes=moved["scenes"][:1] + [dict(moved["scenes"][1], end_time_sec=5.0)])
+        self.assertEqual(studio.run_build_plan(self.pdir, [self._narration_step(same)]), 0, "a text edit that keeps timing goes on")
+
+    def test_validate_flags_stale_narration_and_speech_longer_than_the_film(self):
+        project = json.loads((self.pdir / "project.json").read_text(encoding="utf-8"))
+        write_wav(self.pdir / "audio" / "narration-full.wav", 1.0)
+        (self.pdir / "audio" / "timeline.json").write_text(json.dumps(self._timeline(project["duration_sec"] + 1.5)), encoding="utf-8")
+        self.write_script([self.SCENES[0], dict(self.SCENES[1], text="Changed.")])
+        rep = studio.validate_project(self.pdir)
+        self.assertTrue(any("cuts the speech" in e for e in rep.errors), rep.errors)
+        self.assertTrue(any("narration-full.wav is stale" in w for w in rep.warnings), rep.warnings)
 
 
 @unittest.skipIf(sys.platform == "win32", "session-guard uses fcntl locks (macOS/Linux render host)")

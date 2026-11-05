@@ -73,6 +73,7 @@ projects/*/renders/
 projects/**/renders/
 projects/*/audio/*.wav
 projects/**/audio/*.wav
+projects/**/audio/history/
 tests/_work/
 tests/sfx_test/
 tests/*.wav
