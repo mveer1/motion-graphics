@@ -1,0 +1,99 @@
+{
+  "spec_version": 1,
+  "slug": "style-sample-proof-canvas",
+  "title": "Style sample: proof-canvas",
+  "categories": [
+    "mathematics"
+  ],
+  "objective": "Show what a proof-canvas film looks like: one object constructed, then transformed so the reason is visible.",
+  "audience": "The Motion Lab team, reviewing what each style template looks like before using it.",
+  "platforms": [
+    "instagram-reels"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 18,
+      "target": 22,
+      "max": 30
+    }
+  },
+  "message": {
+    "core_message": "Half-turns carry two angles of a triangle to the third, and the three fill a straight line.",
+    "key_points": [
+      "States the claim the proof explains.",
+      "Defines a, b and c.",
+      "Adds the one construction the proof needs.",
+      "Makes the reason visible.",
+      "Shows it holds for any triangle."
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "clarity"
+    ],
+    "keywords": [
+      "proof-canvas",
+      "abstract-geometric",
+      "style sample"
+    ],
+    "avoid": [
+      "dark backgrounds by default",
+      "filler motion",
+      "static holds over 3 seconds"
+    ]
+  },
+  "constraints": [
+    "Silent: no narration, music or effects; the picture carries it.",
+    "Built to style template proof-canvas v1; scene roles follow its scene grammar."
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "none",
+    "music": "none",
+    "sfx": "none",
+    "captions": false
+  },
+  "research": {
+    "required": false,
+    "reason": "Style sample for look review, not a release. On-screen facts are a few well-established figures checked by hand; the source is named on screen. The proof is the standard parallel-line argument (Euclid I.32)."
+  },
+  "complexity": "simple",
+  "creative_directions": [
+    {
+      "id": "template",
+      "name": "proof-canvas template",
+      "concept": "A 22-second walk through the proof-canvas template's scene grammar on a subject that fits its visual job: Why a triangle's angles add to 180 degrees.",
+      "visual_identity": {
+        "style_system": "abstract-geometric",
+        "palette": "abstract-geometric tokens",
+        "typography": "abstract-geometric families",
+        "texture": "per style system"
+      },
+      "motion_language": {
+        "personality": "per template motion signature",
+        "signature_moves": [
+          "hook-paradox",
+          "setup",
+          "construct",
+          "turn",
+          "result"
+        ],
+        "transitions": "per template"
+      },
+      "composition": {
+        "approach": "Portrait only: copy in the top band, the hero in the middle, captions above the bottom UI zone."
+      },
+      "pacing": "A planned visual event at least every 2 seconds.",
+      "why_it_fits": "It is the template's own grammar, so the sample shows the template rather than one film's choices."
+    }
+  ],
+  "selected_direction": "template",
+  "success_criteria": [
+    "Each scene role of the template is recognisable",
+    "No frame holds still for more than 2.5 s"
+  ]
+}

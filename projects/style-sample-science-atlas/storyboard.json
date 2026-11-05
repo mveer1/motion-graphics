@@ -1,0 +1,257 @@
+{
+  "spec_version": 1,
+  "slug": "style-sample-science-atlas",
+  "direction": "template",
+  "timing_source": "fixed",
+  "duration_sec": 22,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Hook: the whole planet",
+      "start_sec": 0,
+      "end_sec": 3.6,
+      "purpose": "[hook-specimen] The specimen whole, with a scale bar from frame 1.",
+      "why": "Sets the object and its scale.",
+      "on_screen_text": [
+        "Inside the Earth, to scale",
+        "6,371 km from your feet to the centre",
+        "3,000 km"
+      ],
+      "visual": "Earth disc with land; scale bar from frame 0; radius draws; land turns slowly.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "line-art-reveal",
+        "text-mask-rise"
+      ],
+      "beats": [
+        {
+          "at_sec": 0.1,
+          "action": "kicker"
+        },
+        {
+          "at_sec": 0.4,
+          "action": "headline"
+        },
+        {
+          "at_sec": 1.4,
+          "action": "radius draws"
+        },
+        {
+          "at_sec": 2.4,
+          "action": "radius reaches centre"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s2",
+      "title": "Cutaway: four layers",
+      "start_sec": 3.6,
+      "end_sec": 9.0,
+      "purpose": "[cutaway] Open the object: a quadrant cut with labelled layers.",
+      "why": "Names the four parts the film reuses.",
+      "on_screen_text": [
+        "Cut it open: four layers",
+        "crust",
+        "5 to 70 km",
+        "mantle",
+        "to 2,890 km",
+        "outer core",
+        "liquid",
+        "inner core",
+        "solid"
+      ],
+      "visual": "A quadrant opens; four labels with leaders into the cut.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "element-mask-reveal",
+        "annotation-callout"
+      ],
+      "beats": [
+        {
+          "at_sec": 3.8,
+          "action": "headline, cut opens"
+        },
+        {
+          "at_sec": 5.4,
+          "action": "crust label"
+        },
+        {
+          "at_sec": 6.2,
+          "action": "mantle label"
+        },
+        {
+          "at_sec": 7.0,
+          "action": "outer core label"
+        },
+        {
+          "at_sec": 7.8,
+          "action": "inner core label"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s3",
+      "title": "Scale ladder: the crust at 60x",
+      "start_sec": 9.0,
+      "end_sec": 14.0,
+      "purpose": "[scale-ladder] Zoom 60x with the scale bar re-labelled.",
+      "why": "Shows how thin the crust is at true scale.",
+      "on_screen_text": [
+        "At true scale, the crust is a thin skin",
+        "50 km",
+        "Crust",
+        "5 to 70 km thick",
+        "Deepest hole, 12.3 km",
+        "Kola borehole, 1989"
+      ],
+      "visual": "Whole cross-section opens; push 60x into the surface; bar becomes 50 km; crust and borehole notes.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "depth-camera-push",
+        "counter-roll"
+      ],
+      "beats": [
+        {
+          "at_sec": 9.1,
+          "action": "cross-section opens"
+        },
+        {
+          "at_sec": 9.4,
+          "action": "headline"
+        },
+        {
+          "at_sec": 10.2,
+          "action": "push begins"
+        },
+        {
+          "at_sec": 12.4,
+          "action": "bar: 50 km"
+        },
+        {
+          "at_sec": 12.5,
+          "action": "crust note"
+        },
+        {
+          "at_sec": 13.2,
+          "action": "borehole note"
+        },
+        {
+          "at_sec": 13.3,
+          "action": "borehole pulses"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s4",
+      "title": "Process: the flowing core",
+      "start_sec": 14.0,
+      "end_sec": 18.0,
+      "purpose": "[process] One process with direction: the outer core flows; the field draws.",
+      "why": "Shows the process inside.",
+      "on_screen_text": [
+        "Flowing liquid iron makes the magnetic field",
+        "3,000 km"
+      ],
+      "visual": "Pull back to 1x; particles circulate in the outer core; dipole field lines draw.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "stroke-draw",
+        "metric-curve-draw"
+      ],
+      "beats": [
+        {
+          "at_sec": 14.0,
+          "action": "pull back"
+        },
+        {
+          "at_sec": 14.4,
+          "action": "headline"
+        },
+        {
+          "at_sec": 15.0,
+          "action": "particles circulate"
+        },
+        {
+          "at_sec": 15.7,
+          "action": "bar: 3,000 km"
+        },
+        {
+          "at_sec": 15.8,
+          "action": "field lines draw"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s5",
+      "title": "Close: the whole specimen",
+      "start_sec": 18.0,
+      "end_sec": 22,
+      "purpose": "[close] Back to the whole specimen at the starting scale, with the finding.",
+      "why": "Lands the one-sentence finding.",
+      "on_screen_text": [
+        "Our deepest hole: 0.2% of the way down"
+      ],
+      "visual": "Cut closes; field dims; finding; radius draws again; specimen breathes.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "end-card"
+      ],
+      "beats": [
+        {
+          "at_sec": 18.2,
+          "action": "cut closes"
+        },
+        {
+          "at_sec": 18.4,
+          "action": "field dims"
+        },
+        {
+          "at_sec": 18.8,
+          "action": "finding rises"
+        },
+        {
+          "at_sec": 19.0,
+          "action": "specimen breathes"
+        },
+        {
+          "at_sec": 19.8,
+          "action": "radius draws"
+        },
+        {
+          "at_sec": 20.6,
+          "action": "style tag"
+        }
+      ],
+      "transition_out": {
+        "type": "hold-end"
+      }
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "spec_version": 1,
+  "slug": "weight-space-programming",
+  "title": "Weights That Read Like Code",
+  "categories": [
+    "technology",
+    "science"
+  ],
+  "objective": "The viewer understands what MIT CSAIL's 'Sparks of Weight-Space Programming' (2 November 2026) showed: a frontier LLM read raw neural network weights, fixed and wrote networks, and removed a loop direction from 0.016% of Qwen3.5-0.8B's weights, all without gradient descent. They also know where it failed and that it is an early, unreviewed result on small models.",
+  "audience": "Technically curious viewers and ML practitioners on a phone. They have heard of neural networks and training, but cannot picture what a weight matrix, an attention head or a residual-stream direction is.",
+  "platforms": [
+    "youtube-shorts",
+    "instagram-reels",
+    "website"
+  ],
+  "deliverables": {
+    "formats": [
+      "portrait"
+    ],
+    "duration_sec": {
+      "min": 180,
+      "target": 240,
+      "max": 280
+    }
+  },
+  "message": {
+    "core_message": "A general-purpose LLM can read raw weights and edit them by reasoning about what each part computes, with no gradients. The first sparks are real but narrow.",
+    "key_points": [
+      "Weights are normally written by gradient descent, and nobody reads them.",
+      "Read: Astra named the game from 17,253 weights, and found copying heads by multiplying matrices.",
+      "Fix: a one-shot edit to 3.5% of a car policy's weights took it from 0 of 256 to 1,024 of 1,024.",
+      "Write: networks written from all-zero weights beat PPO trained for 100M steps, and a 1.5M-weight Go player beat an equal-sized PPO net.",
+      "Improve: removing one loop direction from 131,072 of Qwen's weights raised MATH-500 from 7.9% to 48.1%.",
+      "Limits: no sycophancy detection from weights alone, no gain on a model that does not loop, a blog post on small models."
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "wonder",
+      "precision",
+      "earned scepticism"
+    ],
+    "keywords": [
+      "research documentary",
+      "blueprint",
+      "matrix",
+      "editorial",
+      "light"
+    ],
+    "avoid": [
+      "dark backgrounds by default",
+      "glowing brains, robots, humanoid AI, circuit-board stock imagery",
+      "Matrix-style falling green code",
+      "slideshow bullet lists",
+      "hype words: revolutionary, game-changing",
+      "claiming Astra trained or made a model smarter"
+    ]
+  },
+  "constraints": [
+    "Every number on screen matches research.json",
+    "Readable with sound off: each scene carries its own claim in text",
+    "Labels at or above the 2.6% type floor (18.7 px in portrait)",
+    "No logos or brand marks of MIT, OpenAI, Qwen or Google; names in plain type only"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "required",
+    "music": "required",
+    "sfx": "required",
+    "captions": false
+  },
+  "research": {
+    "required": true,
+    "reason": "Technical claims about a specific research result, with numbers, architectures and limitations that must match the primary source."
+  },
+  "complexity": "complex",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "Weight Sheet Blueprint",
+      "concept": "One persistent object, the weight sheet: a page of monospace numbers that turns into a diverging-colour matrix. Every experiment is a new state of that sheet: read (a cursor scans it and a structure lights up), fixed (a thin new path is inked through it), written (zeros fill with values), edited (64 columns turn against one direction). Around it, exact architectural diagrams drawn as engineering blueprints on warm paper: layer stacks with real widths, a 24-layer residual stream running down the portrait frame, vector diagrams for the projection. The abstract maths becomes visible because the film always shows the actual operation on the actual shape.",
+      "visual_identity": {
+        "style_system": "editorial-light",
+        "palette": "Paper #F4EFE6, ink #1E1B16, ultramarine #2D4FA3 for negative weights, vermilion #B8432A for positive weights and edits, marigold #D9A441 for reading cursors, emerald #2F7D4F for results",
+        "typography": "JetBrains Mono for weights, shapes and equations; Playfair Display for chapter titles; Inter for labels",
+        "texture": "Hairline blueprint grid, registration ticks, small dimension labels (500 → 32 → 32 → 5) as on a drawing"
+      },
+      "motion_language": {
+        "personality": "Precise and patient: draws, scans and fills rather than flying in",
+        "signature_moves": [
+          "number-to-cell morph",
+          "marigold reading cursor that scans rows",
+          "pen-drawn path through a layer stack",
+          "matrix fill from zeros",
+          "vector projection and subtraction",
+          "counter rolls tied to spoken numbers"
+        ],
+        "transitions": "Match cuts through the weight sheet (it zooms into the next scene's matrix). Crossfades inside a chapter, hard cuts on the chapter verbs READ, FIX, WRITE, IMPROVE, LIMITS"
+      },
+      "composition": {
+        "approach": "Portrait: chapter rail and claim headline in the top band, hero diagram in the 65% middle band, a data strip (counter or equation) just above the bottom safe zone"
+      },
+      "pacing": "Narration at about 145 wpm; a visual event every 2 to 2.5 s; each scene has a slow camera drift and one travelling signal",
+      "why_it_fits": "The subject is literally numbers inside matrices. Showing the real shapes (17,253 weights, 4×6 heads, 64 columns of a 1,024-row matrix) makes the claims checkable and avoids generic AI imagery. A persistent sheet suits the systems-blueprint template's 'one diagram, changing state'."
+    },
+    {
+      "id": "direction-b",
+      "name": "Lab Notebook",
+      "concept": "Each experiment is a page in a handwritten lab notebook: question, setup, result, with paper-cut tabs for READ, FIX and WRITE and taped-in plots.",
+      "visual_identity": {
+        "style_system": "paper-cut",
+        "palette": "Cream paper, graphite, red pencil, blue ink",
+        "typography": "Hand-drawn titles, typewriter body",
+        "texture": "Ruled lines, tape, deckle edges"
+      },
+      "motion_language": {
+        "personality": "Warm and tactile",
+        "signature_moves": [
+          "page turns",
+          "pencil underlines",
+          "taped plot drops"
+        ],
+        "transitions": "Page flips between experiments"
+      },
+      "composition": {
+        "approach": "One notebook page fills the portrait frame. Plots are taped into the lower half"
+      },
+      "pacing": "One page per experiment",
+      "why_it_fits": "It frames the work as experiments in progress, which suits an unreviewed result."
+    }
+  ],
+  "selected_direction": "direction-a",
+  "selection_rationale": "Direction B frames the study well but hides the maths behind paper: matrices and heads would become stickers, and page turns make each experiment a separate slide, which is the slideshow feel the brief forbids. Direction A shows the real operation on the real shape and keeps one object changing state across the film, which is what the systems-blueprint template asks for.",
+  "success_criteria": [
+    "A viewer can say what was read, fixed, written and edited, and roughly how big each network was",
+    "The Experiment 8 edit is shown as the real operation: one direction removed from 64 columns in two layers",
+    "Both reported failures appear on screen",
+    "No static hold over 2.5 s while narration speaks",
+    "The ending returns to the opening number wall, resolved"
+  ]
+}

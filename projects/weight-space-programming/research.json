@@ -1,0 +1,410 @@
+{
+  "$schema": "../../specs/research-spec.json",
+  "metadata": {
+    "topic_id": "weight-space-programming",
+    "title": "Sparks of Weight-Space Programming: a frontier LLM reads and writes neural network weights",
+    "domain": "deep_learning",
+    "difficulty": "advanced",
+    "target_duration_sec": {
+      "min": 180,
+      "max": 270,
+      "target": 240
+    },
+    "canonical_sources": [
+      {
+        "title": "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights (research blog post, MIT CSAIL, published 2026-11-02, not peer-reviewed; consulted 2026-11-05)",
+        "authors": "Rikiya Takehi, Jayden Teoh, Alex Zhang, Omar Khattab",
+        "year": 2026,
+        "source_type": "academic_paper",
+        "url": "https://rikiyat.github.io/blog/weight-space-programming/"
+      },
+      {
+        "title": "lm_understand-logs: complete logs of every experiment in the post (README, exp8_math/README.md, exp8_math/runs/p50c/final_answer.md and work_notes/final_report.md; consulted 2026-11-05)",
+        "authors": "Rikiya Takehi, Jayden Teoh, Alex Zhang, Omar Khattab",
+        "year": 2026,
+        "source_type": "benchmark_report",
+        "url": "https://github.com/RikiyaT/lm_understand-logs"
+      },
+      {
+        "title": "A Mathematical Framework for Transformer Circuits (induction heads found by composing weight matrices; the method Astra re-derived in Experiment 3)",
+        "authors": "Nelson Elhage et al.",
+        "year": 2021,
+        "source_type": "academic_paper",
+        "url": "https://transformer-circuits.pub/2021/framework/index.html"
+      },
+      {
+        "title": "Refusal in Language Models Is Mediated by a Single Direction (the directional-ablation precedent the post compares Experiment 8 to)",
+        "authors": "Andy Arditi et al.",
+        "year": 2024,
+        "source_type": "academic_paper",
+        "url": "https://arxiv.org/abs/2406.11717"
+      },
+      {
+        "title": "MinAtar: An Atari-Inspired Testbed for Thorough and Reproducible Reinforcement Learning Experiments (Experiment 5 games)",
+        "authors": "Kenny Young, Tian Tian",
+        "year": 2019,
+        "source_type": "academic_paper",
+        "url": "https://arxiv.org/abs/1903.03176"
+      },
+      {
+        "title": "Kinetix: Investigating the Training of General Agents through Open-Ended Physics-Based Control Tasks (Experiment 4 environment)",
+        "authors": "Michael Matthews et al.",
+        "year": 2025,
+        "source_type": "academic_paper",
+        "url": "https://arxiv.org/abs/2410.23208"
+      },
+      {
+        "title": "Forget retraining - AI can now tweak another AI's weights (press coverage; quotes no independent experts; consulted 2026-11-05)",
+        "authors": "The Register",
+        "year": 2026,
+        "source_type": "official_doc",
+        "url": "https://www.theregister.com/ai-and-ml/2026/11/03/forget-retraining-ai-can-now-tweak-another-ais-weights/5307105"
+      }
+    ]
+  },
+  "pedagogy": {
+    "problem_statement": "Neural network weights are written by optimizers (gradient descent with Adam or Muon), by networks trained to write them, or by compilers from formal programs. Humans cannot read raw weights or set them by hand, so weights have stayed outside the reasoning-driven optimization that LLMs already apply to prompts and code.",
+    "core_thesis": "In an early MIT CSAIL study (blog post with full logs, 2 November 2026), a general-purpose frontier LLM, GPT-6 Astra used as it is through the Codex CLI with its own tools switched off, read raw network weights to infer behaviour, edited them to fix failures, and wrote small networks from all-zero weights, by reasoning about what each part computes, without gradient descent or training loops. The authors call this Weight-Space Programming. It also failed in two reported cases.",
+    "mental_model": "Treat a weight matrix like source code in an unfamiliar language: a skilled reader can spot what a block does (a paddle detector, a copying head, a loop-writing direction), patch one block, or write a new block from a specification, instead of re-running a compiler (training) on new data.",
+    "key_takeaway": "A frontier LLM read and rewrote network weights by reasoning, without gradients: it identified a game from 17,253 weights, wrote game-playing networks from zero, and removed a loop direction from 131,072 of Qwen3.5-0.8B's weights (0.016%), raising MATH-500 from 7.9% to 48.1%. It could not detect sycophancy from weights alone, and could not raise math on a model that does not loop. Early, unreviewed, small models.",
+    "verified_claims": [
+      "Authors: Rikiya Takehi and Jayden Teoh (equal contribution), Alex Zhang and Omar Khattab, all MIT CSAIL. Published 2 November 2026 as a blog post. The editor model 'Astra' is OpenAI's gpt-6-astra, run through the Codex CLI with every built-in tool switched off; all 1,125 released turns were audited tool-free (logs README).",
+      "Definition (blog): 'In Weight-Space Programming, a general-purpose LLM reads and writes a network's weights directly (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec, sometimes even with no environment feedback at all.'",
+      "Experiment 1: four PPO policies (1 billion steps each, best of 3 seeds) on the authors' own 10x10 grid versions of Breakout, Pong, Pac-Man and Freeway; identical MLP 500 -> 32 -> 32 -> 5, tanh, 17,253 weights; input 10x10 grid in 5 channels (agent, moving objects, reward targets, obstacles, previous frame); output 5 actions. Given only the weights and no list of games, Astra named the right game for all four. Clue cited: for Breakout the agent channel's first-layer weights lie along the bottom row (a paddle). The post's teaser panel shows 'Breakout 99% confident'.",
+      "Experiment 2: three DDPMs (MLP 160 -> 64 -> 64 -> 144, ReLU, 23,824 weights) of 12x12 circles, squares, triangles. With no forward pass, Astra named each shape from the output layer, but drew every shape as an outline although the models generate filled shapes.",
+      "Experiment 3: three character-level transformers (4 layers x 6 heads, width 384, 7.16M weights) trained on Python, romaji and English; input and output layers removed; no running the network. Astra named the right language for all three in both attempts and found every copying (induction) head, naming no other head as one. Python model copying heads 2.1, 3.1, 3.5 (layer.head) match ground truth; romaji 3.3; English 3.1. Method: find a previous-character head, then multiply weight matrices to find heads that search with what it brings (as in Elhage et al. 2021, not mentioned to Astra). Confidence for Python 0.56 and 0.52.",
+      "Experiment 4: official Kinetix actor 679 -> 128 (ReLU) -> five layers of 128 (tanh) -> 16, 171,664 weights; PPO 1 billion steps; car never succeeds in 256 episodes (stalls on the ramp). One reply, no tools: Astra added a small separate path through a few units per layer reading position and speed that backs the car up, then switches off; 3.5% of weights changed; success in all 1,024 episodes.",
+      "Experiment 5: MinAtar Breakout, Seaquest, Asterix; network 600 -> 32 -> 32 -> 6 (tanh), every weight starting at 0; no data, loss, gradients, tools or rollouts; one reply. Scores (1,000 episodes): Breakout PPO-100M 15.8, PPO-500M 25.3, Astra 517.4; Seaquest 5.6 / 88.9 / 53.1; Asterix 25.8 / 55.2 / 53.2. Beats PPO-100M in all three. Breakout program: first layer computes where the ball will land, second layer moves the paddle there.",
+      "Experiment 6: 9x9 Go, network 243 -> 512 x 6 -> 82 (ReLU), 1,480,274 weights starting at 0; Python sandbox (numpy/PyTorch on CPU) but the network can only run through budgeted forward passes (one pass = up to 128 games or 256 positions). Design: stones and liberties, chains and groups in danger, then a per-move score (capture, save, avoid self-atari, keep eyes). With 0 passes it wins more than half its games against two smaller PPO networks (243 -> 32 -> 32 -> 82); with 50 passes it beats the equal-sized PPO network trained on 20 million games.",
+      "Experiment 7 (failure, then partial success): two Gemma 3 270M copies fine-tuned identically, one honest, one sycophantic (always gives the user's suggested answer); embeddings and output frozen. From weights alone, in four attempts, Astra could not tell which was the sycophant. Allowed attention patterns on texts it wrote (not outputs), it picked the sycophant in all three pairs; head 10.2 from the answer position: honest 94.3% to the question's numbers and 0.75% to the user's answer; sycophant 3.5% and 85.7%.",
+      "Experiment 8: Qwen3.5-0.8B, thinking on, 24 layers, 0.8 billion weights. Python kernel over the weights (CPU, no GPU), practice problems from GSM8K and MATH train sets only, 10/25/50 forward passes, no gradients or training. Base model loops: 85 of its first 96 practice answers hit the 32,768-token limit. Astra traced the looping to one direction written by the MLPs of layers 15 and 19 and subtracted it from 64 output columns in each: 2 x 64 x 1,024 = 131,072 weights, 0.016% of the model. Exact edit (logs, run p50c): W = W0 - 6*outer(u, mask64*(u @ W0)) on model.language_model.layers.15 and .19 mlp.down_proj.weight; u a unit 'repetition direction'.",
+      "Experiment 8 results (50 passes, evaluation never shown to Astra): MATH-500 7.9% -> 48.1%; GSM8K 13.8% -> 67.1%; IFEval 21.0% -> 62.3% (blog: 'raising IFEval by 3x'); MATH-500 answers hitting the token limit 93.0% -> 33.1%. With 10 and 25 passes MATH-500 reached only 12.3% and 14.1%. Sampling identical: temperature 0.6, top-p 0.95, top-k 20, presence penalty 1.5.",
+      "Experiment 8 control (Astra's own report on held-out practice problems, not benchmarks): a norm-matched orthogonal random direction gained 1.56 percentage points (SE 3.52), against a pooled 49.8-point gain for the targeted edit on 1,152 practice problems (579 rescues, 5 regressions).",
+      "Additional experiment (failure): Gemma 3 270M rarely loops (8.5% of answers hit its token limit vs 93% for Qwen). Astra's edits moved MATH-500 by at most about a point (base 6.8; 7.0, 7.6, 7.7, 7.0 with 5/10/25/50 passes), which Astra reported as not established. Blog: 'Editing weights could remove an obstacle that hid an ability, but it could not add an ability the model lacked.'",
+      "Scope and status: largest model edited is 0.8 billion weights; the game and diffusion networks are tens of thousands. The authors call the results 'very early', 'exciting but still limited', and say they are building a benchmark and harness. No peer review or independent replication found as of 2026-11-05; Hugging Face's Ahsen Khaliq rebuilt the edited Qwen from the logs and re-ran its evaluation (per the blog)."
+    ],
+    "anti_patterns": [
+      "Saying Astra 'trained' or 'fine-tuned' the networks. It did not: no gradients, backward passes, optimizers or fitting to a loss were allowed.",
+      "Saying Astra made Qwen 'smarter at math'. The edit removed thinking loops so the model finishes answers it could already work out; on Gemma, which does not loop, edits did not help.",
+      "Calling it a peer-reviewed paper. It is a blog post with released logs.",
+      "Claiming it works on frontier-scale models. The largest edited model has 0.8 billion weights.",
+      "Presenting the forward-pass-free results (Exp 1, 2, 4, 5) and the tool-assisted ones (Exp 3, 6, 7, 8) as the same setting.",
+      "Implying Astra read the sycophant from weights alone. It failed at that and needed attention patterns.",
+      "Presenting the random-direction control as a benchmark result. It is Astra's own measurement on practice problems.",
+      "Stating that the edit avoids catastrophic forgetting. The authors propose it as a future possibility, it is not tested."
+    ]
+  },
+  "ground_truth": {
+    "entities": [
+      {
+        "id": "theta",
+        "symbol_latex": "\\theta",
+        "name": "weights",
+        "type_or_domain": "R^n (17,253 to 0.8 billion numbers)",
+        "role": "The program being read and written"
+      },
+      {
+        "id": "loss",
+        "symbol_latex": "\\mathcal{L}(\\theta)",
+        "name": "loss",
+        "type_or_domain": "scalar",
+        "role": "What gradient descent minimises; absent from weight-space programming"
+      },
+      {
+        "id": "eta",
+        "symbol_latex": "\\eta",
+        "name": "learning rate",
+        "type_or_domain": "scalar",
+        "role": "Step size of the conventional optimizer"
+      },
+      {
+        "id": "spec",
+        "symbol_latex": "s",
+        "name": "natural-language spec",
+        "type_or_domain": "text",
+        "role": "The goal handed to the LLM, e.g. 'make it better at math'"
+      },
+      {
+        "id": "W1",
+        "symbol_latex": "W_1 \\in \\mathbb{R}^{32\\times500}",
+        "name": "first-layer weights (Exp 1)",
+        "type_or_domain": "matrix",
+        "role": "Each row reshapes into 5 channels of 10x10; the agent channel lights the bottom row in Breakout"
+      },
+      {
+        "id": "WQK",
+        "symbol_latex": "W_{QK}^{h}",
+        "name": "query-key circuit of a head",
+        "type_or_domain": "384x384",
+        "role": "Where a head looks; composed with an earlier head's OV circuit to find copying heads"
+      },
+      {
+        "id": "WOV",
+        "symbol_latex": "W_{OV}^{h}",
+        "name": "output-value circuit of a head",
+        "type_or_domain": "384x384",
+        "role": "What a head writes; the previous-character head's OV feeds the copying head's QK"
+      },
+      {
+        "id": "Wdown",
+        "symbol_latex": "W_{\\text{down}} \\in \\mathbb{R}^{1024\\times d_{ff}}",
+        "name": "MLP output matrix (layers 15, 19)",
+        "type_or_domain": "matrix",
+        "role": "Each column is one neuron's 1,024-number write into the residual stream"
+      },
+      {
+        "id": "u",
+        "symbol_latex": "u",
+        "name": "repetition (loop) direction",
+        "type_or_domain": "unit vector in R^1024",
+        "role": "Residual-stream direction Astra measured on matched looping vs productive contexts"
+      },
+      {
+        "id": "mask",
+        "symbol_latex": "m",
+        "name": "64-neuron mask",
+        "type_or_domain": "0/1 over MLP neurons",
+        "role": "Selects the 64 columns per layer that write u the most"
+      }
+    ],
+    "equations": [
+      {
+        "id": "gd",
+        "latex": "\\theta \\leftarrow \\theta - \\eta\\,\\nabla_\\theta \\mathcal{L}(\\theta)",
+        "spoken_form": "theta becomes theta minus eta times the gradient of the loss",
+        "context": "How weights are normally written: many small downhill steps. Shown in scene 2 and struck out in scene 3."
+      },
+      {
+        "id": "wsp",
+        "latex": "\\theta' = \\mathrm{LLM}(\\theta,\\ s)",
+        "spoken_form": "new weights equal the LLM applied to the weights and a plain-language spec",
+        "context": "Weight-space programming as the post defines it: read and write weights around a natural-language spec, with no optimizer."
+      },
+      {
+        "id": "induction",
+        "latex": "W_{QK}^{h_2}\\,W_{OV}^{h_1}",
+        "spoken_form": "the copying head's query-key matrix times the previous-character head's output-value matrix",
+        "context": "Composition score used to find copying heads without running the model (Elhage et al. 2021); shown symbolically, not as the exact quantity Astra computed."
+      },
+      {
+        "id": "ablate",
+        "latex": "W = W_0 - 6\\,u\\,\\big(m \\odot u^{\\top} W_0\\big)",
+        "spoken_form": "W equals W naught minus six times u times the masked projection of W naught onto u",
+        "context": "Experiment 8 final edit (run p50c), per selected column c: w_c becomes w_c minus 6 times (u dot w_c) times u, on 64 columns of down_proj in layers 15 and 19."
+      },
+      {
+        "id": "count",
+        "latex": "2 \\times 64 \\times 1024 = 131{,}072 \\approx 0.016\\%\\ \\text{of}\\ 0.8\\times10^{9}",
+        "spoken_form": "two layers times sixty-four columns times one thousand and twenty-four rows",
+        "context": "Where 131,072 comes from (logs exp8_math README)."
+      }
+    ],
+    "algorithmic_steps": [
+      {
+        "step_number": 1,
+        "phase_name": "Spec",
+        "mathematical_operation": "s = 'Which game was this network trained on?' or 'make it better at math'",
+        "state_effect": "The goal is natural language, not a loss function."
+      },
+      {
+        "step_number": 2,
+        "phase_name": "Read",
+        "mathematical_operation": "Inspect theta as text or with numpy: reshape rows, compare norms, multiply matrices",
+        "state_effect": "Infer what each block computes (paddle detector, copying head, loop direction)."
+      },
+      {
+        "step_number": 3,
+        "phase_name": "Diagnose",
+        "mathematical_operation": "Localise a failure to a part: a local-minimum policy (Exp 4), a residual direction u written by MLPs 15 and 19 (Exp 8)",
+        "state_effect": "A failure becomes a named, editable component."
+      },
+      {
+        "step_number": 4,
+        "phase_name": "Write",
+        "mathematical_operation": "Set weights directly: add a path (Exp 4), fill zeros with a program (Exp 5, 6), W = W0 - 6 u (m * u^T W0) (Exp 8)",
+        "state_effect": "Behaviour changes with a small, targeted edit (3.5% or 0.016% of weights)."
+      },
+      {
+        "step_number": 5,
+        "phase_name": "Check (optional)",
+        "mathematical_operation": "A budget of forward passes (0 to 50), never gradients",
+        "state_effect": "More checks helped: Qwen MATH-500 12.3% at 10 passes, 48.1% at 50."
+      }
+    ]
+  },
+  "visual_metaphors": [
+    {
+      "concept_id": "weight-sheet",
+      "abstract_concept": "Raw weights are a page of numbers that can be read like code",
+      "visual_archetype": "matrix_grid_transform",
+      "svg_primitives": [
+        "text",
+        "rect",
+        "g"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Monospace numbers scroll, then each number turns into a diverging-colour cell (blue negative, vermilion positive); a reading cursor scans rows",
+      "color_token": "accent_primary_blue"
+    },
+    {
+      "concept_id": "descent-vs-reasoning",
+      "abstract_concept": "Gradient descent nudges every weight a little; reasoning edits one named part",
+      "visual_archetype": "curved_landscape_descent",
+      "svg_primitives": [
+        "path",
+        "circle",
+        "text"
+      ],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "A ball takes many small steps down contour lines while every cell of the matrix flickers; then the equation is struck through and one block of cells lights instead",
+      "color_token": "warning_amber"
+    },
+    {
+      "concept_id": "residual-stream",
+      "abstract_concept": "A transformer is a vertical stream that each layer reads and writes; the loop is one direction in that stream",
+      "visual_archetype": "layer_stack_isometric",
+      "svg_primitives": [
+        "rect",
+        "line",
+        "path",
+        "text"
+      ],
+      "spatial_anchor": "top_header_bottom_stage",
+      "motion_pattern": "24 layer bars stacked down the portrait frame; layers 15 and 19 emit an arrow u; 64 columns of a matrix are rotated away from u",
+      "color_token": "gradient_error_coral"
+    },
+    {
+      "concept_id": "projection-removal",
+      "abstract_concept": "Subtracting a direction from a column vector",
+      "visual_archetype": "vector_pulse_flow",
+      "svg_primitives": [
+        "line",
+        "path",
+        "text"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Column vector w, unit vector u, dashed projection (u.w)u, then w moves to w - 6(u.w)u",
+      "color_token": "state_active_emerald"
+    },
+    {
+      "concept_id": "results",
+      "abstract_concept": "Benchmark change from a 0.016% edit",
+      "visual_archetype": "before_after_transformation",
+      "svg_primitives": [
+        "rect",
+        "text"
+      ],
+      "spatial_anchor": "canvas_center",
+      "motion_pattern": "Bars grow from base to edited value with counters; a token-limit bar shrinks from 93% to 33%",
+      "color_token": "state_active_emerald"
+    }
+  ],
+  "acoustic_guidance": {
+    "recommended_voice": "am_michael",
+    "speech_rate": 1.05,
+    "inter_scene_pause_sec": 0.5,
+    "phonetic_lexicon": [
+      {
+        "term": "MIT CSAIL",
+        "phonetic_respelling": "M I T see-sail",
+        "rationale": "The lab is spoken 'see-sail'; Kokoro would otherwise spell or mangle it."
+      },
+      {
+        "term": "GPT-6 Astra",
+        "phonetic_respelling": "G P T six Astra",
+        "rationale": "Spell out the letters; the hyphen is otherwise read as 'minus'."
+      },
+      {
+        "term": "Qwen3.5-0.8B",
+        "phonetic_respelling": "Kwen three point five",
+        "rationale": "Qwen is commonly said 'kwen'; the size is given as 'eight hundred million weights' instead."
+      },
+      {
+        "term": "PPO",
+        "phonetic_respelling": "P P O",
+        "rationale": "Letters, not a word."
+      },
+      {
+        "term": "MLP",
+        "phonetic_respelling": "M L P",
+        "rationale": "Letters, not a word."
+      },
+      {
+        "term": "MATH-500",
+        "phonetic_respelling": "Math five hundred",
+        "rationale": "Benchmark name read as words."
+      }
+    ]
+  },
+  "scene_blueprint": [
+    {
+      "scene_id": "s1",
+      "title": "Premise (s1-s3)",
+      "target_duration_sec": 41,
+      "pedagogical_objective": "Hook on unreadable raw weights, show how weights are normally written (gradient descent), define weight-space programming and name the study.",
+      "visual_action": "Number wall becomes a heatmap and a paddle; contour descent with flickering matrix; the gradient term is struck out and replaced by LLM(theta, s); author card; READ / FIX / WRITE tiles.",
+      "active_entities": [
+        "theta",
+        "W1",
+        "loss",
+        "eta",
+        "spec"
+      ]
+    },
+    {
+      "scene_id": "s2",
+      "title": "Read (s4-s5)",
+      "target_duration_sec": 42,
+      "pedagogical_objective": "Behaviour can be read from weights: first-layer structure (Exp 1) and composed matrices in middle layers (Exp 3).",
+      "visual_action": "Four identical 500-32-32-5 stacks with stamped answers; agent map to paddle; 4x6 head grid with cut-away input/output; matrix product; copying heads match measured.",
+      "active_entities": [
+        "W1",
+        "WQK",
+        "WOV"
+      ]
+    },
+    {
+      "scene_id": "s3",
+      "title": "Fix (s6)",
+      "target_duration_sec": 26,
+      "pedagogical_objective": "A one-shot targeted edit escapes a PPO local minimum (Exp 4).",
+      "visual_action": "Car stalls on the ramp; a thin path is drawn through the layer stack; car reverses and jumps; 0/256 to 1,024/1,024; 3.5% of weights.",
+      "active_entities": [
+        "theta"
+      ]
+    },
+    {
+      "scene_id": "s4",
+      "title": "Write (s7-s8)",
+      "target_duration_sec": 47,
+      "pedagogical_objective": "Weights written from zero as programs (Exp 5) and at 1.5M scale with a sandbox and checks (Exp 6).",
+      "visual_action": "Zero sheet fills; ball landing prediction; score table; Go board with liberties, atari group and a move-score heatmap.",
+      "active_entities": [
+        "theta"
+      ]
+    },
+    {
+      "scene_id": "s5",
+      "title": "Improve (s9-s10)",
+      "target_duration_sec": 47,
+      "pedagogical_objective": "A real LLM failure diagnosed as one direction and removed from 131,072 weights (Exp 8), with results and control.",
+      "visual_action": "Looping text hits the token limit; 24-layer residual stream; u from layers 15 and 19; column vectors pushed off u; benchmark bars; control bar.",
+      "active_entities": [
+        "u",
+        "mask",
+        "Wdown"
+      ]
+    },
+    {
+      "scene_id": "s6",
+      "title": "Limits and close (s11-s12)",
+      "target_duration_sec": 44,
+      "pedagogical_objective": "Reported failures (Exp 7 weights-only, Gemma follow-up), the study's status, and the bookend.",
+      "visual_action": "Twin matrices with a question mark; head 10.2 attention bars; Gemma flat line; the opening number wall resolves into labelled parts; source card.",
+      "active_entities": [
+        "theta",
+        "spec"
+      ]
+    }
+  ]
+}

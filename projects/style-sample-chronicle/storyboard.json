@@ -1,0 +1,244 @@
+{
+  "spec_version": 1,
+  "slug": "style-sample-chronicle",
+  "direction": "template",
+  "timing_source": "fixed",
+  "duration_sec": 22,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Hook: date and place",
+      "start_sec": 0,
+      "end_sec": 4.0,
+      "purpose": "[hook-date] Date and place stamped on the surface with the first image visible.",
+      "why": "Places the story in time and space.",
+      "on_screen_text": [
+        "Mission log · Apollo 11",
+        "16 JULY 1969",
+        "Kennedy Space Center, Florida · 13:32 UTC",
+        "Apollo 11, in eight days"
+      ],
+      "visual": "Ruled sheet with a hatched Earth; date stamp; place typed; title rises; grain boils.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "stamp-impact",
+        "typewriter-reveal"
+      ],
+      "beats": [
+        {
+          "at_sec": 0.2,
+          "action": "Earth hatching draws"
+        },
+        {
+          "at_sec": 0.3,
+          "action": "date stamp"
+        },
+        {
+          "at_sec": 0.9,
+          "action": "place types"
+        },
+        {
+          "at_sec": 2.2,
+          "action": "title rises"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s2",
+      "title": "Setting: the Earth-Moon chart",
+      "start_sec": 4.0,
+      "end_sec": 7.4,
+      "purpose": "[setting] The establishing chart, labelled and marked not to scale.",
+      "why": "Shows where the events happen.",
+      "on_screen_text": [
+        "MOON · 384,400 KM",
+        "not to scale"
+      ],
+      "visual": "Moon draws; labels; the outbound route draws.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "parallax-camera",
+        "tracking-reveal"
+      ],
+      "beats": [
+        {
+          "at_sec": 4.0,
+          "action": "Moon draws"
+        },
+        {
+          "at_sec": 4.6,
+          "action": "Moon label"
+        },
+        {
+          "at_sec": 5.2,
+          "action": "not to scale"
+        },
+        {
+          "at_sec": 5.5,
+          "action": "outbound route draws"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s3",
+      "title": "Event run: the log",
+      "start_sec": 7.4,
+      "end_sec": 14.4,
+      "purpose": "[event-run] Each log line types while the marker keeps pace on the chart.",
+      "why": "Puts the events in order.",
+      "on_screen_text": [
+        "16 JUL Launch from Florida, 13:32 UTC",
+        "19 JUL Enters lunar orbit",
+        "20 JUL Eagle lands, 20:17 UTC",
+        "21 JUL First step, 02:56 UTC",
+        "24 JUL Splashdown in the Pacific"
+      ],
+      "visual": "Five log lines type in turn; the marker rides out, the orbit draws, the site marks, the return route draws.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "timeline",
+        "marker-highlight",
+        "annotation-callout"
+      ],
+      "beats": [
+        {
+          "at_sec": 7.5,
+          "action": "launch line, marker shown"
+        },
+        {
+          "at_sec": 7.7,
+          "action": "marker rides out"
+        },
+        {
+          "at_sec": 8.9,
+          "action": "lunar orbit line, orbit draws"
+        },
+        {
+          "at_sec": 10.3,
+          "action": "landing line, site marked"
+        },
+        {
+          "at_sec": 11.7,
+          "action": "first step line, site pulses"
+        },
+        {
+          "at_sec": 12.7,
+          "action": "return route draws"
+        },
+        {
+          "at_sec": 13.1,
+          "action": "splashdown line"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s4",
+      "title": "Turning point: the landing",
+      "start_sec": 14.4,
+      "end_sec": 18.2,
+      "purpose": "[turning-point] Slow push into the landing site.",
+      "why": "Holds the moment that mattered.",
+      "on_screen_text": [
+        "20 JULY 1969 · 20:17 UTC",
+        "Eagle sets down in the Sea of Tranquility."
+      ],
+      "visual": "Push 2.6x into the Moon; the log line highlights; header fades; caption on a paper band.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "parallax-camera",
+        "marker-highlight"
+      ],
+      "beats": [
+        {
+          "at_sec": 14.4,
+          "action": "push begins"
+        },
+        {
+          "at_sec": 14.5,
+          "action": "log line highlighted"
+        },
+        {
+          "at_sec": 14.8,
+          "action": "header fades"
+        },
+        {
+          "at_sec": 15.6,
+          "action": "caption appears"
+        },
+        {
+          "at_sec": 15.8,
+          "action": "caption rises"
+        }
+      ],
+      "transition_out": {
+        "type": "none",
+        "continuity": "One continuous surface; the camera and the object's state carry the change."
+      }
+    },
+    {
+      "id": "s5",
+      "title": "Close: the whole sheet",
+      "start_sec": 18.2,
+      "end_sec": 22,
+      "purpose": "[close] Pull back with the date range and source.",
+      "why": "Closes on the whole sequence and its source.",
+      "on_screen_text": [
+        "16 to 24 July 1969",
+        "8 days, 3 hours, 18 minutes · Source: NASA mission record"
+      ],
+      "visual": "Pull back to the whole sheet; date range rises; duration and source type.",
+      "layout": {
+        "portrait": "Copy in the top band, hero in the middle, captions above the bottom UI zone."
+      },
+      "capabilities": [
+        "end-card"
+      ],
+      "beats": [
+        {
+          "at_sec": 18.2,
+          "action": "pull back"
+        },
+        {
+          "at_sec": 19.2,
+          "action": "header returns"
+        },
+        {
+          "at_sec": 19.5,
+          "action": "date range rises"
+        },
+        {
+          "at_sec": 20.1,
+          "action": "duration and source type"
+        },
+        {
+          "at_sec": 21.0,
+          "action": "style tag"
+        }
+      ],
+      "transition_out": {
+        "type": "hold-end"
+      }
+    }
+  ]
+}
