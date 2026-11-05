@@ -17,6 +17,8 @@
   "runtime_environment": {
     "type": "browser_script",
     "cdn_url": "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",
+    "vendored_path": "src/studio/vendor/gsap.min.js",
+    "vendored_sri": "sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==",
     "npm_package": "gsap",
     "bundle_size_kb": 67.5
   },
@@ -25,7 +27,7 @@
     "target_fps": 30,
     "headless_chromium_compatible": true,
     "deterministic_mode_supported": true,
-    "notes": "Must instantiate timeline paused: true and mount to window.__timelines['root']. HyperFrames steps time deterministically."
+    "notes": "Must instantiate timeline paused: true and mount to window.__timelines['root']. HyperFrames steps time deterministically. Studio compositions load the vendored copy (_studio/vendor/gsap.min.js, synced with the runtime since 1.2.0); `studio.py validate` warns on any script loaded over the network."
   },
   "compatibility": {
     "apple_silicon_tested": true,
@@ -43,7 +45,7 @@
   "metadata": {
     "author": "MotionLab",
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30",
+    "updated_at": "2026-11-05",
     "tags": ["timeline", "tweening", "core", "deterministic", "gsap3"]
   }
 }

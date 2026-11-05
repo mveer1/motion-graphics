@@ -98,6 +98,16 @@ class StudioCliTests(unittest.TestCase):
         rep = studio.validate_project(pdir)
         self.assertTrue(any("Math.random" in e for e in rep.errors), rep.errors)
 
+    def test_gsap_is_vendored_and_network_scripts_warn(self):
+        self.assertIn('src="_studio/vendor/gsap.min.js"', (CHAI / "src" / "index.html").read_text(encoding="utf-8"))
+        self.assertTrue((CHAI / "src" / "_studio" / "vendor" / "gsap.min.js").exists(), "studio.py sync copies the vendored GSAP")
+        pdir = copy_project(CHAI, self.tmpdir)
+        index = pdir / "src" / "index.html"
+        cdn = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        index.write_text(index.read_text(encoding="utf-8").replace("_studio/vendor/gsap.min.js", cdn), encoding="utf-8", newline="\n")
+        rep = studio.validate_project(pdir)
+        self.assertTrue(any(cdn in w and "_studio/vendor/gsap.min.js" in w for w in rep.warnings), rep.warnings)
+
     def test_runtime_lock_detects_local_edit(self):
         pdir = copy_project(CHAI, self.tmpdir)
         core = pdir / "src" / "_studio" / "studio-core.js"
@@ -708,6 +718,33 @@ class NarrationCurrencyTests(unittest.TestCase):
         mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
         self.assertEqual(len(calls), 5, "clips from another engine version are all re-made, so the film keeps one voice")
         self.assertEqual(len(list((self.pdir / "audio" / "history").iterdir())), 2)
+
+    def test_smart_prosody_is_opt_in_and_switching_remakes_every_scene(self):
+        mod, calls = self.build_audio_module()
+        smart_calls = []
+
+        def fake_smart(pipe, text, out_wav, voice, speed, preset):
+            smart_calls.append((text, preset))
+            write_wav(out_wav, 0.07 * len(text))
+            return mod.read_pcm(out_wav)
+
+        mod.synth_smart = fake_smart
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual((len(calls), smart_calls), (2, []), "raw stays the default")
+
+        project = json.loads((self.pdir / "project.json").read_text(encoding="utf-8"))
+        project["audio"].update(prosody="smart", prosody_preset="documentary")
+        (self.pdir / "project.json").write_text(json.dumps(project), encoding="utf-8")
+        narr = next(s for s in studio.build_plan(self.pdir, None, None) if s["stage"] == "narration")
+        self.assertEqual(narr["cmd"][-4:], ["--prosody", "smart", "--preset", "documentary"])
+        state, reasons = self.nar.narration_state(self.pdir, self.nar.resolve_request(self.pdir, **narr["narration_args"]))
+        self.assertEqual((state, reasons), ("stale", ["prosody raw -> smart:documentary"]))
+
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam", prosody="smart", preset="documentary")
+        self.assertEqual([p for _, p in smart_calls], ["documentary", "documentary"], "every scene is re-made, so the film keeps one delivery")
+        tl = json.loads((self.pdir / "audio" / "timeline.json").read_text(encoding="utf-8"))
+        self.assertEqual(tl["prosody"], "smart:documentary")
+        self.assertEqual(self.nar.narration_state(self.pdir, self.nar.resolve_request(self.pdir, **narr["narration_args"]))[0], "current")
 
     def test_state_reports_voice_speed_scene_changes_and_old_formats(self):
         self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "missing")

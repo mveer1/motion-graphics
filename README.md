@@ -29,7 +29,7 @@ Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 
 | Layer | Tool | Version / location |
 |---|---|---|
 | Renderer | HyperFrames | 0.8.226, global npm; Chrome from `~/.cache/hyperframes` |
-| Animation | GSAP | 3.12.5, loaded from cdnjs at render time |
+| Animation | GSAP | 3.12.5, vendored in `src/studio/vendor/` (runtime 1.2.0; SRI matches cdnjs) |
 | Narration | Kokoro | 0.9.4, Homebrew `python3.12` (not the venv) |
 | Assembly, QA | FFmpeg / ffprobe | 9.0.2 |
 | Acoustic QA, SFX | Earshot | 0.4.0 (`tools/earshot` submodule, installed in `.venv`) |

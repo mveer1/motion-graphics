@@ -566,6 +566,9 @@ def lint_composition(pdir: Path, project: Optional[Dict[str, Any]], rep: Report)
         haystack = html if "gsap@" in pattern else scripts
         if re.search(pattern, haystack):
             (rep.error if severity == "error" else rep.warn)(f"index.html: {message}")
+    for url in re.findall(r"<script\b[^>]*\bsrc\s*=\s*[\"'](https?://[^\"']+)", html, re.I):
+        hint = f"{RUNTIME_DIRNAME}/vendor/gsap.min.js" if "gsap" in url.lower() else "a copy under src/"
+        rep.warn(f"index.html: loads {url} over the network at render time (fails offline, not reproducible); use {hint}.")
     if "__timelines" not in html and "Studio.build" not in html:
         rep.error("index.html never registers a timeline (window.__timelines or Studio.build).")
     declared_faces = {n.strip().strip("'\"").lower() for n in re.findall(r"@font-face\s*{[^}]*font-family\s*:\s*([^;]+);", html)}
@@ -840,7 +843,7 @@ def validate_project(pdir: Path) -> Report:
             rep.error("audio.narration is true but src/narration.json is missing.")
         else:
             nar = pipeline_module("narration")
-            state, reasons = nar.narration_state(pdir, nar.resolve_request(pdir, speed=audio.get("speed"), voice=audio.get("voice")))
+            state, reasons = nar.narration_state(pdir, nar.resolve_request(pdir, **narration_args(project)))
             if state == "stale":
                 rep.warn("audio/narration-full.wav is stale (" + "; ".join(reasons) + "). `studio.py build` re-synthesises it and stops "
                          "if scene timing moves; run `python scripts/build-audio.py " + pdir.name + "` first and re-time the cues in src/.")
@@ -1115,6 +1118,12 @@ def log_build_timings(slug: str, stages: List[Dict[str, Any]], ok: bool) -> None
         pass
 
 
+def narration_args(project: Dict[str, Any]) -> Dict[str, Any]:
+    """project.json's narration settings as keyword arguments for narration.resolve_request."""
+    a = project["audio"]
+    return {"voice": a.get("voice"), "speed": a.get("speed"), "prosody": a.get("prosody"), "preset": a.get("prosody_preset")}
+
+
 def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) -> List[Dict[str, Any]]:
     """Ordered command plan. Each step: {stage, cmd (list), cwd, optional}."""
     rel = rel_path
@@ -1137,9 +1146,12 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             narr += ["--voice", project["audio"]["voice"]]
         if project["audio"].get("speed"):
             narr += ["--speed", f"{project['audio']['speed']:g}"]
-        # skipped only when audio/timeline.json records the current script, voice and speed (see run_build_plan)
-        steps.append({"stage": "narration", "cmd": narr, "cwd": ".",
-                      "narration_args": {"voice": project["audio"].get("voice"), "speed": project["audio"].get("speed")}})
+        if project["audio"].get("prosody"):
+            narr += ["--prosody", project["audio"]["prosody"]]
+        if project["audio"].get("prosody_preset"):
+            narr += ["--preset", project["audio"]["prosody_preset"]]
+        # skipped only when audio/timeline.json records the current script, voice, speed and prosody (see run_build_plan)
+        steps.append({"stage": "narration", "cmd": narr, "cwd": ".", "narration_args": narration_args(project)})
     steps.append({"stage": "lint", "cmd": ["hyperframes", "lint", "."], "cwd": rel(pdir / "src")})
     target = project.get("audio", {}).get("loudness_target_lufs")
     tol = project.get("audio", {}).get("loudness_tolerance_lu", 2)

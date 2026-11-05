@@ -395,7 +395,7 @@ def font_stacks(style: str) -> Dict[str, str]:
 
 
 def page(archetype: str, beat: Dict[str, Any], style: str, duration: float = 4.0, size: Tuple[int, int] = (W, H)) -> str:
-    """Complete composition HTML for one candidate. Needs _studio/studio-core.js, studio-base.css and styles/<style>.css beside it."""
+    """Complete composition HTML for one candidate. Needs _studio/studio-core.js, studio-base.css, vendor/gsap.min.js and styles/<style>.css beside it."""
     a = ARCHETYPES[archetype](beat)
     stacks = font_stacks(style)
     for k, v in stacks.items():
@@ -408,7 +408,7 @@ html,body{{margin:0;background:var(--c-paper)}}
 #root{{position:relative;width:{size[0]}px;height:{size[1]}px;overflow:hidden;background:var(--c-paper);color:var(--c-ink);font-family:{stacks['text']}}}
 #root *{{box-sizing:border-box}}
 {a['css']}</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script></head>
+<script src="_studio/vendor/gsap.min.js"></script></head>
 <body><div id="root" data-composition-id="root" data-format="landscape" data-width="{size[0]}" data-height="{size[1]}" data-fps="30" data-duration="{duration}">
 {a['html']}
 </div>

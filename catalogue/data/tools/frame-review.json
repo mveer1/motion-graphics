@@ -35,7 +35,7 @@
     "requires_network": true,
     "requires_execution": true,
     "sensitive_data_exposure": false,
-    "notes": "Serves the project's src/ directory on 127.0.0.1 with an ephemeral port for the duration of the run. Network: the page loads GSAP from cdnjs and, with --fonts google, Google Fonts CSS. Writes only to projects/<slug>/qa/frame-review/ or --out."
+    "notes": "Serves the project's src/ directory on 127.0.0.1 with an ephemeral port for the duration of the run. Network: studio compositions load the vendored GSAP from _studio/vendor/; with --fonts google the page fetches Google Fonts CSS. Writes only to projects/<slug>/qa/frame-review/ or --out."
   },
   "owner": "workspace-governance",
   "status": "experimental",
