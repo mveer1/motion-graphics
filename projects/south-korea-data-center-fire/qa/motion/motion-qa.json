@@ -1,0 +1,894 @@
+{
+  "spec_version": 1,
+  "target": {
+    "kind": "project",
+    "path": "projects/south-korea-data-center-fire",
+    "slug": "south-korea-data-center-fire",
+    "format": "portrait",
+    "sha256": "619d8bd280ea9e6d6abc4373cd7d52779f6a204d1c09b647f91cefe4910462c4"
+  },
+  "generated_at": "2026-11-03T16:44:50+00:00",
+  "tool": {
+    "name": "motion-qa",
+    "version": "1.0",
+    "host": "darwin"
+  },
+  "expectations": {
+    "width": 720,
+    "height": 1280,
+    "fps": 30,
+    "duration_sec": 98,
+    "audio": true
+  },
+  "checks_run": [
+    {
+      "id": "dom-probe",
+      "status": "ran",
+      "reason": "12 samples",
+      "elapsed_sec": 1.53
+    },
+    {
+      "id": "composition-lint",
+      "status": "ran"
+    },
+    {
+      "id": "video-decode",
+      "status": "ran",
+      "elapsed_sec": 1.06
+    },
+    {
+      "id": "spec-compliance",
+      "status": "ran"
+    },
+    {
+      "id": "black-and-flat-frames",
+      "status": "ran"
+    },
+    {
+      "id": "static-holds",
+      "status": "ran"
+    },
+    {
+      "id": "repeated-composition",
+      "status": "ran"
+    },
+    {
+      "id": "transition-variety",
+      "status": "ran"
+    },
+    {
+      "id": "scene-durations",
+      "status": "ran"
+    },
+    {
+      "id": "audio-levels",
+      "status": "ran",
+      "elapsed_sec": 0.48
+    },
+    {
+      "id": "audio-cut-alignment",
+      "status": "skipped",
+      "reason": "not implemented: no onset detector is wired in (hyperframes audio could supply onsets)"
+    }
+  ],
+  "findings": [
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'D' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 5.588,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'a' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 5.588,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'e' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 5.588,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'j' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 5.588,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'o' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 5.588,
+      "beat": "s1",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'T' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 19.422,
+      "beat": "s2",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'h' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 19.422,
+      "beat": "s2",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 's' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 19.422,
+      "beat": "s2",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Server room' is 18.0px = 2.5% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 18,
+        "floor_px": 18.7
+      },
+      "t_sec": 19.422,
+      "beat": "s2"
+    },
+    {
+      "id": "text-size-floor",
+      "class": "measured",
+      "severity": "warn",
+      "message": "text 'Lithium-ion batteries' is 16.0px = 2.2% of the short side (floor 2.6%)",
+      "evidence": {
+        "font_px": 16,
+        "floor_px": 18.7
+      },
+      "t_sec": 19.422,
+      "beat": "s2"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'O' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 34.52,
+      "beat": "s3",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'n' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 34.52,
+      "beat": "s3",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'b' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 34.52,
+      "beat": "s3",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'u' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 34.52,
+      "beat": "s3",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "low-contrast",
+      "class": "measured",
+      "severity": "warn",
+      "message": "'burned' contrast 4.0:1 (needs 4.5:1 at this size); estimated against the nearest flat background shape",
+      "evidence": {
+        "ratio": 3.96,
+        "estimated": true
+      },
+      "t_sec": 34.52,
+      "beat": "s3"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'B' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 53.248,
+      "beat": "s4",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'c' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 53.248,
+      "beat": "s4",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'k' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 53.248,
+      "beat": "s4",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'p' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 53.248,
+      "beat": "s4",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'R' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 72.582,
+      "beat": "s5",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'v' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 72.582,
+      "beat": "s5",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "hud-label",
+      "class": "measured",
+      "severity": "warn",
+      "message": "small text 'A' sits in a corner (2.0% of height): HUD-style label",
+      "evidence": {
+        "fs_px": 25
+      },
+      "t_sec": 88.88,
+      "beat": "s6",
+      "suggestion": "keep it only if it carries information the narration does not"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 8% of the frame",
+      "evidence": {
+        "occupancy": 0.083,
+        "grid": "32x18"
+      },
+      "t_sec": 11.176,
+      "beat": "s1",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 5% of the frame",
+      "evidence": {
+        "occupancy": 0.051,
+        "grid": "32x18"
+      },
+      "t_sec": 24.874,
+      "beat": "s2",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 10% of the frame",
+      "evidence": {
+        "occupancy": 0.103,
+        "grid": "32x18"
+      },
+      "t_sec": 41.44,
+      "beat": "s3",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 11% of the frame",
+      "evidence": {
+        "occupancy": 0.106,
+        "grid": "32x18"
+      },
+      "t_sec": 61.596,
+      "beat": "s4",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 4% of the frame",
+      "evidence": {
+        "occupancy": 0.038,
+        "grid": "32x18"
+      },
+      "t_sec": 79.394,
+      "beat": "s5",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "low-occupancy",
+      "class": "measured",
+      "severity": "warn",
+      "message": "content covers 6% of the frame",
+      "evidence": {
+        "occupancy": 0.058,
+        "grid": "32x18"
+      },
+      "t_sec": 94.96,
+      "beat": "s6",
+      "suggestion": "enlarge the subject or declare intent: minimal"
+    },
+    {
+      "id": "repeat-layout-dom",
+      "class": "measured",
+      "severity": "warn",
+      "message": "3 of 6 scenes occupy nearly the same regions of the frame (s1, s3, s6)",
+      "evidence": {
+        "coverage_distance_below": 0.05,
+        "grid": "32x18",
+        "calibration": "same threshold as the rendered-frame check"
+      }
+    },
+    {
+      "id": "text-echoes-narration",
+      "class": "measured",
+      "severity": "warn",
+      "message": "on-screen text in s2 repeats 100% of its own words from the narration",
+      "evidence": {
+        "scene": "s2"
+      },
+      "beat": "s2",
+      "suggestion": "show what is said instead of captioning it, unless this is a caption band"
+    },
+    {
+      "id": "flat-frame",
+      "class": "measured",
+      "severity": "warn",
+      "message": "0.33s of one flat field (nothing drawn)",
+      "evidence": {
+        "luma_std_max": 1.5
+      },
+      "range_sec": [
+        0.0,
+        0.333
+      ]
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 12.10s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.452,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        1.6,
+        13.7
+      ],
+      "beat": "s1",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 10.97s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.353,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        14.267,
+        25.233
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 2.03s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.111,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        25.433,
+        27.467
+      ],
+      "beat": "s2",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 1.60s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.309,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        30.967,
+        32.567
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 1.40s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.634,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        33.133,
+        34.533
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 7.00s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.385,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        35.733,
+        42.733
+      ],
+      "beat": "s3",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 5.43s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.385,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        45.7,
+        51.133
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 4.83s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.02,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        51.3,
+        56.133
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture low-energy for 7.33s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.584,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        58.3,
+        65.633
+      ],
+      "beat": "s4",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 2.60s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.166,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        66.1,
+        68.7
+      ],
+      "beat": "s5",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 1.47s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.528,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        69.967,
+        71.433
+      ],
+      "beat": "s5",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 8.13s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.25,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        74.667,
+        82.8
+      ],
+      "beat": "s5",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "warn",
+      "message": "picture frozen for 3.83s while narration speaks",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.221,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        83.5,
+        87.333
+      ],
+      "beat": "s6",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "static-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "picture low-energy for 10.50s while narration speaks at the end of the film",
+      "evidence": {
+        "mean_diff_max": 0.35,
+        "lag_0.5s_energy": 0.459,
+        "alive_above": 0.8,
+        "frozen_below": 0.3,
+        "narration_overlap": true,
+        "narration_known": true,
+        "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"
+      },
+      "range_sec": [
+        87.5,
+        98.0
+      ],
+      "beat": "s6",
+      "suggestion": "keep one living element (drift, light, a counter) or declare intent: still"
+    },
+    {
+      "id": "repeat-transition",
+      "class": "measured",
+      "severity": "warn",
+      "message": "transition 'crossfade' used at 5 of 5 scene boundaries",
+      "evidence": {
+        "types": [
+          "crossfade",
+          "crossfade",
+          "crossfade",
+          "crossfade",
+          "crossfade"
+        ]
+      },
+      "suggestion": "vary the seam or state why one device is the film's system"
+    },
+    {
+      "id": "scene-duration",
+      "class": "measured",
+      "severity": "note",
+      "message": "scene s4 lasts 20.9s",
+      "evidence": {
+        "seconds": 20.87
+      },
+      "beat": "s4"
+    },
+    {
+      "id": "end-hold",
+      "class": "measured",
+      "severity": "note",
+      "message": "the picture is unchanged for the last 10.5s",
+      "evidence": {
+        "threshold_sec": 1.4,
+        "source": "Motionmaxxing G3, adopted-unverified"
+      }
+    },
+    {
+      "id": "motion-energy",
+      "class": "measured",
+      "severity": "note",
+      "message": "median frame-to-frame luma change 0.024/255, 90% of frames static, median shot 98.0s",
+      "evidence": {
+        "motion_mean_luma_diff": 0.121,
+        "motion_median": 0.024,
+        "motion_p90": 0.381,
+        "static_share": 0.8962,
+        "cut_count": 0,
+        "cuts_per_min": 0.0
+      }
+    },
+    {
+      "id": "silent-tail",
+      "class": "measured",
+      "severity": "note",
+      "message": "0.7s of silence at the end",
+      "range_sec": [
+        97.296,
+        98.0
+      ]
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s1: does the picture show 'Tiles lay out row by row; the date types in; an ember glows at the lower left and the near' and does it deliver 'Hook: a wall of 647 government systems lights up, an ember takes hold, and the whole wall '?",
+      "range_sec": [
+        0,
+        13.97
+      ],
+      "beat": "s1"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s2: does the picture show 'Line-art cutaway: five floors and a basement. Batteries are carried down the stair shaft; ' and does it deliver 'Show where and how it began, and keep the cause an open question.'?",
+      "range_sec": [
+        13.97,
+        27.6
+      ],
+      "beat": "s2"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s3: does the picture show 'The wall returns lit; a counter rolls to 647; the 96 tiles nearest the fire turn vermilion' and does it deliver 'Scale of the outage: 647 systems, 96 burned, 551 shut down as a precaution, and the servic'?",
+      "range_sec": [
+        27.6,
+        44.9
+      ],
+      "beat": "s3"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s4: does the picture show 'Two shelves: Daejeon above, a remote site below. Five folders send dashed arrows and their' and does it deliver 'Explain why G-Drive was lost while other systems recovered: daily copies existed for most,'?",
+      "range_sec": [
+        44.9,
+        65.77
+      ],
+      "beat": "s4"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s5: does the picture show 'The burned and dimmed wall turns blue in seeded random order: 17%, 89%, 98.2%. Then three ' and does it deliver 'Recovery in three dated checkpoints, with G-Drive rebuilt only from what survives.'?",
+      "range_sec": [
+        65.77,
+        82.8
+      ],
+      "beat": "s5"
+    },
+    {
+      "id": "beat-question",
+      "class": "judgment",
+      "severity": "question",
+      "message": "s6: does the picture show 'Four outlined faceless figures with 'booked on suspicion of professional negligence' and a' and does it deliver 'Accountability is still open; the lesson is a copy in another place. End on a held title.'?",
+      "range_sec": [
+        82.8,
+        98
+      ],
+      "beat": "s6"
+    }
+  ],
+  "summary": {
+    "objective_failures": 0,
+    "measured_warnings": 42,
+    "judgment_questions": 6,
+    "waived": 0,
+    "technical_pass": true
+  },
+  "artifacts": {
+    "scene_sheet": "projects/south-korea-data-center-fire/qa/motion/scene-sheet.jpg",
+    "seams": "projects/south-korea-data-center-fire/qa/motion/seams.jpg",
+    "critique_template": "projects/south-korea-data-center-fire/qa/motion/critique.template.json"
+  },
+  "critique_prompts": [
+    "Describe each frame on the scene sheet in one sentence before judging: what is on screen, what is the hero, would it pass as a slide?",
+    "Does each beat make the viewer see the idea, or only read a description of it? Name the visual event that carries it.",
+    "Is emphasis spent or spread? Which beat is the point of the film, and does it get the hardest visual work?",
+    "At each seam (seams.jpg): what carries the eye across the transition (shape, position, colour, motion)? Is the transition motivated or decorative?",
+    "Is stillness anywhere designed (a reason you can state) or accidental? Is any motion decoration with no job?",
+    "Does the sound support pacing, with silence before what matters? (listen; the audio-cut-alignment check did not run)",
+    "Does the ending feel designed, and does it end smaller or quieter than it began?"
+  ]
+}
