@@ -1,0 +1,51 @@
+{
+  "id": "tool-poster",
+  "name": "Project poster",
+  "component_type": "tool",
+  "purpose": "Makes poster.jpg for a project: the last non-black frame of its finished film, plus poster.json (source film, time, film length). The catalogue shows it on each tile and tags the tile by the film's length. studio.py build and build-project.sh run it after delivery.",
+  "capabilities": [
+    "poster.py <slug|path>... | --all [--force]",
+    "--video f.mp4 --out poster.jpg",
+    "studio.py poster <slug>|--all"
+  ],
+  "location": "scripts/poster.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3 + ffmpeg/ffprobe",
+    "notes": "Decodes the last 10 s of the film (the whole film only if the tail is black); light enough not to take the render lock."
+  },
+  "documentation_urls": [
+    "CLAUDE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes poster.jpg and poster.json in the project folder only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Run on all 26 project folders on the M2 host (2026-11-07) and covered by tests/test-studio.py. Experimental: promotion needs more than one session of render-host evidence.",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-07",
+  "tags": [
+    "poster",
+    "catalogue",
+    "qa"
+  ]
+}

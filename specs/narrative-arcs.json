@@ -475,7 +475,7 @@
    "id": "reel-loop",
    "name": "Hook -> stake -> body -> payoff -> loop (reel length)",
    "best_for": [
-    "reel-length portrait films of 15-45 s",
+    "reel-type portrait films of 45-60 s (45 s preferred; the type allows 30-75 s)",
     "one idea with one surprising fact or number",
     "news briefs and quick explainers"
    ],
@@ -511,7 +511,7 @@
      "guidance": "The last line echoes one word or image from the hook so a replay lands clean. End on one action or none, never two."
     }
    ],
-   "pitfall": "A hook the payoff does not answer, or a loop line that is only a sign-off. Under 7 s there is no room for a stake; over 45 s use another arc.",
+   "pitfall": "A hook the payoff does not answer, or a loop line that is only a sign-off. Under 7 s there is no room for a stake. 45 s is the preferred length; stretch to 60 s only when a complicated topic needs more animated beats, and add a mid-film re-hook; for a long-reel (60-180 s) or youtube video use another arc.",
    "origin": "adapted: ig-reel shape (Jake Schincariol, MIT); see docs/short-form-lessons.md"
   }
  ]

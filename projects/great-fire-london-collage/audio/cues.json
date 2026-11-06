@@ -1,7 +1,0 @@
-{"note":"Cue times (seconds) shared by src/index.html and audio/generate_bed_and_sfx.py. Aligned to audio/timeline.json word timing.",
- "s1":{"map":0.2,"moon":1.1,"tape":2.4,"stamp":4.5,"flame":5.9,"bakery":6.6,"banner":7.5},
- "s2":{"push":9.0,"d1":9.3,"d2":10.0,"d3":10.7,"d4":11.4,"wind":12.0,"firebreak":13.2,"char":14.4},
- "s3":{"wipe":16.3,"counter":16.8,"houses":17.4,"houseChar":19.3,"churches":19.8,"churchChar":21.6,"dome":22.1,"domeChar":23.2,"ruin":23.6},
- "s4":{"fade":25.25,"line1":25.9,"line2":27.6,"six":28.6,"ghost":30.3,"line3":30.5,"circles":31.0},
- "s5":{"match":32.9,"horizon":33.1,"timber":33.6,"tape":35.0,"brick":34.7,"strike":35.5,"wren":36.9,"dome":37.3,"monument":39.6,"dim":40.4,"label":41.8,"title":42.9},
- "end":44.6}

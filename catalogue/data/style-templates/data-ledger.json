@@ -1,7 +1,7 @@
 {
   "id": "data-ledger",
   "name": "Data Ledger",
-  "version": 2,
+  "version": 3,
   "status": "experimental",
   "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
   "visual_job": {
@@ -181,6 +181,26 @@
       "pattern": "A legend box, or default chart-library output.",
       "why": "A legend sends the eye away from the data. Label the series where it is drawn, and build the chart in SVG with the studio runtime so it draws itself at the speed of the narration.",
       "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+    },
+    {
+      "pattern": "A chart title that names the topic or the axes ('Revenue by quarter').",
+      "why": "The title slot is the takeaway: state the conclusion the chart proves ('Revenue grew 28% in a year'), traced to research.json.",
+      "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+    },
+    {
+      "pattern": "A bar or column chart whose value axis does not start at zero.",
+      "why": "A truncated baseline exaggerates the difference (Tufte's lie factor) and breaks the accuracy half of the quality bar. Line charts of a level may start elsewhere if the axis is labelled.",
+      "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+    },
+    {
+      "pattern": "A chart drawn for one or two numbers.",
+      "why": "One or two values read faster as a large stat card with a visual beside it (a scale object, a comparison bar) than as a chart; this is not the bare floating number above.",
+      "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+    },
+    {
+      "pattern": "Colour as the only thing that tells two series or states apart.",
+      "why": "About 8% of men have a colour vision deficiency. Pair colour with a direct label, shape, position or pattern.",
+      "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
     }
   ],
   "reference_projects": [
@@ -208,6 +228,12 @@
       "date": "2026-11-05",
       "change": "Added four data-in-motion anti-patterns (no pie or dual-axis charts, no bare numbers, one visual space per concept, no legend box). Gridlines are now faint and only at labelled values instead of persistent.",
       "reason": "docs/short-form-lessons.md (HeyGen hyperframes-creative data-in-motion.md). Unrendered: promote only after a film is made to v2."
+    },
+    {
+      "version": 3,
+      "date": "2026-11-06",
+      "change": "Added four chart anti-patterns: topic titles instead of takeaway titles, truncated bar baselines, charts for one or two numbers, colour-only encoding.",
+      "reason": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT). Unrendered: promote only after a film is made to v3."
     }
   ],
   "tags": [

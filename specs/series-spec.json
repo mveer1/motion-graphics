@@ -29,6 +29,7 @@
           "project": { "type": "string", "minLength": 1, "description": "Project reference as accepted by studio.py: a slug, a folder name or projects/-relative path such as masala-chai/v3-chemistry-v2." },
           "part": { "type": "integer", "minimum": 1, "description": "Position in a sequential series (required there, not allowed in a collection)." },
           "title": { "type": "string", "description": "Part title, if different from the project title." },
+          "video_type": { "type": "string", "enum": ["reel", "long-reel", "youtube"], "description": "Planned type for a member that has no project yet (specs/video-types.json). Once the project exists its brief decides. A series may mix types, e.g. a YouTube film with reel cut-downs." },
           "status": { "type": "string", "enum": ["planned", "in-production", "shipped"], "description": "planned members need no project folder yet. Default: in-production." }
         }
       }

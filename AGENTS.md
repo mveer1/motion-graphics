@@ -17,13 +17,42 @@ Whenever discovering, introducing, installing, modifying, registering, or retiri
 ## 1. Mandatory Production Lifecycle
 Two tracks share one toolchain (details: `ARCHITECTURE.md` section 0):
 
-**Studio projects** (any deliverable: explainer, promo, kinetic type, recipe, title sequence; any project with `project.json`):
+**Studio projects** (any deliverable: explainer, promo, kinetic type, recipe, title sequence; any project with `project.json`) run in four phases. Each phase ends at a gate. A later phase sends a problem back to the phase that owns it instead of patching around it.
+
+*Phase 1: brief and research.*
 1. `python scripts/studio.py new <slug> --template <id>` (templates: `python scripts/motion-catalogue.py list` or `templates/projects/`).
-2. Stage 0 `brief.json`: objective, audience, formats, 1-3 genuinely distinct creative directions, the selected one and why. Research (Stage 0R) only when `brief.research.required`; narration only when the brief asks for it.
-3. Stage 1 `storyboard.json` with catalogue capabilities and explicit transitions; pick a registered style system (default `editorial-light`; off-white or lighter background with warm, high-contrast, vibrant colors; dark themes only when explicitly requested). Give every scene a `why` (its job in the story, traced to the brief's core message). Write three hooks from three different formulas (`python scripts/studio.py hook formulas`) and rank them with `studio.py hook score` before choosing; for a portrait film of 60 s or less use the `reel-loop` arc.
-4. Stage 4 `src/index.html` on the vendored runtime (`src/_studio/`, synced from `src/studio/`; never edit the copy). Compose each format; use `--u`, `--safe-*`, `#root[data-format]` rules and `Studio.pick` instead of hard-coded pixel sizes. Follow the **Anti-Laziness Mandate**: zero static visual freezes while narration is speaking.
-5. `python scripts/studio.py validate <slug>` (it prints the script and story lint; `studio.py script <slug>` shows the full timed sentence sheet) and `python scripts/frame-review.py <slug> --fonts google`; look at the contact sheets, fix, repeat. After narration is measured, `studio.py captions <slug> --timing words` gives word-timed captions and `audio/words.json` to snap beats to the word they illustrate. `motion-qa.py composition` adds the motion-variety and tween-conflict leads. After any `src/studio/` or `specs/format-presets.json` change, run `studio.py upgrade --all`: never skip an upgrade because old videos go stale; their renders move to `renders/history/`.
-6. Render host only: `python scripts/studio.py build <slug>` (per-format render, 3-track audio mux with voice, SFX and dim themed background music bed, QA with expectations), then `python scripts/studio.py review <slug> --init` and score `qa/creative-review.json` with evidence.
+2. `brief.json` (Stage 0) records:
+   - objective, audience, categories and platforms;
+   - formats: only those asked for, default portrait;
+   - `deliverables.video_type` (`reel`, `long-reel` or `youtube`, `specs/video-types.json`) and `deliverables.duration_sec`: a reel is 45-60 s and prefers 45 s (60 s only for a complicated topic), a long reel is 60-180 s, a YouTube video is over 180 s, each with a 15 s margin; the type fixes the platform and format (portrait for reels, landscape for YouTube);
+   - 1-3 genuinely distinct creative directions, the selected one and why.
+
+   Pin a style template (`studio.py style recommend|adopt`): it fixes the scene grammar and the pacing rules the story is checked against. Pick a registered style system (default `editorial-light`: off-white or lighter background with warm, high-contrast, vibrant colors; dark themes only when explicitly requested). Narration only when the brief asks for it.
+3. Research (Stage 0R) only when `brief.research.required`: `technical-researcher` writes `research.json` and `research.md`. They hold facts, ranges and disputes, never a scene plan. **Gate:** `validate-research.py` exits 0.
+
+*Phase 2: story and structure.*
+4. The `story-writer` subagent writes the story: arc, beat map, hook, a `why` per scene, planned visual beats and the narration script (`.claude/agents/story-writer.md`; rulebook `.claude/skills/story-writer/SKILL.md`). Its research requests go to `technical-researcher`, then it is called again, until it decides the story is complete.
+5. `creative-director` runs the style bake-off on the anchor beat and records the design profile. A beat that cannot be pictured goes back to the story-writer. **Gate:** `qa/story-review.json` says `complete`. `studio.py validate` warns when it is missing, not complete, or the story changed after sign-off.
+
+*Phase 3: audio, visuals and sound, as one loop.* The steps run in order within each pass, never in parallel: visuals are timed to measured speech, and TTS, Whisper and frame review share the host lock. Only timing-independent scaffolding (layouts, components, assets) may be written while audio synthesizes.
+6. **Audio:** `voice-director` adds respellings and sets voice and speed. `build-audio.py` synthesizes and measures. `studio.py captions <slug> --timing words` writes word-timed captions and `audio/words.json`. `beatmap.py storyboard <slug>` re-derives scene times from the measured audio.
+7. **Visuals:** `src/index.html` on the vendored runtime (`src/_studio/`, synced from `src/studio/`; never edit the copy).
+   - Compose each format with `--u`, `--safe-*`, `#root[data-format]` rules and `Studio.pick`, never hard-coded pixel sizes.
+   - Snap each beat to the word it illustrates (`studio.py words`).
+   - Follow the **Anti-Laziness Mandate**: zero static visual freezes while narration is speaking.
+8. **Sound** (Stage 4B): SFX from the animation moments, plus the dim themed bed.
+9. **Loop:** when a scene's timing or words must change, edit that scene. `build-audio.py` re-synthesizes only changed scenes; re-time only that scene. A change to the words goes back to the story-writer for a `review` pass.
+
+   **Gate (pre-render review):**
+   - `python scripts/studio.py validate <slug>`: script and story lint, story sign-off, template rules (`studio.py script <slug>` shows the full timed sentence sheet);
+   - `python scripts/frame-review.py <slug> --fonts google`: look at the contact sheets;
+   - `motion-qa.py composition`: motion variety and tween conflicts.
+
+   Fix and repeat. After any `src/studio/` or `specs/format-presets.json` change, run `studio.py upgrade --all`: never skip an upgrade because old videos go stale; their renders move to `renders/history/`.
+
+*Phase 4: render and review.*
+10. Render host only: `python scripts/studio.py build <slug>` (per-format render, 3-track audio mux with voice, SFX and dim themed background music bed, QA with expectations).
+11. `python scripts/studio.py review <slug> --init`, then score `qa/creative-review.json` with evidence. Route a failure to its owner: story (arc, script pacing) to phase 2; picture and sound to phase 3. Then run the story-writer `retro <slug>`. A problem that will recur is fixed in the rules, not only in the film: visual ones in the style template, story ones in the story-writer rulebook.
 
 **Legacy technical explainers** (no `project.json`) keep the original stages below; `scripts/build-project.sh` behaves as before.
 
@@ -38,6 +67,7 @@ Every explainer video produced in this repository must follow the phased lifecyc
 6. **Stage 5–6 (Lint & Render):** Lint with `hyperframes lint`, render visuals non-interactively with `hyperframes render --low-memory-mode < /dev/null`.
 7. **Stage 8 (Multi-Track Multiplexing):** Combine visuals, voice narration, ducked SFX bed, and dim themed background music bed with FFmpeg `amix`.
 8. **Stage 9 (Automated QA & Verification):** Execute `run-qa-gates.sh` verifying all 5 gates (Streams, EBU R128 loudness, black gaps, bitrate, and Earshot acoustic metrics).
+9. **Poster:** `studio.py build` (and `build-project.sh`) finish by making `poster.jpg`, the last non-black frame of the finished film (`scripts/poster.py`). Every project must have one; if a build did not make it, run `python scripts/studio.py poster <slug>`, then refresh the catalogue with `python3 scripts/build-catalogue.py`.
 
 ---
 
@@ -45,7 +75,8 @@ Every explainer video produced in this repository must follow the phased lifecyc
 
 Specialized skills are available under `.claude/skills/`:
 - **`workspace-steward`**: Workspace-wide governance over component discovery, 7-domain placement policy, registration, licensing audit, architecture documentation, and automated drift detection (`scripts/workspace-governance.py`).
-- **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation.
+- **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation. Answers the story-writer's research requests; writes no scene plan.
+- **`story-writer`** (subagent `.claude/agents/story-writer.md`, rulebook `.claude/skills/story-writer/`): phase-2 story lead. Owns the arc, beat map, hook, goal and share reason, planned visual beats, narration words and packaging; signs off in `qa/story-review.json`; runs `retro` after a creative review and keeps the story lessons log.
 - **`motion-library-guide`**: Capability catalogue navigation, dependency vetting, approval states (approved/proposed/blocked), verified licensing, and deterministic GSAP animation recipes.
 - **`motion-graphics-designer`**: Color palettes, layout rules, GSAP 3 animation patterns, and deterministic PRNG rules.
 - **`reference-analyst`**: Reference video ingest and analysis (`scripts/reference-corpus.py`), source and technique records with observation separate from interpretation, capability classes (native, approximation, additional dependencies, resource-constrained, research required), provenance, brand-asset exclusion and the capability backlog.

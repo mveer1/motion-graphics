@@ -6,9 +6,19 @@ Evidence labels used below: **Verified** (read in the workspace), **Observed** (
 
 ## 1. Project overview
 
-Purpose (VISION.md): produce our own narrated explainers and short-form social videos in technology, finance, science, history, mathematics and news. Motion graphics only, synthetic narration, local rendering, portrait by default. Quality is premium craft plus accurate explanation; speed is not a priority.
+Purpose (VISION.md): produce our own narrated explainers and short-form social videos in technology, finance, science, history, mathematics and news. Motion graphics only, synthetic narration, local rendering. Quality is premium craft plus accurate explanation; speed is not a priority.
 
-Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 s), `polya-recurrence` (portrait, 73 s), `great-fire-london-collage` (landscape, 44.6 s), `ocean-descent-documentary` (landscape, 49.5 s), plus two silent 14 s landscape fixtures (`motion-quality-v1-baseline`, `-v2-directed`). Older explainers (`btree-database-indexing`, `distributed-consensus-raft`, `neural-network-learning`, `masala-chai`, `paper-plane-field-notes`, `china-market-crash`) live as versioned folders without a top-level `project.json`.
+Every video is exactly one of three types (`specs/video-types.json`, each with a 15 s margin at both ends), and `studio.py new` requires `--type`:
+
+| Type | Platform, format | Nominal length | Allowed with margin |
+|---|---|---|---|
+| `reel` (Instagram reel) | `instagram-reels`, portrait | 45-60 s (45 preferred) | 30-75 s |
+| `long-reel` (long Instagram reel) | `instagram-reels`, portrait | 60-180 s | 45-195 s |
+| `youtube` (YouTube video) | `youtube`, landscape | over 180 s | 165 s and up, no ceiling |
+
+Any type can be a member of a series, and one series may mix types. `studio.py validate` errors when a typed project falls outside its type's platform, format or length window; older briefs without `deliverables.video_type` only get a warning.
+
+Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 s), `polya-recurrence` (portrait, 73 s), `great-fire-london-collage` (landscape, 44.6 s), `ocean-descent-documentary` (landscape, 49.5 s), plus two silent 14 s landscape fixtures (`motion-quality-v1-baseline`, `-v2-directed`). As of 2026-11-07 no studio project has a current render: `studio.py upgrade --all` moved every finished film into `renders/history/`, and the catalogue links those. Older explainers (`btree-database-indexing`, `distributed-consensus-raft`, `neural-network-learning`, `masala-chai`, `paper-plane-field-notes`, `china-market-crash`) live as versioned folders without a top-level `project.json`.
 
 ## 2. Workspace capabilities
 
@@ -20,7 +30,10 @@ Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 
 | Capability catalogue: 10 libraries, 43 effects, 44 recipes, 16 primitives, 14 compositions, 10 styles, 42 reference techniques | Verified; **most are `experimental`** (10/10 styles, 37/43 effects) |
 | Creative-intelligence layer: beat maps, style bake-off, design knowledge base, asset engine, single-scene re-render | Verified; **not yet committed to git** |
 | Technical QA: 5 gates with per-format expectations; objective/measured/judgment motion QA; 12-criterion creative review | Verified and exercised |
-| Series (sequential or collection) grouping | Verified (`studio.py series`) |
+| Series (sequential or collection) grouping; members of any video type, planned members can carry a `--type` | Verified (`studio.py series`) |
+| Video types (`reel`, `long-reel`, `youtube`) with platform, format and length windows enforced by `new` and `validate` | Verified (`specs/video-types.json`, `tests/test-studio.py`) |
+| Poster per project: the last non-black frame of its finished film (`poster.jpg` + `poster.json`), made by `studio.py build` and `build-project.sh` | Verified on all 26 project folders (`scripts/poster.py`) |
+| Catalogue page `out/catalogue.html` (`scripts/build-catalogue.py`): poster tiles in one topic-colour-coded grid, type and progress tags, filters, search, sort, links to every film; an editable Ideas sheet split by video length | Verified in headless Chrome |
 | Math-animation toolkit (3Blue1Brown style) | **Missing**: only SVG + GSAP primitives; three.js is registered but experimental |
 | Preview frame review (Playwright) | **Unavailable on this host** (Playwright not installed) |
 
@@ -59,7 +72,7 @@ Two tracks share one toolchain: **studio projects** (`project.json`, driven by `
 
 Studio project: `brief.json` → optional `research.json`/`research.md` (only when `brief.research.required`) → `storyboard.json` → `src/narration.json` and `audio/` → `src/index.html` (+ generated `index.<format>.html`) → `validate` → `build` → `review`.
 
-`studio.py build` plan (Verified, `build_plan`): validate → formats → narration (skipped if `narration-full.wav` exists) → lint → per format: render → mux → QA → copy to `out/`. The whole build now runs under the render lock.
+`studio.py build` plan (Verified, `build_plan`): validate → formats → narration (skipped if `narration-full.wav` exists) → lint → per format: render → mux → QA → copy to `out/` → poster (`projects/<slug>/poster.jpg`). The whole build now runs under the render lock. `python3 scripts/build-catalogue.py` then refreshes `out/catalogue.html`.
 
 Legacy stages 0 to 9 (research dossier, narration, composition, foley, lint, render, mux, QA) are unchanged; see ARCHITECTURE.md.
 
@@ -68,17 +81,17 @@ Legacy stages 0 to 9 (research dossier, narration, composition, foley, lint, ren
 ```text
 .
 ├── CLAUDE.md AGENTS.md ARCHITECTURE.md TODO.md   # agent rules, design reference, open decisions
-├── docs/                 # VISION.md (business), architecture-audit.md (evidence)
-├── specs/                # JSON schemas (brief, storyboard, project, beatmap, asset…), categories, presets, guides
+├── docs/                 # VISION.md (business), architecture-audit.md (evidence), project-ideas.md (backlog behind the catalogue's Ideas sheet)
+├── specs/                # JSON schemas (brief, storyboard, project, beatmap, asset…), categories, video types, presets, guides
 ├── catalogue/            # data/ (records) + schemas/ + index.json
 ├── src/
 │   ├── studio/           # canonical runtime (core, draw, type, motion, compositions, styles/)
 │   └── pipeline/         # tts.py, colour science, archetypes, videoscan, asset providers
 ├── scripts/              # studio.py, session-guard.py, build-audio.py, motion-qa.py, frame-review.py, …
 ├── templates/            # project templates + research template
-├── projects/<slug>/      # brief, storyboard, src/, audio/, qa/, renders/ (gitignored)
+├── projects/<slug>/      # brief, storyboard, poster.jpg, src/, audio/, qa/, renders/ (gitignored)
 ├── series/               # series.json groupings
-├── out/                  # delivered videos only: MP4s, archive/ of superseded ones, gallery index.html
+├── out/                  # delivered videos only: MP4s, archive/ of superseded ones, gallery index.html, catalogue.html
 ├── reference/            # reference-video material, never delivered: analysis/ (frames, sheets), design-dna/, design-kb/ (all gitignored, regenerable)
 ├── tools/                # earshot, clipwing-skills (git submodules)
 ├── assets/ logs/ archive/ tests/
@@ -105,11 +118,13 @@ Legacy stages 0 to 9 (research dossier, narration, composition, foley, lint, ren
 Setup once: `git submodule update --init --recursive && source .venv/bin/activate && pip install -e tools/earshot`.
 
 ```bash
-python scripts/studio.py new <slug> --template illustrated-explainer --formats portrait --category history
+python scripts/studio.py new <slug> --template illustrated-explainer --type reel --category history   # --type reel|long-reel|youtube is required
 python scripts/studio.py validate <slug>
 python scripts/studio.py build <slug> --dry-run      # plan only, runs anywhere
 python scripts/studio.py build <slug>                # render host: takes the render lock itself
 python scripts/studio.py review <slug> --init        # then score qa/creative-review.json
+python scripts/studio.py poster <slug>|--all         # poster.jpg (build already does this)
+python3 scripts/build-catalogue.py                    # refresh out/catalogue.html
 ```
 
 Use `.venv/bin/python` for these. Legacy: `./scripts/build-project.sh <slug>`. Catalogue: `python scripts/motion-catalogue.py search "<intent>"`. Governance after any component change: `python scripts/workspace-governance.py`.
@@ -224,7 +239,15 @@ In priority order: **commit the untracked work** (user action); add a pinned req
 
 ## 19. Last audit date
 
-2026-11-02 (host: Apple M2, 8 GB; HyperFrames 0.8.226; FFmpeg 9.0.2).
+2026-11-02 (host: Apple M2, 8 GB; HyperFrames 0.8.226; FFmpeg 9.0.2). Sections 1, 2, 5, 6 and 8 were updated on 2026-11-07 (section 20); the rest still describes the 2026-11-02 audit.
+
+## 20. Changes since the audit (2026-11-07)
+
+- **Three video types.** `specs/video-types.json` defines `reel`, `long-reel` and `youtube` with a 15 s margin. `brief.deliverables.video_type` is new; `studio.py new --type` is required and sets the platform, format and length; `validate` enforces them; series members can carry a planned `video_type`.
+- **Posters.** `scripts/poster.py` makes `poster.jpg` and `poster.json` (last non-black frame of the finished film, with the film's length). `studio.py build` and `build-project.sh` run it last; `studio.py poster` and `studio.py status` expose it. Registered as `catalogue/data/tools/poster.json`.
+- **Catalogue page.** `scripts/build-catalogue.py` writes `out/catalogue.html`: every project as a poster tile in one grid coloured by topic, tagged by video type (the brief's, else by the film's length) and progress (in production, rendered, reviewed, plus a re-render flag), with filters, search, sort and a link to each film.
+- **Ideas sheet.** The catalogue's Ideas tab is an editable workbook over `docs/project-ideas.md` (sheets by video length, add, delete, paste from Excel, copy for Excel, download .md). Every idea line now ends in a `[length]` tag, which the builder requires.
+- **Tests.** `tests/test-studio.py` is 66 tests (video types, posters, catalogue tagging, the ideas file).
 
 ---
 

@@ -1,0 +1,34 @@
+{
+  "description": "The three video types Motion Lab produces, and only these. A brief declares one in deliverables.video_type; scripts/studio.py new requires it and validate enforces it. Any type can be a member of a series (specs/series-spec.json), alone or mixed with the others.",
+  "margin_sec": 15,
+  "margin_note": "Each nominal range may be missed by this many seconds at either end. The allowed window is nominal.min - margin to nominal.max + margin; a type with no nominal max has no upper limit.",
+  "types": {
+    "reel": {
+      "name": "Instagram reel",
+      "platform": "instagram-reels",
+      "format": "portrait",
+      "nominal_sec": { "min": 45, "max": 60 },
+      "target_sec": 45,
+      "default_arc": "reel-loop",
+      "note": "45 s is preferred; go toward 60 s only for a complicated topic that needs more animated beats, not more words."
+    },
+    "long-reel": {
+      "name": "Long Instagram reel",
+      "platform": "instagram-reels",
+      "format": "portrait",
+      "nominal_sec": { "min": 60, "max": 180 },
+      "target_sec": 90,
+      "default_arc": "hook-payoff",
+      "note": "Portrait, up to 3 minutes. Needs a re-hook about every 35-45 s; reel-loop fits only its short end."
+    },
+    "youtube": {
+      "name": "YouTube video",
+      "platform": "youtube",
+      "format": "landscape",
+      "nominal_sec": { "min": 180 },
+      "target_sec": 240,
+      "default_arc": "problem-mechanism-consequence",
+      "note": "Landscape, over 3 minutes, no upper limit. Needs a re-hook every 60-90 s."
+    }
+  }
+}

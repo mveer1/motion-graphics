@@ -52,6 +52,7 @@ OUT_DIR = REPO_ROOT / "out"
 RUNTIME_DIR = REPO_ROOT / "src" / "studio"
 TEMPLATES_DIR = REPO_ROOT / "templates" / "projects"
 SPECS_DIR = REPO_ROOT / "specs"
+SCRIPTS_DIR = REPO_ROOT / "scripts"
 PRESETS_FILE = SPECS_DIR / "format-presets.json"
 RUNTIME_DIRNAME = "_studio"
 LOCK_NAME = "studio.lock.json"
@@ -260,6 +261,70 @@ def parse_category_arg(raw: Optional[str]) -> List[str]:
     return list(dict.fromkeys(values))
 
 
+def load_video_types() -> Dict[str, Any]:
+    """The three supported video types (specs/video-types.json) with their allowed duration windows."""
+    spec = load_json(SPECS_DIR / "video-types.json")
+    margin = float(spec["margin_sec"])
+    types: Dict[str, Any] = {}
+    for tid, t in spec["types"].items():
+        lo = t["nominal_sec"]["min"]
+        hi = t["nominal_sec"].get("max")
+        types[tid] = {**t, "id": tid,
+                      "window_sec": (max(0.0, lo - margin), None if hi is None else hi + margin)}
+    return types
+
+
+def describe_window(t: Dict[str, Any]) -> str:
+    lo, hi = t["window_sec"]
+    return f"{lo:g}s or more" if hi is None else f"{lo:g}-{hi:g}s"
+
+
+def parse_video_type_arg(raw: Optional[str]) -> Dict[str, Any]:
+    types = load_video_types()
+    if raw not in types:
+        raise SystemExit(f"Error: --type is required and must be one of: {', '.join(types)}. "
+                         + "; ".join(f"{t['id']} = {t['name']} ({t['format']}, {describe_window(t)})" for t in types.values()))
+    return types[raw]
+
+
+def check_video_type(brief: Dict[str, Any], project: Dict[str, Any], rep: Report) -> None:
+    """Hold a brief and its project to the declared video type: platform, format and duration window."""
+    types = load_video_types()
+    deliv = brief["deliverables"]
+    vt = deliv.get("video_type")
+    if vt is None:
+        rep.warn("brief.deliverables.video_type is not set. Motion Lab produces only "
+                 + ", ".join(f"{t['id']} ({describe_window(t)})" for t in types.values())
+                 + "; set one (legacy brief: its length and platforms are not checked).")
+        return
+    t = types.get(vt)
+    if t is None:
+        rep.error(f"video_type '{vt}' is not one of {', '.join(types)} (specs/video-types.json).")
+        return
+    extra_platforms = [p for p in brief["platforms"] if p != t["platform"]]
+    if t["platform"] not in brief["platforms"] or extra_platforms:
+        rep.error(f"a {t['id']} is published on {t['platform']} only; brief platforms are {brief['platforms']}.")
+    extra_formats = [f for f in deliv["formats"] if f != t["format"]]
+    if extra_formats:
+        rep.error(f"a {t['id']} is {t['format']} only; brief formats include {extra_formats}.")
+    lo, hi = t["window_sec"]
+    dur = deliv["duration_sec"]
+    for key in ("min", "target", "max"):
+        v = dur.get(key)
+        if v is None:
+            continue
+        if v < lo - 1e-6 or (hi is not None and v > hi + 1e-6):
+            rep.error(f"brief duration_sec.{key} {v:g}s is outside the {t['id']} window ({describe_window(t)}).")
+    d = project["duration_sec"]
+    if d < lo - 1e-6 or (hi is not None and d > hi + 1e-6):
+        rep.error(f"project duration {d:g}s is outside the {t['id']} window ({describe_window(t)}): "
+                  "change the length, or the video_type if this is really another type.")
+    nom = t["nominal_sec"]
+    if lo - 1e-6 <= d < nom["min"] or (nom.get("max") is not None and nom["max"] < d <= hi + 1e-6):
+        rep.note(f"duration {d:g}s is inside the {t['id']} margin (nominal {nom['min']:g}"
+                 + (f"-{nom['max']:g}" if nom.get("max") is not None else "+") + "s).")
+
+
 def find_project(ref: str) -> Optional[Path]:
     """Like project_dir() but returns None instead of exiting."""
     try:
@@ -464,6 +529,9 @@ def cmd_new(args: argparse.Namespace) -> int:
         raise SystemExit(f"Error: {rel_path(pdir)} already exists.")
     title = args.title or slug.replace("-", " ").title()
     categories = parse_category_arg(getattr(args, "category", None))
+    vtype = parse_video_type_arg(getattr(args, "video_type", None))
+    if args.formats and [f.strip() for f in args.formats.split(",") if f.strip()] != [vtype["format"]]:
+        raise SystemExit(f"Error: a {vtype['id']} is {vtype['format']} only; drop --formats or use --formats {vtype['format']}.")
     stpl = None
     if getattr(args, "style_template", None):
         stpl = records.get("style-templates", {}).get(args.style_template)
@@ -495,36 +563,48 @@ def cmd_new(args: argparse.Namespace) -> int:
             shutil.copyfile(src, dst)
     pj = pdir / "project.json"
     project = load_json(pj)
-    if args.formats:
-        pre = presets()
-        wanted = [f.strip() for f in args.formats.split(",") if f.strip()]
-        for fid in wanted:
-            if fid not in FORMAT_IDS:
-                raise SystemExit(f"Error: unknown format '{fid}'.")
-        project["formats"] = []
-        for i, fid in enumerate(wanted):
-            size = pre["formats"][fid]["default_size"]
-            w, h = pre["formats"][fid]["sizes"][size]
-            project["formats"].append({"id": fid, "width": w, "height": h, "primary": i == 0})
+    pre = presets()
+    fid = vtype["format"]
+    size = pre["formats"][fid]["default_size"]
+    w, h = pre["formats"][fid]["sizes"][size]
+    project["formats"] = [{"id": fid, "width": w, "height": h, "primary": True, "platform": vtype["platform"]}]
+    project["duration_sec"] = vtype["target_sec"]
     project["style"] = style
     if stpl:
         project["style_template"] = {"id": stpl["id"], "version": stpl["version"]}
     write_json(pj, project)
+    bj = pdir / "brief.json"
+    brief = load_json(bj)
+    nominal = vtype["nominal_sec"]
+    brief["platforms"] = [vtype["platform"]]
+    brief["deliverables"]["formats"] = [fid]
+    brief["deliverables"] = {
+        "video_type": vtype["id"],
+        "formats": [fid],
+        "duration_sec": {"min": nominal["min"], "target": vtype["target_sec"],
+                         **({"max": nominal["max"]} if nominal.get("max") is not None else {})},
+        **{k: v for k, v in brief["deliverables"].items() if k not in ("video_type", "formats", "duration_sec")},
+    }
     if categories:
-        bj = pdir / "brief.json"
-        brief = load_json(bj)
         brief = {**{k: v for k, v in brief.items() if k in ("spec_version", "slug", "title")},
                  "categories": categories,
                  **{k: v for k, v in brief.items() if k not in ("spec_version", "slug", "title")}}
-        write_json(bj, brief)
+    write_json(bj, brief)
+    sbj = pdir / "storyboard.json"
+    if sbj.exists():
+        sb = load_json(sbj)
+        sb["duration_sec"] = vtype["target_sec"]
+        write_json(sbj, sb)
     html = (pdir / "src" / "index.html").read_text(encoding="utf-8")
     html = re.sub(r"_studio/styles/[a-z0-9-]+\.css", f"_studio/styles/{style}.css", html)
+    html = re.sub(r'data-duration="[0-9.]+"', f'data-duration="{vtype["target_sec"]:g}"', html, count=1)
     (pdir / "src" / "index.html").write_text(html, encoding="utf-8", newline="\n")
     for sub in ("audio", "renders", "qa"):
         (pdir / sub).mkdir(exist_ok=True)
     cmd_sync(argparse.Namespace(slug=slug, force=True))
     cmd_formats(argparse.Namespace(slug=slug, size=None))
-    print(f"\nScaffolded projects/{slug} from template '{args.template}' (style {style}"
+    print(f"\nScaffolded projects/{slug} as a {vtype['name']} ({fid}, target {vtype['target_sec']}s, "
+          f"allowed {describe_window(vtype)}) from template '{args.template}' (style {style}"
           + (f", style template {stpl['id']} v{stpl['version']}" if stpl else "") + ").")
     if not stpl:
         print("Note: no style template. Once the brief is written: python scripts/studio.py style recommend " + slug)
@@ -616,6 +696,46 @@ def capability_status(records: Dict[str, Dict[str, Any]], cap_id: str) -> Option
         if rec:
             return coll, rec.get("status", "")
     return None
+
+
+STORY_SIGNED_FILES = ("beatmap.json", "storyboard.json", "src/narration.json")
+
+
+def check_story_signoff(pdir: Path, rep: Report) -> None:
+    """Phase-2 gate: the story-writer's verdict in qa/story-review.json, and whether the story changed after it.
+
+    Warnings only, like the other story checks: a film can still be built, but the gap is visible.
+    """
+    if not any((pdir / rel).exists() for rel in STORY_SIGNED_FILES):
+        return
+    path = pdir / "qa" / "story-review.json"
+    if not path.exists():
+        rep.warn("story not signed off: qa/story-review.json is missing. Phase 3 (audio, visuals, sound) starts after "
+                 "the story-writer verdict is 'complete' (.claude/skills/story-writer/SKILL.md).")
+        return
+    try:
+        review = load_json(path)
+    except (OSError, ValueError) as exc:
+        rep.warn(f"qa/story-review.json is unreadable ({exc}).")
+        return
+    verdict = review.get("verdict")
+    if verdict != "complete":
+        open_reqs = [r.get("id", "?") for r in review.get("research_requests", [])
+                     if r.get("blocking") and not r.get("answered")]
+        extra = f"; open blocking research requests: {', '.join(open_reqs)}" if open_reqs else ""
+        rep.warn(f"story-writer verdict is '{verdict}', not 'complete' (iteration {review.get('iteration', '?')}){extra}.")
+        return
+    changed = []
+    for rel, digest in (review.get("signed") or {}).items():
+        f = pdir / rel
+        want = str(digest).split(":", 1)[-1].strip().lower()
+        if not f.exists() or hashlib.sha256(f.read_bytes()).hexdigest() != want:
+            changed.append(rel)
+    if changed:
+        rep.warn("story changed after the story-writer signed it off (" + ", ".join(changed) + "): run a story-writer "
+                 "`review` pass before render.")
+    elif not review.get("signed"):
+        rep.warn("qa/story-review.json says 'complete' but records no `signed` hashes, so later edits cannot be detected.")
 
 
 def check_creative_artefacts(pdir: Path, project: Dict[str, Any], records: Dict[str, Dict[str, Any]], rep: Report) -> None:
@@ -793,6 +913,7 @@ def validate_project(pdir: Path) -> Report:
             rep.error(f"duration {project['duration_sec']}s exceeds the brief's max {dur['max']}s.")
         if "min" in dur and project["duration_sec"] < dur["min"] - 1e-6:
             rep.error(f"duration {project['duration_sec']}s is below the brief's min {dur['min']}s.")
+        check_video_type(brief, project, rep)
         if brief["research"]["required"]:
             rj = pdir / "research.json"
             if not rj.exists():
@@ -834,6 +955,7 @@ def validate_project(pdir: Path) -> Report:
     for level, fid, msg in pipeline_module("scriptlint").script_report(pdir)["findings"]:
         if level == "warn":
             rep.warn(f"script ({fid}): {msg}")
+    check_story_signoff(pdir, rep)
 
     audio = project["audio"]
     if audio["narration"]:
@@ -1207,6 +1329,9 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             qa += ["--allow-silent"]
         steps.append({"stage": f"qa:{fid}", "cmd": qa, "cwd": "."})
         steps.append({"stage": f"deliver:{fid}", "cmd": ["copy", rel(pdir / "renders" / fid / "final.mp4"), rel(delivered_path(pdir, project, fid))], "cwd": "."})
+    if any(s["stage"].startswith("deliver:") for s in steps):
+        # poster.jpg = last non-black frame of the primary format's film; the catalogue shows it on the project's tile
+        steps.append({"stage": "poster", "cmd": [sys.executable, "scripts/poster.py", rel(pdir), "--force"], "cwd": "."})
     return steps
 
 
@@ -1599,6 +1724,20 @@ def cmd_hook(args: argparse.Namespace) -> int:
 
 
 # --------------------------------------------------------------------------- review
+def cmd_poster(args: argparse.Namespace) -> int:
+    """Poster (last non-black frame of the finished film) for one project, or every project with --all."""
+    cmd = [sys.executable, str(SCRIPTS_DIR / "poster.py")]
+    if args.all:
+        cmd.append("--all")
+    elif args.slug:
+        cmd.append(str(project_dir(args.slug)))
+    else:
+        raise SystemExit("Error: name a project or pass --all.")
+    if args.force:
+        cmd.append("--force")
+    return subprocess.run(cmd, stdin=subprocess.DEVNULL).returncode
+
+
 def cmd_review(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
     path = pdir / "qa" / "creative-review.json"
@@ -1662,6 +1801,14 @@ def series_containing(pdir: Path) -> List[Dict[str, Any]]:
     return out
 
 
+def member_video_type(m: Dict[str, Any]) -> Optional[str]:
+    """A series member's video type: its brief's when the project exists, else the planned one."""
+    pdir = find_project(m["project"])
+    if pdir is not None and (pdir / "brief.json").exists():
+        return load_json(pdir / "brief.json").get("deliverables", {}).get("video_type")
+    return m.get("video_type")
+
+
 def validate_series(ser: Dict[str, Any], folder: str) -> Report:
     rep = Report()
     for e in schema_errors(ser, SPECS_DIR / "series-spec.json"):
@@ -1706,6 +1853,9 @@ def validate_series(ser: Dict[str, Any], folder: str) -> Report:
             continue
         brief_path = pdir / "brief.json"
         if brief_path.exists():
+            btype = load_json(brief_path).get("deliverables", {}).get("video_type")
+            if m.get("video_type") and btype and m["video_type"] != btype:
+                rep.warn(f"{ref}: series says video_type '{m['video_type']}', the brief says '{btype}'; the brief wins.")
             bcats = load_json(brief_path).get("categories") or []
             if bcats and not set(bcats) & set(ser["categories"]):
                 rep.warn(f"{ref}: brief categories {bcats} share nothing with the series' {ser['categories']}.")
@@ -1782,6 +1932,8 @@ def cmd_series_add(args: argparse.Namespace) -> int:
         member["status"] = "planned"
     elif find_project(args.project) is None:
         raise SystemExit(f"Error: project '{args.project}' not found under projects/ (use --planned if it is not started).")
+    if getattr(args, "video_type", None):
+        member["video_type"] = args.video_type
     ser["members"].append(member)
     ser["members"] = sorted_members(ser) if ser["kind"] == "sequential" else ser["members"]
     write_json(series_dir(args.series) / "series.json", ser)
@@ -1798,7 +1950,7 @@ def cmd_series_show(args: argparse.Namespace) -> int:
         print(f"  {ser['description']}")
     for i, m in enumerate(sorted_members(ser), 1):
         lead = f"part {m['part']}" if "part" in m else f"#{i}"
-        print(f"  {lead:<8} {m['project']:<44} {m.get('status', 'in-production'):<14} {m.get('title', '')}")
+        print(f"  {lead:<8} {m['project']:<44} {member_video_type(m) or 'untyped':<10} {m.get('status', 'in-production'):<14} {m.get('title', '')}")
     if not ser["members"]:
         print("  (no members)")
     return 0
@@ -2037,6 +2189,7 @@ def cmd_status(args: argparse.Namespace) -> int:
         ("qa/frame-review/report.json", "Stage 9 frame review (scripts/frame-review.py)"),
         ("qa/motion/motion-qa.json", "Stage 9 motion QA report (scripts/motion-qa.py)"),
         ("qa/creative-review.json", "Stage 9 creative review rubric"),
+        ("poster.jpg", "Poster: last non-black frame of the finished film (scripts/poster.py)"),
     ]
     print(f"{pdir.name}: {'studio' if studio else 'legacy'} project")
     for rel, label in rows:
@@ -2059,7 +2212,10 @@ def main() -> int:
     p.add_argument("--title")
     p.add_argument("--style")
     p.add_argument("--style-template", dest="style_template", help="Style template id (catalogue/data/style-templates/); sets the default style and pins the project to it")
-    p.add_argument("--formats", help="Comma-separated formats; first is primary (default: template's project.json)")
+    p.add_argument("--type", dest="video_type", required=True, choices=list(load_video_types()),
+                   help="Video type (specs/video-types.json): reel = Instagram reel 45-60s, long-reel = Instagram 60-180s, "
+                        "youtube = over 180s; each +-15s. Sets the format, platform and length.")
+    p.add_argument("--formats", help="Optional; must equal the type's format (portrait for reels, landscape for youtube)")
     p.add_argument("--category", help="Comma-separated subject categories (specs/categories.json); usually one, e.g. history,finance for a mixed piece")
 
     p = sub.add_parser("sync", help="Vendor the canonical runtime into the project")
@@ -2122,6 +2278,11 @@ def main() -> int:
     hp = hsub.add_parser("formulas", help="List the hook formulas (specs/hook-formulas.json)")
     hp.add_argument("--category", help="Only formulas that suit this subject category")
 
+    p = sub.add_parser("poster", help="Poster = the last non-black frame of the finished film (projects/<slug>/poster.jpg); build makes it automatically")
+    p.add_argument("slug", nargs="?")
+    p.add_argument("--all", action="store_true", help="every project and version")
+    p.add_argument("--force", action="store_true", help="remake even if current")
+
     p = sub.add_parser("review", help="Creative review rubric")
     p.add_argument("slug")
     p.add_argument("--init", action="store_true")
@@ -2143,6 +2304,7 @@ def main() -> int:
     sp.add_argument("--part", type=int, help="Part number (sequential; default: next free)")
     sp.add_argument("--title", help="Part title if different from the project's")
     sp.add_argument("--planned", action="store_true", help="Project folder does not exist yet")
+    sp.add_argument("--type", dest="video_type", choices=list(load_video_types()), help="Planned video type, for a member with no project yet")
     sp = ssub.add_parser("show", help="Print one series and its members")
     sp.add_argument("slug")
     ssub.add_parser("list", help="List all series")
@@ -2170,7 +2332,7 @@ def main() -> int:
         "series": cmd_series, "style": cmd_style, "script": cmd_script, "hook": cmd_hook, "words": cmd_words,
         "new": cmd_new, "sync": cmd_sync, "formats": cmd_formats, "validate": cmd_validate,
         "renders": cmd_renders, "upgrade": cmd_upgrade,
-        "build": cmd_build, "captions": cmd_captions, "review": cmd_review, "status": cmd_status,
+        "build": cmd_build, "captions": cmd_captions, "review": cmd_review, "status": cmd_status, "poster": cmd_poster,
     }
     if args.command not in handlers:
         parser.print_help()

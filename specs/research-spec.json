@@ -8,8 +8,7 @@
     "pedagogy",
     "ground_truth",
     "visual_metaphors",
-    "acoustic_guidance",
-    "scene_blueprint"
+    "acoustic_guidance"
   ],
   "properties": {
     "metadata": {
@@ -387,6 +386,7 @@
       }
     },
     "scene_blueprint": {
+      "description": "DEPRECATED (2026-11-06), optional, and ignored by the studio pipeline. Story structure is owned by the story-writer (beatmap.json, storyboard.json); research supplies facts only. Kept so older dossiers still validate; do not write it in new dossiers.",
       "type": "array",
       "minItems": 3,
       "maxItems": 6,

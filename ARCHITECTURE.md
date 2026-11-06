@@ -16,24 +16,31 @@ Section 0 describes the general-purpose creative studio. Sections 1–7 describe
 
 Each studio project lives in `projects/<slug>/` and is driven by `scripts/studio.py`. A stage that does not apply is switched off in `brief.json`; it is never skipped silently.
 
-| Stage | Artefact | Tools and skills | When |
-| --- | --- | --- | --- |
-| <a id="s0"></a>0 Brief and creative direction | `brief.json` (`specs/brief-spec.json`): objective, audience, subject categories (`specs/categories.json`, one or more), platforms, formats, tone, 1–3 distinct directions, the selected one and why | `motion-graphics-designer` | always |
-| <a id="s0r"></a>0R Research | `research.json` + `research.md` | `technical-researcher`, `scripts/validate-research.py` | only when `brief.research.required` (factual topics) |
-| <a id="s1"></a>1 Storyboard and style | `storyboard.json` (`specs/storyboard-spec.json`); style system from the catalogue | `motion-graphics-designer`, `motion-library-guide` | standard/complex briefs, or when the template requires it |
-| <a id="s2"></a>2 Script | `src/narration.json` | `voice-director` | only with narration |
-| <a id="s3"></a>3 Speech and timing | `audio/*.wav`, `audio/timeline.json` | `scripts/build-audio.py` → `src/pipeline/tts.py` | only with narration |
-| <a id="s4"></a>4 Composition | `src/index.html` on the vendored runtime `src/_studio/` | `motion-graphics-designer`, `gsap-*`, `kinetic-typography` | always |
-| <a id="s4b"></a>4B Sound design | `audio/sfx-track.wav` | `real-sfx`, `earshot` | optional |
-| <a id="s5"></a>5 Validate and lint | — | `studio.py validate`; `hyperframes lint` (render host) | always |
-| <a id="s6"></a>6 Render per format | `renders/<format>/visuals.mp4` | `hyperframes render --composition index.<format>.html --low-memory-mode` | render host |
-| <a id="s7"></a>7 External footage | `assets/generated/` | `scripts/ingest-asset.sh` | optional |
-| <a id="s8"></a>8 Assembly | `renders/<format>/final.mp4` → `out/<slug>-<format>.mp4` | `studio.py build` (FFmpeg `amix` of narration, music, SFX) | render host |
-| <a id="s9"></a>9 QA | technical gates, `qa/frame-review/`, `qa/creative-review.json` | `run-qa-gates.sh`, `scripts/frame-review.py`, `studio.py review` | always |
+The stages fall into four phases. Each phase ends at a gate, and a later phase sends a problem back to the phase that owns it:
+
+1. **Brief and research.** The brief sets categories, the video type (`reel` 45-60 s, `long-reel` 60-180 s or `youtube` over 180 s, each +-15 s; `specs/video-types.json`), which fixes the platform, format (portrait for reels, landscape for YouTube) and length window, and the style template. A reel prefers 45 s, up to 60 s for a complicated topic. Research supplies facts only. *Gate:* `validate-research.py`.
+2. **Story and structure.** The `story-writer` subagent owns the story and loops with research until it signs off. `creative-director` then settles the look on the anchor beat. *Gate:* `qa/story-review.json` verdict `complete`, checked by `studio.py validate`.
+3. **Audio, visuals and sound, as one loop.** The steps run in order within each pass: measured speech, then visuals snapped to it, then sound from the animation moments. They are not parallel, because visuals are timed to measured audio and TTS, Whisper and frame review share the host lock. A timing or word change re-runs only the scenes it touches. *Gate:* pre-render review (`validate`, `frame-review.py`, `motion-qa.py composition`).
+4. **Render and review.** Render, mux, the five technical gates, the poster (`poster.jpg`, the last non-black frame of the finished film, made by `build` itself; `scripts/poster.py`), then the creative review. Failures route back to phase 2 (story) or 3 (picture and sound); recurring ones become rules (style template, story-writer rulebook) through the story-writer `retro`.
+
+| Phase | Stage | Artefact | Tools and skills | When |
+| --- | --- | --- | --- | --- |
+| 1 | <a id="s0"></a>0 Brief and creative direction | `brief.json` (`specs/brief-spec.json`): objective, audience, subject categories (`specs/categories.json`, one or more), platforms, formats, duration range, tone, 1–3 distinct directions, the selected one and why; style template pinned in `project.json` | `motion-graphics-designer`, `studio.py style` | always |
+| 1 | <a id="s0r"></a>0R Research | `research.json` + `research.md`: facts, ranges, disputes; answers to the story-writer's requests (no scene plan) | `technical-researcher`, `scripts/validate-research.py` | only when `brief.research.required` (factual topics) |
+| 2 | <a id="s1"></a>1 Storyboard and style | `beatmap.json`, `storyboard.json` (`specs/storyboard-spec.json`), `qa/story-review.json`; design profile from the bake-off | `story-writer` (story, beats, sign-off), `creative-director` (look), `motion-library-guide` | standard/complex briefs, or when the template requires it |
+| 2 | <a id="s2"></a>2 Script | `src/narration.json` | `story-writer` (words), `voice-director` (respellings, voice, speed) | only with narration |
+| 3 | <a id="s3"></a>3 Speech and timing | `audio/*.wav`, `audio/timeline.json`, `audio/words.json` | `scripts/build-audio.py` → `src/pipeline/tts.py`; `studio.py captions` | only with narration |
+| 3 | <a id="s4"></a>4 Composition | `src/index.html` on the vendored runtime `src/_studio/` | `motion-graphics-designer`, `gsap-*`, `kinetic-typography` | always |
+| 3 | <a id="s4b"></a>4B Sound design | `audio/sfx-track.wav` | `real-sfx`, `earshot` | optional |
+| 3 | <a id="s7"></a>7 External footage | `assets/generated/` | `scripts/ingest-asset.sh` | optional |
+| 3 | <a id="s5"></a>5 Validate and lint (pre-render gate) | `qa/frame-review/` | `studio.py validate`, `scripts/frame-review.py`, `motion-qa.py composition`; `hyperframes lint` (render host) | always |
+| 4 | <a id="s6"></a>6 Render per format | `renders/<format>/visuals.mp4` | `hyperframes render --composition index.<format>.html --low-memory-mode` | render host |
+| 4 | <a id="s8"></a>8 Assembly | `renders/<format>/final.mp4` → `out/<slug>-<format>.mp4` | `studio.py build` (FFmpeg `amix` of narration, music, SFX) | render host |
+| 4 | <a id="s9"></a>9 QA and review | technical gates, `qa/creative-review.json`, story-writer retro (`.claude/skills/story-writer/references/lessons.md`) | `run-qa-gates.sh`, `studio.py review`, `story-writer` | always |
 
 ```bash
 python scripts/studio.py new <slug> --template illustrated-explainer [--style editorial-light] [--formats landscape,portrait,square]
-# fill brief.json -> storyboard.json -> src/index.html
+# phase 1: brief.json (+ research) -> phase 2: story-writer sign-off -> phase 3: audio, src/index.html, sound
 python scripts/studio.py validate <slug>
 python scripts/frame-review.py <slug> --fonts google      # preview QA on any host with Playwright
 python scripts/studio.py build <slug> --dry-run          # prints the per-format plan anywhere
@@ -285,7 +292,7 @@ To guarantee predictability across any technical or scientific topic, every proj
 1. **`research.json`**: Machine-readable data model strictly validated against [`specs/research-spec.json`](file:///Users/mahavir/Downloads/Repo/motion%20graphics/specs/research-spec.json). Consumed programmatically by script generators, voice synthesis, and GSAP timeline scaffolders.
 2. **`research.md`**: Human- and LLM-readable narrative dossier generated from [`templates/research-template.md`](file:///Users/mahavir/Downloads/Repo/motion%20graphics/templates/research-template.md) containing KaTeX math equations, visual metaphor tables, and storyboards.
 
-### 3.1 The 6 Core Pillars of the Research Schema
+### 3.1 The Core Pillars of the Research Schema
 
 ```mermaid
 classDiagram
@@ -295,7 +302,7 @@ classDiagram
         +GroundTruth ground_truth
         +List~VisualMetaphor~ visual_metaphors
         +AcousticGuidance acoustic_guidance
-        +List~SceneBlueprint~ scene_blueprint
+        +List~SceneBlueprint~ scene_blueprint (deprecated)
     }
     class Metadata {
         +String topic_id
@@ -373,7 +380,7 @@ classDiagram
 | **`acoustic_guidance`**| `recommended_voice` | Enum (`am_adam`, `af_bella`, etc.) | Passed directly to `src/pipeline/tts.py --voice`. |
 | | `speech_rate` | Float (`0.75` - `1.25`, default `0.95`) | Passed to TTS engine to tune pacing for dense explanations. |
 | | `phonetic_lexicon`| Terms + phonetic respellings | Automatically ingested by Stage 2 to replace jargon in `narration.json`. |
-| **`scene_blueprint`**| `scene_blueprint` | Array of 3–5 scene objects | Establishes target scene IDs (`s1`–`s4`), scene boundaries, and visual actions. |
+| **`scene_blueprint`** (deprecated) | `scene_blueprint` | Optional array, kept so older dossiers validate | Not written in new dossiers (2026-11-06). Story structure is owned by the `story-writer` (`beatmap.json`, `storyboard.json`); research supplies facts and answers its `research_requests` (`research.md` section 5). Legacy only: `src/pipeline/narration.py` still falls back to it when a project has no `src/narration.json`. |
 
 ### 3.3 Automated Research Validation CLI
 
@@ -410,7 +417,7 @@ python3 scripts/validate-research.py projects/benchmark-neural-network
 ### Step 1: Script & Scene Definition
 - **Owner:** LLM + `voice-director` skill
 - **Input:** Validated `projects/<project_name>/research.json` and `research.md`.
-- **Action:** Generates `projects/<project_name>/src/narration.json` containing scene IDs, titles, and text scripts matching the `scene_blueprint`.
+- **Action:** Generates `projects/<project_name>/src/narration.json` containing scene IDs, titles, and text scripts. Older dossiers carry a `scene_blueprint` to follow; new ones do not, and the scenes come from the story-writer's beat map (`.claude/skills/story-writer/SKILL.md`).
 - **Rule:** Technical terms are phonetically respelled using the `phonetic_lexicon` from the research dossier (e.g., *ReLU* → `"ray-loo"`, *backpropagation* → `"back propagation"`).
 
 ---
