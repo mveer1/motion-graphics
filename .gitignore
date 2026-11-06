@@ -1,6 +1,8 @@
 # ==============================================================================
 # Motion Lab Pipeline - .gitignore
-# Strictly adheres to Component Placement Policy & ephemeral output hygiene
+# This repository is the tool: runtime, scripts, specs, catalogue of reusable components,
+# templates, skills and tests. Anything a user produces WITH it (their projects, series,
+# renders, logs, asset library, progress notes) is personal and stays out of git.
 # ==============================================================================
 
 # --- Python Environment & Bytecode ---
@@ -96,13 +98,6 @@ reference/analysis/
 # Reference-derived test compositions: keep report.json and contact sheets, not sampled frames.
 tests/reference-derived/*/qa/*/
 
-# Retain timeline synchronization metadata, HTML showcase & poster assets
-!projects/*/audio/timeline.json
-!projects/**/audio/timeline.json
-!out/index.html
-!out/posters/
-!out/posters/**
-
 # --- Assets & Generated Artifacts ---
 assets/generated/*
 !assets/generated/.gitkeep
@@ -150,3 +145,36 @@ projects/**/bakeoff/*/sample.mp4
 projects/**/bakeoff/_control-reskin/
 # Motion QA working frames (reports and contact sheets are kept).
 projects/**/qa/motion/frames/
+
+# ==============================================================================
+# Personal content (produced with the tool, not part of it)
+# ==============================================================================
+
+# --- Your films: projects/<slug>/, series/<slug>/ and finished files in out/ ---
+projects/*
+!projects/.gitkeep
+# Sample project that tests/test-studio.py uses as a fixture. Delete these four lines (and
+# repoint CHAI in that test) if you would rather ship no sample at all.
+!projects/masala-chai/
+projects/masala-chai/*
+!projects/masala-chai/v1-recipe/
+
+series/*
+!series/.gitkeep
+
+out/*
+!out/.gitkeep
+
+# --- Your catalogue output, notes and working files ---
+# catalogue/data/ and catalogue/schemas/ are the tool's component library and stay tracked.
+catalogue/project-progress.md
+
+# --- Your asset library and downloaded media (provenance, third-party licences) ---
+assets/library/*
+!assets/library/.gitkeep
+assets/audio/
+
+# --- Local agent / editor state ---
+.claude/settings.local.json
+CLAUDE.local.md
+.ruff_cache/

@@ -33,13 +33,22 @@ git submodule update --init --recursive        # tools/earshot, tools/clipwing-s
 source .venv/bin/activate && pip install -e tools/earshot
 ```
 
-Studio projects (`project.json` present), the main path:
+Studio projects (`project.json` present), the main path. Every project is exactly one of three video types (`specs/video-types.json`), each with a 15 s margin at both ends of its range, and `new` requires `--type`:
+
+| `--type` | What | Format | Nominal length | Allowed (with margin) |
+|---|---|---|---|---|
+| `reel` | Instagram reel | portrait | 45-60 s (45 preferred) | 30-75 s |
+| `long-reel` | Long Instagram reel | portrait | 60-180 s | 45-195 s |
+| `youtube` | YouTube video | landscape | over 180 s | 165 s and up, no ceiling |
+
+The type fixes the platform (`instagram-reels` or `youtube`), the one format and the length window. `validate` errors when the project or brief falls outside them; a legacy brief with no `deliverables.video_type` only gets a warning. Any type can join a series, and one series may mix types.
 ```bash
-python scripts/studio.py new <slug> --template illustrated-explainer --formats landscape,portrait,square --category history,finance
+python scripts/studio.py new <slug> --template illustrated-explainer --type reel|long-reel|youtube --category history,finance
 python scripts/studio.py validate <slug>               # schema + cross-reference + determinism lint
 python scripts/frame-review.py <slug> --fonts google   # Playwright contact sheets in qa/frame-review/
 python scripts/studio.py build <slug> --dry-run        # print per-format plan; runs anywhere
-python scripts/studio.py build <slug>                  # render host only: render, mux, QA
+python scripts/studio.py build <slug>                  # render host only: render, mux, QA, then the poster
+python scripts/studio.py poster <slug> | --all        # poster.jpg = last non-black frame of the finished film (build does this itself)
 python scripts/studio.py review <slug> --init          # then score qa/creative-review.json
 python scripts/studio.py hook score "line one" "line two"   # rank hook lines (a lint, not a view predictor); `hook formulas` lists specs/hook-formulas.json
 python scripts/studio.py script <slug>                 # pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, storyboard why-table
@@ -54,7 +63,7 @@ python scripts/studio.py formats <slug>                # regenerate src/index.<f
 Categories and series. `specs/categories.json` lists the subject categories (technology, finance, science, history, mathematics, news, storytelling). A brief takes one or more in `categories` (first is primary), and `validate` warns when it has none. Style records may be tagged with `categories`; a style with none is general-purpose. A series (`series/<slug>/series.json`, `specs/series-spec.json`) groups projects as `sequential` (numbered parts) or `collection` (unordered, same theme); the series owns membership:
 ```bash
 python scripts/studio.py series new <slug> --kind sequential|collection --category history
-python scripts/studio.py series add <series> <project> [--part N] [--planned]
+python scripts/studio.py series add <series> <project> [--part N] [--planned [--type reel|long-reel|youtube]]
 python scripts/studio.py series show|list|validate [<series>]
 ```
 Style templates. A style template (`catalogue/data/style-templates/`, `docs/style-templates.md`) is the unit you pick per film and the unit you refine: seven records split by visual job (`systems-blueprint`, `proof-canvas`, `data-ledger`, `chronicle`, `storybook`, `news-brief`, `science-atlas`). Each binds a style system and a design profile and adds scene grammar, measurable pacing rules, anti-patterns and a versioned revision log. `project.json` pins `style_template: {id, version}`; refine a template, bump its version, and `style check` lists every project that is behind. `validate` prints the same findings as warnings, never errors:
@@ -106,7 +115,13 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 
 **Two tracks, one toolchain.** Studio projects (`projects/<slug>/project.json`, schema `specs/video-spec.json`) are driven by `scripts/studio.py`. Legacy explainers (no `project.json`) are driven by `scripts/build-project.sh`. `studio.py build` delegates legacy projects to that script, and `build-project.sh` delegates studio projects back to `studio.py build`. Keep both entry points working when you change either one.
 
-**Studio lifecycle.** `brief.json` → optional `research.json`/`research.md` (only when `brief.research.required`) → `storyboard.json` → `src/narration.json` and `audio/` (only with narration) → `src/index.html` (plus generated `src/index.<format>.html`) → `studio.py validate` → `build` (per-format HyperFrames render, FFmpeg mux, QA gates) → `review`. Specs for each file are in `specs/`, and project templates are in `templates/projects/`.
+**Studio lifecycle: four phases, each ending at a gate** (full table: `ARCHITECTURE.md` section 0.1, steps: `AGENTS.md` section 1).
+1. **Brief and research:** `brief.json` sets categories, formats, length range and style template. `research.json`/`research.md` hold facts only, and only when `brief.research.required`.
+2. **Story and structure:** the `story-writer` subagent writes `beatmap.json`, `storyboard.json` and the `src/narration.json` text, loops with research, and signs off in `qa/story-review.json`. `creative-director` then settles the look.
+3. **Audio, visuals and sound, as one sequential loop:** measured audio, then `src/index.html` (plus generated `src/index.<format>.html`) snapped to it, then SFX. They are not parallel: visuals are timed to measured speech, and the heavy steps share the host lock. Ends at the pre-render gate: `studio.py validate` + `frame-review.py`.
+4. **Render and review:** `build` (per-format HyperFrames render, FFmpeg mux, QA gates) → `review` → story-writer `retro`.
+
+Specs for each file are in `specs/`, and project templates are in `templates/projects/`.
 
 **Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight; 1.2.0 vendored GSAP 3.12.5 as `_studio/vendor/gsap.min.js`, so renders need no network: load it from there, never from a CDN). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
 
@@ -121,6 +136,10 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 **Audio.** Narration is 24 kHz mono WAV from Kokoro with measured durations (`ffprobe`), 0.5 s pause buffers between scenes, and the default voice `am_adam` at 1.15×. SFX come from `scripts/sfx-openverse.py` (CC0/CC BY, public preview CDN URLs only, never Freesound `apiv2`) or from `.venv/bin/earshot sfx render`. The final mix is FFmpeg `amix` of narration, ducked SFX and a dim background bed (about −22 to −28 dBFS). No whoosh sounds on educational scene cross-dissolves.
 
 **Governance.** `.claude/skills/` holds the project skills (including `workspace-steward`, which owns placement and registration of new components) and `.claude/skills/parallel-session/` for multi-session coordination. Consult `workspace-steward` before adding a library, tool, skill or integration. Never commit secrets or machine-specific credentials.
+
+**Posters.** Every project has `poster.jpg` (plus `poster.json`: source film, time, film length) in its folder, or in each version folder for a legacy project. It is the last non-black frame of the finished film (the primary format's current render, else the newest in `renders/history/`), made by `scripts/poster.py`. `studio.py build` makes it as its last stage and `build-project.sh` after the legacy export, so a new project gets one without a separate step; re-run `studio.py poster <slug>` after a `scene-revise` splice. Posters are small (about 100 KB each). The catalogue (`python3 scripts/build-catalogue.py` -> `out/catalogue.html`) shows the poster on every tile, tags it with a video type (the brief's `video_type`, else by the film's length: up to 60 s reel, up to 180 s long reel, longer YouTube) and a progress stage (in production, rendered, reviewed, plus a re-render flag). The story-writer's publishing cover is a separate, chosen frame; the poster is the workspace's own thumbnail.
+
+**Ideas backlog.** `docs/project-ideas.md` is the source of the catalogue's Ideas tab, an editable sheet (add, edit, delete, sort, search, paste rows from Excel, copy out for Excel) split into sheets by video length (`reel`, `long-reel`, `youtube`). Every idea carries a `[length]` tag, which the builder requires. The sheet keeps edits in the browser only: use its "Download .md" and save the file over `docs/project-ideas.md`, then rebuild with `python3 scripts/build-catalogue.py`. The download matches the file's own format byte for byte.
 
 **Output paths.** Renders go to `projects/<slug>/renders/` (gitignored), and finished files go to `out/<slug>-<format>.mp4`. `*.mp4`, `*.wav` under `audio/` and `.hyperframes/` are gitignored. Generated `index.<format>.html` files are tracked, and `studio.py validate` fails when they are stale.
 

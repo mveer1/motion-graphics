@@ -97,32 +97,5 @@
         "rationale": "Ensures accurate pronunciation in Kokoro TTS"
       }
     ]
-  },
-  "scene_blueprint": [
-    {
-      "scene_id": "s1",
-      "title": "The Problem",
-      "target_duration_sec": 8.0,
-      "pedagogical_objective": "State the problem and establish initial context.",
-      "visual_action": "Initial diagram setup and elements enter.",
-      "active_entities": ["entity_id"]
-    },
-    {
-      "scene_id": "s2",
-      "title": "The Mechanism",
-      "target_duration_sec": 12.0,
-      "pedagogical_objective": "Explain the core transformation.",
-      "visual_action": "Transformation animates across the canvas.",
-      "active_entities": ["entity_id"]
-    },
-    {
-      "scene_id": "s3",
-      "title": "Resolution",
-      "target_duration_sec": 10.0,
-      "pedagogical_objective": "Conclude with convergence or output state.",
-      "visual_action": "System reaches stable target state.",
-      "active_entities": ["entity_id"]
-    }
-  ]
+  }
 }
-

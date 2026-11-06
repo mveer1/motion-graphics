@@ -237,6 +237,9 @@ mkdir -p "$BASE_DIR/out"
 DELIVERY_FILE="$BASE_DIR/out/${SLUG}.mp4"
 cp "$FINAL_RENDER" "$DELIVERY_FILE"
 
+# Poster: the last non-black frame of the film, shown on the project's catalogue tile
+python3 "$BASE_DIR/scripts/poster.py" "$PROJECT_DIR" --force || echo "  (poster not made; run: python3 scripts/poster.py $SLUG)"
+
 echo ""
 echo "================================================================="
 echo "🎉 PRODUCTION PIPELINE COMPLETE: $SLUG"

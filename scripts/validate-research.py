@@ -98,7 +98,8 @@ def validate_research(schema_path: Path, research_path: Path) -> bool:
     print(f"  • Visual Metaphors:  {len(metaphors)}")
     print(f"  • Voice / Speed:     {acoustic.get('recommended_voice')} @ {acoustic.get('speech_rate')}x")
     print(f"  • Phonetic Terms:    {len(acoustic.get('phonetic_lexicon', []))}")
-    print(f"  • Scene Blueprints:  {len(scenes)} scenes")
+    if scenes:
+        print(f"  • Scene Blueprints:  {len(scenes)} scenes (deprecated; story structure is the story-writer's)")
     print("=" * 60)
     return True
 

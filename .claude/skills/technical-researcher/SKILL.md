@@ -52,10 +52,10 @@ When authoring `research.json`, adhere strictly to these invariants:
 - `inter_scene_pause_sec`: `0.5`.
 - `phonetic_lexicon`: Array of `{ "term": "...", "phonetic_respelling": "...", "rationale": "..." }`.
 
-### E. Scene Blueprint
-- 3 to 5 progressive learning scenes.
-- `scene_id`: **MUST match regex `^s[1-9][0-9]*$`** (e.g., `"s1"`, `"s2"`, `"s3"`, `"s4"`).
-- Each scene requires: `scene_id`, `title`, `target_duration_sec`, `pedagogical_objective`, `visual_action`, and `active_entities`.
+### E. No scene plan: answer the story-writer instead
+- Do not write `scene_blueprint`. It is deprecated (2026-11-06) and optional only so older dossiers still validate. Story structure belongs to the `story-writer` (`.claude/skills/story-writer/SKILL.md`), and the research's job is facts, ranges and disputes.
+- The story-writer sends `research_requests` (in `qa/story-review.json`): each has a question, the beat that needs it, and why. Answer every request with a sourced fact in `research.json` (`pedagogy.verified_claims`, `ground_truth`, `canonical_sources`), record it in `research.md` section 5 (request, answer, source, range or dispute), then mark it `"answered": true` in `qa/story-review.json`.
+- If a request cannot be answered from a reliable source, say so in that table instead of approximating. The story-writer then reshapes the beat.
 
 ---
 

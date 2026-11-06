@@ -66,23 +66,11 @@ $$\text{LaTeX Equation Here}$$
 
 ---
 
-## 5. Scene Blueprint (Storyboard)
+## 5. Story-writer requests answered
 
-### Scene 1 (s1): {{TITLE}}
-- **Target Duration:** `{{S1_DURATION}}s`
-- **Pedagogical Objective:** {{S1_OBJECTIVE}}
-- **Visual Action:** {{S1_VISUAL}}
-- **Active Entities:** `entity_1`, `entity_2`
+Research supplies facts; the story-writer owns the structure (`.claude/skills/story-writer/SKILL.md`). Answer each request from `qa/story-review.json` here, and put the fact itself in `research.json` with its source.
 
-### Scene 2 (s2): {{TITLE}}
-- **Target Duration:** `{{S2_DURATION}}s`
-- **Pedagogical Objective:** {{S2_OBJECTIVE}}
-- **Visual Action:** {{S2_VISUAL}}
-- **Active Entities:** `entity_2`, `entity_3`
-
-### Scene 3 (s3): {{TITLE}}
-- **Target Duration:** `{{S3_DURATION}}s`
-- **Pedagogical Objective:** {{S3_OBJECTIVE}}
-- **Visual Action:** {{S3_VISUAL}}
-- **Active Entities:** `entity_3`, `entity_4`
+| Request | Beat | Answer | Source | Range or dispute |
+|---|---|---|---|---|
+| `r1` | `b3` | {{ANSWER}} | {{SOURCE}} | {{RANGE_OR_NONE}} |
 

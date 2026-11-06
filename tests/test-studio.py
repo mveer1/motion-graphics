@@ -11,6 +11,7 @@ the QA-gate tests put stub ffprobe/ffmpeg executables first on PATH and need bas
 
 import argparse
 import importlib
+import importlib.util
 import json
 import os
 import re
@@ -76,6 +77,31 @@ class StudioCliTests(unittest.TestCase):
         rep = studio.validate_project(CHAI)
         self.assertEqual(rep.errors, [])
         self.assertTrue(any("experimental capabilities" in w for w in rep.warnings))
+
+    def test_story_signoff_gate(self):
+        import hashlib
+        pdir = self.tmpdir / "story"
+        (pdir / "qa").mkdir(parents=True)
+
+        def warnings():
+            rep = studio.Report()
+            studio.check_story_signoff(pdir, rep)
+            return rep.warnings
+
+        self.assertEqual(warnings(), [], "no story files yet: nothing to sign")
+        sb = pdir / "storyboard.json"
+        sb.write_text('{"scenes": []}\n', encoding="utf-8")
+        self.assertTrue(any("not signed off" in w for w in warnings()))
+        review = pdir / "qa" / "story-review.json"
+        review.write_text(json.dumps({"verdict": "needs-research", "iteration": 2, "research_requests": [
+            {"id": "r1", "blocking": True}, {"id": "r2", "blocking": True, "answered": True}]}), encoding="utf-8")
+        w = warnings()
+        self.assertTrue(any("needs-research" in x and "r1" in x and "r2" not in x for x in w), w)
+        digest = hashlib.sha256(sb.read_bytes()).hexdigest()
+        review.write_text(json.dumps({"verdict": "complete", "signed": {"storyboard.json": digest}}), encoding="utf-8")
+        self.assertEqual(warnings(), [])
+        sb.write_text('{"scenes": [1]}\n', encoding="utf-8")
+        self.assertTrue(any("changed after" in x and "storyboard.json" in x for x in warnings()))
 
     def test_legacy_project_is_recognised(self):
         rep = studio.validate_project(LEGACY)
@@ -149,7 +175,7 @@ class StudioCliTests(unittest.TestCase):
                 with self.subTest(template=tdir.name):
                     self.assertIn(tdir.name, records, "template folder must be registered")
                     slug = f"scratch-{tdir.name}"
-                    studio.cmd_new(argparse.Namespace(slug=slug, template=tdir.name, title="Scratch & <Test>", style=None, formats=None))
+                    studio.cmd_new(argparse.Namespace(slug=slug, template=tdir.name, title="Scratch & <Test>", style=None, formats=None, video_type="reel"))
                     pdir = self.tmpdir / slug
                     project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
                     self.assertEqual(project["slug"], slug)
@@ -161,9 +187,9 @@ class StudioCliTests(unittest.TestCase):
 
     def test_new_rejects_bad_slug_and_unknown_template(self):
         with self.assertRaises(SystemExit):
-            studio.cmd_new(argparse.Namespace(slug="Bad Slug", template="illustrated-explainer", title=None, style=None, formats=None))
+            studio.cmd_new(argparse.Namespace(slug="Bad Slug", template="illustrated-explainer", title=None, style=None, formats=None, video_type="reel"))
         with self.assertRaises(SystemExit):
-            studio.cmd_new(argparse.Namespace(slug="ok-slug", template="no-such-template", title=None, style=None, formats=None))
+            studio.cmd_new(argparse.Namespace(slug="ok-slug", template="no-such-template", title=None, style=None, formats=None, video_type="reel"))
 
     # ---------------------------------------------------------------- build plans
     def test_studio_build_plan_covers_every_format(self):
@@ -222,7 +248,7 @@ class StudioCliTests(unittest.TestCase):
 
     # ---------------------------------------------------------------- categories and series
     def _scaffold(self, slug, **kw):
-        ns = dict(slug=slug, template="illustrated-explainer", title=None, style=None, formats=None, category=None)
+        ns = dict(slug=slug, template="illustrated-explainer", title=None, style=None, formats=None, category=None, video_type="reel")
         ns.update(kw)
         studio.cmd_new(argparse.Namespace(**ns))
         return self.tmpdir / slug
@@ -289,9 +315,178 @@ class StudioCliTests(unittest.TestCase):
         finally:
             studio.PROJECTS_DIR, studio.SERIES_DIR = orig_p, orig_s
 
-    def _scaffold_in_projects(self, slug, category):
+    # ---------------------------------------------------------------- video types
+    def test_video_type_windows_follow_the_spec(self):
+        types = studio.load_video_types()
+        self.assertEqual(set(types), {"reel", "long-reel", "youtube"})
+        self.assertEqual(types["reel"]["window_sec"], (30, 75))
+        self.assertEqual(types["long-reel"]["window_sec"], (45, 195))
+        self.assertEqual(types["youtube"]["window_sec"], (165, None))
+        self.assertEqual((types["reel"]["format"], types["long-reel"]["format"], types["youtube"]["format"]),
+                         ("portrait", "portrait", "landscape"))
+        self.assertEqual(types["youtube"]["platform"], "youtube")
+        self.assertEqual(types["reel"]["platform"], "instagram-reels")
+
+    def test_new_requires_a_known_video_type(self):
+        for bad in (None, "tiktok", "short"):
+            with self.subTest(video_type=bad), self.assertRaises(SystemExit):
+                studio.cmd_new(argparse.Namespace(slug="no-type", template="illustrated-explainer", title=None,
+                                                  style=None, formats=None, category=None, video_type=bad))
+
+    def test_new_sets_format_platform_and_length_per_type(self):
+        original = studio.PROJECTS_DIR
+        studio.PROJECTS_DIR = self.tmpdir
+        try:
+            expect = {"reel": ("portrait", "instagram-reels", 45), "long-reel": ("portrait", "instagram-reels", 90),
+                      "youtube": ("landscape", "youtube", 240)}
+            for vt, (fmt, platform, target) in expect.items():
+                with self.subTest(video_type=vt):
+                    pdir = self._scaffold(f"type-{vt}", video_type=vt)
+                    project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+                    brief = json.loads((pdir / "brief.json").read_text(encoding="utf-8"))
+                    self.assertEqual([f["id"] for f in project["formats"]], [fmt])
+                    self.assertEqual(project["duration_sec"], target)
+                    self.assertEqual(brief["platforms"], [platform])
+                    self.assertEqual(brief["deliverables"]["video_type"], vt)
+                    self.assertEqual(brief["deliverables"]["formats"], [fmt])
+                    self.assertEqual(studio.validate_project(pdir).errors, [])
+            with self.assertRaises(SystemExit):  # a reel is not square
+                self._scaffold("type-bad-format", video_type="reel", formats="square")
+        finally:
+            studio.PROJECTS_DIR = original
+
+    def test_validate_enforces_the_type_window_platform_and_format(self):
+        original = studio.PROJECTS_DIR
+        studio.PROJECTS_DIR = self.tmpdir
+        try:
+            pdir = self._scaffold("type-window", video_type="reel")
+            pj, bj = pdir / "project.json", pdir / "brief.json"
+            project = json.loads(pj.read_text(encoding="utf-8"))
+            brief = json.loads(bj.read_text(encoding="utf-8"))
+
+            def errors(project_edit=None, brief_edit=None):
+                p, b = json.loads(json.dumps(project)), json.loads(json.dumps(brief))
+                (project_edit or (lambda x: None))(p)
+                (brief_edit or (lambda x: None))(b)
+                rep = studio.Report()
+                studio.check_video_type(b, p, rep)
+                return rep
+
+            self.assertEqual(errors().errors, [])
+            for ok in (30, 75):  # the 15 s margin either side of 45-60
+                with self.subTest(duration=ok):
+                    self.assertEqual(errors(lambda p: p.update(duration_sec=ok)).errors, [])
+            for bad in (29, 76, 240):
+                with self.subTest(duration=bad):
+                    self.assertTrue(any("outside the reel window" in e for e in errors(lambda p: p.update(duration_sec=bad)).errors))
+            self.assertTrue(errors(brief_edit=lambda b: b.update(platforms=["instagram-reels", "tiktok"])).errors)
+            self.assertTrue(errors(brief_edit=lambda b: b["deliverables"].update(formats=["portrait", "square"])).errors)
+            # youtube has a floor of 165 s and no ceiling
+            yb = {**brief, "platforms": ["youtube"], "deliverables": {**brief["deliverables"], "video_type": "youtube",
+                  "formats": ["landscape"], "duration_sec": {"min": 180, "target": 600}}}
+            for d, bad in ((164, True), (165, False), (3600, False)):
+                with self.subTest(youtube=d):
+                    rep = studio.Report()
+                    studio.check_video_type(yb, {**project, "duration_sec": d}, rep)
+                    self.assertEqual(bool(rep.errors), bad)
+            # a legacy brief with no type is warned about, not failed
+            legacy = json.loads(json.dumps(brief))
+            del legacy["deliverables"]["video_type"]
+            rep = studio.Report()
+            studio.check_video_type(legacy, project, rep)
+            self.assertEqual((rep.errors, len(rep.warnings)), ([], 1))
+        finally:
+            studio.PROJECTS_DIR = original
+
+    def test_a_series_can_mix_all_three_types(self):
+        original = studio.PROJECTS_DIR, studio.SERIES_DIR
+        studio.PROJECTS_DIR, studio.SERIES_DIR = self.tmpdir / "projects", self.tmpdir / "series"
+        studio.PROJECTS_DIR.mkdir(exist_ok=True)
+        try:
+            for slug, vt in (("mix-reel", "reel"), ("mix-long", "long-reel"), ("mix-yt", "youtube")):
+                self._scaffold_in_projects(slug, "history", vt)
+            ser = {"spec_version": 1, "slug": "mixed", "title": "Mixed", "kind": "sequential", "categories": ["history"],
+                   "members": [{"project": "mix-yt", "part": 1}, {"project": "mix-long", "part": 2},
+                               {"project": "mix-reel", "part": 3}, {"project": "mix-next", "part": 4,
+                                                                     "status": "planned", "video_type": "reel"}]}
+            rep = studio.validate_series(ser, "mixed")
+            self.assertEqual(rep.errors, [])
+            self.assertEqual([studio.member_video_type(m) for m in ser["members"]], ["youtube", "long-reel", "reel", "reel"])
+            ser["kind"] = "collection"
+            for m in ser["members"]:
+                m.pop("part")
+            self.assertEqual(studio.validate_series(ser, "mixed").errors, [])
+        finally:
+            studio.PROJECTS_DIR, studio.SERIES_DIR = original
+
+    def _scaffold_in_projects(self, slug, category, video_type="reel"):
         studio.cmd_new(argparse.Namespace(slug=slug, template="illustrated-explainer", title=None, style=None,
-                                          formats=None, category=category))
+                                          formats=None, category=category, video_type=video_type))
+
+
+class PosterAndCatalogueTests(unittest.TestCase):
+    """scripts/poster.py (last non-black frame) and the catalogue's length/progress tags. Pure Python: no ffmpeg."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.poster = importlib.import_module("poster")
+        spec = importlib.util.spec_from_file_location("build_catalogue", REPO_ROOT / "scripts" / "build-catalogue.py")
+        cls.cat = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.cat)
+
+    def test_parse_samples_reads_ffmpeg_metadata_print(self):
+        text = ("frame:0    pts:0       pts_time:0\nlavfi.signalstats.YAVG=200.5\n"
+                "frame:1    pts:1       pts_time:0.0333333\nlavfi.signalstats.YAVG=16.0\n")
+        self.assertEqual(self.poster.parse_samples(text, 100.0), [(100.0, 200.5), (100.0333333, 16.0)])
+
+    def test_last_non_black_skips_the_black_tail(self):
+        samples = [(0.0, 180.0), (1.0, 90.0), (2.0, 16.0), (3.0, 16.0)]  # 16 = black in limited-range video
+        self.assertEqual(self.poster.last_non_black(samples), 1.0)
+        self.assertIsNone(self.poster.last_non_black([(0.0, 16.0), (1.0, 17.0)]))
+        self.assertEqual(self.poster.last_non_black([(0.0, 50.0), (9.9, 60.0)]), 9.9)
+
+    def test_find_film_prefers_current_primary_then_newest_history(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / "project.json").write_text(json.dumps({"formats": [{"id": "landscape"}, {"id": "portrait", "primary": True}]}))
+            self.assertIsNone(self.poster.find_film(folder))
+            for rel in ("renders/history/portrait/20261101T000000Z/final.mp4", "renders/history/portrait/20261103T000000Z/final.mp4",
+                        "renders/history/landscape/20261105T000000Z/final.mp4"):
+                (folder / rel).parent.mkdir(parents=True)
+                (folder / rel).write_bytes(b"x")
+            film, fmt, current = self.poster.find_film(folder)
+            self.assertEqual((fmt, current, film.parent.name), ("portrait", False, "20261103T000000Z"))
+            (folder / "renders/landscape").mkdir()
+            (folder / "renders/landscape/final.mp4").write_bytes(b"x")
+            self.assertEqual(self.poster.find_film(folder)[1:], ("landscape", True))  # a current render beats history
+            (folder / "renders/portrait").mkdir()
+            (folder / "renders/portrait/final.mp4").write_bytes(b"x")
+            self.assertEqual(self.poster.find_film(folder)[1:], ("portrait", True))  # ...and the primary format wins among current
+
+    def test_build_plan_makes_a_poster_after_delivery(self):
+        plan = studio.build_plan(CHAI, None, None)
+        stages = [s["stage"] for s in plan]
+        self.assertEqual(stages[-1], "poster")
+        self.assertGreater(stages.index("poster"), max(i for i, s in enumerate(stages) if s.startswith("deliver:")))
+        self.assertIn("scripts/poster.py", plan[-1]["cmd"])
+
+    def test_ideas_file_parses_with_a_length_for_every_idea(self):
+        types = self.cat.read_video_types()
+        cats = {c["id"] for c in self.cat.read_categories()}
+        preamble, ideas = self.cat.read_ideas(cats, {t["id"] for t in types})
+        self.assertGreaterEqual(len(ideas), 20)
+        self.assertTrue(all(i["type"] in {"reel", "long-reel", "youtube"} and i["topic"] in cats and i["title"] and i["pitch"] for i in ideas))
+        self.assertEqual(len({i["id"] for i in ideas}), len(ideas))
+        self.assertIn("[length]", preamble)  # the format notes survive an export from the sheet
+
+    def test_catalogue_tags_every_film_by_length(self):
+        types = self.cat.read_video_types()
+        self.assertEqual([t["id"] for t in types], ["reel", "long-reel", "youtube"])
+        for sec, want in ((14, "reel"), (44, "reel"), (60, "reel"), (61, "long-reel"), (180, "long-reel"), (181, "youtube"), (239.5, "youtube")):
+            with self.subTest(seconds=sec):
+                self.assertEqual(self.cat.type_for({"declared_type": None, "film_sec": sec}, types), (want, True))
+        # a type named in the brief wins over the length
+        self.assertEqual(self.cat.type_for({"declared_type": "youtube", "film_sec": 44}, types), ("youtube", False))
 
 
 @unittest.skipUnless(BASH, "bash not available")

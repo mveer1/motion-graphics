@@ -1,0 +1,43 @@
+{
+  "id": "agent-story-writer",
+  "name": "Story Writer Subagent",
+  "component_type": "agent",
+  "purpose": "Phase-2 story lead with sign-off authority: writes a film's arc, beat map, hook, planned beats and narration script, returns research gaps, decides when the storyboard is complete, and runs retros after creative review.",
+  "capabilities": [
+    "write, review and retro modes",
+    "Signed verdict in qa/story-review.json",
+    "Research requests returned to the orchestrating session"
+  ],
+  "location": ".claude/agents/story-writer.md",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Claude Code project subagent; invoke with subagent_type 'story-writer'."
+  },
+  "dependencies": ["skill-story-writer"],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Cannot call other agents; the main session runs technical-researcher on its requests and re-invokes it."
+  },
+  "documentation_urls": [".claude/agents/story-writer.md", ".claude/skills/story-writer/SKILL.md"],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace subagent specification."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "No web tools; writes only project story files and its own rulebook during retro."
+  },
+  "owner": "story",
+  "status": "experimental",
+  "approval_evidence": "New on 2026-11-06; not yet used on a film.",
+  "architecture_ref": "ARCHITECTURE.md#s1",
+  "last_verified": "2026-11-06",
+  "tags": ["subagent", "story", "phase-2", "sign-off"]
+}
