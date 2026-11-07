@@ -94,7 +94,17 @@
      "type": "array",
      "items": {
       "type": "string"
-     }
+     },
+     "description": "Every card, label, legend, definition and source line the scene shows, 6 words or fewer each in portrait. It carries the information the narration skips: anything named in the narration or on screen is explained here or in the narration, and nothing drawn is anonymous (story-writer rulebook 3.6, from the owner's review of game-theory-trust, 2026-11-07)."
+    },
+    "pace": {
+     "type": "string",
+     "enum": [
+      "slow",
+      "normal",
+      "fast"
+     ],
+     "description": "The scene's place in the film's pace map (story-writer rulebook 3.5). slow: the turn, the proof, a new concept or a key number (speed about 0.90-0.95, at most about 90% of the word cap, a beat of silence after the payoff). normal: context (the film speed, the cap). fast: recap, transitions, the loop line (about 1.10-1.15, up to about 110% of the cap, no new term or number). The matching number is the scene's `speed` in src/narration.json. Optional and additive; added 2026-11-07 without a spec_version change."
     },
     "narration": {
      "type": "string"
@@ -236,6 +246,15 @@
       "type": "string"
      },
      "description": "Asset library ids used by this scene (optional)."
+    },
+    "caption_lane": {
+     "type": "string",
+     "enum": [
+      "lower",
+      "mid",
+      "upper"
+     ],
+     "description": "Where captions sit during this scene, when the default is wrong: upper when the key visual, a source line or a call to action occupies the lower third. Omit for the default (hook window mid in portrait, then lower). Portrait has all three lanes; landscape and square have lower and upper. See docs/caption-design.md."
     }
    }
   }

@@ -156,24 +156,41 @@
   };
 
   /**
-   * Caption band in the bottom safe area. cues: [{start, end, text, words?}] in seconds, non-overlapping.
-   * A cue with measured word times (words: [{text, start, end}], written by `studio.py captions --timing words`)
-   * shows the word being spoken in --c-caption-hl (default: the style's third accent); options.highlight
-   * false turns that off. The band carries data-layout-allow-caption-zone for HyperFrames' caption-zone gate.
+   * Captions: an overlay on the whole frame, one paragraph per cue. cues: [{start, end, text, words?, role?, lane?}]
+   * in seconds, non-overlapping. A cue with measured word times (words: [{text, start, end, em?}], written by
+   * `studio.py captions --timing words`) shows the word being spoken in --c-caption-hl (default: the style's third
+   * accent); a word flagged em (a number or amount) keeps that colour for the whole cue; options.highlight false
+   * turns the spoken-word highlight off.
+   *
+   * Design comes from a preset (specs/caption-presets.json): options.preset, else window.STUDIO_CAPTION_PRESET,
+   * which `studio.py captions` writes into src/captions.js: {id, enter: fade|pop|rise, roles: {hook|body|outro:
+   * {lane, scale}}}. A cue's lane is cue.lane (storyboard caption_lane), else its role's lane, else lower; its size
+   * is the role's scale. With no preset the band keeps the plain look and sits in the lower lane.
+   * Each caption carries data-layout-allow-caption-zone for HyperFrames' caption-zone gate.
    */
   C.captions = function (parent, cues, options) {
     var o = options || {};
+    var preset = o.preset || window.STUDIO_CAPTION_PRESET || null;
+    var enter = (preset && preset.enter) || 'fade';
     var band = Studio.el('div', 'st-captions' + (o.className ? ' ' + o.className : ''), null, parent);
     band.setAttribute('data-layout-allow-caption-zone', '');
+    if (preset && preset.id) band.setAttribute('data-cap-preset', preset.id);
     var spans = [];
     var els = cues.map(function (c, i) {
       var timed = o.highlight !== false && c.words && c.words.length;
       var p = Studio.el('p', 'st-caption', timed ? null : c.text, band);
+      var role = c.role || 'body';
+      var rule = preset && preset.roles && preset.roles[role];
+      p.setAttribute('data-layout-allow-caption-zone', '');
+      p.setAttribute('data-role', role);
+      p.setAttribute('data-lane', c.lane || (rule && rule.lane) || 'lower');
+      if (rule && rule.scale && rule.scale !== 1) p.style.setProperty('--cap-scale', String(rule.scale));
       spans[i] = [];
       if (timed) {
         c.words.forEach(function (w, k) {
           if (k) p.appendChild(document.createTextNode(' '));
-          spans[i].push(Studio.el('span', 'st-caption-word', w.text, p));
+          var span = Studio.el('span', 'st-caption-word' + (w.em ? ' st-caption-em' : ''), w.text, p);
+          spans[i].push(w.em ? null : span);
         });
       }
       return p;
@@ -183,10 +200,19 @@
       schedule: function (tl) {
         cues.forEach(function (c, i) {
           var fade = Math.min(0.12, (c.end - c.start) / 4);
-          tl.fromTo(els[i], { autoAlpha: 0 }, { autoAlpha: 1, duration: fade, ease: 'none', immediateRender: false }, c.start);
+          var from = { autoAlpha: 0 };
+          var to = { autoAlpha: 1, duration: fade, ease: 'none', immediateRender: false };
+          if (enter === 'pop') {
+            from.scale = 0.92; to.scale = 1; to.ease = 'back.out(2)'; to.duration = Math.min(0.14, (c.end - c.start) / 3);
+            global.gsap.set(els[i], { transformOrigin: '50% 100%' });
+          } else if (enter === 'rise') {
+            from.y = Studio.u(0.9); to.y = 0; to.ease = 'power2.out'; to.duration = Math.min(0.2, (c.end - c.start) / 3);
+          }
+          tl.fromTo(els[i], from, to, c.start);
           tl.fromTo(els[i], { autoAlpha: 1 }, { autoAlpha: 0, duration: fade, ease: 'none', immediateRender: false }, c.end - fade);
           // the spoken word lights up from its onset until the next word's onset; the last one holds to the cue's end
           spans[i].forEach(function (span, k) {
+            if (!span) return; // an emphasised word is already lit
             var on = Math.max(c.start, c.words[k].start);
             var off = k + 1 < spans[i].length ? Math.max(on, c.words[k + 1].start) : c.end;
             var d = Math.min(0.06, (off - on) / 2);

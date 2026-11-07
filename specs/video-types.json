@@ -2,6 +2,7 @@
   "description": "The three video types Motion Lab produces, and only these. A brief declares one in deliverables.video_type; scripts/studio.py new requires it and validate enforces it. Any type can be a member of a series (specs/series-spec.json), alone or mixed with the others.",
   "margin_sec": 15,
   "margin_note": "Each nominal range may be missed by this many seconds at either end. The allowed window is nominal.min - margin to nominal.max + margin; a type with no nominal max has no upper limit.",
+  "complexity_note": "complexity_budget is what one film of the type can explain (story-writer rulebook 3.1, scope check, added 2026-11-07 from the owner's review of game-theory-trust: 'We can't compress complicated content into a short video.'). A mechanism is a cause-and-effect chain the viewer must follow to reach the payoff. A new term is a concept name, a jargon word, or a named person, study, event, tournament or algorithm the audience must learn; names that appear only in a source line do not count. A named study, event, tournament or algorithm needs its setup (who, what, how it was scored, what happened, why), at least named_case_setup_sec_min seconds. Over budget: cut, split into a series, or move to a longer type. The reel numbers are the owner's ruling; the long-reel and youtube numbers are a first guess, not yet measured.",
   "types": {
     "reel": {
       "name": "Instagram reel",
@@ -10,6 +11,7 @@
       "nominal_sec": { "min": 45, "max": 60 },
       "target_sec": 45,
       "default_arc": "reel-loop",
+      "complexity_budget": { "mechanisms": 1, "new_terms_max": 3, "named_case_setup_sec_min": 25, "named_case_rule": "only as the film's whole subject; never a closing beat or a re-hook" },
       "note": "45 s is preferred; go toward 60 s only for a complicated topic that needs more animated beats, not more words."
     },
     "long-reel": {
@@ -19,6 +21,7 @@
       "nominal_sec": { "min": 60, "max": 180 },
       "target_sec": 90,
       "default_arc": "hook-payoff",
+      "complexity_budget": { "mechanisms": 1, "worked_cases_max": 1, "alternative": "two linked mechanisms and no worked case", "new_terms_max": 6, "named_case_setup_sec_min": 25 },
       "note": "Portrait, up to 3 minutes. Needs a re-hook about every 35-45 s; reel-loop fits only its short end."
     },
     "youtube": {
@@ -28,6 +31,7 @@
       "nominal_sec": { "min": 180 },
       "target_sec": 240,
       "default_arc": "problem-mechanism-consequence",
+      "complexity_budget": { "mechanisms_per_chapter": 1, "new_terms_per_chapter_max": 3, "named_case_setup_sec_min": 25 },
       "note": "Landscape, over 3 minutes, no upper limit. Needs a re-hook every 60-90 s."
     }
   }

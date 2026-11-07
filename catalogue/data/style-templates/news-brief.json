@@ -1,7 +1,7 @@
 {
   "id": "news-brief",
   "name": "News Brief",
-  "version": 2,
+  "version": 3,
   "status": "experimental",
   "summary": "An evidence board in which every claim carries its state: confirmed claims are solid and stamped, unconfirmed ones are dashed and grey. One reusable object (map, tile grid, timeline) changes state across the film.",
   "visual_job": {
@@ -209,6 +209,11 @@
       "pattern": "A hook sentence longer than the three-second window.",
       "why": "south-korea-data-center-fire opens on one 9.8 s sentence (date, place, event and agency together). Say the claim first and move the detail to the next sentence.",
       "source": "`studio.py script south-korea-data-center-fire`, 2026-11-05."
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -241,6 +246,12 @@
       "date": "2026-11-05",
       "change": "Added rules.short_form (cards of 6 words or fewer, loop ending for reel-length films) and three anti-patterns: framing sentence before the claim, more than one ask, hook longer than 3 s.",
       "reason": "docs/short-form-lessons.md; the card limit is measured against the three newest films (cloud 2 of 35 cards over 6 words, fridge 3 of 27, Korea 9 of 51)."
+    },
+    {
+      "version": 3,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [

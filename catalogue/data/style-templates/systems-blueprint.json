@@ -1,7 +1,7 @@
 {
   "id": "systems-blueprint",
   "name": "Systems Blueprint",
-  "version": 1,
+  "version": 2,
   "status": "experimental",
   "summary": "One persistent diagram of a system that the film lights up part by part: a signal travels the path, a part fails, the consequence spreads. For software, networks, infrastructure and machines.",
   "visual_job": {
@@ -161,6 +161,11 @@
       "pattern": "Over-budget narration in the hook and closing scenes.",
       "why": "They are written last. Cloud's s1 and s6 ran 35-36 words per 10 s against a 33 budget and the film read rushed. Cut words; do not raise the speed.",
       "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -186,6 +191,12 @@
       "date": "2026-11-03",
       "change": "Initial version. Rules taken from the neutral-technical narration budget (30 words per 10 s) and the 2026-11-03 review of the three newest films.",
       "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [

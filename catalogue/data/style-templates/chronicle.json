@@ -1,7 +1,7 @@
 {
   "id": "chronicle",
   "name": "Chronicle",
-  "version": 1,
+  "version": 2,
   "status": "experimental",
   "summary": "A slow camera over a surface (map, document, timeline) that stamps dates, pushes into a detail and dissolves to mark time passing. For history, biography and anything told as what happened in what order.",
   "visual_job": {
@@ -159,6 +159,11 @@
       "pattern": "Generated or recreated period imagery presented as archive.",
       "why": "The design profile requires licensed or generated imagery to be labelled as such.",
       "source": "design profile archival-historical (rendering.strategy)"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -180,6 +185,12 @@
       "date": "2026-11-03",
       "change": "Initial version. Rules from the archival-historical profile (5 s shots, slow dissolves) and the documentary narration budget.",
       "reason": "design profile archival-historical; voice-director budgets"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [

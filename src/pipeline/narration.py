@@ -31,8 +31,18 @@ def load_scenes(pdir: Path) -> List[Dict[str, str]]:
         blueprint = _load(research).get("scene_blueprint", []) if research.exists() else []
         scenes = [{"id": sb["scene_id"], "title": sb["title"], "text": sb.get("pedagogical_objective", "")}
                   for sb in blueprint]
-    return [{"id": sc.get("id", f"s{i + 1}"), "title": sc.get("title", f"Scene {i + 1}"), "text": sc.get("text", "")}
-            for i, sc in enumerate(scenes)]
+    out = []
+    for i, sc in enumerate(scenes):
+        scene = {"id": sc.get("id", f"s{i + 1}"), "title": sc.get("title", f"Scene {i + 1}"), "text": sc.get("text", "")}
+        if sc.get("speed") is not None:       # optional per-scene pace: slow the turn, quicken the recap
+            scene["speed"] = float(sc["speed"])
+        out.append(scene)
+    return out
+
+
+def scene_speed(scene: Dict[str, Any], req: Dict[str, Any]) -> float:
+    """The speed a scene is spoken at: its own `speed` in src/narration.json, else the film's."""
+    return float(scene["speed"]) if scene.get("speed") is not None else float(req["speed"])
 
 
 def prosody_label(prosody: Optional[str] = None, preset: Optional[str] = None) -> str:
@@ -81,7 +91,8 @@ def scene_matches(old: Dict[str, Any], scene: Dict[str, str], timeline: Dict[str
     if timeline.get("prosody", "raw") != req.get("prosody", "raw"):
         return False
     return (old.get("id") == scene["id"] and old.get("text") == scene["text"]
-            and timeline.get("voice") == req["voice"] and _same(timeline.get("speed"), req["speed"]))
+            and timeline.get("voice") == req["voice"]
+            and _same(old.get("speed", timeline.get("speed")), scene_speed(scene, req)))
 
 
 def _same(a: Any, b: Any) -> bool:
@@ -122,6 +133,14 @@ def narration_state(pdir: Path, req: Dict[str, Any]) -> Tuple[str, List[str]]:
     edited = [s["id"] for s in req["scenes"] if s["id"] in by_id and by_id[s["id"]].get("text") != s["text"]]
     if edited:
         reasons.append("text edited in " + ", ".join(edited))
+    def own_pace(s_old, s_new):    # a scene with its own speed now or when it was made; a film-speed change is reported above
+        had = s_old.get("speed") is not None and not _same(s_old["speed"], timeline["speed"])
+        return had or s_new.get("speed") is not None
+
+    repaced = [s["id"] for s in req["scenes"] if s["id"] in by_id and own_pace(by_id[s["id"]], s)
+               and not _same(by_id[s["id"]].get("speed", timeline["speed"]), scene_speed(s, req))]
+    if repaced:
+        reasons.append("scene speed changed in " + ", ".join(repaced))
     return ("stale" if reasons else "current"), reasons
 
 

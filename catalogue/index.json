@@ -5358,6 +5358,58 @@
         "providers"
       ]
     },
+    "skill-caption-designer": {
+      "id": "skill-caption-designer",
+      "name": "Caption Designer Skill",
+      "component_type": "skill",
+      "purpose": "Pick a caption preset from the film's style system and place captions by section (hook, body, outro, busy lower third) in portrait, landscape and square.",
+      "capabilities": [
+        "Style system to caption preset and font mapping",
+        "Lane and size rules per section and format",
+        "Storyboard caption_lane overrides",
+        "Caption validation and frame-review handoff"
+      ],
+      "location": ".claude/skills/caption-designer",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .claude/skills/caption-designer."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Instructional skill over specs/caption-presets.json, src/pipeline/caption_style.py and Studio.comp.captions. Snapshot-checked with HyperFrames 0.8.226 on the M2 host; no full build yet."
+      },
+      "documentation_urls": [
+        ".claude/skills/caption-designer/SKILL.md",
+        "docs/caption-design.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace-authored. Ideas (not code) adopted from heygen-com/hyperframes (Apache-2.0) and josiahsiegel/claude-plugin-marketplace (MIT); see specs/caption-presets.json sources."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional guidance only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-11-07",
+      "tags": [
+        "captions",
+        "typography",
+        "safe-area",
+        "subtitles"
+      ]
+    },
     "skill-claude-remotion": {
       "id": "skill-claude-remotion",
       "name": "Claude Remotion Skill",
@@ -6604,6 +6656,68 @@
         "rights"
       ]
     },
+    "skill-story-writer": {
+      "id": "skill-story-writer",
+      "name": "Story Writer Skill",
+      "component_type": "skill",
+      "purpose": "Rulebook for phase 2: arc, beat map, hook, planned visual beats and narration script, a research feedback loop, a completion checklist with sign-off in qa/story-review.json, and a retro loop that records and promotes story lessons.",
+      "capabilities": [
+        "Rule-based story structure from the brief, arc and pinned style template",
+        "Goal and share trigger, five or more hooks gated on truth and pull, packaging (title, cover, search phrase)",
+        "Research gap requests traced to beats and claims",
+        "26-point completion checklist and signed verdict, enforced as a warning by studio.py validate",
+        "Lesson log with an evidence-based promotion rule, analytics reading table and A/B test discipline"
+      ],
+      "location": ".claude/skills/story-writer",
+      "version": "1.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; no separate installation. Run by the story-writer subagent (.claude/agents/story-writer.md)."
+      },
+      "dependencies": [
+        "tool-beatmap",
+        "skill-creative-director",
+        "skill-voice-director",
+        "skill-technical-researcher"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "runtime": "agent-host",
+        "notes": "Light commands only (studio.py hook/script/style/validate, beatmap.py); never takes the host lock."
+      },
+      "documentation_urls": [
+        ".claude/skills/story-writer/SKILL.md",
+        ".claude/skills/story-writer/references/lessons.md",
+        "docs/short-form-lessons.md",
+        "docs/style-templates.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; consolidates existing workspace rules, no third-party text copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes project story files and qa/story-review.json; runs light workspace CLIs."
+      },
+      "owner": "story",
+      "status": "experimental",
+      "approval_evidence": "New on 2026-11-06; not yet used on a film.",
+      "architecture_ref": "ARCHITECTURE.md#s1",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "skill",
+        "story",
+        "script",
+        "hook",
+        "storyboard",
+        "phase-2"
+      ]
+    },
     "skill-technical-researcher": {
       "id": "skill-technical-researcher",
       "name": "Technical Researcher Skill",
@@ -7741,6 +7855,57 @@
         "bash"
       ]
     },
+    "tool-poster": {
+      "id": "tool-poster",
+      "name": "Project poster",
+      "component_type": "tool",
+      "purpose": "Makes poster.jpg for a project: the last non-black frame of its finished film, plus poster.json (source film, time, film length). The catalogue shows it on each tile and tags the tile by the film's length. studio.py build and build-project.sh run it after delivery.",
+      "capabilities": [
+        "poster.py <slug|path>... | --all [--force]",
+        "--video f.mp4 --out poster.jpg",
+        "studio.py poster <slug>|--all"
+      ],
+      "location": "scripts/poster.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; no separate installation."
+      },
+      "dependencies": [
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3 + ffmpeg/ffprobe",
+        "notes": "Decodes the last 10 s of the film (the whole film only if the tail is black); light enough not to take the render lock."
+      },
+      "documentation_urls": [
+        "CLAUDE.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes poster.jpg and poster.json in the project folder only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Run on all 26 project folders on the M2 host (2026-11-07) and covered by tests/test-studio.py. Experimental: promotion needs more than one session of render-host evidence.",
+      "architecture_ref": "ARCHITECTURE.md",
+      "last_verified": "2026-11-07",
+      "tags": [
+        "poster",
+        "catalogue",
+        "qa"
+      ]
+    },
     "tool-reference-corpus": {
       "id": "tool-reference-corpus",
       "name": "Reference Corpus (reference video ingest and analysis)",
@@ -8399,6 +8564,59 @@
         "read-only",
         "literature",
         "stage-0"
+      ]
+    },
+    "agent-story-writer": {
+      "id": "agent-story-writer",
+      "name": "Story Writer Subagent",
+      "component_type": "agent",
+      "purpose": "Phase-2 story lead with sign-off authority: writes a film's arc, beat map, hook, planned beats and narration script, returns research gaps, decides when the storyboard is complete, and runs retros after creative review.",
+      "capabilities": [
+        "write, review and retro modes",
+        "Signed verdict in qa/story-review.json",
+        "Research requests returned to the orchestrating session"
+      ],
+      "location": ".claude/agents/story-writer.md",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Claude Code project subagent; invoke with subagent_type 'story-writer'."
+      },
+      "dependencies": [
+        "skill-story-writer"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": false,
+        "runtime": "agent-host",
+        "notes": "Cannot call other agents; the main session runs technical-researcher on its requests and re-invokes it."
+      },
+      "documentation_urls": [
+        ".claude/agents/story-writer.md",
+        ".claude/skills/story-writer/SKILL.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace subagent specification."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "No web tools; writes only project story files and its own rulebook during retro."
+      },
+      "owner": "story",
+      "status": "experimental",
+      "approval_evidence": "New on 2026-11-06; not yet used on a film.",
+      "architecture_ref": "ARCHITECTURE.md#s1",
+      "last_verified": "2026-11-06",
+      "tags": [
+        "subagent",
+        "story",
+        "phase-2",
+        "sign-off"
       ]
     },
     "agent-technical-analyst": {
@@ -10048,8 +10266,8 @@
     },
     "caption-band": {
       "id": "caption-band",
-      "name": "Caption band",
-      "purpose": "Timed captions in the bottom safe area for narrated or sound-off viewing.",
+      "name": "Caption overlay",
+      "purpose": "Word-timed captions as an overlay on the full frame: a preset per style system (font, size, plate, highlight, entrance) and a lane per section (hook mid, body lower, upper on request).",
       "status": "experimental",
       "uses": {
         "primitives": [
@@ -10068,14 +10286,19 @@
         {
           "name": "cues",
           "type": "array",
-          "description": "[{start, end, text}] non-overlapping (studio.py captions writes approximate cues)"
+          "description": "[{start, end, text, words?, role?, lane?}] non-overlapping; `studio.py captions` writes them with roles, lanes and emphasised words"
+        },
+        {
+          "name": "options.preset",
+          "type": "object",
+          "description": "Optional: {id, enter, roles}; default window.STUDIO_CAPTION_PRESET written into src/captions.js"
         }
       ],
       "implementation": {
         "location": "src/studio/studio-compositions.js",
         "api": "Studio.comp.captions(parent, cues).schedule(tl)"
       },
-      "layout_notes": "Sits on the bottom safe inset (20% in portrait) and carries data-layout-allow-caption-zone.",
+      "layout_notes": "Overlay, not a reserved band. Lower lane bottom edge follows --safe-bottom (portrait 76.6 %); mid 64 %; upper 14 % (portrait), 8 % (landscape), 10 % (square). Each caption carries data-layout-allow-caption-zone. Design: docs/caption-design.md, specs/caption-presets.json.",
       "styles_tested": [
         "editorial-light"
       ],
@@ -10088,8 +10311,8 @@
         "npx hyperframes check on the render host"
       ],
       "validation": {
-        "evidence": "Runtime self-test tests/test-studio-runtime.py and frame review of projects/masala-chai/v1-recipe (landscape, portrait, square) in Playwright Chromium on Windows, 2026-10-30. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
-        "last_verified": "2026-10-30"
+        "evidence": "Runtime 1.3.0: five presets in portrait and clean-plate in landscape checked as HyperFrames snapshots of a scratch project on the Apple M2 host, 2026-11-07 (fonts load, lanes land where specified, emphasis and spoken-word highlight work); tests/test-short-form.py checks the CSS against the spec. Not yet rendered in a full studio.py build, so not approved.",
+        "last_verified": "2026-11-07"
       },
       "tags": [
         "composition",
@@ -10100,7 +10323,7 @@
       "metadata": {
         "author": "MotionLab",
         "created_at": "2026-10-30",
-        "updated_at": "2026-10-30"
+        "updated_at": "2026-11-07"
       }
     },
     "end-card": {
@@ -30769,7 +30992,7 @@
     "data-ledger": {
       "id": "data-ledger",
       "name": "Data Ledger",
-      "version": 2,
+      "version": 3,
       "status": "experimental",
       "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
       "visual_job": {
@@ -30949,6 +31172,26 @@
           "pattern": "A legend box, or default chart-library output.",
           "why": "A legend sends the eye away from the data. Label the series where it is drawn, and build the chart in SVG with the studio runtime so it draws itself at the speed of the narration.",
           "source": "hyperframes-creative data-in-motion.md, adopted 2026-11-05; not yet render-tested here."
+        },
+        {
+          "pattern": "A chart title that names the topic or the axes ('Revenue by quarter').",
+          "why": "The title slot is the takeaway: state the conclusion the chart proves ('Revenue grew 28% in a year'), traced to research.json.",
+          "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+        },
+        {
+          "pattern": "A bar or column chart whose value axis does not start at zero.",
+          "why": "A truncated baseline exaggerates the difference (Tufte's lie factor) and breaks the accuracy half of the quality bar. Line charts of a level may start elsewhere if the axis is labelled.",
+          "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+        },
+        {
+          "pattern": "A chart drawn for one or two numbers.",
+          "why": "One or two values read faster as a large stat card with a visual beside it (a scale object, a comparison bar) than as a chart; this is not the bare floating number above.",
+          "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+        },
+        {
+          "pattern": "Colour as the only thing that tells two series or states apart.",
+          "why": "About 8% of men have a colour vision deficiency. Pair colour with a direct label, shape, position or pattern.",
+          "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
         }
       ],
       "reference_projects": [
@@ -30976,6 +31219,12 @@
           "date": "2026-11-05",
           "change": "Added four data-in-motion anti-patterns (no pie or dual-axis charts, no bare numbers, one visual space per concept, no legend box). Gridlines are now faint and only at labelled values instead of persistent.",
           "reason": "docs/short-form-lessons.md (HeyGen hyperframes-creative data-in-motion.md). Unrendered: promote only after a film is made to v2."
+        },
+        {
+          "version": 3,
+          "date": "2026-11-06",
+          "change": "Added four chart anti-patterns: topic titles instead of takeaway titles, truncated bar baselines, charts for one or two numbers, colour-only encoding.",
+          "reason": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT). Unrendered: promote only after a film is made to v3."
         }
       ],
       "tags": [

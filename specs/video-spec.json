@@ -92,6 +92,11 @@
         },
         "sfx": { "type": "boolean" },
         "captions": { "type": "boolean" },
+        "caption_preset": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "Pins the caption preset (a key of specs/caption-presets.json presets). Omit it and `studio.py captions` picks one from the style system. See docs/caption-design.md."
+        },
         "loudness_target_lufs": { "type": "number", "minimum": -30, "maximum": -9 },
         "loudness_tolerance_lu": { "type": "number", "minimum": 0.5, "maximum": 6 }
       }

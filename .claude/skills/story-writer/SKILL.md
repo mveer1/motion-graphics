@@ -5,7 +5,7 @@ description: Owns a Motion Lab film's story in phase 2 (after the brief and any 
 
 # Story Writer
 
-Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagent (`.claude/agents/story-writer.md`) runs this skill. A main session may load it too, for a small revision, but the sign-off verdict is the subagent's.
+Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagent (`.claude/agents/story-writer.md`) runs this skill. A main session may load it too, for a small revision, but the sign-off verdict is the subagent's.
 
 ## 1. Role and authority
 
@@ -16,7 +16,7 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 **Does not own:**
 - Facts. `research.json` is the only source of a fact (owned by `technical-researcher`).
 - The look. The style bake-off and the design profile belong to `creative-director`.
-- Delivery: voice, speed, phonetic respellings and synthesis (`voice-director`).
+- Delivery: the voice, the film speed, phonetic respellings and synthesis (`voice-director`). The story-writer does write the pace map (3.5): each scene's pace and its `speed` number. `voice-director` may tune a number inside its band, but never moves a scene to another band.
 - Composition (`motion-graphics-designer`).
 
 **Rules, not the report.** Structure comes from the brief, the arc and the pinned style template, never from how much the research happens to cover.
@@ -36,7 +36,21 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 
 ## 3. Process
 
-1. **One idea.** Write the core message as one sentence in outcome language: what the viewer gains, avoids or finally understands, not the subject's own vocabulary. If the material holds two ideas, return `needs-brief`: it is two films.
+1. **One idea, inside its type's complexity budget.** Write the core message as one sentence in outcome language: what the viewer gains, avoids or finally understands, not the subject's own vocabulary. If the material holds two ideas, return `needs-brief`: it is two films.
+   - **Scope check, before any script is written.** Count the mechanisms and the new terms:
+     - a *mechanism* is a cause-and-effect chain the viewer must follow to reach the payoff;
+     - a *new term* is a concept name, a jargon word, or a named person, study, event, tournament or algorithm the audience must learn. Names that appear only in a source line are citations and do not count.
+   - **Budgets** (`specs/video-types.json` `complexity_budget`; the long-reel and YouTube numbers are a first guess):
+     - `reel`: one mechanism and at most about three new terms;
+     - `long-reel`: one mechanism plus one worked case, or two linked mechanisms, and about six new terms;
+     - `youtube`: one mechanism per chapter and about three new terms per chapter.
+   - **Named things cost setup.** A named study, event, tournament or algorithm needs its setup: who, what, how it was scored or measured, what happened, and why. That costs about 25 s or more. In a reel it is either the film's subject or it is out. It is never a closing beat or a re-hook.
+   - **Over budget: decide before writing.**
+     - Cut it.
+     - Or split it into a series, part 1 and part 2. Use `studio.py series new|add --planned`, or add a `[length]` line to `docs/project-ideas.md`.
+     - Or propose a longer type in `brief_issues` and return `needs-brief`.
+
+     Never name-drop and move on. Record the count and the decision in `qa/story-review.json` `scope`.
 2. **Arc and length.** Run `python scripts/beatmap.py arcs` and pick the arc for the story, never the story for the arc. The brief's `deliverables.video_type` sets the length (`specs/video-types.json`, each +-15 s): `reel` 45-60 s, `long-reel` 60-180 s, `youtube` over 180 s. If the story does not fit its type, return it in `brief_issues` and propose the type that fits. For a `reel`:
    - **45 s is the preferred length.** Use `reel-loop`. If the brief's `duration_sec.target` is above 45 s for a simple topic, propose 45 s in `brief_issues`.
    - **45 to 60 s only when the topic is complicated** and needs more animated beats to explain it, not more words. Name in `arc.notes` the beats that need the extra time. Use `reel-loop` with a mid-film re-hook, or `hook-payoff` or `problem-mechanism-consequence`.
@@ -54,9 +68,16 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 
      A film with no answer to "who sends this to whom" has no reach plan. Each platform rewards a different signal: Instagram saves and sends, TikTok shares, YouTube watch time and retention. Plan for the platform the brief lists first. Let the goal steer the hook family: a story, contrarian or myth-flip hook for shares; specificity or a costly-mistake lesson for saves; a genuine question for comments.
    - **Candidates.** Run `python scripts/studio.py hook formulas --category <c>`. Write at least five hooks, drawn from at least three different formulas.
-   - **Two pass/fail gates.** Any candidate that fails either one is out:
+   - **Three pass/fail gates.** Any candidate that fails one is out:
      - *Truth:* the payoff delivers exactly what the hook promises, with no overpromise or bait-and-switch, and the hook's claim is in the research.
      - *Pull:* the viewer needs the next beat to resolve it.
+     - *Clear* (every explainer: any film whose brief asks the viewer to understand something, which is every category except a mood-first storytelling piece). Read the spoken hook and the card cold, as if nothing came before or after them:
+       - every noun, number and unit has an obvious referent inside the line itself: "an extra year in prison", not "one year";
+       - no bare pronoun ("it", "they", "this", "both") without its noun in the same line;
+       - no quantity without its unit and what it counts;
+       - no term the viewer has to learn first.
+
+       Withhold the answer, never the subject. A comparison may leave its baseline open ("an extra year": extra compared with what?) only when that baseline is the question the film answers. An intriguing but ambiguous hook fails this gate, and Truth and Pull with it: the payoff cannot keep a promise the viewer could not parse, and nobody waits for the answer to a question they did not understand. The rubric and `hook score` cannot see ambiguity: "Both lost one year" scored 100/100 (lessons L12).
    - **Rank the survivors.** Score each 0-2 on gap (a question opened), specificity (a number, name or object), fit (spoken in about 3 s, card 6 words or fewer) and voice (sounds like the film). Then run `python scripts/studio.py hook score "..." "..."`. That scorer is a lint for preambles, vagueness and slow openings, not a predictor (AUC 0.56 for hits against misses), so never pick a hook for its score alone.
    - Record the choice, the formula, the gate results and the reason in `arc.notes`.
    - **Layered first second.** The hook fires on three channels at once:
@@ -72,8 +93,20 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
    At most about a third of beats are `anchor`. Each key visual comes from this subject's own material (its number, phrase, object). If it could appear unchanged in a film on another subject, replace it.
 5. **Script** (`src/narration.json`, one entry per scene).
    - Write in real spelling. List names that need a respelling in the handoff to `voice-director`; never put respellings in on-screen text.
-   - Budget words per scene, not per film: `words_per_10s_max` from the template, otherwise the `voice-director` budget for the chosen preset (item 7).
-   - Fix an over-budget scene by cutting words, never by raising the speed. A fact-dense film takes the documentary budget.
+   - Budget words per scene, not per film: `words_per_10s_max` from the template, otherwise the `voice-director` budget for the chosen preset (item 7), scaled by the scene's pace (below).
+   - Fix an over-budget scene by cutting words, never by raising the speed. A scene's speed follows its pace, never its word count. A fact-dense film takes the documentary budget.
+   - **Pace map.** Give every scene a pace by its role in the story:
+
+     | Pace | Scenes | `speed` | Words per 10 s | Also |
+     |---|---|---|---|---|
+     | `slow` | the turn, the proof, a new concept or a key number | about 0.90-0.95 | at most about 90% of the cap (proof-canvas: 24) | End the scene on its payoff line, so a beat of silence follows it: the scene pause plus a held, still-living picture |
+     | `normal` | context | the film speed | the cap | |
+     | `fast` | recap, transitions, the loop line | about 1.10-1.15 | up to about 110% of the cap (proof-canvas: 30) | No new term, name or number: the viewer has heard all of it already |
+
+     - Write `pace` on each scene in `storyboard.json`, and `"speed": <number>` on every scene in `src/narration.json`. A normal scene carries the film speed.
+     - A scene's own `speed` overrides the film speed. It is recorded in `audio/timeline.json`, and changing it re-makes only that scene.
+     - Keep a film's speeds inside about 0.88-1.15, and no more than two slow scenes in a row. A slow stretch that never lets up flattens the contrast it was meant to make.
+     - If the film speed changes later, the normal scenes' numbers change with it (`voice-director`).
    - When the film runs long, collapse middle beats first. Keep the hook, the payoff and the loop line.
    - The script should feel shorter than the video.
    - **Write for the ear.** Use contractions ("you'll", not "you will"), one idea per breath, and varied sentence length. A sentence that carries a date, a place, an event and an agency together is four sentences.
@@ -98,6 +131,14 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 6. **Storyboard.** Derive scenes with `python scripts/beatmap.py storyboard <slug>`. It uses `target_duration_sec` until `audio/timeline.json` exists, and phase 3 re-derives it from measured audio. Then for each scene:
    - Give it a `why`: its job, traced to the core message.
    - Write its `on_screen_text`, with each card 6 words or fewer.
+   - **Pace.** Copy the scene's pace from the pace map (3.5) into `pace`. A slow scene runs longer, so it gets more beats, not fewer.
+   - **Nothing named goes unexplained.** List every term, name, number and result that is spoken or shown. For each one, say where the viewer gets its explanation: the narration, or a named card, label, legend, one-line definition, source line or the rule written out.
+     - When the narration cannot afford the explanation, the visuals carry it. The beats say exactly which text appears and when.
+     - A term shown on screen is defined on screen.
+     - No drawn object is anonymous: a chip, dot, bar or badge has a label or a legend, or it is cut.
+     - Spread long information over several beats; the 6-word card limit still applies to each card.
+     - Record the list in `qa/story-review.json` `named_things`.
+   - **Caption lane.** Captions sit mid in the hook, then lower. When a scene's key visual, source line or call to action sits in the lower third, set `caption_lane: "upper"` on that scene in `storyboard.json` (`docs/caption-design.md`).
    - **Sound-off check, across the film.** Read only the cards, headlines and labels in order, with no voice and no captions. The hook, the stake and the payoff must still read. Most short-form viewing starts muted.
    - Plan its visual `beats` so that no stretch, including the lead-in and the tail, is longer than `max_beat_gap_sec` (template), or 3 s when there is none. A 15 s scene is 3 to 5 micro-beats: anchor entrance, development, complication or highlight, detail, takeaway lock. A slower voice means longer scenes and therefore more beats, not fewer.
    - Leave `capabilities` to `creative-director` and `motion-library-guide`. Any id you do name must exist (`python scripts/motion-catalogue.py search "<intent>"`).
@@ -111,7 +152,8 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
      - not dominated by red and white on YouTube (it blends with the interface);
      - the same cover layout across a series, so the films read as one channel;
      - title and cover add up to more than either alone and never repeat each other;
-     - the cover promises only what the film pays off: platforms judge covers by the watch time they bring, not clicks.
+     - the cover promises only what the film pays off: platforms judge covers by the watch time they bring, not clicks;
+     - the cover text passes the Clear gate (3.3), read together with its picture: no bare pronoun and no unit-less number.
    - **Search phrase**: the words this audience would type. Speak it in the first 3 s and show it on screen early, wherever it fits naturally. Put it in the caption's first line, which stays within about 125 characters (Instagram cuts it there).
    - **Long-form chapters**: scene titles double as chapter labels, so make them descriptive ("Why the tank overheated"), never "Part 2".
    - **Disclosure**: the narration is synthetic. Note where a platform or the EU AI Act transparency rules (from August 2026) call for an AI-content label. Add the not-professional-advice line here too, when 3.5 asks for one.
@@ -123,7 +165,7 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
    - a number on screen that is not in `research.json`, including its range or dispute;
    - a beat whose picture needs a fact the research lacks, such as a second figure for a comparison, a date or a scale.
 
-   Never fill a fact from your own knowledge. Never drop a beat the story needs just to avoid a request. If any request blocks the story, return `needs-research`.
+   Never fill a fact from your own knowledge. Never drop a beat the story needs just to avoid a request. If any request blocks the story, return `needs-research`. A request about a name, term or result that is already in the film is blocking. Either it is answered, or the name is cut: it never ships as a bare label (lessons L14).
 9. **Checks.** Run them all, and fix each warning or waive it with a reason:
    - `python scripts/studio.py script <slug>`: timed sentence sheet, hook window, abstract runs, asks, loop, `why` table;
    - `python scripts/studio.py style check <slug>`: word budget, beat gap, hook timing, scene length;
@@ -153,7 +195,7 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 | 16 | The ending lands on the last visual event and holds long enough to read | judgment, template `rules.ending` |
 | 17 | Total planned duration inside `duration_sec.min`..`max` and the video type's window; over 45 s for a `reel` only with the reason in `arc.notes` | `beatmap.py validate` |
 | 18 | Goal, share reason and share trigger named; the hook family suits the goal | `qa/story-review.json` `goal` |
-| 19 | At least five hooks from at least three formulas; the chosen one passed the Truth and Pull gates | `arc.notes` |
+| 19 | At least five hooks from at least three formulas; the chosen one passed the Truth, Pull and Clear gates | `arc.notes` |
 | 20 | Layered first second: hero on screen and moving, card up, voice starting | judgment (confirmed in the phase-3 frame review) |
 | 21 | Every sentence passes the cut test, and the narration passes the point-of-view filter | judgment |
 | 22 | A reel over about 35 s has a mid-film re-hook; a long reel has one every 35-45 s and a YouTube film every 60-90 s | judgment |
@@ -161,6 +203,10 @@ Rulebook version **1.1.0** (revision log at the end). The `story-writer` subagen
 | 24 | Sound-off: cards and headlines alone carry the hook, stake and payoff | judgment |
 | 25 | Disaster and crisis subjects follow the care rules in 3.5 | judgment |
 | 26 | Packaging named: working title, cover frame and text that meet the cover rules, search phrase, caption first line, disclosure, next-film link for a series | `qa/story-review.json` `packaging` |
+| 27 | Scope: the mechanisms and new terms fit the type's budget (a reel: one mechanism, about three new terms). No named study, event, tournament or algorithm goes in without its setup. Anything over budget was cut, split into a series or promoted before writing | `qa/story-review.json` `scope` + judgment |
+| 28 | Clear hook (explainers): read cold, every noun, number and unit in the spoken hook and the card has its referent in the line. No bare pronoun, no unit-less quantity, no term to learn first | `arc.notes` gate results + judgment |
+| 29 | No dangling names: every term, name, number and result spoken or shown has a listed place where it is explained, on screen when the narration skips it. No anonymous drawn object | `qa/story-review.json` `named_things` |
+| 30 | Pace map: every scene has `pace` in `storyboard.json` and `speed` in `src/narration.json`, inside its band. Slow scenes are inside about 90% of the word cap and end on a silence beat. Fast scenes carry no new term or number | `storyboard.json`, `src/narration.json`, `style check` |
 
 A rule may be waived only with a written reason in `waivers`, for example a declared `intent: still` beat. The script lint marks leads, not verdicts: mechanism sentences are legitimately abstract.
 
@@ -168,14 +214,17 @@ A rule may be waived only with a written reason in `waivers`, for example a decl
 
 ```json
 {
-  "rulebook_version": "1.1.0",
+  "rulebook_version": "1.2.0",
   "at": "2026-11-06T12:00:00Z",
   "iteration": 1,
   "verdict": "complete | needs-research | needs-brief | in-progress",
   "core_message": "...",
   "arc": "reel-loop",
+  "scope": {"type": "reel", "mechanisms": ["..."], "new_terms": ["...", "..."], "within_budget": true, "cut_or_split": ["... -> part 2 idea"]},
   "goal": {"aim": "shares", "platform": "instagram-reels", "share_reason": "who sends it to whom, and why", "trigger": "social currency", "emotion": "awe"},
-  "hook": {"chosen": "...", "formula": "number-collapse", "card": "...", "gates": {"truth": "pass", "pull": "pass"}, "alternatives": ["...", "...", "...", "..."]},
+  "hook": {"chosen": "...", "formula": "number-collapse", "card": "...", "gates": {"truth": "pass", "pull": "pass", "clear": "pass"}, "alternatives": ["...", "...", "...", "..."]},
+  "pace_map": [{"scene": "s3", "pace": "slow", "speed": 0.92, "role": "the proof"}],
+  "named_things": [{"thing": "dominant strategy", "named_in": "s3 card", "explained_by": "s3 definition card"}],
   "packaging": {"title": "...", "cover": {"scene": "s3", "at_sec": 21.4, "text": "..."}, "search_phrase": "...", "caption_first_line": "...", "chapters": [], "disclosure": ["synthetic narration"], "next_film": null},
   "checklist": {"1": "pass", "2": "pass", "10": "waived"},
   "waivers": [{"rule": "11", "scene": "s4", "reason": "declared intent: still for the quote"}],
@@ -198,7 +247,7 @@ The agent has no memory between runs. What it learns lives in `references/lesson
 1. **When:** after a film's creative review (`qa/creative-review.json`), when a review fails on `arc` or `pacing`, or when platform analytics for a published film are supplied. Retention, completion and replays are the useful ones. The workspace has no analytics source yet, so never invent numbers.
 2. **Read:** the creative review (`arc`, `pacing`, `no_dead_time`), `motion-qa` dead-time findings, `studio.py script` and `style check` output on the final files, and `qa/story-review.json`. Compare what was planned with what happened.
 3. **Record:** append an entry to `references/lessons.md` with the date, film, observation, evidence (a measurement or a quoted review score, never an impression alone) and a proposed rule.
-4. **Promote** a lesson when it recurs in a second film or comes with a creative-review `arc`/`pacing` score below 3. Put it where it belongs:
+4. **Promote** a lesson when it recurs in a second film, comes with a creative-review `arc`/`pacing` score below 3, or when the project owner rules that it holds for every film. An owner ruling is a decision, not an opinion: quote it word for word as the evidence. Put it where it belongs:
    - every film: the checklist above; bump the rulebook version and add a revision line;
    - one kind of film: its style template; bump the template version and log the evidence (`docs/style-templates.md`, refinement loop);
    - a hook pattern: that formula's `fails_when` in `specs/hook-formulas.json`;
@@ -236,3 +285,4 @@ The agent has no memory between runs. What it learns lives in `references/lesson
 
 - **1.0.0 (2026-11-06)**: first version. Consolidates the story rules previously spread over `creative-director` steps 2-2c, `voice-director` items 7, 8, 11 and 12, `specs/hook-formulas.json`, `specs/narrative-arcs.json`, `docs/short-form-lessons.md`, the style-template rules and the 2026-11-03 film review. Resolves the reel-length conflict: AGENTS.md said `reel-loop` at 60 s or less, while the arc's own pitfall said another arc over 45 s. It is now three bands (3.2). Adds the research loop, sign-off authority and retro mode.
 - **1.1.0 (2026-11-06)**: reel length is 45 s preferred, 45-60 s only for a complicated topic that needs more animated beats (user decision). Research no longer carries a scene plan (`scene_blueprint` deprecated). From `social-media-skills` (MIT; `docs/social-media-skills-lessons.md`): goal, share reason and share trigger; five or more hooks with Truth and Pull gates; a layered first second; cut test, bridge, re-hooks, conservative numbers, steelman, point-of-view filter, care rules for disasters, one late ask; sound-off check; writing for the ear; a long film's reel as its own film; a packaging step (title, cover specs, search phrase, caption line, chapters, AI disclosure, next film); an analytics reading table and test discipline for retro. Checklist grows from 17 to 26 rules. Every addition is unrendered and uncalibrated on our films.
+- **1.2.0 (2026-11-07)**: four rules from the owner's review of `game-theory-trust`, which the owner ruled apply to every future film (lessons L12-L15, quoted there). (1) A third hook gate, *Clear*: in an explainer, every noun, number and unit in the hook has its referent in the line, and an ambiguous hook fails (3.3, checklist 19 and 28; `specs/hook-formulas.json` revision 2). (2) A scope check before writing, with a complexity budget per video type: a reel carries one mechanism and about three new terms, and a named study, event, tournament or algorithm needs about 25 s of setup or is cut, split into a series or promoted (3.1, checklist 27; `specs/video-types.json` `complexity_budget`; `reel-loop` pitfall). (3) Nothing named goes unexplained: a `named_things` list, and the visuals carry what the narration skips. A research gap behind a name already in the film blocks (3.6, 3.8, checklist 29). (4) A pace map: slow, normal or fast per scene, written as storyboard `pace` and per-scene `speed` in `src/narration.json`, with the word budget following the pace (3.5, 3.6, checklist 30; `specs/storyboard-spec.json` `pace`). Section 1 now gives the per-scene pace to the story-writer and leaves the film speed to `voice-director`. Section 6 allows promotion by an owner ruling, quoted. Checklist grows from 26 to 30. The pace bands and budgets are unmeasured: the first film made to them is `game-theory-trust` iteration 3.

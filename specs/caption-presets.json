@@ -1,0 +1,165 @@
+{
+  "spec_version": 1,
+  "description": "Caption design system for burned-in, word-timed captions. A preset fixes the font, size, plate, highlight and entrance; the style map picks one per style system; lanes and roles say where a caption sits in each section of the film. `src/pipeline/caption_style.py` resolves this file, `studio.py captions` writes the result into src/captions.js (window.STUDIO_CAPTION_PRESET) and `Studio.comp.captions` renders it. The CSS in src/studio/studio-base.css carries the same sizes and lane positions; tests/test-short-form.py fails when the two drift. Guide: docs/caption-design.md.",
+  "sources": [
+    {
+      "name": "heygen-com/hyperframes: captions-overlay skill and caption catalogue (tone to component table)",
+      "url": "https://github.com/heygen-com/hyperframes",
+      "licence": "Apache-2.0",
+      "adopted": "Captions are an overlay, never a reserved band; most text rides the verbatim rail and a promoted word is scarce; match caption tone to the content (no hype style on a calm explainer); do not stack a heavy effect on every word.",
+      "copied": "nothing"
+    },
+    {
+      "name": "josiahsiegel/claude-plugin-marketplace: viral-video-animated-captions",
+      "url": "https://github.com/josiahsiegel/claude-plugin-marketplace",
+      "licence": "MIT",
+      "adopted": "Preset vocabulary (pop, sweep, fill), word appear time about 80 to 250 ms, large high-contrast sans-serif with a thick outline, keep shake and flash low.",
+      "copied": "nothing"
+    },
+    {
+      "name": "reap.video: short-form safe zones",
+      "url": "https://reap.video/blog/short-form-video-safe-zones",
+      "licence": "article, ideas only",
+      "adopted": "Cross-platform working margins on 1080x1920 (top about 15 percent, bottom 25 to 35 percent, sides 10 to 15 percent). Not platform-published; the workspace keeps its own numbers in specs/format-presets.json.",
+      "copied": "nothing"
+    },
+    {
+      "name": "AgriciDaniel/claude-shorts",
+      "url": "https://github.com/AgriciDaniel/claude-shorts",
+      "licence": "not checked",
+      "adopted": "Only the observation that three caption personalities (bold, bounce, clean) cover most shorts. Nothing taken.",
+      "copied": "nothing"
+    }
+  ],
+  "status": "experimental: sizes, lanes and fonts are workspace judgement from the sources above. None has been rendered through HyperFrames on the M2 host yet; see open_questions.",
+  "presets": {
+    "clean-plate": {
+      "name": "Clean plate",
+      "tone": "calm, factual, explanatory",
+      "best_for": "finance, news, science, mathematics, technology explainers on a light or neutral canvas",
+      "font": { "family": "Inter", "weight": 700, "fallback": "sans-serif" },
+      "case": "sentence",
+      "size_u": { "portrait": 6.6, "landscape": 4.4, "square": 5.0 },
+      "plate": "solid",
+      "outline": false,
+      "highlight": "color",
+      "enter": "fade",
+      "pop": 0,
+      "notes": "Dark plate from the style's --c-caption-bg with --c-caption-ink text, so it reads on a light canvas. The spoken word turns --c-caption-hl."
+    },
+    "bold-pop": {
+      "name": "Bold pop",
+      "tone": "high energy, youth, culture, hooks",
+      "best_for": "mixed-media style, a reel whose brief asks for a punchy feel",
+      "font": { "family": "Montserrat", "weight": 800, "fallback": "sans-serif" },
+      "case": "upper",
+      "size_u": { "portrait": 7.4, "landscape": 4.6, "square": 5.4 },
+      "plate": "none",
+      "outline": true,
+      "highlight": "color",
+      "enter": "pop",
+      "pop": 0.08,
+      "notes": "No plate: an eight-direction outline plus a soft drop shadow carries contrast. The spoken word turns --c-caption-hl and grows 8 percent. Keep to 1 to 3 word cues; all caps is a poor fit for long sentences."
+    },
+    "serif-quiet": {
+      "name": "Serif quiet",
+      "tone": "documentary, historical, reflective",
+      "best_for": "archival and cinematic-dark styles, history and storytelling films",
+      "font": { "family": "EB Garamond", "weight": 600, "fallback": "serif" },
+      "case": "sentence",
+      "size_u": { "portrait": 7.2, "landscape": 4.8, "square": 5.6 },
+      "plate": "soft",
+      "outline": false,
+      "highlight": "color",
+      "enter": "fade",
+      "pop": 0,
+      "notes": "Serifs run larger than sans to hold the same apparent size, and the plate stays on because thin serifs break up over texture. The soft plate is the style plate at 94 percent opacity (78 percent went grey on a light canvas). Slow fade, no pop."
+    },
+    "paper-label": {
+      "name": "Paper label",
+      "tone": "playful, handmade, storybook",
+      "best_for": "paper-cut style, storybook template",
+      "font": { "family": "Nunito", "weight": 800, "fallback": "sans-serif" },
+      "case": "sentence",
+      "size_u": { "portrait": 6.8, "landscape": 4.5, "square": 5.2 },
+      "plate": "solid",
+      "outline": false,
+      "highlight": "color",
+      "enter": "rise",
+      "pop": 0,
+      "notes": "Rounded plate like a cut-paper label, rising a hair into place."
+    },
+    "mono-type": {
+      "name": "Mono type",
+      "tone": "technical, terminal, developer",
+      "best_for": "dark-tech style, code and systems walkthroughs",
+      "font": { "family": "JetBrains Mono", "weight": 600, "fallback": "monospace" },
+      "case": "sentence",
+      "size_u": { "portrait": 5.8, "landscape": 3.9, "square": 4.5 },
+      "plate": "soft",
+      "outline": false,
+      "highlight": "color",
+      "enter": "fade",
+      "pop": 0,
+      "notes": "Monospace runs wide, so it is set smaller. Only for short phrases: a monospace paragraph is hard to read at speed. Keeps its plate: plate-less light text vanished on a light canvas in a test render."
+    }
+  },
+  "style_map": {
+    "editorial-light": "clean-plate",
+    "swiss-minimal": "clean-plate",
+    "data-journalism": "clean-plate",
+    "abstract-geometric": "clean-plate",
+    "sci-viz": "clean-plate",
+    "mixed-media": "bold-pop",
+    "archival": "serif-quiet",
+    "cinematic-dark": "serif-quiet",
+    "paper-cut": "paper-label",
+    "dark-tech": "mono-type"
+  },
+  "fallback_preset": "clean-plate",
+  "type_defaults": {
+    "reel": { "grouping": "phrase", "max_words": 3, "note": "Fast 1 to 3 word phrases; the voice carries the sentence, the caption carries the beat." },
+    "long-reel": { "grouping": "phrase", "max_words": 4, "note": "One more word per phrase than a reel so three minutes of flashing captions stays readable. Untested; revisit after the first long reel." },
+    "youtube": { "grouping": "sentence", "max_lines": 2, "note": "Sentence cues, at most two lines." }
+  },
+  "lanes": {
+    "note": "Fractions of the frame height. A lane is where the caption plate sits: `bottom_edge` is the lowest pixel of the plate (0.766 is 76.6 percent down the frame), `top_edge` the highest. Lower follows the format's safe_area.bottom in specs/format-presets.json.",
+    "portrait": {
+      "lower": { "bottom_edge": 0.766, "use": "Default for body text. Sits just above the platform caption and action bar." },
+      "mid": { "bottom_edge": 0.64, "use": "Hook window. Above the lower interface band and clear of the top bar." },
+      "upper": { "top_edge": 0.14, "use": "A scene whose key visual or source line occupies the lower third." }
+    },
+    "landscape": {
+      "lower": { "bottom_edge": 0.92, "use": "Always. Standard subtitle position." },
+      "upper": { "top_edge": 0.08, "use": "Only when the lower band holds a lower third or source line." }
+    },
+    "square": {
+      "lower": { "bottom_edge": 0.91, "use": "Always." },
+      "upper": { "top_edge": 0.1, "use": "Only when the lower band is occupied." }
+    }
+  },
+  "roles": {
+    "note": "A cue's role is set by `studio.py captions` from its film time and scene. The role fixes lane and size; a storyboard scene's `caption_lane` overrides the lane for every cue in that scene.",
+    "hook": { "window_sec": 3.0, "lane": { "portrait": "mid", "landscape": "lower", "square": "lower" }, "scale": 1.15, "why": "The first seconds decide whether the viewer stays; a larger caption near the eye line reads before the thumb moves." },
+    "body": { "lane": { "portrait": "lower", "landscape": "lower", "square": "lower" }, "scale": 1, "why": "One stable home for the voice so the eye stops hunting." },
+    "outro": { "lane": { "portrait": "lower", "landscape": "lower", "square": "lower" }, "scale": 1, "why": "The last scene is the end card: keep captions where they were and let the card own the rest of the frame. Set caption_lane upper on that scene if the card carries a call to action low in the frame." }
+  },
+  "emphasis": {
+    "rule": "Words with a digit or a currency or percent sign are emphasised: they keep the highlight colour for the whole cue, not only while spoken. Nothing else is emphasised automatically. Scarce by design: a highlight on every word is no highlight."
+  },
+  "rules": [
+    "Captions are an overlay on the full-frame composition. Never shift scene content up to make room for them.",
+    "Keep the plate inside the safe area. In portrait leave the right 12 percent clear below 52 percent of the height (button rail).",
+    "At most two lanes per film. A lane changes only between cues: once when the hook ends, then only at a scene boundary. Never inside a cue.",
+    "At most two lines per cue. Portrait phrase cues are 18 characters or fewer; sentence cues in portrait stay under 44 characters, in landscape under 90.",
+    "Text is at least 2.6 percent of the short side and contrast against the plate or backdrop is at least 4.5 to 1. frame-review.py and motion-qa.py check both.",
+    "No caption stays on screen over silence: a cue ends when its last word ends plus a short hold.",
+    "One preset per film. Do not mix presets between scenes."
+  ],
+  "open_questions": [
+    "Montserrat 800 and Nunito 800: confirm the HyperFrames bundle ships those weights, or the browser will synthesise bold.",
+    "Whether mid-lane hook captions collide with the platform interface on a real device. Check on a phone before the first publish.",
+    "Whether a four-word phrase is right for long reels.",
+    "Whether plate-less bold-pop reads on every canvas in the mixed-media style."
+  ]
+}

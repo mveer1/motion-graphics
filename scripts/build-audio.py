@@ -185,6 +185,7 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
         scene_id = sc["id"]
         title = sc["title"]
         text = sc["text"]
+        scene_spd = narration.scene_speed(sc, req)      # per-scene pace from src/narration.json, else the film's
         out_wav = audio_dir / f"{scene_id}.wav"
 
         pcm = read_pcm(out_wav) if scene_id in previous else None
@@ -193,14 +194,14 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
             from kokoro import KPipeline
             pipe = KPipeline(lang_code=voice[0])  # Kokoro voice ids start with their language code (am_ -> a)
         if pcm is None and req["prosody"] != "raw":
-            pcm = synth_smart(pipe, text, out_wav, voice, speed, req["prosody"].split(":", 1)[1])
+            pcm = synth_smart(pipe, text, out_wav, voice, scene_spd, req["prosody"].split(":", 1)[1])
             if pcm is None or not len(pcm):
                 print(f"Error: No audio produced for scene '{scene_id}'", file=sys.stderr)
                 sys.exit(1)
         if pcm is None:
             # Synthesize via Kokoro
             chunks = []
-            for res in pipe(text, voice=voice, speed=speed):
+            for res in pipe(text, voice=voice, speed=scene_spd):
                 chunks.append(res.audio.numpy())
 
             if not chunks:
@@ -226,6 +227,7 @@ def build_audio(project_dir: Path, speed_override: float = None, voice_override:
             "id": scene_id,
             "title": title,
             "text": text,
+            "speed": scene_spd,
             "clip_path": f"audio/{scene_id}.wav",
             "duration_sec": round(dur, 3),
             "start_time_sec": start_time,

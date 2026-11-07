@@ -1,7 +1,7 @@
 {
   "id": "data-ledger",
   "name": "Data Ledger",
-  "version": 3,
+  "version": 4,
   "status": "experimental",
   "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
   "visual_job": {
@@ -201,6 +201,11 @@
       "pattern": "Colour as the only thing that tells two series or states apart.",
       "why": "About 8% of men have a colour vision deficiency. Pair colour with a direct label, shape, position or pattern.",
       "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -234,6 +239,12 @@
       "date": "2026-11-06",
       "change": "Added four chart anti-patterns: topic titles instead of takeaway titles, truncated bar baselines, charts for one or two numbers, colour-only encoding.",
       "reason": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT). Unrendered: promote only after a film is made to v3."
+    },
+    {
+      "version": 4,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [
