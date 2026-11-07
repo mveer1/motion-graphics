@@ -1,0 +1,52 @@
+{
+  "id": "skill-caption-designer",
+  "name": "Caption Designer Skill",
+  "component_type": "skill",
+  "purpose": "Pick a caption preset from the film's style system and place captions by section (hook, body, outro, busy lower third) in portrait, landscape and square.",
+  "capabilities": [
+    "Style system to caption preset and font mapping",
+    "Lane and size rules per section and format",
+    "Storyboard caption_lane overrides",
+    "Caption validation and frame-review handoff"
+  ],
+  "location": ".claude/skills/caption-designer",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .claude/skills/caption-designer."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Instructional skill over specs/caption-presets.json, src/pipeline/caption_style.py and Studio.comp.captions. Snapshot-checked with HyperFrames 0.8.226 on the M2 host; no full build yet."
+  },
+  "documentation_urls": [
+    ".claude/skills/caption-designer/SKILL.md",
+    "docs/caption-design.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace-authored. Ideas (not code) adopted from heygen-com/hyperframes (Apache-2.0) and josiahsiegel/claude-plugin-marketplace (MIT); see specs/caption-presets.json sources."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Instructional guidance only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+  "architecture_ref": "ARCHITECTURE.md#s3",
+  "last_verified": "2026-11-07",
+  "tags": [
+    "captions",
+    "typography",
+    "safe-area",
+    "subtitles"
+  ]
+}

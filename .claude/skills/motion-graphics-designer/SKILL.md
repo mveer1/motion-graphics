@@ -110,8 +110,19 @@ Source and limits: `docs/short-form-lessons.md`. Each rule is a starting value; 
 - **Never embed a raw flat image.** Give it motion treatment: a slow zoom of 1.0 to 1.04, a perspective tilt, a device frame or a clipped scroll reveal.
 - **Data in motion** (also in the `data-ledger` template, v2): no pie or dual-axis charts, at most three related metrics at once, no legend box (label the series where it is drawn), faint gridlines only at labelled values, a proportional visual beside every number, and keep successive figures for one concept in one visual space.
 - **Show the noun on the word.** The picture lands on the frame its word is spoken and shows the literal thing named; get the frame from `audio/words.json` (`studio.py words`). Use real proportions: capture or draw the real thing and scale it uniformly rather than inventing a condensed card with inflated type.
+- **Caption design:** the style system picks the preset (font, size, plate) and the section picks the lane (hook mid, body lower, upper when the lower third is busy); see `caption-designer` and `docs/caption-design.md`. Do not restyle captions in one film's CSS.
 - **Captions for reels:** 1 to 3 word phrases from `studio.py captions --timing words --grouping phrase`, rendered with `Studio.comp.captions`, which lights the word being spoken in `--c-caption-hl` (default: the style's `--c-accent-3`; `{highlight: false}` turns it off), never ending on a weak word ("the", "to", "had"), kept above the platform interface band (`platform-ui-zone`), and never over a face or the hero. On-screen cards are 6 words or fewer (checked by the `news-brief` and `storybook` templates for portrait-first films).
 - **Where these disagree with each other.** The HeyGen guidance wants glows, ghost type and 2 to 5 decoratives per scene; the reel-editing guidance bans glows, sheens and pulse rings. `editorial-light` is closer to the second: crisp entrances (4 to 8 frames, strong ease-out, 2 to 4 frame stagger) and a clean hold. Pick per style system; do not mix both.
+
+### G. Visuals carry the information the narration skips (2026-11-07, from the user's review of game-theory-trust)
+
+Source: the owner's review of `game-theory-trust` ("lets at least add proper information in the visuals even if narration doesn't talk about it, instead of leaving the visuals empty"). Applies to every film and every style template.
+
+- **Nothing named, nothing unexplained.** Every term, name, figure or result that appears in the narration or on screen is explained somewhere the viewer can read it. A ranked column of unlabelled chips, a "1st" badge with no field behind it, or a term like "dominant strategy" with no definition is a defect, not a design.
+- **When narration cannot afford the explanation, the picture does.** Use the on-screen text the template allows: a one-line definition card, a legend where the thing is drawn, the rule written out, a source line (who, where, when), the cells of a table spelled in plain words. This is information, not decoration: it must still sit inside the safe area and the size floor, and the card limit (6 words, portrait) still applies per card, so spread it over several beats.
+- **Empty is not minimal.** A frame whose objects are anonymous (dots, bars, chips with no label or scale) fails the same way as a frozen frame. Label the one thing that matters and show the scale or field around it.
+- **Plan it in the storyboard.** The story-writer lists, per scene, the information the visuals carry that narration does not (`storyboard.json` beats and `on_screen_text`); the composition builds exactly that and nothing is left "to be added later".
+- **Check before render.** On each contact sheet ask of every object: what is it called, and where does the viewer learn that? Anything unanswered goes back to the story-writer or gets a label.
 
 ## 2. Animation Rules & The Anti-Laziness Mandate
 

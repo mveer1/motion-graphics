@@ -889,6 +889,22 @@ class NarrationCurrencyTests(unittest.TestCase):
         spec.loader.exec_module(mod)
         return mod, calls
 
+    def test_per_scene_speed_is_spoken_recorded_and_checked(self):
+        """A scene's own `speed` slows or quickens that scene only; changing it re-makes just that scene."""
+        mod, calls = self.build_audio_module()
+        slow = dict(self.SCENES[1], speed=0.9)
+        self.write_script([self.SCENES[0], slow])
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        tl = json.loads((self.pdir / "audio" / "timeline.json").read_text(encoding="utf-8"))
+        self.assertEqual([sc["speed"] for sc in tl["scenes"]], [1.15, 0.9])
+        self.assertEqual(self.nar.narration_state(self.pdir, self.request())[0], "current")
+        self.write_script([self.SCENES[0], dict(slow, speed=1.0)])
+        state, reasons = self.nar.narration_state(self.pdir, self.request())
+        self.assertEqual((state, reasons), ("stale", ["scene speed changed in s2"]))
+        n = len(calls)
+        mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")
+        self.assertEqual(len(calls), n + 1, "only the re-paced scene is re-synthesised")
+
     def test_build_audio_reuses_unchanged_scenes_and_keeps_what_it_replaces(self):
         mod, calls = self.build_audio_module()
         mod.build_audio(self.pdir, speed_override=1.15, voice_override="am_adam")

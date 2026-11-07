@@ -28,6 +28,7 @@ Format: one `## <category id>` heading per category (ids are in `specs/categorie
 - **The birthday paradox** — Why 23 people give better than even odds of a shared birthday. [reel]
 - **Why 0.999… equals 1** — Three short arguments, from fractions, from limits and from the number line. [long-reel]
 - **Fourier series: drawing with circles** — Stacked rotating circles trace any closed curve. Visual-first, little narration. [long-reel]
+- **Why tit for tat won: Axelrod's tournaments** — Part 2 of the game-theory-trust reel: play the prisoner's dilemma again and again, and the simplest entry, start nice then copy, won Axelrod's 1980 tournament and the second one. Needs research on how matches were scored, how many rounds each pairing played, who the rivals were, and why tit for tat came first while never beating its partner in a single pairing. [long-reel]
 
 ## news
 - **How a power grid blackout cascades** — Why one failure spreads and what grid operators do to stop it. Needs a recent, well-sourced event to anchor it. (also: technology) [long-reel]

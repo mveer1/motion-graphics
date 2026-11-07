@@ -1,7 +1,7 @@
 {
   "id": "storybook",
   "name": "Storybook",
-  "version": 2,
+  "version": 3,
   "status": "experimental",
   "summary": "Staged scenes of layered cut shapes with parallax, where act changes are told by palette and light rather than captions. For people, stakes and an emotional arc.",
   "visual_job": {
@@ -166,6 +166,11 @@
       "pattern": "More than one ask at the end.",
       "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
       "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -197,6 +202,12 @@
       "date": "2026-11-05",
       "change": "Added rules.short_form (cards of 6 words or fewer, the return-to-opening ending as the loop) and two anti-patterns: framing sentence before the claim, more than one ask.",
       "reason": "docs/short-form-lessons.md."
+    },
+    {
+      "version": 3,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [

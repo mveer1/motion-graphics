@@ -60,10 +60,16 @@
 <script src="_studio/studio-type.js"></script>
 <script src="_studio/studio-motion.js"></script>
 <script src="_studio/studio-compositions.js"></script>
+<script src="captions.js"></script>
 <script>
 Studio.build(function (tl, f, S) {
   // Scene cues mirror storyboard.json.
   var cue = S.cues({ s1: 0, s2: 4.4, s3: 8.8, s4: 13.2, end: 16 });
+
+  // Captions: an overlay on the whole frame. src/captions.js (cues and the style's caption preset) is written by
+  // `studio.py captions <slug> --timing words` once the narration is timed; until then it is empty and nothing shows.
+  // Design and placement: docs/caption-design.md. Mark a scene's lane with caption_lane in storyboard.json.
+  var caps = S.comp.captions(document.getElementById('root'), window.STUDIO_CAPTIONS || []);
 
   // Build every piece of DOM (and split text) before adding tweens.
   document.getElementById('ground').setAttribute('d', S.draw.handLine(3, 30, 338, 370, 338));
@@ -103,6 +109,8 @@ Studio.build(function (tl, f, S) {
   S.crossfade(tl, '#s3', '#s4', cue('s4'), 0.6);
   tl.fromTo('#art', { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.6, ease: 'power1.inOut', immediateRender: false }, cue('s4', -0.3));
   end.enter(tl, cue('s4', -0.1));
+
+  caps.schedule(tl);
 });
 </script>
 </body>

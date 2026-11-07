@@ -1,7 +1,7 @@
 {
   "id": "science-atlas",
   "name": "Science Atlas",
-  "version": 1,
+  "version": 2,
   "status": "experimental",
   "summary": "A specimen plate: one object shown whole, then opened up, with scale always visible. For structures, organisms, processes and findings in the natural world.",
   "visual_job": {
@@ -150,6 +150,11 @@
       "pattern": "A finding without sample size or uncertainty.",
       "why": "VISION.md: clear, accurate explanation is as important as visual craft.",
       "source": "docs/VISION.md"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -175,6 +180,12 @@
       "date": "2026-11-03",
       "change": "Initial version. Default is light to follow the workspace rule that dark themes need a brief that asks for them.",
       "reason": "CLAUDE.md visual defaults"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [

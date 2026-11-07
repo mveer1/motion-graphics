@@ -492,35 +492,120 @@ body {
   color: var(--c-ink-2, #5b5347);
 }
 
+/*
+ * Captions (Studio.comp.captions; design system in specs/caption-presets.json, guide in docs/caption-design.md).
+ * An overlay on the whole frame, never a reserved band: each cue sits in a lane (data-lane) and is centred on the
+ * frame. Lane positions are fractions of the frame height and follow the format's safe area:
+ *   lower  bottom edge at --safe-bottom (portrait 76.6 %, landscape 92 %, square 91 %)
+ *   mid    bottom edge at 64 % (portrait hook lane; landscape and square fall back to lower)
+ *   upper  top edge at 14 % portrait, 8 % landscape, 10 % square
+ * tests/test-short-form.py fails when these numbers and the spec drift apart.
+ */
 .st-captions {
   position: absolute;
-  left: var(--safe-left);
-  right: var(--safe-right);
-  bottom: var(--safe-bottom);
-  display: grid;
-  justify-items: center;
-  align-items: end;
+  inset: 0;
   z-index: 40;
+  pointer-events: none;
+  --cap-inset: max(var(--safe-left), var(--safe-right));
 }
 
 .st-caption {
-  grid-area: 1 / 1;
+  position: absolute;
+  left: var(--cap-inset);
+  right: var(--cap-inset);
+  bottom: var(--safe-bottom);
+  width: max-content;
+  max-width: min(var(--cap-max-w, 34em), calc(100% - 2 * var(--cap-inset)));
+  margin-inline: auto;
   visibility: hidden;
   opacity: 0;
-  max-width: 34em;
   padding: calc(var(--u) * 0.6) calc(var(--u) * 1.6);
   font-size: var(--fs-caption);
   line-height: 1.25;
   text-align: center;
+  text-wrap: balance;
   color: var(--c-caption-ink, #fffaf2);
   background: var(--c-caption-bg, rgba(30, 27, 22, 0.82));
   border-radius: calc(var(--u) * 0.6);
 }
 
+.st-caption[data-lane="lower"] { top: auto; bottom: var(--safe-bottom); }
+.st-caption[data-lane="mid"] { top: auto; bottom: calc(var(--h) * 0.36); }
+.st-caption[data-lane="upper"] { top: calc(var(--h) * 0.14); bottom: auto; }
+#root[data-format="landscape"] .st-caption[data-lane="mid"],
+#root[data-format="square"] .st-caption[data-lane="mid"] { bottom: var(--safe-bottom); }
+#root[data-format="landscape"] .st-caption[data-lane="upper"] { top: calc(var(--h) * 0.08); }
+#root[data-format="square"] .st-caption[data-lane="upper"] { top: calc(var(--h) * 0.10); }
+
 /* Word-timed cues: the spoken word mixes toward the highlight as the timeline drives --st-hl from 0 to 1. */
 .st-caption-word {
   --st-hl: 0;
   color: color-mix(in srgb, var(--c-caption-hl, var(--c-accent-3, #e8b04a)) calc(var(--st-hl) * 100%), var(--c-caption-ink, #fffaf2));
+}
+
+/* Emphasised word (a number or amount): keeps the highlight for the whole cue. */
+.st-caption-word.st-caption-em { color: var(--c-caption-hl, var(--c-accent-3, #e8b04a)); }
+
+/* Presets. Font families are written out literally because HyperFrames only injects a bundled font it finds named
+   in the page's CSS (a var() leaves the system fallback). Sizes are --u units per format and match size_u in the spec. */
+.st-captions[data-cap-preset] { --cap-max-w: 26em; }
+.st-captions[data-cap-preset] .st-caption {
+  font-size: calc(var(--u) * var(--cap-size, 4) * var(--cap-scale, 1));
+  padding: 0.24em 0.6em 0.28em;
+  border-radius: 0.34em;
+}
+
+.st-captions[data-cap-preset="clean-plate"] { --cap-size: 4.4; }
+#root[data-format="portrait"] .st-captions[data-cap-preset="clean-plate"] { --cap-size: 6.6; }
+#root[data-format="square"] .st-captions[data-cap-preset="clean-plate"] { --cap-size: 5.0; }
+.st-captions[data-cap-preset="clean-plate"] .st-caption { font-family: 'Inter', sans-serif; font-weight: 700; }
+
+.st-captions[data-cap-preset="bold-pop"] {
+  --cap-size: 4.6;
+  --c-caption-ink: #ffffff;
+  --cap-outline: #0f0f0f;
+}
+#root[data-format="portrait"] .st-captions[data-cap-preset="bold-pop"] { --cap-size: 7.4; }
+#root[data-format="square"] .st-captions[data-cap-preset="bold-pop"] { --cap-size: 5.4; }
+.st-captions[data-cap-preset="bold-pop"] .st-caption {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: none;
+  padding: 0;
+  text-shadow:
+    calc(var(--u) * 0.35) 0 0 var(--cap-outline), calc(var(--u) * -0.35) 0 0 var(--cap-outline),
+    0 calc(var(--u) * 0.35) 0 var(--cap-outline), 0 calc(var(--u) * -0.35) 0 var(--cap-outline),
+    calc(var(--u) * 0.25) calc(var(--u) * 0.25) 0 var(--cap-outline), calc(var(--u) * -0.25) calc(var(--u) * 0.25) 0 var(--cap-outline),
+    calc(var(--u) * 0.25) calc(var(--u) * -0.25) 0 var(--cap-outline), calc(var(--u) * -0.25) calc(var(--u) * -0.25) 0 var(--cap-outline),
+    0 calc(var(--u) * 0.5) calc(var(--u) * 1.2) rgba(0, 0, 0, 0.45);
+}
+.st-captions[data-cap-preset="bold-pop"] .st-caption-word { display: inline-block; scale: calc(1 + 0.08 * var(--st-hl)); transform-origin: 50% 80%; }
+
+.st-captions[data-cap-preset="serif-quiet"] { --cap-size: 4.8; }
+#root[data-format="portrait"] .st-captions[data-cap-preset="serif-quiet"] { --cap-size: 7.2; }
+#root[data-format="square"] .st-captions[data-cap-preset="serif-quiet"] { --cap-size: 5.6; }
+.st-captions[data-cap-preset="serif-quiet"] .st-caption {
+  font-family: 'EB Garamond', serif;
+  font-weight: 600;
+  line-height: 1.2;
+  background: color-mix(in srgb, var(--c-caption-bg, rgba(30, 27, 22, 0.82)) 94%, transparent);
+}
+
+.st-captions[data-cap-preset="paper-label"] { --cap-size: 4.5; }
+#root[data-format="portrait"] .st-captions[data-cap-preset="paper-label"] { --cap-size: 6.8; }
+#root[data-format="square"] .st-captions[data-cap-preset="paper-label"] { --cap-size: 5.2; }
+.st-captions[data-cap-preset="paper-label"] .st-caption { font-family: 'Nunito', sans-serif; font-weight: 800; border-radius: 0.5em; }
+
+.st-captions[data-cap-preset="mono-type"] { --cap-size: 3.9; }
+#root[data-format="portrait"] .st-captions[data-cap-preset="mono-type"] { --cap-size: 5.8; }
+#root[data-format="square"] .st-captions[data-cap-preset="mono-type"] { --cap-size: 4.5; }
+.st-captions[data-cap-preset="mono-type"] .st-caption {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: color-mix(in srgb, var(--c-caption-bg, rgba(30, 27, 22, 0.82)) 94%, transparent);
 }
 
 /* ------------------------------------------------------------------ reference-derived capabilities */

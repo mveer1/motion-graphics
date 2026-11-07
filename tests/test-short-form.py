@@ -28,6 +28,7 @@ if sys.executable != "/opt/homebrew/bin/python3.12":
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src" / "pipeline"))
 
+import caption_style as cs  # noqa: E402
 import captions as cap  # noqa: E402
 import hooks  # noqa: E402
 import scriptlint as sl  # noqa: E402
@@ -348,6 +349,121 @@ class TestTweens(unittest.TestCase):
         self.assertIsNone(tw.to_num("fn"))
         self.assertEqual(tw.split_ease("power3.out"), ("power3", "out"))
         self.assertEqual(tw.split_ease("steps(24)"), ("steps(24)", None))
+
+
+# --------------------------------------------------------------------------- caption design
+class TestCaptionDesign(unittest.TestCase):
+    """specs/caption-presets.json, src/pipeline/caption_style.py and the CSS in studio-base.css must agree."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.spec = cs.load_spec()
+        cls.css = (ROOT / "src" / "studio" / "studio-base.css").read_text(encoding="utf-8")
+        cls.presets = json.loads((ROOT / "specs" / "format-presets.json").read_text())["formats"]
+
+    def test_every_style_system_has_a_preset(self):
+        styles = {p.stem for p in (ROOT / "src" / "studio" / "styles").glob("*.css")}
+        self.assertEqual(styles - set(self.spec["style_map"]), set(), "a style system has no caption preset")
+        self.assertEqual(set(self.spec["style_map"]) - styles, set(), "style_map names a style that does not exist")
+        for style, pid in self.spec["style_map"].items():
+            self.assertIn(pid, self.spec["presets"], style)
+        self.assertIn(self.spec["fallback_preset"], self.spec["presets"])
+
+    def test_fonts_are_bundled_with_hyperframes(self):
+        src = (ROOT / "scripts" / "studio.py").read_text(encoding="utf-8")
+        bundled = {f.lower() for f in __import__("re").findall(r'"([a-z ]+)"', src.split("HF_BUNDLED_FONTS = {", 1)[1].split("}", 1)[0])}
+        for pid, pr in self.spec["presets"].items():
+            self.assertIn(pr["font"]["family"].lower(), bundled, f"{pid}: font is not bundled")
+
+    def test_css_carries_every_preset_size_and_font(self):
+        import re
+        for pid, pr in self.spec["presets"].items():
+            for fmt, size in pr["size_u"].items():
+                prefix = "" if fmt == "landscape" else f'#root\\[data-format="{fmt}"\\] '
+                m = re.search(prefix + r'\.st-captions\[data-cap-preset="' + pid + r'"\]\s*\{[^}]*--cap-size:\s*([0-9.]+)', self.css)
+                self.assertIsNotNone(m, f"{pid} {fmt}: no --cap-size rule in studio-base.css")
+                self.assertAlmostEqual(float(m.group(1)), size, msg=f"{pid} {fmt} size drifted from the spec")
+            f = pr["font"]
+            self.assertRegex(self.css, r'data-cap-preset="' + pid + r'"\] \.st-caption \{[^}]*font-family: \'' + re.escape(f["family"]) + r"'", f"{pid}: font family not written literally")
+            self.assertRegex(self.css, r'data-cap-preset="' + pid + r'"\] \.st-caption \{[^}]*font-weight: ' + str(f["weight"]), f"{pid}: weight drifted")
+
+    def test_css_lanes_match_the_spec_and_the_safe_areas(self):
+        lanes = self.spec["lanes"]
+        # the lower lane is the format's safe-area bottom, so it must equal what format-presets.json says
+        for fmt in ("portrait", "landscape", "square"):
+            self.assertAlmostEqual(lanes[fmt]["lower"]["bottom_edge"], 1 - self.presets[fmt]["safe_area"]["bottom"], places=3, msg=fmt)
+        self.assertIn('.st-caption[data-lane="lower"] { top: auto; bottom: var(--safe-bottom); }', self.css)
+        self.assertIn(f'bottom: calc(var(--h) * {1 - lanes["portrait"]["mid"]["bottom_edge"]:.2f})', self.css)
+        self.assertIn(f'.st-caption[data-lane="upper"] {{ top: calc(var(--h) * {lanes["portrait"]["upper"]["top_edge"]:.2f}); bottom: auto; }}', self.css)
+        self.assertIn(f'[data-format="landscape"] .st-caption[data-lane="upper"] {{ top: calc(var(--h) * {lanes["landscape"]["upper"]["top_edge"]:.2f}); }}', self.css)
+        self.assertIn(f'[data-format="square"] .st-caption[data-lane="upper"] {{ top: calc(var(--h) * {lanes["square"]["upper"]["top_edge"]:.2f}); }}', self.css)
+        self.assertNotIn("mid", lanes["landscape"])
+
+    def test_lanes_stay_in_the_platform_reference(self):
+        ref = self.presets["portrait"]["platform_ui_reference"]
+        lanes = self.spec["lanes"]["portrait"]
+        self.assertLessEqual(lanes["lower"]["bottom_edge"], 1 - ref["bottom"] + 1e-9)
+        self.assertLessEqual(lanes["mid"]["bottom_edge"], lanes["lower"]["bottom_edge"])
+        self.assertGreaterEqual(lanes["upper"]["top_edge"], ref["top"])
+
+    def test_resolve_picks_by_style_and_pin(self):
+        self.assertEqual(cs.resolve("archival", "portrait")["id"], "serif-quiet")
+        self.assertEqual(cs.resolve("dark-tech", "portrait")["id"], "mono-type")
+        self.assertEqual(cs.resolve("not-a-style", "portrait")["id"], self.spec["fallback_preset"])
+        self.assertEqual(cs.resolve("archival", "portrait", "bold-pop")["id"], "bold-pop")
+        with self.assertRaises(ValueError):
+            cs.resolve("archival", "portrait", "nope")
+
+    def test_hook_sits_mid_in_portrait_and_lower_elsewhere(self):
+        self.assertEqual(cs.resolve("editorial-light", "portrait")["roles"]["hook"], {"lane": "mid", "scale": 1.15})
+        for fmt in ("landscape", "square"):
+            self.assertEqual(cs.resolve("editorial-light", fmt)["roles"]["hook"]["lane"], "lower")
+        self.assertEqual(cs.resolve("editorial-light", "portrait")["roles"]["body"]["lane"], "lower")
+
+    def test_video_type_from_brief_then_length(self):
+        self.assertEqual(cs.video_type_of({"deliverables": {"video_type": "long-reel"}}, 30, "portrait"), "long-reel")
+        self.assertEqual(cs.video_type_of(None, 45, "portrait"), "reel")
+        self.assertEqual(cs.video_type_of(None, 120, "portrait"), "long-reel")
+        self.assertEqual(cs.video_type_of(None, 240, "landscape"), "youtube")
+        self.assertEqual(cs.type_defaults("youtube")["grouping"], "sentence")
+        self.assertEqual(cs.type_defaults("reel")["grouping"], "phrase")
+
+    def cues(self):
+        mk = lambda t, a, b, ws: {"start": a, "end": b, "text": t, "words": [{"text": w, "start": a, "end": b} for w in ws]}  # noqa: E731
+        return [mk("It was 1947", 0.3, 1.2, ["It", "was", "1947"]), mk("then it fell", 1.3, 2.4, ["then", "it", "fell"]),
+                mk("Prices rose 12%", 3.5, 4.6, ["Prices", "rose", "12%"]), mk("That is all", 9.0, 9.8, ["That", "is", "all"])]
+
+    def test_annotate_roles_lanes_and_emphasis(self):
+        cues = cs.annotate(self.cues(), fmt="portrait", scene_spans=[{"start": 0, "end": 5}, {"start": 8, "end": 10}],
+                           storyboard_scenes=[{"id": "s1", "start_sec": 0, "end_sec": 5}, {"id": "s2", "start_sec": 8, "end_sec": 10, "caption_lane": "upper"}])
+        self.assertEqual([c["role"] for c in cues], ["hook", "hook", "body", "outro"])
+        self.assertNotIn("lane", cues[0])
+        self.assertEqual(cues[3]["lane"], "upper", "a storyboard scene's caption_lane overrides the role's lane")
+        self.assertEqual([w.get("em") for w in cues[0]["words"]], [None, None, True])
+        self.assertTrue(cues[2]["words"][2].get("em"))
+        self.assertFalse(any(w.get("em") for w in cues[3]["words"]), "only numbers are emphasised")
+
+    def test_mid_lane_falls_back_to_lower_outside_portrait(self):
+        cues = cs.annotate(self.cues(), fmt="landscape", scene_spans=[{"start": 0, "end": 10}],
+                           storyboard_scenes=[{"id": "s1", "start_sec": 0, "end_sec": 10, "caption_lane": "mid"}])
+        self.assertEqual({c["lane"] for c in cues}, {"lower"})
+
+    def test_lint_flags_long_cues_and_lane_sprawl(self):
+        long = [{"start": 0.4, "end": 5.0, "text": "x" * 60, "role": "hook"}]
+        self.assertTrue(any("60" in w or "over 44" in w for w in cs.lint_cues(long, "portrait")))
+        self.assertEqual(cs.lint_cues(long, "landscape"), [])
+        three = [{"start": 0.4, "end": 1, "text": "a", "role": "hook"}, {"start": 4, "end": 5, "text": "b", "role": "body"},
+                 {"start": 6, "end": 7, "text": "c", "role": "body", "lane": "upper"}]
+        self.assertTrue(any("3 lanes" in w for w in cs.lint_cues(three, "portrait")))
+        late = [{"start": 2.0, "end": 3, "text": "a", "role": "hook"}]
+        self.assertTrue(any("hook runs without one" in w for w in cs.lint_cues(late, "portrait")))
+        self.assertEqual(cs.lint_cues(cs.annotate(self.cues(), fmt="portrait", scene_spans=[{"start": 0, "end": 10}]), "portrait"), [])
+
+    def test_schemas_accept_the_new_fields(self):
+        sb = json.loads((ROOT / "specs" / "storyboard-spec.json").read_text())
+        self.assertEqual(sb["definitions"]["scene"]["properties"]["caption_lane"]["enum"], ["lower", "mid", "upper"])
+        vs = json.loads((ROOT / "specs" / "video-spec.json").read_text())
+        self.assertIn("caption_preset", vs["properties"]["audio"]["properties"])
 
 
 # --------------------------------------------------------------------------- wiring

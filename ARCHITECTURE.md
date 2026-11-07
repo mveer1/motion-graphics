@@ -29,7 +29,7 @@ The stages fall into four phases. Each phase ends at a gate, and a later phase s
 | 1 | <a id="s0r"></a>0R Research | `research.json` + `research.md`: facts, ranges, disputes; answers to the story-writer's requests (no scene plan) | `technical-researcher`, `scripts/validate-research.py` | only when `brief.research.required` (factual topics) |
 | 2 | <a id="s1"></a>1 Storyboard and style | `beatmap.json`, `storyboard.json` (`specs/storyboard-spec.json`), `qa/story-review.json`; design profile from the bake-off | `story-writer` (story, beats, sign-off), `creative-director` (look), `motion-library-guide` | standard/complex briefs, or when the template requires it |
 | 2 | <a id="s2"></a>2 Script | `src/narration.json` | `story-writer` (words), `voice-director` (respellings, voice, speed) | only with narration |
-| 3 | <a id="s3"></a>3 Speech and timing | `audio/*.wav`, `audio/timeline.json`, `audio/words.json` | `scripts/build-audio.py` → `src/pipeline/tts.py`; `studio.py captions` | only with narration |
+| 3 | <a id="s3"></a>3 Speech and timing | `audio/*.wav`, `audio/timeline.json`, `audio/words.json` | `scripts/build-audio.py` → `src/pipeline/tts.py`; `studio.py captions` (cues, then the caption design: `specs/caption-presets.json`, `src/pipeline/caption_style.py`, `docs/caption-design.md`) | only with narration |
 | 3 | <a id="s4"></a>4 Composition | `src/index.html` on the vendored runtime `src/_studio/` | `motion-graphics-designer`, `gsap-*`, `kinetic-typography` | always |
 | 3 | <a id="s4b"></a>4B Sound design | `audio/sfx-track.wav` | `real-sfx`, `earshot` | optional |
 | 3 | <a id="s7"></a>7 External footage | `assets/generated/` | `scripts/ingest-asset.sh` | optional |
@@ -57,7 +57,7 @@ python scripts/studio.py review <slug> --init            # then score qa/creativ
 | Libraries | `catalogue/data/libraries/` | `gsap`, `html-css-native` | CDN or browser-native |
 | Primitives | `catalogue/data/primitives/` | `split-text`, `svg-path`, `seeded-particles` | `src/studio/*.js`, `*.css` |
 | Effects and recipes | `catalogue/data/effects/`, `recipes/` | `text-mask-rise` / `line-mask-rise`, `liquid-transition` / `liquid-rise` | runtime APIs in `src/studio/` |
-| Compositions | `catalogue/data/compositions/` | `title-card`, `item-list`, `step-header`, `end-card`, `caption-band` | `src/studio/studio-compositions.js` |
+| Compositions | `catalogue/data/compositions/` | `title-card`, `item-list`, `step-header`, `end-card`, `caption-band` (caption overlay: preset per style, lane per section) | `src/studio/studio-compositions.js` |
 | Style systems | `catalogue/data/styles/` | `editorial-light` (default), `paper-cut`, `swiss-minimal`, `cinematic-dark`, `dark-tech` | `src/studio/styles/*.css` |
 | Project templates | `catalogue/data/project-templates/` | `illustrated-explainer` (others proposed) | `templates/projects/<id>/` |
 | Techniques | `catalogue/data/references/` | `pen-led-stroke`, `element-bloom-transition`, `rendered-3d-objects` | runtime APIs named in each record, or a documented capability gap |

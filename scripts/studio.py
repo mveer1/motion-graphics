@@ -14,7 +14,7 @@ Subcommands:
   validate <slug> [--json]       schema + cross-reference + composition checks (exit 1 on errors)
   build <slug> [--dry-run]       render every format with HyperFrames, mux audio, run QA gates; a stale render is
                                  moved to renders/history/ before it is rendered again, never overwritten
-  captions <slug> [--timing words] [--grouping phrase]   caption cues from audio/timeline.json: approximate sentences, or measured word times
+  captions <slug> [--timing words] [--grouping phrase] [--preset id]   caption cues from audio/timeline.json (approximate sentences, or measured word times) plus the caption design: preset, lane and size per section, emphasised numbers
   words <slug> "<phrase>"        film time at which a phrase is spoken (from audio/words.json)
   script <slug> [--json]         pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, story table
   hook score|formulas            rank hook lines; list the hook formulas (specs/hook-formulas.json)
@@ -572,9 +572,11 @@ def cmd_new(args: argparse.Namespace) -> int:
     project["style"] = style
     if stpl:
         project["style_template"] = {"id": stpl["id"], "version": stpl["version"]}
+    project["audio"]["captions"] = True  # burned-in captions are part of the flow; turn off in project.json and the brief for a silent-free cut
     write_json(pj, project)
     bj = pdir / "brief.json"
     brief = load_json(bj)
+    brief.setdefault("audio", {})["captions"] = True
     nominal = vtype["nominal_sec"]
     brief["platforms"] = [vtype["platform"]]
     brief["deliverables"]["formats"] = [fid]
@@ -601,6 +603,13 @@ def cmd_new(args: argparse.Namespace) -> int:
     (pdir / "src" / "index.html").write_text(html, encoding="utf-8", newline="\n")
     for sub in ("audio", "renders", "qa"):
         (pdir / sub).mkdir(exist_ok=True)
+    # Empty captions with the film's preset already chosen; `studio.py captions` fills the cues once the narration is timed.
+    cap = caption_setup(pdir)
+    (pdir / "src" / "captions.js").write_text(
+        "// Placeholder written by `studio.py new`. `studio.py captions <slug> --timing words` replaces it with the cues\n"
+        "// once the narration is timed. Preset: specs/caption-presets.json, guide: docs/caption-design.md.\n"
+        "window.STUDIO_CAPTION_PRESET = " + json.dumps(cap["preset"], indent=2) + ";\n"
+        "window.STUDIO_CAPTIONS = [];\n", encoding="utf-8", newline="\n")
     cmd_sync(argparse.Namespace(slug=slug, force=True))
     cmd_formats(argparse.Namespace(slug=slug, size=None))
     print(f"\nScaffolded projects/{slug} as a {vtype['name']} ({fid}, target {vtype['target_sec']}s, "
@@ -614,6 +623,7 @@ def cmd_new(args: argparse.Namespace) -> int:
             print(f"Note: {fit}")
     else:
         print(f"Note: no category set. Add \"categories\" to brief.json (one or more of: {', '.join(load_categories())}) or re-run with --category.")
+    print(f"Captions are on: preset {cap['preset']['id']} (from style {style}); lanes and size per section are in docs/caption-design.md.")
     print("Next: fill brief.json (objective, audience, directions), then storyboard.json, then edit src/index.html.")
     print(f"      python scripts/studio.py validate {slug}")
     return 0
@@ -633,6 +643,64 @@ def font_families(text: str) -> List[str]:
 def composition_scripts(html: str) -> str:
     """Inline script bodies only (external _studio files are linted at the source)."""
     return "\n".join(re.findall(r"<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>", html, re.S))
+
+
+def read_captions_js(path: Path) -> Tuple[Optional[Dict[str, Any]], Optional[List[Dict[str, Any]]]]:
+    """(preset, cues) from src/captions.js, or None for a part that is missing or not JSON (a hand-written file)."""
+    text = path.read_text(encoding="utf-8")
+
+    def grab(name: str, opener: str, closer: str) -> Any:
+        m = re.search(r"window\." + name + r"\s*=\s*(" + re.escape(opener) + r".*?" + re.escape(closer) + r")\s*;", text, re.S)
+        try:
+            return json.loads(m.group(1)) if m else None
+        except ValueError:
+            return None
+    return grab("STUDIO_CAPTION_PRESET", "{", "}"), grab("STUDIO_CAPTIONS", "[", "]")
+
+
+def lint_captions(pdir: Path, project: Dict[str, Any], rep: Report) -> None:
+    """Caption checks for a film with captions on: file, preset, placement and cue length. Warnings only: a render, not the text, proves the look."""
+    cs = pipeline_module("caption_style")
+    spec = cs.load_spec()
+    pinned = (project.get("audio") or {}).get("caption_preset")
+    if pinned and pinned not in spec["presets"]:
+        rep.error(f"project.json audio.caption_preset '{pinned}' is not one of {', '.join(spec['presets'])} (specs/caption-presets.json).")
+        return
+    path = pdir / "src" / "captions.js"
+    if not path.exists():
+        rep.warn("captions are on but src/captions.js does not exist yet (`studio.py captions <slug> --timing words`).")
+        return
+    index = pdir / "src" / "index.html"
+    if index.exists() and "comp.captions" not in index.read_text(encoding="utf-8"):
+        rep.note("index.html draws its own caption band (no Studio.comp.captions), so the caption design checks are skipped; "
+                 "do not re-run `studio.py captions` over hand-keyed cues.")
+        return
+    preset, cues = read_captions_js(path)
+    if cues is None:
+        rep.note("src/captions.js is not machine-readable JSON (hand-written?); caption design checks skipped.")
+        return
+    if not cues:
+        if (pdir / "audio" / "timeline.json").exists():
+            rep.warn("captions are on but src/captions.js has no cues; run `studio.py captions <slug> --timing words`.")
+        return
+    fmts = project.get("formats") or [{"id": "landscape", "primary": True}]
+    fmt = next((f["id"] for f in fmts if f.get("primary")), fmts[0]["id"])
+    want = cs.pick_preset(project.get("style"), pinned, spec)
+    if not preset:
+        rep.warn("src/captions.js has no caption preset; re-run `studio.py captions` so the caption design applies.")
+    else:
+        if preset.get("id") != want:
+            rep.warn(f"src/captions.js was made with caption preset '{preset.get('id')}' but this film resolves to '{want}'; re-run `studio.py captions`.")
+        if preset.get("format") != fmt:
+            rep.warn(f"src/captions.js was made for {preset.get('format')}, the primary format is {fmt}; re-run `studio.py captions`.")
+    for message in cs.lint_cues(cues, fmt, preset, spec):
+        rep.warn(message)
+    if fmt != "portrait":
+        sbj = pdir / "storyboard.json"
+        if sbj.exists():
+            for sc in load_json(sbj).get("scenes", []):
+                if sc.get("caption_lane") == "mid":
+                    rep.note(f"storyboard scene {sc['id']}: caption_lane mid exists in portrait only; {fmt} uses lower.")
 
 
 def lint_composition(pdir: Path, project: Optional[Dict[str, Any]], rep: Report) -> None:
@@ -983,8 +1051,8 @@ def validate_project(pdir: Path) -> Report:
             rep.warn(f"music file {music['file']} not found (generated assets may be gitignored).")
         if not music.get("license"):
             rep.error("audio.music.license is required: record the licence and attribution of the track.")
-    if audio["captions"] and not (pdir / "src" / "captions.js").exists():
-        rep.warn("captions are on but src/captions.js does not exist yet (`studio.py captions` or author cues).")
+    if audio["captions"]:
+        lint_captions(pdir, project, rep)
 
     check_creative_artefacts(pdir, project, records, rep)
     integ = runtime_integrity(pdir)
@@ -1556,12 +1624,60 @@ def vtt_time(t: float) -> str:
     return f"{h:02d}:{m:02d}:{s:02d}.{ms:03d}"
 
 
+def caption_setup(pdir: Path, preset_arg: Optional[str] = None) -> Dict[str, Any]:
+    """Everything the caption design needs to know about a film: format, style, video type and the resolved preset.
+
+    Design system: specs/caption-presets.json, src/pipeline/caption_style.py, docs/caption-design.md."""
+    cs = pipeline_module("caption_style")
+    pj, bj = pdir / "project.json", pdir / "brief.json"
+    project = load_json(pj) if pj.exists() else {}
+    brief = load_json(bj) if bj.exists() else None
+    fmts = project.get("formats") or [{"id": "landscape", "primary": True}]
+    fmt = next((f["id"] for f in fmts if f.get("primary")), fmts[0]["id"])
+    pinned = preset_arg or (project.get("audio") or {}).get("caption_preset")
+    try:
+        preset = cs.resolve(project.get("style"), fmt, pinned)
+    except ValueError as exc:
+        raise SystemExit(f"Error: {exc}")
+    vtype = cs.video_type_of(brief, float(project.get("duration_sec") or 0), fmt)
+    sbj = pdir / "storyboard.json"
+    scenes = load_json(sbj).get("scenes", []) if sbj.exists() else []
+    return {"cs": cs, "format": fmt, "preset": preset, "video_type": vtype, "storyboard_scenes": scenes,
+            "pinned": pinned, "style": project.get("style")}
+
+
+def finish_captions(pdir: Path, cues: List[Dict[str, Any]], timeline: Dict[str, Any], head: str, setup: Dict[str, Any]) -> List[str]:
+    """Annotate the cues (role, lane, emphasis), write src/captions.js and captions/<slug>.vtt; return lint warnings."""
+    cs = setup["cs"]
+    spans = [{"start": sc["start_time_sec"], "end": sc["start_time_sec"] + sc["duration_sec"]} for sc in timeline["scenes"]]
+    cs.annotate(cues, fmt=setup["format"], scene_spans=spans, storyboard_scenes=setup["storyboard_scenes"])
+    body = ("window.STUDIO_CAPTION_PRESET = " + json.dumps(setup["preset"], indent=2, ensure_ascii=False) + ";\n"
+            "window.STUDIO_CAPTIONS = " + json.dumps(cues, indent=2, ensure_ascii=False) + ";\n")
+    (pdir / "src" / "captions.js").write_text(head + body, encoding="utf-8", newline="\n")
+    out = pdir / "captions"
+    out.mkdir(exist_ok=True)
+    lines = ["WEBVTT", ""]
+    for i, c in enumerate(cues, 1):
+        lines += [str(i), f"{vtt_time(c['start'])} --> {vtt_time(c['end'])}", c["text"], ""]
+    (out / f"{pdir.name}.vtt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    return cs.lint_cues(cues, setup["format"], setup["preset"])
+
+
+def describe_caption_design(setup: Dict[str, Any]) -> str:
+    pr = setup["preset"]
+    lanes = sorted({r["lane"] for r in pr["roles"].values()})
+    return (f"  caption design: preset {pr['id']}"
+            + (" (pinned)" if setup["pinned"] else f" (from style {setup['style'] or 'unset'})")
+            + f", {setup['format']}, lanes {'/'.join(lanes)}, {setup['video_type']} grouping")
+
+
 def captions_approx(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
     tl_path = pdir / "audio" / "timeline.json"
     if not tl_path.exists():
         raise SystemExit("Error: audio/timeline.json not found; synthesise narration first (scripts/build-audio.py).")
     timeline = load_json(tl_path)
+    setup = caption_setup(pdir, getattr(args, "preset", None))
     cues = []
     for sc in timeline["scenes"]:
         sentences = split_sentences(sc["text"])
@@ -1571,15 +1687,12 @@ def captions_approx(args: argparse.Namespace) -> int:
             d = sc["duration_sec"] * len(s) / total
             cues.append({"start": round(t, 3), "end": round(t + d, 3), "text": s})
             t += d
-    js = "// GENERATED by scripts/studio.py captions from audio/timeline.json.\n// Sentence timing is proportional to character count (approximate); use `hyperframes transcribe` for word timing.\nwindow.STUDIO_CAPTIONS = " + json.dumps(cues, indent=2, ensure_ascii=False) + ";\n"
-    (pdir / "src" / "captions.js").write_text(js, encoding="utf-8", newline="\n")
-    out = pdir / "captions"
-    out.mkdir(exist_ok=True)
-    lines = ["WEBVTT", ""]
-    for i, c in enumerate(cues, 1):
-        lines += [str(i), f"{vtt_time(c['start'])} --> {vtt_time(c['end'])}", c["text"], ""]
-    (out / f"{pdir.name}.vtt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+    head = "// GENERATED by scripts/studio.py captions from audio/timeline.json.\n// Sentence timing is proportional to character count (approximate); use `studio.py captions --timing words` for word timing.\n"
+    warns = finish_captions(pdir, cues, timeline, head, setup)
     print(f"Wrote {len(cues)} approximate cues to src/captions.js and captions/{pdir.name}.vtt")
+    print(describe_caption_design(setup))
+    for w in warns:
+        print(f"  WARN: {w}")
     return 0
 
 
@@ -1601,13 +1714,18 @@ def transcribe_clip(clip: Path, slug: str, model: str) -> List[Dict[str, Any]]:
 def cmd_captions(args: argparse.Namespace) -> int:
     """Captions from the narration. Default: approximate sentence cues. --timing words: measured word times."""
     # older callers pass only the slug, so every new option has a default
-    timing, grouping = getattr(args, "timing", "approx"), getattr(args, "grouping", "sentence")
-    model, max_words, retranscribe = getattr(args, "model", "small.en"), getattr(args, "max_words", 3), getattr(args, "retranscribe", False)
-    if timing == "approx" and grouping == "sentence":
+    timing, grouping = getattr(args, "timing", "approx"), getattr(args, "grouping", None)
+    model, max_words, retranscribe = getattr(args, "model", "small.en"), getattr(args, "max_words", None), getattr(args, "retranscribe", False)
+    if timing == "approx" and grouping in (None, "sentence"):
         return captions_approx(args)
     if timing == "approx":
         raise SystemExit("Error: phrase grouping needs measured word times; add --timing words.")
     pdir = project_dir(args.slug)
+    setup = caption_setup(pdir, getattr(args, "preset", None))
+    # The video type decides the grouping and the phrase length unless the flags say otherwise.
+    td = setup["cs"].type_defaults(setup["video_type"])
+    grouping = grouping or td["grouping"]
+    max_words = max_words or td.get("max_words", 3)
     tl_path = pdir / "audio" / "timeline.json"
     if not tl_path.exists():
         raise SystemExit("Error: audio/timeline.json not found; synthesise narration first (scripts/build-audio.py).")
@@ -1650,19 +1768,17 @@ def cmd_captions(args: argparse.Namespace) -> int:
         raise SystemExit("Error: caption cues are inconsistent: " + "; ".join(problems[:3]))
     head = ("// GENERATED by scripts/studio.py captions --timing words from audio/words.json.\n"
             f"// Word times are measured ({model}) and aligned to the script; grouping: {grouping}.\n"
-            "// Each cue carries its words, so Studio.comp.captions highlights the word being spoken.\n")
-    (pdir / "src" / "captions.js").write_text(head + "window.STUDIO_CAPTIONS = " + json.dumps(cues, indent=2, ensure_ascii=False) + ";\n", encoding="utf-8", newline="\n")
-    out = pdir / "captions"
-    out.mkdir(exist_ok=True)
-    lines = ["WEBVTT", ""]
-    for i, c in enumerate(cues, 1):
-        lines += [str(i), f"{vtt_time(c['start'])} --> {vtt_time(c['end'])}", c["text"], ""]
-    (out / f"{pdir.name}.vtt").write_text("\n".join(lines), encoding="utf-8", newline="\n")
+            "// Each cue carries its words, so Studio.comp.captions highlights the word being spoken.\n"
+            "// The preset (font, size, plate, lane per role) comes from specs/caption-presets.json; see docs/caption-design.md.\n")
+    warns = finish_captions(pdir, cues, timeline, head, setup)
     low = {k: v for k, v in coverage.items() if v < 0.8}
     print(f"Wrote {len(cues)} {grouping} cues with measured word times to src/captions.js, captions/{pdir.name}.vtt and audio/words.json")
     print("  recogniser match per scene: " + ", ".join(f"{k} {v:.0%}" for k, v in coverage.items()))
     if low:
         print(f"  WARN: scenes {', '.join(low)} matched under 80% of the script; unmatched words were interpolated. Listen to those scenes.")
+    print(describe_caption_design(setup))
+    for w in warns:
+        print(f"  WARN: {w}")
     return 0
 
 
@@ -2253,8 +2369,9 @@ def main() -> int:
     p = sub.add_parser("captions", help="Caption cues from narration: approximate sentences, or measured word times grouped into short phrases")
     p.add_argument("slug")
     p.add_argument("--timing", choices=["approx", "words"], default="approx", help="approx: split by character count (default). words: transcribe each narration clip locally and align the script to the measured word times")
-    p.add_argument("--grouping", choices=["sentence", "phrase"], default="sentence", help="phrase: 1-3 word reel captions (needs --timing words)")
-    p.add_argument("--max-words", dest="max_words", type=int, default=3, help="Words per phrase cue (default 3)")
+    p.add_argument("--grouping", choices=["sentence", "phrase"], default=None, help="phrase: 1-3 word reel captions (needs --timing words). Default: by video type, phrase for a reel or long reel, sentence for YouTube (specs/caption-presets.json type_defaults)")
+    p.add_argument("--max-words", dest="max_words", type=int, default=None, help="Words per phrase cue (default by video type: 3 for a reel, 4 for a long reel)")
+    p.add_argument("--preset", default=None, help="Caption preset id (specs/caption-presets.json). Default: project.json audio.caption_preset, else the one the style system maps to")
     p.add_argument("--model", default="small.en", help="Whisper model for --timing words (default small.en)")
     p.add_argument("--retranscribe", action="store_true", help="Ignore the cache in audio/words.json")
 

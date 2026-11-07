@@ -1,7 +1,7 @@
 {
   "id": "proof-canvas",
   "name": "Proof Canvas",
-  "version": 1,
+  "version": 2,
   "status": "experimental",
   "summary": "One mathematical object built step by step and then transformed, with every variable keeping its colour for the whole film. For theorems, probability, geometry and quantitative arguments.",
   "visual_job": {
@@ -148,6 +148,11 @@
       "pattern": "A headline that restates the narration.",
       "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
       "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+      "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+      "source": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "reference_projects": [
@@ -165,6 +170,12 @@
       "date": "2026-11-03",
       "change": "Initial version. Narration budget is the top of the deliberate (documentary) range, 27 words per 10 s, because the viewer needs time to think. Not yet calibrated against a film made to it: polya-recurrence (29-39 words per 10 s at am_adam 1.15) exceeds it in every scene.",
       "reason": "lessons-polya-recurrence-build; voice-director budgets"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-07",
+      "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+      "reason": "owner review of game-theory-trust 2026-11-07"
     }
   ],
   "tags": [
