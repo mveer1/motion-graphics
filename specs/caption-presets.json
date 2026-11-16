@@ -105,6 +105,7 @@
     }
   },
   "style_map": {
+    "sinew-lab": "clean-plate",
     "editorial-light": "clean-plate",
     "swiss-minimal": "clean-plate",
     "data-journalism": "clean-plate",
@@ -118,9 +119,10 @@
   },
   "fallback_preset": "clean-plate",
   "type_defaults": {
-    "reel": { "grouping": "phrase", "max_words": 3, "note": "Fast 1 to 3 word phrases; the voice carries the sentence, the caption carries the beat." },
-    "long-reel": { "grouping": "phrase", "max_words": 4, "note": "One more word per phrase than a reel so three minutes of flashing captions stays readable. Untested; revisit after the first long reel." },
-    "youtube": { "grouping": "sentence", "max_lines": 2, "note": "Sentence cues, at most two lines." }
+    "short": { "grouping": "phrase", "max_words": 3, "note": "Fast 1 to 3 word phrases; the voice carries the sentence, the caption carries the beat." },
+    "mid": { "grouping": "phrase", "max_words": 4, "note": "Portrait mid-form: one more word per phrase than short-form so up to three minutes of flashing captions stays readable. Untested; revisit after the first mid-form film." },
+    "mid-landscape": { "grouping": "sentence", "max_lines": 2, "note": "Landscape mid-form (YouTube, LinkedIn): sentence cues, at most two lines, like long-form." },
+    "long": { "grouping": "sentence", "max_lines": 2, "note": "Sentence cues, at most two lines. Over 5 minutes the captions are a reading aid, not a beat: keep them quiet and consistent." }
   },
   "lanes": {
     "note": "Fractions of the frame height. A lane is where the caption plate sits: `bottom_edge` is the lowest pixel of the plate (0.766 is 76.6 percent down the frame), `top_edge` the highest. Lower follows the format's safe_area.bottom in specs/format-presets.json.",

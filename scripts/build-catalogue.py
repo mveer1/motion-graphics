@@ -3,7 +3,7 @@
 shows the backlog in docs/project-ideas.md.
 
 Reads projects/*/ (brief.json, project.json, renders), specs/categories.json,
-specs/video-types.json (reel, long-reel, youtube; a second filter row and a badge on every tile)
+specs/video-types.json (short, mid, long; a second filter row and a badge on every tile)
 and docs/project-ideas.md. Writes one self-contained HTML file next to the delivered videos so
 the relative video links work. Runs anywhere; it only reads files (ffprobe is optional and
 used for the runtime of legacy projects that have no project.json).
@@ -53,12 +53,15 @@ COLORS = {
     "mathematics": "#2b2b2b",
     "news": "#0f7c8a",
     "storytelling": "#b5456b",
+    "fitness": "#e0552f",
 }
 
 
 # Accent per video type (specs/video-types.json). Every project gets one: its brief's video_type,
 # else the type its finished film's length falls in (type_for).
-TYPE_COLORS = {"reel": "#d9432b", "long-reel": "#2740c8", "youtube": "#12805c"}
+TYPE_COLORS = {"short": "#d9432b", "mid": "#2740c8", "long": "#12805c"}
+# Pre-2.0 ids (briefs and idea tags written before the three forms were renamed).
+LEGACY_TYPES = {"reel": "short", "long-reel": "mid", "youtube": "long"}
 # Progress, read from the files on disk: a stage (no finished film / finished film / finished film and a
 # passing creative review) plus a flag "rerender" when the only finished film is a superseded one in renders/history/.
 PROGRESS = [
@@ -170,7 +173,7 @@ def read_video_types():
     """The three supported types in spec order, with a short badge label."""
     spec = load_json(ROOT / "specs" / "video-types.json")
     margin = spec.get("margin_sec", 0)
-    shorts = {"reel": "Reel", "long-reel": "Long reel", "youtube": "YouTube"}
+    shorts = {"short": "Short", "mid": "Mid", "long": "Long"}
     out = []
     for tid, t in spec["types"].items():
         lo, hi = t["nominal_sec"]["min"], t["nominal_sec"].get("max")
@@ -181,10 +184,11 @@ def read_video_types():
 
 def type_for(v, types):
     """(type id, derived). The brief's video_type when it has one, else by the film's length:
-    up to a reel's 60 s -> reel (anything under 45 s is a short reel), up to 180 s -> long reel, longer -> YouTube."""
+    up to 60 s -> short, up to 180 s -> mid, longer -> long."""
     ids = {t["id"] for t in types}
-    if v["declared_type"] in ids:
-        return v["declared_type"], False
+    declared = LEGACY_TYPES.get(v["declared_type"], v["declared_type"])
+    if declared in ids:
+        return declared, False
     sec = v["film_sec"] or 0
     for t in types:
         if t["max"] is None or sec <= t["max"]:
@@ -213,7 +217,7 @@ def read_ideas(valid_ids, valid_types):
                 sys.exit(f"{IDEAS.name}:{n}: expected '- **Title** — pitch' under a '## category' heading")
             title, pitch = m.groups()
             length = re.search(r"\s*\[([a-z-]+)\]\s*$", pitch)
-            if not length or length.group(1) not in valid_types:
+            if not length or LEGACY_TYPES.get(length.group(1), length.group(1)) not in valid_types:
                 sys.exit(f"{IDEAS.name}:{n}: end the bullet with a length tag, one of {', '.join('[' + t + ']' for t in valid_types)}")
             pitch = pitch[: length.start()]
             also = re.search(r"\s*\(also: ([a-z, ]+)\)\s*$", pitch)
@@ -224,7 +228,7 @@ def read_ideas(valid_ids, valid_types):
                 if c not in valid_ids:
                     sys.exit(f"{IDEAS.name}:{n}: unknown category '{c}' in (also: ...)")
             ideas.append({"id": f"s{len(ideas)}", "title": title, "pitch": pitch.strip(), "topic": current,
-                          "also": extra, "type": length.group(1)})
+                          "also": extra, "type": LEGACY_TYPES.get(length.group(1), length.group(1))})
         elif not seen_heading:
             preamble.append(line)
     return "\n".join(preamble).rstrip() + "\n", ideas
@@ -696,7 +700,7 @@ show(tabs.some(t => t.dataset.panel === start) ? start : tabs[0].dataset.panel, 
 
   /* add, delete, undo */
   function addRow(preset = {}) {
-    const r = { id: newId(), title: '', pitch: '', topic: topic !== 'all' ? topic : 'technology', also: [], type: sheet !== 'all' ? sheet : 'reel', ...preset };
+    const r = { id: newId(), title: '', pitch: '', topic: topic !== 'all' ? topic : 'technology', also: [], type: sheet !== 'all' ? sheet : 'short', ...preset };
     rows.push(r); save(); render(r.id);
     const tr = $('tr[data-id="' + r.id + '"]', tbody);
     if (tr) { tr.scrollIntoView({ block: 'nearest' }); $('.cell', tr).focus(); }
@@ -739,7 +743,7 @@ show(tabs.some(t => t.dataset.panel === start) ? start : tabs[0].dataset.panel, 
   }
   const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '');
   const findCat = s => cats.find(c => norm(c.id) === norm(s) || norm(c.name) === norm(s) || norm(c.name).startsWith(norm(s)) && norm(s).length > 3);
-  const findType = s => types.find(t => norm(t.id) === norm(s) || norm(t.name) === norm(s) || norm(t.short) === norm(s)) || (/youtube|long.?form/i.test(s) ? typeById.youtube : /long/i.test(s) ? typeById['long-reel'] : /reel|short/i.test(s) ? typeById.reel : null);
+  const findType = s => types.find(t => norm(t.id) === norm(s) || norm(t.name) === norm(s) || norm(t.short) === norm(s)) || (/youtube|long.?form|^long$/i.test(s) ? typeById.long : /mid|long.?reel|focused/i.test(s) ? typeById.mid : /reel|short|micro/i.test(s) ? typeById.short : null);
   function pasteRows(text) {
     const lines = text.split(/\r?\n/).filter(l => l.trim());
     if (lines.length && /^idea\b/i.test(lines[0].split('\t')[0])) lines.shift();
@@ -748,7 +752,7 @@ show(tabs.some(t => t.dataset.panel === start) ? start : tabs[0].dataset.panel, 
       const [title = '', pitch = '', t = '', len = '', also = ''] = l.split('\t').map(s => s.trim());
       if (!title) return;
       const c = findCat(t), ty = findType(len);
-      rows.push({ id: newId(), title, pitch, topic: c ? c.id : (topic !== 'all' ? topic : 'technology'), type: ty ? ty.id : (sheet !== 'all' ? sheet : 'reel'),
+      rows.push({ id: newId(), title, pitch, topic: c ? c.id : (topic !== 'all' ? topic : 'technology'), type: ty ? ty.id : (sheet !== 'all' ? sheet : 'short'),
         also: also.split(/[,;]/).map(s => findCat(s.trim())).filter(x => x && (!c || x.id !== c.id)).map(x => x.id) });
       n++;
     });

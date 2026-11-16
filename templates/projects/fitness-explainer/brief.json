@@ -1,0 +1,98 @@
+{
+  "spec_version": 1,
+  "slug": "{{SLUG}}",
+  "title": "{{TITLE}}",
+  "objective": "TODO: what the viewer should understand or be able to do after watching, in one or two sentences.",
+  "audience": "TODO: who is watching and what they already know",
+  "platforms": [
+    "website",
+    "instagram-reels",
+    "instagram-feed"
+  ],
+  "deliverables": {
+    "formats": [
+      "landscape",
+      "portrait",
+      "square"
+    ],
+    "duration_sec": {
+      "min": 12,
+      "target": 16,
+      "max": 30
+    }
+  },
+  "message": {
+    "core_message": "TODO: the single idea the piece must land",
+    "key_points": [
+      "TODO: step or point 1",
+      "TODO: step or point 2"
+    ]
+  },
+  "tone": {
+    "emotional_response": [
+      "clarity",
+      "calm confidence"
+    ],
+    "keywords": [
+      "sinew",
+      "character-led",
+      "evidence-graded",
+      "light"
+    ],
+    "avoid": [
+      "dark backgrounds by default",
+      "activation percentages",
+      "medical advice or diagnosis",
+      "mascot comedy during evidence beats",
+      "filler motion"
+    ]
+  },
+  "constraints": [
+    "Readable with sound off",
+    "Every claim carries its evidence grade and source line (fitness research protocol)",
+    "General education, not individual medical advice"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": {
+    "narration": "optional",
+    "music": "optional",
+    "sfx": "optional",
+    "captions": false
+  },
+  "research": {
+    "required": false,
+    "reason": "scripts/fitness.py new sets this to true and writes research/dossier.json: every fitness film is researched (fitness research protocol)."
+  },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "TODO: direction name",
+      "concept": "TODO: one paragraph describing the idea, the visual metaphor and why it serves the objective.",
+      "visual_identity": {
+        "style_system": "{{STYLE}}",
+        "palette": "TODO",
+        "typography": "TODO",
+        "texture": "TODO"
+      },
+      "motion_language": {
+        "personality": "TODO",
+        "signature_moves": [
+          "TODO"
+        ],
+        "transitions": "TODO"
+      },
+      "composition": {
+        "approach": "TODO: how space is used in each format"
+      },
+      "pacing": "TODO",
+      "why_it_fits": "TODO"
+    }
+  ],
+  "selected_direction": null,
+  "success_criteria": [
+    "Each step is readable at phone size",
+    "The ending holds for at least 2 seconds"
+  ]
+}

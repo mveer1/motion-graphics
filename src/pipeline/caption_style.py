@@ -5,7 +5,7 @@ in docs/caption-design.md. This module is the pure-Python half of it:
 
   load_spec        read specs/caption-presets.json
   pick_preset      pinned id, else the style map, else the fallback
-  video_type_of    reel / long-reel / youtube from the brief, else from the project's length and format
+  video_type_of    short / mid / long from the brief (legacy reel / long-reel / youtube accepted), else from the project's length and format
   resolve          the small object written to src/captions.js as window.STUDIO_CAPTION_PRESET
   annotate         add a role (hook / body / outro), an optional lane and emphasis flags to cues
   lint_cues        warnings for cues that will not fit the preset in the film's format
@@ -42,18 +42,31 @@ def pick_preset(style: Optional[str], pinned: Optional[str] = None, spec: Option
     return spec["style_map"].get(style or "", spec["fallback_preset"])
 
 
+LEGACY_TYPES = {"reel": "short", "long-reel": "mid", "youtube": "long"}
+FORMS = ("short", "mid", "long")
+
+
 def video_type_of(brief: Optional[Dict[str, Any]], duration_sec: float, fmt: str) -> str:
+    """short / mid / long. The brief's video_type wins (legacy ids are translated); else the film's length."""
     vt = ((brief or {}).get("deliverables") or {}).get("video_type")
-    if vt in ("reel", "long-reel", "youtube"):
+    vt = LEGACY_TYPES.get(vt, vt)
+    if vt in FORMS:
         return vt
-    if fmt == "landscape" or duration_sec > 180:
-        return "youtube"
-    return "reel" if duration_sec <= 60 else "long-reel"
+    if duration_sec >= 285:
+        return "long"
+    if duration_sec > 195 and fmt == "landscape":
+        return "long"
+    return "short" if duration_sec <= 60 else "mid"
 
 
-def type_defaults(vtype: str, spec: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+def type_defaults(vtype: str, spec: Optional[Dict[str, Any]] = None, fmt: Optional[str] = None) -> Dict[str, Any]:
+    """Caption grouping for a form; mid-form landscape reads like a YouTube film, so it has its own entry."""
     spec = spec or load_spec()
-    return spec["type_defaults"].get(vtype, spec["type_defaults"]["reel"])
+    vtype = LEGACY_TYPES.get(vtype, vtype)
+    table = spec["type_defaults"]
+    if vtype == "mid" and fmt == "landscape" and "mid-landscape" in table:
+        return table["mid-landscape"]
+    return table.get(vtype, table["short"])
 
 
 def lane_for(role: str, fmt: str, spec: Dict[str, Any]) -> str:

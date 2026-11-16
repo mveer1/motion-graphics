@@ -1,0 +1,55 @@
+{
+  "id": "skill-fitness-anatomy",
+  "name": "Fitness anatomy skill",
+  "component_type": "skill",
+  "purpose": "How Tibi's body and anatomy are built and shown: one continuous skin, activation gradients, cutaways, isolation, skeleton, the colour language and the acceptance tests.",
+  "capabilities": [
+    "One-skin anatomy architecture",
+    "Four visualization modes",
+    "Muscle table and cut windows",
+    "Visual language for skin, effort, anatomy and measurement"
+  ],
+  "location": ".claude/skills/fitness-anatomy",
+  "version": "1.0.0",
+  "dependencies": [
+    "shared-fitness-kit",
+    "tool-anatomy3d-check",
+    "threejs"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Exercised on the 2026-11-13 anatomy and studio upgrade (lower-body films, lab clips, comparisons)."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness-anatomy/SKILL.md",
+    "docs/fitness-studio.md",
+    "assets/fitness/STYLE.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads and writes project files; no network."
+  },
+  "approval_evidence": "Used to re-render the nine regression videos on 2026-11-13; see docs/fitness-studio.md section 4.",
+  "tags": [
+    "fitness",
+    "sinew"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

@@ -79,7 +79,12 @@ def align(tokens: List[Dict[str, Any]], asr: Sequence[Dict[str, Any]], span: Tup
         _share(tokens, times, 0, n, span[0], span[1])
     else:
         _fill_gaps(tokens, times, span)
-    return [t if t is not None else span for t in times], matched / n
+    # Whisper can stretch a scene's last word past the end of its clip (seen 2026-11-12: "moves." ended 0.5 s after
+    # its clip, overlapping the next scene's first cue). Every time stays inside the scene's own span.
+    lo, hi = float(span[0]), float(span[1])
+    clamp = lambda x: min(max(x, lo), hi)  # noqa: E731
+    out = [t if t is not None else span for t in times]
+    return [(clamp(a), max(clamp(a), clamp(b))) for a, b in out], matched / n
 
 
 def _share(tokens: List[Dict[str, Any]], times: List[Optional[Tuple[float, float]]], i1: int, i2: int, t0: float, t1: float) -> None:

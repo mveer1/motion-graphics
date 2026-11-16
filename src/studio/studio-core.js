@@ -15,7 +15,7 @@
   'use strict';
 
   var Studio = global.Studio || (global.Studio = {});
-  Studio.version = '1.3.0';
+  Studio.version = '1.9.0';   // 1.9.0: anatomy 1.0 (one skin, cutaways, isolation), phase machine, scene library, instructional overlays, frame-0 title cards;    // 1.8.0: 3D lower body (glute, adductor, soleus, heel lift, chest-frame IK, squat, hip thrust, calf raises), film3d.js
 
   // Mirrors specs/format-presets.json; used only when the generated #studio-format block is missing.
   var SAFE_DEFAULTS = {

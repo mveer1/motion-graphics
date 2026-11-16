@@ -24,7 +24,7 @@ Two tracks share one toolchain (details: `ARCHITECTURE.md` section 0):
 2. `brief.json` (Stage 0) records:
    - objective, audience, categories and platforms;
    - formats: only those asked for, default portrait;
-   - `deliverables.video_type` (`reel`, `long-reel` or `youtube`, `specs/video-types.json`) and `deliverables.duration_sec`: a reel is 45-60 s and prefers 45 s (60 s only for a complicated topic), a long reel is 60-180 s, a YouTube video is over 180 s, each with a 15 s margin; the type fixes the platform and format (portrait for reels, landscape for YouTube);
+   - `deliverables.video_type` (`short`, `mid` or `long`, `specs/video-types.json`, guide `docs/video-forms.md`) and `deliverables.duration_sec`: short-form is 20-60 s (45 s preferred, portrait), mid-form is 60-180 s (portrait or landscape) and long-form is 5-12 minutes (landscape, told in `storyboard.json` `chapters`, rendered in resumable segments), each with a 15 s margin; the form fixes the allowed platforms and formats; each form has its own playbook skill (`short-form`, `mid-form`, `long-form`). The old ids `reel`, `long-reel` and `youtube` still work;
    - 1-3 genuinely distinct creative directions, the selected one and why.
 
    Pin a style template (`studio.py style recommend|adopt`): it fixes the scene grammar and the pacing rules the story is checked against. Pick a registered style system (default `editorial-light`: off-white or lighter background with warm, high-contrast, vibrant colors; dark themes only when explicitly requested). Narration only when the brief asks for it.
@@ -76,6 +76,8 @@ Every explainer video produced in this repository must follow the phased lifecyc
 Specialized skills are available under `.claude/skills/`:
 - **`workspace-steward`**: Workspace-wide governance over component discovery, 7-domain placement policy, registration, licensing audit, architecture documentation, and automated drift detection (`scripts/workspace-governance.py`).
 - **`technical-researcher`**: Stage 0 deep research, mathematical truth verification, visual metaphor archetypes, and `research.json` schema validation. Answers the story-writer's research requests; writes no scene plan.
+- **`fitness`**: entry point for fitness, exercise-science, running and gym films in the Sinew brand (mascot Tibi): pillar and form classification, brand and kit routing, evidence-graded research dossier, and the 10-dimension fitness rubric on top of the normal lifecycle (`scripts/fitness.py`, `specs/fitness-spec.json`, runtime kit `src/studio/kits/fitness/`).
+- **`short-form` / `mid-form` / `long-form`**: the three forms' playbooks for storytelling, scripting, pacing and editing (`specs/video-types.json`, `docs/video-forms.md`). Subject knowledge comes from the category and style template; the form decides structure, length, re-hook cadence and budget.
 - **`story-writer`** (subagent `.claude/agents/story-writer.md`, rulebook `.claude/skills/story-writer/`): phase-2 story lead. Owns the arc, beat map, hook, goal and share reason, planned visual beats, narration words and packaging; signs off in `qa/story-review.json`; runs `retro` after a creative review and keeps the story lessons log.
 - **`motion-library-guide`**: Capability catalogue navigation, dependency vetting, approval states (approved/proposed/blocked), verified licensing, and deterministic GSAP animation recipes.
 - **`motion-graphics-designer`**: Color palettes, layout rules, GSAP 3 animation patterns, and deterministic PRNG rules.

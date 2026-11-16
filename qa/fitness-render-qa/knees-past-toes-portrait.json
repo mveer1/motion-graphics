@@ -1,0 +1,37 @@
+{
+ "file": "out/knees-past-toes-portrait.mp4",
+ "failures": [],
+ "notes": [],
+ "stats": {
+  "container": {
+   "codec": "h264",
+   "pix_fmt": "yuv420p",
+   "size": "720x1280",
+   "r_frame_rate": "30",
+   "avg_frame_rate": "30.000",
+   "duration": 52.6,
+   "audio": true,
+   "audio_duration": 52.6
+  },
+  "frozen": {
+   "intervals": [
+    [
+     50.97,
+     52.6
+    ]
+   ],
+   "over_limit": []
+  },
+  "black": [],
+  "sampled_frames": 526,
+  "start": {
+   "change_first_0.2s": 0.01,
+   "typical_3_frame_step": 1.19
+  },
+  "cuts": [],
+  "motion": {
+   "share_of_seconds_moving": 0.98
+  },
+  "loudness_lufs": -17.3
+ }
+}

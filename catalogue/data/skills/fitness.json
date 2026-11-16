@@ -1,0 +1,72 @@
+{
+  "id": "skill-fitness",
+  "name": "Fitness (Sinew) Orchestration Skill",
+  "component_type": "skill",
+  "purpose": "Entry point for fitness, exercise-science, running and gym films in the Sinew brand (mascot Tibi): classifies the topic into a pillar and form, loads the brand, routes kit assets and visual systems, and runs the studio pipeline with the fitness research protocol, evidence grades and the 10-dimension quality rubric on top.",
+  "capabilities": [
+    "/fitness <topic> [short|mid|long]",
+    "Pillar and form classification (specs/fitness-spec.json)",
+    "Brand, character and visual-system references",
+    "Research protocol with evidence grading and dossier",
+    "Fitness storytelling patterns (explainer, myth-bust, tutorial)",
+    "Quality rubric with critical science/anatomy/biomechanics dimensions",
+    "Brand sound (scripts/sinew_sound.py) and sheet renderer (scripts/render-sheets.mjs)",
+    "Capability routing: loads anatomy, animation, QA and publish skills on demand",
+    "Exercise knowledge plans (fitness.py exercise)"
+  ],
+  "location": ".claude/skills/fitness",
+  "version": "2.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .claude/skills/fitness."
+  },
+  "dependencies": [
+    "shared-fitness-kit",
+    "shared-studio-runtime",
+    "skill-fitness-anatomy",
+    "skill-fitness-animation",
+    "skill-fitness-publish",
+    "skill-fitness-qa",
+    "skill-mid-form",
+    "skill-story-writer",
+    "skill-technical-researcher",
+    "tool-fitness-cli"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Exercised end to end on projects/how-muscles-grow (2026-11-08): research, story, Kokoro audio, captions, HyperFrames render, QA gates, review."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/SKILL.md",
+    ".claude/skills/fitness/references/brand-guidelines.md",
+    ".claude/skills/fitness/references/research-protocol.md",
+    ".claude/skills/fitness/references/quality-rubric.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace-authored."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Scripts write project files and previews; sheet rendering starts headless Chrome under the host render lock. No network except Google Fonts in sheet previews."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "One film (how-muscles-grow) rendered and reviewed on the M2 render host, 2026-11-08. Promote after three films pass the fitness rubric.",
+  "architecture_ref": "ARCHITECTURE.md#capability-model",
+  "last_verified": "2026-11-08",
+  "tags": [
+    "fitness",
+    "sinew",
+    "mascot",
+    "anatomy",
+    "exercise",
+    "orchestration"
+  ]
+}

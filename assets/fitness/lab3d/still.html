@@ -1,0 +1,21 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Tibi 3D still</title>
+<style>html,body{margin:0;background:#F6F3EC}</style>
+<script src="../../../src/studio/vendor/three.min.js"></script>
+<script src="../../../src/studio/kits/fitness/brand.js"></script>
+<script src="../../../src/studio/kits/fitness/tibi3d.js"></script>
+<script src="../../../src/studio/kits/fitness/anatomy3d.js"></script>
+<script src="../../../src/studio/kits/fitness/exercises3d.js"></script>
+</head><body><div id="h"></div>
+<script>
+/* Still-frame bench for the 3D rig: ?ex=curl&t=1.2&shot=three&az=..&el=..&g=m&w=480&h=640  (the Chrome headless screenshot is the product) */
+var q = new URLSearchParams(location.search), W = +(q.get('w') || 480), H = +(q.get('h') || 640);
+var T3 = Studio.kit.fitness.t3d;
+var st = T3.stage(document.getElementById('h'), { width: W, height: H });
+var sc = T3.scene(st, q.get('ex') || 'curl', { gender: q.get('g') || 'm', shot: q.get('shot') || null, reps: 2 });
+var c = st.cam;
+['az', 'el', 'dist', 'fov', 'tx', 'ty', 'tz'].forEach(function (k) { if (q.get(k) !== null) c[k] = +q.get(k); });
+var v = sc.motion.at(+(q.get('t') || 0));
+sc.fig.apply(v); st.render();
+document.title = 'ready';
+</script></body></html>

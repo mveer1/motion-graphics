@@ -1,0 +1,27 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="900" data-fps="30" data-duration="1" data-still="0.5"><svg id="stage" width="1600" height="900" viewBox="0 0 1600 900"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, G=K.graphics, P=K.palette;
+  var defs=S.svg('defs',{},st);
+  [['gym',0,0],['track',800,0],['outdoor',0,450],['plate',800,450]].forEach(function(e,i){
+    var clip=S.svg('clipPath',{id:'e'+i},defs); S.svg('rect',{x:0,y:0,width:1280,height:720},clip);
+    var g=S.svg('g',{transform:'translate('+e[1]+' '+e[2]+') scale(0.625)'},st);
+    var inner=S.svg('g',{'clip-path':'url(#e'+i+')'},g);
+    var env=G.env[e[0]](inner,{w:1280,h:720,floor:600});
+    var view=e[0]==='plate'?'front':'side';
+    var t=K.sculpt(inner,{gender:i%2?'female':'male',view:view,x:e[0]==='plate'?640:620,floor:e[0]==='plate'?640:(env.floor||600),scale:1});
+    if(e[0]==='track'){ var ex=K.exercise(t,'jog'); ex.run(tl,0,0.73); }
+    if(e[0]==='outdoor'){ var ex2=K.exercise(t,'walk'); ex2.run(tl,0,1.08); }
+    if(e[0]==='gym'){ var ex3=K.exercise(t,'dumbbell-curl'); ex3.reps(tl,0,1); t.activate(tl,ex3.acts,0.2,0.4); }
+    var lb=S.svg('text',{x:e[1]+20,y:e[2]+40,'font-family':'Outfit','font-weight':800,'font-size':26,fill:P.ink},st); lb.textContent=e[0];
+  });
+  tl.to({},{duration:1},0);
+});
+</script></body></html>

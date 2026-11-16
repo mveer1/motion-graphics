@@ -41,8 +41,8 @@
       "properties": {
         "video_type": {
           "type": "string",
-          "enum": ["reel", "long-reel", "youtube"],
-          "description": "Which of the three supported types this is (specs/video-types.json): reel = Instagram reel 45-60 s, long-reel = Instagram 60-180 s, youtube = over 180 s, each with a 15 s margin. Fixes the platform (instagram-reels or youtube), the format (portrait or landscape) and the allowed length. Required for new projects (studio.py new --type); a legacy brief without it only draws a validate warning."
+          "enum": ["short", "mid", "long", "reel", "long-reel", "youtube"],
+          "description": "Which of the three forms this is (specs/video-types.json): short = 20-60 s portrait (micro explainer), mid = 60-180 s portrait or landscape (focused explainer), long = 5-12 min landscape (documentary or deep dive), each with a 15 s margin. Fixes the allowed platforms, formats and length. reel, long-reel and youtube are the pre-2.0 ids of short, mid and long and are still read. Required for new projects (studio.py new --type); a legacy brief without it only draws a validate warning."
         },
         "formats": {
           "type": "array",

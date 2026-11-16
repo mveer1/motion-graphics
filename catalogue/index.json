@@ -453,9 +453,9 @@
     "threejs": {
       "id": "threejs",
       "name": "Three.js 3D WebGL Library",
-      "version": "0.160.0",
+      "version": "0.158.0",
       "category": "webgl_3d",
-      "status": "proposed",
+      "status": "experimental",
       "licensing": {
         "spdx_identifier": "MIT",
         "status": "verified",
@@ -467,33 +467,36 @@
         "https://threejs.org/docs/"
       ],
       "runtime_environment": {
-        "type": "browser_module",
-        "bundle_size_kb": 650.0
+        "type": "browser_script",
+        "vendored_path": "src/studio/vendor/three.min.js",
+        "npm_package": "three",
+        "bundle_size_kb": 636.3
       },
       "rendering_constraints": {
-        "max_memory_mb": 2200,
+        "max_memory_mb": 1500,
         "target_fps": 30,
-        "headless_chromium_compatible": false,
-        "deterministic_mode_supported": false,
-        "notes": "Headless Chromium WebGL context creation with ANGLE Metal on 8GB Apple Silicon risks exceeding memory budgets (>2GB) and frame-capture synchronization is unverified without custom RAF interception."
+        "headless_chromium_compatible": true,
+        "deterministic_mode_supported": true,
+        "notes": "Verified 2026-11-12 on the M2 render host: hyperframes snapshot and render capture real WebGL pixels (software/hardware GL in the HyperFrames headless Chrome). The figure is a pure function of film time (motion tracks evaluated in one tween's property setter, because HyperFrames seeks with totalTime(t, true), which suppresses GSAP callbacks). projects/lab-3d-motion: 564 frames, 720x1280, capture 25-27 s, first compile 3m53s (Google Fonts fetch, cached afterwards 0.1 s), total 26-46 s. r158 is the last release with a classic global build (prints a deprecation notice). Peak memory was not measured; 1500 is the workspace render budget, not an observation."
       },
       "compatibility": {
-        "apple_silicon_tested": false,
-        "hyperframes_compatible": false,
-        "low_memory_mode_compatible": false
+        "apple_silicon_tested": true,
+        "hyperframes_compatible": true,
+        "low_memory_mode_compatible": true
       },
-      "justification": "PROPOSED ONLY: Candidate for true 3D spatial models. NOT currently approved for production because WebGL context management on 8GB Unified RAM exceeds the 1.5 GB memory budget and lacks verified HyperFrames timeline synchronization hooks.",
+      "justification": "EXPERIMENTAL: carries the 3D Tibi (src/studio/kits/fitness/tibi3d.js) because the 2D rig's art swaps pop on curls, presses and raises. Promote to approved after one full 3D film is built, reviewed and passes the fitness rubric. The earlier concerns (memory above 2 GB, frame capture sync unverified) did not materialise on this host.",
       "effects_provided": [],
       "metadata": {
         "author": "MotionLab",
         "created_at": "2026-10-30",
-        "updated_at": "2026-10-30",
+        "updated_at": "2026-11-12",
         "tags": [
           "3d",
           "webgl",
-          "proposed",
+          "experimental",
           "mesh",
-          "camera"
+          "camera",
+          "fitness"
         ]
       }
     }
@@ -5681,6 +5684,72 @@
         "staging"
       ]
     },
+    "skill-fitness": {
+      "id": "skill-fitness",
+      "name": "Fitness (Sinew) Orchestration Skill",
+      "component_type": "skill",
+      "purpose": "Entry point for fitness, exercise-science, running and gym films in the Sinew brand (mascot Tibi): classifies the topic into a pillar and form, loads the brand, routes kit assets and visual systems, and runs the studio pipeline with the fitness research protocol, evidence grades and the 10-dimension quality rubric on top.",
+      "capabilities": [
+        "/fitness <topic> [short|mid|long]",
+        "Pillar and form classification (specs/fitness-spec.json)",
+        "Brand, character and visual-system references",
+        "Research protocol with evidence grading and dossier",
+        "Fitness storytelling patterns (explainer, myth-bust, tutorial)",
+        "Quality rubric with critical science/anatomy/biomechanics dimensions",
+        "Brand sound (scripts/sinew_sound.py) and sheet renderer (scripts/render-sheets.mjs)"
+      ],
+      "location": ".claude/skills/fitness",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .claude/skills/fitness."
+      },
+      "dependencies": [
+        "tool-fitness-cli",
+        "shared-fitness-kit",
+        "shared-studio-runtime",
+        "skill-story-writer",
+        "skill-technical-researcher",
+        "skill-mid-form"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Exercised end to end on projects/how-muscles-grow (2026-11-08): research, story, Kokoro audio, captions, HyperFrames render, QA gates, review."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/SKILL.md",
+        ".claude/skills/fitness/references/brand-guidelines.md",
+        ".claude/skills/fitness/references/research-protocol.md",
+        ".claude/skills/fitness/references/quality-rubric.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace-authored."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Scripts write project files and previews; sheet rendering starts headless Chrome under the host render lock. No network except Google Fonts in sheet previews."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "One film (how-muscles-grow) rendered and reviewed on the M2 render host, 2026-11-08. Promote after three films pass the fitness rubric.",
+      "architecture_ref": "ARCHITECTURE.md#capability-model",
+      "last_verified": "2026-11-08",
+      "tags": [
+        "fitness",
+        "sinew",
+        "mascot",
+        "anatomy",
+        "exercise",
+        "orchestration"
+      ]
+    },
     "skill-genjutsu": {
       "id": "skill-genjutsu",
       "name": "Genjutsu (Creative Coding & Multi-Agent Framework)",
@@ -6266,6 +6335,109 @@
         "phonetics"
       ]
     },
+    "skill-long-form": {
+      "id": "skill-long-form",
+      "name": "Long-Form Playbook Skill",
+      "component_type": "skill",
+      "purpose": "Storytelling, scripting, pacing, editing and render rules for 5-12 minute landscape documentaries and deep dives told in chapters.",
+      "capabilities": [
+        "Chapter structure, budgets and re-hooks",
+        "Cold open and resolution rules",
+        "Per-chapter authoring and segmented render workflow",
+        "Length-aware frame review"
+      ],
+      "location": ".claude/skills/long-form",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .claude/skills/long-form."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Instructional skill over specs/video-types.json, scripts/render-segments.py and storyboard chapters. Uncalibrated: the render path was verified on a 22 s film in segments; no 12-minute film has been finished."
+      },
+      "documentation_urls": [
+        ".claude/skills/long-form/SKILL.md",
+        "docs/video-forms.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace-authored."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional guidance only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-11-07",
+      "tags": [
+        "captions",
+        "typography",
+        "safe-area",
+        "subtitles"
+      ]
+    },
+    "skill-mid-form": {
+      "id": "skill-mid-form",
+      "name": "Mid-Form Playbook Skill",
+      "component_type": "skill",
+      "purpose": "Storytelling, scripting, pacing and editing rules for 60-180 s focused explainers in portrait or landscape (Hook, Context, Explanation, Demonstration, Conclusion).",
+      "capabilities": [
+        "Mid-form structure and the demonstration beat",
+        "Format choice (portrait or landscape) per platform",
+        "Re-hook cadence and complexity budget"
+      ],
+      "location": ".claude/skills/mid-form",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .claude/skills/mid-form."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Instructional skill over specs/video-types.json. Uncalibrated: no mid-form film has been finished under this form yet."
+      },
+      "documentation_urls": [
+        ".claude/skills/mid-form/SKILL.md",
+        "docs/video-forms.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace-authored."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional guidance only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-11-07",
+      "tags": [
+        "captions",
+        "typography",
+        "safe-area",
+        "subtitles"
+      ]
+    },
     "skill-motion-design": {
       "id": "skill-motion-design",
       "name": "Motion Design Principles & Choreography",
@@ -6654,6 +6826,57 @@
         "knowledge-base",
         "techniques",
         "rights"
+      ]
+    },
+    "skill-short-form": {
+      "id": "skill-short-form",
+      "name": "Short-Form Playbook Skill",
+      "component_type": "skill",
+      "purpose": "Storytelling, scripting, pacing and editing rules for 20-60 s portrait micro explainers (Hook, Explanation, Payoff).",
+      "capabilities": [
+        "Short-form structure and length rules",
+        "Complexity budget and re-hook handoff to story-writer",
+        "Caption and safe-area defaults for portrait"
+      ],
+      "location": ".claude/skills/short-form",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Installed in workspace under .claude/skills/short-form."
+      },
+      "dependencies": [],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "agent-host",
+        "notes": "Instructional skill over specs/video-types.json and the story-writer rulebook. Calibrated on the existing reels."
+      },
+      "documentation_urls": [
+        ".claude/skills/short-form/SKILL.md",
+        "docs/video-forms.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "MIT",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Workspace-authored."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Instructional guidance only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+      "architecture_ref": "ARCHITECTURE.md#s3",
+      "last_verified": "2026-11-07",
+      "tags": [
+        "captions",
+        "typography",
+        "safe-area",
+        "subtitles"
       ]
     },
     "skill-story-writer": {
@@ -7532,6 +7755,66 @@
         "ebur128"
       ]
     },
+    "tool-fitness-cli": {
+      "id": "tool-fitness-cli",
+      "name": "Fitness CLI (scripts/fitness.py)",
+      "component_type": "tool",
+      "purpose": "Deterministic half of the /fitness skill: classify a topic, print the production plan, scaffold a Sinew project, regenerate the kit's library.js, check the asset manifest against the kit, validate the research dossier and the quality review, and render the brand sheets.",
+      "capabilities": [
+        "fitness.py classify|plan \"<topic>\" [--type T]",
+        "fitness.py new <slug> --topic ... --type ...",
+        "fitness.py library [--check]",
+        "fitness.py check",
+        "fitness.py assets [--kind K] [--query Q]",
+        "fitness.py dossier <slug>",
+        "fitness.py review <slug> [--init]",
+        "fitness.py sheets [--only NAME]",
+        "fitness.py rig3d check|stills"
+      ],
+      "location": "scripts/fitness.py",
+      "version": "1.0.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+      },
+      "dependencies": [
+        "tool-studio-cli",
+        "tool-hyperframes"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12; node + puppeteer-core from the hyperframes install for sheets",
+        "notes": "sheets takes the host render lock (src/pipeline/hostlock.py)."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/SKILL.md",
+        "CLAUDE.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes inside projects/<slug>/, src/studio/kits/fitness/library.js and assets/fitness/."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Used to build projects/how-muscles-grow and covered by tests/test-fitness.py (2026-11-08).",
+      "architecture_ref": "ARCHITECTURE.md",
+      "last_verified": "2026-11-08",
+      "tags": [
+        "fitness",
+        "cli",
+        "qa",
+        "assets"
+      ]
+    },
     "tool-frame-review": {
       "id": "tool-frame-review",
       "name": "Frame Review (preview-grade visual QA)",
@@ -7743,6 +8026,55 @@
         "search",
         "validation",
         "export"
+      ]
+    },
+    "tool-motion-continuity": {
+      "id": "tool-motion-continuity",
+      "name": "Pop detector (scripts/motion-continuity.py)",
+      "component_type": "tool",
+      "purpose": "Finds pops in any rendered film: per frame, changed pixels with no motion beside them in the previous frames. patch mode finds filled patches (colour snaps, parts appearing); edge mode also reports thin outline swaps with false positives on fast limbs. Reports evidence, never certifies.",
+      "capabilities": [
+        "motion-continuity.py <video> [--range a,b] [--roi y0,y1] [--mode patch|edge] [--sheet out.png]"
+      ],
+      "location": "scripts/motion-continuity.py",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+      },
+      "dependencies": [
+        "tool-ffmpeg"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python with numpy and Pillow (.venv/bin/python); ffmpeg and ffprobe",
+        "notes": "Light job: decodes at 240 px wide."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/references/motion-3d.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Reads a video, writes an optional PNG."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Measured 2026-11-12 on the 2D upper-body-workout film (edge mode flags the press, curl and raise art swaps, confirmed by eye) and the 3D lab film (patch mode found a 0.2 s activation colour snap, since fixed); tests/test-rig3d.py has a synthetic pop and a smooth control.",
+      "architecture_ref": "ARCHITECTURE.md",
+      "last_verified": "2026-11-12",
+      "tags": [
+        "fitness",
+        "3d",
+        "qa"
       ]
     },
     "tool-motion-qa": {
@@ -8014,6 +8346,160 @@
         "hyperframes",
         "low-memory",
         "chromium"
+      ]
+    },
+    "tool-render-segments": {
+      "id": "tool-render-segments",
+      "name": "Segmented render",
+      "component_type": "tool",
+      "purpose": "Renders a long film (over 180 s) in checkpointed segments of about 90 s cut at scene edges, resumes an interrupted render at the first unfinished segment, joins them with a stream copy and checks the frame count. Called by studio.py build in place of a single hyperframes render.",
+      "capabilities": [
+        "--segment-sec N [--format] [--output] [--dry-run] [--keep]",
+        "resumes from renders/<format>/chunks/ while the render fingerprint is unchanged",
+        "verifies each segment and the joined track frame count"
+      ],
+      "location": "scripts/render-segments.py",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; no separate installation."
+      },
+      "dependencies": [
+        "tool-hyperframes",
+        "tool-ffmpeg",
+        "tool-studio-cli",
+        "tool-session-guard"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "python3.12 + hyperframes + ffmpeg",
+        "notes": "Verified on a 22 s film in 8 s segments on the M2 host (660 frames; PSNR against a single-pass render 43 dB or better, no change at the cuts; kill and resume tested). Not yet run on a 5-12 minute film."
+      },
+      "documentation_urls": [
+        "docs/video-forms.md",
+        "specs/video-types.json"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes only under projects/<slug>/renders/."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "Segment join and resume exercised on style-sample-chronicle (2026-11-08). Experimental until a 5-12 minute film has been built through it.",
+      "architecture_ref": "docs/video-forms.md",
+      "last_verified": "2026-11-08",
+      "tags": [
+        "render",
+        "long-form"
+      ]
+    },
+    "tool-rig3d-check": {
+      "id": "tool-rig3d-check",
+      "name": "3D Tibi numeric QA (scripts/rig3d-check.js)",
+      "component_type": "tool",
+      "purpose": "Checks the 3D Tibi without rendering: per-frame continuity (teleporting joints), activation colour steps, muscle presence and size, planted soles, IK reach, joint limits and per-exercise assertions.",
+      "capabilities": [
+        "fitness.py rig3d check [exercise ...] (node, exit 1 on failure)"
+      ],
+      "location": "scripts/rig3d-check.js",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+      },
+      "dependencies": [
+        "shared-fitness-kit",
+        "threejs"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
+        "notes": "stills take the host render lock."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/references/motion-3d.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes qa/rig3d/ contact sheets only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+      "architecture_ref": "ARCHITECTURE.md",
+      "last_verified": "2026-11-12",
+      "tags": [
+        "fitness",
+        "3d",
+        "qa"
+      ]
+    },
+    "tool-rig3d-stills": {
+      "id": "tool-rig3d-stills",
+      "name": "3D Tibi camera-angle contact sheets (scripts/rig3d-stills.py)",
+      "component_type": "tool",
+      "purpose": "Renders a contact sheet of the 3D Tibi from several named camera shots and moments with the HyperFrames headless Chrome, under the host render lock, so posture, contact, equipment and activation can be judged by eye before a composition is written.",
+      "capabilities": [
+        "fitness.py rig3d stills <exercise> --shots front,three,side,back --times 0,1.0 [--gender m|f]"
+      ],
+      "location": "scripts/rig3d-stills.py",
+      "version": "0.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+      },
+      "dependencies": [
+        "shared-fitness-kit",
+        "threejs"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
+        "notes": "stills take the host render lock."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/references/motion-3d.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Internal workspace component; no third-party code copied."
+      },
+      "security": {
+        "requires_filesystem_write": true,
+        "requires_network": false,
+        "requires_execution": true,
+        "sensitive_data_exposure": false,
+        "notes": "Writes qa/rig3d/ contact sheets only."
+      },
+      "owner": "motion-graphics",
+      "status": "experimental",
+      "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+      "architecture_ref": "ARCHITECTURE.md",
+      "last_verified": "2026-11-12",
+      "tags": [
+        "fitness",
+        "3d",
+        "qa"
       ]
     },
     "tool-scene-revise": {
@@ -9050,6 +9536,67 @@
         "json-schema"
       ]
     },
+    "shared-fitness-kit": {
+      "id": "shared-fitness-kit",
+      "name": "Sinew fitness kit (runtime)",
+      "component_type": "shared_asset",
+      "purpose": "Reusable fitness production assets in the studio runtime: the articulated rig engine, Tibi the mascot in the Cobalt Sculpt style (male and female, front/side/back, muscle activation by role, generated from the Python master in src/fitness/tibi/), a 12-exercise upper-body library, gaits and equipment, anatomy and physiology plates, brand graphics, environments, biomechanics overlays and science charts. Manifest: assets/fitness/manifest.json.",
+      "capabilities": [
+        "kits/fitness/brand.js: Sinew brand palette",
+        "studio-rig.js: FK, anchors, two-bone IK, level feet, followers, finite cycles, derived pose attributes",
+        "kits/fitness/sculpt.js + sculpt-data.js: Cobalt Sculpt Tibi (male/female, front/side/back, 15 handover poses, activation levels, faces, tops) on the rig, light-fixed crescent shading via the derive hook",
+        "src/fitness/tibi/: Python master generator (stdlib) for the Cobalt Sculpt Tibi: review page, standalone SVGs, runtime data (fitness.py sculpt)",
+        "kits/fitness/exercises.js: 12 upper-body exercises, curl, squat, calf raise, 3 gaits, flat-plane equipment built from Tibi's joints",
+        "kits/fitness/anatomy.js: muscle to sarcomere, cross-section growth, mitochondrion, ATP, heart, lungs, zoom ladder",
+        "kits/fitness/graphics.js: logo, cards, badges, citations, environments, biomechanics, charts",
+        "kits/fitness/library.js: generated metadata",
+        "kits/fitness/tibi3d.js + exercises3d.js: Tibi in real 3D (Three.js r158 vendored): skinned figure, muscles that never pop, free camera, activation by intensity, pure-function-of-time motion tracks; curl, bench press, lateral raise (references/motion-3d.md)"
+      ],
+      "location": "src/studio/kits/fitness",
+      "version": "2.1.0",
+      "installation": {
+        "required": false,
+        "instructions": "Synced into projects with the runtime (studio.py sync/upgrade); load the scripts as the fitness-explainer template does."
+      },
+      "dependencies": [
+        "shared-studio-runtime"
+      ],
+      "compatibility": {
+        "apple_silicon_tested": true,
+        "runtime": "browser (HyperFrames headless Chrome)",
+        "notes": "Cobalt Sculpt Tibi (2026-11-09, runtime 1.6.0): verified in headless Chrome and HyperFrames snapshots; rendered in projects/upper-body-workout (see its qa/). Classic Tibi retired."
+      },
+      "documentation_urls": [
+        ".claude/skills/fitness/references/visual-systems.md",
+        ".claude/skills/fitness/references/character-guidelines.md",
+        "src/fitness/tibi/HANDOVER.md"
+      ],
+      "licensing": {
+        "spdx_identifier": "Proprietary-Workspace",
+        "status": "verified",
+        "commercial_use": true,
+        "notes": "Original workspace code and art; no third-party assets."
+      },
+      "security": {
+        "requires_filesystem_write": false,
+        "requires_network": false,
+        "requires_execution": false,
+        "sensitive_data_exposure": false,
+        "notes": "Runs inside the render browser only."
+      },
+      "owner": "video-production",
+      "status": "experimental",
+      "approval_evidence": "One HyperFrames render (how-muscles-grow, 97.5 s, QA gates passed) on 2026-11-08. Cobalt Sculpt Tibi: no film render yet.",
+      "architecture_ref": "ARCHITECTURE.md#runtime",
+      "last_verified": "2026-11-09",
+      "tags": [
+        "fitness",
+        "character",
+        "rig",
+        "anatomy",
+        "runtime"
+      ]
+    },
     "shared-format-presets": {
       "id": "shared-format-presets",
       "name": "Delivery Format Presets",
@@ -9312,7 +9859,14 @@
         "studio-type.js: accessible split, mask rise, cascade, tracking, weight, typewriter, highlight, underline, counters",
         "studio-motion.js: reveal/wipe/iris/push/shape-cover/liquid/match-cut transitions, depth camera, assembly, rhythm grid, grain",
         "studio-compositions.js: title card, item list, step header, end card, captions",
-        "studio-base.css + styles/*.css: tokens, type scale per format, layout primitives, style systems"
+        "studio-base.css + styles/*.css: tokens, type scale per format, layout primitives, style systems",
+        "studio-rig.js (1.4.0): articulated character rig (FK, contact anchors, IK, followers, cycles)",
+        "kits/fitness/ (1.4.0): Sinew fitness kit (see shared-fitness-kit)",
+        "studio-rig.js (1.5.0): derive hook, attributes computed from each solved pose and tweened per move sample",
+        "kits/fitness/sculpt.js (1.5.0): Cobalt Sculpt Tibi, male and female (see shared-fitness-kit)",
+        "studio-rig.js (1.6.0): per-joint foreshortening (pose.f) for views toward or away from the camera",
+        "kits/fitness/exercises.js (1.6.0): 12 upper-body exercises on Tibi with flat-plane equipment; classic tibi.js retired",
+        "kits/fitness/tibi3d.js + exercises3d.js + vendor/three.min.js (1.7.0): Tibi in real 3D (skinned figure, muscles that never pop, free camera, pure-function-of-time motion tracks) with curl, bench press and lateral raise; QA by scripts/rig3d-check.js, rig3d-stills.py, motion-continuity.py"
       ],
       "location": "src/studio",
       "version": "1.0.0",
@@ -9326,7 +9880,7 @@
       "compatibility": {
         "apple_silicon_tested": false,
         "runtime": "browser (HyperFrames headless Chrome)",
-        "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames."
+        "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames. Runtime 1.4.0 (2026-11-08) adds the rig engine and the fitness kit; rendered with HyperFrames on the M2 host in projects/how-muscles-grow. Runtime 1.5.0 (2026-11-09) adds the Cobalt Sculpt Tibi and the rig's derive hook; verified in headless Chrome, not yet in a HyperFrames film render."
       },
       "documentation_urls": [
         "ARCHITECTURE.md"
@@ -9411,6 +9965,59 @@
     }
   },
   "primitives": {
+    "articulated-rig": {
+      "id": "articulated-rig",
+      "name": "Articulated character rig (2D skeletal, deterministic)",
+      "kind": "group",
+      "status": "experimental",
+      "description": "A 2D skeletal rig for HyperFrames: a character kit declares joints, paint layers and shapes; the rig builds nested SVG groups per layer, solves forward kinematics, foot or hand contacts (anchors), two-bone IK and level feet at build time, and writes poses as explicit fromTo tweens of each joint's transform attribute (no svgOrigin, no callbacks). Followers keep props and cable ends on a joint without inheriting its rotation; finite cycles drive gait with a floor rule.",
+      "rendering_engine": "svg_dom",
+      "library_dependencies": [
+        "svg-native",
+        "gsap"
+      ],
+      "inputs": [
+        {
+          "name": "spec",
+          "type": "object",
+          "description": "Kit description: joints [{id, parent, offset, sign, base, min, max}], layers [{id, joints}], draw(fig, joint, layer, g), poses, rest"
+        },
+        {
+          "name": "pose",
+          "type": "object",
+          "description": "{x, y, rot, j:{joint: degrees}, flat:[ids], anchor:{joint, point, to}, ik:[{chain, to, bend, flat, flatAngle}]} or a kit pose name ('name~mirror' swaps sides)"
+        },
+        {
+          "name": "options",
+          "type": "object",
+          "description": "{x, y, scale, facing} at build; {ease, samples} per move; {floor:{y, points}} per cycle"
+        }
+      ],
+      "implementation": {
+        "location": "src/studio/studio-rig.js",
+        "api": "Studio.rig.figure(parent, spec, opts) -> fig; fig.to(tl, pose, at, dur, {ease}); fig.sequence(tl, steps, at); fig.cycle(tl, poses, at, period, count, {floor}); fig.follow(el, joint, local, make); fig.point(joint, local, pose); fig.trace(joint, local, poses)"
+      },
+      "performance_notes": "One fromTo per changed joint per sample; anchored moves sample at 10 per second. A 10 s run cycle is about 1,500 tweens, which GSAP seeks without trouble.",
+      "related": [
+        "svg-path"
+      ],
+      "validation": {
+        "evidence": "Preview renders in headless Chrome (puppeteer-core from the hyperframes install) of all four Tibi views and the 16-movement exercise gallery, 2026-11-08 (assets/fitness/previews/). HyperFrames render: projects/how-muscles-grow.",
+        "last_verified": "2026-11-08"
+      },
+      "tags": [
+        "character",
+        "rig",
+        "skeleton",
+        "kinematics",
+        "mascot"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-11-08",
+        "updated_at": "2026-11-08"
+      }
+    },
     "blob-shape": {
       "id": "blob-shape",
       "name": "Morph-compatible organic blob",
@@ -11253,6 +11860,62 @@
         "updated_at": "2026-10-30"
       }
     },
+    "fitness-explainer": {
+      "id": "fitness-explainer",
+      "name": "Sinew fitness explainer",
+      "deliverable_type": "illustrated_explainer",
+      "status": "experimental",
+      "description": "Character-led fitness and exercise-science explainer in the Sinew brand: Tibi the mascot on the articulated rig, the movement library, x-ray anatomy, evidence badges and source lines. Loads the fitness kit (src/studio/kits/fitness/) on top of the studio runtime. Entry point: the /fitness skill.",
+      "location": "templates/projects/fitness-explainer",
+      "stages": {
+        "research": "required",
+        "storyboard": "required",
+        "narration": "required",
+        "music": "optional",
+        "captions": "optional"
+      },
+      "default_style": "sinew-lab",
+      "default_formats": [
+        "landscape"
+      ],
+      "default_duration_sec": 16,
+      "compositions": [
+        "title-card",
+        "end-card",
+        "caption-band"
+      ],
+      "effects": [
+        "stroke-draw",
+        "text-mask-rise"
+      ],
+      "suitable_for": [
+        "fitness explainers",
+        "exercise technique",
+        "running science",
+        "muscle and physiology",
+        "fitness myth-busting"
+      ],
+      "validation_steps": [
+        "python scripts/fitness.py new <slug> --type mid --topic \"...\" (or studio.py new <slug> --template fitness-explainer --type <form> --category fitness)",
+        "python scripts/studio.py validate <slug>",
+        "hyperframes snapshot under session-guard (frame-review.py needs Playwright, absent on the render host)"
+      ],
+      "validation": {
+        "evidence": "Scaffolded and validated with studio.py on 2026-11-08; first film projects/how-muscles-grow rendered with HyperFrames.",
+        "last_verified": "2026-11-08"
+      },
+      "tags": [
+        "template",
+        "fitness",
+        "character",
+        "sinew"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-11-08",
+        "updated_at": "2026-11-08"
+      }
+    },
     "illustrated-explainer": {
       "id": "illustrated-explainer",
       "name": "Illustrated explainer / how-to",
@@ -12326,6 +12989,95 @@
         "playful or children's content",
         "print-style editorial"
       ]
+    },
+    "sinew-lab": {
+      "id": "sinew-lab",
+      "name": "Sinew Lab",
+      "status": "experimental",
+      "mode": "light",
+      "default": false,
+      "description": "The Sinew fitness brand. Warm lab paper and charcoal ink, Tibi cobalt as the brand colour, marigold spark for emphasis, coral muscle red reserved for anatomy, emerald for evidence; Outfit display over Inter, JetBrains Mono for sources and data.",
+      "location": "src/studio/styles/sinew-lab.css",
+      "categories": [
+        "fitness"
+      ],
+      "tokens": {
+        "colors": {
+          "paper": "#f6f3ec",
+          "paper-2": "#ece5d8",
+          "ink": "#1b1d29",
+          "ink-2": "#4a4e60",
+          "rule": "#d6cfbf",
+          "accent": "#2f56e0",
+          "accent-2": "#f2553d",
+          "accent-3": "#ffb224",
+          "positive": "#12a36e",
+          "muscle": "#f2553d",
+          "bone": "#f4ead5"
+        },
+        "typography": {
+          "display": "'Outfit', sans-serif",
+          "text": "'Inter', sans-serif",
+          "mono": "'JetBrains Mono', monospace"
+        },
+        "texture": "Flat vector with a soft dot grid on diagram plates; no grain on the character.",
+        "spacing": "--u = 1% of short side; character scale from Studio.kit.fitness.tibi({scale})"
+      },
+      "motion": {
+        "personality": "Friendly and precise: springy character acting, calm diagram builds",
+        "ease_in": "power2.in",
+        "ease_out": "expo.out",
+        "enter_duration_sec": 0.55,
+        "stagger_sec": 0.06,
+        "notes": "The mascot never freezes (idle breathing, blinks, reps); diagrams build in steps with drawn lines."
+      },
+      "fonts": [
+        {
+          "family": "Outfit",
+          "source": "hyperframes-bundled",
+          "license": "OFL-1.1"
+        },
+        {
+          "family": "Inter",
+          "source": "hyperframes-bundled",
+          "license": "OFL-1.1"
+        },
+        {
+          "family": "JetBrains Mono",
+          "source": "hyperframes-bundled",
+          "license": "OFL-1.1"
+        }
+      ],
+      "contrast_checked": [
+        "ink/paper 15.1:1",
+        "ink-2/paper 7.4:1",
+        "cobalt (accent)/paper 5.4:1; paper on cobalt 5.4:1",
+        "muscle-deep #c2381f/paper 4.9:1",
+        "coral #f2553d/paper 3.1:1 (shapes and large text only)",
+        "emerald #12a36e/paper 2.9:1 and marigold #ffb224/paper 1.6:1 (shapes only, never text); ink on marigold 9.3:1"
+      ],
+      "suitable_for": [
+        "fitness and exercise-science explainers",
+        "anatomy and physiology with a mascot",
+        "running and training tips",
+        "myth-busting with graded evidence"
+      ],
+      "validation": {
+        "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-11-08. Used by projects/how-muscles-grow.",
+        "last_verified": "2026-11-08"
+      },
+      "tags": [
+        "light",
+        "fitness",
+        "brand",
+        "character",
+        "anatomy"
+      ],
+      "metadata": {
+        "author": "MotionLab",
+        "created_at": "2026-11-08",
+        "updated_at": "2026-11-08"
+      }
     },
     "swiss-minimal": {
       "id": "swiss-minimal",
@@ -30799,10 +31551,206 @@
     }
   },
   "style-templates": {
+    "body-lab": {
+      "id": "body-lab",
+      "name": "Body Lab",
+      "version": 1,
+      "status": "experimental",
+      "summary": "Character-led body science: Tibi, the Sinew mascot, does the movement, then the body turns to glass and the mechanism is shown inside it, down to the fibre when needed, with the evidence grade and source on screen. For training, running, muscle and exercise physiology.",
+      "visual_job": {
+        "kind": "body-mechanism",
+        "viewer_leaves_able_to": "Picture what happens inside their own body during the movement and say how sure science is about it.",
+        "hero": "Tibi performing the movement, then the same pose in x-ray with the working muscles lit."
+      },
+      "selection": {
+        "categories": [
+          "fitness"
+        ],
+        "use_when": [
+          "The subject is a training, running, recovery or nutrition question about the human body.",
+          "A movement, a muscle or a physiological process carries the explanation.",
+          "A myth needs correcting with graded evidence."
+        ],
+        "avoid_when": [
+          "The film is about a sport's history or business (use chronicle or data-ledger).",
+          "It would need individual medical advice, diagnosis or rehabilitation (out of scope for the brand)."
+        ],
+        "keywords": [
+          "muscle",
+          "hypertrophy",
+          "strength",
+          "squat",
+          "deadlift",
+          "bench",
+          "running",
+          "runner",
+          "cadence",
+          "vo2",
+          "lactate",
+          "protein",
+          "creatine",
+          "recovery",
+          "doms",
+          "workout",
+          "gym",
+          "training",
+          "fitness",
+          "exercise",
+          "glute",
+          "hamstring",
+          "calf",
+          "tendon",
+          "fatigue",
+          "warm-up"
+        ]
+      },
+      "look": {
+        "style": "sinew-lab",
+        "alternates": [
+          {
+            "style": "editorial-light",
+            "when": "A non-branded guest film in the fitness category."
+          }
+        ],
+        "design_profile": "illustrated-explainer-2d"
+      },
+      "scene_grammar": [
+        {
+          "role": "hook-move",
+          "formula": "Tibi in motion within the first second, with the claim or the myth on screen.",
+          "capabilities": [
+            "articulated-rig",
+            "text-mask-rise"
+          ]
+        },
+        {
+          "role": "glass-body",
+          "formula": "Freeze the movement at its key phase; the body turns to glass and only the working muscles light (x-ray highlight).",
+          "capabilities": [
+            "articulated-rig",
+            "annotation-callout"
+          ]
+        },
+        {
+          "role": "scale-dive",
+          "formula": "Zoom from the muscle to the fascicle, fibre and sarcomere, each level with its scale label.",
+          "capabilities": [
+            "depth-camera-push",
+            "annotation-callout"
+          ]
+        },
+        {
+          "role": "mechanism",
+          "formula": "One process runs: a signalling flow, a sliding filament, a curve over hours or days; arrows carry direction.",
+          "capabilities": [
+            "stroke-draw",
+            "metric-curve-draw"
+          ]
+        },
+        {
+          "role": "evidence",
+          "formula": "The finding as a chart or a before/after, with the evidence grade badge and the source line (author, year, design, n).",
+          "capabilities": [
+            "animated-chart",
+            "annotation-callout"
+          ]
+        },
+        {
+          "role": "biomechanics",
+          "formula": "Joint angles, force arrows or bar path drawn on the rig, labelled illustrative unless measured.",
+          "capabilities": [
+            "articulated-rig",
+            "stroke-draw"
+          ]
+        },
+        {
+          "role": "takeaway",
+          "formula": "Back to Tibi in the gym or on the track doing the movement, the one-sentence takeaway beside him.",
+          "capabilities": [
+            "end-card"
+          ]
+        }
+      ],
+      "motion": {
+        "signature": "The character never stops moving: breathing, blinking, reps or a run loop; mechanism scenes open from the character's own body, not from a cut to a new diagram.",
+        "continuous_layer": "Tibi's idle (breath, blinks, spark sway) or an exercise rep loop; in diagram scenes, sarcomere strokes or drifting protein dots.",
+        "avoid": [
+          "A muscle shown lighting up alone as if the exercise isolated it.",
+          "Numbers on screen without a source line.",
+          "Mascot comedy during an evidence beat."
+        ],
+        "preferred_capabilities": [
+          "articulated-rig",
+          "stroke-draw",
+          "annotation-callout"
+        ],
+        "discouraged_capabilities": [
+          "liquid-transition"
+        ]
+      },
+      "rules": {
+        "hook_within_sec": 1.0,
+        "max_beat_gap_sec": 2.5,
+        "max_scene_sec": 16,
+        "words_per_10s_max": 28,
+        "ending": "Tibi doing the movement again, now with the viewer able to see inside it, plus the takeaway and its evidence grade."
+      },
+      "anti_patterns": [
+        {
+          "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+          "why": "Anti-laziness rule. With a rigged mascot there is no excuse: an idle loop, blinks and reps keep every frame alive.",
+          "source": "review-top3-films-2026-11-03; CLAUDE.md conventions"
+        },
+        {
+          "pattern": "A claim, percentage or study result without its evidence grade and source line.",
+          "why": "Fitness content is held to the research protocol: viewers act on it with their bodies.",
+          "source": ".claude/skills/fitness/references/research-protocol.md"
+        },
+        {
+          "pattern": "Muscle-activation percentages or 'this exercise isolates X'.",
+          "why": "Activation varies with technique, load and measurement method; the fitness library deliberately carries no percentages.",
+          "source": "assets/fitness/data/exercises.json"
+        },
+        {
+          "pattern": "Conceptual kinematics shown as if measured (angles or bar paths with no 'illustrative' label).",
+          "why": "The rig's joint angles are authored, not motion capture.",
+          "source": "src/studio/kits/fitness/exercises.js header"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of.",
+          "why": "Owner review 2026-11-07: visuals carry what the narration skips (definition card, legend, source line).",
+          "source": "owner review of game-theory-trust 2026-11-07"
+        }
+      ],
+      "reference_projects": [
+        {
+          "project": "how-muscles-grow",
+          "note": "First film to this template: mid-form landscape demonstration of the Sinew kit (2026-11-08)."
+        }
+      ],
+      "open_questions": [
+        "Values in rules are first guesses; calibrate words_per_10s_max and max_beat_gap_sec after the first three films.",
+        "Whether short-form portrait films need a larger Tibi scale (the mascot is drawn for landscape first)."
+      ],
+      "revisions": [
+        {
+          "version": 1,
+          "date": "2026-11-08",
+          "change": "Initial version, written with the Sinew fitness brand and kit.",
+          "reason": "Owner request: an original fitness education brand and production capability."
+        }
+      ],
+      "tags": [
+        "fitness",
+        "anatomy",
+        "character",
+        "light"
+      ]
+    },
     "chronicle": {
       "id": "chronicle",
       "name": "Chronicle",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "A slow camera over a surface (map, document, timeline) that stamps dates, pushes into a detail and dissolves to mark time passing. For history, biography and anything told as what happened in what order.",
       "visual_job": {
@@ -30960,6 +31908,11 @@
           "pattern": "Generated or recreated period imagery presented as archive.",
           "why": "The design profile requires licensed or generated imagery to be labelled as such.",
           "source": "design profile archival-historical (rendering.strategy)"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -30981,6 +31934,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Rules from the archival-historical profile (5 s shots, slow dissolves) and the documentary narration budget.",
           "reason": "design profile archival-historical; voice-director budgets"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -30992,7 +31951,7 @@
     "data-ledger": {
       "id": "data-ledger",
       "name": "Data Ledger",
-      "version": 3,
+      "version": 4,
       "status": "experimental",
       "summary": "A chart or counter that draws itself at the speed the narrator says the figure, with the annotation landing on the word. For money, markets, costs and any story whose point is a number and how it moved.",
       "visual_job": {
@@ -31192,6 +32151,11 @@
           "pattern": "Colour as the only thing that tells two series or states apart.",
           "why": "About 8% of men have a colour vision deficiency. Pair colour with a direct label, shape, position or pattern.",
           "source": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT; restated, not copied)"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -31225,6 +32189,12 @@
           "date": "2026-11-06",
           "change": "Added four chart anti-patterns: topic titles instead of takeaway titles, truncated bar baselines, charts for one or two numbers, colour-only encoding.",
           "reason": "docs/social-media-skills-lessons.md (social-media-skills infographic-and-data-viz, MIT). Unrendered: promote only after a film is made to v3."
+        },
+        {
+          "version": 4,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -31236,7 +32206,7 @@
     "news-brief": {
       "id": "news-brief",
       "name": "News Brief",
-      "version": 2,
+      "version": 3,
       "status": "experimental",
       "summary": "An evidence board in which every claim carries its state: confirmed claims are solid and stamped, unconfirmed ones are dashed and grey. One reusable object (map, tile grid, timeline) changes state across the film.",
       "visual_job": {
@@ -31444,6 +32414,11 @@
           "pattern": "A hook sentence longer than the three-second window.",
           "why": "south-korea-data-center-fire opens on one 9.8 s sentence (date, place, event and agency together). Say the claim first and move the detail to the next sentence.",
           "source": "`studio.py script south-korea-data-center-fire`, 2026-11-05."
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -31476,6 +32451,12 @@
           "date": "2026-11-05",
           "change": "Added rules.short_form (cards of 6 words or fewer, loop ending for reel-length films) and three anti-patterns: framing sentence before the claim, more than one ask, hook longer than 3 s.",
           "reason": "docs/short-form-lessons.md; the card limit is measured against the three newest films (cloud 2 of 35 cards over 6 words, fridge 3 of 27, Korea 9 of 51)."
+        },
+        {
+          "version": 3,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -31487,7 +32468,7 @@
     "proof-canvas": {
       "id": "proof-canvas",
       "name": "Proof Canvas",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "One mathematical object built step by step and then transformed, with every variable keeping its colour for the whole film. For theorems, probability, geometry and quantitative arguments.",
       "visual_job": {
@@ -31634,6 +32615,11 @@
           "pattern": "A headline that restates the narration.",
           "why": "Fridge headlines repeated 82-83% of the voice, which wastes the strongest text slot. Use it for what the voice does not say (the number, the contrast, the date). A caption band is a legitimate repeat.",
           "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -31651,6 +32637,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Narration budget is the top of the deliberate (documentary) range, 27 words per 10 s, because the viewer needs time to think. Not yet calibrated against a film made to it: polya-recurrence (29-39 words per 10 s at am_adam 1.15) exceeds it in every scene.",
           "reason": "lessons-polya-recurrence-build; voice-director budgets"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -31662,7 +32654,7 @@
     "science-atlas": {
       "id": "science-atlas",
       "name": "Science Atlas",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "A specimen plate: one object shown whole, then opened up, with scale always visible. For structures, organisms, processes and findings in the natural world.",
       "visual_job": {
@@ -31811,6 +32803,11 @@
           "pattern": "A finding without sample size or uncertainty.",
           "why": "VISION.md: clear, accurate explanation is as important as visual craft.",
           "source": "docs/VISION.md"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -31836,6 +32833,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Default is light to follow the workspace rule that dark themes need a brief that asks for them.",
           "reason": "CLAUDE.md visual defaults"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -31847,7 +32850,7 @@
     "storybook": {
       "id": "storybook",
       "name": "Storybook",
-      "version": 2,
+      "version": 3,
       "status": "experimental",
       "summary": "Staged scenes of layered cut shapes with parallax, where act changes are told by palette and light rather than captions. For people, stakes and an emotional arc.",
       "visual_job": {
@@ -32012,6 +33015,11 @@
           "pattern": "More than one ask at the end.",
           "why": "End on one action or none. Two asks split the last three seconds and the viewer does neither. A news brief usually needs none.",
           "source": "ig-reel rules (Jake Schincariol, MIT), adopted 2026-11-05 via docs/short-form-lessons.md; checked by `studio.py script` (many-asks)."
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -32043,6 +33051,12 @@
           "date": "2026-11-05",
           "change": "Added rules.short_form (cards of 6 words or fewer, the return-to-opening ending as the loop) and two anti-patterns: framing sentence before the claim, more than one ask.",
           "reason": "docs/short-form-lessons.md."
+        },
+        {
+          "version": 3,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [
@@ -32054,7 +33068,7 @@
     "systems-blueprint": {
       "id": "systems-blueprint",
       "name": "Systems Blueprint",
-      "version": 1,
+      "version": 2,
       "status": "experimental",
       "summary": "One persistent diagram of a system that the film lights up part by part: a signal travels the path, a part fails, the consequence spreads. For software, networks, infrastructure and machines.",
       "visual_job": {
@@ -32214,6 +33228,11 @@
           "pattern": "Over-budget narration in the hook and closing scenes.",
           "why": "They are written last. Cloud's s1 and s6 ran 35-36 words per 10 s against a 33 budget and the film read rushed. Cut words; do not raise the speed.",
           "source": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "pattern": "Named or shown things the viewer cannot read an explanation of (anonymous chips, a badge with no field, a term with no definition).",
+          "why": "game-theory-trust closed on a ranked column of unlabelled chips and the words 'the simplest entry'; the owner's review called it a knowledge gap that leaves the viewer uncomfortable. Where narration cannot afford the explanation, the visuals carry it: definition card, legend, rule written out, source line. See motion-graphics-designer section G.",
+          "source": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "reference_projects": [
@@ -32239,6 +33258,12 @@
           "date": "2026-11-03",
           "change": "Initial version. Rules taken from the neutral-technical narration budget (30 words per 10 s) and the 2026-11-03 review of the three newest films.",
           "reason": "review-top3-films-2026-11-03 (cloud, south-korea, fridge)"
+        },
+        {
+          "version": 2,
+          "date": "2026-11-07",
+          "change": "Added the anti-pattern 'named or shown things the viewer cannot read an explanation of': the visuals carry the information the narration skips (motion-graphics-designer section G). No other rule changed.",
+          "reason": "owner review of game-theory-trust 2026-11-07"
         }
       ],
       "tags": [

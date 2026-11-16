@@ -1,0 +1,1074 @@
+
+
+# PROMPT 1
+
+# MISSION: Upgrade the Fitness Motion Graphics Workspace into a Professional Fitness Content Studio
+
+You are acting as the Principal Creative Technologist, Animation Technical Director, Fitness Content Director, and Systems Architect for an existing AI-powered fitness motion graphics workspace.
+
+Your assignment is to examine the existing workspace, understand its architecture, identify its limitations, and evolve it into a production-grade system capable of consistently producing high-quality, original fitness education content.
+
+**Do not approach this as a simple rendering-engine improvement. This is a creative production system upgrade.**
+
+The objective is to build something that can compete with the quality of established animated fitness education channels while retaining the flexibility, speed and technical capabilities of an AI-assisted production pipeline.
+
+You have considerable creative and technical freedom. Treat the requirements below as guidance and evaluation criteria, not an implementation specification that must be followed literally.
+
+---
+
+# 1. Understand the existing workspace first
+
+Before making changes, conduct a proper audit.
+
+Inspect:
+
+- The entire existing workspace structure.
+- Existing agents, skills and orchestration mechanisms.
+- The current fitness skill and its dependencies.
+- The animation engine and rendering pipeline.
+- Character rigs, models, anatomy assets and exercise animations.
+- Existing style guides, asset libraries and visual references.
+- Script generation, research and content-generation systems.
+- Video composition, typography, transitions and caption systems.
+- Audio generation, voiceover and sound design capabilities.
+- Rendering, encoding and review workflows.
+- Existing documentation and configuration files.
+
+Understand how the different components interact.
+
+Establish what is reusable, what needs refinement, what is fundamentally flawed and what is missing.
+
+**Do not replace functioning infrastructure merely because you prefer a different architecture.**
+
+Retain the existing workspace's useful components, conventions and dependencies. Avoid creating redundant systems or parallel implementations.
+
+Produce an initial architecture map and an improvement plan, but do not stop at recommendations. Implement the improvements.
+
+# 2. Creative direction and quality benchmark
+
+Study the following references:
+
+### Primary reference: Yellow Dude
+
+https://www.youtube.com/@yellowdude_co
+
+https://yellowdude.co/
+
+Study the channel's visual storytelling, character identity, illustration consistency, educational narrative, animation, camera composition, humour, pacing and content structure.
+
+Their production process is also worth studying:
+
+https://yellowdude.co/blogs/calisthenics/how-a-yellow-dude-video-gets-made
+
+Understand the important distinction between using AI to accelerate production and allowing AI to determine the entire creative output.
+
+Borrow the production discipline, not the character or copyrighted visual identity.
+
+### Secondary reference: 3D AI fitness content
+
+Study contemporary AI-generated fitness videos, including:
+
+- Anatomical muscle activation animations.
+- 3D exercise demonstrations.
+- Explainer videos with animated characters.
+- Fitness shorts with narration and dynamic captions.
+- Biomechanical explanations.
+- Exercise mistake-versus-correct demonstrations.
+- Muscle-building educational content.
+
+Study both successful and unsuccessful examples.
+
+Understand what makes content engaging, understandable, visually interesting and credible.
+
+Do not blindly reproduce the generic shiny 3D anatomy aesthetic. It is easy to generate and equally easy to forget.
+
+### The intended direction
+
+Explore a distinct identity combining:
+
+- The visual storytelling of high-quality animated education.
+- The technical possibilities of 3D anatomical animation.
+- The personality and consistency of a recurring fitness mascot.
+- Scientific and biomechanical accuracy.
+- Modern motion graphics and professional editing.
+- AI-assisted production with human-quality review standards.
+
+The result should feel like an original fitness education brand, not an imitation of an existing channel.
+
+# 3. Establish a distinctive fitness identity
+
+Evaluate the current character, particularly its proportions, silhouette, materials, muscle definition, colours and overall recognizability.
+
+Decide whether the existing blue character should be refined, redesigned or supplemented with additional character variants.
+
+Do not automatically discard it.
+
+Explore:
+
+- Character proportions and silhouette.
+- Anatomy and muscular definition.
+- Facial or faceless character identity.
+- Distinctive design elements.
+- Clothing and accessories.
+- Material and lighting treatments.
+- Signature poses and expressions.
+- Exercise-specific character behaviour.
+- Consistency across front, rear and side views.
+
+The character should be recognizable even without captions, branding or background elements.
+
+Investigate whether a single mascot is sufficient or whether the content would benefit from additional character modes, such as an anatomical representation, a simplified instructional character and a more expressive storytelling character.
+
+Define a cohesive visual identity:
+
+- Primary and secondary colour palettes.
+- Typography system.
+- Background treatments.
+- Muscle highlighting conventions.
+- Annotation and callout styles.
+- Camera language.
+- Transitions and effects.
+- Lighting and shadow treatment.
+- Visual hierarchy.
+- Animation principles.
+
+Create a proper style guide and preserve it in the fitness asset library.
+
+All future content should use this system consistently.
+
+# 4. Upgrade the 3D character and animation engine
+
+This is one of the most important areas.
+
+The current demonstrations establish that the 3D character can be posed and rendered. They do not yet establish a reliable exercise animation system.
+
+Investigate the existing rigging and animation architecture in depth.
+
+Evaluate:
+
+- Skeleton and joint hierarchy.
+- IK/FK handling.
+- Joint constraints.
+- Skinning and deformation.
+- Shoulder, elbow, wrist and hip articulation.
+- Muscle deformation.
+- Equipment interaction.
+- Contact points.
+- Body positioning and balance.
+- Animation curves and easing.
+- Pose interpolation.
+- Symmetrical and asymmetrical movement.
+- Camera-aware animation.
+
+Explore ways to make exercise animations more anatomically convincing.
+
+An exercise animation must communicate the movement, not merely the final position.
+
+Every movement should have an identifiable sequence of phases:
+
+1. Initial setup.
+2. Starting position.
+3. Eccentric movement.
+4. End range.
+5. Concentric movement.
+6. Lockout or finishing position.
+7. Controlled reset.
+
+Some exercises will require different phase structures. Account for that rather than forcing every exercise into a universal animation template.
+
+Pay special attention to:
+
+- Natural movement trajectories.
+- Controlled eccentric phases.
+- Appropriate pauses.
+- Consistent repetition tempo.
+- Joint alignment.
+- Equipment trajectories.
+- Muscle and tendon relationships where relevant.
+- Avoiding unrealistic movement.
+- Preventing clipping and sudden geometry changes.
+
+Investigate whether keyframe authoring, procedural animation, motion capture, external motion libraries or hybrid approaches offer the best solution.
+
+Do not assume that one technique needs to power the entire system.
+
+# 5. Exercise intelligence and biomechanical accuracy
+
+The animation engine must become more than a collection of character poses.
+
+Develop a structured exercise knowledge system.
+
+Every exercise should have a well-defined representation.
+
+Explore an appropriate exercise metadata schema incorporating:
+
+- Exercise name and variations.
+- Movement classification.
+- Equipment requirements.
+- Primary muscles.
+- Secondary muscles.
+- Stabilizing muscles.
+- Starting position.
+- Execution steps.
+- Joint movements.
+- Range of motion.
+- Eccentric and concentric phases.
+- Suggested tempo.
+- Breathing guidance.
+- Common mistakes.
+- Technique corrections.
+- Progressions and regressions.
+- Difficulty and training experience.
+- Appropriate camera angles.
+- Visual demonstration requirements.
+
+The system should distinguish between primary activation, secondary contribution and stabilization.
+
+Do not arbitrarily highlight muscles simply because they are visually attractive.
+
+Anatomical highlighting should be defensible.
+
+Create a system capable of generating different visual explanations depending on the educational objective.
+
+For example:
+
+**Standing dumbbell curl**
+- Show elbow flexion.
+- Demonstrate upper-arm stability.
+- Highlight the elbow's position.
+- Explain the biceps' role.
+
+**Dumbbell bench press**
+- Demonstrate shoulder and elbow movement.
+- Show the dumbbell path.
+- Explain shoulder blade positioning.
+- Illustrate chest, anterior deltoid and triceps contribution.
+
+**Lateral raise**
+- Demonstrate shoulder abduction.
+- Show the relationship between upper arm and shoulder.
+- Highlight the side deltoid.
+- Explain the importance of controlled movement and appropriate range.
+
+Use reliable research and qualified fitness expertise to validate technical claims.
+
+Clearly distinguish general coaching guidance from individualized medical advice.
+
+# 6. Anatomical visualization system
+
+Explore a significantly more capable muscle visualization system.
+
+The existing red muscle hotspots are a starting point, not the finished feature.
+
+Consider:
+
+- Individual muscle isolation.
+- Muscle-group activation.
+- Primary versus secondary involvement.
+- Front and rear anatomical maps.
+- Muscle overlays.
+- Anatomical cutaways.
+- Muscle contraction and lengthening visualization.
+- Joint and tendon visualization.
+- Layered anatomical views.
+- Animated transitions between anatomical layers.
+- Spatial callouts.
+- Muscle comparison.
+- Interactive visual annotations.
+
+Investigate whether the character should support multiple visualization modes.
+
+For example:
+
+- Normal appearance.
+- Highlighted primary muscle.
+- Secondary muscle groups.
+- Skeletal representation.
+- Simplified anatomical cutaway.
+- Movement trajectory.
+- Joint mechanics.
+
+The presentation should remain understandable to a normal gym-goer. Do not turn every video into an anatomy textbook.
+
+Explore different visualization complexity levels based on audience knowledge.
+
+# 7. Improve the motion graphics and storytelling system
+
+The existing videos rely heavily on a static title, a character, a muscle label and a neutral background.
+
+That is insufficient for a competitive content production pipeline.
+
+Expand the visual vocabulary.
+
+Explore:
+
+- Dynamic camera movements.
+- Close-up anatomical shots.
+- Multiple camera angles.
+- Split-screen comparisons.
+- Incorrect-versus-correct demonstrations.
+- Motion trails.
+- Joint-angle indicators.
+- Movement trajectories.
+- Muscle activation overlays.
+- Rep counters.
+- Tempo indicators.
+- Animated annotations.
+- Equipment demonstrations.
+- Visual metaphors.
+- Scene transitions.
+- Background environments.
+- Dynamic typography.
+- Contextual visual effects.
+
+These elements should serve the explanation rather than decorate it.
+
+Develop a reusable visual scene library.
+
+A scene should be independently composable and reusable across multiple videos.
+
+Explore whether different content categories require different visual treatments.
+
+For instance, a bodybuilding technique explanation may benefit from anatomical close-ups, whereas a running-strength tutorial might require full-body movement, ground interaction and kinetic visualization.
+
+Avoid excessive visual noise.
+
+The character and the movement being explained should remain the primary focus.
+
+# 8. Build a proper content production pipeline
+
+The system should evolve from an animation renderer into an end-to-end content studio.
+
+Investigate and improve every stage.
+
+### Research
+
+Develop a research process capable of identifying:
+
+- Relevant fitness questions.
+- Research-backed training principles.
+- Exercise mechanics.
+- Common misconceptions.
+- Training techniques.
+- Emerging fitness discussions.
+- Practical application for the target audience.
+
+Maintain source references for substantive claims.
+
+Do not fabricate studies, statistics or expert opinions.
+
+### Ideation
+
+Generate ideas with a clear educational purpose.
+
+The objective should not be to produce another generic list of exercises.
+
+Explore interesting questions, counterintuitive findings, common mistakes, training myths and useful practical demonstrations.
+
+### Scripting
+
+Develop a script system that incorporates:
+
+- A strong opening.
+- A clear central question.
+- An educational objective.
+- A compelling narrative.
+- Appropriately detailed explanations.
+- Visual instructions.
+- Scene transitions.
+- Voiceover.
+- Captions.
+- A meaningful conclusion.
+
+Every script should tell the production system what needs to be shown, not merely what needs to be spoken.
+
+### Storyboarding
+
+Create a proper shot-by-shot storyboard before rendering.
+
+Each shot should contain:
+
+- Scene purpose.
+- Visual composition.
+- Character pose.
+- Camera angle.
+- Animation sequence.
+- Muscle highlights.
+- On-screen text.
+- Narration.
+- Sound design.
+- Transition.
+- Estimated duration.
+
+Build an animatic or rough preview where useful.
+
+Catch storytelling and pacing problems before expensive rendering begins.
+
+### Production and editing
+
+Integrate the existing animation engine with an improved scene composition and editing system.
+
+Support:
+
+- Reusable scene templates.
+- Independently rendered assets.
+- Timeline orchestration.
+- Narration synchronization.
+- Music and sound effects.
+- Caption generation.
+- Transitions.
+- Consistent branding.
+- Multiple aspect ratios.
+
+Silent animation clips should remain available as intermediate assets. The final content pipeline should also support complete audio-enabled productions.
+
+### Publishing assets
+
+Investigate automated generation of:
+
+- Video titles.
+- Descriptions.
+- Chapter markers.
+- References and credits.
+- Thumbnails.
+- Short-form adaptations.
+- Platform-specific exports.
+
+# 9. Audio and sound design
+
+The supplied samples contain no audio streams, so sound production has not yet been demonstrated.
+
+Explore an audio system capable of supporting:
+
+- Consistent voice identity.
+- Natural narration.
+- Appropriate delivery and pacing.
+- Narration synchronization.
+- Background music.
+- Exercise-specific sound effects.
+- Impact and transition sounds.
+- Subtle UI and annotation sounds.
+
+Voice should communicate the character's personality.
+
+Avoid robotic narration and generic AI voices unless they demonstrably fit the creative direction.
+
+Use properly licensed audio.
+
+Captions should be synchronized with narration and displayed in meaningful phrases. Avoid awkwardly fragmented text appearing as disconnected words.
+
+# 10. Create a serious quality-control system
+
+This needs to be a first-class component of the architecture.
+
+A video should not be considered finished simply because the rendering process completed successfully.
+
+Build a quality review mechanism.
+
+Investigate automated and manual review approaches for:
+
+**Animation**
+- Does the exercise visibly move?
+- Is the full repetition demonstrated?
+- Is the motion continuous?
+- Are there frozen sections?
+- Are the joint movements plausible?
+- Is the equipment trajectory correct?
+- Does the character intersect with objects?
+- Are the opening and closing states correct?
+
+**Visual quality**
+- Is the character consistent?
+- Is the camera appropriate?
+- Are important body parts visible?
+- Are annotations readable?
+- Are there overlapping labels?
+- Are there rendering artifacts?
+- Is the composition balanced?
+- Is the typography consistent?
+
+**Instructional quality**
+- Is the intended movement understandable?
+- Are the muscles correctly identified?
+- Are technical claims defensible?
+- Are important execution details demonstrated?
+- Are the instructions consistent with the visuals?
+
+**Editing**
+- Is the pacing appropriate?
+- Does the opening establish interest?
+- Are there unnecessary pauses?
+- Are captions synchronized?
+- Does narration align with the demonstrated movement?
+- Is audio balanced?
+
+Build automated render diagnostics where appropriate.
+
+For example, detect:
+
+- Frozen-frame sequences.
+- Unexpected first-frame poses.
+- Blank frames.
+- Sudden camera changes.
+- Out-of-frame objects.
+- Incorrect frame rates.
+- Audio/video synchronization failures.
+- Encoding problems.
+- Text outside safe areas.
+
+Establish explicit review gates.
+
+A useful model could include:
+
+1. Research and script approval.
+2. Storyboard and animatic approval.
+3. Animation and biomechanical review.
+4. Final editing and export review.
+
+Adapt the workflow as necessary.
+
+Do not let the system automatically approve educational accuracy simply because a visual inspection or automated test passes.
+
+# 11. Build around the existing fitness workspace architecture
+
+The existing fitness system should remain a dedicated creative vertical inside the larger workspace.
+
+Inspect the existing skill and asset-library architecture.
+
+Preserve and enhance the fitness-specific style library, character assets, visual references, exercise knowledge, production templates and supporting skills.
+
+The `/fitness` entrypoint should act as an orchestrator.
+
+When invoked, it should understand the task and load the relevant capabilities and assets.
+
+Depending on the assignment, it should coordinate:
+
+- Research.
+- Content strategy.
+- Scriptwriting.
+- Exercise knowledge.
+- Storyboarding.
+- Character and anatomy assets.
+- Animation.
+- Motion graphics.
+- Audio production.
+- Video editing.
+- Quality review.
+
+Avoid loading every asset or skill unnecessarily. Establish sensible orchestration and dependency boundaries.
+
+Create reusable capabilities rather than embedding all creative decisions into one enormous prompt.
+
+The system should be extensible enough to support additional exercise categories, characters, formats and content styles without requiring a redesign.
+
+# 12. Regression testing using the existing samples
+
+Use the six videos supplied as the initial regression dataset:
+
+- 1-curl-3d.mp4
+- 2-press-3d.mp4
+- 3-raise-3d.mp4
+- compare-curl-2D-vs-3D.mp4
+- compare-press-2D-vs-3D.mp4
+- compare-raise-2D-vs-3D.mp4
+
+Address the specific shortcomings observed:
+
+1. The dumbbell press lacks an actual repetition.
+2. The lateral raise needs clearer camera visibility and exercise-specific messaging.
+3. The standing curl requires better camera continuity and movement explanation.
+4. The curl comparison currently uses different exercise variations.
+5. Old and new characters need equivalent scale and composition in comparison videos.
+6. The comparison system must synchronize movement phases.
+7. The initial frame should never contain a stale pose from another exercise.
+8. The export metadata and frame-rate labels must agree.
+9. The visual content needs more instructional depth.
+10. The final production pipeline needs audio capabilities.
+
+Re-render these examples after making the relevant improvements.
+
+Use the old and new outputs to assess whether the changes genuinely improve the result.
+
+Do not optimize solely for these three exercises. Use them to validate general capabilities.
+
+# 13. Research and technical exploration
+
+You are encouraged to investigate tools, libraries, techniques, plugins and production approaches that could materially improve this system.
+
+Explore the possibilities across:
+
+- 3D character animation.
+- Procedural motion generation.
+- Rigging and inverse kinematics.
+- Anatomical assets.
+- Motion capture.
+- Physics-based interactions.
+- Camera and lighting systems.
+- Motion graphics.
+- Video editing and compositing.
+- Voice generation.
+- Sound design.
+- Research and scientific verification.
+- Automated video inspection.
+
+Use the existing technology stack where it makes sense.
+
+Introduce new dependencies only when they offer a meaningful advantage.
+
+Do not add tools merely because they are fashionable.
+
+Document significant architectural decisions and their trade-offs.
+
+# 14. Expected execution approach
+
+Operate autonomously.
+
+I expect you to:
+
+1. Audit the existing workspace.
+2. Understand the current system and its dependencies.
+3. Identify the biggest quality gaps.
+4. Research relevant production techniques.
+5. Develop an improved architecture.
+6. Implement the upgrades.
+7. Improve the existing assets and animation engine.
+8. Expand the fitness creative system.
+9. Improve the production and review workflows.
+10. Render and inspect actual outputs.
+11. Iterate on weak results.
+12. Run regression tests.
+13. Document the resulting system.
+
+Do not finish after writing an architectural proposal.
+
+Do not confuse a successful build with a successful creative output.
+
+Render actual videos and evaluate them.
+
+Use your own judgment to determine what should be redesigned, what should be retained and what should be introduced.
+
+Make reasonable assumptions rather than repeatedly stopping for minor clarification.
+
+Preserve existing functionality and make changes incrementally. Do not perform destructive workspace modifications without understanding their impact.
+
+# 15. Definition of success
+
+The upgraded workspace should be capable of producing content that has:
+
+- A recognizable original fitness identity.
+- Consistent character design.
+- Convincing exercise movements.
+- Correct anatomical communication.
+- Excellent camera composition.
+- Professional motion graphics.
+- Strong educational storytelling.
+- Consistent typography and colour.
+- High-quality narration and sound design.
+- Appropriate pacing and editing.
+- Research-backed explanations.
+- A repeatable quality-control process.
+
+The system should support different production scales, from a simple five-second exercise demonstration to a complete educational video.
+
+A user should not need to manually assemble the entire production pipeline every time they request a new video.
+
+The system should understand the content objective, select appropriate capabilities, produce the necessary assets, assemble the video and review its output.
+
+---
+
+# Final creative challenge
+
+I want you to think beyond the limitations of the current implementation.
+
+Don't assume the existing character, animation format, scene structure, rendering technique or production workflow represents the final direction.
+
+Ask yourself:
+
+- What would make someone immediately recognize this as our fitness brand?
+- What can 3D animation explain that ordinary 2D illustrations cannot?
+- How can anatomical visualization become genuinely educational rather than decorative?
+- What could make a gym-goer watch an entire video rather than swipe away?
+- How can we turn a single exercise into multiple interesting educational visual sequences?
+- What should be procedurally generated, what should be carefully authored and what should require expert review?
+- How can we produce something with the editorial discipline of a professional animation studio without inheriting its production bottlenecks?
+- What capabilities are missing that I haven't thought of?
+
+**Do not simply make the existing videos prettier. Improve the underlying creative system so that making excellent videos becomes the default outcome.**
+
+I am giving you ownership of the exploration and implementation.
+
+Use your judgment, explore unconventional approaches, challenge existing assumptions and build something substantially better than the current version.
+
+The final objective is an original, extensible, AI-assisted fitness animation and content production studio.
+
+
+
+
+# PROMPT 2
+
+
+
+# MANDATORY UPGRADE: Anatomical Integration, Body Modeling and Muscle Visualization
+
+## Context: A newly identified fundamental design flaw
+
+Three additional production samples have been provided:
+
+- hip-thrust-vs-squat-portrait.mp4
+- knees-past-toes-portrait.mp4
+- standing-vs-seated-calf-portrait.mp4
+
+These videos expose an important weakness in the existing 3D character and anatomy visualization system.
+
+The character currently looks like a blue base mannequin with separately constructed red/orange muscle shapes attached to its exterior.
+
+The problem is particularly visible in:
+
+- Glute and thigh visualization in the hip thrust and squat video.
+- Quadriceps and other muscle highlights in the knee biomechanics video.
+- Gastrocnemius and soleus visualization in the calf anatomy video.
+
+The muscles look like detached, raised geometry rather than anatomical structures belonging to the body.
+
+This is not the desired design.
+
+**Muscles are part of the body. They are not stickers, attachments or decorative objects placed on top of a mannequin.**
+
+The existing appearance needs to be fundamentally reconsidered.
+
+## A. Re-examine the character's anatomical architecture
+
+Inspect the underlying character assets, meshes, scene graph, materials, rigs and rendering pipeline.
+
+Determine how the existing body and muscle structures are constructed.
+
+Establish whether the current system uses:
+
+- A base mannequin mesh.
+- Separately modeled muscle meshes.
+- Surface overlays.
+- Independent muscle-group geometry.
+- Duplicate body surfaces.
+- Layered transparent geometry.
+- Other combinations of anatomical assets.
+
+Do not assume the cause from the rendered videos alone. Inspect the actual implementation.
+
+Understand why the current result makes muscles appear detached.
+
+Investigate whether the character should be redesigned as a unified anatomical model with internal muscle structures and a continuous external body surface.
+
+The redesigned character should have a coherent silhouette, believable body proportions, integrated musculature and natural transitions between muscle groups.
+
+The anatomy can remain stylized. It does not need to become a photorealistic medical model.
+
+However, it must look physically and anatomically coherent.
+
+## B. Establish separate anatomical visualization modes
+
+Develop an appropriate visualization architecture that distinguishes the following modes.
+
+### 1. Normal character mode
+
+The character is presented as one coherent body.
+
+- Continuous outer body surface.
+- Integrated muscular definition.
+- Natural body proportions.
+- No detached muscle shapes.
+- No unnecessary anatomical geometry.
+- Consistent material and lighting.
+- Natural joint transitions.
+
+This should be the default for exercise demonstrations.
+
+The character must look convincing even when no muscle highlights are active.
+
+### 2. Muscle activation mode
+
+Highlight selected muscle groups directly on the external body surface.
+
+Explore techniques such as:
+
+- Shader-based material masks.
+- Vertex colour maps.
+- Surface-conforming textures.
+- Geometry-aware highlighting.
+- Anatomically mapped material blending.
+- Other suitable rendering techniques.
+
+The exact implementation is open for exploration.
+
+The important requirements are:
+
+- The highlight must follow the actual body surface.
+- It must preserve the underlying body contour.
+- It must not introduce visibly raised external geometry.
+- It must deform naturally with the body.
+- Its anatomical boundaries should be accurate.
+- Its colour should blend naturally into the character.
+- Primary and secondary muscle groups should be distinguishable.
+
+Use gradients, controlled transitions, opacity and restrained visual effects where appropriate.
+
+Avoid creating the appearance of red or orange objects glued to the character.
+
+If the character bends, rotates or changes its pose, the highlights must remain correctly registered to the appropriate anatomical regions.
+
+### 3. Anatomical cutaway mode
+
+This mode should reveal the actual muscular anatomy beneath the skin.
+
+Investigate:
+
+- Selective skin transparency.
+- Localized skin removal.
+- Anatomical section windows.
+- Layered material visibility.
+- Anatomical cross-sections.
+- Muscle isolation with surrounding structures.
+- Skeletal and tendon visualization.
+
+The transition between the normal character and anatomical representation should be deliberate and visually understandable.
+
+Do not simply render a transparent duplicate of the entire body on top of an opaque mannequin.
+
+Do not allow the skin and muscle geometry to intersect in a way that creates visual artifacts.
+
+When showing an internal muscle, it should occupy its anatomically appropriate position inside the body.
+
+Preserve relationships with neighboring muscles, skeletal structures and tendons.
+
+### 4. Isolated anatomy mode
+
+Individual muscles may be displayed separately when the educational objective requires it.
+
+However, this should be an intentional presentation mode.
+
+For example:
+
+- A muscle isolated beside its original anatomical location.
+- A semi-transparent body with a selected muscle exposed.
+- An exploded anatomical view with labelled structures.
+
+Provide enough context to make the relationship with the body obvious.
+
+Do not accidentally produce an exploded anatomical appearance during ordinary exercise demonstrations.
+
+## C. Rebuild and validate anatomical integration
+
+Investigate the appropriate modeling approach.
+
+Potential approaches include:
+
+- A unified sculpted body mesh.
+- Layered anatomy with a continuous skin envelope.
+- Internal muscle meshes attached to the skeletal rig.
+- Surface deformation and blend shapes.
+- Anatomically constrained skin weighting.
+- Muscle volumes driven by joint movement.
+- A hybrid anatomical model with a simplified outer body.
+
+The implementation should ensure that:
+
+1. Muscle geometry stays within the intended anatomical envelope.
+2. The external body silhouette remains continuous.
+3. Muscles do not float outside the skin.
+4. There are no unexplained gaps between anatomical structures.
+5. Muscle geometry does not penetrate the exterior surface.
+6. The joints deform naturally.
+7. Skin and muscle structures move together.
+8. Muscle highlighting remains registered during animation.
+9. The model does not develop duplicate or overlapping surfaces.
+10. The character remains recognizable and consistent in every visualization mode.
+
+Investigate how muscles can deform appropriately around joints without requiring an excessively complex simulation system.
+
+Use the right balance between anatomical fidelity and rendering performance.
+
+Do not overengineer every muscle if a carefully designed simplified model produces a better educational result.
+
+## D. Specific anatomical requirements
+
+Pay particular attention to the following areas from the supplied videos.
+
+### Glutes and thighs
+
+- Integrate gluteal anatomy into the pelvis and hip region.
+- Avoid separate spherical or oval shapes sitting outside the glutes.
+- Ensure thigh muscle transitions are natural.
+- Respect muscle-group boundaries.
+- Show the relationship between hip extension, knee movement and the relevant muscles.
+- Use surface highlighting for ordinary activation demonstrations.
+- Use internal cutaways for detailed gluteal anatomy.
+
+### Quadriceps and knee region
+
+- Represent the major quadriceps structures coherently.
+- Preserve natural thigh contours.
+- Avoid separate oval patches.
+- Maintain appropriate muscle relationships around the knee.
+- Ensure the knee region deforms correctly during squats and other loaded movements.
+- Highlight muscles without obscuring the joint mechanics being explained.
+
+### Gastrocnemius and soleus
+
+Redesign the current calf anatomy visualization.
+
+The gastrocnemius and soleus must be presented as muscles occupying their proper anatomical positions.
+
+Account for:
+
+- The superficial position of the gastrocnemius.
+- The deeper position of the soleus.
+- Their different relationships with the knee.
+- Their relationship with the Achilles tendon.
+- Their anatomical attachment regions.
+- How knee position changes their functional contribution.
+
+Do not represent the two muscles as separate external objects attached to the calf.
+
+For detailed explanations, consider a localized anatomical cutaway that reveals the deeper soleus beneath the gastrocnemius.
+
+The result should resemble a coherent anatomical cross-section, not two pieces of geometry pasted onto the leg.
+
+### Shoulders, arms and chest
+
+Apply the same principles to the upper body.
+
+The deltoids, biceps, triceps, pectorals and other structures must contribute naturally to the overall body anatomy.
+
+Avoid individual muscle bulges that appear disconnected from the body.
+
+Create consistent anatomical treatment throughout the entire character rather than fixing only the three problematic regions.
+
+## E. Distinguish anatomical structures from scientific measurements
+
+The hip thrust video references surface electromyography (sEMG).
+
+Investigate the correct visual language for communicating different kinds of measurements.
+
+For example:
+
+- An EMG electrode is a sensor attached to the skin.
+- Muscle activation highlighting is a visual explanation.
+- A three-dimensional muscle model represents anatomy.
+- A graph represents measured or analyzed data.
+
+These are not interchangeable.
+
+Do not use a large external muscle object to imply that an EMG sensor directly measures an entire visible muscle volume.
+
+Represent sensors as sensors, muscle anatomy as anatomy and activation as an appropriately qualified visualization.
+
+Ensure the graphics do not imply more scientific certainty than the underlying measurement supports.
+
+This distinction should apply to all research-based fitness content.
+
+## F. Improve the anatomical visual design
+
+The character should maintain a cohesive aesthetic.
+
+Investigate appropriate approaches to:
+
+- Surface materials.
+- Skin appearance.
+- Muscle materials.
+- Anatomical colour conventions.
+- Shading and lighting.
+- Subsurface effects where appropriate.
+- Smooth mesh transitions.
+- Anatomical outlines.
+- Depth and transparency.
+- Selection and highlighting states.
+
+Do not assume that realistic red muscle materials are automatically the right choice.
+
+The normal character could retain its distinctive blue identity while the underlying anatomical representation adopts a complementary visual language.
+
+Develop a consistent design language that makes it immediately clear whether the viewer is seeing:
+
+- The external character.
+- An active muscle group.
+- An internal anatomical structure.
+- An isolated anatomical structure.
+
+Avoid simultaneous visual representations that confuse these states.
+
+## G. Anatomical quality assurance
+
+Introduce explicit anatomical acceptance tests.
+
+A character should fail review when:
+
+- Muscle shapes visibly protrude from the body without anatomical justification.
+- The body appears to have stickers or raised patches attached to it.
+- The highlighted muscle does not follow the body surface.
+- Anatomical geometry is visibly disconnected.
+- Skin and muscle surfaces intersect incorrectly.
+- Deep structures are represented as superficial structures.
+- Muscle highlights drift during movement.
+- The visual treatment changes unpredictably between camera angles.
+- The cutaway reveals incorrect or confusing anatomical relationships.
+
+Create reusable test scenes that examine the character from:
+
+- Front.
+- Rear.
+- Left and right sides.
+- Three-quarter angles.
+- Close-up anatomical views.
+
+Test the same anatomy across multiple poses, not just a static model.
+
+Test the character during squats, hip extension, arm flexion, shoulder abduction, knee flexion and plantar flexion.
+
+Pay particular attention to deformation around shoulders, hips, knees and ankles.
+
+## H. Re-render the supplied regression videos
+
+Use the three new videos as mandatory anatomical design regression tests.
+
+Produce revised versions of:
+
+1. Hip thrust vs squat.
+2. Knees past toes.
+3. Standing vs seated calf raises.
+
+The upgraded output should demonstrate the new anatomical system in multiple contexts.
+
+Specifically:
+
+- Hip and glute muscle highlighting should look integrated.
+- Quadriceps visualization should follow the thigh's surface.
+- Calf anatomy should reveal actual internal muscle relationships.
+- The body should retain a coherent external silhouette.
+- Cutaway transitions should feel intentional.
+- No detached muscle geometry should remain in normal demonstration mode.
+
+Compare the revised outputs against the originals.
+
+Evaluate the anatomical clarity, visual quality, movement coherence and educational value.
+
+## I. Final architectural objective
+
+Treat this as a foundational character-system improvement, not an isolated animation fix.
+
+The redesigned anatomy system must become reusable across the entire fitness workspace.
+
+Every exercise and educational video should use the same underlying anatomical conventions.
+
+A new exercise should not require manually inventing another set of external muscle objects.
+
+The system should understand the difference between displaying the character, highlighting an active muscle and exposing underlying anatomy.
+
+Explore the most suitable asset structure, rendering architecture, rigging strategy and authoring workflow.
+
+You own the implementation decisions.
+
+**The desired result is one coherent, believable 3D anatomical character with multiple visualization capabilities, not a mannequin with a collection of floating muscles attached to it.**
+
+This requirement is fundamental to the future quality and identity of the fitness brand.
+
+
+

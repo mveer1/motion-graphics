@@ -1,0 +1,49 @@
+{
+  "id": "tool-motion-continuity",
+  "name": "Pop detector (scripts/motion-continuity.py)",
+  "component_type": "tool",
+  "purpose": "Finds pops in any rendered film: per frame, changed pixels with no motion beside them in the previous frames. patch mode finds filled patches (colour snaps, parts appearing); edge mode also reports thin outline swaps with false positives on fast limbs. Reports evidence, never certifies.",
+  "capabilities": [
+    "motion-continuity.py <video> [--range a,b] [--roi y0,y1] [--mode patch|edge] [--sheet out.png]"
+  ],
+  "location": "scripts/motion-continuity.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+  },
+  "dependencies": [
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python with numpy and Pillow (.venv/bin/python); ffmpeg and ffprobe",
+    "notes": "Light job: decodes at 240 px wide."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/references/motion-3d.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads a video, writes an optional PNG."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Measured 2026-11-12 on the 2D upper-body-workout film (edge mode flags the press, curl and raise art swaps, confirmed by eye) and the 3D lab film (patch mode found a 0.2 s activation colour snap, since fixed); tests/test-rig3d.py has a synthetic pop and a smooth control.",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-12",
+  "tags": [
+    "fitness",
+    "3d",
+    "qa"
+  ]
+}

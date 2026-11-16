@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SinewFitnessAssetManifest",
+  "description": "assets/fitness/manifest.json: every reusable asset of the Sinew fitness kit with provenance, licence, files, API, conventions and preview. Checked by `python scripts/fitness.py check` (schema, files, previews, API names against the kit source, licences).",
+  "type": "object",
+  "required": ["spec", "brand", "updated", "conventions", "assets"],
+  "properties": {
+    "spec": { "type": "string" },
+    "brand": { "type": "string" },
+    "updated": { "type": "string" },
+    "conventions": { "type": "object" },
+    "assets": { "type": "array", "items": { "$ref": "#/definitions/asset" } }
+  },
+  "definitions": {
+    "asset": {
+      "type": "object",
+      "required": ["id", "name", "kind", "category", "description", "source", "license", "files", "status", "accuracy"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "kind": { "type": "string", "enum": ["character", "character-view", "expression-set", "pose-set", "xray-layer", "anatomy-plate", "exercise", "gait", "equipment", "environment", "brand-graphic", "biomech-overlay", "science-chart", "style", "sound", "data", "template"] },
+        "category": { "type": "string", "enum": ["mascot", "muscular", "skeletal", "cardiovascular", "respiratory", "cellular", "exercise", "running", "environment", "brand", "biomechanics", "science", "audio", "reference-data"] },
+        "description": { "type": "string" },
+        "source": {
+          "type": "object", "required": ["type", "origin"], "additionalProperties": false,
+          "properties": { "type": { "type": "string", "enum": ["original", "public-domain", "cc0", "cc-by", "cc-by-sa", "licensed", "excluded"] }, "origin": { "type": "string" }, "url": { "type": "string" }, "retrieved": { "type": "string" }, "references": { "type": "array", "items": { "type": "string" } } }
+        },
+        "license": {
+          "type": "object", "required": ["spdx", "commercial_use", "attribution_required"], "additionalProperties": false,
+          "properties": { "spdx": { "type": "string" }, "commercial_use": { "type": "boolean" }, "attribution_required": { "type": "boolean" }, "attribution_text": { "type": "string" }, "notes": { "type": "string" } }
+        },
+        "files": { "type": "array", "items": { "type": "object", "required": ["path", "format"], "additionalProperties": false, "properties": { "path": { "type": "string" }, "format": { "type": "string" }, "role": { "type": "string" } } } },
+        "api": { "type": "string" },
+        "coordinates": { "type": "string" },
+        "rigging": { "type": "string", "enum": ["rigged", "follows-rig", "static", "animated-procedural", "n/a"] },
+        "materials": { "type": "string" },
+        "preview": { "type": "string" },
+        "usage": { "type": "string" },
+        "accuracy": { "type": "string", "enum": ["stylised", "schematic", "conceptual-kinematics", "data", "brand"] },
+        "status": { "type": "string", "enum": ["experimental", "approved", "excluded"] },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

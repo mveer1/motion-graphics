@@ -1,0 +1,49 @@
+{
+  "id": "tool-fitness-clip",
+  "name": "Fitness clip cutter (scripts/fitness-clip.py)",
+  "component_type": "tool",
+  "purpose": "Cuts frame-exact named clips from a finished film, stamps honest title and frame-rate metadata, verifies r_frame_rate and archives replaced files.",
+  "capabilities": [
+    "fitness-clip.py <film.mp4> --cut name:a:b --out dir"
+  ],
+  "location": "scripts/fitness-clip.py",
+  "version": "0.1.0",
+  "dependencies": [
+    "ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 or node; ffmpeg where noted",
+    "notes": "Heavy browser steps take the host render lock."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness-publish/SKILL.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only under qa/ or the named output directory."
+  },
+  "approval_evidence": "tests/test-anatomy3d.py and the lab clips (2026-11-13).",
+  "tags": [
+    "fitness",
+    "qa",
+    "tool"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

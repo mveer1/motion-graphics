@@ -318,17 +318,23 @@ class StudioCliTests(unittest.TestCase):
     # ---------------------------------------------------------------- video types
     def test_video_type_windows_follow_the_spec(self):
         types = studio.load_video_types()
-        self.assertEqual(set(types), {"reel", "long-reel", "youtube"})
-        self.assertEqual(types["reel"]["window_sec"], (30, 75))
-        self.assertEqual(types["long-reel"]["window_sec"], (45, 195))
-        self.assertEqual(types["youtube"]["window_sec"], (165, None))
-        self.assertEqual((types["reel"]["format"], types["long-reel"]["format"], types["youtube"]["format"]),
-                         ("portrait", "portrait", "landscape"))
-        self.assertEqual(types["youtube"]["platform"], "youtube")
-        self.assertEqual(types["reel"]["platform"], "instagram-reels")
+        self.assertEqual(set(types), {"short", "mid", "long"})
+        self.assertEqual(types["short"]["window_sec"], (15, 75))  # 20-60 s with the margin, floored at 15 s
+        self.assertEqual(types["mid"]["window_sec"], (45, 195))
+        self.assertEqual(types["long"]["window_sec"], (285, 735))
+        self.assertEqual(types["short"]["formats"], ["portrait"])
+        self.assertEqual(types["mid"]["formats"], ["portrait", "landscape"])
+        self.assertEqual(types["long"]["formats"], ["landscape", "portrait"])   # portrait allowed by the owner, 2026-11-09
+        self.assertEqual(types["long"]["format"], "landscape")                 # landscape stays the default
+        self.assertEqual(types["long"]["platform"], "youtube")
+        self.assertEqual(types["short"]["platform"], "instagram-reels")
+        self.assertIn("linkedin", types["mid"]["platforms"])
+        # the pre-2.0 ids still resolve
+        self.assertEqual([studio.canonical_video_type(v) for v in ("reel", "long-reel", "youtube", "mid")], ["short", "mid", "long", "mid"])
+        self.assertEqual(studio.parse_video_type_arg("reel")["id"], "short")
 
     def test_new_requires_a_known_video_type(self):
-        for bad in (None, "tiktok", "short"):
+        for bad in (None, "tiktok", "shorts", "documentary"):
             with self.subTest(video_type=bad), self.assertRaises(SystemExit):
                 studio.cmd_new(argparse.Namespace(slug="no-type", template="illustrated-explainer", title=None,
                                                   style=None, formats=None, category=None, video_type=bad))
@@ -337,8 +343,8 @@ class StudioCliTests(unittest.TestCase):
         original = studio.PROJECTS_DIR
         studio.PROJECTS_DIR = self.tmpdir
         try:
-            expect = {"reel": ("portrait", "instagram-reels", 45), "long-reel": ("portrait", "instagram-reels", 90),
-                      "youtube": ("landscape", "youtube", 240)}
+            expect = {"short": ("portrait", "instagram-reels", 45), "mid": ("landscape", "youtube", 150),
+                      "long": ("landscape", "youtube", 480), "reel": ("portrait", "instagram-reels", 45)}
             for vt, (fmt, platform, target) in expect.items():
                 with self.subTest(video_type=vt):
                     pdir = self._scaffold(f"type-{vt}", video_type=vt)
@@ -347,11 +353,20 @@ class StudioCliTests(unittest.TestCase):
                     self.assertEqual([f["id"] for f in project["formats"]], [fmt])
                     self.assertEqual(project["duration_sec"], target)
                     self.assertEqual(brief["platforms"], [platform])
-                    self.assertEqual(brief["deliverables"]["video_type"], vt)
+                    self.assertEqual(brief["deliverables"]["video_type"], studio.canonical_video_type(vt))
                     self.assertEqual(brief["deliverables"]["formats"], [fmt])
                     self.assertEqual(studio.validate_project(pdir).errors, [])
-            with self.assertRaises(SystemExit):  # a reel is not square
-                self._scaffold("type-bad-format", video_type="reel", formats="square")
+            with self.assertRaises(SystemExit):  # a short is not square
+                self._scaffold("type-bad-format", video_type="short", formats="square")
+            with self.assertRaises(SystemExit):  # a long-form film is not square
+                self._scaffold("type-bad-long", video_type="long", formats="square")
+            with self.assertRaises(SystemExit):  # one format per film
+                self._scaffold("type-two-formats", video_type="mid", formats="portrait,landscape")
+            # mid-form takes either format; portrait goes to Instagram
+            pdir = self._scaffold("type-mid-portrait", video_type="mid", formats="portrait")
+            brief = json.loads((pdir / "brief.json").read_text(encoding="utf-8"))
+            self.assertEqual((brief["deliverables"]["formats"], brief["platforms"]), (["portrait"], ["instagram-reels"]))
+            self.assertEqual(studio.validate_project(pdir).errors, [])
         finally:
             studio.PROJECTS_DIR = original
 
@@ -359,7 +374,7 @@ class StudioCliTests(unittest.TestCase):
         original = studio.PROJECTS_DIR
         studio.PROJECTS_DIR = self.tmpdir
         try:
-            pdir = self._scaffold("type-window", video_type="reel")
+            pdir = self._scaffold("type-window", video_type="short")
             pj, bj = pdir / "project.json", pdir / "brief.json"
             project = json.loads(pj.read_text(encoding="utf-8"))
             brief = json.loads(bj.read_text(encoding="utf-8"))
@@ -373,22 +388,29 @@ class StudioCliTests(unittest.TestCase):
                 return rep
 
             self.assertEqual(errors().errors, [])
-            for ok in (30, 75):  # the 15 s margin either side of 45-60
+            for ok in (15, 20, 75):  # 20-60 s with the margin, floored at 15 s
                 with self.subTest(duration=ok):
                     self.assertEqual(errors(lambda p: p.update(duration_sec=ok)).errors, [])
-            for bad in (29, 76, 240):
+            for bad in (14, 76, 240):
                 with self.subTest(duration=bad):
-                    self.assertTrue(any("outside the reel window" in e for e in errors(lambda p: p.update(duration_sec=bad)).errors))
+                    self.assertTrue(any("outside the short window" in e for e in errors(lambda p: p.update(duration_sec=bad)).errors))
+            # a film between mid and long names the gap
+            mid = {**brief, "platforms": ["youtube"], "deliverables": {**brief["deliverables"], "video_type": "mid",
+                   "formats": ["landscape"], "duration_sec": {"target": 150}}}
+            rep = studio.Report()
+            studio.check_video_type(mid, {**project, "duration_sec": 240}, rep)
+            self.assertTrue(any("between mid and long" in e for e in rep.errors))
             self.assertTrue(errors(brief_edit=lambda b: b.update(platforms=["instagram-reels", "tiktok"])).errors)
             self.assertTrue(errors(brief_edit=lambda b: b["deliverables"].update(formats=["portrait", "square"])).errors)
-            # youtube has a floor of 165 s and no ceiling
-            yb = {**brief, "platforms": ["youtube"], "deliverables": {**brief["deliverables"], "video_type": "youtube",
-                  "formats": ["landscape"], "duration_sec": {"min": 180, "target": 600}}}
-            for d, bad in ((164, True), (165, False), (3600, False)):
-                with self.subTest(youtube=d):
-                    rep = studio.Report()
-                    studio.check_video_type(yb, {**project, "duration_sec": d}, rep)
-                    self.assertEqual(bool(rep.errors), bad)
+            # long-form runs 285-735 s (5-12 min with the margin); the old id still works
+            for vid in ("long", "youtube"):
+                yb = {**brief, "platforms": ["youtube"], "deliverables": {**brief["deliverables"], "video_type": vid,
+                      "formats": ["landscape"], "duration_sec": {"min": 300, "target": 480}}}
+                for d, bad in ((284, True), (285, False), (735, False), (736, True)):
+                    with self.subTest(form=vid, seconds=d):
+                        rep = studio.Report()
+                        studio.check_video_type(yb, {**project, "duration_sec": d}, rep)
+                        self.assertEqual(bool(rep.errors), bad)
             # a legacy brief with no type is warned about, not failed
             legacy = json.loads(json.dumps(brief))
             del legacy["deliverables"]["video_type"]
@@ -403,15 +425,15 @@ class StudioCliTests(unittest.TestCase):
         studio.PROJECTS_DIR, studio.SERIES_DIR = self.tmpdir / "projects", self.tmpdir / "series"
         studio.PROJECTS_DIR.mkdir(exist_ok=True)
         try:
-            for slug, vt in (("mix-reel", "reel"), ("mix-long", "long-reel"), ("mix-yt", "youtube")):
+            for slug, vt in (("mix-short", "short"), ("mix-mid", "mid"), ("mix-long", "long")):
                 self._scaffold_in_projects(slug, "history", vt)
             ser = {"spec_version": 1, "slug": "mixed", "title": "Mixed", "kind": "sequential", "categories": ["history"],
-                   "members": [{"project": "mix-yt", "part": 1}, {"project": "mix-long", "part": 2},
-                               {"project": "mix-reel", "part": 3}, {"project": "mix-next", "part": 4,
-                                                                     "status": "planned", "video_type": "reel"}]}
+                   "members": [{"project": "mix-long", "part": 1}, {"project": "mix-mid", "part": 2},
+                               {"project": "mix-short", "part": 3}, {"project": "mix-next", "part": 4,
+                                                                      "status": "planned", "video_type": "reel"}]}
             rep = studio.validate_series(ser, "mixed")
             self.assertEqual(rep.errors, [])
-            self.assertEqual([studio.member_video_type(m) for m in ser["members"]], ["youtube", "long-reel", "reel", "reel"])
+            self.assertEqual([studio.member_video_type(m) for m in ser["members"]], ["long", "mid", "short", "short"])
             ser["kind"] = "collection"
             for m in ser["members"]:
                 m.pop("part")
@@ -475,18 +497,20 @@ class PosterAndCatalogueTests(unittest.TestCase):
         cats = {c["id"] for c in self.cat.read_categories()}
         preamble, ideas = self.cat.read_ideas(cats, {t["id"] for t in types})
         self.assertGreaterEqual(len(ideas), 20)
-        self.assertTrue(all(i["type"] in {"reel", "long-reel", "youtube"} and i["topic"] in cats and i["title"] and i["pitch"] for i in ideas))
+        self.assertTrue(all(i["type"] in {"short", "mid", "long"} and i["topic"] in cats and i["title"] and i["pitch"] for i in ideas))
         self.assertEqual(len({i["id"] for i in ideas}), len(ideas))
         self.assertIn("[length]", preamble)  # the format notes survive an export from the sheet
 
     def test_catalogue_tags_every_film_by_length(self):
         types = self.cat.read_video_types()
-        self.assertEqual([t["id"] for t in types], ["reel", "long-reel", "youtube"])
-        for sec, want in ((14, "reel"), (44, "reel"), (60, "reel"), (61, "long-reel"), (180, "long-reel"), (181, "youtube"), (239.5, "youtube")):
+        self.assertEqual([t["id"] for t in types], ["short", "mid", "long"])
+        for sec, want in ((14, "short"), (44, "short"), (60, "short"), (61, "mid"), (180, "mid"), (181, "long"), (239.5, "long")):
             with self.subTest(seconds=sec):
                 self.assertEqual(self.cat.type_for({"declared_type": None, "film_sec": sec}, types), (want, True))
         # a type named in the brief wins over the length
-        self.assertEqual(self.cat.type_for({"declared_type": "youtube", "film_sec": 44}, types), ("youtube", False))
+        self.assertEqual(self.cat.type_for({"declared_type": "long", "film_sec": 44}, types), ("long", False))
+        # a pre-2.0 id in a brief is read as its new id
+        self.assertEqual(self.cat.type_for({"declared_type": "youtube", "film_sec": 44}, types), ("long", False))
 
 
 @unittest.skipUnless(BASH, "bash not available")

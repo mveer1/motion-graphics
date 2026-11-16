@@ -1,0 +1,32 @@
+{
+  "id": "fitness-explainer",
+  "name": "Sinew fitness explainer",
+  "deliverable_type": "illustrated_explainer",
+  "status": "experimental",
+  "description": "Character-led fitness and exercise-science explainer in the Sinew brand: Tibi the mascot on the articulated rig, the movement library, x-ray anatomy, evidence badges and source lines. Loads the fitness kit (src/studio/kits/fitness/) on top of the studio runtime. Entry point: the /fitness skill.",
+  "location": "templates/projects/fitness-explainer",
+  "stages": {
+    "research": "required",
+    "storyboard": "required",
+    "narration": "required",
+    "music": "optional",
+    "captions": "optional"
+  },
+  "default_style": "sinew-lab",
+  "default_formats": ["landscape"],
+  "default_duration_sec": 16,
+  "compositions": ["title-card", "end-card", "caption-band"],
+  "effects": ["stroke-draw", "text-mask-rise"],
+  "suitable_for": ["fitness explainers", "exercise technique", "running science", "muscle and physiology", "fitness myth-busting"],
+  "validation_steps": [
+    "python scripts/fitness.py new <slug> --type mid --topic \"...\" (or studio.py new <slug> --template fitness-explainer --type <form> --category fitness)",
+    "python scripts/studio.py validate <slug>",
+    "hyperframes snapshot under session-guard (frame-review.py needs Playwright, absent on the render host)"
+  ],
+  "validation": {
+    "evidence": "Scaffolded and validated with studio.py on 2026-11-08; first film projects/how-muscles-grow rendered with HyperFrames.",
+    "last_verified": "2026-11-08"
+  },
+  "tags": ["template", "fitness", "character", "sinew"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-08", "updated_at": "2026-11-08" }
+}

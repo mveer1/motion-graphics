@@ -1,0 +1,63 @@
+{
+  "id": "shared-fitness-kit",
+  "name": "Sinew fitness kit (runtime)",
+  "component_type": "shared_asset",
+  "purpose": "Reusable fitness production assets in the studio runtime: the articulated rig engine, Tibi the mascot in the Cobalt Sculpt style (male and female, front/side/back, muscle activation by role, generated from the Python master in src/fitness/tibi/), a 12-exercise upper-body library, gaits and equipment, anatomy and physiology plates, brand graphics, environments, biomechanics overlays and science charts. Manifest: assets/fitness/manifest.json.",
+  "capabilities": [
+    "kits/fitness/brand.js: Sinew brand palette",
+    "studio-rig.js: FK, anchors, two-bone IK, level feet, followers, finite cycles, derived pose attributes",
+    "kits/fitness/sculpt.js + sculpt-data.js: Cobalt Sculpt Tibi (male/female, front/side/back, 15 handover poses, activation levels, faces, tops) on the rig, light-fixed crescent shading via the derive hook",
+    "src/fitness/tibi/: Python master generator (stdlib) for the Cobalt Sculpt Tibi: review page, standalone SVGs, runtime data (fitness.py sculpt)",
+    "kits/fitness/exercises.js: 12 upper-body exercises, curl, squat, calf raise, 3 gaits, flat-plane equipment built from Tibi's joints",
+    "kits/fitness/anatomy.js: muscle to sarcomere, cross-section growth, mitochondrion, ATP, heart, lungs, zoom ladder",
+    "kits/fitness/graphics.js: logo, cards, badges, citations, environments, biomechanics, charts",
+    "kits/fitness/library.js: generated metadata",
+    "kits/fitness/tibi3d.js + exercises3d.js: Tibi in real 3D (Three.js r158 vendored): skinned figure, muscles that never pop, free camera, activation by intensity, pure-function-of-time motion tracks; curl, bench press, lateral raise, back squat (and knees blocked), barbell hip thrust, standing and seated calf raise; glute/adductor/soleus, heel lift, chest-frame IK, split-screen views; film3d.js overlays (references/motion-3d.md)",
+    "kits/fitness/anatomy3d.js: Tibi's one continuous skin (signed-distance union of cores and muscle volumes), activation gradients on the surface, internal muscles, tendons and bones, cut windows, isolation and skeleton modes (1.9.0)",
+    "kits/fitness/scenes3d.js + film3d.js: reusable exercise demo and cutaway scenes; rep HUD, tempo bar, cue card, joint-angle arc, movement trail, EMG sensor and state chip overlays (1.9.0)"
+  ],
+  "location": "src/studio/kits/fitness",
+  "version": "1.9.0",
+  "installation": {
+    "required": false,
+    "instructions": "Synced into projects with the runtime (studio.py sync/upgrade); load the scripts as the fitness-explainer template does."
+  },
+  "dependencies": [
+    "shared-studio-runtime"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "browser (HyperFrames headless Chrome)",
+    "notes": "Cobalt Sculpt Tibi (2026-11-09, runtime 1.6.0): verified in headless Chrome and HyperFrames snapshots; rendered in projects/upper-body-workout (see its qa/). Classic Tibi retired."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/references/visual-systems.md",
+    ".claude/skills/fitness/references/character-guidelines.md",
+    "src/fitness/tibi/HANDOVER.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Original workspace code and art; no third-party assets."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Runs inside the render browser only."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "One HyperFrames render (how-muscles-grow, 97.5 s, QA gates passed) on 2026-11-08. Cobalt Sculpt Tibi: no film render yet. 1.9.0 (2026-11-13): anatomy acceptance tests and rig3d-check pass for both bodies; nine regression videos re-rendered.",
+  "architecture_ref": "ARCHITECTURE.md#runtime",
+  "last_verified": "2026-11-13",
+  "tags": [
+    "fitness",
+    "character",
+    "rig",
+    "anatomy",
+    "runtime"
+  ]
+}

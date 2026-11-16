@@ -18,7 +18,7 @@ Each studio project lives in `projects/<slug>/` and is driven by `scripts/studio
 
 The stages fall into four phases. Each phase ends at a gate, and a later phase sends a problem back to the phase that owns it:
 
-1. **Brief and research.** The brief sets categories, the video type (`reel` 45-60 s, `long-reel` 60-180 s or `youtube` over 180 s, each +-15 s; `specs/video-types.json`), which fixes the platform, format (portrait for reels, landscape for YouTube) and length window, and the style template. A reel prefers 45 s, up to 60 s for a complicated topic. Research supplies facts only. *Gate:* `validate-research.py`.
+1. **Brief and research.** The brief sets categories, the form (`short` 20-60 s, `mid` 60-180 s or `long` 5-12 min, each +-15 s; `specs/video-types.json`, `docs/video-forms.md`), which fixes the allowed platforms and formats (portrait for short, either for mid, landscape for long) and the length window, and the style template. Short-form prefers 45 s, up to 60 s for a complicated topic; long-form is told in storyboard `chapters` and rendered in checkpointed segments (`scripts/render-segments.py`). Research supplies facts only. *Gate:* `validate-research.py`.
 2. **Story and structure.** The `story-writer` subagent owns the story and loops with research until it signs off. `creative-director` then settles the look on the anchor beat. *Gate:* `qa/story-review.json` verdict `complete`, checked by `studio.py validate`.
 3. **Audio, visuals and sound, as one loop.** The steps run in order within each pass: measured speech, then visuals snapped to it, then sound from the animation moments. They are not parallel, because visuals are timed to measured audio and TTS, Whisper and frame review share the host lock. A timing or word change re-runs only the scenes it touches. *Gate:* pre-render review (`validate`, `frame-review.py`, `motion-qa.py composition`).
 4. **Render and review.** Render, mux, the five technical gates, the poster (`poster.jpg`, the last non-black frame of the finished film, made by `build` itself; `scripts/poster.py`), then the creative review. Failures route back to phase 2 (story) or 3 (picture and sound); recurring ones become rules (style template, story-writer rulebook) through the story-writer `retro`.
@@ -157,6 +157,19 @@ Planning, visual intelligence, asset acquisition and motion QA on top of the stu
 | Revision | spliced `renders/<format>/visuals.mp4` | `scripts/scene-revise.py` |
 
 Skills: `creative-director`, `asset-engine`, `motion-director`. `studio.py validate` checks these files when present. Credentials come from environment variables only.
+
+<a id="fitness"></a>
+
+### 0.10 Sinew fitness capability (subject specialisation)
+
+A subject specialisation of the studio, not a second pipeline. The `/fitness` skill (`.claude/skills/fitness/`) classifies a topic (`specs/fitness-spec.json` pillars and routing), scaffolds a `fitness-explainer` project (category `fitness`, style template `body-lab`, style `sinew-lab`, brand voice), and then runs the same four phases with two additions: an evidence-graded dossier (`research/dossier.json`, `scripts/fitness.py dossier`) in phase 1, and the Sinew rubric (`qa/fitness-review.json`, `scripts/fitness.py review`) in phase 4, where science, anatomy and biomechanics errors are critical.
+
+| Layer | Location | Notes |
+| --- | --- | --- |
+| Rig engine | `src/studio/studio-rig.js` (runtime 1.4.0) | generic: any character kit can use it |
+| Fitness kit | `src/studio/kits/fitness/{sculpt-data,sculpt,tibi,exercises,anatomy,graphics,library}.js` | synced with the runtime; `library.js` is generated from `assets/fitness/data/`, `sculpt-data.js` from the Cobalt Sculpt Tibi generator `src/fitness/tibi/` (Python master source; `fitness.py sculpt`) |
+| Assets and provenance | `assets/fitness/manifest.json` (`specs/fitness-asset-spec.json`), `assets/fitness/sheets/` -> `previews/`, `brand/` | `fitness.py check` ties manifest, data and kit together |
+| Sound identity | `.claude/skills/fitness/scripts/sinew_sound.py` | per-project `audio/generate_bed_and_sfx.py` calls it |
 
 ---
 
@@ -785,3 +798,11 @@ python3 scripts/workspace-governance.py --strict
 # Run full test suite:
 python3.12 tests/test-workspace-governance.py
 ```
+
+## 21. Changes since the audit (2026-11-08): three forms, long films
+
+- **Forms.** `specs/video-types.json` 2.0.0: `short` (20-60 s, portrait), `mid` (60-180 s, portrait or landscape) and `long` (5-12 min, landscape), replacing `reel`, `long-reel` and `youtube` (kept as aliases). Per-form platforms, formats, window floor, arc, re-hook cadence and complexity budget; 195-285 s is deliberately unassigned. Playbook skills `short-form`, `mid-form`, `long-form`; arcs `explainer-demonstration` and `documentary-chapters`; guide `docs/video-forms.md`.
+- **Chapters.** `storyboard.json` `chapters` (title, mechanism, new terms, re-hook); `studio.py validate` checks tiling, length, scene-edge alignment, titles and the per-chapter and film term budgets.
+- **Segmented render.** Above 180 s `build_plan` swaps the single `hyperframes render` for `scripts/render-segments.py`: `--start/--end` segments of about 90 s cut at scene edges, checkpoints in `renders/<fmt>/chunks/`, resume after a kill, stream-copy join, frame-count checks. Promotion, stamping, staleness and archiving are unchanged because the output is the same `visuals.partial.mp4`. Verified on a 22 s film (PSNR 43 dB or better against a single pass, kill and resume); not yet run on a 5-12 minute film.
+- **Review at length.** `frame-review.py` defaults scale with the film (one sample per 20 s over 3 minutes, scan 2 then 1 fps). The music bed loops under a longer film (`-stream_loop -1`).
+- **Not done.** Per-chapter selective re-render (a code edit cannot be traced to one chapter, so any `src/` change restarts the segments; `scene-revise.py` still revises one scene of a finished film); authoring a 12-minute composition as several files (the long-form skill says to write chapter by chapter, but there is no sub-composition tooling); any measurement on a real long film.

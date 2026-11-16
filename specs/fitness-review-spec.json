@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FitnessQualityReview",
+  "description": "projects/<slug>/qa/fitness-review.json: the Sinew 10-dimension rubric (specs/fitness-spec.json rubric) with issues located by scene and time. It sits beside qa/creative-review.json and does not replace it. `python scripts/fitness.py review <slug>` checks it; a film is complete only when this passes AFTER the final render.",
+  "type": "object",
+  "required": ["slug", "render", "reviewed_at", "reviewer", "scores", "issues", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "slug": { "type": "string" },
+    "render": { "type": "string", "description": "Path of the reviewed file (out/<slug>-<format>.mp4) and its stamp fingerprint or mtime." },
+    "reviewed_at": { "type": "string" },
+    "reviewer": { "type": "string" },
+    "method": { "type": "array", "items": { "type": "string" }, "description": "What was actually done: frames inspected, loudness measured, dossier cross-check..." },
+    "scores": {
+      "type": "object",
+      "required": ["scientific_accuracy", "anatomical_accuracy", "biomechanical_accuracy", "visual_consistency", "character_consistency", "storytelling", "animation_quality", "information_density", "audio_quality", "production_efficiency"],
+      "additionalProperties": false,
+      "patternProperties": {
+        ".*": {
+          "type": "object", "required": ["score", "evidence"], "additionalProperties": false,
+          "properties": { "score": { "type": "integer", "minimum": 1, "maximum": 10 }, "evidence": { "type": "string" } }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "scene", "time", "problem", "severity", "dimension", "fix", "rerender", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "scene": { "type": "string" },
+          "time": { "type": "string", "description": "Film time, e.g. '00:42.5' or '41.0-44.2'." },
+          "problem": { "type": "string" },
+          "severity": { "type": "string", "enum": ["critical", "major", "minor"] },
+          "dimension": { "type": "string" },
+          "fix": { "type": "string" },
+          "rerender": { "type": "boolean" },
+          "status": { "type": "string", "enum": ["open", "fixed", "wontfix"] },
+          "fixed_in": { "type": "string" }
+        }
+      }
+    },
+    "verdict": { "type": "string", "enum": ["pass", "fail", "pending"] },
+    "notes": { "type": "string" }
+  }
+}

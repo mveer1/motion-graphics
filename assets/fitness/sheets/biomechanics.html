@@ -1,0 +1,30 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="900" data-fps="30" data-duration="3" data-still="2.9"><svg id="stage" width="1600" height="900" viewBox="0 0 1600 900"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, G=K.graphics, P=K.palette;
+  S.svg('rect',{width:1600,height:900,fill:P.paper},st);
+  var h=S.svg('text',{x:60,y:64,'font-family':'Outfit','font-weight':800,'font-size':34,fill:P.ink},st); h.textContent='Biomechanics overlays (illustrative kinematics)';
+  S.svg('line',{x1:60,x2:1540,y1:780,y2:780,stroke:P.ink,'stroke-width':2},st);
+  var t=K.sculpt(st,{gender:'male',view:'side',x:420,floor:780,scale:1.2});
+  var ex=K.exercise(t,'bodyweight-squat');
+  var path=G.bio.path(st,t,'chest',[0,-40],['stand','squat'],{color:P.spark});
+  var ang=G.bio.angle(st,t,['hipR','kneeR',['ankleR',[0,0]]],{radius:46});
+  ang.track(tl,null,'squat',0.2,2.0,12,'sine.inOut'); ang.show(tl,0);
+  ex.phase(tl,'squat',0.2,2.0);
+  t.activate(tl,ex.acts,0.2,1.2);
+  path.draw(tl,0.2,2.0);
+  var com=G.bio.centreOfMass(t, 'squat'); var cm=G.bio.comMarker(st,com[0],com[1],13); tl.fromTo(cm,{opacity:0},{opacity:1,duration:0.3,immediateRender:true},2.2);
+  var grf=G.bio.force(st,{x:t.point('ankleR',[8,14])[0],y:780,angle:-90,length:180,color:P.cobalt,label:'Ground reaction',labelDx:16,labelDy:20}); grf.show(tl,2.3);
+  var t2=K.sculpt(st,{gender:'female',view:'side',x:1150,floor:780,scale:1.2}); var run=K.exercise(t2,'sprint'); run.run(tl,0,3);
+  var a2=G.bio.angle(st,t2,['hipR','kneeR','ankleR'],{radius:36}); a2.sample(tl,null,0); a2.show(tl,0);
+  var lb=S.svg('text',{x:60,y:840,'font-family':'Inter','font-weight':600,'font-size':18,fill:P.ink2},st); lb.textContent='Path, knee angle, centre of mass, ground reaction. Angles come from the rig: label them illustrative.';
+  tl.to({},{duration:3},0);
+});
+</script></body></html>

@@ -9,7 +9,16 @@
     "studio-type.js: accessible split, mask rise, cascade, tracking, weight, typewriter, highlight, underline, counters",
     "studio-motion.js: reveal/wipe/iris/push/shape-cover/liquid/match-cut transitions, depth camera, assembly, rhythm grid, grain",
     "studio-compositions.js: title card, item list, step header, end card, captions",
-    "studio-base.css + styles/*.css: tokens, type scale per format, layout primitives, style systems"
+    "studio-base.css + styles/*.css: tokens, type scale per format, layout primitives, style systems",
+    "studio-rig.js (1.4.0): articulated character rig (FK, contact anchors, IK, followers, cycles)",
+    "kits/fitness/ (1.4.0): Sinew fitness kit (see shared-fitness-kit)",
+    "studio-rig.js (1.5.0): derive hook, attributes computed from each solved pose and tweened per move sample",
+    "kits/fitness/sculpt.js (1.5.0): Cobalt Sculpt Tibi, male and female (see shared-fitness-kit)",
+    "studio-rig.js (1.6.0): per-joint foreshortening (pose.f) for views toward or away from the camera",
+    "kits/fitness/exercises.js (1.6.0): 12 upper-body exercises on Tibi with flat-plane equipment; classic tibi.js retired",
+    "kits/fitness/tibi3d.js + exercises3d.js + vendor/three.min.js (1.7.0): Tibi in real 3D (skinned figure, muscles that never pop, free camera, pure-function-of-time motion tracks) with curl, bench press and lateral raise; QA by scripts/rig3d-check.js, rig3d-stills.py, motion-continuity.py",
+    "1.8.0: 3D lower body (squat and knees-blocked squat, hip thrust, standing and seated calf raise; glute, adductor, soleus; heel lift; chest-frame arm IK; stage.views split screens; muscles under clothing warm through a deep role colour) and kits/fitness/film3d.js (overlays, pins, camera shots, bar panels for narrated 3D films)",
+    "1.9.0: anatomy 1.0 (one skin: surface activation, cutaways, isolation, skeleton), phase machine per 3D exercise, scene library, instructional overlays, frame-0 title cards; the dumbbell-press figure-id fix"
   ],
   "location": "src/studio",
   "version": "1.0.0",
@@ -17,11 +26,13 @@
     "required": false,
     "instructions": "python3 scripts/studio.py sync <slug> copies it into projects/<slug>/src/_studio/ with studio.lock.json."
   },
-  "dependencies": ["gsap"],
+  "dependencies": [
+    "gsap"
+  ],
   "compatibility": {
     "apple_silicon_tested": false,
     "runtime": "browser (HyperFrames headless Chrome)",
-    "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames."
+    "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames. Runtime 1.4.0 (2026-11-08) adds the rig engine and the fitness kit; rendered with HyperFrames on the M2 host in projects/how-muscles-grow. Runtime 1.5.0 (2026-11-09) adds the Cobalt Sculpt Tibi and the rig's derive hook; verified in headless Chrome, not yet in a HyperFrames film render."
   },
   "documentation_urls": [
     "ARCHITECTURE.md"
@@ -44,5 +55,12 @@
   "approval_evidence": "tests/test-studio-runtime.py PASS; masala-chai-recipe frame review PASS in three formats (2026-10-30). Promote after HyperFrames renders on the M2 host.",
   "architecture_ref": "ARCHITECTURE.md#runtime",
   "last_verified": "2026-10-30",
-  "tags": ["runtime", "gsap", "svg", "typography", "transitions", "formats"]
+  "tags": [
+    "runtime",
+    "gsap",
+    "svg",
+    "typography",
+    "transitions",
+    "formats"
+  ]
 }

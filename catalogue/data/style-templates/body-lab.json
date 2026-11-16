@@ -1,0 +1,196 @@
+{
+  "id": "body-lab",
+  "name": "Body Lab",
+  "version": 1,
+  "status": "experimental",
+  "summary": "Character-led body science: Tibi, the Sinew mascot, does the movement, then the body turns to glass and the mechanism is shown inside it, down to the fibre when needed, with the evidence grade and source on screen. For training, running, muscle and exercise physiology.",
+  "visual_job": {
+    "kind": "body-mechanism",
+    "viewer_leaves_able_to": "Picture what happens inside their own body during the movement and say how sure science is about it.",
+    "hero": "Tibi performing the movement, then the same pose in x-ray with the working muscles lit."
+  },
+  "selection": {
+    "categories": [
+      "fitness"
+    ],
+    "use_when": [
+      "The subject is a training, running, recovery or nutrition question about the human body.",
+      "A movement, a muscle or a physiological process carries the explanation.",
+      "A myth needs correcting with graded evidence."
+    ],
+    "avoid_when": [
+      "The film is about a sport's history or business (use chronicle or data-ledger).",
+      "It would need individual medical advice, diagnosis or rehabilitation (out of scope for the brand)."
+    ],
+    "keywords": [
+      "muscle",
+      "hypertrophy",
+      "strength",
+      "squat",
+      "deadlift",
+      "bench",
+      "running",
+      "runner",
+      "cadence",
+      "vo2",
+      "lactate",
+      "protein",
+      "creatine",
+      "recovery",
+      "doms",
+      "workout",
+      "gym",
+      "training",
+      "fitness",
+      "exercise",
+      "glute",
+      "hamstring",
+      "calf",
+      "tendon",
+      "fatigue",
+      "warm-up"
+    ]
+  },
+  "look": {
+    "style": "sinew-lab",
+    "alternates": [
+      {
+        "style": "editorial-light",
+        "when": "A non-branded guest film in the fitness category."
+      }
+    ],
+    "design_profile": "illustrated-explainer-2d"
+  },
+  "scene_grammar": [
+    {
+      "role": "hook-move",
+      "formula": "Tibi in motion within the first second, with the claim or the myth on screen.",
+      "capabilities": [
+        "articulated-rig",
+        "text-mask-rise"
+      ]
+    },
+    {
+      "role": "glass-body",
+      "formula": "Freeze the movement at its key phase; the body turns to glass and only the working muscles light (x-ray highlight).",
+      "capabilities": [
+        "articulated-rig",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "scale-dive",
+      "formula": "Zoom from the muscle to the fascicle, fibre and sarcomere, each level with its scale label.",
+      "capabilities": [
+        "depth-camera-push",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "mechanism",
+      "formula": "One process runs: a signalling flow, a sliding filament, a curve over hours or days; arrows carry direction.",
+      "capabilities": [
+        "stroke-draw",
+        "metric-curve-draw"
+      ]
+    },
+    {
+      "role": "evidence",
+      "formula": "The finding as a chart or a before/after, with the evidence grade badge and the source line (author, year, design, n).",
+      "capabilities": [
+        "animated-chart",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "biomechanics",
+      "formula": "Joint angles, force arrows or bar path drawn on the rig, labelled illustrative unless measured.",
+      "capabilities": [
+        "articulated-rig",
+        "stroke-draw"
+      ]
+    },
+    {
+      "role": "takeaway",
+      "formula": "Back to Tibi in the gym or on the track doing the movement, the one-sentence takeaway beside him.",
+      "capabilities": [
+        "end-card"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "The character never stops moving: breathing, blinking, reps or a run loop; mechanism scenes open from the character's own body, not from a cut to a new diagram.",
+    "continuous_layer": "Tibi's idle (breath, blinks, spark sway) or an exercise rep loop; in diagram scenes, sarcomere strokes or drifting protein dots.",
+    "avoid": [
+      "A muscle shown lighting up alone as if the exercise isolated it.",
+      "Numbers on screen without a source line.",
+      "Mascot comedy during an evidence beat."
+    ],
+    "preferred_capabilities": [
+      "articulated-rig",
+      "stroke-draw",
+      "annotation-callout"
+    ],
+    "discouraged_capabilities": [
+      "liquid-transition"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.0,
+    "max_beat_gap_sec": 2.5,
+    "max_scene_sec": 16,
+    "words_per_10s_max": 28,
+    "ending": "Tibi doing the movement again, now with the viewer able to see inside it, plus the takeaway and its evidence grade."
+  },
+  "anti_patterns": [
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec.",
+      "why": "Anti-laziness rule. With a rigged mascot there is no excuse: an idle loop, blinks and reps keep every frame alive.",
+      "source": "review-top3-films-2026-11-03; CLAUDE.md conventions"
+    },
+    {
+      "pattern": "A claim, percentage or study result without its evidence grade and source line.",
+      "why": "Fitness content is held to the research protocol: viewers act on it with their bodies.",
+      "source": ".claude/skills/fitness/references/research-protocol.md"
+    },
+    {
+      "pattern": "Muscle-activation percentages or 'this exercise isolates X'.",
+      "why": "Activation varies with technique, load and measurement method; the fitness library deliberately carries no percentages.",
+      "source": "assets/fitness/data/exercises.json"
+    },
+    {
+      "pattern": "Conceptual kinematics shown as if measured (angles or bar paths with no 'illustrative' label).",
+      "why": "The rig's joint angles are authored, not motion capture.",
+      "source": "src/studio/kits/fitness/exercises.js header"
+    },
+    {
+      "pattern": "Named or shown things the viewer cannot read an explanation of.",
+      "why": "Owner review 2026-11-07: visuals carry what the narration skips (definition card, legend, source line).",
+      "source": "owner review of game-theory-trust 2026-11-07"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "how-muscles-grow",
+      "note": "First film to this template: mid-form landscape demonstration of the Sinew kit (2026-11-08)."
+    }
+  ],
+  "open_questions": [
+    "Values in rules are first guesses; calibrate words_per_10s_max and max_beat_gap_sec after the first three films.",
+    "Whether short-form portrait films need a larger Tibi scale (the mascot is drawn for landscape first)."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-08",
+      "change": "Initial version, written with the Sinew fitness brand and kit.",
+      "reason": "Owner request: an original fitness education brand and production capability."
+    }
+  ],
+  "tags": [
+    "fitness",
+    "anatomy",
+    "character",
+    "light"
+  ]
+}

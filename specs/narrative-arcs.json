@@ -475,7 +475,7 @@
    "id": "reel-loop",
    "name": "Hook -> stake -> body -> payoff -> loop (reel length)",
    "best_for": [
-    "reel-type portrait films of 45-60 s (45 s preferred; the type allows 30-75 s)",
+    "short-form portrait films of 20-60 s (45 s preferred; the form allows 15-75 s)",
     "one idea with one surprising fact or number",
     "news briefs and quick explainers"
    ],
@@ -511,8 +511,94 @@
      "guidance": "The last line echoes one word or image from the hook so a replay lands clean. End on one action or none, never two."
     }
    ],
-   "pitfall": "A hook the payoff does not answer, or a loop line that is only a sign-off. Under 7 s there is no room for a stake. 45 s is the preferred length; stretch to 60 s only when a complicated topic needs more animated beats, and add a mid-film re-hook; for a long-reel (60-180 s) or youtube video use another arc. A re-hook or second body that opens a second mechanism (a named study, tournament or algorithm the reel has no time to set up) breaks the one-idea rule: cut it or make it part 2 (added 2026-11-07, owner review of game-theory-trust, story-writer lessons L13).",
+   "pitfall": "A hook the payoff does not answer, or a loop line that is only a sign-off. Under 7 s there is no room for a stake. 45 s is the preferred length; stretch to 60 s only when a complicated topic needs more animated beats, and add a mid-film re-hook; for a mid-form (60-180 s) or long-form (5-12 min) film use another arc: explainer-demonstration or documentary-chapters. A re-hook or second body that opens a second mechanism (a named study, tournament or algorithm the reel has no time to set up) breaks the one-idea rule: cut it or make it part 2 (added 2026-11-07, owner review of game-theory-trust, story-writer lessons L13).",
    "origin": "adapted: ig-reel shape (Jake Schincariol, MIT); see docs/short-form-lessons.md"
+  },
+  {
+   "id": "explainer-demonstration",
+   "name": "Hook -> context -> explanation -> demonstration -> conclusion (mid-form)",
+   "best_for": [
+    "mid-form films of 60-180 s (about 150 s preferred)",
+    "one concept, process, event or question explained in real depth",
+    "a mechanism that can be shown running, not only described"
+   ],
+   "stages": [
+    {
+     "id": "hook",
+     "function": "hook",
+     "emotion": "curiosity",
+     "guidance": "0-8 s. The question or surprising claim, with the hero object on screen. The cold open is a promise the demonstration pays off."
+    },
+    {
+     "id": "context",
+     "function": "context",
+     "emotion": "orientation",
+     "guidance": "10-20 s. Only what the explanation needs: who, where, what was believed before. Name each new term once, as it first appears on screen."
+    },
+    {
+     "id": "explanation",
+     "function": "mechanism",
+     "emotion": "momentum",
+     "guidance": "40-70 s. The mechanism in three to five steps, each step a changed picture. One re-hook about every 35-45 s in portrait, 45-60 s in landscape: a stake, a contradiction or a question the next step answers."
+    },
+    {
+     "id": "demonstration",
+     "function": "evidence",
+     "emotion": "scrutiny",
+     "guidance": "25-45 s. Run it: the simulation, the worked example with real numbers, the before/after, the animated sequence. This is the beat the viewer shares; it must show something the explanation could not."
+    },
+    {
+     "id": "conclusion",
+     "function": "resolution",
+     "emotion": "satisfaction",
+     "guidance": "10-15 s. Answer the hook in its own words, say what changes for the viewer, and stop. One ask at most, and late."
+    }
+   ],
+   "pitfall": "A demonstration that only repeats the explanation in pictures, or a conclusion that adds a new fact. If the mechanism cannot be shown running, the topic is short-form or long-form, not mid-form. A second mechanism in a mid-form film needs the 'two linked mechanisms and no worked case' budget (specs/video-types.json).",
+   "origin": "original; the owner's mid-form structure (2026-11-08)"
+  },
+  {
+   "id": "documentary-chapters",
+   "name": "Cold open -> context -> narrative development -> deep explanation -> resolution (long-form)",
+   "best_for": [
+    "long-form films of 5-12 minutes",
+    "complex subjects, historical events, scientific discoveries, research papers",
+    "interconnected ideas that need several mechanisms in sequence"
+   ],
+   "stages": [
+    {
+     "id": "cold-open",
+     "function": "hook",
+     "emotion": "intrigue",
+     "guidance": "30-60 s. The question, scene or result that the film exists to answer, shown rather than announced. It is paid off in the resolution, in its own words. No channel intro, no agenda slide."
+    },
+    {
+     "id": "context",
+     "function": "context",
+     "emotion": "orientation",
+     "guidance": "60-120 s (one or two chapters). The world before: people, places, the state of knowledge, what was at stake. Dates and places are stamped on the picture; a map or timeline is the viewer's anchor for the rest of the film."
+    },
+    {
+     "id": "narrative-development",
+     "function": "complication",
+     "emotion": "tension",
+     "guidance": "40-50% of the film, as chapters. The story moves: each chapter ends in a turn, a setback or a question that the next one picks up. One mechanism per chapter; a chapter's new terms are set up before they are used."
+    },
+    {
+     "id": "deep-explanation",
+     "function": "mechanism",
+     "emotion": "clarity",
+     "guidance": "20-30% of the film, as chapters. Slow down and explain how it works, with the visualisation (2D or 3D, a map, a data story) that the narrative earned. The longest stretch of explanation is under 90 s without a change of mode: image, data, scene or voice."
+    },
+    {
+     "id": "resolution",
+     "function": "resolution",
+     "emotion": "resolve",
+     "guidance": "60-90 s. Answer the cold open, say what was established and what remains open, and what it means now. End on the strongest image, held."
+    }
+   ],
+   "pitfall": "A long film is a short film stretched: the same hook repeated, chapters that restate, a middle that sags. Every chapter needs its own mechanism and a re-hook every 60-90 s; a chapter that could be cut without the viewer noticing is cut. Chapter titles become the YouTube chapter list, so they say what the chapter shows. Unmeasured: the stage timings are a first guess and have not been checked against a finished long-form film.",
+   "origin": "original; the owner's long-form structure (2026-11-08)"
   }
  ]
 }

@@ -543,6 +543,17 @@ def dedupe(findings: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return out
 
 
+# --------------------------------------------------------------------------- length-aware defaults
+def auto_samples(duration: float) -> int:
+    """Review frames per format: 12 up to 3 minutes, then one per 20 s so a chapter of a long film is not one cell."""
+    return 12 if duration <= 180 else min(60, max(12, round(duration / 20)))
+
+
+def auto_scan_fps(duration: float) -> float:
+    """Motion/reading scan rate. Dead stretches are 3 s and up, so 1 fps still finds them on a long film."""
+    return 5.0 if duration <= 180 else (2.0 if duration <= 420 else 1.0)
+
+
 # --------------------------------------------------------------------------- sheets
 def contact_sheet(frames: List[Dict[str, Any]], out: Path, title: str, cols: int = 4, cell_w: int = 360) -> None:
     if not Image or not frames:
@@ -594,9 +605,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Preview-grade frame review for HyperFrames compositions")
     ap.add_argument("target", help="project slug under projects/ or a path to an HTML composition")
     ap.add_argument("--formats", help="comma-separated subset of formats (studio projects)")
-    ap.add_argument("--samples", type=int, default=12, help="evenly spaced review frames per format")
+    ap.add_argument("--samples", type=int, default=None, help="evenly spaced review frames per format (default 12; a film over 3 minutes gets one per 20 s, up to 60)")
     ap.add_argument("--at", help="explicit comma-separated sample times (seconds)")
-    ap.add_argument("--scan-fps", type=float, default=5.0, help="motion/reading scan rate")
+    ap.add_argument("--scan-fps", type=float, default=None, help="motion/reading scan rate (default 5; 2 over 3 minutes; 1 over 7 minutes, so a 12-minute film is ~720 audited frames, not 3600)")
     ap.add_argument("--fonts", choices=["system", "google"], default="system",
                     help="google: inject the HyperFrames-bundled families from Google Fonts (network) for closer typography")
     ap.add_argument("--out", help="output directory (default: <project>/qa/frame-review)")
@@ -625,7 +636,7 @@ def main() -> int:
     if args.at:
         times = [float(x) for x in args.at.split(",") if x.strip()]
     else:
-        n = max(2, args.samples)
+        n = max(2, args.samples if args.samples else auto_samples(duration))
         end = max(0.0, duration - 1.0 / 30)
         times = [round(end * i / (n - 1), 3) for i in range(n)]
 
@@ -646,7 +657,7 @@ def main() -> int:
             browser = p.chromium.launch()
             for entry in entries:
                 print(f"[frame-review] {entry['id']} {entry['width']}x{entry['height']} ({entry['file']})", flush=True)
-                rep = review_entry(browser, base_url, src_dir, entry, times, args.scan_fps, args.fonts, out_dir)
+                rep = review_entry(browser, base_url, src_dir, entry, times, args.scan_fps or auto_scan_fps(duration), args.fonts, out_dir)
                 rep["findings"] = dedupe(rep["findings"])
                 sheet = out_dir / f"contact-{entry['id']}.png"
                 contact_sheet(rep["frames"], sheet, f"{entry['id']} {entry['width']}x{entry['height']} - {entry['file']}")

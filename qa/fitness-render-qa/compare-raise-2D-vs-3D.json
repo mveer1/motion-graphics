@@ -1,0 +1,41 @@
+{
+ "file": "out/lab-3d-review/compare-raise-2D-vs-3D.mp4",
+ "failures": [],
+ "notes": [],
+ "stats": {
+  "container": {
+   "codec": "h264",
+   "pix_fmt": "yuv420p",
+   "size": "1080x1080",
+   "r_frame_rate": "30",
+   "avg_frame_rate": "30.000",
+   "duration": 10.1,
+   "audio": true,
+   "audio_duration": 10.1
+  },
+  "frozen": {
+   "intervals": [
+    [
+     9.0,
+     10.1
+    ]
+   ],
+   "over_limit": []
+  },
+  "black": [],
+  "sampled_frames": 101,
+  "start": {
+   "change_first_0.2s": 0.01,
+   "typical_3_frame_step": 0.88
+  },
+  "cuts": [],
+  "motion": {
+   "share_of_seconds_moving": 1.0
+  },
+  "rhythm": {
+   "dominant_period_s": 2.9,
+   "expected": 2.9
+  },
+  "loudness_lufs": -15.4
+ }
+}

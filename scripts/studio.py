@@ -262,16 +262,29 @@ def parse_category_arg(raw: Optional[str]) -> List[str]:
 
 
 def load_video_types() -> Dict[str, Any]:
-    """The three supported video types (specs/video-types.json) with their allowed duration windows."""
+    """The three forms (specs/video-types.json: short, mid, long) with their allowed duration windows.
+
+    Each entry keeps `format` and `platform` (the defaults) and adds `formats` / `platforms` (everything the form allows)."""
     spec = load_json(SPECS_DIR / "video-types.json")
     margin = float(spec["margin_sec"])
     types: Dict[str, Any] = {}
     for tid, t in spec["types"].items():
         lo = t["nominal_sec"]["min"]
         hi = t["nominal_sec"].get("max")
+        floor = float(t.get("window_floor_sec", 0))
         types[tid] = {**t, "id": tid,
-                      "window_sec": (max(0.0, lo - margin), None if hi is None else hi + margin)}
+                      "window_sec": (max(floor, lo - margin), None if hi is None else hi + margin)}
     return types
+
+
+def video_type_aliases() -> Dict[str, str]:
+    """Pre-2.0 type ids (reel, long-reel, youtube) mapped to the current ones."""
+    return dict(load_json(SPECS_DIR / "video-types.json").get("aliases", {}))
+
+
+def canonical_video_type(vt: Optional[str]) -> Optional[str]:
+    """short / mid / long for any current or legacy id; unknown ids come back unchanged so validate can name them."""
+    return video_type_aliases().get(vt, vt) if vt else vt
 
 
 def describe_window(t: Dict[str, Any]) -> str:
@@ -281,17 +294,19 @@ def describe_window(t: Dict[str, Any]) -> str:
 
 def parse_video_type_arg(raw: Optional[str]) -> Dict[str, Any]:
     types = load_video_types()
+    raw = canonical_video_type(raw)
     if raw not in types:
         raise SystemExit(f"Error: --type is required and must be one of: {', '.join(types)}. "
-                         + "; ".join(f"{t['id']} = {t['name']} ({t['format']}, {describe_window(t)})" for t in types.values()))
+                         + "; ".join(f"{t['id']} = {t['name']} ({'/'.join(t['formats'])}, {describe_window(t)})" for t in types.values()))
     return types[raw]
 
 
 def check_video_type(brief: Dict[str, Any], project: Dict[str, Any], rep: Report) -> None:
-    """Hold a brief and its project to the declared video type: platform, format and duration window."""
+    """Hold a brief and its project to the declared form: platforms, formats and duration window."""
     types = load_video_types()
     deliv = brief["deliverables"]
-    vt = deliv.get("video_type")
+    declared = deliv.get("video_type")
+    vt = canonical_video_type(declared)
     if vt is None:
         rep.warn("brief.deliverables.video_type is not set. Motion Lab produces only "
                  + ", ".join(f"{t['id']} ({describe_window(t)})" for t in types.values())
@@ -299,14 +314,18 @@ def check_video_type(brief: Dict[str, Any], project: Dict[str, Any], rep: Report
         return
     t = types.get(vt)
     if t is None:
-        rep.error(f"video_type '{vt}' is not one of {', '.join(types)} (specs/video-types.json).")
+        rep.error(f"video_type '{declared}' is not one of {', '.join(types)} (specs/video-types.json).")
         return
-    extra_platforms = [p for p in brief["platforms"] if p != t["platform"]]
-    if t["platform"] not in brief["platforms"] or extra_platforms:
-        rep.error(f"a {t['id']} is published on {t['platform']} only; brief platforms are {brief['platforms']}.")
-    extra_formats = [f for f in deliv["formats"] if f != t["format"]]
+    if declared != vt:
+        rep.note(f"video_type '{declared}' is the pre-2.0 id of '{vt}'; set it to '{vt}'.")
+    bad_platforms = [p for p in brief["platforms"] if p not in t["platforms"]]
+    if bad_platforms:
+        rep.error(f"a {t['id']} film is published on {', '.join(t['platforms'])} only; brief platforms include {bad_platforms}.")
+    extra_formats = [f for f in deliv["formats"] if f not in t["formats"]]
     if extra_formats:
-        rep.error(f"a {t['id']} is {t['format']} only; brief formats include {extra_formats}.")
+        rep.error(f"a {t['id']} film is {'/'.join(t['formats'])} only; brief formats include {extra_formats}.")
+    if len(deliv["formats"]) > 1:
+        rep.error(f"a {t['id']} film is rendered in one format only (docs/VISION.md); brief formats are {deliv['formats']}.")
     lo, hi = t["window_sec"]
     dur = deliv["duration_sec"]
     for key in ("min", "target", "max"):
@@ -317,8 +336,11 @@ def check_video_type(brief: Dict[str, Any], project: Dict[str, Any], rep: Report
             rep.error(f"brief duration_sec.{key} {v:g}s is outside the {t['id']} window ({describe_window(t)}).")
     d = project["duration_sec"]
     if d < lo - 1e-6 or (hi is not None and d > hi + 1e-6):
+        between = next((f" It sits between {a['id']} and {b['id']}: cut it to {a['id']} or build it out to {b['id']}."
+                        for a, b in zip(types.values(), list(types.values())[1:])
+                        if a["window_sec"][1] is not None and a["window_sec"][1] < d < b["window_sec"][0]), "")
         rep.error(f"project duration {d:g}s is outside the {t['id']} window ({describe_window(t)}): "
-                  "change the length, or the video_type if this is really another type.")
+                  "change the length, or the video_type if this is really another form." + between)
     nom = t["nominal_sec"]
     if lo - 1e-6 <= d < nom["min"] or (nom.get("max") is not None and nom["max"] < d <= hi + 1e-6):
         rep.note(f"duration {d:g}s is inside the {t['id']} margin (nominal {nom['min']:g}"
@@ -530,8 +552,10 @@ def cmd_new(args: argparse.Namespace) -> int:
     title = args.title or slug.replace("-", " ").title()
     categories = parse_category_arg(getattr(args, "category", None))
     vtype = parse_video_type_arg(getattr(args, "video_type", None))
-    if args.formats and [f.strip() for f in args.formats.split(",") if f.strip()] != [vtype["format"]]:
-        raise SystemExit(f"Error: a {vtype['id']} is {vtype['format']} only; drop --formats or use --formats {vtype['format']}.")
+    chosen = [f.strip() for f in (args.formats or "").split(",") if f.strip()]
+    if len(chosen) > 1 or any(f not in vtype["formats"] for f in chosen):
+        raise SystemExit(f"Error: a {vtype['id']} film is rendered in one format, one of {', '.join(vtype['formats'])} "
+                         f"(default {vtype['format']}); got --formats {args.formats}.")
     stpl = None
     if getattr(args, "style_template", None):
         stpl = records.get("style-templates", {}).get(args.style_template)
@@ -564,10 +588,12 @@ def cmd_new(args: argparse.Namespace) -> int:
     pj = pdir / "project.json"
     project = load_json(pj)
     pre = presets()
-    fid = vtype["format"]
+    fid = chosen[0] if chosen else vtype["format"]
+    platform = vtype["platform"] if fid == vtype["format"] else next(
+        (p for p in vtype["platforms"] if (p.startswith("instagram") or p.endswith("shorts")) == (fid == "portrait")), vtype["platform"])
     size = pre["formats"][fid]["default_size"]
     w, h = pre["formats"][fid]["sizes"][size]
-    project["formats"] = [{"id": fid, "width": w, "height": h, "primary": True, "platform": vtype["platform"]}]
+    project["formats"] = [{"id": fid, "width": w, "height": h, "primary": True, "platform": platform}]
     project["duration_sec"] = vtype["target_sec"]
     project["style"] = style
     if stpl:
@@ -578,7 +604,7 @@ def cmd_new(args: argparse.Namespace) -> int:
     brief = load_json(bj)
     brief.setdefault("audio", {})["captions"] = True
     nominal = vtype["nominal_sec"]
-    brief["platforms"] = [vtype["platform"]]
+    brief["platforms"] = [platform]
     brief["deliverables"]["formats"] = [fid]
     brief["deliverables"] = {
         "video_type": vtype["id"],
@@ -1108,6 +1134,62 @@ def check_storyboard(sb: Dict[str, Any], project: Dict[str, Any], brief: Optiona
     if experimental:
         rep.warn(f"uses experimental capabilities ({', '.join(sorted(experimental))}): fine for development, promote them before a client release (approval-policy.md).")
 
+    check_chapters(sb, scenes, project, brief, rep)
+
+
+def check_chapters(sb: Dict[str, Any], scenes: List[Dict[str, Any]], project: Dict[str, Any], brief: Optional[Dict[str, Any]], rep: Report) -> None:
+    """Chapters (storyboard.json `chapters`): required for a long-form film, optional below that.
+
+    Each chapter must start where the last ended, hold at least one scene whole (a scene never straddles a chapter), and
+    sit inside the form's length range. Titles double as YouTube chapter labels, so 'Part 2' is flagged."""
+    types = load_video_types()
+    vt = canonical_video_type(((brief or {}).get("deliverables") or {}).get("video_type"))
+    spec = (types.get(vt) or {}).get("chapters") or {}
+    chapters = sorted(sb.get("chapters") or [], key=lambda c: c["start_sec"])
+    if not chapters:
+        if spec.get("required"):
+            rep.warn(f"a {vt} film is told in chapters; storyboard.json has no `chapters`. They are the unit of the complexity budget, "
+                     "the re-hook, the frame-review sheets and the render checkpoints.")
+        return
+    lo, hi = spec.get("length_sec", [0, None])
+    prev_end, seen = 0.0, set()
+    for c in chapters:
+        if c["id"] in seen:
+            rep.error(f"chapter id '{c['id']}' is duplicated.")
+        seen.add(c["id"])
+        length = c["end_sec"] - c["start_sec"]
+        if length <= 0:
+            rep.error(f"chapter '{c['id']}' ends before it starts.")
+            continue
+        if abs(c["start_sec"] - prev_end) > 0.05:
+            rep.warn(f"chapter '{c['id']}' starts at {c['start_sec']:g}s but the previous one ended at {prev_end:g}s.")
+        prev_end = c["end_sec"]
+        if spec and length < lo - 1e-6:
+            rep.warn(f"chapter '{c['id']}' is {length:.0f}s, under the {lo}s a chapter needs to hold one mechanism.")
+        if spec and hi and length > hi + 1e-6:
+            rep.warn(f"chapter '{c['id']}' is {length:.0f}s, over {hi}s: split it so each chapter keeps one mechanism and a re-hook.")
+        budget = (types.get(vt) or {}).get("complexity_budget") or {}
+        if budget.get("new_terms_per_chapter_max") and len(c.get("new_terms", [])) > budget["new_terms_per_chapter_max"]:
+            rep.warn(f"chapter '{c['id']}' introduces {len(c['new_terms'])} new terms, over the budget of {budget['new_terms_per_chapter_max']} "
+                     f"({', '.join(c['new_terms'])}): move one to a neighbouring chapter or cut it.")
+        if spec.get("required") and not c.get("mechanism"):
+            rep.warn(f"chapter '{c['id']}' names no `mechanism`: say the one cause-and-effect chain it makes the viewer follow, or merge it into a neighbour.")
+        if spec.get("required") and c is not chapters[-1] and not c.get("rehook"):
+            rep.note(f"chapter '{c['id']}' has no `rehook`: what pulls the viewer into '{chapters[chapters.index(c) + 1]['title']}'?")
+        if re.fullmatch(r"(part|chapter|section)\s*\d+", c["title"].strip(), re.I):
+            rep.warn(f"chapter '{c['id']}' is titled '{c['title']}'; titles become YouTube chapter labels, so say what the chapter shows.")
+        for sc in scenes:
+            mid = (sc["start_sec"] + sc["end_sec"]) / 2
+            inside = c["start_sec"] - 0.05 <= sc["start_sec"] and sc["end_sec"] <= c["end_sec"] + 0.05
+            if c["start_sec"] <= mid < c["end_sec"] and not inside:
+                rep.warn(f"scene '{sc['id']}' straddles the edge of chapter '{c['id']}'; a chapter edge must be a scene edge (segment renders cut there).")
+    if budget_total := (types.get(vt) or {}).get("complexity_budget", {}).get("film_new_terms_max"):
+        n_terms = sum(len(c.get("new_terms", [])) for c in chapters)
+        if n_terms > budget_total:
+            rep.warn(f"the chapters introduce {n_terms} new terms in all, over the film budget of {budget_total}: a viewer cannot hold more across one sitting.")
+    if abs(prev_end - project["duration_sec"]) > 0.05:
+        rep.warn(f"chapters end at {prev_end:g}s but the project runs {project['duration_sec']:g}s.")
+
 
 def cmd_validate(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
@@ -1314,6 +1396,15 @@ def narration_args(project: Dict[str, Any]) -> Dict[str, Any]:
     return {"voice": a.get("voice"), "speed": a.get("speed"), "prosody": a.get("prosody"), "preset": a.get("prosody_preset")}
 
 
+def render_segments_config() -> Dict[str, Any]:
+    return load_json(SPECS_DIR / "video-types.json").get("render_segments", {"above_sec": 180, "segment_sec": 90})
+
+
+def uses_segments(project: Dict[str, Any]) -> bool:
+    """True when the film is long enough to render in checkpointed segments (specs/video-types.json render_segments)."""
+    return float(project["duration_sec"]) > float(render_segments_config()["above_sec"])
+
+
 def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) -> List[Dict[str, Any]]:
     """Ordered command plan. Each step: {stage, cmd (list), cwd, optional}."""
     rel = rel_path
@@ -1352,7 +1443,14 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
         # render to a partial file and rename it on success, so a killed render never leaves a truncated visuals.mp4
         partial = f"../renders/{fid}/{PARTIAL_NAME}"
         inputs = render_inputs(pdir, entry)
-        steps.append({"stage": f"render:{fid}", "cmd": ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", partial], "cwd": rel(pdir / "src"), "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"),
+        render_cmd = ["hyperframes", "render", ".", "--composition", entry["file"], "--fps", str(project["fps"]), "--quality", q, "--low-memory-mode", "--output", partial]
+        render_cwd = rel(pdir / "src")
+        if uses_segments(project):
+            # a long film renders in checkpointed segments that are joined into the same partial file
+            render_cmd = [sys.executable, "scripts/render-segments.py", rel(pdir), "--format", fid, "--quality", q,
+                          "--output", rel(pdir / "renders" / fid / PARTIAL_NAME)]
+            render_cwd = "."
+        steps.append({"stage": f"render:{fid}", "cmd": render_cmd, "cwd": render_cwd, "requires_missing": rel(pdir / "renders" / fid / "visuals.mp4"),
                       "promote": [rel(pdir / "renders" / fid / PARTIAL_NAME), rel(pdir / "renders" / fid / "visuals.mp4")],
                       "fingerprint": render_fingerprint(pdir, entry, project["fps"], q, inputs), "inputs": inputs,
                       "fingerprint_of": {"entry": entry, "fps": project["fps"], "quality": q}})
@@ -1366,7 +1464,7 @@ def build_plan(pdir: Path, quality: Optional[str], only: Optional[List[str]]) ->
             idx += 1
         music = project["audio"]["music"]
         if music["enabled"] and music.get("file"):
-            inputs += ["-i", music["file"]]
+            inputs += ["-stream_loop", "-1", "-i", music["file"]]  # a bed shorter than the film loops; -t below trims it
             fade = music.get("fade_out_sec", 1.5)
             start = max(0.0, project["duration_sec"] - fade)
             filters.append(f"[{idx}:a]volume=0.6,afade=t=out:st={start:g}:d={fade:g}[a{idx}]")
@@ -1646,8 +1744,36 @@ def caption_setup(pdir: Path, preset_arg: Optional[str] = None) -> Dict[str, Any
             "pinned": pinned, "style": project.get("style")}
 
 
+def display_spellings(pdir: Path, cues: List[Dict[str, Any]]) -> int:
+    """Captions show the real word where the narration carries a respelling for the voice (research.json
+    acoustic_guidance.phonetic_lexicon: 'gas-trock-nee-me-us' -> 'gastrocnemius', 'M R I' -> 'MRI'). A multi-token
+    respelling's word timings are merged into one word. Before 2026-11-12 this was a hand edit that every re-run of
+    `captions` silently undid. Returns the number of replacements."""
+    try:
+        lex = json.loads((pdir / "research.json").read_text(encoding="utf-8"))["acoustic_guidance"]["phonetic_lexicon"]
+    except (OSError, KeyError, TypeError, ValueError):
+        return 0
+    pairs = [(e["phonetic_respelling"], e["term"]) for e in lex or [] if e.get("phonetic_respelling") and e.get("term")]
+    n = 0
+    for c in cues:
+        for say, show in pairs:
+            if say in c["text"]:
+                c["text"] = c["text"].replace(say, show)
+                n += 1
+            toks, ws = say.split(), c.get("words") or []
+            i = 0
+            while i <= len(ws) - len(toks):
+                got = [w["text"] for w in ws[i:i + len(toks)]]
+                if [re.sub(r"[^\w-]", "", g) for g in got] == toks:
+                    tail = re.sub(r"^[\w-]+", "", got[-1])            # keep trailing punctuation ("so-lee-us." -> "soleus.")
+                    ws[i:i + len(toks)] = [{"text": show + tail, "start": ws[i]["start"], "end": ws[i + len(toks) - 1]["end"]}]
+                i += 1
+    return n
+
+
 def finish_captions(pdir: Path, cues: List[Dict[str, Any]], timeline: Dict[str, Any], head: str, setup: Dict[str, Any]) -> List[str]:
     """Annotate the cues (role, lane, emphasis), write src/captions.js and captions/<slug>.vtt; return lint warnings."""
+    display_spellings(pdir, cues)
     cs = setup["cs"]
     spans = [{"start": sc["start_time_sec"], "end": sc["start_time_sec"] + sc["duration_sec"]} for sc in timeline["scenes"]]
     cs.annotate(cues, fmt=setup["format"], scene_spans=spans, storyboard_scenes=setup["storyboard_scenes"])
@@ -1723,7 +1849,7 @@ def cmd_captions(args: argparse.Namespace) -> int:
     pdir = project_dir(args.slug)
     setup = caption_setup(pdir, getattr(args, "preset", None))
     # The video type decides the grouping and the phrase length unless the flags say otherwise.
-    td = setup["cs"].type_defaults(setup["video_type"])
+    td = setup["cs"].type_defaults(setup["video_type"], fmt=setup["format"])
     grouping = grouping or td["grouping"]
     max_words = max_words or td.get("max_words", 3)
     tl_path = pdir / "audio" / "timeline.json"
@@ -1921,8 +2047,8 @@ def member_video_type(m: Dict[str, Any]) -> Optional[str]:
     """A series member's video type: its brief's when the project exists, else the planned one."""
     pdir = find_project(m["project"])
     if pdir is not None and (pdir / "brief.json").exists():
-        return load_json(pdir / "brief.json").get("deliverables", {}).get("video_type")
-    return m.get("video_type")
+        return canonical_video_type(load_json(pdir / "brief.json").get("deliverables", {}).get("video_type"))
+    return canonical_video_type(m.get("video_type"))
 
 
 def validate_series(ser: Dict[str, Any], folder: str) -> Report:
@@ -1970,7 +2096,7 @@ def validate_series(ser: Dict[str, Any], folder: str) -> Report:
         brief_path = pdir / "brief.json"
         if brief_path.exists():
             btype = load_json(brief_path).get("deliverables", {}).get("video_type")
-            if m.get("video_type") and btype and m["video_type"] != btype:
+            if m.get("video_type") and btype and canonical_video_type(m["video_type"]) != canonical_video_type(btype):
                 rep.warn(f"{ref}: series says video_type '{m['video_type']}', the brief says '{btype}'; the brief wins.")
             bcats = load_json(brief_path).get("categories") or []
             if bcats and not set(bcats) & set(ser["categories"]):
@@ -2049,7 +2175,7 @@ def cmd_series_add(args: argparse.Namespace) -> int:
     elif find_project(args.project) is None:
         raise SystemExit(f"Error: project '{args.project}' not found under projects/ (use --planned if it is not started).")
     if getattr(args, "video_type", None):
-        member["video_type"] = args.video_type
+        member["video_type"] = canonical_video_type(args.video_type)
     ser["members"].append(member)
     ser["members"] = sorted_members(ser) if ser["kind"] == "sequential" else ser["members"]
     write_json(series_dir(args.series) / "series.json", ser)
@@ -2328,10 +2454,10 @@ def main() -> int:
     p.add_argument("--title")
     p.add_argument("--style")
     p.add_argument("--style-template", dest="style_template", help="Style template id (catalogue/data/style-templates/); sets the default style and pins the project to it")
-    p.add_argument("--type", dest="video_type", required=True, choices=list(load_video_types()),
-                   help="Video type (specs/video-types.json): reel = Instagram reel 45-60s, long-reel = Instagram 60-180s, "
-                        "youtube = over 180s; each +-15s. Sets the format, platform and length.")
-    p.add_argument("--formats", help="Optional; must equal the type's format (portrait for reels, landscape for youtube)")
+    p.add_argument("--type", dest="video_type", required=True, choices=list(load_video_types()) + list(video_type_aliases()),
+                   help="Form (specs/video-types.json): short = 20-60s portrait, mid = 60-180s portrait or landscape, long = 5-12 min landscape "
+                        "(legacy ids reel, long-reel, youtube still work); each +-15s. Sets the platform, format and length.")
+    p.add_argument("--formats", help="Optional; one format the form allows (mid takes portrait or landscape; short is portrait, long is landscape)")
     p.add_argument("--category", help="Comma-separated subject categories (specs/categories.json); usually one, e.g. history,finance for a mixed piece")
 
     p = sub.add_parser("sync", help="Vendor the canonical runtime into the project")
@@ -2369,8 +2495,8 @@ def main() -> int:
     p = sub.add_parser("captions", help="Caption cues from narration: approximate sentences, or measured word times grouped into short phrases")
     p.add_argument("slug")
     p.add_argument("--timing", choices=["approx", "words"], default="approx", help="approx: split by character count (default). words: transcribe each narration clip locally and align the script to the measured word times")
-    p.add_argument("--grouping", choices=["sentence", "phrase"], default=None, help="phrase: 1-3 word reel captions (needs --timing words). Default: by video type, phrase for a reel or long reel, sentence for YouTube (specs/caption-presets.json type_defaults)")
-    p.add_argument("--max-words", dest="max_words", type=int, default=None, help="Words per phrase cue (default by video type: 3 for a reel, 4 for a long reel)")
+    p.add_argument("--grouping", choices=["sentence", "phrase"], default=None, help="phrase: 1-3 word reel captions (needs --timing words). Default: by form, phrase for short-form and portrait mid-form, sentence for landscape mid-form and long-form (specs/caption-presets.json type_defaults)")
+    p.add_argument("--max-words", dest="max_words", type=int, default=None, help="Words per phrase cue (default by form: 3 for short-form, 4 for portrait mid-form)")
     p.add_argument("--preset", default=None, help="Caption preset id (specs/caption-presets.json). Default: project.json audio.caption_preset, else the one the style system maps to")
     p.add_argument("--model", default="small.en", help="Whisper model for --timing words (default small.en)")
     p.add_argument("--retranscribe", action="store_true", help="Ignore the cache in audio/words.json")
@@ -2421,7 +2547,7 @@ def main() -> int:
     sp.add_argument("--part", type=int, help="Part number (sequential; default: next free)")
     sp.add_argument("--title", help="Part title if different from the project's")
     sp.add_argument("--planned", action="store_true", help="Project folder does not exist yet")
-    sp.add_argument("--type", dest="video_type", choices=list(load_video_types()), help="Planned video type, for a member with no project yet")
+    sp.add_argument("--type", dest="video_type", choices=list(load_video_types()) + list(video_type_aliases()), help="Planned video type, for a member with no project yet")
     sp = ssub.add_parser("show", help="Print one series and its members")
     sp.add_argument("slug")
     ssub.add_parser("list", help="List all series")

@@ -1,0 +1,36 @@
+{
+ "file": "out/lab-3d-review/3-raise-3d.mp4",
+ "failures": [],
+ "notes": [],
+ "stats": {
+  "container": {
+   "codec": "h264",
+   "pix_fmt": "yuv420p",
+   "size": "720x1280",
+   "r_frame_rate": "30",
+   "avg_frame_rate": "30.000",
+   "duration": 11.733,
+   "audio": true,
+   "audio_duration": 11.725
+  },
+  "frozen": {
+   "intervals": [],
+   "over_limit": []
+  },
+  "black": [],
+  "sampled_frames": 117,
+  "start": {
+   "change_first_0.2s": 0.43,
+   "typical_3_frame_step": 1.28
+  },
+  "cuts": [],
+  "motion": {
+   "share_of_seconds_moving": 0.91
+  },
+  "rhythm": {
+   "dominant_period_s": 2.9,
+   "expected": 2.9
+  },
+  "loudness_lufs": -16.7
+ }
+}

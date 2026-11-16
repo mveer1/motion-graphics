@@ -44,6 +44,24 @@
     "type": "string"
    }
   },
+  "chapters": {
+   "type": "array",
+   "description": "Long-form structure (specs/video-types.json). Contiguous time ranges that start and end on scene edges. A chapter is the unit of the per-chapter complexity budget, of the re-hook, of the YouTube chapter list and of the render segments. Optional below long-form.",
+   "items": {
+    "type": "object",
+    "required": ["id", "title", "start_sec", "end_sec"],
+    "additionalProperties": false,
+    "properties": {
+     "id": { "type": "string", "pattern": "^c[0-9]+[a-z0-9-]*$" },
+     "title": { "type": "string", "minLength": 3, "description": "Descriptive; becomes the YouTube chapter label." },
+     "start_sec": { "type": "number", "minimum": 0 },
+     "end_sec": { "type": "number", "exclusiveMinimum": 0 },
+     "mechanism": { "type": "string", "description": "The one cause-and-effect chain this chapter makes the viewer follow." },
+     "new_terms": { "type": "array", "items": { "type": "string" }, "description": "Terms, names and cases first introduced here (budget: new_terms_per_chapter_max)." },
+     "rehook": { "type": "string", "description": "The question or stake that pulls the viewer into the next chapter." }
+    }
+   }
+  },
   "scenes": {
    "type": "array",
    "minItems": 1,

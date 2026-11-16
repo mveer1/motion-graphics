@@ -1,0 +1,2270 @@
+{
+  "spec": "specs/fitness-asset-spec.json",
+  "brand": "sinew",
+  "updated": "2026-11-09",
+  "conventions": {
+    "units": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive).",
+    "views": "front, side (+x), back, top (prone, from above), above (supine, from above)",
+    "colour": "Studio.kit.fitness.palette / src/studio/styles/sinew-lab.css",
+    "fonts": "Outfit, Inter, JetBrains Mono (HyperFrames-bundled, OFL)",
+    "accuracy": "stylised = on-brand drawing; schematic = structure right, counts illustrative; conceptual-kinematics = authored angles, label illustrative; data = from cited sources",
+    "previews": "python scripts/fitness.py sheets re-renders assets/fitness/previews/*.png",
+    "sculpt": "Cobalt Sculpt Tibi (Studio.kit.fitness.sculpt) is the current mascot: male and female, views front, side, back. Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive). Master source is the Python generator in src/fitness/tibi/; sculpt-data.js is generated (fitness.py sculpt)."
+  },
+  "assets": [
+    {
+      "id": "anatomy-muscle",
+      "name": "Whole muscle (fusiform)",
+      "kind": "anatomy-plate",
+      "category": "muscular",
+      "description": "Belly, tendons, fascicle lines. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.muscle",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.muscle(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-fascicle",
+      "name": "Fascicle",
+      "kind": "anatomy-plate",
+      "category": "muscular",
+      "description": "A bundle of fibres in perimysium, cut end. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.fascicle",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.fascicle(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-fibre",
+      "name": "Muscle fibre",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "One fibre with striations, peripheral nuclei and myofibrils. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.fibre",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.fibre(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-myofibril",
+      "name": "Myofibril",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "A chain of sarcomeres with Z lines and A bands. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.myofibril",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.myofibril(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-sarcomere",
+      "name": "Sarcomere (sliding filaments)",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "Z discs, actin thin filaments, myosin thick filaments with heads; contract() slides actin and strokes the heads. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.sarcomere",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.sarcomere(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-cross-section",
+      "name": "Fibre cross-section (growth)",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "A fibre cut across with protein dots and nuclei; grow() thickens it and adds protein (neutral on myofibril number). Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.crossSection",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.crossSection(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-satellite-cell",
+      "name": "Satellite cell",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "A satellite cell that donates a nucleus to the fibre. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.satelliteCell",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.satelliteCell(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-mitochondrion",
+      "name": "Mitochondrion",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "Outer membrane and cristae; emit() releases ATP tokens. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.mitochondrion",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.mitochondrion(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-atp",
+      "name": "ATP token",
+      "kind": "anatomy-plate",
+      "category": "cellular",
+      "description": "Adenosine with three phosphate beads. Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.atp",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.atp(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-heart",
+      "name": "Heart",
+      "kind": "anatomy-plate",
+      "category": "cardiovascular",
+      "description": "Stylised four-chamber heart with vessels; beat(tl, from, to, bpm). Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.heart",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.heart(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-lungs",
+      "name": "Lungs and diaphragm",
+      "kind": "anatomy-plate",
+      "category": "respiratory",
+      "description": "Airway, two lungs and the diaphragm; breathe(tl, from, to, perMinute). Schematic; counts are illustrative.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e section 10.2 (sizes; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.lungs",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.lungs(g, {x, y, scale})",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "anatomy-zoom-ladder",
+      "name": "Scale dive (zoom ladder)",
+      "kind": "anatomy-plate",
+      "category": "muscular",
+      "description": "Zooms through plates (muscle, fascicle, fibre, myofibril, sarcomere) as if through a lens, each level with its name and scale.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.zoomLadder",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "A.zoomLadder(levels, {cx, cy, zoom}).step(tl, 0, 1, at)",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "exercise-push-up",
+      "name": "Push-up",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Push-up on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'push-up'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-dumbbell-bench-press",
+      "name": "Dumbbell bench press",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Dumbbell bench press on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'dumbbell-bench-press'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-dumbbell-fly",
+      "name": "Dumbbell fly",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Dumbbell fly on Tibi (above view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'above', ...}), 'dumbbell-fly'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "above"
+      ]
+    },
+    {
+      "id": "exercise-pull-up",
+      "name": "Pull-up",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Pull-up on Tibi (back view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'back', ...}), 'pull-up'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "back"
+      ]
+    },
+    {
+      "id": "exercise-one-arm-row",
+      "name": "One-arm dumbbell row",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "One-arm dumbbell row on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'one-arm-row'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-rear-delt-fly",
+      "name": "Chest-supported rear-delt fly",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Chest-supported rear-delt fly on Tibi (top view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'top', ...}), 'rear-delt-fly'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "top"
+      ]
+    },
+    {
+      "id": "exercise-overhead-press",
+      "name": "Seated dumbbell overhead press",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Seated dumbbell overhead press on Tibi (front view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'front', ...}), 'overhead-press'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "front"
+      ]
+    },
+    {
+      "id": "exercise-lateral-raise",
+      "name": "Dumbbell lateral raise",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Dumbbell lateral raise on Tibi (front view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'front', ...}), 'lateral-raise'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "front"
+      ]
+    },
+    {
+      "id": "exercise-prone-y-raise",
+      "name": "Prone Y-raise",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Prone Y-raise on Tibi (top view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'top', ...}), 'prone-y-raise'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "top"
+      ]
+    },
+    {
+      "id": "exercise-incline-curl",
+      "name": "Incline dumbbell curl",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Incline dumbbell curl on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'incline-curl'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-dumbbell-curl",
+      "name": "Standing dumbbell curl",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Standing dumbbell curl on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'dumbbell-curl'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-overhead-triceps-extension",
+      "name": "Overhead dumbbell triceps extension",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Overhead dumbbell triceps extension on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'overhead-triceps-extension'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-dip",
+      "name": "Parallel-bar dip",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Parallel-bar dip on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'dip'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-bodyweight-squat",
+      "name": "Bodyweight squat",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Bodyweight squat on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'bodyweight-squat'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "exercise-calf-raise",
+      "name": "Calf raise",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Calf raise on Tibi (side view), with its equipment and activation set; metadata in assets/fitness/data/exercises.json.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'calf-raise'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side"
+      ]
+    },
+    {
+      "id": "equipment-set",
+      "name": "Equipment (flat planes)",
+      "kind": "equipment",
+      "category": "exercise",
+      "description": "Dumbbells (end-on, bar, overhead hold), flat/incline bench (side and top), seat, pull-up bar, dip station: flat planes without outlines, placed from Tibi's joints.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (Cobalt Sculpt movement library, 2026-11-09)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.equipment",
+      "rigging": "follows-rig",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "F.equipment.dumbbellEnd(g, 1); exercises place them for you",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": [
+        "equipment"
+      ]
+    },
+    {
+      "id": "exercise-library",
+      "name": "Movement library (all exercises)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "The whole movement library on the Cobalt Sculpt Tibi: 12 upper-body exercises, standing curl, bodyweight squat, calf raise and three gaits.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        },
+        {
+          "path": "src/studio/kits/fitness/library.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "K.exercise.ids()",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [],
+      "coordinates": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive)."
+    },
+    {
+      "id": "gait-walk",
+      "name": "Walking gait cycle",
+      "kind": "gait",
+      "category": "running",
+      "description": "Eight keys per stride with a floor rule and the belt speed for a scrolling ground. Shaped after typical ranges (Novacheck 1998), not measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.gait.keys",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "K.exercise(t, 'walk').run(tl, at, seconds)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [],
+      "coordinates": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive)."
+    },
+    {
+      "id": "gait-jog",
+      "name": "Jogging gait cycle",
+      "kind": "gait",
+      "category": "running",
+      "description": "Eight keys per stride with a floor rule and the belt speed for a scrolling ground. Shaped after typical ranges (Novacheck 1998), not measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.gait.keys",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "K.exercise(t, 'jog').run(tl, at, seconds)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [],
+      "coordinates": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive)."
+    },
+    {
+      "id": "gait-sprint",
+      "name": "Sprinting gait cycle",
+      "kind": "gait",
+      "category": "running",
+      "description": "Eight keys per stride with a floor rule and the belt speed for a scrolling ground. Shaped after typical ranges (Novacheck 1998), not measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.gait.keys",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "K.exercise(t, 'sprint').run(tl, at, seconds)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [],
+      "coordinates": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive)."
+    },
+    {
+      "id": "env-gym",
+      "name": "Gym interior",
+      "kind": "environment",
+      "category": "environment",
+      "description": "Wall, rail, windows, plate tree and dumbbell rack silhouettes, rubber floor.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.env.gym",
+      "rigging": "static",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "G.env.gym(g, {w: 1280, h: 720, floor: 560})",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "env-track",
+      "name": "Running track",
+      "kind": "environment",
+      "category": "environment",
+      "description": "Stands, infield, lanes; scroll() moves the lane marks.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.env.track",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "G.env.track(g, {w: 1280, h: 720, floor: 560})",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "env-outdoor",
+      "name": "Outdoor path",
+      "kind": "environment",
+      "category": "environment",
+      "description": "Hills, trees, path; scroll() parallaxes.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.env.outdoor",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "G.env.outdoor(g, {w: 1280, h: 720, floor: 560})",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "env-plate",
+      "name": "Lab plate",
+      "kind": "environment",
+      "category": "environment",
+      "description": "Paper with a dot grid for diagrams.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.env.plate",
+      "rigging": "static",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/environments.png",
+      "usage": "G.env.plate(g, {w: 1280, h: 720, floor: 560})",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "bio-angle",
+      "name": "Joint angle arc",
+      "kind": "biomech-overlay",
+      "category": "biomechanics",
+      "description": "Arc and degrees at a joint, sampled from the rig; track() follows a move. Label illustrative unless measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.bio.angle",
+      "rigging": "follows-rig",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/biomechanics.png",
+      "usage": "G.bio.angle(...)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "bio-force",
+      "name": "Force arrow",
+      "kind": "biomech-overlay",
+      "category": "biomechanics",
+      "description": "Drawn-on vector arrow with label (ground reaction, load). Label illustrative unless measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.bio.force",
+      "rigging": "follows-rig",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/biomechanics.png",
+      "usage": "G.bio.force(...)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "bio-path",
+      "name": "Trajectory (bar path)",
+      "kind": "biomech-overlay",
+      "category": "biomechanics",
+      "description": "Path of a rig point through poses, drawn on. Label illustrative unless measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.bio.path",
+      "rigging": "follows-rig",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/biomechanics.png",
+      "usage": "G.bio.path(...)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "bio-com",
+      "name": "Centre of mass",
+      "kind": "biomech-overlay",
+      "category": "biomechanics",
+      "description": "Segment-mass estimate (Dempster-style proportions) and marker; illustrative. Label illustrative unless measured.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.bio.centreOfMass",
+      "rigging": "follows-rig",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/biomechanics.png",
+      "usage": "G.bio.centreOfMass(...)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "chart-time-series",
+      "name": "Time-series chart",
+      "kind": "science-chart",
+      "category": "science",
+      "description": "Axes, ticks, labelled curves that draw on, an area between two curves; plot measured points only.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.sci.chart",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.sci.chart(g, {...}).draw(tl, 'id', at)",
+      "accuracy": "data",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "flow-signal",
+      "name": "Signal flow diagram",
+      "kind": "science-chart",
+      "category": "science",
+      "description": "Left-to-right or vertical pathway of nodes that light in order (tension -> mTOR -> synthesis; energy systems; feedback loops).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.sci.flow",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.sci.flow(g, {nodes}).light(tl, i, at)",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-logo",
+      "name": "Sinew logo (lockup, icon, wordmark)",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Sinew logo (lockup, icon, wordmark) in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/brand/sinew-brand-board.svg",
+          "format": "svg"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.logo",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.logo(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-title-card",
+      "name": "Title card",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Title card in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.titleCard",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.titleCard(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-lower-third",
+      "name": "Lower third",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Lower third in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.lowerThird",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.lowerThird(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-chapter-card",
+      "name": "Chapter card (long-form)",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Chapter card (long-form) in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.chapterCard",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.chapterCard(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-evidence-badge",
+      "name": "Evidence badge (6 grades)",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Evidence badge (6 grades) in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.evidenceBadge",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.evidenceBadge(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-citation",
+      "name": "Source line",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Source line in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.citation",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.citation(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-myth-stamp",
+      "name": "Myth stamp",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Myth stamp in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.mythStamp",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.mythStamp(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-callout",
+      "name": "Anatomy callout",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Anatomy callout in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.callout",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.callout(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-sting",
+      "name": "Opening/closing sting",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "Opening/closing sting in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.sting",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.sting(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-end-card",
+      "name": "End card",
+      "kind": "brand-graphic",
+      "category": "brand",
+      "description": "End card in the Sinew system (brand-guidelines.md).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/graphics.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.graphics.endCard",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "G.endCard(g, {...})",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "brand-thumbnail",
+      "name": "Thumbnail template",
+      "kind": "template",
+      "category": "brand",
+      "description": "1280x720 thumbnail layout: cobalt-glass disc, Tibi in x-ray, 1-3 words, lockup.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "assets/fitness/sheets/thumbnail.html",
+          "format": "html"
+        },
+        {
+          "path": "assets/fitness/brand/sinew-thumbnail-template.svg",
+          "format": "svg"
+        }
+      ],
+      "rigging": "static",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/thumbnail.png",
+      "usage": "Copy the sheet, change the words, the exercise and the highlighted muscle; render with fitness.py sheets --only thumbnail",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "style-sinew-lab",
+      "name": "sinew-lab style system",
+      "kind": "style",
+      "category": "brand",
+      "description": "CSS tokens (palette, fonts, motion) for the studio runtime.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/styles/sinew-lab.css",
+          "format": "css"
+        },
+        {
+          "path": "catalogue/data/styles/sinew-lab.json",
+          "format": "json"
+        }
+      ],
+      "rigging": "n/a",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "project.json style: sinew-lab (set by the fitness-explainer template)",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "sound-sinew",
+      "name": "Sinew sound identity",
+      "kind": "sound",
+      "category": "audio",
+      "description": "Brand bed (Dmaj7 pad, 96 bpm pulse, IV/ii sections), spark sonic logo, rep thud, tick, pop, stamp, swell, pulse; levelled against the narration.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": ".claude/skills/fitness/scripts/sinew_sound.py",
+          "format": "py"
+        }
+      ],
+      "rigging": "n/a",
+      "materials": "Synthesised (numpy), mono 44.1 kHz WAV",
+      "preview": "assets/fitness/previews/brand.png",
+      "usage": "ss.build(project_dir, duration, events, sections) from audio/generate_bed_and_sfx.py",
+      "accuracy": "brand",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "data-muscles",
+      "name": "Muscle metadata",
+      "kind": "data",
+      "category": "muscular",
+      "description": "19 drawn muscles plus 4 deep muscles: origin, insertion, actions, views.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "OpenStax A&P 2e ch. 11 (CC BY-NC-SA 4.0; facts only)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "assets/fitness/data/muscles.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.library",
+      "rigging": "n/a",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/anatomy.png",
+      "usage": "K.library.muscles['biceps-brachii']",
+      "accuracy": "data",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "data-exercises",
+      "name": "Exercise metadata",
+      "kind": "data",
+      "category": "exercise",
+      "description": "16 movements: phases, joints, primary and secondary muscles, landmarks, direction, camera, errors, cross-check.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2026-11-08)",
+        "references": [
+          "NSCA Essentials of Strength Training and Conditioning 4e (facts)",
+          "free-exercise-db (Unlicense) cross-check"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.library",
+      "rigging": "n/a",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "K.library.exercises['back-squat'].muscles.primary",
+      "accuracy": "data",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "id": "source-free-exercise-db",
+      "name": "free-exercise-db extract (13 records)",
+      "kind": "data",
+      "category": "reference-data",
+      "description": "Muscle lists from the public-domain free-exercise-db, used only to cross-check our exercise metadata. Images not imported (no stated licence).",
+      "source": {
+        "type": "public-domain",
+        "origin": "yuhonas/free-exercise-db dist/exercises.json",
+        "url": "https://github.com/yuhonas/free-exercise-db",
+        "retrieved": "2026-11-08"
+      },
+      "license": {
+        "spdx": "Unlicense",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Data only; the repository's images have no stated licence and are excluded."
+      },
+      "files": [
+        {
+          "path": "assets/fitness/sources/free-exercise-db/extract.json",
+          "format": "json"
+        },
+        {
+          "path": "assets/fitness/sources/free-exercise-db/LICENSE",
+          "format": "assets/fitness/sources/free-exercise-db/LICENSE"
+        }
+      ],
+      "rigging": "n/a",
+      "materials": "Flat SVG fills from the Sinew palette",
+      "preview": "assets/fitness/previews/exercises.png",
+      "usage": "cross_check fields in assets/fitness/data/exercises.json",
+      "accuracy": "data",
+      "status": "experimental",
+      "tags": []
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-male",
+      "name": "Tibi (Cobalt Sculpt), male",
+      "kind": "character",
+      "category": "mascot",
+      "description": "The current Sinew mascot, male: 7.66 heads, flat cobalt planes with light/shade crescents, no outlines, shirtless, charcoal shorts with a marigold band, white trainers, marigold spark. Front, side and back views on the studio rig (FK, contacts, IK, cycles); classic exercise poses and gaits run on it.",
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/sculpt.js",
+          "format": "js",
+          "role": "runtime painter and rig binding"
+        },
+        {
+          "path": "src/studio/kits/fitness/sculpt-data.js",
+          "format": "js",
+          "role": "generated shapes, skeleton, poses (fitness.py sculpt)"
+        },
+        {
+          "path": "src/studio/studio-rig.js",
+          "format": "js"
+        },
+        {
+          "path": "src/fitness/tibi/build2.py",
+          "format": "py",
+          "role": "master builder and painter"
+        },
+        {
+          "path": "src/fitness/tibi/rig.py",
+          "format": "py",
+          "role": "male anatomy data"
+        },
+        {
+          "path": "src/fitness/tibi/rig_back.py",
+          "format": "py",
+          "role": "back-view data"
+        },
+        {
+          "path": "assets/fitness/brand/tibi-sculpt-model-sheet.svg",
+          "format": "svg"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills; crescent shading by masks counter-rotated so light stays top-left",
+      "preview": "assets/fitness/previews/tibi-sculpt-model.png",
+      "usage": "K.sculpt(g, {gender: 'male', view: 'side', x: 640, floor: 600, scale: 1})",
+      "accuracy": "stylised",
+      "tags": [
+        "mascot",
+        "male",
+        "front",
+        "side",
+        "back"
+      ]
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-female",
+      "name": "Tibi (Cobalt Sculpt), female",
+      "kind": "character",
+      "category": "mascot",
+      "description": "The current Sinew mascot, female: 7.55 heads, waist:hip 0.62, muscle planes about 10 % smaller, sports top (default) or push-up top, ponytail with a marigold tie; same shorts, trainers and spark. Front, side and back views.",
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/sculpt.js",
+          "format": "js",
+          "role": "runtime painter and rig binding"
+        },
+        {
+          "path": "src/studio/kits/fitness/sculpt-data.js",
+          "format": "js",
+          "role": "generated shapes, skeleton, poses (fitness.py sculpt)"
+        },
+        {
+          "path": "src/studio/studio-rig.js",
+          "format": "js"
+        },
+        {
+          "path": "src/fitness/tibi/build2.py",
+          "format": "py",
+          "role": "master builder and painter"
+        },
+        {
+          "path": "src/fitness/tibi/rig_f.py",
+          "format": "py",
+          "role": "female anatomy data"
+        },
+        {
+          "path": "src/fitness/tibi/rig_back.py",
+          "format": "py",
+          "role": "back-view data"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt",
+      "rigging": "rigged",
+      "materials": "Flat SVG fills; crescent shading by masks",
+      "preview": "assets/fitness/previews/tibi-sculpt-model.png",
+      "usage": "K.sculpt(g, {gender: 'female', view: 'front', top: 'sport', x: 640, floor: 600})",
+      "accuracy": "stylised",
+      "tags": [
+        "mascot",
+        "female",
+        "front",
+        "side",
+        "back"
+      ]
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-poses",
+      "name": "Tibi (Cobalt Sculpt) key poses",
+      "kind": "pose-set",
+      "category": "mascot",
+      "description": "The handover's poses as named rig poses per gender: side stand, squat, calf, pushup, plank, run-strike, run-mid, run-off, run-fly (lift 46); front and back relaxed, flex, lateral. Grounded by contact (planted foot or pelvis plus floor), so moves between them stay on the floor. Round 7 adds back-view squat and running, prone ('top') and supine ('above') poses seen from above, with per-joint foreshortening.",
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/sculpt-data.js",
+          "format": "js"
+        },
+        {
+          "path": "src/fitness/tibi/export_kit.py",
+          "format": "py",
+          "role": "pose conversion from build2 absolute angles"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt.poses",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/tibi-sculpt-motion.png",
+      "usage": "t.set('stand'); t.to(tl, 'squat', at, 1.0)",
+      "accuracy": "conceptual-kinematics",
+      "tags": [
+        "mascot",
+        "poses",
+        "running"
+      ]
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-activation",
+      "name": "Tibi (Cobalt Sculpt) muscle activation",
+      "kind": "xray-layer",
+      "category": "muscular",
+      "description": "Recolours the existing muscle planes by role: 3 prime mover (coral), 2 secondary (marigold), 1 stabiliser (pale cobalt); glutes and hip flexors show over the shorts at level 2+. Named sets for pushup, plank, squat, calf, lateral, flex, run phases and back poses; maps accept sculpt keys or muscles.json ids, with @near/@far.",
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/sculpt.js",
+          "format": "js"
+        },
+        {
+          "path": "src/studio/kits/fitness/sculpt-data.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt.acts",
+      "rigging": "follows-rig",
+      "preview": "assets/fitness/previews/tibi-sculpt-activation.png",
+      "usage": "t.activate(tl, 'squat', at, 0.5); t.muscle('quadriceps') -> callout anchor points",
+      "accuracy": "schematic",
+      "tags": [
+        "muscles",
+        "activation"
+      ]
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-faces",
+      "name": "Tibi (Cobalt Sculpt) faces",
+      "kind": "expression-set",
+      "category": "mascot",
+      "description": "Faceless (default, a lighter face plane), Minimal (navy oval eyes, catch-light, small smile; hers adds a lash flick) and Ember visor (dark visor, marigold eyes). No expressions or mouth shapes yet.",
+      "files": [
+        {
+          "path": "src/fitness/tibi/build2.py",
+          "format": "py",
+          "role": "face_front, face_side"
+        },
+        {
+          "path": "assets/fitness/tibi/svg/heads/male_head_front_minimal.svg",
+          "format": "svg"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt.faces",
+      "rigging": "follows-rig",
+      "preview": "assets/fitness/previews/tibi-sculpt-model.png",
+      "usage": "K.sculpt(g, {face: 'minimal'})",
+      "accuracy": "brand",
+      "tags": [
+        "mascot",
+        "face"
+      ]
+    },
+    {
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt character system: Python generator src/fitness/tibi/ (handover from a design agent, integrated 2026-11-09); runtime port in sculpt.js"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace (Cobalt Sculpt handover, 2026-11); no third-party material, no logos."
+      },
+      "status": "experimental",
+      "coordinates": "Rig units: 1 unit = 1/0.54 Cobalt Sculpt units; standing figure about 422 units sole to crown (classic Tibi height); origin at the pelvis joint; same joint ids and anatomical angle signs as the classic Tibi (side: flexion positive, near limbs R; front/back: abduction positive).",
+      "id": "tibi-sculpt-exports",
+      "name": "Tibi (Cobalt Sculpt) standalone SVGs and review page",
+      "kind": "character",
+      "category": "mascot",
+      "description": "65 standalone figure SVGs (both genders, every pose, activation versions, face and top variants), 12 head SVGs, the handover review page (every option and control) and contact sheets. For designers and thumbnails; films use the rigged runtime.",
+      "files": [
+        {
+          "path": "assets/fitness/tibi/svg/figures/male_relaxed.svg",
+          "format": "svg"
+        },
+        {
+          "path": "assets/fitness/tibi/site/tibi_cobalt_sculpt_v6.html",
+          "format": "html"
+        },
+        {
+          "path": "assets/fitness/tibi/sheets/male_poses_contact_sheet.png",
+          "format": "png"
+        },
+        {
+          "path": "src/fitness/tibi/export_assets.py",
+          "format": "py",
+          "role": "regenerates svg/ and png/ (PNGs need Playwright)"
+        },
+        {
+          "path": "src/fitness/tibi/page6.py",
+          "format": "py",
+          "role": "regenerates the review page"
+        }
+      ],
+      "rigging": "static",
+      "preview": "assets/fitness/tibi/sheets/male_poses_contact_sheet.png",
+      "usage": "Open assets/fitness/tibi/site/tibi_cobalt_sculpt_v6.html; standalone SVGs read --ank-n/--ank-f and hide the rig with .rig{display:none}",
+      "accuracy": "stylised",
+      "tags": [
+        "mascot",
+        "svg",
+        "static"
+      ]
+    }
+  ]
+}

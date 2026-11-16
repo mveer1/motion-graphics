@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1560" data-fps="30" data-duration="2" data-still="1.6"><svg id="stage" width="1600" height="1560" viewBox="0 0 1600 1560"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+// Movement library board: every exercise at its working phase, in the view it declares, with the muscles it trains
+// coloured by role (coral prime mover, marigold secondary, pale cobalt stabiliser). Kinematics are conceptual.
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, P=K.palette, STILL=1.6;
+  var W=1600, H=1560, CW=400, CH=290, TOP=110;
+  S.svg('rect',{width:W,height:H,fill:P.paper},st);
+  function text(p,x,y,s,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||P.ink,'text-anchor':anchor||'start'},p);t.textContent=s;return t;}
+  text(st,60,56,'Movement library · Cobalt Sculpt Tibi',34,800);
+  text(st,60,86,'Each exercise at its working phase, in the camera it declares. Coral = prime mover, marigold = secondary, pale cobalt = stabiliser. Illustrative kinematics, not motion capture.',16,500,P.ink2,'start','Inter');
+  var items=[
+    ['push-up','Push-up'],['dumbbell-bench-press','Dumbbell bench press'],['dumbbell-fly','Dumbbell fly'],['pull-up','Pull-up'],
+    ['one-arm-row','One-arm row'],['rear-delt-fly','Rear-delt fly'],['overhead-press','Overhead press'],['lateral-raise','Lateral raise'],
+    ['prone-y-raise','Prone Y-raise'],['incline-curl','Incline curl'],['overhead-triceps-extension','Overhead triceps extension'],['dip','Dip'],
+    ['bodyweight-squat','Bodyweight squat'],['calf-raise','Calf raise'],['walk','Walk (gait)'],['jog','Jog (gait)'],['sprint','Sprint (gait)']];
+  // per-exercise placement inside its 400 x 290 cell: scale, x offset, y offset (floor or pelvis centre)
+  var FIT={'push-up':{s:0.62,dx:-92,fy:252},'dumbbell-bench-press':{s:0.6,dx:0,fy:252},'dumbbell-fly':{s:0.46,dx:-8,py:164},'pull-up':{s:0.42,dx:0,fy:280},
+    'one-arm-row':{s:0.5,dx:0,fy:252},'rear-delt-fly':{s:0.46,dx:-8,py:164},'overhead-press':{s:0.43,dx:0,fy:254},'lateral-raise':{s:0.45,dx:0,fy:254},
+    'prone-y-raise':{s:0.46,dx:-8,py:164},'incline-curl':{s:0.5,dx:0,fy:252},'overhead-triceps-extension':{s:0.42,dx:0,fy:254},'dip':{s:0.42,dx:0,fy:254},
+    'bodyweight-squat':{s:0.47,dx:-6,fy:254},'calf-raise':{s:0.43,dx:0,fy:254},'walk':{s:0.43,dx:0,fy:254},'jog':{s:0.43,dx:0,fy:254},'sprint':{s:0.43,dx:0,fy:254}};
+  items.forEach(function(it,i){
+    var id=it[0], rec=K.exercises[id], cx=(i%4)*CW, cy=TOP+Math.floor(i/4)*CH, fit=FIT[id], view=rec.view;
+    var cell=S.svg('g',{},st);
+    S.svg('rect',{x:cx+8,y:cy+8,width:CW-16,height:CH-16,rx:18,fill:'#FFFFFF',stroke:P.paper2,'stroke-width':3},cell);
+    text(cell,cx+24,cy+40,it[1],21,800);
+    text(cell,cx+CW-24,cy+38,view==='top'?'top view':view==='above'?'view from above':view+' view',13,600,P.ink3,'end','Inter');
+    var clip=S.svg('clipPath',{id:'c'+i},cell); S.svg('rect',{x:cx+14,y:cy+48,width:CW-28,height:CH-62,rx:10},clip);
+    var g=S.svg('g',{'clip-path':'url(#c'+i+')'},cell);
+    var o={gender:i%2?'female':'male',view:view,x:cx+CW/2+fit.dx,scale:fit.s,shadow:id!=='pull-up'};
+    if(view==='top'||view==='above'){ o.y=cy+fit.py; } else { o.floor=cy+fit.fy; if(id!=='pull-up') S.svg('line',{x1:cx+30,x2:cx+CW-30,y1:o.floor,y2:o.floor,stroke:'#D9D4C8','stroke-width':2},g); }
+    var t=K.sculpt(g,o);
+    var ex=K.exercise(t,id);
+    if(rec.gait){
+      var per=ex.period; ex.run(tl,STILL-per*0.55,per*4);
+      if(id!=='walk') t.activate(tl,'run-mid',0.1,0.4);
+    } else {
+      ex.phase(tl,rec.phases[1],0.2,1.0);
+      t.activate(tl,ex.acts,0.1,0.4);
+    }
+  });
+  // legend in the spare cells of the last row
+  var lx=CW, ly=TOP+4*CH, lg=S.svg('g',{},st);
+  S.svg('rect',{x:lx+8,y:ly+8,width:3*CW-16,height:CH-16,rx:18,fill:'#FFFFFF',stroke:P.paper2,'stroke-width':3},lg);
+  text(lg,lx+32,ly+48,'Activation roles',21,800);
+  [['Prime mover','#F2553D'],['Secondary','#FFB224'],['Stabiliser','#8CAEFA']].forEach(function(l,k){ S.svg('rect',{x:lx+32+k*370,y:ly+84,width:30,height:30,rx:8,fill:l[1]},lg); text(lg,lx+76+k*370,ly+107,l[0],19,700,P.ink,'start','Inter'); });
+  text(lg,lx+32,ly+160,'Colours show roles, not EMG amplitude: label them "illustrative" and never put a percentage on them.',15,500,P.ink2,'start','Inter');
+  text(lg,lx+32,ly+190,'Alternating male and female Tibi. Lying movements are seen from above, hanging movements from behind.',15,500,P.ink2,'start','Inter');
+  text(lg,lx+32,ly+220,'Equipment is placed from Tibi\'s own joints, so it fits either gender and any scale.',15,500,P.ink2,'start','Inter');
+  tl.to({},{duration:2},0);
+});
+</script></body></html>

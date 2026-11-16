@@ -33,17 +33,17 @@ git submodule update --init --recursive        # tools/earshot, tools/clipwing-s
 source .venv/bin/activate && pip install -e tools/earshot
 ```
 
-Studio projects (`project.json` present), the main path. Every project is exactly one of three video types (`specs/video-types.json`), each with a 15 s margin at both ends of its range, and `new` requires `--type`:
+Studio projects (`project.json` present), the main path. Every project is exactly one of three forms (`specs/video-types.json`, guide `docs/video-forms.md`), each with a 15 s margin at both ends of its range, and `new` requires `--type`. Each form has its own playbook skill for storytelling, scripting, pacing and editing (`.claude/skills/short-form`, `mid-form`, `long-form`); subject knowledge comes from the brief's categories and the style template:
 
-| `--type` | What | Format | Nominal length | Allowed (with margin) |
-|---|---|---|---|---|
-| `reel` | Instagram reel | portrait | 45-60 s (45 preferred) | 30-75 s |
-| `long-reel` | Long Instagram reel | portrait | 60-180 s | 45-195 s |
-| `youtube` | YouTube video | landscape | over 180 s | 165 s and up, no ceiling |
+| `--type` | What | Format | Nominal length | Allowed (with margin) | Render |
+|---|---|---|---|---|---|
+| `short` | Short-form micro explainer: Hook, Explanation, Payoff | portrait | 20-60 s (45 preferred) | 15-75 s | one pass |
+| `mid` | Mid-form focused explainer: Hook, Context, Explanation, Demonstration, Conclusion | portrait or landscape (`--formats`) | 60-180 s | 45-195 s | one pass |
+| `long` | Long-form documentary or deep dive, told in chapters | landscape (portrait when the brief asks) | 5-12 min | 285-735 s | segments of ~90 s, resumable |
 
-The type fixes the platform (`instagram-reels` or `youtube`), the one format and the length window. `validate` errors when the project or brief falls outside them; a legacy brief with no `deliverables.video_type` only gets a warning. Any type can join a series, and one series may mix types.
+The form fixes the allowed platforms and formats and the length window. `validate` errors when the project or brief falls outside them (195-285 s belongs to no form: cut it to mid or build it out to long); a legacy brief with no `deliverables.video_type` only gets a warning. The pre-2.0 ids `reel`, `long-reel` and `youtube` are accepted as aliases of `short`, `mid` and `long`. Any form can join a series, and one series may mix forms. A long film's `storyboard.json` carries `chapters` (descriptive title, one mechanism, at most three new terms, a re-hook), checked by `validate`. Above 180 s `studio.py build` renders through `scripts/render-segments.py`: segments cut at scene edges, a checkpoint after each in `renders/<fmt>/chunks/`, resume after a killed build, any `src/` edit restarts. Verified on a 22 s film; no 5-12 minute film has been built yet, so treat the long-form numbers as a first guess.
 ```bash
-python scripts/studio.py new <slug> --template illustrated-explainer --type reel|long-reel|youtube --category history,finance
+python scripts/studio.py new <slug> --template illustrated-explainer --type short|mid|long [--formats portrait|landscape] --category history,finance
 python scripts/studio.py validate <slug>               # schema + cross-reference + determinism lint
 python scripts/frame-review.py <slug> --fonts google   # Playwright contact sheets in qa/frame-review/
 python scripts/studio.py build <slug> --dry-run        # print per-format plan; runs anywhere
@@ -63,7 +63,7 @@ python scripts/studio.py formats <slug>                # regenerate src/index.<f
 Categories and series. `specs/categories.json` lists the subject categories (technology, finance, science, history, mathematics, news, storytelling). A brief takes one or more in `categories` (first is primary), and `validate` warns when it has none. Style records may be tagged with `categories`; a style with none is general-purpose. A series (`series/<slug>/series.json`, `specs/series-spec.json`) groups projects as `sequential` (numbered parts) or `collection` (unordered, same theme); the series owns membership:
 ```bash
 python scripts/studio.py series new <slug> --kind sequential|collection --category history
-python scripts/studio.py series add <series> <project> [--part N] [--planned [--type reel|long-reel|youtube]]
+python scripts/studio.py series add <series> <project> [--part N] [--planned [--type short|mid|long]]
 python scripts/studio.py series show|list|validate [<series>]
 ```
 Style templates. A style template (`catalogue/data/style-templates/`, `docs/style-templates.md`) is the unit you pick per film and the unit you refine: seven records split by visual job (`systems-blueprint`, `proof-canvas`, `data-ledger`, `chronicle`, `storybook`, `news-brief`, `science-atlas`). Each binds a style system and a design profile and adds scene grammar, measurable pacing rules, anti-patterns and a versioned revision log. `project.json` pins `style_template: {id, version}`; refine a template, bump its version, and `style check` lists every project that is behind. `validate` prints the same findings as warnings, never errors:
@@ -74,6 +74,25 @@ python scripts/studio.py style adopt <slug> <id>       # pin id and current vers
 python scripts/studio.py style check [<slug>]          # one project, or the whole portfolio
 python scripts/studio.py new <slug> --template illustrated-explainer --style-template <id> --category <c>
 python tests/test-style-templates.py
+```
+Fitness films (Sinew brand, mascot Tibi): start with the `/fitness` skill (`.claude/skills/fitness/SKILL.md`), an orchestrator that loads capability skills on demand (`fitness-anatomy`, `fitness-animation`, `fitness-qa`, `fitness-publish`). It specialises the pipeline above; it is not a separate one. Architecture, audit, decisions and open items: `docs/fitness-studio.md`; look and language: `assets/fitness/STYLE.md`. Tibi exists in 2D (Cobalt Sculpt; master source `src/fitness/tibi/`, exported to `sculpt-data.js` by `fitness.py sculpt`, never edit that file) and in real 3D (Three.js, vendored): since runtime 1.9.0 the 3D body is ONE continuous skin whose muscles are surface relief and surface regions (`anatomy3d.js`), with cutaways, isolation and skeleton modes; muscles are never separate objects on the body. Rules and tools: `references/motion-3d.md`.
+```bash
+python scripts/fitness.py plan "<topic>" [--type short|mid|long]      # pillar, form, visual systems, kit assets, steps
+python scripts/fitness.py new <slug> --topic "..." --type mid [--formats landscape]   # fitness-explainer template + dossier skeleton
+python scripts/fitness.py exercise <id|list> --goal technique|muscle|mistake|compare  # knowledge record -> visual explanation plan
+python3.12 scripts/fitness.py dossier <slug>                           # evidence-graded research/dossier.json
+python3.12 scripts/fitness.py review <slug> [--init]                   # 10-dimension rubric; science/anatomy/biomech errors are critical
+python3.12 scripts/fitness.py check | library | assets | sheets        # manifest, schema, 3D highlight-role audit; library.js; sheets (render lock)
+python3.12 scripts/fitness.py sculpt [--check]                         # regenerate (or check) the 2D Tibi runtime data, then studio.py upgrade --all
+node scripts/rig3d-check.js [ids] [--gender m|f]                       # numeric QA of every 3D exercise (continuity, contact, reach, range of motion, phase fidelity)
+node scripts/anatomy3d-check.js                                        # anatomical acceptance tests (watertight skin, no protrusion, layer order, registration)
+.venv/bin/python scripts/anatomy3d-bench.py [--set angles|poses|modes|all]   # contact sheets to LOOK at (render lock)
+.venv/bin/python scripts/fitness-animatic.py <slug>                    # stills per scene + pacing lint, before audio
+.venv/bin/python scripts/fitness-qa.py <film.mp4> --expect-audio       # frozen frames, first-frame jump, cuts, rhythm, fps labels, A/V sync, loudness
+.venv/bin/python scripts/fitness-gates.py <slug>                       # four review gates; accuracy gates need a human in qa/fitness-signoff.json
+.venv/bin/python scripts/fitness-publish.py <slug>                     # titles, chapters, sources, credits, thumbnail, platform fit
+.venv/bin/python scripts/fitness-clip.py <film.mp4> --cut name:a:b --out out/dir   # frame-exact clips with honest metadata
+python3.12 tests/test-fitness.py && python3.12 tests/test-rig3d.py && python3.12 tests/test-anatomy3d.py
 ```
 Open decisions live in `TODO.md` (root).
 
@@ -102,6 +121,7 @@ Tests. There is no test runner. Each `tests/test-*.py` is a standalone script, s
 ```bash
 python tests/test-studio.py              # CLI, QA-gate scripts, build delegation (needs bash; stubs ffmpeg/ffprobe)
 python tests/test-studio-runtime.py      # headless Chromium via Playwright; skips without it
+python tests/test-video-forms.py         # the three forms, chapters, segment planner, segmented build plan (pure Python)
 python tests/test-short-form.py          # hooks, word-timed captions, script/story lint, tween variety and conflicts (pure Python, no browser)
 python tests/test-motion-catalogue.py
 python tests/test-motion-primitives.py
@@ -123,7 +143,7 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 
 Specs for each file are in `specs/`, and project templates are in `templates/projects/`.
 
-**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight; 1.3.0 added caption presets and lanes (`specs/caption-presets.json`, `docs/caption-design.md`: a preset per style system, a lane per section, `caption_lane` on a storyboard scene); 1.2.0 vendored GSAP 3.12.5 as `_studio/vendor/gsap.min.js`, so renders need no network: load it from there, never from a CDN). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
+**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight; 1.3.0 added caption presets and lanes (`specs/caption-presets.json`, `docs/caption-design.md`: a preset per style system, a lane per section, `caption_lane` on a storyboard scene); 1.2.0 vendored GSAP 3.12.5 as `_studio/vendor/gsap.min.js`, so renders need no network: load it from there, never from a CDN; 1.4.x added the rig and the fitness kit; 1.5.0 added the Cobalt Sculpt Tibi and the rig's `derive` hook for pose-dependent attributes; 1.6.0 retired the classic Tibi and added per-joint foreshortening, back, top and above views, a bending shoe, grip hands and the 12-exercise library). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
 
 **Layouts are composed per format, not cropped.** Each format is set by `specs/format-presets.json`. Authors write one `src/index.html`, and layout adapts through `#root[data-format=…]` rules and `Studio.pick({landscape, portrait, square})`. Sizes use `--u` (1% of the short side) and `--safe-*`, not pixel values.
 

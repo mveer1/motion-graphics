@@ -8,15 +8,15 @@ Evidence labels used below: **Verified** (read in the workspace), **Observed** (
 
 Purpose (VISION.md): produce our own narrated explainers and short-form social videos in technology, finance, science, history, mathematics and news. Motion graphics only, synthetic narration, local rendering. Quality is premium craft plus accurate explanation; speed is not a priority.
 
-Every video is exactly one of three types (`specs/video-types.json`, each with a 15 s margin at both ends), and `studio.py new` requires `--type`:
+Every video is exactly one of three forms (`specs/video-types.json`, guide `docs/video-forms.md`, each with a 15 s margin at both ends), and `studio.py new` requires `--type`:
 
-| Type | Platform, format | Nominal length | Allowed with margin |
+| Form | Platform, format | Nominal length | Allowed with margin |
 |---|---|---|---|
-| `reel` (Instagram reel) | `instagram-reels`, portrait | 45-60 s (45 preferred) | 30-75 s |
-| `long-reel` (long Instagram reel) | `instagram-reels`, portrait | 60-180 s | 45-195 s |
-| `youtube` (YouTube video) | `youtube`, landscape | over 180 s | 165 s and up, no ceiling |
+| `short` (short-form micro explainer) | `instagram-reels` / `youtube-shorts`, portrait | 20-60 s (45 preferred) | 15-75 s |
+| `mid` (mid-form focused explainer) | `instagram-reels` portrait, or `youtube` / `linkedin` landscape | 60-180 s | 45-195 s |
+| `long` (long-form documentary or deep dive) | `youtube`, landscape, told in chapters, rendered in resumable segments | 5-12 min | 285-735 s |
 
-Any type can be a member of a series, and one series may mix types. `studio.py validate` errors when a typed project falls outside its type's platform, format or length window; older briefs without `deliverables.video_type` only get a warning.
+The old ids `reel`, `long-reel` and `youtube` are still accepted as `short`, `mid` and `long`. Any form can be a member of a series, and one series may mix forms. `studio.py validate` errors when a typed project falls outside its type's platform, format or length window; older briefs without `deliverables.video_type` only get a warning.
 
 Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 s), `polya-recurrence` (portrait, 73 s), `great-fire-london-collage` (landscape, 44.6 s), `ocean-descent-documentary` (landscape, 49.5 s), plus two silent 14 s landscape fixtures (`motion-quality-v1-baseline`, `-v2-directed`). As of 2026-11-07 no studio project has a current render: `studio.py upgrade --all` moved every finished film into `renders/history/`, and the catalogue links those. Older explainers (`btree-database-indexing`, `distributed-consensus-raft`, `neural-network-learning`, `masala-chai`, `paper-plane-field-notes`, `china-market-crash`) live as versioned folders without a top-level `project.json`.
 
@@ -31,7 +31,8 @@ Shipped (Verified, `out/*.mp4`, ffprobe): `bhopal-gas-tragedy` (portrait, 104.5 
 | Creative-intelligence layer: beat maps, style bake-off, design knowledge base, asset engine, single-scene re-render | Verified; **not yet committed to git** |
 | Technical QA: 5 gates with per-format expectations; objective/measured/judgment motion QA; 12-criterion creative review | Verified and exercised |
 | Series (sequential or collection) grouping; members of any video type, planned members can carry a `--type` | Verified (`studio.py series`) |
-| Video types (`reel`, `long-reel`, `youtube`) with platform, format and length windows enforced by `new` and `validate` | Verified (`specs/video-types.json`, `tests/test-studio.py`) |
+| Video forms (`short`, `mid`, `long`) with platform, format and length windows enforced by `new` and `validate` | Verified (`specs/video-types.json`, `tests/test-studio.py`, `tests/test-video-forms.py`) |
+| Long-form (5-12 min): storyboard chapters, segmented resumable render, length-aware frame review | Segment render **Observed** on a 22 s film only; **no 5-12 minute film built yet** (`docs/video-forms.md`) |
 | Poster per project: the last non-black frame of its finished film (`poster.jpg` + `poster.json`), made by `studio.py build` and `build-project.sh` | Verified on all 26 project folders (`scripts/poster.py`) |
 | Catalogue page `out/catalogue.html` (`scripts/build-catalogue.py`): poster tiles in one topic-colour-coded grid, type and progress tags, filters, search, sort, links to every film; an editable Ideas sheet split by video length | Verified in headless Chrome |
 | Math-animation toolkit (3Blue1Brown style) | **Missing**: only SVG + GSAP primitives; three.js is registered but experimental |
@@ -118,7 +119,7 @@ Legacy stages 0 to 9 (research dossier, narration, composition, foley, lint, ren
 Setup once: `git submodule update --init --recursive && source .venv/bin/activate && pip install -e tools/earshot`.
 
 ```bash
-python scripts/studio.py new <slug> --template illustrated-explainer --type reel --category history   # --type reel|long-reel|youtube is required
+python scripts/studio.py new <slug> --template illustrated-explainer --type short --category history   # --type short|mid|long is required
 python scripts/studio.py validate <slug>
 python scripts/studio.py build <slug> --dry-run      # plan only, runs anywhere
 python scripts/studio.py build <slug>                # render host: takes the render lock itself
@@ -248,6 +249,18 @@ In priority order: **commit the untracked work** (user action); add a pinned req
 - **Catalogue page.** `scripts/build-catalogue.py` writes `out/catalogue.html`: every project as a poster tile in one grid coloured by topic, tagged by video type (the brief's, else by the film's length) and progress (in production, rendered, reviewed, plus a re-render flag), with filters, search, sort and a link to each film.
 - **Ideas sheet.** The catalogue's Ideas tab is an editable workbook over `docs/project-ideas.md` (sheets by video length, add, delete, paste from Excel, copy for Excel, download .md). Every idea line now ends in a `[length]` tag, which the builder requires.
 - **Tests.** `tests/test-studio.py` is 66 tests (video types, posters, catalogue tagging, the ideas file).
+
+## 21. Sinew fitness capability (2026-11-08)
+
+An original fitness education brand and production system, built on the studio rather than beside it. Entry point: the `/fitness` skill (`.claude/skills/fitness/SKILL.md`).
+
+- **Brand:** Sinew ("See what your body is doing."), mascot **Tibi**, a male and a female athlete in the Cobalt Sculpt style (flat cobalt muscle planes, no outlines, a marigold spark) whose working muscles light up by role to show the mechanism (the earlier glass-body cartoon is kept as classic Tibi). Style system `sinew-lab`, style template `body-lab`, category `fitness`, project template `fitness-explainer`. Guidelines and the concept evaluation: `.claude/skills/fitness/references/`.
+- **Runtime 1.5.0:** the Cobalt Sculpt Tibi (`src/studio/kits/fitness/sculpt.js` plus `sculpt-data.js`, generated from the Python master in `src/fitness/tibi/`: front, side and back views, 15 poses, muscle activation, three faces, two tops). **Runtime 1.4.0:** `src/studio/studio-rig.js` (2D skeletal rig: FK, contact anchors, IK, followers, gait cycles, all baked into seekable `fromTo` tweens) and `src/studio/kits/fitness/` (Tibi in four views with 11 expressions and x-ray muscle and bone layers; 13 exercises and 3 gaits with equipment; anatomy and physiology plates; brand graphics, environments, biomechanics overlays and science charts).
+- **Assets:** `assets/fitness/` holds the manifest (77 assets with source, licence, files, API and preview), the anatomy and exercise data, the public-domain cross-check data, the brand sheets and their rendered previews, and the SVG brand sources. External 3D anatomy sources were evaluated and excluded on licence grounds (`references/source-registry.md`).
+- **CLI:** `scripts/fitness.py` (`classify`, `plan`, `new`, `library`, `sculpt`, `check`, `assets`, `dossier`, `review`, `sheets`). Specs: `specs/fitness-spec.json`, `fitness-dossier-spec.json`, `fitness-review-spec.json`, `fitness-asset-spec.json`.
+- **Quality:** an evidence-graded research dossier per film and a 10-dimension rubric where scientific, anatomical and biomechanical errors are critical failures (`qa/fitness-review.json`).
+- **Demo:** `projects/how-muscles-grow` ("How Your Muscles Actually Grow", mid-form, 97.5 s landscape), rendered, reviewed, fixed and re-rendered; delivered as `out/how-muscles-grow-landscape.mp4`.
+- **Tests:** `python3.12 tests/test-fitness.py` (17 tests).
 
 ---
 

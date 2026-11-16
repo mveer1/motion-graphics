@@ -1,0 +1,51 @@
+{
+  "id": "tool-anatomy3d-check",
+  "name": "3D Tibi anatomical acceptance tests (scripts/anatomy3d-check.js)",
+  "component_type": "tool",
+  "purpose": "Checks the unified body without rendering: watertight single-component skin, nothing protrudes, layer order along each cut axis, mask coverage and soft edges, highlight registration across five poses, deformation, colour language.",
+  "capabilities": [
+    "node scripts/anatomy3d-check.js [--gender m|f|both] [--json]"
+  ],
+  "location": "scripts/anatomy3d-check.js",
+  "version": "0.1.0",
+  "dependencies": [
+    "shared-fitness-kit",
+    "threejs"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 or node; ffmpeg where noted",
+    "notes": "Heavy browser steps take the host render lock."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness-anatomy/SKILL.md",
+    "src/studio/kits/fitness/anatomy3d.js"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only under qa/ or the named output directory."
+  },
+  "approval_evidence": "tests/test-anatomy3d.py (2026-11-13): passes for both bodies and fails on a protruding muscle and a hard-edged mask.",
+  "tags": [
+    "fitness",
+    "qa",
+    "tool"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

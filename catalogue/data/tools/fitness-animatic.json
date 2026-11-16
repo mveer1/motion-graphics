@@ -1,0 +1,50 @@
+{
+  "id": "tool-fitness-animatic",
+  "name": "Fitness animatic and pacing lint (scripts/fitness-animatic.py)",
+  "component_type": "tool",
+  "purpose": "Stills per storyboard scene from the current composition with narration and pace on one sheet, plus a pacing lint.",
+  "capabilities": [
+    "fitness-animatic.py <slug>"
+  ],
+  "location": "scripts/fitness-animatic.py",
+  "version": "0.1.0",
+  "dependencies": [
+    "hyperframes",
+    "tool-session-guard"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 or node; ffmpeg where noted",
+    "notes": "Heavy browser steps take the host render lock."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/SKILL.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only under qa/ or the named output directory."
+  },
+  "approval_evidence": "Run on projects/lab-3d-motion 2026-11-13 (qa/animatic/animatic.png).",
+  "tags": [
+    "fitness",
+    "qa",
+    "tool"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

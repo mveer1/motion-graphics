@@ -1,0 +1,50 @@
+{
+  "id": "tool-rig3d-check",
+  "name": "3D Tibi numeric QA (scripts/rig3d-check.js)",
+  "component_type": "tool",
+  "purpose": "Checks the 3D Tibi without rendering: per-frame continuity (teleporting joints), activation colour steps, muscle presence and size, planted soles, IK reach, joint limits and per-exercise assertions.",
+  "capabilities": [
+    "fitness.py rig3d check [exercise ...] (node, exit 1 on failure)"
+  ],
+  "location": "scripts/rig3d-check.js",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+  },
+  "dependencies": [
+    "shared-fitness-kit",
+    "threejs"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
+    "notes": "stills take the host render lock."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/references/motion-3d.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes qa/rig3d/ contact sheets only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-12",
+  "tags": [
+    "fitness",
+    "3d",
+    "qa"
+  ]
+}

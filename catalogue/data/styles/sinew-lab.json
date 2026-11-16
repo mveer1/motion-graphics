@@ -1,0 +1,65 @@
+{
+  "id": "sinew-lab",
+  "name": "Sinew Lab",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "The Sinew fitness brand. Warm lab paper and charcoal ink, Tibi cobalt as the brand colour, marigold spark for emphasis, coral muscle red reserved for anatomy, emerald for evidence; Outfit display over Inter, JetBrains Mono for sources and data.",
+  "location": "src/studio/styles/sinew-lab.css",
+  "categories": ["fitness"],
+  "tokens": {
+    "colors": {
+      "paper": "#f6f3ec",
+      "paper-2": "#ece5d8",
+      "ink": "#1b1d29",
+      "ink-2": "#4a4e60",
+      "rule": "#d6cfbf",
+      "accent": "#2f56e0",
+      "accent-2": "#f2553d",
+      "accent-3": "#ffb224",
+      "positive": "#12a36e",
+      "muscle": "#f2553d",
+      "bone": "#f4ead5"
+    },
+    "typography": {
+      "display": "'Outfit', sans-serif",
+      "text": "'Inter', sans-serif",
+      "mono": "'JetBrains Mono', monospace"
+    },
+    "texture": "Flat vector with a soft dot grid on diagram plates; no grain on the character.",
+    "spacing": "--u = 1% of short side; character scale from Studio.kit.fitness.tibi({scale})"
+  },
+  "motion": {
+    "personality": "Friendly and precise: springy character acting, calm diagram builds",
+    "ease_in": "power2.in",
+    "ease_out": "expo.out",
+    "enter_duration_sec": 0.55,
+    "stagger_sec": 0.06,
+    "notes": "The mascot never freezes (idle breathing, blinks, reps); diagrams build in steps with drawn lines."
+  },
+  "fonts": [
+    { "family": "Outfit", "source": "hyperframes-bundled", "license": "OFL-1.1" },
+    { "family": "Inter", "source": "hyperframes-bundled", "license": "OFL-1.1" },
+    { "family": "JetBrains Mono", "source": "hyperframes-bundled", "license": "OFL-1.1" }
+  ],
+  "contrast_checked": [
+    "ink/paper 15.1:1",
+    "ink-2/paper 7.4:1",
+    "cobalt (accent)/paper 5.4:1; paper on cobalt 5.4:1",
+    "muscle-deep #c2381f/paper 4.9:1",
+    "coral #f2553d/paper 3.1:1 (shapes and large text only)",
+    "emerald #12a36e/paper 2.9:1 and marigold #ffb224/paper 1.6:1 (shapes only, never text); ink on marigold 9.3:1"
+  ],
+  "suitable_for": [
+    "fitness and exercise-science explainers",
+    "anatomy and physiology with a mascot",
+    "running and training tips",
+    "myth-busting with graded evidence"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values (WCAG 2.x formula), 2026-11-08. Used by projects/how-muscles-grow.",
+    "last_verified": "2026-11-08"
+  },
+  "tags": ["light", "fitness", "brand", "character", "anatomy"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-08", "updated_at": "2026-11-08" }
+}

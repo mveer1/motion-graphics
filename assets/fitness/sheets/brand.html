@@ -1,0 +1,29 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="900" data-fps="30" data-duration="2" data-still="1.9" data-export-svg="sinew-brand-board"><svg id="stage" width="1600" height="900" viewBox="0 0 1600 900"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, G=K.graphics, P=K.palette;
+  S.svg('rect',{width:1600,height:900,fill:P.paper},st);
+  G.logo(st,{variant:'lockup',size:56,x:60,y:150,tagline:'SEE WHAT YOUR BODY IS DOING'});
+  G.logo(st,{variant:'icon',size:56,x:760,y:150});
+  G.logo(st,{variant:'wordmark',size:56,x:940,y:150});
+  var dark=S.svg('g',{},st); S.svg('rect',{x:1260,y:40,width:300,height:150,rx:24,fill:P.cobalt},dark); G.logo(dark,{variant:'wordmark',size:40,x:1310,y:140,ink:P.paper});
+  var cols=[['Paper',P.paper],['Paper 2',P.paper2],['Ink',P.ink],['Ink 2',P.ink2],['Cobalt',P.cobalt],['Spark',P.spark],['Muscle',P.muscle],['Muscle deep',P.muscleDeep],['Emerald',P.emerald],['Violet',P.violet],['Bone',P.bone]];
+  cols.forEach(function(c,i){ var x=60+i*135; S.svg('rect',{x:x,y:250,width:120,height:70,rx:14,fill:c[1],stroke:P.ink,'stroke-width':1.5},st); var t=S.svg('text',{x:x,y:340,'font-family':'Inter','font-weight':700,'font-size':14,fill:P.ink},st); t.textContent=c[0]; var t2=S.svg('text',{x:x,y:358,'font-family':'JetBrains Mono','font-size':12,fill:P.ink2},st); t2.textContent=c[1].toUpperCase(); });
+  var ty=[['Outfit 800 · Display','Muscles grow from tension',46,'Outfit',800],['Inter 600 · Text','Protein building rises for about a day or two.',24,'Inter',600],['JetBrains Mono 500 · Sources','Phillips et al. 1997 · Am J Physiol · n = 8',18,'JetBrains Mono',500]];
+  ty.forEach(function(r,i){ var y=420+i*62; var a=S.svg('text',{x:60,y:y,'font-family':'JetBrains Mono','font-size':12,fill:P.ink3},st); a.textContent=r[0]; var b=S.svg('text',{x:60,y:y+38,'font-family':r[3],'font-weight':r[4],'font-size':r[2],fill:P.ink},st); b.textContent=r[1]; });
+  var tc=G.titleCard(st,{x:1180,y:520,kicker:'Mid-form · Muscle',title:'How muscles\nactually grow',size:44,accentLast:true}); tc.show(tl,0);
+  var lt=G.lowerThird(st,{x:60,y:640,title:'Mechanical tension',sub:'the strain of fibres pulling against load'}); lt.show(tl,0.1);
+  var y0=740; ['established','strong','moderate','preliminary','hypothesis','unsupported'].forEach(function(g,i){ var b=G.evidenceBadge(st,{x:60+(i%3)*250,y:y0+Math.floor(i/3)*52,grade:g,size:16}); b.show(tl,0.2); });
+  var ci=G.citation(st,{x:840,y:770,text:'MacDougall et al. 1995 · Can J Appl Physiol · n = 6'}); ci.show(tl,0.3);
+  var my=G.mythStamp(st,{x:1420,y:780,size:0.8}); my.slam(tl,0.4);
+  var cb=G.callout(st,{point:[1000,830],label:[1100,850],text:'Biceps brachii',sub:'elbow flexion'}); cb.show(tl,0.5);
+  tl.to({},{duration:2},0);
+});
+</script></body></html>

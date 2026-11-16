@@ -1,0 +1,52 @@
+{
+  "id": "skill-long-form",
+  "name": "Long-Form Playbook Skill",
+  "component_type": "skill",
+  "purpose": "Storytelling, scripting, pacing, editing and render rules for 5-12 minute landscape documentaries and deep dives told in chapters.",
+  "capabilities": [
+    "Chapter structure, budgets and re-hooks",
+    "Cold open and resolution rules",
+    "Per-chapter authoring and segmented render workflow",
+    "Length-aware frame review"
+  ],
+  "location": ".claude/skills/long-form",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .claude/skills/long-form."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Instructional skill over specs/video-types.json, scripts/render-segments.py and storyboard chapters. Uncalibrated: the render path was verified on a 22 s film in segments; no 12-minute film has been finished."
+  },
+  "documentation_urls": [
+    ".claude/skills/long-form/SKILL.md",
+    "docs/video-forms.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace-authored."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Instructional guidance only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Not yet approved: five presets and the lane positions were checked as HyperFrames snapshots of a scratch project on 2026-11-07, not in a full studio.py build or on a phone.",
+  "architecture_ref": "ARCHITECTURE.md#s3",
+  "last_verified": "2026-11-07",
+  "tags": [
+    "captions",
+    "typography",
+    "safe-area",
+    "subtitles"
+  ]
+}

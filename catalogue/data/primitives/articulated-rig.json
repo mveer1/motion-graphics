@@ -1,0 +1,26 @@
+{
+  "id": "articulated-rig",
+  "name": "Articulated character rig (2D skeletal, deterministic)",
+  "kind": "group",
+  "status": "experimental",
+  "description": "A 2D skeletal rig for HyperFrames: a character kit declares joints, paint layers and shapes; the rig builds nested SVG groups per layer, solves forward kinematics, foot or hand contacts (anchors), two-bone IK and level feet at build time, and writes poses as explicit fromTo tweens of each joint's transform attribute (no svgOrigin, no callbacks). Followers keep props and cable ends on a joint without inheriting its rotation; finite cycles drive gait with a floor rule.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": ["svg-native", "gsap"],
+  "inputs": [
+    { "name": "spec", "type": "object", "description": "Kit description: joints [{id, parent, offset, sign, base, min, max}], layers [{id, joints}], draw(fig, joint, layer, g), poses, rest" },
+    { "name": "pose", "type": "object", "description": "{x, y, rot, j:{joint: degrees}, flat:[ids], anchor:{joint, point, to}, ik:[{chain, to, bend, flat, flatAngle}]} or a kit pose name ('name~mirror' swaps sides)" },
+    { "name": "options", "type": "object", "description": "{x, y, scale, facing} at build; {ease, samples} per move; {floor:{y, points}} per cycle" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-rig.js",
+    "api": "Studio.rig.figure(parent, spec, opts) -> fig; fig.to(tl, pose, at, dur, {ease}); fig.sequence(tl, steps, at); fig.cycle(tl, poses, at, period, count, {floor}); fig.follow(el, joint, local, make); fig.point(joint, local, pose); fig.trace(joint, local, poses)"
+  },
+  "performance_notes": "One fromTo per changed joint per sample; anchored moves sample at 10 per second. A 10 s run cycle is about 1,500 tweens, which GSAP seeks without trouble.",
+  "related": ["svg-path"],
+  "validation": {
+    "evidence": "Preview renders in headless Chrome (puppeteer-core from the hyperframes install) of all four Tibi views and the 16-movement exercise gallery, 2026-11-08 (assets/fitness/previews/). HyperFrames render: projects/how-muscles-grow.",
+    "last_verified": "2026-11-08"
+  },
+  "tags": ["character", "rig", "skeleton", "kinematics", "mascot"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-08", "updated_at": "2026-11-08" }
+}

@@ -110,3 +110,7 @@ python tests/test-style-templates.py
 ```
 
 The tests require every category in `specs/categories.json` to be served by at least one template and every visual job to be distinct, so a new subject category forces a decision about which template covers it.
+
+## body-lab (added 2026-11-08)
+
+Eighth template, visual job `body-mechanism`: character-led body science on the `sinew-lab` style for the `fitness` category. Tibi does the movement, the working muscles light up by role on Tibi's own body (Cobalt Sculpt; classic Tibi turned the body to glass), the mechanism plays from there, and every claim carries its evidence grade and source. Rules are first guesses; first film: `projects/how-muscles-grow`. Details: `catalogue/data/style-templates/body-lab.json`, `.claude/skills/fitness/`.

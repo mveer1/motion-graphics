@@ -120,6 +120,32 @@ class TestCaptions(unittest.TestCase):
         self.assertEqual(starts, sorted(starts))
         self.assertTrue(0.4 <= times[1][0] and times[3][1] <= 2.0 + 1e-9)
 
+    def test_words_never_leave_the_scene_span(self):
+        # 2026-11-12: Whisper ended a scene's last word 0.5 s after its clip ("moves."), overlapping the next scene's cue
+        toks = cap.tokenize("It moves.")
+        heard = asr([("It", 0.1, 0.4), ("moves.", 0.4, 2.9)])
+        times, _ = cap.align(toks, heard, (0.0, 1.6))
+        self.assertTrue(all(0.0 <= a <= b <= 1.6 for a, b in times), times)
+
+    def test_respellings_show_as_the_real_word(self):
+        # the voice reads a respelling; captions must show the term, also after a re-run of `studio.py captions`
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("studio_cli", STUDIO)
+        st = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(st)
+        with tempfile.TemporaryDirectory() as d:
+            Path(d, "research.json").write_text(json.dumps({"acoustic_guidance": {"phonetic_lexicon": [
+                {"term": "gastrocnemius", "phonetic_respelling": "gas-trock-nee-me-us"}, {"term": "MRI", "phonetic_respelling": "M R I"}]}}))
+            cues = [{"text": "The gas-trock-nee-me-us grew.", "words": [{"text": "The", "start": 0, "end": 0.2},
+                     {"text": "gas-trock-nee-me-us", "start": 0.2, "end": 0.9}, {"text": "grew.", "start": 0.9, "end": 1.2}]},
+                    {"text": "M R I scans", "words": [{"text": "M", "start": 2, "end": 2.1}, {"text": "R", "start": 2.1, "end": 2.2},
+                     {"text": "I", "start": 2.2, "end": 2.3}, {"text": "scans", "start": 2.3, "end": 2.6}]}]
+            st.display_spellings(Path(d), cues)
+        self.assertEqual(cues[0]["text"], "The gastrocnemius grew.")
+        self.assertEqual([w["text"] for w in cues[0]["words"]], ["The", "gastrocnemius", "grew."])
+        self.assertEqual(cues[1]["text"], "MRI scans")
+        self.assertEqual(cues[1]["words"][0], {"text": "MRI", "start": 2, "end": 2.3})
+
     def test_no_recogniser_words_falls_back_to_the_scene_span(self):
         toks = cap.tokenize("Alpha beta gamma delta.")
         times, matched = cap.align(toks, [], (10.0, 14.0))
@@ -421,12 +447,22 @@ class TestCaptionDesign(unittest.TestCase):
         self.assertEqual(cs.resolve("editorial-light", "portrait")["roles"]["body"]["lane"], "lower")
 
     def test_video_type_from_brief_then_length(self):
-        self.assertEqual(cs.video_type_of({"deliverables": {"video_type": "long-reel"}}, 30, "portrait"), "long-reel")
-        self.assertEqual(cs.video_type_of(None, 45, "portrait"), "reel")
-        self.assertEqual(cs.video_type_of(None, 120, "portrait"), "long-reel")
-        self.assertEqual(cs.video_type_of(None, 240, "landscape"), "youtube")
+        self.assertEqual(cs.video_type_of({"deliverables": {"video_type": "mid"}}, 30, "portrait"), "mid")
+        # pre-2.0 ids are read as the new ones
+        self.assertEqual(cs.video_type_of({"deliverables": {"video_type": "long-reel"}}, 30, "portrait"), "mid")
+        self.assertEqual(cs.video_type_of({"deliverables": {"video_type": "youtube"}}, 30, "landscape"), "long")
+        self.assertEqual(cs.video_type_of(None, 45, "portrait"), "short")
+        self.assertEqual(cs.video_type_of(None, 120, "portrait"), "mid")
+        self.assertEqual(cs.video_type_of(None, 150, "landscape"), "mid")
+        self.assertEqual(cs.video_type_of(None, 240, "landscape"), "long")
+        self.assertEqual(cs.video_type_of(None, 480, "portrait"), "long")
+        self.assertEqual(cs.type_defaults("long")["grouping"], "sentence")
         self.assertEqual(cs.type_defaults("youtube")["grouping"], "sentence")
+        self.assertEqual(cs.type_defaults("short")["grouping"], "phrase")
         self.assertEqual(cs.type_defaults("reel")["grouping"], "phrase")
+        # mid-form is phrase captions in portrait and sentence captions in landscape
+        self.assertEqual(cs.type_defaults("mid", fmt="portrait")["grouping"], "phrase")
+        self.assertEqual(cs.type_defaults("mid", fmt="landscape")["grouping"], "sentence")
 
     def cues(self):
         mk = lambda t, a, b, ws: {"start": a, "end": b, "text": t, "words": [{"text": w, "start": a, "end": b} for w in ws]}  # noqa: E731

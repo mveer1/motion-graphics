@@ -1,0 +1,418 @@
+{
+  "spec_version": 1,
+  "description": "The Sinew fitness capability in data: content pillars and routing keywords, per-form fitness rules, evidence grades, claim rules and the 10-dimension quality rubric. Read by scripts/fitness.py (classify, plan, dossier, review) and by the /fitness skill. Brand and asset rules: .claude/skills/fitness/.",
+  "brand": {
+    "name": "Sinew",
+    "mascot": "Tibi",
+    "tagline": "See what your body is doing.",
+    "style_system": "sinew-lab",
+    "style_template": "body-lab",
+    "project_template": "fitness-explainer",
+    "category": "fitness",
+    "voice": {
+      "id": "am_michael",
+      "speed": 1.05,
+      "why": "Warm documentary voice; slower than the workspace default so dense physiology stays followable. Tibi is the on-screen character; the narrator is Tibi's voice."
+    }
+  },
+  "pillars": [
+    {
+      "id": "strength-for-running",
+      "name": "Strength training for running",
+      "description": "Why and how runners lift: economy, load management, single-leg strength, programming alongside mileage.",
+      "keywords": [
+        "runner",
+        "runners",
+        "running economy",
+        "single-leg",
+        "single leg",
+        "glute",
+        "calf",
+        "hamstring",
+        "achilles",
+        "load management",
+        "injury risk",
+        "strength for running",
+        "plyometric",
+        "hill",
+        "mileage",
+        "cross-training"
+      ],
+      "default_form": "mid",
+      "default_category_extra": [
+        "science"
+      ]
+    },
+    {
+      "id": "gym-bodybuilding",
+      "name": "Gym and bodybuilding",
+      "description": "Hypertrophy, progressive overload, volume, intensity, exercise selection, technique, splits and programming.",
+      "keywords": [
+        "hypertrophy",
+        "bodybuilding",
+        "progressive overload",
+        "volume",
+        "sets",
+        "reps",
+        "intensity",
+        "rir",
+        "failure",
+        "split",
+        "squat",
+        "deadlift",
+        "bench",
+        "press",
+        "pull-up",
+        "row",
+        "curl",
+        "range of motion",
+        "mechanical tension",
+        "gym",
+        "technique",
+        "form"
+      ],
+      "default_form": "mid",
+      "default_category_extra": [
+        "science"
+      ]
+    },
+    {
+      "id": "performance",
+      "name": "Muscle growth, running and performance tips",
+      "description": "Physiology and recovery: protein, creatine, sleep, fatigue, DOMS, warm-ups, cadence, VO2 max, aerobic base, lactate threshold, energy systems, myths.",
+      "keywords": [
+        "muscle growth",
+        "muscles grow",
+        "grow",
+        "muscles",
+        "protein",
+        "creatine",
+        "sleep",
+        "recovery",
+        "fatigue",
+        "doms",
+        "soreness",
+        "warm-up",
+        "warm up",
+        "cadence",
+        "vo2",
+        "aerobic",
+        "lactate",
+        "threshold",
+        "energy system",
+        "atp",
+        "glycogen",
+        "nutrition",
+        "myth",
+        "consistency",
+        "adaptation",
+        "heart rate",
+        "zone 2"
+      ],
+      "default_form": "short",
+      "default_category_extra": [
+        "science"
+      ]
+    }
+  ],
+  "routing": [
+    {
+      "when": [
+        "muscle",
+        "grow",
+        "hypertrophy",
+        "protein synthesis",
+        "fibre",
+        "fiber"
+      ],
+      "systems": [
+        "character-animation",
+        "anatomical-visualization",
+        "scientific-infographics"
+      ],
+      "assets": [
+        "tibi-sculpt-male",
+        "tibi-sculpt-female",
+        "tibi-sculpt-activation",
+        "anatomy-zoom-ladder",
+        "anatomy-cross-section",
+        "anatomy-sarcomere",
+        "chart-time-series",
+        "flow-signal"
+      ]
+    },
+    {
+      "when": [
+        "squat",
+        "deadlift",
+        "bench",
+        "press",
+        "row",
+        "pull-up",
+        "pullup",
+        "push-up",
+        "pushup",
+        "lunge",
+        "curl",
+        "calf",
+        "leg press",
+        "pulldown",
+        "pushdown",
+        "exercise",
+        "technique",
+        "form"
+      ],
+      "systems": [
+        "exercise-animation",
+        "biomechanics",
+        "character-animation"
+      ],
+      "assets": [
+        "tibi-sculpt-male",
+        "tibi-sculpt-female",
+        "tibi-sculpt-activation",
+        "exercise-library",
+        "bio-angle",
+        "bio-force",
+        "bio-path",
+        "env-gym"
+      ]
+    },
+    {
+      "when": [
+        "run",
+        "runner",
+        "running",
+        "cadence",
+        "stride",
+        "gait",
+        "sprint",
+        "jog",
+        "marathon"
+      ],
+      "systems": [
+        "exercise-animation",
+        "biomechanics",
+        "character-animation"
+      ],
+      "assets": [
+        "tibi-sculpt-male",
+        "tibi-sculpt-female",
+        "tibi-sculpt-activation",
+        "tibi-sculpt-poses",
+        "gait-walk",
+        "gait-jog",
+        "gait-sprint",
+        "env-track",
+        "env-outdoor",
+        "bio-angle"
+      ]
+    },
+    {
+      "when": [
+        "heart",
+        "vo2",
+        "aerobic",
+        "cardio",
+        "zone 2",
+        "heart rate",
+        "blood",
+        "oxygen"
+      ],
+      "systems": [
+        "anatomical-visualization",
+        "scientific-infographics"
+      ],
+      "assets": [
+        "anatomy-heart",
+        "anatomy-lungs",
+        "chart-time-series"
+      ]
+    },
+    {
+      "when": [
+        "atp",
+        "energy",
+        "glycogen",
+        "mitochondria",
+        "lactate",
+        "metabolism",
+        "creatine"
+      ],
+      "systems": [
+        "anatomical-visualization",
+        "scientific-infographics"
+      ],
+      "assets": [
+        "anatomy-mitochondrion",
+        "anatomy-atp",
+        "flow-signal",
+        "chart-time-series"
+      ]
+    },
+    {
+      "when": [
+        "myth",
+        "actually",
+        "really",
+        "truth",
+        "wrong"
+      ],
+      "systems": [
+        "scientific-infographics"
+      ],
+      "assets": [
+        "brand-myth-stamp",
+        "brand-evidence-badge",
+        "brand-citation"
+      ]
+    }
+  ],
+  "forms": {
+    "short": {
+      "structure": "Hook -> Explanation -> Payoff",
+      "fitness_rules": [
+        "One claim, one mechanism, one visual system.",
+        "Tibi on screen in the first second, moving.",
+        "At most one evidence badge and one source line.",
+        "Portrait: Tibi at scale 1.25 or more, centred in the upper two thirds."
+      ]
+    },
+    "mid": {
+      "structure": "Hook -> Context -> Explanation -> Visual demonstration -> Conclusion",
+      "fitness_rules": [
+        "The demonstration is a mechanism running inside Tibi's body or a chart of the key finding.",
+        "Every number on screen carries a source line.",
+        "Re-hook every 35-60 s with a question the next step answers."
+      ]
+    },
+    "long": {
+      "structure": "Hook -> Context -> Narrative development -> Deep explanation -> Resolution (in chapters)",
+      "fitness_rules": [
+        "One mechanism per chapter; chapter cards from the brand kit.",
+        "A 'what we do not know' beat in at least one chapter.",
+        "Sources listed in the description and on the end card."
+      ]
+    }
+  },
+  "evidence_grades": [
+    {
+      "id": "established",
+      "label": "Established mechanism",
+      "use": "Textbook physiology agreed for decades (for example the sliding filament model)."
+    },
+    {
+      "id": "strong",
+      "label": "Strong evidence",
+      "use": "Consistent systematic reviews or meta-analyses of RCTs."
+    },
+    {
+      "id": "moderate",
+      "label": "Moderate evidence",
+      "use": "Several RCTs or one good meta-analysis with limits (small samples, short duration, one population)."
+    },
+    {
+      "id": "preliminary",
+      "label": "Preliminary",
+      "use": "Few or small studies, animal or cell work, acute markers only."
+    },
+    {
+      "id": "hypothesis",
+      "label": "Hypothesis",
+      "use": "A plausible mechanism not yet tested directly in humans."
+    },
+    {
+      "id": "unsupported",
+      "label": "Not supported",
+      "use": "Claims the evidence contradicts or does not support (myths)."
+    }
+  ],
+  "claim_rules": [
+    "Never fabricate a citation, a finding, a mechanism or a number; every claim in narration or on screen maps to a claim id in research/dossier.json.",
+    "Quote numbers as the study reported them, with the population and design on screen.",
+    "Acute markers (protein synthesis after one session) are not long-term outcomes (muscle growth over weeks); say which one the number is.",
+    "No muscle-activation percentages and no 'this exercise isolates' claims.",
+    "No diagnosis, injury treatment or individual prescriptions; injury topics carry the general-education line.",
+    "Mark conceptual kinematics as illustrative."
+  ],
+  "rubric": {
+    "scale": [
+      1,
+      10
+    ],
+    "pass": {
+      "min_each": 6,
+      "min_mean": 7.5,
+      "critical_min": 8,
+      "no_open_critical_issues": true
+    },
+    "dimensions": [
+      {
+        "id": "scientific_accuracy",
+        "name": "Scientific accuracy",
+        "question": "Is every claim supported by the dossier, at the strength stated?",
+        "critical": true
+      },
+      {
+        "id": "anatomical_accuracy",
+        "name": "Anatomical accuracy",
+        "question": "Are structures and muscle groups placed and named correctly for the level of stylisation?",
+        "critical": true
+      },
+      {
+        "id": "biomechanical_accuracy",
+        "name": "Biomechanical accuracy",
+        "question": "Are movements and joint mechanics plausible, and conceptual kinematics labelled as such?",
+        "critical": true
+      },
+      {
+        "id": "visual_consistency",
+        "name": "Visual consistency",
+        "question": "Does the film follow the Sinew brand (palette, type, layout, motion)?",
+        "critical": false
+      },
+      {
+        "id": "character_consistency",
+        "name": "Character consistency",
+        "question": "Is Tibi on model in every view and expression?",
+        "critical": false
+      },
+      {
+        "id": "storytelling",
+        "name": "Storytelling",
+        "question": "Is the explanation understandable and engaging for the target viewer?",
+        "critical": false
+      },
+      {
+        "id": "animation_quality",
+        "name": "Animation quality",
+        "question": "Are movements fluid, contacts planted, and timing right?",
+        "critical": false
+      },
+      {
+        "id": "information_density",
+        "name": "Information density",
+        "question": "Does every scene contribute, with no dead stretches or overload?",
+        "critical": false
+      },
+      {
+        "id": "audio_quality",
+        "name": "Audio quality",
+        "question": "Is narration clear, the mix balanced, loudness on target?",
+        "critical": false
+      },
+      {
+        "id": "production_efficiency",
+        "name": "Production efficiency",
+        "question": "Was the film built from the reusable kit rather than one-off art, within one build loop?",
+        "critical": false
+      }
+    ],
+    "severity": [
+      "critical",
+      "major",
+      "minor"
+    ],
+    "critical_rule": "A scientific, anatomical or biomechanical error is a critical issue: the film fails until it is fixed and re-rendered, whatever the other scores."
+  }
+}

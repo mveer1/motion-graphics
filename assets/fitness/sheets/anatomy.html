@@ -1,0 +1,43 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="900" data-fps="30" data-duration="3" data-still="2.5"><svg id="stage" width="1600" height="900" viewBox="0 0 1600 900"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, A=K.anatomy, G=K.graphics, P=K.palette;
+  S.svg('rect',{width:1600,height:900,fill:P.paper},st);
+  var h=S.svg('text',{x:60,y:64,'font-family':'Outfit','font-weight':800,'font-size':34,fill:P.ink},st); h.textContent='Anatomy library \u00B7 muscle roles on Tibi and plates (schematic)';
+  // Cobalt Sculpt Tibi shows muscles by role: coral prime mover, marigold secondary, pale cobalt stabiliser
+  var figs=[['front','flex','flex','Front \u00B7 flex'],['side','squat','squat','Side \u00B7 squat'],['back','flex','back-flex','Back \u00B7 flex'],['side','run-mid','run-mid','Side \u00B7 mid-stride']];
+  figs.forEach(function(d,i){
+    var x=135+i*255, g=i%2?'female':'male';
+    S.svg('line',{x1:x-105,x2:x+105,y1:470,y2:470,stroke:P.ink3,'stroke-width':2,opacity:0.5},st);
+    var t=K.sculpt(st,{gender:g,view:d[0],x:x,floor:470,scale:0.78});
+    t.set(d[1]); t.activate(tl,d[2],0,0.01);
+    var x2=S.svg('text',{x:x,y:505,'text-anchor':'middle','font-family':'Inter','font-weight':700,'font-size':15,fill:P.ink2},st); x2.textContent=d[3];
+  });
+  [['Prime mover','#F2553D'],['Secondary','#FFB224'],['Stabiliser','#8CAEFA']].forEach(function(l,k){
+    var lx=60+k*180; S.svg('rect',{x:lx,y:526,width:16,height:16,rx:4,fill:l[1]},st);
+    var lt=S.svg('text',{x:lx+24,y:539,'font-family':'Inter','font-weight':600,'font-size':14,fill:P.ink2},st); lt.textContent=l[0];
+  });
+  var il=S.svg('text',{x:600,y:539,'font-family':'Inter','font-weight':500,'font-size':14,fill:P.ink3},st); il.textContent='roles, not EMG amplitude (illustrative)';
+  var pl=S.svg('g',{},st);
+  A.muscle(pl,{x:1080,y:110,scale:0.55});
+  A.fascicle(pl,{x:1330,y:100,scale:0.55});
+  A.fibre(pl,{x:1080,y:250,scale:0.55});
+  A.myofibril(pl,{x:1330,y:265,scale:0.5});
+  var s=A.sarcomere(pl,{x:1100,y:350,width:420,scale:0.9}); s.contract(tl,0.5,1.5,0.6);
+  A.crossSection(pl,{cx:130,cy:700,r:90}).grow(tl,0.3,1.5,1.3);
+  A.mitochondrion(pl,{x:300,y:640,scale:0.9}).emit(tl,0.2,5,90);
+  A.atp(pl,{x:620,y:700,scale:1.6});
+  A.heart(pl,{x:760,y:580,scale:0.9});
+  A.lungs(pl,{x:990,y:580,scale:0.85});
+  A.satelliteCell(pl,{x:1360,y:700,scale:1.4});
+  [['Muscle',1190,200],['Fascicle',1440,224],['Fibre',1190,358],['Myofibril',1445,325],['Sarcomere (contracting)',1290,560],['Fibre cross-section',130,846],['Mitochondrion + ATP',420,820],['ATP',620,760],['Heart',850,820],['Lungs',1100,820],['Satellite cell',1360,760]].forEach(function(l){ var t=S.svg('text',{x:l[1],y:l[2],'text-anchor':'middle','font-family':'Inter','font-weight':700,'font-size':15,fill:P.ink2},st); t.textContent=l[0]; });
+  tl.to({},{duration:3},0);
+});
+</script></body></html>

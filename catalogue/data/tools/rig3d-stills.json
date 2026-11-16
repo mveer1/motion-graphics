@@ -1,0 +1,50 @@
+{
+  "id": "tool-rig3d-stills",
+  "name": "3D Tibi camera-angle contact sheets (scripts/rig3d-stills.py)",
+  "component_type": "tool",
+  "purpose": "Renders a contact sheet of the 3D Tibi from several named camera shots and moments with the HyperFrames headless Chrome, under the host render lock, so posture, contact, equipment and activation can be judged by eye before a composition is written.",
+  "capabilities": [
+    "fitness.py rig3d stills <exercise> --shots front,three,side,back --times 0,1.0 [--gender m|f]"
+  ],
+  "location": "scripts/rig3d-stills.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+  },
+  "dependencies": [
+    "shared-fitness-kit",
+    "threejs"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
+    "notes": "stills take the host render lock."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/references/motion-3d.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes qa/rig3d/ contact sheets only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-12",
+  "tags": [
+    "fitness",
+    "3d",
+    "qa"
+  ]
+}

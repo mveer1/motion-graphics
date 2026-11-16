@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F5F3EF} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1000" data-fps="30" data-duration="3" data-still="2"><svg id="stage" width="1600" height="1000" viewBox="0 0 1600 1000"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+// Motion strips: each figure plays the same move, started earlier by its phase, so one still shows
+// the move's in-betweens: the joints, the light-fixed shading, the arm-art swap and activation fades.
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, STILL=2;
+  S.svg('rect',{width:1600,height:1000,fill:'#F5F3EF'},st);
+  function text(x,y,s,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||'#1B1D29','text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text(60,60,'Tibi · motion in-betweens',32,800);
+  text(60,90,'Each figure is the same tween seen at a later phase: squat with activation, relaxed to double biceps, the classic exercise library jog on the new rig',16,500,'#4A4E60','start','Inter');
+  var ph=[0,0.25,0.5,0.75,1];
+  // row 1: male squat down from stand, activation fading in with it
+  ph.forEach(function(p,i){
+    var cx=170+i*250, floor=420, t0=STILL-p*1.0;
+    var t=K.sculpt(st,{gender:'m',view:'side',x:cx,floor:floor,scale:0.72});
+    t.set('stand'); t.to(tl,'squat',t0,1.0,{ease:'none'}); t.activate(tl,'squat',t0,1.0);
+    text(cx,floor+28,Math.round(p*100)+' %',15,600,'#4A4E60','middle','Inter');
+  });
+  // row 2 left: female front relaxed -> flex (arm art swaps at 50 degrees)
+  [0,0.4,0.7,1].forEach(function(p,i){
+    var cx=150+i*200, floor=900, t0=STILL-p*1.0;
+    var t=K.sculpt(st,{gender:'f',view:'front',x:cx,floor:floor,scale:0.7});
+    t.set('relaxed'); t.to(tl,'flex',t0,1.0,{ease:'none'}); t.activate(tl,'flex',t0,1.0);
+    text(cx,floor+28,Math.round(p*100)+' %',15,600,'#4A4E60','middle','Inter');
+  });
+  // row 2 right: the classic library's jog gait on a sculpt Tibi, four phases of the cycle
+  [0,0.25,0.5,0.75].forEach(function(p,i){
+    var cx=1000+i*160, floor=900;
+    var t=K.sculpt(st,{gender:i%2?'f':'m',view:'side',x:cx,floor:floor,scale:0.62});
+    var ex=K.exercise(t,'jog'); var per=ex.period; ex.run(tl,STILL-p*per-per,per*2.2);
+  });
+  text(1240,945,'jog (exercises.js gait) · m / f',15,600,'#4A4E60','middle','Inter');
+  tl.to({},{duration:3},0);
+});
+</script></body></html>

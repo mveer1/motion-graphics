@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F5F3EF} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1000" data-fps="30" data-duration="1" data-still="0.9"><svg id="stage" width="1600" height="1000" viewBox="0 0 1600 1000"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness;
+  S.svg('rect',{width:1600,height:1000,fill:'#F5F3EF'},st);
+  function text(x,y,s,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||'#1B1D29','text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text(60,64,'Tibi · muscle activation',34,800);
+  text(60,96,'Coral prime mover · marigold secondary · pale cobalt stabiliser · illustrative roles, not EMG data',17,500,'#4A4E60','start','Inter');
+  var rows=[['m',[['side','squat','Squat'],['side','pushup','Push-up'],['side','calf','Calf raise'],['front','flex','Double biceps'],['back','back-lateral','Reverse fly'],['side','run-off','Run · toe-off']]],
+            ['f',[['side','plank','Forearm plank'],['front','lateral','Lateral raise'],['back','back-relaxed','Deadlift lockout'],['back','back-flex','Rear double biceps'],['side','run-strike','Run · contact'],['side','run-fly','Run · flight']]]];
+  rows.forEach(function(r,ri){
+    var floor=ri?905:500;
+    r[1].forEach(function(c,i){
+      var cx=150+i*262, pose=c[1].replace(/^back-/,''), wide=/pushup|plank/.test(c[1]);
+      var t=K.sculpt(st,{gender:r[0],view:c[0],x:cx-(wide?40:0),floor:floor,scale:wide?0.55:0.8});
+      t.set(pose);
+      t.activate(tl,c[1],0.1,0.5);
+      text(cx,floor+32,c[2],18,700,'#1B1D29','middle');
+    });
+  });
+  var lv=[['#F2553D','3 · prime mover'],['#FFB224','2 · secondary'],['#8CAEFA','1 · stabiliser']];
+  lv.forEach(function(s,i){ var x=1100+i*170; S.svg('rect',{x:x,y:52,width:20,height:20,rx:5,fill:s[0]},st); text(x+28,67,s[1],14,600,'#1B1D29','start','Inter'); });
+  tl.to({},{duration:1},0);
+});
+</script></body></html>

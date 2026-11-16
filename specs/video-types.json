@@ -1,38 +1,74 @@
 {
-  "description": "The three video types Motion Lab produces, and only these. A brief declares one in deliverables.video_type; scripts/studio.py new requires it and validate enforces it. Any type can be a member of a series (specs/series-spec.json), alone or mixed with the others.",
+  "spec_version": "2.0.0",
+  "description": "The three forms of video Motion Lab produces, and only these: short-form (micro explainers), mid-form (focused explainers) and long-form (documentaries and deep dives). A brief declares one in deliverables.video_type; scripts/studio.py new requires it and validate enforces it. Any form can be a member of a series (specs/series-spec.json), alone or mixed with the others. Each form has its own playbook skill (.claude/skills/short-form, mid-form, long-form) for storytelling, scripting, pacing and editing; subject knowledge (history, technology, science, finance, ...) comes from categories and style templates, not from the form. Guide: docs/video-forms.md.",
+  "aliases": {
+    "reel": "short",
+    "long-reel": "mid",
+    "youtube": "long"
+  },
+  "aliases_note": "Ids used before spec 2.0.0 (2026-11-08). Briefs, series files and CLI flags that still say reel, long-reel or youtube are read as short, mid and long; new work should use the new ids. reel -> short is exact. long-reel -> mid is exact for length; mid may now also be landscape. youtube -> long only when the film is 5 minutes or more; a legacy 3-5 minute YouTube film has no form and must be re-typed as mid (shorten) or long (extend).",
   "margin_sec": 15,
-  "margin_note": "Each nominal range may be missed by this many seconds at either end. The allowed window is nominal.min - margin to nominal.max + margin; a type with no nominal max has no upper limit.",
-  "complexity_note": "complexity_budget is what one film of the type can explain (story-writer rulebook 3.1, scope check, added 2026-11-07 from the owner's review of game-theory-trust: 'We can't compress complicated content into a short video.'). A mechanism is a cause-and-effect chain the viewer must follow to reach the payoff. A new term is a concept name, a jargon word, or a named person, study, event, tournament or algorithm the audience must learn; names that appear only in a source line do not count. A named study, event, tournament or algorithm needs its setup (who, what, how it was scored, what happened, why), at least named_case_setup_sec_min seconds. Over budget: cut, split into a series, or move to a longer type. The reel numbers are the owner's ruling; the long-reel and youtube numbers are a first guess, not yet measured.",
+  "margin_note": "Each nominal range may be missed by this many seconds at either end. The allowed window is nominal.min - margin to nominal.max + margin, but never below window_floor_sec when a form sets one. Windows therefore leave 195-285 s unassigned on purpose: a film that long is either a long mid-form film (cut it) or a short long-form film (build it out).",
+  "complexity_note": "complexity_budget is what one film of the form can explain (story-writer rulebook 3.1, scope check, added 2026-11-07 from the owner's review of game-theory-trust: 'We can't compress complicated content into a short video.'). A mechanism is a cause-and-effect chain the viewer must follow to reach the payoff. A new term is a concept name, a jargon word, or a named person, study, event, tournament or algorithm the audience must learn; names that appear only in a source line do not count. A named study, event, tournament or algorithm needs its setup (who, what, how it was scored, what happened, why), at least named_case_setup_sec_min seconds. Over budget: cut, split into a series, or move to a longer form. The short-form numbers are the owner's ruling; the mid-form and long-form numbers are a first guess, not yet measured on a finished film.",
+  "render_segments": {
+    "above_sec": 180,
+    "segment_sec": 90,
+    "note": "A film longer than above_sec is rendered in segments of about segment_sec, cut at scene edges, with a checkpoint after each and a resume after an interrupted build (scripts/render-segments.py, called by studio.py build). Shorter films render in one pass. Chosen for the 8 GB M2: a segment bounds one headless-Chrome session to about 2,700 frames. Not yet measured on a 12-minute film; adjust segment_sec from logs/build-timings.jsonl."
+  },
   "types": {
-    "reel": {
-      "name": "Instagram reel",
+    "short": {
+      "name": "Short-form",
+      "subtitle": "Micro explainer",
+      "summary": "One interesting idea, fact, discovery or insight. Fast, visually dense, one satisfying takeaway.",
+      "structure": "Hook -> Explanation -> Payoff",
+      "platforms": ["instagram-reels", "youtube-shorts"],
       "platform": "instagram-reels",
+      "formats": ["portrait"],
       "format": "portrait",
-      "nominal_sec": { "min": 45, "max": 60 },
+      "nominal_sec": { "min": 20, "max": 60 },
+      "window_floor_sec": 15,
       "target_sec": 45,
       "default_arc": "reel-loop",
+      "skill": "short-form",
+      "rehook_every_sec": null,
       "complexity_budget": { "mechanisms": 1, "new_terms_max": 3, "named_case_setup_sec_min": 25, "named_case_rule": "only as the film's whole subject; never a closing beat or a re-hook" },
-      "note": "45 s is preferred; go toward 60 s only for a complicated topic that needs more animated beats, not more words."
+      "note": "45 s is preferred; go toward 60 s only for a complicated topic that needs more animated beats, not more words. Under about 35 s there is no room for a named case, so the film is a single fact or number."
     },
-    "long-reel": {
-      "name": "Long Instagram reel",
-      "platform": "instagram-reels",
-      "format": "portrait",
-      "nominal_sec": { "min": 60, "max": 180 },
-      "target_sec": 90,
-      "default_arc": "hook-payoff",
-      "complexity_budget": { "mechanisms": 1, "worked_cases_max": 1, "alternative": "two linked mechanisms and no worked case", "new_terms_max": 6, "named_case_setup_sec_min": 25 },
-      "note": "Portrait, up to 3 minutes. Needs a re-hook about every 35-45 s; reel-loop fits only its short end."
-    },
-    "youtube": {
-      "name": "YouTube video",
+    "mid": {
+      "name": "Mid-form",
+      "subtitle": "Focused explainer",
+      "summary": "One concept, process, event or question explained in real depth without becoming a documentary.",
+      "structure": "Hook -> Context -> Explanation -> Visual demonstration -> Conclusion",
+      "platforms": ["instagram-reels", "youtube", "linkedin"],
       "platform": "youtube",
+      "formats": ["portrait", "landscape"],
       "format": "landscape",
-      "nominal_sec": { "min": 180 },
-      "target_sec": 240,
-      "default_arc": "problem-mechanism-consequence",
-      "complexity_budget": { "mechanisms_per_chapter": 1, "new_terms_per_chapter_max": 3, "named_case_setup_sec_min": 25 },
-      "note": "Landscape, over 3 minutes, no upper limit. Needs a re-hook every 60-90 s."
+      "nominal_sec": { "min": 60, "max": 180 },
+      "target_sec": 150,
+      "default_arc": "hook-payoff",
+      "skill": "mid-form",
+      "rehook_every_sec": [35, 45],
+      "complexity_budget": { "mechanisms": 1, "worked_cases_max": 1, "alternative": "two linked mechanisms and no worked case", "new_terms_max": 6, "named_case_setup_sec_min": 25 },
+      "note": "Portrait (Instagram) or landscape (YouTube, LinkedIn); the brief picks one and a mid-form film is rendered in that one format only. Portrait needs a re-hook about every 35-45 s; landscape about every 45-60 s. Reel-loop fits only the short end."
+    },
+    "long": {
+      "name": "Long-form",
+      "subtitle": "Documentary or deep dive",
+      "summary": "A narrative-driven film on a complex subject, event, discovery, paper or set of linked ideas. Storytelling, depth, accuracy and an immersive picture.",
+      "structure": "Hook -> Context -> Narrative development -> Deep explanation -> Resolution",
+      "platforms": ["youtube"],
+      "platform": "youtube",
+      "formats": ["landscape", "portrait"],
+      "format": "landscape",
+      "formats_note": "Portrait long-form was allowed by the owner on 2026-11-09 for the first upper-body workout film (720x1280); landscape stays the default for documentaries.",
+      "nominal_sec": { "min": 300, "max": 720 },
+      "target_sec": 480,
+      "default_arc": "documentary-chapters",
+      "skill": "long-form",
+      "rehook_every_sec": [60, 90],
+      "chapters": { "required": true, "length_sec": [45, 150], "note": "Every long-form film is a list of chapters (storyboard.json `chapters`). A chapter is the unit of structure, of the complexity budget, of the re-hook, of the frame-review contact sheet and of the render checkpoint." },
+      "complexity_budget": { "mechanisms_per_chapter": 1, "new_terms_per_chapter_max": 3, "named_case_setup_sec_min": 25, "film_new_terms_max": 25, "film_mechanisms_max": 8 },
+      "note": "Landscape by default (portrait when the brief asks, owner ruling 2026-11-09), 5-12 minutes (4:45 to 12:15 with the margin). Needs a cold open that earns the first minute, a re-hook every 60-90 s, descriptive chapter titles (they become the YouTube chapters) and a resolution that answers the cold open. A long-form film is never re-rendered at 9:16; its reels and shorts are separate short-form films made around its strongest single insight."
     }
   }
 }

@@ -1,0 +1,54 @@
+{
+  "id": "tool-render-segments",
+  "name": "Segmented render",
+  "component_type": "tool",
+  "purpose": "Renders a long film (over 180 s) in checkpointed segments of about 90 s cut at scene edges, resumes an interrupted render at the first unfinished segment, joins them with a stream copy and checks the frame count. Called by studio.py build in place of a single hyperframes render.",
+  "capabilities": [
+    "--segment-sec N [--format] [--output] [--dry-run] [--keep]",
+    "resumes from renders/<format>/chunks/ while the render fingerprint is unchanged",
+    "verifies each segment and the joined track frame count"
+  ],
+  "location": "scripts/render-segments.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-hyperframes",
+    "tool-ffmpeg",
+    "tool-studio-cli",
+    "tool-session-guard"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12 + hyperframes + ffmpeg",
+    "notes": "Verified on a 22 s film in 8 s segments on the M2 host (660 frames; PSNR against a single-pass render 43 dB or better, no change at the cuts; kill and resume tested). Not yet run on a 5-12 minute film."
+  },
+  "documentation_urls": [
+    "docs/video-forms.md",
+    "specs/video-types.json"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes only under projects/<slug>/renders/."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Segment join and resume exercised on style-sample-chronicle (2026-11-08). Experimental until a 5-12 minute film has been built through it.",
+  "architecture_ref": "docs/video-forms.md",
+  "last_verified": "2026-11-08",
+  "tags": [
+    "render",
+    "long-form"
+  ]
+}

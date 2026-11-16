@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FitnessResearchDossier",
+  "description": "projects/<slug>/research/dossier.json: the evidence behind a fitness film. Complements research.json (specs/research-spec.json), which stays the pipeline's dossier. Every claim spoken or shown maps to a claim here; every claim cites sources listed here. Protocol: .claude/skills/fitness/references/research-protocol.md.",
+  "type": "object",
+  "required": ["topic", "research_question", "pillar", "sources", "claims", "do_not_claim", "medical_boundary", "reviewed"],
+  "additionalProperties": false,
+  "properties": {
+    "topic": { "type": "string" },
+    "research_question": { "type": "string" },
+    "pillar": { "type": "string", "enum": ["strength-for-running", "gym-bodybuilding", "performance"] },
+    "summary": { "type": "string" },
+    "sources": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "citation", "year", "design", "url", "verified_via"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "citation": { "type": "string", "description": "Authors, title, journal, year;volume:pages." },
+          "year": { "type": "integer" },
+          "design": { "type": "string", "enum": ["systematic-review-meta-analysis", "systematic-review", "meta-analysis", "rct", "controlled-trial", "observational", "narrative-review", "scoping-review", "textbook", "position-stand", "acute-mechanistic", "animal", "other"] },
+          "population": { "type": "string" },
+          "n": { "type": ["integer", "string"], "description": "Sample size, or 'k studies / n participants' for reviews." },
+          "duration": { "type": "string" },
+          "key_findings": { "type": "array", "items": { "type": "string" } },
+          "limitations": { "type": "array", "items": { "type": "string" } },
+          "url": { "type": "string" },
+          "doi": { "type": "string" },
+          "pmid": { "type": "string" },
+          "verified_via": { "type": "string", "description": "How the citation was checked (e.g. 'Europe PMC abstract, 2026-11-08'). Never 'memory'." }
+        }
+      }
+    },
+    "claims": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "claim", "grade", "sources", "where"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^c[0-9]+$" },
+          "claim": { "type": "string" },
+          "grade": { "type": "string", "enum": ["established", "strong", "moderate", "preliminary", "hypothesis", "unsupported"] },
+          "kind": { "type": "string", "enum": ["mechanism", "finding", "number", "myth", "practical"] },
+          "sources": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "where": { "type": "array", "items": { "type": "string" }, "description": "Scene ids (s1...) where the claim is spoken or shown." },
+          "wording": { "type": "string", "description": "The exact safe wording used in the film." },
+          "caveats": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "conflicting_evidence": { "type": "array", "items": { "type": "string" } },
+    "do_not_claim": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "medical_boundary": { "type": "string", "description": "The general-education line and what the film does not cover." },
+    "reviewed": {
+      "type": "object",
+      "required": ["by", "date", "verdict"],
+      "properties": {
+        "by": { "type": "string" },
+        "date": { "type": "string" },
+        "verdict": { "type": "string", "enum": ["draft", "complete", "needs-work"] },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

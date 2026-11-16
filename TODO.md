@@ -59,6 +59,26 @@ Open decisions and follow-ups. Delete an item when it is done; record the outcom
   - `voice-director` skill: record that the per-scene pace map and `speed` numbers come from the story-writer (rulebook 1.2.0 section 1), and that voice-director tunes inside a band, never across it.
   - A `named_things` check: list on-screen labels and narration nouns per scene beside the storyboard's `named_things` entries in `studio.py script`, so a name with no listed explanation shows up before render.
 
+- [ ] From the 2026-11-08 Sinew fitness build (`.claude/skills/fitness/`, `projects/how-muscles-grow`):
+  - Trademark search for "Sinew" and "Tibi" (classes 41 and 9) before any commercial publish.
+  - Listen to `out/how-muscles-grow-landscape.mp4` on a phone and on speakers (audio reviewed by Earshot only); owner review of the brand and mascot.
+  - Run the `story-writer` subagent's `review how-muscles-grow` (the sign-off was written by the main session applying the rulebook).
+  - Calibrate the `body-lab` rules and the fitness rubric thresholds after three films; promote the kit and skill from `experimental` then.
+  - Kit gaps: a vascular tree, alveolus gas exchange, joint cross-sections; front-view squat foreshortening; phoneme lip-sync; a clearer leg-press setup.
+  - Decide whether a 3D path (Blender plus BodyParts3D, share-alike handled) is worth adding (`references/production.md`).
+  - First short-form Sinew film (portrait) to check Tibi's scale and caption lanes in 9:16.
+
+- [ ] From the 2026-11-09 Tibi Cobalt Sculpt integration and the upper-body workout film (`projects/upper-body-workout`, guide `.claude/skills/fitness/references/character-guidelines.md`):
+  - Done on the owner's rulings: classic Tibi retired (`tibi.js` deleted, `how-muscles-grow` ported, logo icon and thumbnail redrawn); back-view squat and running, prone and supine poses from above, finger joints, fist and grip hands, a two-piece shoe, curved straps and more back-muscle detail added; the movement library rebuilt for the new figure (12 upper-body exercises).
+  - Faces, expressions and lip-sync are not required now (owner, 2026-11-09). Other next steps the owner can pick: barbell, cable and machine equipment (back squat, deadlift, bench press, pulldown); a back-view push-up; a contact-sheet script; a Lottie/Rive export.
+  - Re-render `how-muscles-grow` (ported to the new Tibi, its old render is in `renders/history/`); its opening was built around the old x-ray reveal (narration s2: "let's look inside Tibi's arm"); the port lights the biceps by activation instead, so check the hook and the zoom into the arm in a snapshot before re-rendering.
+  - Learn from the upper-body film and fold into the `fitness-explainer` template and `body-lab` style: the per-exercise card layout (number, name, muscles, cues, tip with grade and source, swaps), the portrait safe-area bands for fitness (header to y 440, stage 440-850, captions below), `build_cues.py`-style word-snapped cues as a runtime helper, and the per-station Tibi pattern (one station per exercise, cross-faded).
+  - Portrait long-form is allowed by the owner (2026-11-09; `specs/video-types.json` `formats_note`); decide whether `long-form` skill defaults and the segment planner need a portrait default.
+  - Human listen to the film's audio (Y-raise, lats, delts, rear-delt pronunciations were judged by recogniser match only) and a trademark check for "Sinew" and "Tibi" before any publish.
+  - Handover dead code kept until the owner confirms (handover section 13): curly hair, `chest_bralette`, face style B, the legacy before/after panels in `page6.py` (`build_v1.py`, `rig_v1.py`, `v3_defs.txt`), unused data keys.
+  - Generator quirk mirrored on purpose: `build2.figure()` rounds segment scales to one decimal, so the female leg art is drawn unscaled (0.965 -> 1) and hands at 1.1, not 1.15. Fixing it would change the approved look; ask before changing.
+  - PNG exports (`src/fitness/tibi/export_assets.py`) and the generator's own browser checks need Playwright, absent on this host; the handover PNGs were not copied (24 MB), only the contact sheets.
+
 ## DONE
 
 - [x] 2026-11-07: Caption design added to the flow (runtime 1.3.0, all 23 studio projects upgraded): `specs/caption-presets.json` (five presets, style map, lanes, roles), `studio.py captions` picks the preset and writes a role, lane and emphasised numbers per cue, `studio.py new` turns captions on and wires `Studio.comp.captions` into the template, `validate` lints the cues, storyboard scenes take `caption_lane`, `caption-designer` skill and `docs/caption-design.md`. Open: render one film with captions end to end and look at it on a phone; confirm Montserrat 800 and Nunito 800 are bundled weights; decide whether a long reel really wants four-word phrases; see `open_questions` in the spec.

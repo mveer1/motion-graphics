@@ -1,0 +1,51 @@
+{
+  "id": "skill-fitness-publish",
+  "name": "Fitness publish skill",
+  "component_type": "skill",
+  "purpose": "Publishing assets and exports: titles, description, chapters, references, credits, thumbnail, platform fit, clip cutting.",
+  "capabilities": [
+    "Publishing metadata from the dossier and storyboard",
+    "Thumbnail",
+    "Clip export with honest metadata"
+  ],
+  "location": ".claude/skills/fitness-publish",
+  "version": "1.0.0",
+  "dependencies": [
+    "tool-fitness-publish",
+    "tool-fitness-clip"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Exercised on the 2026-11-13 anatomy and studio upgrade (lower-body films, lab clips, comparisons)."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness-publish/SKILL.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads and writes project files; no network."
+  },
+  "approval_evidence": "Used to re-render the nine regression videos on 2026-11-13; see docs/fitness-studio.md section 4.",
+  "tags": [
+    "fitness",
+    "sinew"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F5F3EF} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1000" data-fps="30" data-duration="1" data-still="0.5" data-export-svg="tibi-sculpt-model-sheet"><svg id="stage" width="1600" height="1000" viewBox="0 0 1600 1000"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, C=K.sculptData.colors;
+  S.svg('rect',{width:1600,height:1000,fill:'#F5F3EF'},st);
+  function text(x,y,s,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||'#1B1D29','text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text(60,70,'Tibi · Cobalt Sculpt v'+K.sculpt.version,36,800);
+  text(60,104,'Male and female · front, side, back · faceless default · flat planes, no outlines, light from the top left',17,500,'#4A4E60','start','Inter');
+  var floor=560, cells=[['m','front'],['m','side'],['m','back'],['f','front'],['f','side'],['f','back']];
+  cells.forEach(function(c,i){
+    var cx=150+i*262;
+    S.svg('line',{x1:cx-110,x2:cx+110,y1:floor,y2:floor,stroke:'#C9C5BC','stroke-width':2},st);
+    K.sculpt(st,{gender:c[0],view:c[1],x:cx,floor:floor,scale:0.98});
+    text(cx,floor+34,(c[0]==='m'?'Male':'Female')+' · '+c[1],19,700,'#1B1D29','middle');
+  });
+  // faces and tops: head and chest close-ups
+  text(60,640,'Faces and tops',22,800);
+  var row=[['m','front','minimal','sport','Minimal'],['m','front','ember','sport','Ember visor'],['f','front','minimal','sport','Minimal'],['f','front','ember','sport','Ember visor'],['f','front','faceless','push','Push-up top'],['f','back','faceless','push','Push-up top, back']];
+  row.forEach(function(c,i){
+    var cx=150+i*262, top=668, h=260;
+    var cp=S.svg('clipPath',{id:'cl'+i},st); S.svg('rect',{x:cx-118,y:top,width:236,height:h,rx:18},cp);
+    S.svg('rect',{x:cx-118,y:top,width:236,height:h,rx:18,fill:'#ECE8E0'},st);
+    var g=S.svg('g',{'clip-path':'url(#cl'+i+')'},st);
+    K.sculpt(g,{gender:c[0],view:c[1],face:c[2],top:c[3],x:cx,floor:top+30+422*1.35,scale:1.35,shadow:false});
+    text(cx,top+h+30,c[4],16,700,'#1B1D29','middle');
+  });
+  // swatches
+  var sw=[[C.body,'Cobalt body'],[C.light,'Light plane'],[C.shade,'Shade plane'],[C.navy,'Navy'],[C.marigold,'Marigold'],[C.charcoal,'Charcoal'],['#F2553D','Prime mover'],['#FFB224','Secondary'],['#8CAEFA','Stabiliser']];
+  sw.forEach(function(s,i){ var x=1180+(i%3)*140, y=40+Math.floor(i/3)*34; S.svg('rect',{x:x,y:y,width:22,height:22,rx:5,fill:s[0]},st); text(x+30,y+16,s[1],13,600,'#1B1D29','start','Inter'); });
+  tl.to({},{duration:1},0);
+});
+</script></body></html>

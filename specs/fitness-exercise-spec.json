@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SinewExerciseKnowledgeExtension",
+  "description": "The fields every 3D-covered exercise in assets/fitness/data/exercises.json must carry on top of the original record (id, name, category, pillar, equipment, view, start, phases, joints, muscles, landmarks, direction, camera, errors). Checked by `python scripts/fitness.py check`; consumed by `fitness.py exercise <id>`, which turns it into a visual explanation plan. Kinematics stay conceptual: ranges and tempos are illustrative, never data.",
+  "type": "object",
+  "required": ["classification", "variations", "execution", "joint_actions", "muscles", "tempo", "breathing", "camera_angles", "visual_requirements", "progressions", "difficulty", "experience", "evidence_grade", "errors"],
+  "properties": {
+    "rig3d": {"type": "string", "description": "id in T3.exercises (src/studio/kits/fitness/exercises3d.js); `fitness.py check` audits its activation roles against `muscles`."},
+    "engine": {"enum": ["3d"], "description": "Set on exercises that exist only in the 3D kit (no 2D kinematics in exercises.js)."},
+    "classification": {"type": "object", "required": ["pattern", "kind", "chain", "plane", "joints"], "properties": {
+      "pattern": {"type": "string"}, "kind": {"enum": ["isolation", "compound"]}, "chain": {"enum": ["open", "closed"]}, "plane": {"enum": ["sagittal", "frontal", "transverse"]}, "joints": {"type": "array", "items": {"type": "string"}, "minItems": 1}}},
+    "variations": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "name", "note"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}, "note": {"type": "string"}}}},
+    "execution": {"type": "array", "minItems": 3, "items": {"type": "string"}},
+    "joint_actions": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["joint", "concentric", "eccentric", "rom_deg", "note"], "properties": {
+      "joint": {"type": "string"}, "concentric": {"type": "string"}, "eccentric": {"type": "string"}, "rom_deg": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2}, "note": {"type": "string", "pattern": "illustrative|coaching|textbook|study"}}}},
+    "muscles": {"type": "object", "required": ["primary", "secondary"], "properties": {"primary": {"type": "array", "items": {"type": "string"}, "minItems": 1}, "secondary": {"type": "array", "items": {"type": "string"}}, "stabilizer": {"type": "array", "items": {"type": "string"}}}},
+    "tempo": {"type": "object", "required": ["eccentric_s", "concentric_s", "note"], "properties": {"eccentric_s": {"type": "number"}, "bottom_s": {"type": "number"}, "concentric_s": {"type": "number"}, "top_s": {"type": "number"}, "note": {"type": "string"}}},
+    "breathing": {"type": "string"},
+    "errors": {"type": "array", "items": {"type": "object", "required": ["id", "description", "correction"]}},
+    "camera_angles": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "visual_requirements": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "progressions": {"type": "object", "required": ["easier", "harder"], "properties": {"easier": {"type": "array", "items": {"type": "string"}}, "harder": {"type": "array", "items": {"type": "string"}}}},
+    "difficulty": {"enum": ["beginner", "intermediate", "advanced"]},
+    "experience": {"type": "string"},
+    "evidence_grade": {"enum": ["coaching", "preliminary", "moderate", "strong", "established"], "description": "How well the technique claims are supported (the dossier grades). A coaching convention is not a finding."}
+  }
+}

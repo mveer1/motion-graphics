@@ -1,0 +1,60 @@
+{
+  "id": "tool-fitness-cli",
+  "name": "Fitness CLI (scripts/fitness.py)",
+  "component_type": "tool",
+  "purpose": "Deterministic half of the /fitness skill: classify a topic, print the production plan, scaffold a Sinew project, regenerate the kit's library.js, check the asset manifest against the kit, validate the research dossier and the quality review, and render the brand sheets.",
+  "capabilities": [
+    "fitness.py classify|plan \"<topic>\" [--type T]",
+    "fitness.py new <slug> --topic ... --type ...",
+    "fitness.py library [--check]",
+    "fitness.py check",
+    "fitness.py assets [--kind K] [--query Q]",
+    "fitness.py dossier <slug>",
+    "fitness.py review <slug> [--init]",
+    "fitness.py sheets [--only NAME]",
+    "fitness.py rig3d check|stills"
+  ],
+  "location": "scripts/fitness.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
+  },
+  "dependencies": [
+    "tool-studio-cli",
+    "tool-hyperframes"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "python3.12; node + puppeteer-core from the hyperframes install for sheets",
+    "notes": "sheets takes the host render lock (src/pipeline/hostlock.py)."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness/SKILL.md",
+    "CLAUDE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes inside projects/<slug>/, src/studio/kits/fitness/library.js and assets/fitness/."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Used to build projects/how-muscles-grow and covered by tests/test-fitness.py (2026-11-08).",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-08",
+  "tags": [
+    "fitness",
+    "cli",
+    "qa",
+    "assets"
+  ]
+}

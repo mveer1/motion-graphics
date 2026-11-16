@@ -1,0 +1,37 @@
+{
+ "file": "out/standing-vs-seated-calf-portrait.mp4",
+ "failures": [],
+ "notes": [],
+ "stats": {
+  "container": {
+   "codec": "h264",
+   "pix_fmt": "yuv420p",
+   "size": "720x1280",
+   "r_frame_rate": "30",
+   "avg_frame_rate": "30.000",
+   "duration": 50.2,
+   "audio": true,
+   "audio_duration": 50.2
+  },
+  "frozen": {
+   "intervals": [
+    [
+     48.5,
+     50.2
+    ]
+   ],
+   "over_limit": []
+  },
+  "black": [],
+  "sampled_frames": 502,
+  "start": {
+   "change_first_0.2s": 0.06,
+   "typical_3_frame_step": 0.41
+  },
+  "cuts": [],
+  "motion": {
+   "share_of_seconds_moving": 0.96
+  },
+  "loudness_lufs": -16.7
+ }
+}

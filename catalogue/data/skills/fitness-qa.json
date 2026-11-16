@@ -1,0 +1,53 @@
+{
+  "id": "skill-fitness-qa",
+  "name": "Fitness QA skill",
+  "component_type": "skill",
+  "purpose": "Four review gates with automated evidence kept apart from human sign-off, render diagnostics and anatomy acceptance tests.",
+  "capabilities": [
+    "Review gates G1-G4",
+    "Render diagnostics",
+    "Human sign-off rule"
+  ],
+  "location": ".claude/skills/fitness-qa",
+  "version": "1.0.0",
+  "dependencies": [
+    "tool-fitness-qa",
+    "tool-fitness-gates",
+    "tool-anatomy3d-check"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": true,
+    "runtime": "agent-host",
+    "notes": "Exercised on the 2026-11-13 anatomy and studio upgrade (lower-body films, lab clips, comparisons)."
+  },
+  "documentation_urls": [
+    ".claude/skills/fitness-qa/SKILL.md",
+    ".claude/skills/fitness/references/quality-rubric.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Reads and writes project files; no network."
+  },
+  "approval_evidence": "Used to re-render the nine regression videos on 2026-11-13; see docs/fitness-studio.md section 4.",
+  "tags": [
+    "fitness",
+    "sinew"
+  ],
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no install."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "architecture_ref": "ARCHITECTURE.md",
+  "last_verified": "2026-11-13"
+}

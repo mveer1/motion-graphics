@@ -57,7 +57,7 @@ Plates are centred on the frame, at most two lines, and never wider than the saf
 |---|---|---|---|---|
 | First caption | on screen by about 0.3 to 1 s | mid / lower | x1.15 | A silent opening is a hook with no words: `validate` warns when the first cue is later than 1.5 s |
 | Hook | 0 to 3 s | mid / lower | x1.15 | Larger and nearer the eye line, so it reads before the thumb moves |
-| Body | rest of the film | lower / lower | x1 | One stable home for the voice. 1 to 3 words per cue in a reel, 4 in a long reel, a sentence of two lines at most on YouTube |
+| Body | rest of the film | lower / lower | x1 | One stable home for the voice. 1 to 3 words per cue in short-form, 4 in portrait mid-form, a sentence of two lines at most in landscape mid-form and long-form |
 | Number or key term | any | same lane | same | Highlight colour for the number for the whole cue. No extra motion except in `bold-pop` |
 | Busy lower third | per scene | upper / upper | same | Set `caption_lane: "upper"` on that scene in `storyboard.json`. Return to lower at the next scene boundary |
 | Silence | gaps over about 0.6 s | | | The cue ends with its last word plus a short hold. No plate lingers over silence |
@@ -79,5 +79,5 @@ Lane changes happen only between cues: once when the hook ends, then only at a s
 - **HyperFrames** (Apache-2.0), `captions-overlay` skill and caption catalogue: captions are an overlay, most text rides the verbatim rail and a promoted word is scarce, match tone to content, do not stack an effect on every word.
 - **josiahsiegel/claude-plugin-marketplace**, `viral-video-animated-captions` (MIT): preset vocabulary (pop, sweep, fill), word appear time about 80 to 250 ms, large high-contrast sans with a thick outline.
 - **reap.video** short-form safe-zone article: cross-platform working margins. These are third-party and not published by any platform; the sources disagree, so the workspace keeps its own numbers in `specs/format-presets.json`. Nothing was copied from any of them. No code was adopted.
-- Sizes, lane positions, the 3 s hook window and the four-word long-reel phrase are workspace judgement.
+- Sizes, lane positions, the 3 s hook window and the four-word mid-form phrase are workspace judgement.
 - **Checked:** the five presets in portrait and `clean-plate` in landscape, as HyperFrames snapshots of a scratch project on 2026-11-07 (fonts load, lanes land where the spec says, emphasis and spoken-word highlight work). **Not checked:** a full `studio.py build` with captions, `frame-review.py` on a captioned film (Playwright is not installed on this host), a phone's interface overlay, and whether Montserrat 800 and Nunito 800 are real bundled weights. Status stays `experimental` until one film ships with them.

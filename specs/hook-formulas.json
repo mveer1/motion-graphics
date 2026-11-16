@@ -56,7 +56,7 @@
       "template": "Everyone thinks <belief>. <The record> says <what is true>.",
       "example": "Everyone blames bad air for cholera. One map of one street pump said otherwise.",
       "on_screen": "NOT BAD AIR",
-      "best_for": ["history", "science", "finance"],
+      "best_for": ["history", "science", "finance", "fitness"],
       "use_when": "The belief is genuinely common and the correction is specific.",
       "fails_when": "The belief is a straw man nobody holds.",
       "signals": ["\\b(everyone|most people|we all|people)\\b.*\\b(think|thinks|believe|believes|blame|assume)\\b", "\\bmyth\\b|\\bactually\\b"]
@@ -67,7 +67,7 @@
       "template": "<Huge figure> is <something you can picture>.",
       "example": "Nearly two trillion dollars. That is about five thousand dollars for every person on Earth.",
       "on_screen": "$2T = $250 EACH",
-      "best_for": ["finance", "science", "news"],
+      "best_for": ["finance", "science", "news", "fitness"],
       "use_when": "The figure is too large to feel and a comparison makes it land.",
       "fails_when": "The comparison is more abstract than the figure.",
       "signals": ["\\bevery (person|household|second|day|hour)\\b", "\\bper (person|day|second|hour)\\b", "\\b(trillion|billion|million)\\b"]
@@ -78,7 +78,7 @@
       "template": "Change <one small thing> and <a large consequence follows>.",
       "example": "Add one server to a cluster and, with the wrong hash, nearly every key moves.",
       "on_screen": "+1 SERVER = EVERYTHING MOVES",
-      "best_for": ["technology", "mathematics", "science"],
+      "best_for": ["technology", "mathematics", "science", "fitness"],
       "use_when": "The film is about sensitivity or a hidden dependency.",
       "fails_when": "The consequence is not shown in the first visual.",
       "signals": ["\\bone\\b.*\\b(and|then)\\b", "\\bjust\\b|\\bsingle\\b"]
@@ -89,7 +89,7 @@
       "template": "Why does <a specific, visible thing> <do something odd>?",
       "example": "Why does ice float, when almost every other solid sinks in its own liquid?",
       "on_screen": "WHY DOES ICE FLOAT?",
-      "best_for": ["science", "mathematics", "technology"],
+      "best_for": ["science", "mathematics", "technology", "fitness"],
       "use_when": "The odd thing can be shown in the first frame.",
       "fails_when": "The question is answered in the next sentence, so there is no investigation.",
       "signals": ["^\\s*(why|how|what happens)\\b", "\\?"]
@@ -133,7 +133,7 @@
       "template": "There is a rule: <short statement>. Here is why it works.",
       "example": "Divide 72 by the interest rate and you get the years it takes money to double.",
       "on_screen": "72 / RATE = YEARS",
-      "best_for": ["mathematics", "finance", "science"],
+      "best_for": ["mathematics", "finance", "science", "fitness"],
       "use_when": "The film teaches one portable formula or heuristic.",
       "fails_when": "The rule is stated without a first example the viewer can try.",
       "signals": ["\\b(divide|multiply|rule of|the rule|formula)\\b"]

@@ -1,0 +1,1963 @@
+{
+  "spec": "specs/fitness-asset-spec.json#/definitions/exercise",
+  "description": "Movement library metadata for Tibi (Cobalt Sculpt). Kinematics are in src/studio/kits/fitness/exercises.js under the same ids. The 12 upper-body exercises come from the verified research of projects/upper-body-workout (research.md table, dossier claims c14-c26): muscles name the main contributors from standard texts (NSCA Essentials 4e; OpenStax A&P 2e), cues and alternatives are coaching guidance, not research findings. No activation percentages; no exercise isolates one muscle.",
+  "kinematics_status": "conceptual",
+  "kinematics_note": "Joint angles are authored from typical ranges, not measured motion capture. Label any on-screen angle 'illustrative' unless a cited study supplies it.",
+  "landmarks": {
+    "shoulder": "acromion (shoulder marker)",
+    "elbow": "lateral epicondyle (elbow marker)",
+    "wrist": "wrist (ulnar styloid)",
+    "hip": "greater trochanter (hip marker)",
+    "knee": "lateral knee joint line (knee marker)",
+    "ankle": "lateral malleolus (ankle marker)",
+    "foot": "ball of the foot (first metatarsal head)",
+    "bar": "bar over mid-foot"
+  },
+  "exercises": [
+    {
+      "id": "push-up",
+      "name": "Push-up",
+      "category": "bodyweight",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Hands just outside shoulder width, body one straight line from head to heels (ribs down, glutes tight).",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Lower the chest to the floor with elbows angled back, not flared straight out.",
+          "pose": "pushup-bottom"
+        },
+        {
+          "id": "pressing",
+          "description": "Push the floor away and finish with the shoulder blades spread around the ribcage.",
+          "pose": "pushup-top"
+        }
+      ],
+      "joints": [
+        "elbow flexion then extension",
+        "shoulder horizontal adduction",
+        "scapular protraction at the top",
+        "trunk held straight"
+      ],
+      "muscles": {
+        "primary": [
+          "pectoralis-major",
+          "triceps-brachii",
+          "deltoid"
+        ],
+        "secondary": [
+          "serratus-anterior",
+          "rectus-abdominis",
+          "external-oblique"
+        ],
+        "fibres": "pectoralis-major; triceps-brachii; deltoid (anterior fibres) / serratus anterior; rectus-abdominis and external-oblique (trunk hold)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Push the floor away and finish with the shoulder blades spread around the ribcage.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Hands on a raised bench or table; knee push-up. Harder: Feet raised; slower lowering; added weight.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Hips sag or pike and reps stop halfway."
+        }
+      ],
+      "cues": [
+        "Hands just outside shoulder width, body one straight line from head to heels (ribs down, glutes tight).",
+        "Lower the chest to the floor with elbows angled back, not flared straight out.",
+        "Push the floor away and finish with the shoulder blades spread around the ribcage."
+      ],
+      "source_claim": "c15",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "name": "Dumbbell bench press",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells",
+        "flat bench"
+      ],
+      "view": "side",
+      "start": "Set the shoulder blades back and down against the bench, feet planted.",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Lower until the dumbbells are beside the chest with forearms vertical over the elbows.",
+          "pose": "bench-bottom"
+        },
+        {
+          "id": "pressing",
+          "description": "Press up and slightly in, elbows about 45 degrees from the torso rather than flared wide.",
+          "pose": "bench-top"
+        }
+      ],
+      "joints": [
+        "elbow flexion then extension",
+        "shoulder horizontal adduction",
+        "scapulae set back and down"
+      ],
+      "muscles": {
+        "primary": [
+          "pectoralis-major",
+          "triceps-brachii",
+          "deltoid"
+        ],
+        "secondary": [
+          "serratus-anterior",
+          "biceps-brachii"
+        ],
+        "fibres": "pectoralis-major; triceps-brachii; deltoid (anterior fibres) / serratus anterior; biceps-brachii (long head, stabiliser)",
+        "stabilizer": [
+          "rectus-abdominis",
+          "rotator-cuff"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Press up and slightly in, elbows about 45 degrees from the torso rather than flared wide.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Floor press (shorter range); push-up variations. Harder: Incline bench; slower lowering; heavier dumbbells.",
+      "errors": [
+        {
+          "id": "flare",
+          "description": "Elbows flared straight out to the sides.",
+          "correction": "Aim for about 45 degrees between the upper arm and the torso."
+        },
+        {
+          "id": "bounce",
+          "description": "Bouncing the dumbbells off the chest.",
+          "correction": "Lower under control and pause briefly at the bottom."
+        }
+      ],
+      "cues": [
+        "Set the shoulder blades back and down against the bench, feet planted.",
+        "Lower until the dumbbells are beside the chest with forearms vertical over the elbows.",
+        "Press up and slightly in, elbows about 45 degrees from the torso rather than flared wide."
+      ],
+      "source_claim": "c16",
+      "kinematics": "conceptual",
+      "rig3d": "press",
+      "classification": {
+        "pattern": "horizontal push",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "transverse",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "neutral-grip",
+          "name": "Neutral-grip press",
+          "note": "palms facing; often friendlier to the shoulder"
+        },
+        {
+          "id": "incline",
+          "name": "Incline press",
+          "note": "bench raised; more clavicular chest and front shoulder"
+        },
+        {
+          "id": "floor",
+          "name": "Floor press",
+          "note": "shorter range of motion"
+        }
+      ],
+      "execution": [
+        "Sit with the dumbbells on the thighs, lie back and kick them to the chest.",
+        "Set the shoulder blades back and down against the bench, feet planted.",
+        "Lower under control until the dumbbells are beside the chest, forearms vertical over the elbows.",
+        "Press up and slightly in until the arms are straight over the shoulders.",
+        "Pause at lockout, then repeat."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "horizontal adduction and flexion",
+          "eccentric": "horizontal abduction and extension",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            110
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.2,
+        "bottom_s": 0.2,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Inhale on the way down, exhale as you press (a common convention); avoid holding the breath for long.",
+      "camera_angles": [
+        "three-quarter from the foot end",
+        "side",
+        "above"
+      ],
+      "visual_requirements": [
+        "a FULL repetition: lockout, lowering, bottom, press, lockout",
+        "forearms vertical at every frame",
+        "dumbbell path as a slight arc",
+        "shoulder blades stay down on the bench",
+        "chest highlighted prime, triceps and front shoulder helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "floor press",
+          "lighter dumbbells"
+        ],
+        "harder": [
+          "slower lowering",
+          "pause at the bottom"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "beginner to intermediate",
+      "evidence_grade": "moderate"
+    },
+    {
+      "id": "dumbbell-fly",
+      "name": "Dumbbell fly",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells",
+        "flat bench"
+      ],
+      "view": "above",
+      "start": "Keep a soft, fixed bend in the elbows throughout.",
+      "phases": [
+        {
+          "id": "opening",
+          "description": "Open the arms in a wide arc until you feel a controlled stretch across the chest, no lower than you can control.",
+          "pose": "fly-low"
+        },
+        {
+          "id": "closing",
+          "description": "Bring the dumbbells back as if hugging a barrel.",
+          "pose": "fly-high"
+        }
+      ],
+      "joints": [
+        "shoulder horizontal abduction then adduction",
+        "elbows held softly bent"
+      ],
+      "muscles": {
+        "primary": [
+          "pectoralis-major"
+        ],
+        "secondary": [
+          "deltoid",
+          "biceps-brachii",
+          "serratus-anterior"
+        ],
+        "fibres": "pectoralis-major / deltoid (anterior fibres); biceps-brachii (stabiliser); serratus anterior"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Bring the dumbbells back as if hugging a barrel.",
+      "camera": "above view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Resistance-band fly; lighter dumbbells. Harder: Incline bench; slow lowering; pause at the bottom.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Straightening or bending the elbows through the rep so it turns into a press, or using a weight too heavy to control at the bottom."
+        }
+      ],
+      "cues": [
+        "Keep a soft, fixed bend in the elbows throughout.",
+        "Open the arms in a wide arc until you feel a controlled stretch across the chest, no lower than you can control.",
+        "Bring the dumbbells back as if hugging a barrel."
+      ],
+      "source_claim": "c17",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-up",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "pull-up bar"
+      ],
+      "view": "back",
+      "start": "Start from a hang with the shoulder blades gently pulled down, not shrugged.",
+      "phases": [
+        {
+          "id": "pulling",
+          "description": "Pull the elbows down toward the ribs until the chin clears the bar.",
+          "pose": "pullup-top"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower under control to a full hang.",
+          "pose": "pullup-hang"
+        }
+      ],
+      "joints": [
+        "shoulder adduction and extension",
+        "elbow flexion",
+        "scapular depression and downward rotation"
+      ],
+      "muscles": {
+        "primary": [
+          "latissimus-dorsi",
+          "biceps-brachii",
+          "brachialis"
+        ],
+        "secondary": [
+          "trapezius",
+          "rhomboids",
+          "deltoid",
+          "forearm-flexors"
+        ],
+        "fibres": "latissimus-dorsi; biceps-brachii; brachialis / trapezius (lower and middle fibres); rhomboids; deltoid (posterior fibres); forearm-flexors (grip)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower under control to a full hang.",
+      "camera": "back view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Band-assisted pull-up; slow lowering only (negatives); inverted row. Harder: Slower tempo; pause at the top; added weight.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Swinging or kicking for momentum and cutting the range short."
+        }
+      ],
+      "cues": [
+        "Start from a hang with the shoulder blades gently pulled down, not shrugged.",
+        "Pull the elbows down toward the ribs until the chin clears the bar.",
+        "Lower under control to a full hang."
+      ],
+      "source_claim": "c18",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "one-arm-row",
+      "name": "One-arm dumbbell row",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbell",
+        "flat bench"
+      ],
+      "view": "side",
+      "start": "Support one hand and knee on the bench, back flat and hips level.",
+      "phases": [
+        {
+          "id": "pulling",
+          "description": "Pull the elbow toward the hip rather than straight up, shoulder blade moving with the arm.",
+          "pose": "row-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower to a full stretch without twisting the torso.",
+          "pose": "row-low"
+        }
+      ],
+      "joints": [
+        "shoulder extension",
+        "elbow flexion",
+        "scapular retraction"
+      ],
+      "muscles": {
+        "primary": [
+          "latissimus-dorsi",
+          "rhomboids",
+          "trapezius",
+          "deltoid"
+        ],
+        "secondary": [
+          "biceps-brachii",
+          "brachialis",
+          "forearm-flexors",
+          "erector-spinae"
+        ],
+        "fibres": "latissimus-dorsi; rhomboids; trapezius (middle fibres); deltoid (posterior fibres) / biceps-brachii; brachialis; forearm-flexors (grip); erector-spinae (trunk position)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower to a full stretch without twisting the torso.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Chest-supported row on an incline bench; resistance-band row. Harder: Pause at the top; slower lowering; heavier dumbbell.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Twisting and heaving the torso to swing the weight, with a shortened range."
+        }
+      ],
+      "cues": [
+        "Support one hand and knee on the bench, back flat and hips level.",
+        "Pull the elbow toward the hip rather than straight up, shoulder blade moving with the arm.",
+        "Lower to a full stretch without twisting the torso."
+      ],
+      "source_claim": "c19",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "rear-delt-fly",
+      "name": "Chest-supported rear-delt fly",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells",
+        "bench"
+      ],
+      "view": "top",
+      "start": "Hinge forward at the hips with a flat back and a soft bend in the elbows.",
+      "phases": [
+        {
+          "id": "raising",
+          "description": "Lead with the elbows, raising the arms out to shoulder height as if pulling them apart.",
+          "pose": "fly-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower slowly; use light dumbbells.",
+          "pose": "fly-low"
+        }
+      ],
+      "joints": [
+        "shoulder horizontal abduction",
+        "scapular retraction"
+      ],
+      "muscles": {
+        "primary": [
+          "deltoid",
+          "rhomboids",
+          "trapezius"
+        ],
+        "secondary": [
+          "infraspinatus",
+          "erector-spinae"
+        ],
+        "fibres": "deltoid (posterior fibres); rhomboids; trapezius (middle fibres) / rotator cuff (infraspinatus, teres minor); erector-spinae (trunk position)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower slowly; use light dumbbells.",
+      "camera": "top view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Chest-supported on an incline bench; resistance-band pull-apart. Harder: Slower lowering; pause at the top.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Heaving the torso up and down, or letting the elbows travel behind the body so it becomes a row."
+        }
+      ],
+      "cues": [
+        "Hinge forward at the hips with a flat back and a soft bend in the elbows.",
+        "Lead with the elbows, raising the arms out to shoulder height as if pulling them apart.",
+        "Lower slowly; use light dumbbells."
+      ],
+      "source_claim": "c20",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "overhead-press",
+      "name": "Seated dumbbell overhead press",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells",
+        "bench"
+      ],
+      "view": "front",
+      "start": "Sit upright with the dumbbells at shoulder height and forearms vertical.",
+      "phases": [
+        {
+          "id": "pressing",
+          "description": "Press up until the arms are nearly straight overhead, ribs down so the lower back does not arch.",
+          "pose": "press-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower under control to shoulder height.",
+          "pose": "press-low"
+        }
+      ],
+      "joints": [
+        "shoulder abduction and flexion",
+        "elbow extension",
+        "scapular upward rotation"
+      ],
+      "muscles": {
+        "primary": [
+          "deltoid",
+          "triceps-brachii"
+        ],
+        "secondary": [
+          "trapezius",
+          "serratus-anterior",
+          "pectoralis-major"
+        ],
+        "fibres": "deltoid (anterior and lateral fibres); triceps-brachii / trapezius (upper fibres); serratus anterior; pectoralis-major (clavicular fibres)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower under control to shoulder height.",
+      "camera": "front view (the motion stays in the picture plane)",
+      "alternatives": "Easier: One arm at a time; pike push-up (no equipment). Harder: Standing; slower lowering; heavier dumbbells.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Arching the lower back and pressing forward instead of overhead."
+        }
+      ],
+      "cues": [
+        "Sit upright with the dumbbells at shoulder height and forearms vertical.",
+        "Press up until the arms are nearly straight overhead, ribs down so the lower back does not arch.",
+        "Lower under control to shoulder height."
+      ],
+      "source_claim": "c21",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "lateral-raise",
+      "name": "Dumbbell lateral raise",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells"
+      ],
+      "view": "front",
+      "start": "Hold light dumbbells at the sides with a soft elbow bend.",
+      "phases": [
+        {
+          "id": "raising",
+          "description": "Lead with the elbows, raising the arms out to about shoulder height.",
+          "pose": "raise-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower slowly rather than dropping.",
+          "pose": "raise-low"
+        }
+      ],
+      "joints": [
+        "shoulder abduction to about shoulder height",
+        "elbows softly bent"
+      ],
+      "muscles": {
+        "primary": [
+          "deltoid"
+        ],
+        "secondary": [
+          "trapezius",
+          "serratus-anterior"
+        ],
+        "fibres": "deltoid (lateral fibres); rotator cuff (supraspinatus) / trapezius (upper fibres); serratus anterior",
+        "stabilizer": [
+          "rotator-cuff"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower slowly rather than dropping.",
+      "camera": "front view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Lighter weight; resistance-band raise; seated. Harder: Slower lowering; pause at the top; one arm leaning away from a post.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Swinging the weights up with the legs and trunk, or shrugging.",
+          "correction": "Use lighter dumbbells, keep the trunk still, think elbows up and out."
+        }
+      ],
+      "cues": [
+        "Hold light dumbbells at the sides with a soft elbow bend.",
+        "Lead with the elbows, raising the arms out to about shoulder height.",
+        "Lower slowly rather than dropping."
+      ],
+      "source_claim": "c22",
+      "kinematics": "conceptual",
+      "rig3d": "raise",
+      "classification": {
+        "pattern": "shoulder abduction",
+        "kind": "isolation",
+        "chain": "open",
+        "plane": "frontal",
+        "joints": [
+          "glenohumeral",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "cable",
+          "name": "Cable lateral raise",
+          "note": "constant tension at the bottom"
+        },
+        {
+          "id": "seated",
+          "name": "Seated lateral raise",
+          "note": "removes leg drive"
+        },
+        {
+          "id": "lean",
+          "name": "Leaning lateral raise",
+          "note": "a slight side lean lengthens the lever at the start"
+        }
+      ],
+      "execution": [
+        "Stand tall with light dumbbells at the sides, a soft bend in the elbows.",
+        "Lead with the elbows, raising the arms out to the sides.",
+        "Stop at about shoulder height; do not shrug.",
+        "Lower slowly rather than dropping, to just off the thighs."
+      ],
+      "joint_actions": [
+        {
+          "joint": "glenohumeral",
+          "concentric": "abduction",
+          "eccentric": "adduction",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "about shoulder height; illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "stays softly bent",
+          "eccentric": "stays softly bent",
+          "rom_deg": [
+            10,
+            20
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.1,
+        "bottom_s": 0.1,
+        "concentric_s": 1.2,
+        "top_s": 0.2,
+        "note": "illustrative; slower lowering is a coaching preference"
+      },
+      "breathing": "Exhale as you raise, inhale as you lower (a common convention).",
+      "camera_angles": [
+        "front",
+        "three-quarter back",
+        "three-quarter front"
+      ],
+      "visual_requirements": [
+        "arms abduct in the frontal plane to shoulder height",
+        "soft elbow bend constant",
+        "shoulder angle readable (angle arc)",
+        "side delt prime; traps helper",
+        "no shrug at the top"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter dumbbells",
+          "seated raise"
+        ],
+        "harder": [
+          "slow lowering",
+          "cable raise"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "coaching"
+    },
+    {
+      "id": "prone-y-raise",
+      "name": "Prone Y-raise",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "bench"
+      ],
+      "view": "top",
+      "start": "Lie chest-down on an incline bench (about 30-45 degrees) with arms hanging, thumbs up.",
+      "phases": [
+        {
+          "id": "raising",
+          "description": "Raise the arms diagonally into a Y alongside the ears, shoulder blades gliding down away from the ears.",
+          "pose": "y-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Use very light weight, or none, and lower slowly.",
+          "pose": "fly-low"
+        }
+      ],
+      "joints": [
+        "shoulder flexion and abduction into a Y",
+        "scapular depression and upward rotation"
+      ],
+      "muscles": {
+        "primary": [
+          "trapezius",
+          "deltoid"
+        ],
+        "secondary": [
+          "rhomboids",
+          "serratus-anterior",
+          "infraspinatus"
+        ],
+        "fibres": "trapezius (lower and middle fibres); deltoid (posterior fibres) / rhomboids; serratus anterior; rotator cuff (infraspinatus)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Use very light weight, or none, and lower slowly.",
+      "camera": "top view (the motion stays in the picture plane)",
+      "alternatives": "Easier: No weight, on the floor face-down; wall slides. Harder: Light dumbbells; pause at the top.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Shrugging toward the ears and arching the lower back to lift."
+        }
+      ],
+      "cues": [
+        "Lie chest-down on an incline bench (about 30-45 degrees) with arms hanging, thumbs up.",
+        "Raise the arms diagonally into a Y alongside the ears, shoulder blades gliding down away from the ears.",
+        "Use very light weight, or none, and lower slowly."
+      ],
+      "source_claim": "c23",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "incline-curl",
+      "name": "Incline dumbbell curl",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells",
+        "incline bench"
+      ],
+      "view": "side",
+      "start": "Sit back on an incline bench (about 45-60 degrees) with the arms hanging straight down.",
+      "phases": [
+        {
+          "id": "curling",
+          "description": "Curl with the elbows pointing at the floor rather than swinging forward.",
+          "pose": "curl-high"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower all the way down to a full stretch.",
+          "pose": "curl-low"
+        }
+      ],
+      "joints": [
+        "elbow flexion with the shoulder extended",
+        "upper arm still"
+      ],
+      "muscles": {
+        "primary": [
+          "biceps-brachii",
+          "brachialis"
+        ],
+        "secondary": [
+          "brachioradialis",
+          "forearm-flexors"
+        ],
+        "fibres": "biceps-brachii; brachialis / brachioradialis; forearm-flexors (grip)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Lower all the way down to a full stretch.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Standing dumbbell curl; resistance-band curl. Harder: Slower lowering; one arm at a time; pause at the bottom.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Elbows drifting forward and swinging the shoulders to lift, or cutting off the bottom of the rep."
+        }
+      ],
+      "cues": [
+        "Sit back on an incline bench (about 45-60 degrees) with the arms hanging straight down.",
+        "Curl with the elbows pointing at the floor rather than swinging forward.",
+        "Lower all the way down to a full stretch."
+      ],
+      "source_claim": "c24",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "dumbbell-curl",
+      "name": "Standing dumbbell curl",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells"
+      ],
+      "view": "side",
+      "start": "Stand tall with the dumbbells at the sides, palms forward, elbows by the ribs.",
+      "phases": [
+        {
+          "id": "curling",
+          "description": "Bend the elbows to bring the dumbbells up without the upper arms swinging forward.",
+          "pose": "curl-top"
+        },
+        {
+          "id": "lowering",
+          "description": "Lower all the way down under control.",
+          "pose": "curl-bottom"
+        }
+      ],
+      "joints": [
+        "elbow flexion then extension",
+        "upper arm still"
+      ],
+      "muscles": {
+        "primary": [
+          "biceps-brachii",
+          "brachialis"
+        ],
+        "secondary": [
+          "brachioradialis",
+          "forearm-flexors"
+        ],
+        "stabilizer": [
+          "deltoid",
+          "rectus-abdominis"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist"
+      ],
+      "direction": "The dumbbells travel in an arc in front of the body; the elbows stay put.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "The easier swap for the incline dumbbell curl (research claim c24).",
+      "errors": [
+        {
+          "id": "swing",
+          "description": "Swinging the torso or the elbows forward to move the weight.",
+          "correction": "Brace the trunk, pin the elbows to the ribs, use a lighter weight."
+        },
+        {
+          "id": "elbows-drift",
+          "description": "The elbows drift forward as the weight rises.",
+          "correction": "Keep the elbows beside the ribs; if they drift, the load is too heavy."
+        }
+      ],
+      "source_claim": "c24",
+      "kinematics": "conceptual",
+      "rig3d": "curl",
+      "classification": {
+        "pattern": "elbow flexion",
+        "kind": "isolation",
+        "chain": "open",
+        "plane": "sagittal",
+        "joints": [
+          "elbow"
+        ]
+      },
+      "variations": [
+        {
+          "id": "alternating",
+          "name": "Alternating curl",
+          "note": "one arm at a time; same cues"
+        },
+        {
+          "id": "hammer",
+          "name": "Hammer curl (neutral grip)",
+          "note": "shifts work toward brachialis and brachioradialis"
+        },
+        {
+          "id": "incline",
+          "name": "Incline dumbbell curl",
+          "note": "starts with the arm behind the body (stretched biceps); see incline-curl"
+        }
+      ],
+      "execution": [
+        "Stand tall, feet hip-width, a dumbbell in each hand, arms straight, palms forward.",
+        "Pin the upper arms beside the ribs and keep the trunk still.",
+        "Bend the elbows to bring the dumbbells toward the shoulders; only the forearm moves.",
+        "Pause briefly at the top and squeeze.",
+        "Lower slowly to full elbow extension and repeat."
+      ],
+      "joint_actions": [
+        {
+          "joint": "elbow",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            145
+          ],
+          "note": "illustrative range"
+        },
+        {
+          "joint": "shoulder",
+          "concentric": "stays near neutral",
+          "eccentric": "stays near neutral",
+          "rom_deg": [
+            0,
+            15
+          ],
+          "note": "coaching cue: the upper arm should barely move"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.2,
+        "bottom_s": 0.1,
+        "concentric_s": 0.9,
+        "top_s": 0.3,
+        "note": "about 3 s per rep in the demo; slower lowering is a coaching preference, not a measured optimum"
+      },
+      "breathing": "Exhale as you curl, inhale as you lower (a common coaching convention).",
+      "camera_angles": [
+        "three-quarter front",
+        "front",
+        "side"
+      ],
+      "visual_requirements": [
+        "upper arm stays beside the ribs the whole rep",
+        "elbow angle changes from near straight to deeply bent",
+        "full extension at the bottom",
+        "biceps highlighted as prime mover, brachialis as helper"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter dumbbells",
+          "seated curl"
+        ],
+        "harder": [
+          "3 s lowering",
+          "incline curl for a stretched start"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "coaching"
+    },
+    {
+      "id": "overhead-triceps-extension",
+      "name": "Overhead dumbbell triceps extension",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbell"
+      ],
+      "view": "side",
+      "start": "Hold one dumbbell with both hands overhead, upper arms close to the ears, ribs down.",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Lower behind the head until you feel a stretch in the back of the upper arm.",
+          "pose": "ext-low"
+        },
+        {
+          "id": "extending",
+          "description": "Extend back up to nearly straight arms.",
+          "pose": "ext-high"
+        }
+      ],
+      "joints": [
+        "elbow flexion then extension with the shoulder flexed overhead"
+      ],
+      "muscles": {
+        "primary": [
+          "triceps-brachii"
+        ],
+        "secondary": [
+          "deltoid",
+          "rectus-abdominis",
+          "erector-spinae"
+        ],
+        "fibres": "triceps-brachii / deltoid and rotator cuff (arm position); rectus-abdominis and erector-spinae (trunk position)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Extend back up to nearly straight arms.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Resistance-band overhead extension; seated with back support. Harder: Slower lowering; one arm at a time.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Elbows flaring wide and the lower back arching to push the weight up."
+        }
+      ],
+      "cues": [
+        "Hold one dumbbell with both hands overhead, upper arms close to the ears, ribs down.",
+        "Lower behind the head until you feel a stretch in the back of the upper arm.",
+        "Extend back up to nearly straight arms."
+      ],
+      "source_claim": "c25",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "dip",
+      "name": "Parallel-bar dip",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dip bars"
+      ],
+      "view": "side",
+      "start": "Support yourself on straight arms with the shoulders pulled down, not shrugged.",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Lower with a controlled lean until the upper arms are about parallel to the floor or only as deep as feels comfortable.",
+          "pose": "dip-bottom"
+        },
+        {
+          "id": "pressing",
+          "description": "Press back up to straight arms.",
+          "pose": "dip-top"
+        }
+      ],
+      "joints": [
+        "elbow flexion then extension",
+        "shoulder extension then flexion",
+        "scapular depression"
+      ],
+      "muscles": {
+        "primary": [
+          "triceps-brachii",
+          "pectoralis-major",
+          "deltoid"
+        ],
+        "secondary": [
+          "serratus-anterior",
+          "trapezius"
+        ],
+        "fibres": "triceps-brachii; pectoralis-major (lower fibres); deltoid (anterior fibres) / serratus anterior; trapezius (lower fibres)"
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "Press back up to straight arms.",
+      "camera": "side view (the motion stays in the picture plane)",
+      "alternatives": "Easier: Band-assisted dip; close-grip push-up; feet-on-floor bench dip with a small range. Harder: Slower lowering; added weight.",
+      "errors": [
+        {
+          "id": "common-error",
+          "description": "Dropping so deep the shoulders roll forward, shrugging, or swinging the legs."
+        }
+      ],
+      "cues": [
+        "Support yourself on straight arms with the shoulders pulled down, not shrugged.",
+        "Lower with a controlled lean until the upper arms are about parallel to the floor or only as deep as feels comfortable.",
+        "Press back up to straight arms."
+      ],
+      "source_claim": "c26",
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "bodyweight-squat",
+      "name": "Bodyweight squat",
+      "category": "bodyweight",
+      "pillar": [
+        "strength-for-running",
+        "gym-bodybuilding"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Standing tall, feet about shoulder width.",
+      "phases": [
+        {
+          "id": "descent",
+          "description": "Hips and knees flex together, heels down.",
+          "pose": "squat"
+        },
+        {
+          "id": "ascent",
+          "description": "Back to standing.",
+          "pose": "stand"
+        }
+      ],
+      "joints": [
+        "hip, knee and ankle flexion then extension"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "hamstrings",
+          "adductors",
+          "soleus",
+          "erector-spinae"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "Hips down and back, knees forward over the toes.",
+      "camera": "Side view.",
+      "errors": [],
+      "kinematics": "conceptual"
+    },
+    {
+      "id": "calf-raise",
+      "name": "Calf raise",
+      "category": "bodyweight",
+      "pillar": [
+        "strength-for-running"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Standing tall on the whole foot.",
+      "phases": [
+        {
+          "id": "rise",
+          "description": "Heels rise; the toes stay flat and bend at the ball.",
+          "pose": "calf"
+        },
+        {
+          "id": "lower",
+          "description": "Heels lower under control.",
+          "pose": "stand"
+        }
+      ],
+      "joints": [
+        "ankle plantarflexion then dorsiflexion",
+        "toes bend at the ball"
+      ],
+      "muscles": {
+        "primary": [
+          "gastrocnemius",
+          "soleus"
+        ],
+        "secondary": [
+          "tibialis-anterior"
+        ],
+        "stabilizer": [
+          "tibialis-anterior"
+        ]
+      },
+      "landmarks": [
+        "knee",
+        "ankle",
+        "ball"
+      ],
+      "direction": "Straight up over the ball of the foot.",
+      "camera": "Side view.",
+      "errors": [],
+      "kinematics": "conceptual",
+      "rig3d": "calfraise",
+      "classification": {
+        "pattern": "ankle plantar flexion",
+        "kind": "isolation",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "seated",
+          "name": "Seated calf raise",
+          "note": "knee bent: the soleus is loaded, the gastrocnemius is slack"
+        },
+        {
+          "id": "single-leg",
+          "name": "Single-leg calf raise",
+          "note": "doubles the load on one leg"
+        }
+      ],
+      "execution": [
+        "Stand tall on the balls of the feet, knees straight, a dumbbell at each side.",
+        "Rise as high as you can on the toes.",
+        "Pause at the top.",
+        "Lower the heels slowly to a full stretch."
+      ],
+      "joint_actions": [
+        {
+          "joint": "ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            36
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "stays straight",
+          "eccentric": "stays straight",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "textbook: a straight knee loads the gastrocnemius"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.2,
+        "bottom_s": 0.2,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe normally; do not hold your breath.",
+      "camera_angles": [
+        "side",
+        "back three-quarter",
+        "low side"
+      ],
+      "visual_requirements": [
+        "the ball of the foot stays planted",
+        "heel visibly rises and falls",
+        "knee stays straight",
+        "calf shown from behind and in profile"
+      ],
+      "progressions": {
+        "easier": [
+          "both feet, no load"
+        ],
+        "harder": [
+          "single leg",
+          "slow lowering with a pause in the stretch"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "coaching"
+    },
+    {
+      "id": "walk",
+      "name": "Walking gait cycle",
+      "category": "running",
+      "pillar": [
+        "strength-for-running",
+        "performance"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Mid-flight or initial contact; the loop has eight keys per stride.",
+      "phases": [
+        {
+          "id": "initial-contact",
+          "description": "Foot meets the ground ahead of the body."
+        },
+        {
+          "id": "midstance",
+          "description": "Body passes over the stance foot; knee and ankle flex to absorb load."
+        },
+        {
+          "id": "toe-off",
+          "description": "Hip and ankle extend; the foot leaves the ground."
+        },
+        {
+          "id": "swing",
+          "description": "Knee flexes and the leg swings forward for the next contact."
+        }
+      ],
+      "joints": [
+        "hip flexion and extension",
+        "knee flexion and extension",
+        "ankle dorsiflexion and plantarflexion",
+        "arm swing opposite the legs"
+      ],
+      "muscles": {
+        "primary": [
+          "gluteus-maximus",
+          "quadriceps",
+          "hamstrings",
+          "gastrocnemius",
+          "soleus"
+        ],
+        "secondary": [
+          "gluteus-medius",
+          "tibialis-anterior",
+          "rectus-abdominis",
+          "erector-spinae"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle",
+        "foot"
+      ],
+      "direction": "Treadmill-style: the figure stays in place and the floor scrolls at the belt speed the kit computes from the stance phase.",
+      "camera": "Side view (sagittal).",
+      "cadence": "about 110 steps per minute in the loop (illustrative)",
+      "errors": [
+        {
+          "id": "overstride",
+          "description": "Foot lands far ahead of the body with a straight knee. Do not claim a foot-strike pattern prevents injury; the evidence is mixed."
+        }
+      ],
+      "cross_check": null,
+      "kinematics": "conceptual",
+      "kinematics_source": "Typical sagittal ranges after Novacheck TF (1998) Gait Posture 7:77-95; shaped by eye."
+    },
+    {
+      "id": "jog",
+      "name": "Running gait cycle (jog)",
+      "category": "running",
+      "pillar": [
+        "strength-for-running",
+        "performance"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Mid-flight or initial contact; the loop has eight keys per stride.",
+      "phases": [
+        {
+          "id": "initial-contact",
+          "description": "Foot meets the ground ahead of the body."
+        },
+        {
+          "id": "midstance",
+          "description": "Body passes over the stance foot; knee and ankle flex to absorb load."
+        },
+        {
+          "id": "toe-off",
+          "description": "Hip and ankle extend; the foot leaves the ground."
+        },
+        {
+          "id": "swing",
+          "description": "Knee flexes and the leg swings forward for the next contact."
+        }
+      ],
+      "joints": [
+        "hip flexion and extension",
+        "knee flexion and extension",
+        "ankle dorsiflexion and plantarflexion",
+        "arm swing opposite the legs"
+      ],
+      "muscles": {
+        "primary": [
+          "gluteus-maximus",
+          "quadriceps",
+          "hamstrings",
+          "gastrocnemius",
+          "soleus"
+        ],
+        "secondary": [
+          "gluteus-medius",
+          "tibialis-anterior",
+          "rectus-abdominis",
+          "erector-spinae"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle",
+        "foot"
+      ],
+      "direction": "Treadmill-style: the figure stays in place and the floor scrolls at the belt speed the kit computes from the stance phase.",
+      "camera": "Side view (sagittal).",
+      "cadence": "about 165 steps per minute in the loop (illustrative)",
+      "errors": [
+        {
+          "id": "overstride",
+          "description": "Foot lands far ahead of the body with a straight knee. Do not claim a foot-strike pattern prevents injury; the evidence is mixed."
+        }
+      ],
+      "cross_check": null,
+      "kinematics": "conceptual",
+      "kinematics_source": "Typical sagittal ranges after Novacheck TF (1998) Gait Posture 7:77-95; shaped by eye."
+    },
+    {
+      "id": "sprint",
+      "name": "Sprinting gait cycle",
+      "category": "running",
+      "pillar": [
+        "strength-for-running",
+        "performance"
+      ],
+      "equipment": [],
+      "view": "side",
+      "start": "Mid-flight or initial contact; the loop has eight keys per stride.",
+      "phases": [
+        {
+          "id": "initial-contact",
+          "description": "Foot meets the ground ahead of the body."
+        },
+        {
+          "id": "midstance",
+          "description": "Body passes over the stance foot; knee and ankle flex to absorb load."
+        },
+        {
+          "id": "toe-off",
+          "description": "Hip and ankle extend; the foot leaves the ground."
+        },
+        {
+          "id": "swing",
+          "description": "Knee flexes and the leg swings forward for the next contact."
+        }
+      ],
+      "joints": [
+        "hip flexion and extension",
+        "knee flexion and extension",
+        "ankle dorsiflexion and plantarflexion",
+        "arm swing opposite the legs"
+      ],
+      "muscles": {
+        "primary": [
+          "gluteus-maximus",
+          "quadriceps",
+          "hamstrings",
+          "gastrocnemius",
+          "soleus"
+        ],
+        "secondary": [
+          "gluteus-medius",
+          "tibialis-anterior",
+          "rectus-abdominis",
+          "erector-spinae"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle",
+        "foot"
+      ],
+      "direction": "Treadmill-style: the figure stays in place and the floor scrolls at the belt speed the kit computes from the stance phase.",
+      "camera": "Side view (sagittal).",
+      "cadence": "about 200 steps per minute in the loop (illustrative)",
+      "errors": [
+        {
+          "id": "overstride",
+          "description": "Foot lands far ahead of the body with a straight knee. Do not claim a foot-strike pattern prevents injury; the evidence is mixed."
+        }
+      ],
+      "cross_check": null,
+      "kinematics": "conceptual",
+      "kinematics_source": "Typical sagittal ranges after Novacheck TF (1998) Gait Posture 7:77-95; shaped by eye."
+    },
+    {
+      "id": "seated-calf-raise",
+      "name": "Seated calf raise",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance"
+      ],
+      "equipment": [
+        "bench",
+        "dumbbells"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "seatedcalf",
+      "start": "Sit with the knees bent to about 90 degrees, a dumbbell on each thigh just above the knee, the balls of the feet on the floor.",
+      "phases": [
+        {
+          "id": "rising",
+          "description": "Rise onto the toes."
+        },
+        {
+          "id": "lowering",
+          "description": "Lower the heels to a full stretch."
+        }
+      ],
+      "joints": [
+        "ankle plantar flexion then dorsiflexion",
+        "knee held at about 90 degrees"
+      ],
+      "muscles": {
+        "primary": [
+          "soleus"
+        ],
+        "secondary": [
+          "gastrocnemius"
+        ],
+        "stabilizer": [
+          "tibialis-anterior"
+        ]
+      },
+      "landmarks": [
+        "knee",
+        "ankle",
+        "heel"
+      ],
+      "direction": "The heels rise; the knees rise with them and the load rides the thighs.",
+      "camera": "side view",
+      "errors": [
+        {
+          "id": "bounce",
+          "description": "Bouncing out of the bottom.",
+          "correction": "Pause in the stretch and lift smoothly."
+        }
+      ],
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "ankle plantar flexion",
+        "kind": "isolation",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "machine",
+          "name": "Seated calf-raise machine",
+          "note": "same mechanics with a pad"
+        }
+      ],
+      "execution": [
+        "Sit with the knees bent to about 90 degrees and the load on the thighs.",
+        "Rise onto the toes.",
+        "Pause at the top.",
+        "Lower to a full stretch."
+      ],
+      "joint_actions": [
+        {
+          "joint": "ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            36
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "stays bent about 90",
+          "eccentric": "stays bent about 90",
+          "rom_deg": [
+            85,
+            95
+          ],
+          "note": "textbook: a bent knee shortens the gastrocnemius so the soleus does more of the work"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.2,
+        "bottom_s": 0.2,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe normally.",
+      "camera_angles": [
+        "side",
+        "three-quarter",
+        "low side"
+      ],
+      "visual_requirements": [
+        "knee visibly bent at about 90 degrees",
+        "heels rise and fall",
+        "soleus highlighted, gastrocnemius shown slack"
+      ],
+      "progressions": {
+        "easier": [
+          "no load"
+        ],
+        "harder": [
+          "slower lowering"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate"
+    },
+    {
+      "id": "back-squat",
+      "name": "Barbell back squat",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance"
+      ],
+      "equipment": [
+        "barbell",
+        "rack"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "squat",
+      "start": "Bar across the upper back, feet about shoulder-width, toes turned out slightly, trunk braced.",
+      "phases": [
+        {
+          "id": "descent",
+          "description": "Sit down and back, knees tracking over the toes, bar over the midfoot."
+        },
+        {
+          "id": "ascent",
+          "description": "Drive up through the whole foot."
+        }
+      ],
+      "joints": [
+        "hip flexion then extension",
+        "knee flexion then extension",
+        "ankle dorsiflexion then plantar flexion",
+        "trunk held braced"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "adductors",
+          "hamstrings"
+        ],
+        "stabilizer": [
+          "erector-spinae",
+          "rectus-abdominis",
+          "soleus",
+          "gastrocnemius"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "Hips and knees travel together; the bar moves straight up and down over the midfoot.",
+      "camera": "side view for depth and bar path; front for knee tracking",
+      "errors": [
+        {
+          "id": "heels-lift",
+          "description": "Heels lift off the floor.",
+          "correction": "Sit back, keep the whole foot planted, or work on ankle mobility."
+        },
+        {
+          "id": "knees-cave",
+          "description": "Knees collapse inward.",
+          "correction": "Push the knees out along the line of the toes."
+        }
+      ],
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "squat",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee",
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "blocked",
+          "name": "Knees blocked at the toes",
+          "note": "a restricted variation used in Fry et al. 2003; shifts torque from knee to hip"
+        },
+        {
+          "id": "front",
+          "name": "Front squat",
+          "note": "upright trunk"
+        },
+        {
+          "id": "box",
+          "name": "Box squat",
+          "note": "controls depth"
+        }
+      ],
+      "execution": [
+        "Unrack the bar, step back, set the feet.",
+        "Brace the trunk and take a breath.",
+        "Sit down and back, knees over the toes, to about parallel.",
+        "Drive up through the whole foot, keeping the bar over the midfoot.",
+        "Stand tall and reset."
+      ],
+      "joint_actions": [
+        {
+          "joint": "hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            100
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            125
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            30
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.6,
+        "bottom_s": 0.3,
+        "concentric_s": 1.1,
+        "top_s": 0.4,
+        "note": "illustrative"
+      },
+      "breathing": "Brace with a breath before the descent and exhale near the top (a common convention).",
+      "camera_angles": [
+        "side",
+        "three-quarter",
+        "front",
+        "back"
+      ],
+      "visual_requirements": [
+        "bar stays over the midfoot",
+        "knees track over the toes",
+        "depth to about parallel",
+        "hips and knees move together"
+      ],
+      "progressions": {
+        "easier": [
+          "goblet squat",
+          "box squat"
+        ],
+        "harder": [
+          "pause squat",
+          "heavier load"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "some coaching advised",
+      "evidence_grade": "moderate"
+    },
+    {
+      "id": "hip-thrust",
+      "name": "Barbell hip thrust",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance"
+      ],
+      "equipment": [
+        "barbell",
+        "bench"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "hipthrust",
+      "start": "Upper back against a bench, feet planted, a barbell across the hips, hips low.",
+      "phases": [
+        {
+          "id": "drive",
+          "description": "Drive the hips up until the torso is level."
+        },
+        {
+          "id": "lower",
+          "description": "Lower the hips under control."
+        }
+      ],
+      "joints": [
+        "hip extension then flexion",
+        "knee about 90 degrees at the top",
+        "trunk and pelvis stay neutral"
+      ],
+      "muscles": {
+        "primary": [
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "hamstrings",
+          "quadriceps",
+          "adductors"
+        ],
+        "stabilizer": [
+          "erector-spinae",
+          "rectus-abdominis"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "shoulder"
+      ],
+      "direction": "The hips travel up and slightly back along an arc around the shoulder-blade contact; the bar rides the hips.",
+      "camera": "side view",
+      "errors": [
+        {
+          "id": "back-arch",
+          "description": "Over-arching the lower back at the top.",
+          "correction": "Finish with the ribs down and the pelvis tucked slightly; the glutes lock out, not the spine."
+        },
+        {
+          "id": "feet-far",
+          "description": "Feet too far away so the hamstrings take over.",
+          "correction": "Set the feet so the shins are near vertical at the top."
+        }
+      ],
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "hip extension",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee"
+        ]
+      },
+      "variations": [
+        {
+          "id": "bodyweight",
+          "name": "Glute bridge",
+          "note": "floor-based, no bench"
+        },
+        {
+          "id": "single-leg",
+          "name": "Single-leg hip thrust",
+          "note": "one leg at a time"
+        }
+      ],
+      "execution": [
+        "Sit with the upper back against the bench, the bar over the hips.",
+        "Plant the feet, shins about vertical at the top.",
+        "Drive the hips up until the torso is level with the thighs.",
+        "Squeeze, ribs down, then lower under control."
+      ],
+      "joint_actions": [
+        {
+          "joint": "hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            60
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "about 90 at the top",
+          "eccentric": "about 90 at the top",
+          "rom_deg": [
+            80,
+            100
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.5,
+        "bottom_s": 0.2,
+        "concentric_s": 1.2,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Exhale as you drive up.",
+      "camera_angles": [
+        "side",
+        "three-quarter",
+        "low side",
+        "above"
+      ],
+      "visual_requirements": [
+        "shoulder blades stay on the bench edge",
+        "shins near vertical at lockout",
+        "torso level at the top",
+        "glute highlighted as the prime mover"
+      ],
+      "progressions": {
+        "easier": [
+          "glute bridge"
+        ],
+        "harder": [
+          "pause at the top",
+          "single leg"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "beginner to intermediate",
+      "evidence_grade": "preliminary"
+    }
+  ]
+}

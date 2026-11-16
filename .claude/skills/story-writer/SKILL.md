@@ -5,7 +5,7 @@ description: Owns a Motion Lab film's story in phase 2 (after the brief and any 
 
 # Story Writer
 
-Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagent (`.claude/agents/story-writer.md`) runs this skill. A main session may load it too, for a small revision, but the sign-off verdict is the subagent's.
+Rulebook version **1.3.0** (revision log at the end). The `story-writer` subagent (`.claude/agents/story-writer.md`) runs this skill. A main session may load it too, for a small revision, but the sign-off verdict is the subagent's.
 
 ## 1. Role and authority
 
@@ -40,10 +40,10 @@ Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagen
    - **Scope check, before any script is written.** Count the mechanisms and the new terms:
      - a *mechanism* is a cause-and-effect chain the viewer must follow to reach the payoff;
      - a *new term* is a concept name, a jargon word, or a named person, study, event, tournament or algorithm the audience must learn. Names that appear only in a source line are citations and do not count.
-   - **Budgets** (`specs/video-types.json` `complexity_budget`; the long-reel and YouTube numbers are a first guess):
-     - `reel`: one mechanism and at most about three new terms;
-     - `long-reel`: one mechanism plus one worked case, or two linked mechanisms, and about six new terms;
-     - `youtube`: one mechanism per chapter and about three new terms per chapter.
+   - **Budgets** (`specs/video-types.json` `complexity_budget`; the mid-form and long-form numbers are a first guess):
+     - `short`: one mechanism and at most about three new terms;
+     - `mid`: one mechanism plus one worked case, or two linked mechanisms, and about six new terms;
+     - `long`: one mechanism per chapter and about three new terms per chapter, at most about 25 new terms and eight mechanisms in the film.
    - **Named things cost setup.** A named study, event, tournament or algorithm needs its setup: who, what, how it was scored or measured, what happened, and why. That costs about 25 s or more. In a reel it is either the film's subject or it is out. It is never a closing beat or a re-hook.
    - **Over budget: decide before writing.**
      - Cut it.
@@ -51,10 +51,10 @@ Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagen
      - Or propose a longer type in `brief_issues` and return `needs-brief`.
 
      Never name-drop and move on. Record the count and the decision in `qa/story-review.json` `scope`.
-2. **Arc and length.** Run `python scripts/beatmap.py arcs` and pick the arc for the story, never the story for the arc. The brief's `deliverables.video_type` sets the length (`specs/video-types.json`, each +-15 s): `reel` 45-60 s, `long-reel` 60-180 s, `youtube` over 180 s. If the story does not fit its type, return it in `brief_issues` and propose the type that fits. For a `reel`:
+2. **Arc and length.** Run `python scripts/beatmap.py arcs` and pick the arc for the story, never the story for the arc. The brief's `deliverables.video_type` sets the form and length (`specs/video-types.json`, each +-15 s): `short` 20-60 s, `mid` 60-180 s, `long` 5-12 min. (`reel`, `long-reel` and `youtube` are the old ids of the same three.) Each form has its own playbook, so load it before writing: `.claude/skills/short-form`, `mid-form` or `long-form`. If the story does not fit its form, return it in `brief_issues` and propose the form that fits. A film that lands between mid and long (195-285 s) is cut to mid or built out to long; there is no form for it. For `short`:
    - **45 s is the preferred length.** Use `reel-loop`. If the brief's `duration_sec.target` is above 45 s for a simple topic, propose 45 s in `brief_issues`.
    - **45 to 60 s only when the topic is complicated** and needs more animated beats to explain it, not more words. Name in `arc.notes` the beats that need the extra time. Use `reel-loop` with a mid-film re-hook, or `hook-payoff` or `problem-mechanism-consequence`.
-   - **Over 60 s** is not a `reel`; it is a `long-reel` (portrait, to 180 s) or a `youtube` film (landscape, over 180 s): use any arc but `reel-loop`, with a re-hook about every 35-45 s in a long reel and every 60-90 s on YouTube. To pair a long film with a reel, propose the reel as its own film in `brief_issues` and put both in one series (`studio.py series add`, mixed types are fine). Build the reel around the long film's strongest single insight, with its own hook and payoff, so it works for a viewer who never sees the long one. A YouTube film is landscape only; it is never re-rendered at 9:16 to pass as a reel.
+   - **Over 60 s** is not `short`; it is `mid` (to 180 s) or `long` (5-12 min). `mid` uses `explainer-demonstration` (or any arc but `reel-loop`) with a re-hook about every 35-45 s in portrait and 45-60 s in landscape. `long` uses `documentary-chapters` (or `documentary-investigation`, `chronological`, `question-investigation-revelation`) with a re-hook every 60-90 s, and the storyboard carries `chapters` (one mechanism each, `studio.py validate` checks them). To pair a longer film with a short one, propose the short as its own film in `brief_issues` and put both in one series (`studio.py series add`, mixed forms are fine). Build the short around the long film's strongest single insight, with its own hook and payoff, so it works for a viewer who never sees the long one. A `long` film is landscape only; it is never re-rendered at 9:16 to pass as a short.
 
    A subset or reordered stages are allowed. Record the arc and why in `arc.notes`.
 3. **Goal and share reason, then the hook, before the script.**
@@ -112,7 +112,7 @@ Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagen
    - **Write for the ear.** Use contractions ("you'll", not "you will"), one idea per breath, and varied sentence length. A sentence that carries a date, a place, an event and an agency together is four sentences.
    - **Cut test, per sentence.** Each sentence grabs attention, advances the idea, or sets up the payoff. Cut any sentence that does none.
    - **The stake line is a bridge.** It carries the hook's open question into the body. It does not start a new topic.
-   - **Re-hooks.** A reel over about 35 s gets a second curiosity bump near 35 s (a new question, a reversal, "and that's not the strange part"). A long reel gets one every 35-45 s; a YouTube film every 60-90 s.
+   - **Re-hooks.** A short-form film over about 35 s gets a second curiosity bump near 35 s (a new question, a reversal, "and that's not the strange part"). A portrait mid-form film gets one every 35-45 s, a landscape one every 45-60 s; a long-form film every 60-90 s, written into each chapter's `rehook`.
    - **Progress.** For steps or a list, show the count on screen ("2 of 3"), and set the count by what is worth saying, never padded to a round number.
    - **One emotional goal** per film (unease, relief, wonder, pride), named in `arc.notes`. In narrative and history films, anchor each scene in one to three concrete specifics (a time, an object, a sound) rather than a summary.
    - **Numbers, exactly as researched.**
@@ -193,17 +193,17 @@ Rulebook version **1.2.0** (revision log at the end). The `story-writer` subagen
 | 14 | Payoff delivers exactly what the hook promised, with the film's biggest visual move | judgment |
 | 15 | Reel-length films: the last line echoes a word or image from the hook and reframes the opening, so a replay means more; end on one action or none | `studio.py script` (loop) + judgment |
 | 16 | The ending lands on the last visual event and holds long enough to read | judgment, template `rules.ending` |
-| 17 | Total planned duration inside `duration_sec.min`..`max` and the video type's window; over 45 s for a `reel` only with the reason in `arc.notes` | `beatmap.py validate` |
+| 17 | Total planned duration inside `duration_sec.min`..`max` and the form's window; over 45 s for a `short` only with the reason in `arc.notes`; a `long` film has `chapters` that tile it | `beatmap.py validate` |
 | 18 | Goal, share reason and share trigger named; the hook family suits the goal | `qa/story-review.json` `goal` |
 | 19 | At least five hooks from at least three formulas; the chosen one passed the Truth, Pull and Clear gates | `arc.notes` |
 | 20 | Layered first second: hero on screen and moving, card up, voice starting | judgment (confirmed in the phase-3 frame review) |
 | 21 | Every sentence passes the cut test, and the narration passes the point-of-view filter | judgment |
-| 22 | A reel over about 35 s has a mid-film re-hook; a long reel has one every 35-45 s and a YouTube film every 60-90 s | judgment |
+| 22 | A short-form film over about 35 s has a mid-film re-hook; a portrait mid-form film has one every 35-45 s, a landscape one every 45-60 s, and a long-form film every 60-90 s (the chapter's `rehook`) | judgment |
 | 23 | Numbers exact or conservatively rounded, with ranges kept; small samples said; a contrarian claim states the other side's best case first | `claims[].source` + judgment |
 | 24 | Sound-off: cards and headlines alone carry the hook, stake and payoff | judgment |
 | 25 | Disaster and crisis subjects follow the care rules in 3.5 | judgment |
 | 26 | Packaging named: working title, cover frame and text that meet the cover rules, search phrase, caption first line, disclosure, next-film link for a series | `qa/story-review.json` `packaging` |
-| 27 | Scope: the mechanisms and new terms fit the type's budget (a reel: one mechanism, about three new terms). No named study, event, tournament or algorithm goes in without its setup. Anything over budget was cut, split into a series or promoted before writing | `qa/story-review.json` `scope` + judgment |
+| 27 | Scope: the mechanisms and new terms fit the form's budget (short: one mechanism, about three new terms; long: per chapter). No named study, event, tournament or algorithm goes in without its setup. Anything over budget was cut, split into a series or promoted before writing | `qa/story-review.json` `scope` + judgment |
 | 28 | Clear hook (explainers): read cold, every noun, number and unit in the spoken hook and the card has its referent in the line. No bare pronoun, no unit-less quantity, no term to learn first | `arc.notes` gate results + judgment |
 | 29 | No dangling names: every term, name, number and result spoken or shown has a listed place where it is explained, on screen when the narration skips it. No anonymous drawn object | `qa/story-review.json` `named_things` |
 | 30 | Pace map: every scene has `pace` in `storyboard.json` and `speed` in `src/narration.json`, inside its band. Slow scenes are inside about 90% of the word cap and end on a silence beat. Fast scenes carry no new term or number | `storyboard.json`, `src/narration.json`, `style check` |
@@ -220,7 +220,7 @@ A rule may be waived only with a written reason in `waivers`, for example a decl
   "verdict": "complete | needs-research | needs-brief | in-progress",
   "core_message": "...",
   "arc": "reel-loop",
-  "scope": {"type": "reel", "mechanisms": ["..."], "new_terms": ["...", "..."], "within_budget": true, "cut_or_split": ["... -> part 2 idea"]},
+  "scope": {"type": "short", "mechanisms": ["..."], "new_terms": ["...", "..."], "within_budget": true, "cut_or_split": ["... -> part 2 idea"]},
   "goal": {"aim": "shares", "platform": "instagram-reels", "share_reason": "who sends it to whom, and why", "trigger": "social currency", "emotion": "awe"},
   "hook": {"chosen": "...", "formula": "number-collapse", "card": "...", "gates": {"truth": "pass", "pull": "pass", "clear": "pass"}, "alternatives": ["...", "...", "...", "..."]},
   "pace_map": [{"scene": "s3", "pace": "slow", "speed": 0.92, "role": "the proof"}],
@@ -286,3 +286,4 @@ The agent has no memory between runs. What it learns lives in `references/lesson
 - **1.0.0 (2026-11-06)**: first version. Consolidates the story rules previously spread over `creative-director` steps 2-2c, `voice-director` items 7, 8, 11 and 12, `specs/hook-formulas.json`, `specs/narrative-arcs.json`, `docs/short-form-lessons.md`, the style-template rules and the 2026-11-03 film review. Resolves the reel-length conflict: AGENTS.md said `reel-loop` at 60 s or less, while the arc's own pitfall said another arc over 45 s. It is now three bands (3.2). Adds the research loop, sign-off authority and retro mode.
 - **1.1.0 (2026-11-06)**: reel length is 45 s preferred, 45-60 s only for a complicated topic that needs more animated beats (user decision). Research no longer carries a scene plan (`scene_blueprint` deprecated). From `social-media-skills` (MIT; `docs/social-media-skills-lessons.md`): goal, share reason and share trigger; five or more hooks with Truth and Pull gates; a layered first second; cut test, bridge, re-hooks, conservative numbers, steelman, point-of-view filter, care rules for disasters, one late ask; sound-off check; writing for the ear; a long film's reel as its own film; a packaging step (title, cover specs, search phrase, caption line, chapters, AI disclosure, next film); an analytics reading table and test discipline for retro. Checklist grows from 17 to 26 rules. Every addition is unrendered and uncalibrated on our films.
 - **1.2.0 (2026-11-07)**: four rules from the owner's review of `game-theory-trust`, which the owner ruled apply to every future film (lessons L12-L15, quoted there). (1) A third hook gate, *Clear*: in an explainer, every noun, number and unit in the hook has its referent in the line, and an ambiguous hook fails (3.3, checklist 19 and 28; `specs/hook-formulas.json` revision 2). (2) A scope check before writing, with a complexity budget per video type: a reel carries one mechanism and about three new terms, and a named study, event, tournament or algorithm needs about 25 s of setup or is cut, split into a series or promoted (3.1, checklist 27; `specs/video-types.json` `complexity_budget`; `reel-loop` pitfall). (3) Nothing named goes unexplained: a `named_things` list, and the visuals carry what the narration skips. A research gap behind a name already in the film blocks (3.6, 3.8, checklist 29). (4) A pace map: slow, normal or fast per scene, written as storyboard `pace` and per-scene `speed` in `src/narration.json`, with the word budget following the pace (3.5, 3.6, checklist 30; `specs/storyboard-spec.json` `pace`). Section 1 now gives the per-scene pace to the story-writer and leaves the film speed to `voice-director`. Section 6 allows promotion by an owner ruling, quoted. Checklist grows from 26 to 30. The pace bands and budgets are unmeasured: the first film made to them is `game-theory-trust` iteration 3.
+- **1.3.0 (2026-11-08)**: the three forms are short (20-60 s), mid (60-180 s) and long (5-12 min), each with its own playbook skill (`short-form`, `mid-form`, `long-form`); `reel`, `long-reel` and `youtube` are the old ids. New arcs `explainer-demonstration` (mid) and `documentary-chapters` (long). A long film's storyboard carries `chapters` (one mechanism each, new-term budget per chapter and per film, a `rehook` into the next), which `studio.py validate` checks. Section 3.1 budgets and rule 22 follow the new forms. Unrendered and uncalibrated: no long-form film has been finished yet.

@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1280" data-height="720" data-fps="30" data-duration="1" data-still="0.5" data-export-svg="sinew-thumbnail-template"><svg id="stage" width="1280" height="720" viewBox="0 0 1280 720"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script><script src="../../../src/studio/kits/fitness/graphics.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, G=K.graphics, P=K.palette;
+  S.svg('rect',{width:1280,height:720,fill:P.paper},st);
+  S.svg('circle',{cx:880,cy:380,r:330,fill:P.cobaltGlass},st);
+  var t=K.sculpt(st,{gender:'male',view:'side',x:880,floor:690,scale:1.45}); var ex=K.exercise(t,'dumbbell-curl'); t.to(tl,ex.pose('curl-top'),0,0.2); t.activate(tl,{'biceps-brachii':3,brachioradialis:2,'forearm-flexors':1},0.2,0.1);
+  var w=S.svg('g',{},st);
+  var a=S.svg('text',{x:70,y:250,'font-family':'Outfit','font-weight':900,'font-size':112,fill:P.ink,'letter-spacing':'-0.03em'},w); a.textContent='NOT';
+  var b=S.svg('text',{x:70,y:370,'font-family':'Outfit','font-weight':900,'font-size':112,fill:P.muscleDeep,'letter-spacing':'-0.03em'},w); b.textContent='TEARS';
+  S.svg('rect',{x:70,y:400,width:300,height:18,rx:9,fill:P.spark},w);
+  G.logo(st,{variant:'lockup',size:24,x:72,y:640});
+  tl.to({},{duration:1},0);
+});
+</script></body></html>

@@ -1,13 +1,26 @@
 {
-  "runtime_version": "1.3.0",
+  "runtime_version": "1.9.0",
   "source": "src/studio",
-  "synced_on": "2026-11-07",
+  "synced_on": "2026-11-13",
   "files": {
+    "kits/fitness/anatomy.js": "50d2b11181beebc38cb77e161635a4a18304bc8e674aa660dcf3311f75de45cd",
+    "kits/fitness/anatomy3d.js": "050a60cff3751c41b11b4bfd5042a63e045fce9152a3288c3ca98fda5c5fc049",
+    "kits/fitness/brand.js": "5e2771696190fc00275a9f5301aa04704a401138edda698d45c9749cb6527773",
+    "kits/fitness/exercises.js": "71796cfab2d6ed45ed60758e2b1bb7be645cf2a7f98ba5ff9ced56e9693d0f85",
+    "kits/fitness/exercises3d.js": "24e1a4e881565e9dda897e8627c8de368e7ecad669766cafd46ae63a6fd8824b",
+    "kits/fitness/film3d.js": "32a1ac3a857cac28f87c46492d057344cac7ca86acf0b5c1fbb7ceede696fbb4",
+    "kits/fitness/graphics.js": "779518eddf7b9cb86d43bf99bb968a8a3665b0d0dab9f6b9a6d397d50ab99c35",
+    "kits/fitness/library.js": "b42e6806dafd06d758f4df30434931c4bf2ea5707d4a74c85381b770eab71598",
+    "kits/fitness/scenes3d.js": "b7308fd34de6fdc186ffa289b7314c7dc8e5be70438ab0c1951259caf5a9d3e6",
+    "kits/fitness/sculpt-data.js": "774a557eb0be1f22a52aab10f717ead1b75d54902713df527d61c9a74ce4bae0",
+    "kits/fitness/sculpt.js": "527d7ec9eb3c0baf762892bc2b54ff0d5a160c74e84668db076d5aae383a752a",
+    "kits/fitness/tibi3d.js": "d1db71aae268a68725e49d76d6c7a6971cf3a7fd725bd1ac2b3770fac7cf29d2",
     "studio-base.css": "8a676b9386aea19c74eb51cc8cdbf29349857cfe1f3b34ce26f460fa92d0e7a1",
     "studio-compositions.js": "1289dbca17053c241103053c332f5c7ec3afe6ce787d8190f7b59abf33339cb0",
-    "studio-core.js": "aeb97409314e1abebe35c922574f114ee59c57dc5f43ec6704ff6bd323e31bd4",
+    "studio-core.js": "c67e69c23b3d51b6a4d60049f16d52f1069c83cd0adb7fc5be941f9709820a0c",
     "studio-draw.js": "613ed000f41bb796a33e1ddde5a4dafa00e8309fcc19b4ac1b7ca1c7c60aa0ec",
     "studio-motion.js": "463f0015a709aac1ef9ee4d6c6cd2c04d76ce88c1939b66e02b7513391ed1e91",
+    "studio-rig.js": "b820c923386dc0046e25923ddec837ffc97348051a90159414e0446b44081b3b",
     "studio-type.js": "195a9ae40f46e6cfd81577b85a73c2951a64a9007738a6bb0d3513769790ca59",
     "styles/abstract-geometric.css": "a85a4f78a43050fdb1264afc7933281b39dd1e540480178feda85547c8630a9e",
     "styles/archival.css": "dc23558d90b5aa1593c1410175adc474959b56978de9a5dfd15dcfd84787570a",
@@ -18,7 +31,9 @@
     "styles/mixed-media.css": "7e9bf5b95be502e22165bbcd779a9b58507475d37b847311dc76111b0a0de0d4",
     "styles/paper-cut.css": "3a2bf9f7304dd72966e88e02d6b00780ccf079c31f594cc06d4f4ca473e0352f",
     "styles/sci-viz.css": "c38faf8dbcfddcbd42cb6ce4a391cb45a2eb55cacc0f27bea56492c133365ed5",
+    "styles/sinew-lab.css": "266520664c3248b5e490900ea93712eb2ac4cb8ad3c7f9e0085fd8e18c278744",
     "styles/swiss-minimal.css": "ba0397d4478d3b411256134e25500ae3e1b47e9c5f4fcf6cc6df96a2129540e6",
-    "vendor/gsap.min.js": "28033e449a31ebcc396e5be8b13b63152bf03094288fb5867034321927bce087"
+    "vendor/gsap.min.js": "28033e449a31ebcc396e5be8b13b63152bf03094288fb5867034321927bce087",
+    "vendor/three.min.js": "3b3a1c97de3ce65ec5b28c28d9f2805a738e9651622691ba771aa95c79d41d51"
   }
 }
