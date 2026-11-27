@@ -328,16 +328,21 @@
 
   // ------------------------------------------------------------------ environments
   G.env = {};
-  /** Gym interior: wall, chair rail, plate rack and dumbbell rack silhouettes, rubber floor. */
+  /** Gym interior: wall, chair rail, plate rack and dumbbell rack silhouettes, rubber floor.
+   *  opts.railY (default floor - 0.3 h) and opts.railX (default 0) place the chair rail and the lower wall band, so a
+   *  layout can keep the rail out of a text column (Studio.kit.fitness.layout: portrait rail = stage top, landscape rail
+   *  only behind the stage); the light panels then stop above the rail. Without them the gym is unchanged. */
   G.env.gym = function (parent, opts) {
     var o = opts || {};
     var w = o.w || 1280, h = o.h || 720, floor = o.floor || h * 0.82;
+    var railY = o.railY === undefined ? floor - h * 0.3 : o.railY, railX = o.railX || 0;
     var g = svg('g', { 'class': 'env-gym' }, parent);
     svg('rect', { x: 0, y: 0, width: w, height: floor, fill: P.paper }, g);
-    svg('rect', { x: 0, y: floor - h * 0.3, width: w, height: h * 0.3, fill: P.paper2 }, g);
-    svg('rect', { x: 0, y: floor - h * 0.3, width: w, height: 6, fill: P.cobalt, opacity: 0.85 }, g);
+    svg('rect', { x: railX, y: railY, width: w - railX, height: floor - railY, fill: P.paper2 }, g);
+    svg('rect', { 'class': 'env-gym-rail', x: railX, y: railY, width: w - railX, height: 6, fill: P.cobalt, opacity: 0.85 }, g);
     // windows / light panels
-    for (var i = 0; i < 4; i++) svg('rect', { x: w * (0.08 + i * 0.24), y: h * 0.1, width: w * 0.14, height: h * 0.22, rx: 10, fill: '#FFFFFF', opacity: 0.7, stroke: P.paper2, 'stroke-width': 4 }, g);
+    var winH = o.railY === undefined ? h * 0.22 : Math.max(0, Math.min(h * 0.22, railY - h * 0.1 - 16));
+    for (var i = 0; i < 4; i++) svg('rect', { x: w * (0.08 + i * 0.24), y: h * 0.1, width: w * 0.14, height: winH, rx: 10, fill: '#FFFFFF', opacity: 0.7, stroke: P.paper2, 'stroke-width': 4 }, g);
     // plate tree and dumbbell rack, far back, desaturated
     var far = svg('g', { opacity: 0.32 }, g);
     var px = o.rackX === undefined ? w * 0.82 : o.rackX;
@@ -481,8 +486,27 @@
         last = q;
         return at + (dur || 0);
       },
-      /** Follow a rig move from one pose to another (same sampling as the rig), n steps. */
+      /**
+       * Follow a rig move from one pose to another, n steps (the rig's sampling). On a Cobalt Sculpt Tibi
+       * (kit 2.2.0) the arc follows the move continuously instead: one driver tween recomputes it from the
+       * same solve the figure uses, so it stays on the joints at every frame; n is then ignored.
+       */
       track: function (tl, fromPose, toPose, at, dur, n, ease) {
+        if (tibi.sculpt && F.sculpt && F.sculpt.solver && dur > 0) {
+          var sv = F.sculpt.solver(tibi.fig, fromPose, toPose, ease);
+          if (!last) this.sample(tl, sv.at(0), at);
+          var drv = {}, u = -1;
+          Object.defineProperty(drv, 'u', { get: function () { return u; }, set: function (v) {
+            u = v;
+            var q = geom(sv.at(v));
+            arc.setAttribute('d', q.arc); legs.setAttribute('d', q.legs);
+            labT.setAttribute('x', num(q.lx)); labT.setAttribute('y', num(q.ly + 6)); lab.textContent = q.deg;
+            bg.setAttribute('x', num(q.lx - 32)); bg.setAttribute('y', num(q.ly - 15));
+          } });
+          tl.fromTo(drv, { u: 0 }, { u: 1, duration: dur, ease: 'none', immediateRender: false }, at);
+          last = geom(sv.end);
+          return at + dur;
+        }
         var steps = n || 10;
         var poses = RIG.samples(tibi.fig, fromPose, toPose, steps, ease);
         if (!last) this.sample(tl, poses[0], at);

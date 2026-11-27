@@ -1,0 +1,256 @@
+{
+  "target": "tests/reference-derived/scramble-strike-caption/index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.2,
+    0.35,
+    0.45,
+    0.6,
+    0.75,
+    1.0,
+    1.5,
+    2.0,
+    2.3,
+    2.6,
+    3.0,
+    3.5,
+    4.4,
+    5.8,
+    6.5,
+    7.3,
+    7.9,
+    8.4,
+    9.2
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 10.0,
+      "fps": 30,
+      "timeline_duration": 9.8,
+      "frames": [
+        {
+          "time": 0.2,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f00-t000.20.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 0.333,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f01-t000.33.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 0.467,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f02-t000.47.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes.",
+            "Watch",
+            "the",
+            "word",
+            "lock",
+            "in"
+          ]
+        },
+        {
+          "time": 0.6,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f03-t000.60.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes.",
+            "Watch",
+            "the",
+            "word",
+            "lock",
+            "in"
+          ]
+        },
+        {
+          "time": 0.733,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f04-t000.73.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes.",
+            "Watch",
+            "the",
+            "word",
+            "lock",
+            "in"
+          ]
+        },
+        {
+          "time": 1.0,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f05-t001.00.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes.",
+            "Watch",
+            "the",
+            "word",
+            "lock",
+            "in"
+          ]
+        },
+        {
+          "time": 1.5,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f06-t001.50.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes.",
+            "Watch",
+            "the",
+            "word",
+            "lock",
+            "in"
+          ]
+        },
+        {
+          "time": 2.0,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f07-t002.00.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 2.3,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f08-t002.30.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 2.6,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f09-t002.60.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 3.0,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f10-t003.00.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 3.5,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f11-t003.50.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 4.4,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f12-t004.40.png",
+          "visible_text": [
+            "Type study",
+            "Not a week.",
+            "About 6 minutes."
+          ]
+        },
+        {
+          "time": 5.8,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f13-t005.80.png",
+          "visible_text": [
+            "Caption lanes",
+            "The",
+            "pump",
+            "pushes",
+            "the",
+            "water"
+          ]
+        },
+        {
+          "time": 6.5,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f14-t006.50.png",
+          "visible_text": [
+            "Caption lanes",
+            "The",
+            "pump",
+            "pushes",
+            "the",
+            "water"
+          ]
+        },
+        {
+          "time": 7.3,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f15-t007.30.png",
+          "visible_text": [
+            "Caption lanes"
+          ]
+        },
+        {
+          "time": 7.9,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f16-t007.90.png",
+          "visible_text": [
+            "Caption lanes",
+            "The",
+            "valve",
+            "lets",
+            "it",
+            "through"
+          ]
+        },
+        {
+          "time": 8.4,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f17-t008.40.png",
+          "visible_text": [
+            "Caption lanes",
+            "The",
+            "valve",
+            "lets",
+            "it",
+            "through"
+          ]
+        },
+        {
+          "time": 9.2,
+          "path": "tests/reference-derived/scramble-strike-caption/qa/landscape/f18-t009.20.png",
+          "visible_text": [
+            "Caption lanes",
+            "Two",
+            "parts,",
+            "one",
+            "loop"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/scramble-strike-caption/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

@@ -1,0 +1,30 @@
+{
+  "id": "diegetic-object-wipe",
+  "name": "Diegetic object wipe",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected reference (batch 1, 2026-11-26) closes an eyelid across a macro eye to carry the cut to black; a film-editing convention (doors, passing objects, page turns).", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Something that belongs to the scene (an eyelid, a page, a door, a card, a hand) moves across the frame and becomes the matte for the cut, so the transition is part of the story instead of an effect laid on top.",
+  "purpose": "Motivated transition that also says something (the viewer blinks, a page turns, a door closes on a chapter).",
+  "visual_behaviour": "The object closes over the frame in 0.3-0.6 s; the next scene is revealed when it opens again, or appears on the object's colour.",
+  "mechanics": "Draw the object as an SVG shape in the overlay layer (two lids, a page, a panel); animate its path or transform to full cover with power2.in; swap scenes under full cover; reopen with power2.out or cut to the next scene on the object's colour. Eyelid: two curved paths meeting at the horizon line, lashes as strokes.",
+  "decomposition": { "primitives": ["svg-shape", "clip-mask"], "effects": ["shape-cover-transition", "mask-wipe"], "timing": "Close 0.3-0.6 s; hold 0-0.3 s; open 0.3-0.5 s." },
+  "parameters": [
+    { "name": "object", "description": "eyelid, page, door, panel or a custom SVG path pair" },
+    { "name": "close", "description": "Seconds to cover", "default": 0.45 },
+    { "name": "reopen", "description": "Reopen onto the next scene (true) or cut on the cover colour (false)", "default": false }
+  ],
+  "use_cases": ["storytelling turn", "explainer chapter end (page turn)", "perception or vision topics (blink)", "before/after reveal behind a door"],
+  "failure_modes": ["An object that does not belong to the scene reads as a generic wipe", "Lid or page edges with hard straight lines look mechanical; curve and soften them", "Too slow a close kills momentum"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.fx.shapeCover with a custom SVG path for the covering shape, or a pair of lid paths tweened with attr d (same point count) in the overlay layer; scenes swap under cover." },
+  "capability": { "support": "native", "requirements": ["SVG path animation"], "compatible_components": ["shape-cover-transition", "mask-wipe"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-81650adf49", "timestamps": [17.63], "observed": "Eyelashes close down across a macro eye and the frame goes black; the closing line then types and slams onto that black." }
+  ],
+  "related": { "techniques": ["film-match-cut", "element-bloom-transition"], "effects": ["shape-cover-transition", "mask-wipe"], "templates": ["illustrated-explainer", "title-sequence"] },
+  "licensing_notes": "Technique only (film convention plus a user-supplied reference, inspiration-only, rights unknown).",
+  "tags": ["transition", "wipe", "diegetic", "eyelid", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

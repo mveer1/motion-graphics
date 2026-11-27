@@ -1,0 +1,45 @@
+{
+  "id": "tool-manim",
+  "name": "Manim Community",
+  "component_type": "tool",
+  "purpose": "Python math-animation engine (LaTeX equations, equation-to-equation morphs, function plots). Candidate plate engine for equation transforms that SVG + GSAP cannot carry; not installed.",
+  "location": "https://docs.manim.community",
+  "version": "unpinned",
+  "installation": {
+    "required": false,
+    "instructions": "Not installed. Would need a LaTeX distribution (gigabytes) and a third plate pipeline; decide per brief through workspace-steward and dependency-intake-check."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python + LaTeX",
+    "notes": "Renders mp4/mov (with alpha) that could be placed like Blender plates."
+  },
+  "documentation_urls": [
+    "https://docs.manim.community",
+    "docs/visual-engines.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "unverified",
+    "commercial_use": true,
+    "notes": "MIT per upstream; not audited for a pinned version (no version chosen)."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "pip install and a TeX distribution when adopted."
+  },
+  "owner": "video-production",
+  "status": "proposed",
+  "approval_evidence": "Proposed 2026-11-24 (docs/visual-engines.md) as the only credible addition for math-heavy briefs; no brief needs it yet.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "proposed",
+    "math",
+    "latex",
+    "manim"
+  ]
+}

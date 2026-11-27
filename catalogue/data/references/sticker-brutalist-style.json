@@ -1,6 +1,7 @@
 {
   "id": "sticker-brutalist-style",
   "name": "Sticker neo-brutalist explainer style",
+  "family": "style-texture",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected technical explainer uses thick black outlines, hard offset shadows, pastel fills, hazard hatching and pill labels.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Cards and labels drawn like stickers (heavy outline, flat pastel fill, hard offset shadow) with monospace labels and hatched 'disabled' states make dense technical diagrams friendly and very legible.",

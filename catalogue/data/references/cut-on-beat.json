@@ -1,6 +1,7 @@
 {
   "id": "cut-on-beat",
   "name": "Cuts locked to the music",
+  "family": "transition-cut",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Measured in three inspected references: visual cuts fall on musical beats or audio hits far more often than chance.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Scene cuts and word changes land on the soundtrack's beats or hits, so picture and sound feel like one gesture and the edit's rhythm is felt rather than noticed.",
@@ -16,9 +17,17 @@
   "implementation": { "approach": "Studio.rhythm.grid(bpm, {offset}) and Studio.rhythm.snap for cue times; Studio.comp.wordBeats accepts a tempo grid. scripts/reference-corpus.py measures onset and beat alignment of a finished or reference cut.", "runtime_api": ["Studio.rhythm.grid", "Studio.rhythm.snap", "Studio.comp.wordBeats"] },
   "capability": { "support": "native", "compatible_components": ["beat-pulse", "word-beats"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no", "justification": "Tempo and onset estimates come from the corpus tool's numpy analysis; Earshot or real-sfx on the render host can refine them." }, "limitations": ["Tempo estimates are autocorrelation-based and can lock to half or double tempo"], "priority": { "creative_value": 4, "cost": 1 } },
   "provenance": [
-    { "source_id": "ref-92c22222a2", "timestamps": [11.25, 11.48, 11.72, 12.18, 12.65], "observed": "Cuts in the word section align with the estimated beat grid (measured 0.60 vs 0.26 chance)." },
-    { "source_id": "ref-392ee4d0f9", "timestamps": [3.77, 5.57, 13.17], "observed": "Cuts coincide with audio onsets (measured 0.80 vs 0.31 chance)." },
-    { "source_id": "ref-736d4ef2c2", "timestamps": [10.75, 16.88, 21.57, 26.27], "observed": "Cuts sit near the estimated 129 bpm grid more often than chance, weakly (measured 0.4 vs 0.26)." }
+    { "source_id": "ref-92c22222a2", "timestamps": [11.25, 11.48, 11.72, 12.18, 12.65], "observed": "Cuts in the word section align with the estimated beat grid (measured 0.60 vs 0.26 chance): 11.25, 11.72, 12.18 and 12.65 s are within 60 ms of the 129 bpm grid; 11.48 s sits on an onset but off the grid. Checked 2026-11-28 from automated.audio." },
+    { "source_id": "ref-392ee4d0f9", "timestamps": [2.1, 3.77, 8.47, 13.17], "observed": "Boundaries coincide with audio onsets: 4 of 5 within 67 ms of an onset (2.10, 3.77, 8.47, 13.17 s; chance 0.31); the 5.57 s cut is 123 ms off. Only 2 of 5 sit on the 64.6 bpm grid (2.10, 13.17 s; chance 0.13). Recomputed 2026-11-28 from automated.audio." },
+    { "source_id": "ref-736d4ef2c2", "timestamps": [3.82, 13.1, 16.88, 21.57], "observed": "Boundaries sit near the estimated 129 bpm grid more often than chance, weakly: 4 of 10 within 60 ms (3.82, 13.10, 16.88, 21.57 s; chance 0.26). Of the four hard cuts only 16.88 and 21.57 s are on the grid. Recomputed 2026-11-28 from automated.audio." },
+    { "source_id": "ref-aff23e662b", "timestamps": [0.25, 3.35, 9.38, 10.69, 11.97, 12.43], "observed": "6 of 8 boundaries lie within 50 ms of an onset (0.25, 3.35, 9.38, 10.69, 11.97, 12.43 s; chance 42%); tempo estimate 129 bpm, medium confidence. Recomputed 2026-11-28 from automated.audio (13.13 s, cited before, is off any onset)." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [3.77, 7.52, 12.15, 13.08], "observed": "75% of 8 boundaries within 50 ms of an onset (chance 46%) and 75% near the 129 bpm beat (chance 26%)." },
+    { "source_id": "ref-e8125c24ca", "timestamps": [9.2, 10.35, 11.47, 13.8, 18.32, 22.88], "observed": "In a lyric video 6 of 12 boundaries carry an accent within 100 ms (9.20, 10.35, 11.47, 13.80, 18.32, 22.88 s; 0.50 against chance 0.14): picture changes land on the song's onsets because each cut is a new phrase." },
+    { "source_id": "ref-0fe1abc90a", "timestamps": [8.0, 10.0, 12.0, 16.0, 18.0], "observed": "Section glitch cuts on whole seconds of a 120 bpm grid (near the beat 0.40 against chance 0.24; accent within 100 ms 0.40 against 0.16)." },
+    { "source_id": "ref-32fea7dae3", "timestamps": [2.0, 3.0, 8.0, 12.0, 16.0, 18.0], "observed": "Six hard cuts exactly on whole seconds (86% within 67 ms of an onset, chance 0.35) but none carries a strong accent (0 of 7, chance 0.12): the cut sits on the downbeat and the hit comes on the next line." },
+    { "source_id": "ref-57fd2ce3b4", "timestamps": [1.1, 2.37, 6.47, 8.0, 11.63, 15.93, 23.17], "observed": "20 of 28 cuts land within 67 ms of an onset (chance 0.46), but only 4 near the estimated beat (chance 0.19) and 5 on a strong accent (chance 0.17): cuts follow onsets in busy music." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [5.65], "observed": "5 of 6 boundaries within 50 ms of an onset (chance 0.27); the one hard cut (5.65 s) and the foreground pass (4.30 s) also carry the strongest accents (2 of 6, chance 0.12)." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [11.5, 11.77, 11.97, 12.2], "observed": "A climax montage of 11 style cards at 0.10-0.27 s each (median 0.13 s, 11.27-13.03 s); accents 0.23-0.24 s apart (11.54, 11.77, 12.00, 12.24 s) each within 0-40 ms of a cut (11.50, 11.77, 11.97, 12.20 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "wordBeats times from a 120 bpm grid are exact." }
@@ -26,5 +35,5 @@
   "related": { "techniques": ["word-per-beat-sequence"], "effects": ["beat-pulse"], "compositions": ["word-beats"], "templates": ["music-visualizer", "kinetic-typography"] },
   "licensing_notes": "Technique only; measured from user-supplied references. No audio is reused.",
   "tags": ["music-sync", "rhythm", "beat", "cut", "audio", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-28" }
 }

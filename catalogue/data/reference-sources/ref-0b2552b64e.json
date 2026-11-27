@@ -1,0 +1,789 @@
+{
+  "id": "ref-0b2552b64e",
+  "name": "Light-canvas voice-agent launch (music only): two-tone headlines beside the interface, the beat drops when the product appears",
+  "status": "experimental",
+  "source": {
+    "filename": "voice-agent-saas-launch-342d9ca4.mp4",
+    "aliases": [],
+    "sha256": "0b2552b64edd97d84a047075401b75119da32ee161c10db832a0c7ad3d8829cb",
+    "bytes": 4402141,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark and the product name inside headlines",
+        "timestamps": [
+          5.66,
+          45.68,
+          47.19
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Call card, chat, calendar, leads, dashboard and booking interfaces",
+        "timestamps": [
+          0.38,
+          8.68,
+          14.72,
+          31.33
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. AI voice-agent launch; reuse the two-tone headline grammar, the light single page and the beat-drop-on-product principle only, with original copy and interface."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4402141,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 47.567,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1427,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 599,
+    "keyframes": 48,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 47.616,
+      "kbps": 133
+    },
+    "overall_kbps": 740
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (63 frames), the motion sheet (4 windows at 10 fps, 26.92-39.68 s), the audio panel, the listen sheet (7 phrases, 10 accent hits); 30 fps strips at 1.50-3.00 s and 40.90-42.00 s and a 15 fps strip at 17.40-19.40 s (21 headline-word arrivals measured against onsets). No transitions sheet (no detected boundaries). Strips at 5.0-6.5, 11.1-12.0, 23.4-24.6, 38.7-39.5 and 44.0-45.4 s were generated but not viewed. Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 47.57 s (1280x720, 30 fps); three headline builds at 15-30 fps; the rest at 0.75 s sampling.",
+    "concept": {
+      "observed": "A launch for an AI voice agent that answers a business's calls: a missed call is a missed client; the agent answers, books into the calendar, captures leads, reports on calls, offers a booking link and QR code; end line and wordmark.",
+      "interpreted": "Problem, product, four features, promise: one argument on one page.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only, despite the title; the argument is carried by two-line headlines beside the interface."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Off-white (#f8f8f8, 88%) with soft grey shadows; black type; one accent per headline (red for the problem, blue for a feature, teal for the promise); a warm beige panel for the booking page."
+      },
+      "typography": {
+        "observed": "Medium-weight grotesque headlines in sentence case, 2 lines; line 2 ends on the key word in the accent colour; tiny interface type; a centred wordmark."
+      },
+      "composition": {
+        "observed": "Headline left at about 5-35% of the width, vertically centred; interface card or window right; full-width app windows for the calendar, leads and dashboard."
+      },
+      "motion": {
+        "observed": "Headline words fade in with a blur, a fixed 0.13 s apart (median; range 0.06-0.17 s), the accent word last; a call card rings, turns to missed and a list of missed calls stacks under it; chat bubbles and a waveform build (6.4-10.9 s); calendar events pop into slots and a new booking is outlined in teal (14.7-16.2 s); KPI counters and an area chart (29.8-33.6 s); a booking page with a month calendar and a QR code (34.3-40.4 s); the wordmark types in (44.9-46.4 s)."
+      },
+      "transitions": {
+        "observed": "None detected in 47.6 s: one light page. Sections change by dissolving the headline and interface out and the next in over about 0.2-0.7 s (5.26-5.46, 11.0-11.7, 17.6-17.8, 23.8-24.5, 34.0-34.4 s); the frame is empty at 44.17 s before the wordmark.",
+        "interpreted": "Light canvas, no cuts: the corpus pattern for light product films holds over 47 s.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of about 5.3, 5.7, 6.3, 6.5, 10.0, 6.5 and 7 s; headlines held 3-5 s complete."
+      },
+      "sound_design": {
+        "observed": "-15.9 LUFS, LRA 5.6 LU, true peak -4.9 dBTP; tempo 66.3 bpm (medium); 241 onsets; 49 accents (61.8/min); no boundaries, so no accents-on-cuts measure. Two parts: a sparse intro (0-13.4 s, median level -24.6 dB, onsets 0.2-1.0 s apart) under the problem and the first feature, then at 13.42 s the full beat enters, +7.3 dB (median -17.3 dB over 13.6-46 s, onsets every 0.11-0.23 s), as the calendar window fills the frame. Accents sit on a 0.88-0.91 s grid (one beat at 66 bpm) with 0.44 and 0.23 s subdivisions. The strongest accents in the intro land on the first headline (1.79 s; 2.69 s just after it completes), the missed-call list (3.58 s), the headline swap (5.36 s) and the chat and booking elements (6.27, 7.15, 7.62, 8.06, 8.29, 8.73, 8.94, 9.85 s). No silences; head -7.3 dB, tail +0.5 dB; the level falls only in the last 0.5 s. Accents may be part of the music.",
+        "interpreted": "The arrangement marks the turn from problem to product: the beat arrives with the product.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None, although the title suggested a voice. Dictation: 29 raw words, 11 confident, 7 phrases, and every confident word is the same single letter; 0.92 words/s while 'speaking', 20 words/min over 14.17-47.31 s, 6 pauses (median 3570 ms, max 6060 ms), thirds 0.45/0.36/0.18 words/s; no boundaries to test against pauses. The phrase frames show the calendar, a headline with the lead card, the dashboard, the booking page, the end line and the wordmark, with no speaker; the spectrogram shows a steady music texture without speech formants; syllabic share 0.37 (corpus median 0.34).",
+        "interpreted": "Recogniser noise over music: these numbers are not a narration pace.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lanes: the two-line headline left of the interface (lines of 2-4 words, held 3-5 s), and a one-line label centred under the full-width app windows (about 93% of the height; plate not resolvable at sheet size). Headline words against music onsets (21 measured at 15-30 fps): 10 within 50 ms against chance 0.51, offsets -220 to +270 ms: the per-word cadence is fixed, not locked to the music. The accent-coloured last word lands within 10 ms of an onset in 2 of 3 lines (18.80 vs 18.81 s; 41.97 vs 41.98 s) and 60 ms early in the third (2.40 vs 2.46 s).",
+        "interpreted": "A fixed 0.13 s per-word cadence reads as calm typing; only the payoff word may be placed on the beat.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 5.3,
+        "observed": "A call rings and is missed; the problem headline; a list of missed calls."
+      },
+      {
+        "start": 5.3,
+        "end": 11.0,
+        "observed": "The agent answers: waveform, chat, a booking confirmed."
+      },
+      {
+        "start": 11.0,
+        "end": 17.6,
+        "observed": "A calendar fills; the beat enters at 13.42 s; a new booking is highlighted."
+      },
+      {
+        "start": 17.6,
+        "end": 24.0,
+        "observed": "Lead-capture headline and card."
+      },
+      {
+        "start": 24.0,
+        "end": 34.0,
+        "observed": "Leads table, lead detail, a dashboard with counters and a chart."
+      },
+      {
+        "start": 34.0,
+        "end": 40.6,
+        "observed": "A booking page; one link, one QR code."
+      },
+      {
+        "start": 40.6,
+        "end": 47.57,
+        "observed": "End line in two colours; empty frame; the wordmark types in."
+      }
+    ],
+    "moments": [
+      {
+        "t": 13.42,
+        "observed": "The level steps up 7.3 dB as the full beat enters, at the moment the calendar window fills the frame.",
+        "interpreted": "Sound marks the turn from the problem to the product."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the step at 13.42 s is the music's own drop or an edit to the picture",
+      "Whether the label under the app windows sits on a plate",
+      "Exact word times in the 17.4-19.4 s strip (15 fps: +/- 33 ms)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.38,
+        11.7,
+        24.54,
+        34.35
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        0.38,
+        7.93,
+        14.72,
+        39.64
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        6.27,
+        7.15,
+        8.06,
+        8.94,
+        9.85
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        44.17
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        2.4,
+        18.8,
+        41.97
+      ]
+    },
+    {
+      "id": "beat-drop-product-reveal",
+      "timestamps": [
+        13.42
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "crossfade-dissolve",
+      "typewriter-reveal"
+    ],
+    "compositions": [
+      "split-stage",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-7",
+    "light-canvas",
+    "off-white",
+    "ai-assistant",
+    "two-tone-headline",
+    "beat-drop",
+    "not-narrated",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 11.6
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 285,
+      "scan_size": "96x54",
+      "overview_frames": 63,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 47.57,
+        "duration": 47.57,
+        "activity": 0.035,
+        "luma": 0.94
+      }
+    ],
+    "static_holds": [
+      [
+        15.42,
+        16.08
+      ],
+      [
+        19.25,
+        21.25
+      ],
+      [
+        22.42,
+        23.42
+      ],
+      [
+        37.58,
+        38.42
+      ]
+    ],
+    "mean_activity": 0.035,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.875
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.026
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.022
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.022
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.014
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.01
+      },
+      {
+        "hex": "#d8d8e8",
+        "share": 0.008
+      },
+      {
+        "hex": "#d8c8c8",
+        "share": 0.007
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.005
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      11.89,
+      23.79,
+      35.68
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -6.9,
+      "mean_dbfs_voiced": -19.4,
+      "silence_ratio": 0.0,
+      "onsets": 241,
+      "onset_rate_per_sec": 5.06,
+      "onset_times": [
+        0.16,
+        0.23,
+        0.46,
+        0.53,
+        0.98,
+        1.11,
+        1.79,
+        1.86,
+        2.46,
+        2.69,
+        3.58,
+        3.65,
+        4.04,
+        5.36,
+        5.43,
+        6.04,
+        6.27,
+        6.5,
+        6.71,
+        6.83,
+        6.94,
+        7.15,
+        7.22,
+        7.38,
+        7.5,
+        7.62,
+        7.71,
+        8.06,
+        8.17,
+        8.29,
+        8.45,
+        8.61,
+        8.73,
+        8.85,
+        8.94,
+        9.01,
+        9.17,
+        9.4,
+        9.52,
+        9.61,
+        9.73,
+        9.85,
+        10.08,
+        10.19,
+        10.29,
+        10.4,
+        10.52,
+        10.63,
+        10.75,
+        10.96,
+        11.08,
+        11.19,
+        11.31,
+        11.42,
+        11.52,
+        11.63,
+        11.75,
+        11.87,
+        11.98,
+        12.1,
+        12.19,
+        12.31,
+        12.42,
+        12.54,
+        12.65,
+        12.75,
+        12.86,
+        12.98,
+        13.1,
+        13.21,
+        13.33,
+        13.44,
+        13.65,
+        13.89,
+        14.09,
+        14.33,
+        14.56,
+        14.77,
+        15.0,
+        15.26,
+        15.44,
+        15.56,
+        15.67,
+        15.91,
+        16.11,
+        16.35,
+        16.58,
+        16.79,
+        17.02,
+        17.25,
+        17.48,
+        17.69,
+        17.9,
+        18.13,
+        18.37,
+        18.58,
+        18.81,
+        19.04,
+        19.13,
+        19.27,
+        19.48,
+        19.71,
+        19.92,
+        20.15,
+        20.36,
+        20.6,
+        20.83,
+        21.06,
+        21.27,
+        21.5,
+        21.73,
+        21.94,
+        22.18,
+        22.62,
+        22.83,
+        23.06,
+        23.29,
+        23.52,
+        23.73,
+        23.96,
+        24.17,
+        24.4,
+        24.64,
+        24.85,
+        25.08,
+        25.52,
+        25.7,
+        25.96,
+        26.19,
+        26.31,
+        26.42,
+        26.63,
+        26.87,
+        27.1,
+        27.33,
+        27.54,
+        27.77,
+        27.98,
+        28.21,
+        28.42,
+        28.65,
+        29.09,
+        29.33,
+        29.56,
+        29.68,
+        29.77,
+        30.0,
+        30.23,
+        30.44,
+        30.67,
+        30.91,
+        31.11,
+        31.23,
+        31.35,
+        31.46,
+        31.58,
+        31.79,
+        32.02,
+        32.14,
+        32.23,
+        32.69,
+        32.9,
+        33.13,
+        33.25,
+        33.37,
+        33.44,
+        33.58,
+        33.69,
+        33.81,
+        33.92,
+        34.04,
+        34.25,
+        34.48,
+        34.69,
+        34.92,
+        35.04,
+        35.13,
+        35.39,
+        35.48,
+        35.6,
+        35.83,
+        36.06,
+        36.27,
+        36.39,
+        36.5,
+        36.71,
+        36.83,
+        36.94,
+        37.06,
+        37.15,
+        37.38,
+        37.5,
+        37.62,
+        37.83,
+        38.06,
+        38.17,
+        38.29,
+        38.41,
+        38.5,
+        38.73,
+        38.96,
+        39.17,
+        39.4,
+        39.64,
+        39.87,
+        40.08,
+        40.29,
+        40.4,
+        40.52,
+        40.63,
+        40.75,
+        40.96,
+        41.19,
+        41.42,
+        41.66,
+        41.87,
+        41.98,
+        42.1,
+        42.31,
+        42.54,
+        42.77,
+        42.98,
+        43.21,
+        43.42,
+        43.65,
+        43.89,
+        44.09,
+        44.33,
+        44.56,
+        44.79,
+        45.0,
+        45.23,
+        45.44,
+        45.56,
+        45.67,
+        45.91,
+        46.14,
+        46.35,
+        46.58,
+        47.02,
+        47.46
+      ],
+      "tempo_estimate": {
+        "bpm": 66.3,
+        "autocorr": 0.62,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 872,
+      "band_share": {
+        "low_lt_250": 0.33,
+        "mid_250_2k": 0.52,
+        "high_gt_2k": 0.15
+      },
+      "syllabic_modulation_share": 0.37,
+      "boundary_onset_alignment": null,
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-0b2552b64e",
+      "overview": "reference/analysis/ref-0b2552b64e/overview.jpg",
+      "scenes": "reference/analysis/ref-0b2552b64e/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-0b2552b64e/motion.jpg",
+      "audio": "reference/analysis/ref-0b2552b64e/audio.png",
+      "frames": "reference/analysis/ref-0b2552b64e/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -15.9,
+        "lra_lu": 5.6,
+        "true_peak_dbtp": -4.9,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 29,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 11,
+        "phrases": 7,
+        "speech_start": 14.17,
+        "speech_end": 47.31,
+        "speech_coverage": 0.25,
+        "wps_while_speaking": 0.92,
+        "wpm_over_span": 20,
+        "pace_thirds_wps": [
+          0.45,
+          0.36,
+          0.18
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.08,
+        "pauses": {
+          "count": 6,
+          "median_ms": 3570,
+          "max_ms": 6060,
+          "at": [
+            14.85,
+            24.24,
+            31.4,
+            34.97,
+            36.59,
+            41.95
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 11,
+            "wps": 0.23
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 241,
+        "accents": 49,
+        "accents_per_min": 61.8,
+        "accent_times": [
+          1.79,
+          2.69,
+          3.58,
+          5.36,
+          6.27,
+          7.15,
+          7.62,
+          8.06,
+          8.29,
+          8.73,
+          8.94,
+          9.85,
+          10.75,
+          11.19,
+          11.75,
+          13.44,
+          14.33,
+          15.67,
+          16.11,
+          17.02,
+          18.81,
+          19.48,
+          20.6,
+          21.27,
+          21.94,
+          23.29,
+          24.17,
+          24.85,
+          25.08,
+          26.87,
+          30.0,
+          30.44,
+          31.35,
+          33.13,
+          33.81,
+          34.92,
+          35.6,
+          35.83,
+          36.27,
+          36.71,
+          36.94,
+          37.62,
+          38.5,
+          39.4,
+          40.96,
+          41.19,
+          42.1,
+          42.98,
+          45.67
+        ],
+        "accent_threshold": 0.45,
+        "boundaries_with_accent": {
+          "boundaries": 0,
+          "share": null,
+          "tolerance_ms": 100,
+          "chance_level": 0.19
+        },
+        "onset_rate_during_speech": 4.58,
+        "onset_rate_outside_speech": 5.23,
+        "level_speech_minus_gaps_db": -0.6,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -7.3,
+        "level_tail_vs_body_db": 0.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-0b2552b64e/listen",
+        "sheet": "reference/analysis/ref-0b2552b64e/listen/listen.jpg",
+        "words": "reference/analysis/ref-0b2552b64e/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

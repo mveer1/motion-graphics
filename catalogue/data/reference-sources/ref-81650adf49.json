@@ -1,0 +1,739 @@
+{
+  "id": "ref-81650adf49",
+  "name": "A photon's journey in single words: flash cuts, chromatic slams and a blink",
+  "status": "experimental",
+  "source": {
+    "filename": "a-photon-s-trip-from-the-sun-ae36ddeb.mp4",
+    "aliases": [],
+    "sha256": "81650adf498aa0d70b7af467fb44ef783f69e18cbb65b0f80549edac5aab69d4",
+    "bytes": 6510320,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "Rights unverified. No marks seen. Reuse the light-based transition grammar only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 6510320,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 20.1,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 602,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 2451,
+    "keyframes": 21,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 20.117,
+      "kbps": 131
+    },
+    "overall_kbps": 2591
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (27 frames) and transition strips at all 9 boundaries (every 2nd frame); automated audio and listen metrics (signal features; nothing was listened to); listen sheet not opened.",
+    "coverage": "Full 20.1 s; all boundaries at frame level.",
+    "concept": {
+      "observed": "A photon's 170,000-year random walk out of the sun's core (the word 'AGAIN' repeated along its zig-zag path), a free flight through space measured by a mission clock, then sky, then an eye; the closing line says the viewer blinked.",
+      "interpreted": "Scale and irony: an enormous journey ends in a blink.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Huge condensed uppercase words with full stops, one per beat; a small italic serif setup line at the end; no voice.",
+      "interpreted": "Dramatic, witty science micro-story."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm amber-orange glow in the sun section; violet-navy starfield; sky blue; skin tones; black for the ending."
+      },
+      "typography": {
+        "observed": "Heavy condensed sans caps with full stops ('FREE.', 'ALMOST.', 'YOU.'); a repeated word as texture along the path; italic serif for the final setup line."
+      },
+      "motion": {
+        "observed": "The random-walk path draws as a jagged line strewn with repeated words; starfield streaks; one-word slams; corner counters roll."
+      },
+      "transitions": {
+        "observed": "White flash frames at 0.90 and 8.00 s; chromatic-split word slams at 10.50, 11.50 and 18.50 s; a flash then a point growing into the Earth at 13.00 s; an over-exposure white-out from sky to eye at 15.03 s; the eyelid closing to black at 17.63 s; a zoom-out as the path's words accumulate at 5.56 s.",
+        "interpreted": "Every transition is made of light (flash, exposure, blink), matching the subject.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Words every about 0.75 s in the space section (8.5-13 s); the eye section slows (15-18 s) before the final slam."
+      },
+      "camera": {
+        "observed": "Push through space (streaks); zoom from a point into the Earth; macro push onto the eye."
+      },
+      "texture_and_effects": {
+        "observed": "Bokeh particles, glow, RGB split, motion streaks."
+      },
+      "sound_design": {
+        "observed": "-12.2 LUFS, LRA 6.3 LU, true peak +0.7 dBTP; 15 accents, 10 of them in a run from 1.00 to 2.93 s while the counter rolls; 4 of 9 boundaries have an accent within 100 ms (chance 0.14); tempo estimate low confidence.",
+        "interpreted": "Cuts tend to land with hits; the opening counter is sonified as a fast run. True peak above 0 dBTP would clip in delivery.",
+        "confidence": "low"
+      },
+      "narration": {
+        "observed": "No voice-over (3 stray dictation words over music).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None; the words are the visuals."
+      },
+      "motifs": {
+        "observed": "Light (photon, flash, exposure, eye), repetition ('AGAIN'), measurement (clock, kilometres)."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 0.9,
+        "observed": "A temperature counter rolls in the solar core."
+      },
+      {
+        "start": 0.9,
+        "end": 5.56,
+        "observed": "Flash; a glowing photon; its random walk draws with repeated words."
+      },
+      {
+        "start": 5.56,
+        "end": 8.0,
+        "observed": "Zoom out to the sun's surface; '170,000 YEARS.'; 'FREE.' on black."
+      },
+      {
+        "start": 8.0,
+        "end": 13.0,
+        "observed": "Flash to hyperspace; one word per beat with a mission clock and distance counters."
+      },
+      {
+        "start": 13.0,
+        "end": 15.03,
+        "observed": "A point grows into the Earth; through clouds; 'ALMOST.' over sky."
+      },
+      {
+        "start": 15.03,
+        "end": 18.5,
+        "observed": "White-out to a macro eye; 'YOU.'; the eyelid closes to black."
+      },
+      {
+        "start": 18.5,
+        "end": 20.1,
+        "observed": "Italic setup line; 'YOU BLINKED.' slams in."
+      }
+    ],
+    "moments": [
+      {
+        "t": 17.63,
+        "observed": "Eyelashes close across the frame to black.",
+        "interpreted": "The transition is the punchline."
+      }
+    ],
+    "difficult": [
+      "Photoreal sun, Earth and eye imagery: would need original Blender plates or licensed stills, never frames from this file"
+    ],
+    "uncertainties": [
+      "Whether the sun, Earth and eye are 3D renders, generated imagery or illustration",
+      "Whether the +0.7 dBTP true peak is in the master or an encoding artefact"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        0.9,
+        8.0
+      ]
+    },
+    {
+      "id": "chromatic-punch-word",
+      "timestamps": [
+        10.52,
+        11.52,
+        18.52
+      ]
+    },
+    {
+      "id": "diegetic-object-wipe",
+      "timestamps": [
+        17.63
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        13.0
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        8.56,
+        9.31,
+        12.28
+      ]
+    },
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        8.56,
+        9.31,
+        10.05,
+        10.79,
+        11.54,
+        12.28
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "halo-bloom",
+      "particle-drift"
+    ],
+    "compositions": [
+      "frame-hud"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "title-sequence"
+    ],
+    "styles": [
+      "cinematic-dark",
+      "sci-viz"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "scene-transitions",
+    "explainer",
+    "music-sync",
+    "3d-render"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "science",
+    "light",
+    "scale",
+    "flash",
+    "single-words"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 16.2
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 9,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.9,
+        "kind": "cut",
+        "score": 1.275,
+        "isolation": 0.79,
+        "frame": 27
+      },
+      {
+        "t": 5.562,
+        "kind": "soft",
+        "score": 0.804
+      },
+      {
+        "t": 8.0,
+        "kind": "cut",
+        "score": 1.373,
+        "isolation": 0.76,
+        "frame": 240
+      },
+      {
+        "t": 10.5,
+        "kind": "soft",
+        "score": 0.535,
+        "isolation": 0.4
+      },
+      {
+        "t": 11.5,
+        "kind": "soft",
+        "score": 0.506,
+        "isolation": 0.39
+      },
+      {
+        "t": 13.0,
+        "kind": "soft",
+        "score": 1.216,
+        "isolation": 0.46
+      },
+      {
+        "t": 15.033,
+        "kind": "soft",
+        "score": 0.592,
+        "isolation": 0.22
+      },
+      {
+        "t": 17.633,
+        "kind": "soft",
+        "score": 0.376,
+        "isolation": 0.0
+      },
+      {
+        "t": 18.5,
+        "kind": "soft",
+        "score": 0.484,
+        "isolation": 0.41
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.9,
+        "duration": 0.9,
+        "activity": 0.09,
+        "luma": 0.15
+      },
+      {
+        "index": 2,
+        "start": 0.9,
+        "end": 5.56,
+        "duration": 4.66,
+        "activity": 0.424,
+        "luma": 0.21
+      },
+      {
+        "index": 3,
+        "start": 5.56,
+        "end": 8.0,
+        "duration": 2.44,
+        "activity": 0.401,
+        "luma": 0.31
+      },
+      {
+        "index": 4,
+        "start": 8.0,
+        "end": 10.5,
+        "duration": 2.5,
+        "activity": 0.387,
+        "luma": 0.17
+      },
+      {
+        "index": 5,
+        "start": 10.5,
+        "end": 11.5,
+        "duration": 1.0,
+        "activity": 0.316,
+        "luma": 0.14
+      },
+      {
+        "index": 6,
+        "start": 11.5,
+        "end": 13.0,
+        "duration": 1.5,
+        "activity": 0.293,
+        "luma": 0.13
+      },
+      {
+        "index": 7,
+        "start": 13.0,
+        "end": 15.03,
+        "duration": 2.03,
+        "activity": 0.701,
+        "luma": 0.49
+      },
+      {
+        "index": 8,
+        "start": 15.03,
+        "end": 17.63,
+        "duration": 2.6,
+        "activity": 0.46,
+        "luma": 0.45
+      },
+      {
+        "index": 9,
+        "start": 17.63,
+        "end": 18.5,
+        "duration": 0.87,
+        "activity": 0.259,
+        "luma": 0.02
+      },
+      {
+        "index": 10,
+        "start": 18.5,
+        "end": 20.1,
+        "duration": 1.6,
+        "activity": 0.038,
+        "luma": 0.13
+      }
+    ],
+    "static_holds": [
+      [
+        19.19,
+        19.94
+      ]
+    ],
+    "mean_activity": 0.383,
+    "luma": {
+      "mean": 0.25,
+      "dark_share": 0.66,
+      "light_share": 0.03
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.169
+      },
+      {
+        "hex": "#381808",
+        "share": 0.074
+      },
+      {
+        "hex": "#080818",
+        "share": 0.067
+      },
+      {
+        "hex": "#280808",
+        "share": 0.053
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.036
+      },
+      {
+        "hex": "#180828",
+        "share": 0.034
+      },
+      {
+        "hex": "#481808",
+        "share": 0.033
+      },
+      {
+        "hex": "#684838",
+        "share": 0.025
+      },
+      {
+        "hex": "#483828",
+        "share": 0.023
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.019
+      }
+    ],
+    "representative_times": [
+      0.45,
+      2.06,
+      3.23,
+      4.39,
+      6.78,
+      9.25,
+      11.0,
+      12.25,
+      14.02,
+      16.33,
+      18.06,
+      19.3
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.1,
+      "mean_dbfs_voiced": -17.4,
+      "silence_ratio": 0.01,
+      "onsets": 71,
+      "onset_rate_per_sec": 3.53,
+      "onset_times": [
+        0.19,
+        0.3,
+        0.42,
+        0.49,
+        0.58,
+        1.0,
+        1.56,
+        1.86,
+        2.09,
+        2.28,
+        2.41,
+        2.55,
+        2.65,
+        2.76,
+        2.86,
+        2.93,
+        3.02,
+        3.13,
+        3.2,
+        3.32,
+        3.72,
+        3.78,
+        3.99,
+        5.57,
+        7.59,
+        8.36,
+        8.61,
+        8.85,
+        8.99,
+        9.24,
+        9.47,
+        9.59,
+        9.85,
+        10.36,
+        10.47,
+        10.59,
+        10.73,
+        10.84,
+        10.98,
+        11.1,
+        11.35,
+        11.59,
+        11.73,
+        11.84,
+        12.1,
+        12.35,
+        12.47,
+        12.61,
+        12.86,
+        13.1,
+        13.17,
+        13.44,
+        13.54,
+        13.72,
+        14.09,
+        15.09,
+        15.16,
+        15.23,
+        15.6,
+        16.09,
+        16.21,
+        16.42,
+        16.58,
+        16.7,
+        16.83,
+        16.93,
+        17.02,
+        17.09,
+        17.3,
+        17.6,
+        18.6
+      ],
+      "tempo_estimate": {
+        "bpm": 152.0,
+        "autocorr": 0.31,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 1013,
+      "band_share": {
+        "low_lt_250": 0.39,
+        "mid_250_2k": 0.37,
+        "high_gt_2k": 0.24
+      },
+      "syllabic_modulation_share": 0.34,
+      "boundary_onset_alignment": {
+        "boundaries": 9,
+        "tolerance_ms": 67,
+        "near_onset": 0.44,
+        "chance_level": 0.38,
+        "median_offset_ms": 87
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-81650adf49",
+      "overview": "reference/analysis/ref-81650adf49/overview.jpg",
+      "scenes": "reference/analysis/ref-81650adf49/scenes.jpg",
+      "transitions": "reference/analysis/ref-81650adf49/transitions.jpg",
+      "motion": "reference/analysis/ref-81650adf49/motion.jpg",
+      "audio": "reference/analysis/ref-81650adf49/audio.png",
+      "frames": "reference/analysis/ref-81650adf49/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -12.2,
+        "lra_lu": 6.3,
+        "true_peak_dbtp": 0.7,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 12,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 3,
+        "phrases": 3,
+        "speech_start": 6.22,
+        "speech_end": 19.42,
+        "speech_coverage": 0.13,
+        "wps_while_speaking": 1.11,
+        "wpm_over_span": 14,
+        "pace_thirds_wps": [
+          0.45,
+          0.0,
+          0.23
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.88,
+        "pauses": {
+          "count": 2,
+          "median_ms": 5250,
+          "max_ms": 8130,
+          "at": [
+            7.1,
+            10.33
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 1,
+            "wps": 0.41
+          },
+          {
+            "index": 4,
+            "words": 1,
+            "wps": 0.4
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 1,
+            "wps": 1.15
+          },
+          {
+            "index": 10,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 7,
+          "in_pause_share": 0.86,
+          "chance_level": 0.8,
+          "next_phrase_after_ms_median": 4444
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 71,
+        "accents": 15,
+        "accents_per_min": 44.8,
+        "accent_times": [
+          1.0,
+          1.56,
+          1.86,
+          2.09,
+          2.28,
+          2.41,
+          2.55,
+          2.65,
+          2.76,
+          2.93,
+          9.59,
+          10.59,
+          17.3,
+          17.6,
+          18.6
+        ],
+        "accent_threshold": 0.4,
+        "boundaries_with_accent": {
+          "boundaries": 9,
+          "share": 0.44,
+          "tolerance_ms": 100,
+          "chance_level": 0.14
+        },
+        "onset_rate_during_speech": 1.48,
+        "onset_rate_outside_speech": 3.85,
+        "level_speech_minus_gaps_db": -1.0,
+        "sustained_share": 0.98,
+        "silences": [],
+        "level_head_vs_body_db": -3.2,
+        "level_tail_vs_body_db": -5.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-81650adf49/listen",
+        "sheet": "reference/analysis/ref-81650adf49/listen/listen.jpg",
+        "words": "reference/analysis/ref-81650adf49/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

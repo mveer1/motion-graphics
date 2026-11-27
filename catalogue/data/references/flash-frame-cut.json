@@ -1,0 +1,56 @@
+{
+  "id": "flash-frame-cut",
+  "name": "Flash frame cut (light-burst cut)",
+  "family": "transition-cut",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "Four inspected references (batch 1, 2026-11-26) bridge a cut with one or two overexposed frames, or a radial burst of accent-tinted light, that decay into the next shot.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "At the cut, the frame flashes to white (or to a radial burst of the accent colour) for one or two frames, and the incoming shot starts overexposed and settles to normal exposure. The flash hides the edit and reads as an impact, an exposure or a release of energy.",
+  "purpose": "Punctuate a section change or a reveal with energy; hide a hard cut between unrelated shots; mark 'the product arrives'.",
+  "visual_behaviour": "Outgoing shot (sometimes dimmed for about 0.2 s first) -> 1-2 frames of near-white or an accent radial glow filling the frame -> incoming shot brightened, decaying to normal over 0.15-0.35 s.",
+  "mechanics": "Full-frame overlay at the cut: opacity 1 for 1-2 frames, then to 0 over 0.15-0.35 s with power2.out. White overlay for a camera-flash read; radial-gradient (accent core, transparent edge) centred on the incoming subject for a light-burst read. Optional pre-dim of the outgoing scene (brightness 1 -> 0.6 over 0.2 s). The scene swap happens under the opaque frame. Sound: the impact hit or bass drop lands 0-250 ms after the flash (ref-6f68999b60: flash 10.00 s, accent 10.24 s).",
+  "decomposition": { "primitives": ["scene-container", "svg-shape"], "effects": ["crossfade-dissolve", "halo-bloom"], "timing": "Flash 1-2 frames (33-67 ms at 30 fps); decay 0.15-0.35 s; at most 2-3 per film." },
+  "parameters": [
+    { "name": "color", "description": "white for exposure, accent for a light burst", "default": "#ffffff" },
+    { "name": "shape", "description": "flat (whole frame) or radial (centred on the incoming subject)", "default": "flat" },
+    { "name": "hold_frames", "description": "Frames at full opacity", "default": 1 },
+    { "name": "decay", "description": "Seconds from full flash to clear", "default": 0.25 },
+    { "name": "pre_dim", "description": "Seconds the outgoing scene darkens before the flash (0 = none)", "default": 0 }
+  ],
+  "use_cases": ["section change in a music-led promo", "product or logo reveal", "jump in scale or place (sun to space)", "explainer chapter turn with energy"],
+  "failure_modes": [
+    "Photosensitivity: more than three flashes in any one second, or large saturated-red flashes, fail WCAG 2.3.1 and broadcast flash guidelines; keep to isolated flashes",
+    "On the light default canvas a white flash is invisible; use the accent burst or a brief inversion instead",
+    "Used on every cut it becomes noise; reserve for 2-3 turning points",
+    "A flash with no sound feels like a dropped frame; pair it with the hit"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": ["flash-cut"],
+  "implementation": {"approach": "Studio.fx.flash(tl, out, in, at, {color, shape flat|radial, center, hold, decay, preDim, dimTo}) (runtime 1.17.0): a full-frame overlay is opaque for `hold` frames, the scenes cut under it 1 ms after the cue, then it decays with power2.out and hides; the radial variant centres a radial-gradient burst on an incoming element measured with Studio.boxAt; preDim darkens the outgoing scene with a brightness filter. A fourth flash within one second of the same timeline throws (WCAG 2.3.1).", "runtime_api": ["Studio.fx.flash"]},
+  "validation": {"state": "preview", "evidence": [{"kind": "runtime-test", "path": "tests/studio-runtime/backlog-techniques.html", "result": "pass", "date": "2026-11-28"}, {"kind": "frame-review", "path": "tests/reference-derived/flash-and-container/qa/report.json", "result": "pass", "date": "2026-11-28", "notes": "Contact sheet inspected: radial accent burst on the light canvas (opaque at 5.03 s, clear by 5.30 s) and a flat white flash onto a dark card (7.40-7.60 s). 0 errors; 2 reading-time warnings on the test page's own copy."}]},
+  "capability": { "support": "native", "requirements": ["CSS opacity", "radial-gradient"], "compatible_components": ["crossfade-dissolve", "halo-bloom"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low", "gpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1, "note": "Seen in 4 of 8 batch-1 references." } },
+  "provenance": [
+    { "source_id": "ref-81650adf49", "timestamps": [0.9, 8.0], "observed": "A single full-white frame sits between the temperature counter and the glowing photon (0.92 s) and between 'FREE.' on black and the hyperspace field (8.02 s); the new shot decays from overexposure over about 0.2 s." },
+    { "source_id": "ref-6f68999b60", "timestamps": [10.0, 24.0], "observed": "The outgoing card scene dims for about 0.2 s, then an orange-white radial burst fills the frame and decays onto the mascot on a dark sea; the strongest accent follows at 10.24 s." },
+    { "source_id": "ref-aff23e662b", "timestamps": [0.25], "observed": "An overexposed frame bridges a dark macro eye and a bright version of the same eye." },
+    { "source_id": "ref-a3031376e7", "timestamps": [26.73], "observed": "When the last ring breaks, the frame washes to grey-white with a ring of particles before 'ESCAPED.'" },
+    { "source_id": "ref-58ff9f39df", "timestamps": [0.71, 10.02, 96.52, 97.52], "observed": "White flash frame at 0.71 s before the first slam; a terracotta flash frame at 10.02 s as a word slams; white flashes at 96.52 and 97.52 s around a glitch." },
+    { "source_id": "ref-3abcbedd20", "timestamps": [7.51, 26.26], "observed": "The page dims to about 85% over 7.30-7.47 s, one bright frame at 7.50-7.53 s, then the burst; the accent lands at 7.55 s (0.04 s after the flash). Same move on dark at 26.26 s." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [13.09], "observed": "A white flash frame out of the repetition wall at 13.09 s that fades to dark under the name card by 13.2 s." },
+    { "source_id": "ref-e8125c24ca", "timestamps": [9.2, 17.68], "observed": "A white overexposed cut at 9.20 s decays about 0.3 s onto a grey eclipse with the accent 40 ms later (9.24 s); a second burn to white at 17.68 s." },
+    { "source_id": "ref-0fe1abc90a", "timestamps": [8.0, 12.0, 16.0, 18.0], "observed": "Dark-film variant (check 0.33): one frame of the outgoing picture sliced into bands with colour fringes, then 3-4 frames of a lifted grey frame with scan lines (8.00-8.10 s, 16.00-16.10 s), clean 0.13 s after the cut; the accent follows 50-60 ms later." },
+    { "source_id": "ref-a943607659", "timestamps": [20.2], "observed": "At the countdown's end the frame floods with the accent lime for about 0.3 s while '1ST' bursts with particles; a broadband swell peaks with it and the pulse stops." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [5.62], "observed": "The sphere's glowing cracks brighten for 0.1 s until the frame is nearly white (5.53-5.62 s) and the cut to a particle field hides under it (5.65 s); accent at 5.69 s." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [13.03], "observed": "The montage ends on one light-grey frame (13.03 s), 0.1 s of dark, then the name types in (13.14 s)." },
+    { "source_id": "ref-04d81a6a3e", "timestamps": [14.39], "observed": "Light-burst variant without a cut to new content: a white glow blooms round the mark and a thin ring expands past the frame (14.38-14.80 s); the hit onset is 37 ms after the glow." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [4.71], "observed": "Problem to solution on a cut with a white glow flash (4.71-4.74 s)." },
+    { "source_id": "ref-b97f9168c6", "timestamps": [12.15], "observed": "A particle swirl explodes into one white flash frame (12.12-12.16 s) and the next shot's type strips slide in." }
+  ],
+  "related": { "techniques": ["element-bloom-transition", "cut-on-beat", "beat-grid-element-arrivals"], "effects": ["crossfade-dissolve", "halo-bloom"], "templates": ["product-promo", "title-sequence"] },
+  "combines_with": [
+    { "id": "cut-on-beat", "why": "The flash is the visual downbeat; the hit lands just after it." },
+    { "id": "chromatic-punch-word", "why": "A word slams in on the decaying flash." }
+  ],
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No footage, frames, logos or shot sequences are copied.",
+  "tags": ["transition", "flash", "cut", "light", "impact", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-28" }
+}

@@ -1,0 +1,324 @@
+{
+  "id": "ref-b34f751c59",
+  "name": "Silent square terminal explainer: a token bucket simulated live, gauge, log and chart on one clock",
+  "status": "experimental",
+  "source": {
+    "filename": "token-bucket-rate-limiter-4ec8e769.mp4",
+    "aliases": [],
+    "sha256": "b34f751c59903d68ba6246ce957e421e207595a9ca1b0db89ba0533acd0e57ed",
+    "bytes": 610113,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "other",
+        "description": "Creator handle and an AI model-name credit in the corners",
+        "timestamps": [
+          0.38,
+          17.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A silent systems explainer; reuse the live-simulation layout principle only (gauge, log and chart on one clock), with original data and design."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 610113,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 18.0,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 540,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 268,
+    "keyframes": 18,
+    "audio": null,
+    "overall_kbps": 271
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (24 frames), the motion sheet (2.56-3.66 s and 4.31-5.41 s at 10 fps) and a 30 fps strip at 1.90-2.70 s (the regime change into the burst). No transitions sheet (the analyser found no boundaries) and no listen sheet or audio panel (no audio track). Compared with the authored record of ref-95c96d5c47 (not edited). A strip at 11.6-12.5 s was generated but not viewed and is not cited; nothing was listened to.",
+    "coverage": "Full 18.0 s (720x720, 30 fps); every regime change at 0.75 s sampling, the burst and the refill at 10 fps.",
+    "concept": {
+      "observed": "Explains a token-bucket rate limiter by running one: a bucket of 10 tokens drains as a burst of requests is served, refuses requests while empty, refills at 2 per second, and ends on the rule that capacity sets the burst and the refill rate sets the limit.",
+      "interpreted": "The system explains itself by being simulated in front of the viewer; the caption only names the regime.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Silent; a monospace terminal. A one-line header states the parameters, and a second line under it names the current regime and changes five times (steady traffic, a burst, empty, traffic eases, the rule)."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black navy (#080818, 88% of pixels), slate greys, one bright blue for tokens, green for 'taken', red for 'refused' and for the empty count, amber for the final rule line."
+      },
+      "typography": {
+        "observed": "Monospace throughout; a giant tabular count (about 12% of the frame height) with a small '/ 10 tokens' label; log rows and axis labels at about 1.5% of the height."
+      },
+      "composition": {
+        "observed": "Square; header lines top-left, credit top-right; the bucket (10 stacked bars) left of centre, the big count right of it, a six-row request log right; a step chart of tokens over 0-12 s across the bottom third with one tick per request along its axis (green taken, red refused)."
+      },
+      "motion": {
+        "observed": "Driven by one clock: in steady traffic each request takes a token and the refill tops it up, so the count sits at 9-10 (1.90-2.47 s); at 2.50 s the regime line changes and the burst starts, the count stepping 9 -> 8 -> 7 -> 6 about 0.07-0.1 s apart (2.50-2.67 s) and reaching 0 by 3.36 s, a bar emptying and a log row added per request while the chart steps down in step. While empty (3.4-6.9 s) single tokens refill and are taken, so the count flickers 0 -> 1 -> 0 (4.31-5.41 s) and the bucket outline turns red. As traffic eases the count climbs 2 -> 10 over about 4.5 s (7.1-11.6 s) and the chart ramps up."
+      },
+      "transitions": {
+        "observed": "None: one stage for 18 s with no detected boundary. Regime changes are a text swap on the caption line (about 2.5, 3.3, 7.1 and 12.1 s) while the simulation keeps running. The last 5.9 s (12.06-17.94 s) are a static hold on the final state.",
+        "interpreted": "A simulation needs continuity more than punctuation: the viewer tracks one bucket through every regime.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Regimes last about 2.5, 0.8, 3.8, 4.5 and 5.9 s: the burst is the shortest and fastest; the rule holds longest."
+      },
+      "sound_design": {
+        "observed": "No audio track (ffprobe: one H.264 video stream).",
+        "interpreted": "A silent film: rhythm is carried by motion and holds alone.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None: silent film.",
+        "interpreted": "The regime caption does the narrating.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lanes: a parameter header and a regime line at the top-left (about 4-8% of the height), one line of 5-9 words, swapped in place about five times; the final rule line turns amber. Log rows and axis labels inside the diagram.",
+        "interpreted": "A one-line regime caption works like a chapter title for a live system.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.5,
+        "observed": "Steady traffic: each request takes a token and the refill tops it up (count 9-10)."
+      },
+      {
+        "start": 2.5,
+        "end": 3.4,
+        "observed": "A burst spends the saved tokens: down to 0 by 3.36 s, about one token per 0.07-0.1 s."
+      },
+      {
+        "start": 3.4,
+        "end": 7.1,
+        "observed": "Empty: requests are refused until a token refills; the count flickers 0-1."
+      },
+      {
+        "start": 7.1,
+        "end": 12.06,
+        "observed": "Traffic eases: the refill at 2/s catches up, 2 -> 10."
+      },
+      {
+        "start": 12.06,
+        "end": 18.0,
+        "observed": "The rule line in amber; the final state holds still for 5.9 s."
+      }
+    ],
+    "moments": [
+      {
+        "t": 2.5,
+        "observed": "The regime line changes and the count drops one token at a time, 9 -> 0 between 2.50 and 3.36 s, while a bar empties, a log row is added and the chart steps down for each request.",
+        "interpreted": "Three views of one event move together, so the viewer reads them as the same thing."
+      }
+    ],
+    "difficult": [
+      "A faithful simulation needs a deterministic event script (request times) driving every view; easy in code, but every number on screen must match the clock."
+    ],
+    "uncertainties": [
+      "Whether the request times are generated by code or hand-keyed",
+      "Whether the 5.9 s end hold is intended (a reading pause or a loop point) or an export tail",
+      "The corner credit lines are too small at sheet resolution to read reliably"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.38,
+        2.62,
+        3.38,
+        7.12,
+        12.38
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        2.66,
+        4.41,
+        8.62
+      ]
+    },
+    {
+      "id": "live-simulation-trace",
+      "timestamps": [
+        2.5,
+        4.31,
+        7.12,
+        12.06
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "slot-roll"
+    ],
+    "compositions": [
+      "animated-chart",
+      "monument-stat"
+    ],
+    "templates": [
+      "technical-explainer"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "data-visualisation",
+    "diagram"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "square",
+    "dark",
+    "monospace",
+    "simulation",
+    "silent",
+    "systems"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 7.2
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 144,
+      "scan_size": "96x54",
+      "overview_frames": 24,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 2
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 18.0,
+        "duration": 18.0,
+        "activity": 0.006,
+        "luma": 0.09
+      }
+    ],
+    "static_holds": [
+      [
+        12.06,
+        17.94
+      ]
+    ],
+    "mean_activity": 0.006,
+    "luma": {
+      "mean": 0.09,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.878
+      },
+      {
+        "hex": "#283858",
+        "share": 0.047
+      },
+      {
+        "hex": "#282828",
+        "share": 0.023
+      },
+      {
+        "hex": "#283848",
+        "share": 0.02
+      },
+      {
+        "hex": "#282838",
+        "share": 0.009
+      },
+      {
+        "hex": "#384868",
+        "share": 0.009
+      },
+      {
+        "hex": "#284858",
+        "share": 0.006
+      },
+      {
+        "hex": "#283838",
+        "share": 0.005
+      },
+      {
+        "hex": "#385868",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      4.5,
+      9.0,
+      13.5
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-b34f751c59",
+      "overview": "reference/analysis/ref-b34f751c59/overview.jpg",
+      "scenes": "reference/analysis/ref-b34f751c59/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-b34f751c59/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-b34f751c59/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

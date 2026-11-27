@@ -1,0 +1,682 @@
+{
+  "id": "ref-aff23e662b",
+  "name": "Monochrome lab reel: eight transition types in fifteen seconds",
+  "status": "experimental",
+  "source": {
+    "filename": "brand-r-sum-reel-7518040c.mp4",
+    "aliases": [],
+    "sha256": "aff23e662b86fdbf4b6da38b98626bf6d1b8c6ed7dccbe93725bb7481bcd3e9e",
+    "bytes": 4774768,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "lockup",
+        "description": "Brand name with a bracketed symbol and tagline",
+        "timestamps": [
+          13.12,
+          14.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand reel; reuse the transition principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4774768,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 2273,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 259
+    },
+    "overall_kbps": 2547
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames) and transition strips at all 8 boundaries (every 2nd frame); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 15 s; every boundary at frame level.",
+    "concept": {
+      "observed": "A brand reel about seeing and understanding: a macro eye, bracketed words, a path diagram, data panels with a doubling counter, light wavelengths as colour fields, letters cycling into the brand name and a tagline.",
+      "interpreted": "A catalogue of transitions, each tied to the idea of seeing (aperture, exposure, scan).",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Single lowercase words in a typewriter slab serif inside brackets; scientific labels; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Monochrome greys with a violet accent; brief full-saturation fields (red, lime, cyan, blue)."
+      },
+      "typography": {
+        "observed": "Typewriter slab serif in lowercase; monospace labels; brackets; mixed typefaces in the final shuffle."
+      },
+      "transitions": {
+        "observed": "Exposure flash (0.25 s); pupil dilation to black, then a scramble decode (1.85 s); an inversion cut on a held word, then a collapse to a line (3.35 s); a red dot bloom (9.38 s); colour-field swaps with a wedge wipe (10.69 s); a glitch-block cut (11.97 s); a whip zoom on a letter (12.43 s); a typeface shuffle into the lockup (13.13 s).",
+        "interpreted": "Each transition is an optical or display metaphor (aperture, exposure, scan, power-off).",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Shots of about 1.5 s; cuts every 0.5-0.7 s in the final run (11.97-13.13 s)."
+      },
+      "texture_and_effects": {
+        "observed": "Scanlines, grain, halftone and motion blur."
+      },
+      "depth_and_layering": {
+        "observed": "A cascade of tilted panels in perspective (6.4-9.4 s)."
+      },
+      "sound_design": {
+        "observed": "-12.7 LUFS, LRA 1.9 LU (heavily compressed), true peak -1.6 dBTP; tempo estimate 129 bpm (medium); 6 of 8 boundaries within 50 ms of an onset (chance 0.42); 17 accents (68/min).",
+        "interpreted": "Cut on the beat over dense, compressed music.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.85,
+        "observed": "Macro eye with a scan box and label."
+      },
+      {
+        "start": 1.85,
+        "end": 3.35,
+        "observed": "Bracketed words decode and invert."
+      },
+      {
+        "start": 3.35,
+        "end": 6.4,
+        "observed": "Path diagram: a dot, a looping path and a square."
+      },
+      {
+        "start": 6.4,
+        "end": 9.38,
+        "observed": "Tilted data panels cascade while a counter doubles."
+      },
+      {
+        "start": 9.38,
+        "end": 11.97,
+        "observed": "Wavelength colour fields with a waveform."
+      },
+      {
+        "start": 11.97,
+        "end": 13.13,
+        "observed": "Letters glitch and whip in quick cuts."
+      },
+      {
+        "start": 13.13,
+        "end": 15.0,
+        "observed": "Lockup with tagline."
+      }
+    ],
+    "moments": [
+      {
+        "t": 3.35,
+        "observed": "The held word inverts, then collapses into a line that becomes the next frame's rule."
+      }
+    ],
+    "difficult": [
+      "Extruded 3D letters (about 11.8 s) may be rendered; a layered CSS extrusion would approximate them"
+    ],
+    "uncertainties": [
+      "Whether the eye is footage or a render"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        0.25
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        1.85,
+        9.38
+      ]
+    },
+    {
+      "id": "text-scramble-decode",
+      "timestamps": [
+        1.89,
+        2.02
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        3.35
+      ]
+    },
+    {
+      "id": "crt-collapse-to-line",
+      "timestamps": [
+        3.35,
+        3.46
+      ]
+    },
+    {
+      "id": "glitch-type",
+      "timestamps": [
+        11.97,
+        12.01
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        0.25,
+        3.35,
+        9.38,
+        10.69,
+        11.97,
+        12.43
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        2.62,
+        6.38
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        7.12,
+        8.62,
+        9.38
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "smear-motion",
+      "iris-transition",
+      "element-bloom"
+    ],
+    "compositions": [],
+    "templates": [
+      "title-sequence",
+      "brand-logo-resolve"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "scene-transitions",
+    "title-sequence",
+    "music-sync",
+    "logo-reveal"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "monochrome",
+    "violet",
+    "lab",
+    "transition-showcase",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 17.7
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 8,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.25,
+        "kind": "cut",
+        "score": 0.827,
+        "isolation": 0.61,
+        "frame": 15
+      },
+      {
+        "t": 1.85,
+        "kind": "soft",
+        "score": 0.263,
+        "isolation": 0.0
+      },
+      {
+        "t": 3.35,
+        "kind": "cut",
+        "score": 1.018,
+        "isolation": 0.98,
+        "frame": 201
+      },
+      {
+        "t": 9.383,
+        "kind": "soft",
+        "score": 0.703,
+        "isolation": 0.4
+      },
+      {
+        "t": 10.688,
+        "kind": "soft",
+        "score": 1.19
+      },
+      {
+        "t": 11.967,
+        "kind": "cut",
+        "score": 0.993,
+        "isolation": 0.9,
+        "frame": 718
+      },
+      {
+        "t": 12.433,
+        "kind": "cut",
+        "score": 1.193,
+        "isolation": 0.99,
+        "frame": 746
+      },
+      {
+        "t": 13.133,
+        "kind": "cut",
+        "score": 0.825,
+        "isolation": 0.85,
+        "frame": 788
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.25,
+        "duration": 0.25,
+        "activity": 0.192,
+        "luma": 0.31
+      },
+      {
+        "index": 2,
+        "start": 0.25,
+        "end": 1.85,
+        "duration": 1.6,
+        "activity": 0.502,
+        "luma": 0.41
+      },
+      {
+        "index": 3,
+        "start": 1.85,
+        "end": 3.35,
+        "duration": 1.5,
+        "activity": 0.175,
+        "luma": 0.32
+      },
+      {
+        "index": 4,
+        "start": 3.35,
+        "end": 9.38,
+        "duration": 6.03,
+        "activity": 0.281,
+        "luma": 0.11
+      },
+      {
+        "index": 5,
+        "start": 9.38,
+        "end": 10.69,
+        "duration": 1.31,
+        "activity": 0.498,
+        "luma": 0.58
+      },
+      {
+        "index": 6,
+        "start": 10.69,
+        "end": 11.97,
+        "duration": 1.28,
+        "activity": 0.654,
+        "luma": 0.45
+      },
+      {
+        "index": 7,
+        "start": 11.97,
+        "end": 12.43,
+        "duration": 0.47,
+        "activity": 0.386,
+        "luma": 0.12
+      },
+      {
+        "index": 8,
+        "start": 12.43,
+        "end": 13.13,
+        "duration": 0.7,
+        "activity": 0.363,
+        "luma": 0.35
+      },
+      {
+        "index": 9,
+        "start": 13.13,
+        "end": 15.0,
+        "duration": 1.87,
+        "activity": 0.191,
+        "luma": 0.13
+      }
+    ],
+    "static_holds": [
+      [
+        14.19,
+        14.94
+      ]
+    ],
+    "mean_activity": 0.339,
+    "luma": {
+      "mean": 0.26,
+      "dark_share": 0.66,
+      "light_share": 0.11
+    },
+    "palette": [
+      {
+        "hex": "#181818",
+        "share": 0.477
+      },
+      {
+        "hex": "#282838",
+        "share": 0.04
+      },
+      {
+        "hex": "#080808",
+        "share": 0.036
+      },
+      {
+        "hex": "#081818",
+        "share": 0.031
+      },
+      {
+        "hex": "#c8f808",
+        "share": 0.029
+      },
+      {
+        "hex": "#080818",
+        "share": 0.026
+      },
+      {
+        "hex": "#180818",
+        "share": 0.026
+      },
+      {
+        "hex": "#787878",
+        "share": 0.025
+      },
+      {
+        "hex": "#383838",
+        "share": 0.022
+      },
+      {
+        "hex": "#282828",
+        "share": 0.022
+      }
+    ],
+    "representative_times": [
+      0.12,
+      1.05,
+      2.6,
+      4.86,
+      6.37,
+      7.87,
+      10.04,
+      11.33,
+      12.2,
+      12.78,
+      14.07
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.4,
+      "mean_dbfs_voiced": -14.8,
+      "silence_ratio": 0.0,
+      "onsets": 83,
+      "onset_rate_per_sec": 5.5,
+      "onset_times": [
+        0.07,
+        0.28,
+        0.42,
+        1.25,
+        1.93,
+        2.04,
+        2.16,
+        2.28,
+        2.39,
+        2.65,
+        2.74,
+        2.86,
+        3.0,
+        3.11,
+        3.23,
+        3.34,
+        3.44,
+        3.69,
+        3.81,
+        3.92,
+        4.04,
+        4.16,
+        4.27,
+        4.5,
+        4.62,
+        4.74,
+        4.85,
+        4.97,
+        5.22,
+        5.46,
+        5.55,
+        5.64,
+        5.8,
+        6.15,
+        6.39,
+        6.5,
+        6.62,
+        6.69,
+        6.85,
+        6.97,
+        7.08,
+        7.31,
+        7.43,
+        7.55,
+        7.69,
+        7.8,
+        8.03,
+        8.27,
+        8.38,
+        8.5,
+        8.73,
+        8.85,
+        8.96,
+        9.08,
+        9.2,
+        9.31,
+        9.43,
+        9.66,
+        9.89,
+        10.12,
+        10.38,
+        10.5,
+        10.61,
+        10.73,
+        10.84,
+        10.96,
+        11.03,
+        11.15,
+        11.31,
+        11.42,
+        11.54,
+        11.77,
+        11.91,
+        12.0,
+        12.24,
+        12.38,
+        12.47,
+        12.72,
+        12.84,
+        12.96,
+        13.07,
+        13.31,
+        14.81
+      ],
+      "tempo_estimate": {
+        "bpm": 129.2,
+        "autocorr": 0.51,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1011,
+      "band_share": {
+        "low_lt_250": 0.4,
+        "mid_250_2k": 0.36,
+        "high_gt_2k": 0.24
+      },
+      "syllabic_modulation_share": 0.29,
+      "boundary_onset_alignment": {
+        "boundaries": 8,
+        "tolerance_ms": 50,
+        "near_onset": 0.75,
+        "chance_level": 0.42,
+        "median_offset_ms": 39,
+        "near_beat": 0.38,
+        "beat_chance_level": 0.26,
+        "beat_phase_sec": 0.406
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-aff23e662b",
+      "overview": "reference/analysis/ref-aff23e662b/overview.jpg",
+      "scenes": "reference/analysis/ref-aff23e662b/scenes.jpg",
+      "transitions": "reference/analysis/ref-aff23e662b/transitions.jpg",
+      "motion": "reference/analysis/ref-aff23e662b/motion.jpg",
+      "audio": "reference/analysis/ref-aff23e662b/audio.png",
+      "frames": "reference/analysis/ref-aff23e662b/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -12.7,
+        "lra_lu": 1.9,
+        "true_peak_dbtp": -1.6,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 12,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 83,
+        "accents": 17,
+        "accents_per_min": 68.0,
+        "accent_times": [
+          0.28,
+          2.39,
+          3.34,
+          3.81,
+          4.27,
+          4.74,
+          4.85,
+          6.62,
+          7.08,
+          8.73,
+          8.96,
+          9.66,
+          9.89,
+          10.12,
+          11.31,
+          11.54,
+          12.47
+        ],
+        "accent_threshold": 0.44,
+        "boundaries_with_accent": {
+          "boundaries": 8,
+          "share": 0.38,
+          "tolerance_ms": 100,
+          "chance_level": 0.2
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.53,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -3.0,
+        "level_tail_vs_body_db": -3.6,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-aff23e662b/listen",
+        "sheet": "reference/analysis/ref-aff23e662b/listen/listen.jpg",
+        "words": "reference/analysis/ref-aff23e662b/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

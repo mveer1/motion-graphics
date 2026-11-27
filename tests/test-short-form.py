@@ -80,6 +80,32 @@ class TestHooks(unittest.TestCase):
         self.assertEqual(hooks.score_hook("Four degrees.")["points"]["specificity"], 15)
         self.assertEqual(hooks.score_hook("Seven hundred stores threw out $2.5 million of food.")["points"]["specificity"], 25)
 
+    def test_bare_pronoun_and_bare_unit_get_a_clarity_note_not_a_score_change(self):
+        r = hooks.score_hook("Nobody made a mistake. Both lost one year.")
+        self.assertEqual(r["score"], 100)  # unchanged: clarity is a note, never a deduction
+        self.assertEqual(len(r["clarity"]), 2, r["clarity"])
+        self.assertIn("'Both'", r["clarity"][0])
+        self.assertIn("'one year'", r["clarity"][1])
+        clear = hooks.score_hook("Nobody made a mistake. Both prisoners lost one year of freedom.")
+        self.assertEqual(clear["clarity"], [])
+
+    def test_clarity_accepts_named_antecedents_determiners_and_duration_frames(self):
+        for line in ("Nobody broke in. 700 French stores lost their food.",
+                     "Alice and Bob trusted each other. They both lost.",
+                     "This fridge was told to warm up.",
+                     "The fire burned and it spread for 22 days.",
+                     "took 22 days."):  # a duration verb frames the unit
+            self.assertEqual(hooks.clarity_notes(line), [], line)
+        self.assertTrue(hooks.clarity_notes("It took 22 days."))  # 'It' names nothing
+
+    def test_script_lint_carries_the_clarity_note(self):
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        pdir = project_fixture(tmp, [{"id": "s1", "start_sec": 0, "end_sec": 10}], narration={"s1": "Nobody made a mistake. Both lost one year."})
+        notes = [(lv, msg) for lv, fid, msg in sl.script_report(pdir)["findings"] if fid == "hook-unclear"]
+        self.assertTrue(notes)
+        self.assertTrue(all(lv == "note" for lv, _ in notes))
+
 
 # --------------------------------------------------------------------------- captions
 def asr(words):
@@ -273,6 +299,22 @@ class TestScriptLint(unittest.TestCase):
         self.assertIn("measured clip lengths", rep["timing_source"])
         self.assertAlmostEqual(rep["sentences"][-1]["end"], 6.0, places=1)
 
+    def test_estimates_scale_with_each_scenes_speed(self):
+        text = "Seven hundred stores threw out their food that week."
+        pdir = project_fixture(self.tmp, [{"id": "s1", "start_sec": 0, "end_sec": 10}, {"id": "s2", "start_sec": 10, "end_sec": 20}],
+                               narration={"s1": text, "s2": text})
+        write(pdir / "src" / "narration.json", {"scenes": [{"id": "s1", "text": text, "speed": 0.92}, {"id": "s2", "text": text}]})
+        rows, source = sl.sentence_rows(sl.load_inputs(pdir))
+        self.assertIn("each scene's speed", source)
+        self.assertAlmostEqual(rows[0]["dur"] / rows[1]["dur"], 1.15 / 0.92, places=1)  # slow scene: same words, longer
+
+    def test_rewritten_narration_is_reported_as_stale_audio_not_compared(self):
+        timeline = {"speed": 1.15, "scenes": [{"id": "s1", "text": "Four degrees.", "start_time_sec": 0.0, "duration_sec": 6.0, "end_time_sec": 6.0}]}
+        rep = self.report({"s1": "Four degrees. Seven hundred stores threw out their food."}, timeline=timeline)
+        self.assertTrue(rep["timing_source"].startswith("audio is stale"))
+        self.assertIn("audio-stale", self.ids(rep))
+        self.assertNotAlmostEqual(rep["sentences"][-1]["end"], 6.0, places=1)
+
     def test_beat_counts_are_attached_to_sentences(self):
         scenes = [{"id": "s1", "start_sec": 0, "end_sec": 10, "beats": [{"at_sec": 1, "action": "a"}]}]
         rep = self.report({"s1": "Four degrees. Seven hundred stores threw out their food."}, scenes=scenes)
@@ -285,6 +327,26 @@ class TestScriptLint(unittest.TestCase):
         text = sl.render_text(rep)
         self.assertIn("STORY PROPOSAL", text)
         self.assertIn("Judgment checks", text)
+
+    def test_spoken_names_are_capitalised_runs_and_counted_figures(self):
+        names = sl.spoken_names("Nobody broke in. The Valmiki Ramayana says Rama broke Shiva's bow. It took 22 days and seven hundred stores.")
+        self.assertEqual(names, ["Valmiki Ramayana", "Rama", "Shiva", "22 days", "seven hundred stores"])
+
+    def test_named_things_check_lists_unexplained_and_unlisted_names(self):
+        scenes = [{"id": "s1", "start_sec": 0, "end_sec": 10, "on_screen_text": ["Dominant strategy", "Payoff matrix"]}]
+        pdir = project_fixture(self.tmp, scenes, narration={"s1": "Each prisoner picks. Then Nash showed why 20 years is the price."})
+        rep = sl.script_report(pdir)
+        self.assertIn("named-things-missing", self.ids(rep))
+        self.assertEqual(rep["named"][0]["spoken"], ["Nash", "20 years"])
+        write(pdir / "qa" / "story-review.json", {"named_things": [
+            {"thing": "dominant strategy", "named_in": "s1 card", "explained_by": "s1 definition card"},
+            {"thing": "Nash equilibrium", "named_in": "s1 narration", "explained_by": "MISSING"}]})
+        rep = sl.script_report(pdir)
+        levels = {fid: lv for lv, fid, _ in rep["findings"]}
+        self.assertEqual(levels["named-unexplained"], "warn")
+        self.assertEqual(levels["named-not-listed"], "note")
+        self.assertEqual(rep["named"][0]["unlisted"], ["Payoff matrix", "20 years"])
+        self.assertIn("*Payoff matrix", sl.render_text(rep))
 
 
 # --------------------------------------------------------------------------- tween analysis
@@ -375,6 +437,70 @@ class TestTweens(unittest.TestCase):
         self.assertIsNone(tw.to_num("fn"))
         self.assertEqual(tw.split_ease("power3.out"), ("power3", "out"))
         self.assertEqual(tw.split_ease("steps(24)"), ("steps(24)", None))
+
+
+# --------------------------------------------------------------------------- film-time gap audit
+# A synthetic composition with a known gap: speech runs 0-10 s; visual events end at 2.0 s and resume at 6.0 s.
+GAP_TWEENS = [tween(0.2, 0.8, target=1), tween(1.2, 0.8, target=2), tween(6.0, 0.6, target=3), tween(7.0, 0.5, target=4),
+              tween(8.0, 0.4, target=5), tween(9.0, 0.5, target=6)]
+GAP_HTML = "<!doctype html><div id=root data-duration=10></div><script>/* six tweens; nothing between 2 s and 6 s */</script>"
+
+
+class TestGapAudit(unittest.TestCase):
+    def test_known_gap_is_found_and_short_spacing_is_not(self):
+        gaps = tw.narration_gaps(GAP_TWEENS, [(0.0, 10.0, "s1")], film_end=10.0)
+        self.assertEqual([(g["scene"], g["start"], g["end"]) for g in gaps], [("s1", 2.0, 6.0)])
+        self.assertEqual(gaps[0]["ambient_share"], 0.0)
+        self.assertEqual(tw.narration_gaps(GAP_TWEENS, [(6.0, 10.0, "s2")], film_end=10.0), [])
+
+    def test_silence_between_scenes_is_not_a_gap(self):
+        # the same 4 s hole, but narration pauses over it: nothing is being said over a still frame
+        self.assertEqual(tw.narration_gaps(GAP_TWEENS, [(0.0, 2.5, "s1"), (5.8, 10.0, "s2")], film_end=10.0), [])
+
+    def test_drift_layer_is_alive_but_not_an_event(self):
+        drift = tween(0.0, 10.0, ease="none", props={"scale": 1.035}, frm={"scale": 1.0}, target=9)
+        pulse = tween(0.0, 0.6, target=10, repeat=-1)
+        for layer in (drift, pulse):
+            gaps = tw.narration_gaps(GAP_TWEENS + [layer], [(0.0, 10.0, "s1")], film_end=10.0)
+            self.assertEqual(len(gaps), 1)
+            self.assertEqual(gaps[0]["ambient_share"], 1.0)
+
+    def test_caption_cues_do_not_fill_a_gap(self):
+        caps = [tween(2.0 + i, 0.1, ease="none", target=20 + i, label="p.st-caption") for i in range(4)]
+        self.assertEqual(len(tw.narration_gaps(GAP_TWEENS + caps, [(0.0, 10.0, "s1")], film_end=10.0)), 1)
+
+    def project(self, root: Path) -> Path:
+        timeline = {"speed": 1.15, "scenes": [{"id": "s1", "text": "Four degrees.", "start_time_sec": 0.0, "duration_sec": 10.0, "end_time_sec": 10.0}]}
+        pdir = project_fixture(root, [{"id": "s1", "start_sec": 0, "end_sec": 10}], narration={"s1": "Four degrees."}, timeline=timeline)
+        (pdir / "src" / "index.html").write_text(GAP_HTML, encoding="utf-8")
+        return pdir
+
+    def findings(self, pdir: Path):
+        return {fid: (lv, msg) for lv, fid, msg in sl.script_report(pdir)["findings"]}
+
+    def test_script_lint_warns_from_a_current_dump_and_notes_a_stale_or_missing_one(self):
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        pdir = self.project(tmp)
+        self.assertEqual(self.findings(pdir)["gap-audit"][0], "note")  # no dump yet: says how to make one
+        sl.write_tween_dump(pdir, {"duration": 10.0, "tweens": GAP_TWEENS})
+        got = self.findings(pdir)
+        self.assertEqual(got["visual-gap"][0], "warn")
+        self.assertIn("2.0-6.0s", got["visual-gap"][1])
+        (pdir / "src" / "index.html").write_text(GAP_HTML.replace("six", "seven"), encoding="utf-8")
+        got = self.findings(pdir)
+        self.assertNotIn("visual-gap", got)
+        self.assertIn("changed since", got["gap-audit"][1])
+
+    def test_stale_audio_is_named_instead_of_compared(self):
+        tmp = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp, True)
+        pdir = self.project(tmp)
+        sl.write_tween_dump(pdir, {"duration": 10.0, "tweens": GAP_TWEENS})
+        write(pdir / "src" / "narration.json", {"scenes": [{"id": "s1", "text": "Five degrees, rewritten."}]})
+        got = self.findings(pdir)
+        self.assertNotIn("visual-gap", got)
+        self.assertIn("audio is stale", got["gap-audit"][1])
 
 
 # --------------------------------------------------------------------------- caption design
@@ -484,6 +610,21 @@ class TestCaptionDesign(unittest.TestCase):
                            storyboard_scenes=[{"id": "s1", "start_sec": 0, "end_sec": 10, "caption_lane": "mid"}])
         self.assertEqual({c["lane"] for c in cues}, {"lower"})
 
+    def test_subject_lane_carries_the_anchor_and_needs_one(self):
+        scenes = [{"id": "s1", "start_sec": 0, "end_sec": 5, "caption_lane": "subject", "caption_anchor": "#heart", "caption_side": "above"},
+                  {"id": "s2", "start_sec": 5, "end_sec": 10, "caption_lane": "subject"}]
+        cues = cs.annotate(self.cues(), fmt="landscape", scene_spans=[{"start": 0, "end": 10}], storyboard_scenes=scenes)
+        self.assertEqual([(c["lane"], c.get("anchor"), c.get("side")) for c in cues[:3]],
+                         [("subject", "#heart", "above")] * 2 + [("subject", "#heart", "above")])
+        self.assertEqual((cues[3]["lane"], cues[3].get("anchor")), ("lower", None), "no anchor: lower")
+        # re-annotating after the storyboard drops the lane leaves no stale anchor behind
+        again = cs.annotate(cues, fmt="landscape", scene_spans=[{"start": 0, "end": 10}],
+                            storyboard_scenes=[{"id": "s1", "start_sec": 0, "end_sec": 10, "caption_lane": "upper"}])
+        self.assertFalse(any("anchor" in c or "side" in c for c in again))
+        self.assertIn('.st-caption[data-lane="subject"]', self.css)
+        for fmt in ("portrait", "landscape", "square"):
+            self.assertTrue(self.spec["lanes"][fmt]["subject"]["anchored"], fmt)
+
     def test_lint_flags_long_cues_and_lane_sprawl(self):
         long = [{"start": 0.4, "end": 5.0, "text": "x" * 60, "role": "hook"}]
         self.assertTrue(any("60" in w or "over 44" in w for w in cs.lint_cues(long, "portrait")))
@@ -497,7 +638,8 @@ class TestCaptionDesign(unittest.TestCase):
 
     def test_schemas_accept_the_new_fields(self):
         sb = json.loads((ROOT / "specs" / "storyboard-spec.json").read_text())
-        self.assertEqual(sb["definitions"]["scene"]["properties"]["caption_lane"]["enum"], ["lower", "mid", "upper"])
+        self.assertEqual(sb["definitions"]["scene"]["properties"]["caption_lane"]["enum"], ["lower", "mid", "upper", "subject"])
+        self.assertIn("caption_anchor", sb["definitions"]["scene"]["properties"])
         vs = json.loads((ROOT / "specs" / "video-spec.json").read_text())
         self.assertIn("caption_preset", vs["properties"]["audio"]["properties"])
 

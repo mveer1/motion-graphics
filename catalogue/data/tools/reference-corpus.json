@@ -8,10 +8,12 @@
     "analyze --pending|--all|--force: adaptive scan, cut refinement, soft-transition classification, holds, palette, motion, audio features; rewrites only the media and automated blocks so human analysis is kept",
     "check --name: near-duplicate technique search before writing a new record",
     "status, locate, strip (drop cached frames), doctor (decoder availability)",
-    "report --backlog: corpus coverage by category and support class, techniques by priority"
+    "report --backlog: corpus coverage by category and support class, techniques by priority",
+    "listen <ids>|--pending: speech word times (hyperframes transcribe when a recogniser is installed, else Windows System.Speech dictation), EBU R128 loudness via ffmpeg, accent hits and their alignment with picture boundaries and speech, silences, a phrase/accent contact sheet; writes automated.listen (numbers only; transcripts stay in the cache) and is kept when analyze re-runs; earshot timeline and sheet only where its models are cached",
+    "playbook [--check]: regenerates the family-grouped technique index, sound and pace table and transition census in docs/reference-playbook.md"
   ],
   "location": "scripts/reference-corpus.py",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "installation": {
     "required": false,
     "instructions": "Analysis hosts only: pip install playwright pillow numpy, plus either a Chromium-family browser that decodes H.264 (installed Edge or Chrome, used through the Playwright msedge/chrome channel) or FFmpeg on PATH. Run `python scripts/reference-corpus.py doctor` to check."
@@ -20,7 +22,7 @@
   "compatibility": {
     "apple_silicon_tested": false,
     "runtime": "python3 + playwright (msedge or chrome channel) or ffmpeg",
-    "notes": "Verified on Windows with Playwright 1.62 and Edge 156: 14 videos (424 s) analysed in 208.5 s at analyzer 1.1. Playwright's bundled Chromium cannot decode H.264. The FFmpeg backend is implemented but untested; on the M2 render host prefer FFmpeg and analyse one video at a time."
+    "notes": "Verified on Windows with Playwright 1.62 and Edge 156: 14 videos (424 s) analysed in 208.5 s at analyzer 1.1. 2026-11-26: 8 more videos (201 s) analysed in about 2.5 min (Edge 158) and listened in about 4 min (Windows dictation, FFmpeg 9.0.2); hyperframes transcribe had no recogniser on that host and Hugging Face downloads (Parakeet, earshot CLAP/AST) were blocked by the network, so listen ran model-free. Playwright's bundled Chromium cannot decode H.264. The FFmpeg backend is implemented but untested; on the M2 render host prefer FFmpeg and analyse one video at a time."
   },
   "documentation_urls": [
     "ARCHITECTURE.md",
@@ -44,6 +46,6 @@
   "status": "experimental",
   "approval_evidence": "Ingested and analysed 14 user-supplied videos on 2026-10-30 (Windows, Edge decoder); analyses inspected by viewing every contact sheet, and the derived knowledge base validates with motion-catalogue.py validate. Unit tests: tests/test-reference-corpus.py.",
   "architecture_ref": "ARCHITECTURE.md#reference-corpus",
-  "last_verified": "2026-10-30",
+  "last_verified": "2026-11-26",
   "tags": ["reference", "analysis", "video", "corpus", "knowledge-base", "rights"]
 }

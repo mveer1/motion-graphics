@@ -1,0 +1,32 @@
+{
+  "id": "lyric-word-onset-sync",
+  "name": "Lyric words on the sung onset, a new lane per phrase",
+  "family": "narration-captions",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-4, 2026-11-26): a lyric video shows each sung word on its own onset (measured at 30 fps on 14 arrivals) and moves the lane every phrase.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Words of a sung or spoken line appear one at a time, each starting to fade in on its own vocal onset, so reading and hearing coincide. Each phrase gets its own placement anchored to the picture (a horizon, an arc around the subject, a corner, the centre), and the scene change follows the phrase's first word instead of preceding it. Emphasis comes from size, weight and letter-spacing, not a colour sweep.",
+  "purpose": "Make reading and hearing coincide: each sung or spoken word appears on its own onset, never after it, and each phrase gets a placement anchored to the picture.",
+  "visual_behaviour": "A line builds word by word, each word fading in just as it is heard; the phrase-final word is larger and a held word's letter-spacing tightens over the note; at the next phrase the line dissolves and the new phrase starts somewhere else in the frame (a horizon, an arc round the subject, a corner, the centre).",
+  "mechanics": "Per word: opacity 0 -> 1 (optional blur 4 px -> 0) over 2-6 frames (0.07-0.2 s); start = vocal onset minus 0-0.12 s (measured median about 15 ms early; never more than about 40 ms late). Line exit: a 0.1-0.3 s dissolve that starts on the next phrase's onset, then 0.07-0.15 s of empty frame; or let the next phrase's first word fade in over the outgoing picture and cut the background about 0.2 s later. Phrase-final word 1.5-3x larger. A held word starts at about 0.6 em letter-spacing and tightens to normal over the held note (about 1 s). Optional accent marks on strong onsets: a ring ripple or a light-line flash of 2-4 frames.",
+  "decomposition": { "primitives": ["split-text", "styled-text"], "effects": ["tracking-reveal"], "timing": "Lines of 1-8 words (median 3) held 0.6-4.6 s (median about 2.3 s); a new lane per phrase (8 placements in 30 s)." },
+  "parameters": [
+    { "name": "lead", "description": "Seconds the fade starts before the word's measured onset", "default": 0.03 },
+    { "name": "fade", "description": "Word fade-in duration in seconds", "default": 0.12 },
+    { "name": "exit", "description": "Line dissolve in seconds, starting on the next phrase's onset", "default": 0.2 },
+    { "name": "finalScale", "description": "Scale of the phrase-final word relative to the line", "default": 2.0 },
+    { "name": "heldTrack", "description": "Starting letter-spacing (em) of a held word, tightening to 0 over the note", "default": 0.6 }
+  ],
+  "use_cases": ["Lyric and poem films", "Quote films over a recorded voice", "Hook lines in narrated shorts where each word should land with the voice"],
+  "failure_modes": ["A word that shows more than about 40 ms after the voice reads as lagging", "A new lane every phrase in an explainer body is restless: keep it for hooks, quotes and lyrics", "Without measured word times (studio.py captions --timing words) the sync drifts"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Word times from studio.py captions --timing words (audio/words.json); Studio.comp.captions places the cues and Studio.cues.fromWords snaps beats to words. Start each word's fade 0-0.1 s before its measured start (default lead 0.03 s), fade 0.07-0.2 s, and dissolve the line from the next phrase's first word. A caption lead option and per-phrase lanes anchored to picture features are not built.", "runtime_api": ["Studio.comp.captions", "Studio.cues.fromWords"] },
+  "capability": { "support": "native", "requirements": ["measured word times", "per-word opacity control"], "compatible_components": ["caption-band", "caption-plate", "tracking-reveal"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2, "note": "The corpus's first measured caption-timing rule (lead 0-120 ms, median about 15 ms; never more than about 40 ms late); measured on singing, not yet on speech." } },
+  "provenance": [
+    { "source_id": "ref-e8125c24ca", "timestamps": [0.07, 1.13, 4.43, 6.8, 9.17, 11.47, 13.07, 15.97, 20.57, 21.77, 25.07], "observed": "14 word arrivals measured at 30 fps: first visible frame 120 ms before to 40 ms after the nearest onset, median about 15 ms early; legible 0.1-0.2 s later; eight lane placements in 30 s." }
+  ],
+  "related": { "techniques": ["word-highlight-caption", "caption-voice-strip", "word-per-beat-sequence"], "effects": ["tracking-reveal"], "compositions": ["caption-band"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["captions", "narration-captions", "lyrics", "word-timing", "onset", "caption-lane", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

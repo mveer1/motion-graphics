@@ -1,0 +1,151 @@
+{
+  "id": "canvas-camera-tour",
+  "name": "Camera tour over one canvas",
+  "family": "transition-continuous",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "2 inspected reference films (batch-3, batch-6, 2026-11-26): a light AI demo lays every panel on one ivory canvas and moves a virtual camera between them, with no cut in 30 s.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "All the screens of a demo live on one large canvas, and a virtual camera pans, pushes in and pulls back to frame each step. There is never a cut, so the viewer always knows where each panel sits relative to the others.",
+  "purpose": "Keep the viewer oriented across several screens of a demo: each step is framed by a camera move, never a cut, so every panel keeps its place relative to the others.",
+  "visual_behaviour": "The camera pushes in, pans and pulls back over one large canvas of panels; elements that travel between panels are followed by the camera; a final pull-back shows the whole canvas.",
+  "mechanics": "Lay panels out on a canvas 2-3x the frame. Animate one camera transform (translate and scale) per step: a push-in or pan of 0.6-1.0 s with power2.inOut, then a 2-5 s hold with a slow drift (scale +2-3%). Elements that move between panels travel in canvas space while the camera follows them (ref-ad023ce9dc 17.9-18.7 s). End with a pull-back that shows the whole canvas (25.19-25.9 s).",
+  "decomposition": {
+    "primitives": [
+      "scene-container",
+      "depth-layer"
+    ],
+    "effects": [
+      "parallax-camera"
+    ],
+    "timing": "Moves 0.6-1.0 s; holds 2-5 s; 4 moves in 30 s in the reference."
+  },
+  "parameters": [
+    {
+      "name": "move_duration",
+      "description": "Seconds per camera move",
+      "default": 0.8
+    },
+    {
+      "name": "hold",
+      "description": "Seconds the camera rests on a step",
+      "default": 3.0
+    },
+    {
+      "name": "drift_scale",
+      "description": "Scale reached by the slow drift during a hold",
+      "default": 1.03
+    }
+  ],
+  "use_cases": [
+    "Product or workflow demo across several panels",
+    "A system diagram too big for one frame",
+    "Showing a detail, then its place in the whole"
+  ],
+  "failure_modes": [
+    "Moving the camera and the content at the same time with no focus point confuses the eye",
+    "Fast pans over dense text are unreadable; ease in and out and hold"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "canvas-tour",
+    "system-map-tour"
+  ],
+  "implementation": {
+    "approach": "Studio.space.tour(tl, canvas, stops, opts) (runtime 1.18.0): one transform on a canvas larger than the frame; per stop a 0.8 s power2.inOut move framing the target with padding, a sine drift to 1.025x about the target centre while holding, optional pull-back to the whole canvas; marks the canvas data-layout-allow-overflow for frame review.",
+    "runtime_api": [
+      "Studio.space.tour"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "one transformable canvas layer"
+    ],
+    "compatible_components": [
+      "parallax-camera",
+      "depth-camera-push"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 2
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-ad023ce9dc",
+      "timestamps": [
+        18.31,
+        20.06,
+        22.69,
+        25.19
+      ],
+      "observed": "Four camera moves over one ivory canvas of panels (follow the image, push in, pan, pull back); 0 cuts in 30 s."
+    },
+    {
+      "source_id": "ref-c87967b288",
+      "timestamps": [
+        11.56,
+        17.08,
+        18.28,
+        24.25
+      ],
+      "observed": "Silent variant on a dark terminal: the camera pushes into the chart (11.5-13.8 s), goes macro on the candles (13.8-17.0 s), pulls back to the order book (17.1-18.3 s), visits the options panel (21-23.5 s) and pulls back to the whole terminal (24-25.7 s); no cuts."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "single-stage-progression",
+      "container-transform",
+      "ui-demo-micro-interactions"
+    ],
+    "effects": [
+      "parallax-camera"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "transition",
+    "continuous",
+    "camera",
+    "canvas",
+    "demo",
+    "no-cut",
+    "scene-transitions",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-tour-progression/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "id": "skill-mythic-figure-designer",
+  "name": "Mythic Figure Designer Skill",
+  "component_type": "skill",
+  "purpose": "Designs and draws new mythic figures (gods, heroes, sages, demons, mounts), weapons, props and auras on demand when a film's plot needs them: web research (primary texts, museum iconography, the tradition's own art, modern heroic art for technique only), an identity block, code on the heroic human build and the armoury, review sheets (illustrated, silhouette, paper) and tests.",
+  "capabilities": [
+    "Workflow from the film's cast to a registered figure: research, identity block, design, code, review loop, tests, registration, iconography gate",
+    "Code template and gotchas for figures-human.js and armoury.js (landmark grid, part ids, transforms, head scale, auras, one wind)",
+    "Research playbook: source ranking, query templates, identity-block template, heroic design rules, lessons from AI mythology video",
+    "Tooling evaluation (2026-11-24): geometry libraries, rigging formats, 3D human generators and AI image pipelines with licences and verdicts; nothing adopted without approval"
+  ],
+  "location": ".claude/skills/mythic-figure-designer",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "skill-mythic-tales",
+    "skill-technical-researcher",
+    "tool-myth-sources",
+    "shared-mythic-kit"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Light commands only; renders go through studio.py build on the render host."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-figure-designer/SKILL.md",
+    ".claude/skills/mythic-figure-designer/references/figure-template.md",
+    ".claude/skills/mythic-figure-designer/references/research-playbook.md",
+    ".claude/skills/mythic-figure-designer/references/tooling.md",
+    ".claude/skills/mythic-tales/references/figure-design.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Written for this workspace from web research (sources linked in the references); no third-party text or code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Web research through the agent's own tools; scripts/myth-sources.py uses public APIs with no keys; generated reference stills go through scripts/assets.py with the key in the environment only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Created 2026-11-24 with the heroic build and the armoury; its workflow produced the six heroic figures and the 20-weapon armoury reviewed in Playwright Chromium on Windows (tests/test-mythic.py passing).",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "skill",
+    "myth",
+    "figure",
+    "character-design",
+    "iconography",
+    "weapons"
+  ]
+}

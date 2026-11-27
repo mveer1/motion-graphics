@@ -1,0 +1,181 @@
+{
+  "id": "mythic-storyteller",
+  "name": "Mythic Storyteller (lamp-lit paper theatre)",
+  "profile_version": 1,
+  "kind": "registry",
+  "status": "experimental",
+  "summary": "A storyteller's performance of a myth: lamp-lit layered paper, public-domain photographs of the tradition's own art cut out and mounted as plates, haloes and gold leaf on sacred figures, jointed puppets for action, ornament that names the tradition. Reverent and handmade; motion behaves like paper placed by hand and a lamp carried from scene to scene, never like software.",
+  "style": "mythic-paper",
+  "archetype": "collage-stack",
+  "intended_use": [
+    "myths, legends and sacred stories",
+    "epic episodes (Ramayana, Mahabharata, Iliad, Eddas)",
+    "Jataka and Tirthankara life stories",
+    "origin and creation stories"
+  ],
+  "avoid_for": [
+    "dense numeric analysis",
+    "breaking news",
+    "debunking or devotional sermons (the stance is storyteller)"
+  ],
+  "identity": {
+    "mood": "reverent, warm, wondrous; tension without gore",
+    "genre": "narrated mythic retelling",
+    "visual_language": "layered deckle-edged paper, duotoned museum photographs as cut plates, gold leaf, ornament bands, shadow-theatre silhouettes",
+    "editorial_approach": "the storyteller's frame is visible: name the text and version, then perform the episode as a diorama the lamp moves through",
+    "illustration_style": "flat mineral colour with a dark contour, after the tradition's own painting (Pattachitra, Kalpasutra, black-figure, picture stones)",
+    "photography_style": "public-domain museum objects (sculpture, manuscripts, vases, picture stones) duotoned to ink and paper, mounted with a paper margin or cut to silhouette",
+    "composition_philosophy": "one sacred or heroic figure dominant and high in the frame, 2-4 paper planes of world behind, ornament at the edge; deities never at foot level",
+    "environment": "a paper diorama under a warm lamp: hills, peaks, waves, clouds and gateways as cut sheets",
+    "realism": "flat and handmade; photographs are objects in the diorama, not windows",
+    "storytelling_conventions": "invocation and source first; acts change by light and palette; the gods' approval by gold and falling flowers; the closing returns to the opening lamp"
+  },
+  "design_system": {
+    "palette": {
+      "colors": [
+        { "hex": "#f4ecdd", "role": "background", "basis": "prescribed", "evidence": "Rag-paper ground; Pattachitra conch-shell white (research-visual-design, Pattachitra)" },
+        { "hex": "#2b1d14", "role": "text", "basis": "prescribed", "evidence": "Lamp-black ink" },
+        { "hex": "#b0301d", "role": "accent", "basis": "prescribed", "evidence": "Hingula/sindoor vermilion; kaavad red ground" },
+        { "hex": "#1f3f8a", "role": "secondary", "basis": "prescribed", "evidence": "Lapis, Kalpasutra and Ajanta" },
+        { "hex": "#c8961e", "role": "highlight", "basis": "prescribed", "evidence": "Gold leaf (Tanjore, Kalpasutra); shapes and display only" },
+        { "hex": "#2f7a55", "role": "other", "basis": "prescribed", "evidence": "Malachite; Kerala mural green for serene figures" }
+      ],
+      "contrast_strategy": "dark ink on warm paper for all text (13.9:1); vermilion and lapis pass AA for large text; gold is never text."
+    },
+    "typography": {
+      "display": "Playfair Display 700 (carved-relief: EB Garamond in spaced capitals)",
+      "text": "EB Garamond 500-600",
+      "mono": "IBM Plex Mono only for source and accession lines",
+      "scale_and_hierarchy": "one invocation title per film; cartouche names the source; labels name the figure and its emblem",
+      "size_floor_pct_short_side": 2.6
+    },
+    "composition": {
+      "principles": "sacred figure centred or on the upper third, framed by an arch, halo or niche; 3+ overlapping paper planes; ornament band at the edge in folio scenes",
+      "negative_space": "paper fibre and lamp falloff fill quiet areas; never a flat empty field",
+      "layering_and_depth": "4-6 planes with soft lifted shadows and parallax at 2-3 speeds",
+      "hero_occupancy_pct": 55
+    },
+    "shape_language": "deckled hills, peaks, waves, clouds, flames and lotus petals; arches and niches for the sacred",
+    "texture": "rag-paper fibre, deckle edges, duotone grain on photographs, gold-leaf glint",
+    "materials": "paper, gold leaf, dyed leather, stone and terracotta (as photographs)",
+    "lighting": "one warm lamp, flickering slowly; vignette at the edges; the lamp can travel to the scene that matters",
+    "contrast": "medium-high, warm",
+    "visual_rhythm": "establish the world wide, hold the sacred figure close, return wide at the close",
+    "image_treatment": "duotone to ink and paper so plates from different museums sit together; sticker edge for cut-outs; never a raw stock photograph"
+  },
+  "motion": {
+    "grammar": "Paper is placed by hand and lifted away; sacred figures rise slowly and are held with breathing and a turning halo; puppets move from their joints; the lamp breathes all the time.",
+    "easing": {
+      "entrances": "enter-decel for paper (power3.out); a slow rise for sacred figures (power2.out, 1.4-1.8 s); no overshoot on any deity",
+      "exits": "exit-accelerate (lift away) or a dissolve under the lamp",
+      "emphasis": "gold glint or a halo swell, not a bounce",
+      "vocabulary_ids": [
+        "enter-decel",
+        "settle-lean",
+        "exit-accelerate",
+        "camera-parallax",
+        "camera-push",
+        "transition-dissolve",
+        "hold-breath",
+        "reveal-mask-wipe"
+      ]
+    },
+    "timing": {
+      "pace": "measured; a visual event every 2-3 s, slower holds on the sacred figure with breathing under them",
+      "typical_move_sec": 0.9,
+      "shot_length_sec": 4.0,
+      "holds": "allowed on the sacred image with breathe, halo turn and lamp flicker under it",
+      "stagger_sec": 0.12
+    },
+    "transitions": {
+      "vocabulary": [
+        "kaavad doors opening onto the next panel",
+        "scroll unroll / lamp carried to the next scene",
+        "dissolve under the lamp",
+        "paper lifted away, revealing the sheet beneath"
+      ],
+      "avoid": [
+        "whooshes and glitches",
+        "shattering, exploding or wiping a deity image",
+        "spin and zoom-through on sacred figures"
+      ],
+      "continuity": "the lamp, the halo or an ornament band carries the eye across the cut"
+    },
+    "camera": {
+      "language": "a slow push into the diorama and gentle parallax; the camera bows to the sacred figure (push in and hold), never orbits it",
+      "moves": [
+        "push-in",
+        "pull-out",
+        "pan",
+        "parallax"
+      ],
+      "lens_character": "none (diorama)"
+    },
+    "object_movement": "paper planes sway slightly; waves and clouds drift; puppets gesture from pivots",
+    "kinetic_typography": "invocation title word by word; source cartouche; figure labels with their emblem",
+    "particles": "flower shower for divine approval, embers for fire and sacrifice, sparingly",
+    "depth_parallax": "sheet-to-sheet parallax at 2-3 speeds (data-depth 0-5)",
+    "stillness_policy": "A held sacred image always has breathing, a turning halo and the lamp flicker under it; no frozen frame under narration."
+  },
+  "audio_direction": {
+    "narration": "warm storyteller (af_bella or bm_george), 1.0-1.1x, unhurried; names the source and version once",
+    "music": "a dim drone and one tradition-appropriate timbre (tanpura and bansuri, lyre, tagelharpa) at -24 to -28 LUFS; never a pastiche of a sacred chant",
+    "sfx": "paper rustle, a lamp wick, temple bell or conch only where the story has one, 12-18 dB under the voice",
+    "silence_and_space": "a breath before the sacred figure appears and after the teaching line"
+  },
+  "rendering": {
+    "strategy": "Programmatic SVG/CSS paper diorama in HyperFrames through the mythic kit (Studio.kit.mythic), with public-domain museum photographs (scripts/myth-sources.py) imported as plates and AI-generated stills only where no public-domain image exists, each one iconography-checked.",
+    "preferred_asset_types": [
+      "hybrid",
+      "archival",
+      "illustration-2d",
+      "generated-image",
+      "typography"
+    ],
+    "feasibility": "native",
+    "runtime_capabilities": [
+      "mythic-stage",
+      "deckle-sheet",
+      "photo-plate",
+      "paper-place",
+      "reverent-rise",
+      "lamp-flicker",
+      "halo-bloom",
+      "parallax-camera"
+    ],
+    "formats": [
+      "portrait",
+      "landscape",
+      "square"
+    ],
+    "resource_notes": "SVG filters (fibre, soft shadow, glow) are the heaviest part; keep photo plates under about 1600 px on the long side."
+  },
+  "techniques": [
+    "cut-paper-title-sequence",
+    "layered-silhouette-stage",
+    "archival-mono-collage"
+  ],
+  "provenance": {
+    "method": "Authored rule set (prescribed) from web research on 2026-11-23: Reiniger and Ocelot silhouette films, Sita Sings the Blues, Cartoon Saloon, kamishibai and toy theatre, Pattachitra, Phad, kaavad, Tholu Bommalata, Kerala murals, Tanjore, Kalpasutra, Ajanta, Greek vase painting, Karagiozis, Gotland picture stones. Sources: .claude/skills/mythic-tales/references/design-language.md.",
+    "created_on": "2026-11-23",
+    "notes": "Every value is prescribed intent, not a measurement; several pigment notes rest on blog sources and all hex values are estimates from pigment names. Evidence of use goes under validation after a render."
+  },
+  "weaknesses": [
+    "Generated figures hallucinate iconography (wrong number of arms, wrong emblem); every one needs the tradition pack's checklist.",
+    "Duotone can flatten a museum photograph's detail; check legibility of the subject at phone size.",
+    "Paper shadows read as cheap if their direction is inconsistent across planes.",
+    "Placeholder puppet figures look generic; a real film needs traced or commissioned silhouettes."
+  ],
+  "example_scenes": [
+    "Invocation: lamp flickers on rag paper, a lotus border draws, 'As told in the Valmiki Ramayana' slides in.",
+    "Revelation: a duotoned museum relief of the deity rises inside a niche plate while a prabhavali blooms behind it and gold glints.",
+    "Turn: kaavad doors open onto the inner panel; the palette swaps to vermilion and ink for the threat, then back as blossoms fall."
+  ],
+  "tags": [
+    "myth",
+    "paper",
+    "collage",
+    "sacred",
+    "storyteller"
+  ]
+}

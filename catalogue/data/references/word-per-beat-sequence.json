@@ -1,6 +1,7 @@
 {
   "id": "word-per-beat-sequence",
   "name": "Word-per-beat typographic sequence",
+  "family": "kinetic-typography",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Five inspected reference videos deliver a sentence or list one word per cut, each word on its own full-frame card.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A line of copy is split across hard cuts, one word (or short phrase) per card, each card with its own background, colour or treatment. The rhythm of the cuts carries the sentence; contrast between cards keeps every cut legible.",
@@ -34,7 +35,13 @@
     { "source_id": "ref-92c22222a2", "timestamps": [11.25, 11.48, 11.72, 12.18, 12.65], "observed": "Five single-word cards (two with accent full stops) cut 0.23-0.47 s apart on alternating colour fields." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [10.52, 10.85, 11.17], "observed": "Three one-word cards about 0.33 s apart, each with a different fill treatment (solid, outline, metallic)." },
     { "source_id": "ref-b97f9168c6", "timestamps": [2.73, 3.25, 3.72, 4.1, 4.57, 26.75, 27.63, 28.48], "observed": "A sentence spread over fast cuts in the first half; single adjectives with full stops on cards in the second half." },
-    { "source_id": "ref-1cbe55c987", "timestamps": [10.52, 10.75, 11.0, 11.27, 11.5], "observed": "Feature list as about 0.25 s word cards, each with its own background texture." }
+    { "source_id": "ref-1cbe55c987", "timestamps": [10.52, 10.75, 11.0, 11.27, 11.5], "observed": "Feature list as about 0.25 s word cards, each with its own background texture." },
+    { "source_id": "ref-81650adf49", "timestamps": [8.56, 9.31, 10.05, 10.79, 11.54, 12.28], "observed": "One giant word per beat over a starfield, each about 0.75 s, with corner telemetry ticking." },
+    { "source_id": "ref-58ff9f39df", "timestamps": [106.4, 108.7, 110.9, 113.4], "observed": "About 23 single-word cards on four palettes cut every 0.2-0.3 s at 108.4-113.9 s, then the same word recoloured every 0.1 s to 115.8 s (accelerating montage)." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [0.98, 1.99, 2.99, 4.98, 5.99, 6.99, 7.99, 9.0], "observed": "One lower-case verb per card with hard cuts at x.97-x.98 s every 1.00 s (0.97-9.98 s); background alternates off-white, black and blue." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [2.29, 2.39], "observed": "Two words on consecutive cards one beat apart (2.29 and 2.39 s accents)." },
+    { "source_id": "ref-e8125c24ca", "timestamps": [9.24, 10.4, 11.01], "observed": "Over a grey eclipse one italic word at a time replaces the last in the centre (about 0.4-1.1 s per word, 9.2-11.4 s), each on a sung onset." },
+    { "source_id": "ref-05acc490f6", "timestamps": [0.38, 1.13, 1.89], "observed": "Three topic words swap in place every 0.75 s on one pale card (0.38, 1.13, 1.89 s). Note: In-place variant: same background, no cut between words." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "One card per beat, tempo-grid times, last card holds." },
@@ -49,5 +56,5 @@
   ],
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No footage, frames, logos, type lockups or shot sequences are copied; implementations and copy are original.",
   "tags": ["kinetic-typography", "typography", "beat", "cut", "manifesto", "promo", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

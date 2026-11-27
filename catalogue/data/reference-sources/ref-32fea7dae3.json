@@ -1,0 +1,792 @@
+{
+  "id": "ref-32fea7dae3",
+  "name": "Swiss-type payments cut: hard cuts on whole seconds, lines that dim as the next arrives (portrait)",
+  "status": "experimental",
+  "source": {
+    "filename": "payments-brand-social-cut-6701296d.mp4",
+    "aliases": [],
+    "sha256": "32fea7dae3f960bdca61f30099d88c601155e270825d91279ad8e95c8c057026",
+    "bytes": 1832718,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Brand mark (an asterisk-like glyph)",
+        "timestamps": [
+          2.6
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Brand wordmark in the header and on the end card",
+        "timestamps": [
+          0.37,
+          20.4,
+          22.63
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Code card calling the product's API",
+        "timestamps": [
+          13.73,
+          15.95
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Product names in the section labels",
+        "timestamps": [
+          3.34,
+          9.27
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Fintech brand cut; reuse the cut-on-downbeat, arrival-on-accent and dim-previous-line principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1832718,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 23.0,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 1280,
+    "video_codec": "avc1.64001f",
+    "frame_count": 690,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 371,
+    "keyframes": 23,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 23.083,
+      "kbps": 257
+    },
+    "overall_kbps": 637
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (31 frames), transition strips at all 7 boundaries, the listen sheet (portrait grid: 1 phrase middle, 15 accent hits) and a 30 fps strip at 8.40-8.90 s (a list step); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 23.0 s, 720x1280.",
+    "concept": {
+      "observed": "A payments-infrastructure brand cut: 'Money still moves like it's 1973.' / 'Not anymore.' / pay anyone anywhere (currency codes and a country counter change in place), settlement in seconds, a list of account types ending 'One API.', 'For humans. And AI agents.' with a code card that types and settles, 'Open. Neutral. Global.', 'The TCP/IP of money.', logo.",
+      "interpreted": "A manifesto in eight cards: claim, contradiction, proof, summary.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; sentence-case statements with full stops; grey for earlier or secondary lines, black or white for the current one."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Off-white with a faint square grid (66% of pixels) and charcoal cards (28%), alternating; grey for dimmed lines; no colour accent."
+      },
+      "typography": {
+        "observed": "Neo-grotesque sans, regular weight, large (headline lines about 7% of the height; '1973.' and currency codes about 12%); small header labels: brand top-left, descriptor top-right, a section label with a rule under it."
+      },
+      "composition": {
+        "observed": "Portrait, left-aligned text block from about 30% of the height; a header band at the top (about 4%); big figures centred; the code card full width at mid-height."
+      },
+      "motion": {
+        "observed": "Lines rise into place within about 2 frames; earlier lines turn grey in one frame as the next arrives; currency codes and a counter change in place each beat; a code snippet types with a caret; a settlement dot travels along a rule from USD to MXN (6.3-7.0 s)."
+      },
+      "transitions": {
+        "observed": "Six hard cuts exactly on whole seconds (2, 3, 8, 12, 16, 18 s), alternating light and dark; after each cut one frame shows only the header (2.02, 3.02, 8.02, 12.02, 16.02, 18.02 s), then the first line rises in within about 0.1 s. 12.97 s soft: the code card grows in.",
+        "interpreted": "Light and dark alternate between claim and proof; the single empty frame lets the cut register before the words.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Cards of 1-5 s on whole seconds; new lines every 0.5-1.0 s within a card."
+      },
+      "sound_design": {
+        "observed": "-14.2 LUFS, LRA 3.1 LU, true peak -5.2 dBTP; tempo 117.5 bpm (medium); 15 accents (39.1/min), 13 at x.55-x.57 s on a 1.00 s grid. No cut carries an accent within 100 ms (0 of 7; chance 0.12), although 86% of cuts are within 67 ms of an onset (chance 0.35): the cuts sit on the downbeat and the strong accent comes about 0.55 s later on the new line: NGN and 36 (4.55 s), KES and 60+ (5.55 s), the settlement dot reaching MXN (6.55 s), 'Not days.' (7.57 s), each list item (8.57, 9.57, 10.05, 10.57 s), 'One API.' (11.56 s), 'Neutral.' (16.56 s), 'Global.' (17.55 s), 'of money.' (18.55 s). Head and tail 7.8 and 7.4 dB below the body; no silences. Accents may be part of the music.",
+        "interpreted": "Exactly the batch-1 split: edits on whole seconds without a hit, information on the x.55 accents.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: 1 dictated word (15.1-17.2 s) over music while 'Open.' shows; recogniser noise.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lane: a left-aligned block in the upper middle (from about 30% of the height), sentence case with full stops; the current line in full contrast (black on light, white on dark), earlier lines dimmed to grey one frame before the next line lands (8.50 vs 8.57 s); summary lines larger ('One API.', 'Global.'); a footnote-size source line under '1973.'.",
+        "interpreted": "Grey for the past and full contrast for now is a highlight without colour: the reader always knows which item is new.",
+        "confidence": "high"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.0,
+        "observed": "'Money still moves like it's 1973.' builds line by line."
+      },
+      {
+        "start": 2.0,
+        "end": 3.0,
+        "observed": "Dark card: a mark and 'Not anymore.'"
+      },
+      {
+        "start": 3.0,
+        "end": 6.1,
+        "observed": "'Pay anyone. Anywhere.' with a currency code and a country counter changing."
+      },
+      {
+        "start": 6.1,
+        "end": 8.0,
+        "observed": "A settlement rule from USD to MXN; 'In seconds. Not days.'"
+      },
+      {
+        "start": 8.0,
+        "end": 12.0,
+        "observed": "Dark card: a growing list of account types, then 'One API.'"
+      },
+      {
+        "start": 12.0,
+        "end": 16.0,
+        "observed": "'For humans. And AI agents.' with a code card that types and settles."
+      },
+      {
+        "start": 16.0,
+        "end": 18.0,
+        "observed": "Dark card: 'Open. Neutral. Global.'"
+      },
+      {
+        "start": 18.0,
+        "end": 20.3,
+        "observed": "'The TCP/IP of money.'"
+      },
+      {
+        "start": 20.3,
+        "end": 23.0,
+        "observed": "Wordmark and address."
+      }
+    ],
+    "moments": [
+      {
+        "t": 8.5,
+        "observed": "'Dollar accounts.' turns grey in one frame at 8.50 s and 'Stablecoins.' lands in full white below it at 8.57 s, on the accent.",
+        "interpreted": "The list grows while the eye always knows which item is new."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the currency codes roll vertically or swap (sampled every 0.74 s and at the accents only)",
+      "Whether the accents are clicks in the music or effects"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        2.0,
+        3.0,
+        8.0,
+        12.0,
+        16.0,
+        18.0
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        4.55,
+        7.57,
+        8.57,
+        9.57,
+        11.56,
+        16.56,
+        17.55
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        4.08,
+        4.82,
+        5.57
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        12.98,
+        13.73,
+        15.21
+      ]
+    },
+    {
+      "id": "swiss-kinetic-grid",
+      "timestamps": [
+        3.08,
+        8.08,
+        12.08
+      ]
+    },
+    {
+      "id": "dim-previous-line-stack",
+      "timestamps": [
+        8.5,
+        8.57,
+        9.57,
+        10.05,
+        10.57,
+        11.56,
+        16.56,
+        17.55
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        3.35,
+        7.57
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "text-mask-rise",
+      "typewriter-reveal",
+      "slot-roll",
+      "counter-roll"
+    ],
+    "compositions": [
+      "item-list",
+      "end-card"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "product-promo"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "editorial-layout",
+    "product-promo",
+    "music-sync",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "portrait",
+    "swiss",
+    "monochrome",
+    "manifesto",
+    "beat-grid",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 15.1
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 184,
+      "scan_size": "96x54",
+      "overview_frames": 31,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 7,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.0,
+        "kind": "cut",
+        "score": 1.284,
+        "isolation": 0.99,
+        "frame": 60
+      },
+      {
+        "t": 3.0,
+        "kind": "cut",
+        "score": 1.327,
+        "isolation": 0.99,
+        "frame": 90
+      },
+      {
+        "t": 8.0,
+        "kind": "cut",
+        "score": 1.322,
+        "isolation": 0.99,
+        "frame": 240
+      },
+      {
+        "t": 12.0,
+        "kind": "cut",
+        "score": 1.317,
+        "isolation": 0.98,
+        "frame": 360
+      },
+      {
+        "t": 12.967,
+        "kind": "soft",
+        "score": 0.214,
+        "isolation": 0.0
+      },
+      {
+        "t": 16.0,
+        "kind": "cut",
+        "score": 0.961,
+        "isolation": 0.98,
+        "frame": 480
+      },
+      {
+        "t": 18.0,
+        "kind": "cut",
+        "score": 1.318,
+        "isolation": 1.0,
+        "frame": 540
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.0,
+        "duration": 2.0,
+        "activity": 0.022,
+        "luma": 0.94
+      },
+      {
+        "index": 2,
+        "start": 2.0,
+        "end": 3.0,
+        "duration": 1.0,
+        "activity": 0.126,
+        "luma": 0.12
+      },
+      {
+        "index": 3,
+        "start": 3.0,
+        "end": 8.0,
+        "duration": 5.0,
+        "activity": 0.054,
+        "luma": 0.94
+      },
+      {
+        "index": 4,
+        "start": 8.0,
+        "end": 12.0,
+        "duration": 4.0,
+        "activity": 0.04,
+        "luma": 0.12
+      },
+      {
+        "index": 5,
+        "start": 12.0,
+        "end": 12.97,
+        "duration": 0.97,
+        "activity": 0.168,
+        "luma": 0.95
+      },
+      {
+        "index": 6,
+        "start": 12.97,
+        "end": 16.0,
+        "duration": 3.03,
+        "activity": 0.014,
+        "luma": 0.71
+      },
+      {
+        "index": 7,
+        "start": 16.0,
+        "end": 18.0,
+        "duration": 2.0,
+        "activity": 0.061,
+        "luma": 0.13
+      },
+      {
+        "index": 8,
+        "start": 18.0,
+        "end": 23.0,
+        "duration": 5.0,
+        "activity": 0.031,
+        "luma": 0.96
+      }
+    ],
+    "static_holds": [
+      [
+        11.31,
+        11.94
+      ],
+      [
+        13.19,
+        15.94
+      ],
+      [
+        17.31,
+        17.94
+      ],
+      [
+        18.69,
+        19.94
+      ],
+      [
+        20.94,
+        22.56
+      ]
+    ],
+    "mean_activity": 0.048,
+    "luma": {
+      "mean": 0.66,
+      "dark_share": 0.3,
+      "light_share": 0.7
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.659
+      },
+      {
+        "hex": "#181818",
+        "share": 0.277
+      },
+      {
+        "hex": "#484848",
+        "share": 0.012
+      },
+      {
+        "hex": "#989898",
+        "share": 0.011
+      },
+      {
+        "hex": "#787878",
+        "share": 0.009
+      },
+      {
+        "hex": "#b8b8b8",
+        "share": 0.006
+      },
+      {
+        "hex": "#585858",
+        "share": 0.005
+      },
+      {
+        "hex": "#a8a8a8",
+        "share": 0.005
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.004
+      },
+      {
+        "hex": "#282828",
+        "share": 0.003
+      }
+    ],
+    "representative_times": [
+      1.0,
+      2.5,
+      4.25,
+      5.5,
+      6.75,
+      9.0,
+      10.0,
+      11.0,
+      12.48,
+      14.48,
+      17.0,
+      19.25,
+      20.5,
+      21.75
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -6.1,
+      "mean_dbfs_voiced": -17.0,
+      "silence_ratio": 0.0,
+      "onsets": 75,
+      "onset_rate_per_sec": 3.25,
+      "onset_times": [
+        0.07,
+        0.56,
+        1.04,
+        1.56,
+        2.07,
+        2.55,
+        2.97,
+        3.04,
+        3.3,
+        3.55,
+        3.81,
+        4.04,
+        4.3,
+        4.55,
+        4.81,
+        5.06,
+        5.29,
+        5.55,
+        5.8,
+        6.06,
+        6.29,
+        6.55,
+        6.8,
+        7.04,
+        7.29,
+        7.57,
+        7.96,
+        8.06,
+        8.31,
+        8.43,
+        8.57,
+        9.06,
+        9.31,
+        9.57,
+        9.94,
+        10.05,
+        10.19,
+        10.31,
+        10.57,
+        10.8,
+        11.05,
+        11.19,
+        11.31,
+        11.42,
+        11.56,
+        11.94,
+        12.05,
+        12.79,
+        13.05,
+        13.37,
+        13.56,
+        13.82,
+        14.3,
+        14.79,
+        15.07,
+        15.21,
+        15.28,
+        16.02,
+        16.56,
+        16.81,
+        17.04,
+        17.3,
+        17.55,
+        17.81,
+        18.04,
+        18.3,
+        18.55,
+        18.81,
+        18.92,
+        19.04,
+        19.18,
+        19.3,
+        19.55,
+        19.81,
+        20.06
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.36,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 728,
+      "band_share": {
+        "low_lt_250": 0.52,
+        "mid_250_2k": 0.31,
+        "high_gt_2k": 0.18
+      },
+      "syllabic_modulation_share": 0.41,
+      "boundary_onset_alignment": {
+        "boundaries": 7,
+        "tolerance_ms": 67,
+        "near_onset": 0.86,
+        "chance_level": 0.35,
+        "median_offset_ms": 42,
+        "near_beat": 0.29,
+        "beat_chance_level": 0.24,
+        "beat_phase_sec": 0.489
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-32fea7dae3",
+      "overview": "reference/analysis/ref-32fea7dae3/overview.jpg",
+      "scenes": "reference/analysis/ref-32fea7dae3/scenes.jpg",
+      "transitions": "reference/analysis/ref-32fea7dae3/transitions.jpg",
+      "motion": "reference/analysis/ref-32fea7dae3/motion.jpg",
+      "audio": "reference/analysis/ref-32fea7dae3/audio.png",
+      "frames": "reference/analysis/ref-32fea7dae3/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.2,
+        "lra_lu": 3.1,
+        "true_peak_dbtp": -5.2,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 24,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 15.09,
+        "speech_end": 17.24,
+        "speech_coverage": 0.09,
+        "wps_while_speaking": 0.47,
+        "wpm_over_span": 28,
+        "pace_thirds_wps": [
+          1.4,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 2.15,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 1,
+            "wps": 0.33
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 1,
+          "in_pause_share": 0.0,
+          "chance_level": 0.0,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 75,
+        "accents": 15,
+        "accents_per_min": 39.1,
+        "accent_times": [
+          0.56,
+          1.04,
+          4.55,
+          5.55,
+          6.55,
+          7.57,
+          8.57,
+          9.57,
+          10.05,
+          10.57,
+          11.56,
+          16.56,
+          17.55,
+          18.55,
+          19.55
+        ],
+        "accent_threshold": 0.49,
+        "boundaries_with_accent": {
+          "boundaries": 7,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.12
+        },
+        "onset_rate_during_speech": 2.79,
+        "onset_rate_outside_speech": 3.31,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -7.8,
+        "level_tail_vs_body_db": -7.4,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-32fea7dae3/listen",
+        "sheet": "reference/analysis/ref-32fea7dae3/listen/listen.jpg",
+        "words": "reference/analysis/ref-32fea7dae3/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -499,6 +499,7 @@ body {
  *   lower  bottom edge at --safe-bottom (portrait 76.6 %, landscape 92 %, square 91 %)
  *   mid    bottom edge at 64 % (portrait hook lane; landscape and square fall back to lower)
  *   upper  top edge at 14 % portrait, 8 % landscape, 10 % square
+ *   subject  beside an anchor element (cue.anchor), placed in px at the cue's start, clamped to the safe area
  * tests/test-short-form.py fails when these numbers and the spec drift apart.
  */
 .st-captions {
@@ -536,6 +537,8 @@ body {
 #root[data-format="square"] .st-caption[data-lane="mid"] { bottom: var(--safe-bottom); }
 #root[data-format="landscape"] .st-caption[data-lane="upper"] { top: calc(var(--h) * 0.08); }
 #root[data-format="square"] .st-caption[data-lane="upper"] { top: calc(var(--h) * 0.10); }
+/* subject: beside an anchor element; Studio.comp.captions sets left and top in px from the anchor's box. */
+.st-caption[data-lane="subject"] { right: auto; bottom: auto; margin-inline: 0; }
 
 /* Word-timed cues: the spoken word mixes toward the highlight as the timeline drives --st-hl from 0 to 1. */
 .st-caption-word {
@@ -614,6 +617,53 @@ body {
   left: 0;
   top: 0;
   border-radius: 50%;
+}
+
+/* Studio.fx.flash: a full-frame flash; the background (flat colour or radial burst) is set inline. */
+.st-flash {
+  position: absolute;
+  inset: 0;
+}
+
+/* Studio.fx.containerTransform: the proxy box that carries a tile into its expanded view. */
+.st-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+}
+
+.st-container-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Studio.type.scramble: fixed slots; the cycling glyphs sit on top of the (hidden) final character. */
+.st-scr-slot {
+  position: relative;
+  display: inline-block;
+}
+
+.st-scr-glyph {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--c-accent, #c8462b);
+}
+
+/* Studio.type.strike: a line drawn through a claim; it rides along when the claim is demoted. */
+.st-strike {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.st-strike-path {
+  fill: none;
+  stroke: var(--c-strike, var(--c-accent, #c8462b));
+  stroke-width: calc(var(--u) * 0.5);
+  stroke-linecap: round;
 }
 
 .st-pen-dot { fill: var(--c-accent, #c8462b); }
@@ -1177,3 +1227,127 @@ div.st-trail {
 }
 
 .st-roll-text { display: inline-block; }
+
+/* ------------------------------------------------------------------ film helpers (studio-film.js, runtime 1.15.0)
+ * Typed kicker, caption band, stamp, tile grid, stations and odometer. GSAP owns the transforms of the caret, the band,
+ * the stamp and the tiles, and the odometer's setter owns .st-odo-strip's: never give them a CSS transform. */
+.st-tkicker {
+  position: relative;
+  display: inline-block;
+  visibility: hidden;
+  opacity: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-kicker);
+  font-weight: 600;
+  letter-spacing: var(--track-kicker, 0.16em);
+  text-transform: uppercase;
+  color: var(--c-accent, #c8462b);
+  white-space: nowrap;
+}
+.st-tkicker-box { position: relative; display: inline-grid; }
+.st-tkicker-text { grid-area: 1 / 1; }
+.st-tkicker-caret {
+  position: absolute;
+  left: 0;
+  top: 0.08em;
+  width: 0.12em;
+  height: 1.05em;
+  margin-left: 0.08em;
+  background: currentColor;
+}
+
+.st-capband {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  background: var(--c-caption-bg, rgba(30, 27, 22, 0.84));
+}
+.st-capband .st-caption.st-capband-text {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0 max(var(--safe-left), var(--safe-right));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-radius: 0;
+  font-family: var(--font-text, sans-serif);
+  font-weight: 700;
+  font-size: var(--fs-caption);
+  line-height: 1.2;
+}
+
+.st-stamp-pos {
+  position: absolute;
+  width: 0;
+  height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  z-index: 30;
+}
+.st-stamp {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 0.3);
+  padding: calc(var(--u) * 0.9) calc(var(--u) * 2.2);
+  border: calc(var(--u) * 0.6) solid var(--stamp-c, #c8462b);
+  border-radius: calc(var(--u) * 1.0);
+  color: var(--stamp-c, #c8462b);
+  background: color-mix(in srgb, var(--c-paper, #f4efe6) 82%, transparent);
+  white-space: nowrap;
+}
+.st-stamp-text {
+  font-family: var(--font-display, serif);
+  font-weight: 900;
+  font-size: calc(var(--u) * 6.4);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.st-stamp-sub {
+  font-family: var(--font-mono, monospace);
+  font-weight: 600;
+  font-size: var(--fs-kicker);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.st-tiles {
+  --tg-cols: 10;
+  --tg-gap: calc(var(--u) * 0.45);
+  display: grid;
+  grid-template-columns: repeat(var(--tg-cols), 1fr);
+  gap: var(--tg-gap);
+  width: 100%;
+}
+.st-tile { display: block; aspect-ratio: 1; border-radius: calc(var(--u) * 0.25); }
+.st-tiles[data-round] .st-tile { border-radius: 50%; }
+
+.st-station { position: absolute; inset: 0; }
+
+.st-odo {
+  display: inline-flex;
+  align-items: baseline;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.st-odo-digits { display: inline-flex; }
+.st-odo-col { display: inline-block; height: 1em; overflow: hidden; }
+.st-odo-strip { display: flex; flex-direction: column; }
+.st-odo-cell { display: block; height: 1em; line-height: 1; text-align: center; }
+.st-odo-sep, .st-odo-affix { display: inline-block; }

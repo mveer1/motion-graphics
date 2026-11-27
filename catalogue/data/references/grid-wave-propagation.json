@@ -1,6 +1,7 @@
 {
   "id": "grid-wave-propagation",
   "name": "Grid wave propagation",
+  "family": "transition-cover",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Four inspected references animate fields of tiles, shapes, dots or pixels in waves spreading from a point.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Every cell of a grid changes state with a delay proportional to its distance from an origin, so a pattern change becomes a visible ripple and a transition gains a source and direction.",
@@ -19,7 +20,9 @@
     { "source_id": "ref-92c22222a2", "timestamps": [7.58, 8.58, 9.58], "observed": "A square subdivides into Truchet-like tiles; a colour change propagates outward from the centre." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [2.85, 3.8], "observed": "Geometric tiles (circles, quarter circles, squares) pop into a grid in a staggered sweep." },
     { "source_id": "ref-b97f9168c6", "timestamps": [8.4, 9.3], "observed": "A dot grid rises into a field of cubes in a wave (rendered in 3D in the reference)." },
-    { "source_id": "ref-1cbe55c987", "timestamps": [10.52], "observed": "A pixel-block grid fills behind a word card." }
+    { "source_id": "ref-1cbe55c987", "timestamps": [10.52], "observed": "A pixel-block grid fills behind a word card." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [5.3, 5.45], "observed": "Radial: grid cells turn blue from the centre outward and the frame is blue in 0.22 s (5.28-5.50 s)." },
+    { "source_id": "ref-c324a3d516", "timestamps": [6.38, 7.04], "observed": "An isometric voxel field ripples outward from its centre in rings (6.0-7.2 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -29,5 +32,5 @@
   "related": { "techniques": ["morph-ready-shape-sequence", "cut-paper-title-sequence"], "effects": ["grid-wave", "object-assembly"], "templates": ["title-sequence", "music-visualizer"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Truchet tiling is a centuries-old public pattern family.",
   "tags": ["grid", "pattern", "wave", "truchet", "generative", "transition", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

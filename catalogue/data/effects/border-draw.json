@@ -1,0 +1,51 @@
+{
+  "id": "border-draw",
+  "name": "Ornamental border draw",
+  "category": "layout",
+  "visual_intent": "An ornamental band (Greek meander, lotus, Norse-style knot, beads, zigzag) draws round the frame like a folio's border, setting the tradition before a word is spoken.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "ornament",
+    "border",
+    "folio",
+    "tradition",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "border-draw-recipe"
+  ],
+  "implementation_summary": "An ornamental band (Greek meander, lotus, Norse-style knot, beads, zigzag) draws round the frame like a folio's border, setting the tradition before a word is spoken.",
+  "primitives": [
+    "deckle-sheet"
+  ],
+  "runtime_api": "Studio.kit.mythic.border(parent, {tradition: indian|jain|buddhist|greek|roman|norse, motif, band, inset, ground, color}) + borderIn(tl, border, at); motifs: lotus, meander, knot, beads, zigzag, chevron, egg-dart, wave, pattachitra, ruled, urnes",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

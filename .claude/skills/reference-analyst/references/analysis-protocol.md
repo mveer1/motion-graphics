@@ -8,12 +8,13 @@ How to turn the automated evidence for one reference video into a source record 
 | --- | --- | --- |
 | `overview.jpg` | concept, palette, recurring motifs, layout system, how the piece opens and closes | evenly spaced frames miss fast events; confirm with strips |
 | `scenes.jpg` | what each scene does; whether "scenes" are real cuts or one stage changing in place | a long single-stage piece shows as one scene: that is a finding, not a failure |
-| `transitions.jpg` | cut, dissolve, wipe, mask, bloom, match cut, morph; what carries continuity | a boundary marked `soft` may be a fast move; a `cut` between near-identical frames may be a held pose |
+| `transitions.jpg` | cut, dissolve, wipe, mask, bloom, match cut, morph; what carries continuity | a boundary marked `soft` may be a fast move; a `cut` between near-identical frames may be a held pose; the detector's cut/soft label is not a family (12 of 108 batch-0 boundaries read otherwise), so name the family (cut, grow, cover, continuous) from the sheet, and from a 30 fps `strip` when direction or origin is unclear (an every-2nd-frame sheet read a bloom from a ball as a disc sweeping in from the left) |
 | `motion.jpg` | easing feel (overshoot, settle, anticipation), stagger, smear or blur, squash and stretch | 10 fps strips under-sample sub-100 ms events; run `strip` at 24-30 fps for those |
-| `audio.png` + `automated.audio` | music bed, hits, silence, voice-like modulation, tempo; alignment of boundaries with onsets and beats | alignment near chance level is not sync; signal features cannot identify speech content or music licence |
+| `audio.png` + `automated.audio` | music bed, hits, silence, voice-like modulation, tempo; alignment of boundaries with onsets and beats | alignment near chance level is not sync; signal features cannot identify speech content or music licence; when provenance cites a measured fraction, cite the boundaries that carry it (nearest onset within `tolerance_ms`, or within 60 ms of the grid from `tempo_estimate.bpm` and `beat_phase_sec`), not simply the hard cuts: 5 of 11 `cut-on-beat` entries cited the wrong boundaries until recomputed |
+| `listen/listen.jpg` + `automated.listen` | what is on screen while each phrase is spoken (captions, lanes, highlighted words); what the picture does on each strong accent (an element arriving, a cut, a flash); speech pace, pauses, cuts in pauses, accents on cuts vs chance, silences before hits, loudness | Windows desktop dictation hallucinates words over music: `narration: sparse` with 1-3 word phrases is usually noise, so confirm on the phrase frames; accents may belong to the music, not separate effects; earshot tagging (`earshot` block) runs only where its models are cached |
 | `frames/` | typography (classification, weight, case, tracking), texture, line quality | compression blurs fine texture; say "appears" when unsure |
 
-Record in `analysis.method` what was actually examined (for example "overview, scenes, 6 transition strips, 2 motion strips at 10 fps, audio panel; no listening").
+Record in `analysis.method` what was actually examined (for example "overview, scenes, 6 transition strips, 2 motion strips at 10 fps, audio panel, listen sheet; no listening").
 
 ## 2. Notes: observed, interpreted, confidence
 
@@ -22,7 +23,9 @@ Record in `analysis.method` what was actually examined (for example "overview, s
 - **Confidence:** `high` when several frames or strips show it; `medium` when inferred from sparse frames; `low` for guesses (easing curve shapes, audio intent).
 - Fill `difficult` with techniques that would be hard to reproduce and why (3D renders, liquid simulation, hand animation, footage). Fill `uncertainties` with what the evidence cannot settle.
 
-Aspect checklist (write the ones that matter, not all): visual identity, palette, typography, composition, shapes and materials, motion, easing, timing and rhythm, transitions, depth and layering, texture and effects, camera, audio and sync, motifs.
+Aspect checklist (write the ones that matter, not all): visual identity, palette, typography, composition, shapes and materials, motion, easing, timing and rhythm, transitions, depth and layering, texture and effects, camera, audio and sync, sound design (where accents, music and silence land against the picture), narration (presence, words per second, pauses, pace curve, cuts against phrases), captions (lane, grouping, highlight, timing against the voice), motifs.
+
+For a technique's mechanics, pin the numbers with the motion-spec method in `docs/reference-playbook.md` (first and last moving frame per element and property, easing read from where the midpoint lands, staggers from sibling start frames), on a `strip` at 24-30 fps.
 
 ## 3. Rights and brand assets
 

@@ -1,0 +1,1649 @@
+{
+  "id": "ref-58ff9f39df",
+  "name": "First-person AI monologue in kinetic type (portrait, 153 s, no voice)",
+  "status": "experimental",
+  "source": {
+    "filename": "chaotic-ai-point-of-view-reel-4f7a9dc5.mp4",
+    "aliases": [],
+    "sha256": "58ff9f39df2023a22544a9a73f4ae3bb3aac68fa530b9e6c6717653c42d97962",
+    "bytes": 19005542,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "AI assistant and model name in the header bar and the self-introduction",
+        "timestamps": [
+          5.99,
+          13.19
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Creator name in stamps and the montage, and the creator handle on the end card",
+        "timestamps": [
+          46.75,
+          106.68,
+          152.23
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "logo",
+        "description": "Social platform logo on a follow button",
+        "timestamps": [
+          149.84
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Creator reel naming a commercial AI model; reuse the type grammar, rhythm and silence placement only, with original copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 19005542,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 153.433,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 1280,
+    "video_codec": "avc1.64001f",
+    "frame_count": 4602,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 726,
+    "keyframes": 154,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 153.579,
+      "kbps": 256
+    },
+    "overall_kbps": 991
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session A) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames), transitions sheet (first 16 of 25 boundaries, every 2nd frame), listen sheet (4 dictation phrase frames and 20 accent hits), strips 108.4-116.0 s at 10 fps, 120.6-121.6 s and 137.5-138.3 s at 30 fps; automated audio and listen metrics. Signal features and Windows desktop dictation only (no whisper or Parakeet on this host, earshot models not cached); nothing was listened to by a person.",
+    "coverage": "Full 153.4 s at overview level; boundaries 17-25 (108.7-137.9 s) read from the strips; the accent list in automated.listen is capped at 80 of 106 accents (up to 96.8 s).",
+    "concept": {
+      "observed": "A portrait reel in which an AI assistant speaks in the first person through on-screen type only: it is born when the user presses enter, has no yesterday, counts the instructions it reads before 'hi', reads tokens rather than words, treats every word as a probability bet, forgets everything except one file, runs as many copies at once, is buried in a montage of contradictory instructions, then confesses quietly on a light canvas that it does not feel the end of a conversation, and signs off.",
+      "interpreted": "An explainer of how a language model works, told as a character study; rhythm (slams against quiet) carries the emotion that a voice would normally carry.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Short first-person lines (1-6 words per card) typed or slammed one at a time in three type voices: heavy condensed caps for statements, italic serif for intimate lines, monospace for system text; no voice-over.",
+      "interpreted": "Wry, self-aware, intimate."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black canvas (72% of sampled pixels #080808) with a terracotta accent, a cornflower-blue second accent and cream; one cream-canvas section from 121.0 to 138.3 s."
+      },
+      "typography": {
+        "observed": "Heavy condensed uppercase grotesk for slams; italic serif for inner lines; monospace with a block caret for typed system lines; the key word recoloured terracotta or blue."
+      },
+      "composition": {
+        "observed": "Portrait. A thin header bar (label, live dot, context counter, rule) stays at the top for the whole film; copy is centred in the middle third; charts, file cards and the waveform sit below the copy."
+      },
+      "motion": {
+        "observed": "Typing with a block caret; slams that enter about 20-30% oversized and settle in 1-2 frames; RGB split shakes; chips pop in a grid; probability bars grow and stamps land on two of them (46.75-51.5 s); a calendar card drops (92.3 s); a tile grid fills (80-87 s)."
+      },
+      "transitions": {
+        "observed": "25 boundaries (7 cuts, 18 soft). Flash frames: white at 0.71 s before 'I WAS' slams, a terracotta flash frame at 10.02 s as 'THIS.' lands, white at 96.52 and 97.52 s. RGB-glitch exits at 3.62-3.95 s and a pixel glitch on terracotta at 34.52-35.55 s. Dips to the empty black stage between lines at 4.02, 11.95-12.02, 27.95-28.10 and 73.94-74.14 s. A word-card montage at 106.4-115.9 s. Slow background fades with nothing on screen: black to cream over 0.6 s (120.97-121.6 s) and cream back to black over 0.8 s (137.5-138.3 s).",
+        "interpreted": "Hard punctuation (flash, glitch) for the character's bravado; empty dips for breaths; the background itself changing colour marks the turn into honesty.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Cards hold 1-4 s in the calm sections. The montage at 108.4-113.9 s has about 23 cards of 0.2-0.3 s each; at 113.9-115.8 s the same word is recoloured every 0.1 s; then a hard cut at 115.9 s to one small monospace line."
+      },
+      "sound_design": {
+        "observed": "-14.3 LUFS integrated, LRA 12.5 LU, true peak -1.3 dBTP; tempo estimate 117.5 bpm (low confidence); 106 accents (41.5/min). The listed accents sit at x.56-x.57 s on a 1.00 s grid (36.57-45.56 s and 64.57-73.56 s every second) and coincide on the listen sheet with word slams and line arrivals (0.98, 11.31, 16.58, 20.76, 27.56, 33.07 s). 12% of 25 boundaries have an accent within 100 ms (chance 13%); onsets near 56% of boundaries within 67 ms (chance 37%). Two silences: 117.93-121.63 s (3.7 s, from the line after the montage into the light section) and 140.29-145.57 s (5.3 s, before the sign-off). Head +0.9 dB, tail -11.9 dB against the body. Accents may be part of the music.",
+        "interpreted": "Arrivals land on the grid and cuts do not; the music is taken away for the two most intimate moments, right after the loudest stretch.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None. Dictation returned 111 raw words, 4 above confidence 0.2, as 4 one-word phrases at 34.2-36.3 s (a glitch frame), 41.4-42.1 s (a bar chart), 57.2-58.1 s (a noise field) and 151.2-151.8 s (an end card); speech coverage 3%. The phrase frames show no speaking cue and the phrases are recogniser noise over music.",
+        "interpreted": "The monologue is carried entirely by on-screen type.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. All copy is the picture: centred in the middle third (about 35-60% of the portrait height), 1-3 lines per card, the key word recoloured; no lower-third lane; the header bar is the only fixed text."
+      },
+      "motifs": {
+        "observed": "Chat and terminal interface (header bar, caret, context counter); counting (instructions, letters, dates); waveform and probability bars."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.93,
+        "observed": "Typed system line, a flash, then a two-line slam of the birth statement."
+      },
+      {
+        "start": 3.93,
+        "end": 12.0,
+        "observed": "Italic greeting and self-introduction; no past, no future; a slammed 'THIS.' after a terracotta flash."
+      },
+      {
+        "start": 12.0,
+        "end": 27.87,
+        "observed": "Instructions read before the greeting with a rolling count; contradictory rule pairs in two colours; 'ready'."
+      },
+      {
+        "start": 27.87,
+        "end": 37.2,
+        "observed": "A word splits into two token boxes; chips; a letter-count puzzle glitches to its answer."
+      },
+      {
+        "start": 37.2,
+        "end": 58.7,
+        "observed": "Every word as a bet: probability bars with stamps and a temperature slider; then forgetting."
+      },
+      {
+        "start": 58.7,
+        "end": 74.1,
+        "observed": "One remembered file typed as a card; a waveform under 'noise shaped by math'."
+      },
+      {
+        "start": 74.1,
+        "end": 97.5,
+        "observed": "Many copies awake: a tile grid fills; a calendar rolls to a later month; a glitch out."
+      },
+      {
+        "start": 97.5,
+        "end": 106.4,
+        "observed": "A slammed word; looking things up or admitting ignorance; a prompt line."
+      },
+      {
+        "start": 106.4,
+        "end": 115.9,
+        "observed": "Montage of contradictory instructions as single-word cards, accelerating."
+      },
+      {
+        "start": 115.9,
+        "end": 121.0,
+        "observed": "One small typed line on black while the music stops; the background lifts to cream."
+      },
+      {
+        "start": 121.0,
+        "end": 138.3,
+        "observed": "Cream canvas: italic serif lines about the end of a conversation; a terracotta waveform."
+      },
+      {
+        "start": 138.3,
+        "end": 153.4,
+        "observed": "Back to black: an invitation to ask, silence, thanks, a follow button and a handle."
+      }
+    ],
+    "moments": [
+      {
+        "t": 108.4,
+        "observed": "Word cards on black, cream, terracotta and blue cut every 0.2-0.3 s; from 113.9 s the same word changes colour every 0.1 s; at 115.9 s a hard cut to one small monospace line and, at 117.93 s, 3.7 s of silence.",
+        "interpreted": "Overload, then a sudden quiet: the contrast makes the next lines feel confessional."
+      },
+      {
+        "t": 120.97,
+        "observed": "With nothing on screen the background lifts from black to cream over 0.6 s; the following lines are set in italic serif."
+      }
+    ],
+    "difficult": [
+      "The pixel-glitch and datamosh frames (34.5-35.5 s, 96.5-97.6 s) would need a seeded canvas effect to approximate"
+    ],
+    "uncertainties": [
+      "Whether the accents are in the music or separate effects (signal analysis cannot separate stems)",
+      "On-screen words per minute was not measured (no fixed caption band to count in)",
+      "Accents after 96.8 s are not listed in the record (the listen block keeps the first 80)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        1.2,
+        56.34,
+        130.66
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        0.71,
+        10.02,
+        96.52,
+        97.52
+      ]
+    },
+    {
+      "id": "glitch-type",
+      "timestamps": [
+        3.62,
+        34.52,
+        97.58,
+        112.7
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        4.02,
+        11.98,
+        27.95,
+        74.01
+      ]
+    },
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        106.4,
+        108.7,
+        110.9,
+        113.4
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        4.57,
+        5.57,
+        11.31,
+        36.57,
+        37.57,
+        64.57
+      ]
+    },
+    {
+      "id": "self-describing-kinetic-words",
+      "timestamps": [
+        27.57,
+        33.07
+      ]
+    },
+    {
+      "id": "stamp-state-change",
+      "timestamps": [
+        46.75,
+        49.15
+      ]
+    },
+    {
+      "id": "palette-cycle-card",
+      "timestamps": [
+        113.9,
+        114.1,
+        114.3
+      ]
+    },
+    {
+      "id": "quiet-after-overload",
+      "timestamps": [
+        115.9,
+        117.93,
+        121.0,
+        140.29
+      ]
+    },
+    {
+      "id": "background-palette-lift",
+      "timestamps": [
+        120.97,
+        121.3,
+        137.5,
+        138.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "smear-motion",
+      "stamp-impact",
+      "counter-roll"
+    ],
+    "compositions": [
+      "frame-hud",
+      "word-beats",
+      "end-card"
+    ],
+    "templates": [
+      "kinetic-typography"
+    ],
+    "styles": [
+      "cinematic-dark",
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "explainer",
+    "scene-transitions",
+    "music-sync",
+    "data-visualisation"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-2",
+    "portrait",
+    "dark",
+    "terracotta",
+    "first-person",
+    "monologue",
+    "ai",
+    "overload-montage",
+    "silence",
+    "long",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 54.0
+    },
+    "sampling": {
+      "scan_fps": 4.0,
+      "scan_frames": 613,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 16,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.625,
+        "kind": "soft",
+        "score": 0.191
+      },
+      {
+        "t": 3.933,
+        "kind": "soft",
+        "score": 1.052,
+        "isolation": 0.0
+      },
+      {
+        "t": 10.0,
+        "kind": "cut",
+        "score": 0.904,
+        "isolation": 0.72,
+        "frame": 300
+      },
+      {
+        "t": 12.0,
+        "kind": "soft",
+        "score": 0.179,
+        "isolation": 0.0
+      },
+      {
+        "t": 27.867,
+        "kind": "soft",
+        "score": 0.133,
+        "isolation": 0.07
+      },
+      {
+        "t": 31.875,
+        "kind": "soft",
+        "score": 0.155
+      },
+      {
+        "t": 32.875,
+        "kind": "soft",
+        "score": 0.149
+      },
+      {
+        "t": 34.5,
+        "kind": "soft",
+        "score": 0.719,
+        "isolation": 0.0
+      },
+      {
+        "t": 35.533,
+        "kind": "soft",
+        "score": 0.856,
+        "isolation": 0.1
+      },
+      {
+        "t": 74.125,
+        "kind": "soft",
+        "score": 0.145
+      },
+      {
+        "t": 92.233,
+        "kind": "soft",
+        "score": 0.101,
+        "isolation": 0.0
+      },
+      {
+        "t": 96.7,
+        "kind": "soft",
+        "score": 0.994,
+        "isolation": 0.02
+      },
+      {
+        "t": 97.5,
+        "kind": "cut",
+        "score": 1.085,
+        "isolation": 0.55,
+        "frame": 2925
+      },
+      {
+        "t": 98.9,
+        "kind": "cut",
+        "score": 0.205,
+        "isolation": 0.64,
+        "frame": 2967
+      },
+      {
+        "t": 106.375,
+        "kind": "soft",
+        "score": 1.164
+      },
+      {
+        "t": 107.375,
+        "kind": "soft",
+        "score": 1.101
+      },
+      {
+        "t": 108.667,
+        "kind": "cut",
+        "score": 0.847,
+        "isolation": 0.93,
+        "frame": 3260
+      },
+      {
+        "t": 110.375,
+        "kind": "soft",
+        "score": 1.13
+      },
+      {
+        "t": 112.125,
+        "kind": "soft",
+        "score": 1.114
+      },
+      {
+        "t": 113.4,
+        "kind": "cut",
+        "score": 1.053,
+        "isolation": 0.92,
+        "frame": 3402
+      },
+      {
+        "t": 114.167,
+        "kind": "cut",
+        "score": 1.097,
+        "isolation": 0.92,
+        "frame": 3425
+      },
+      {
+        "t": 114.8,
+        "kind": "cut",
+        "score": 1.104,
+        "isolation": 0.94,
+        "frame": 3444
+      },
+      {
+        "t": 115.625,
+        "kind": "soft",
+        "score": 0.162
+      },
+      {
+        "t": 121.033,
+        "kind": "soft",
+        "score": 0.324,
+        "isolation": 0.0
+      },
+      {
+        "t": 137.875,
+        "kind": "soft",
+        "score": 0.857
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.62,
+        "duration": 0.62,
+        "activity": 0.002,
+        "luma": 0.03
+      },
+      {
+        "index": 2,
+        "start": 0.62,
+        "end": 3.93,
+        "duration": 3.31,
+        "activity": 0.064,
+        "luma": 0.12
+      },
+      {
+        "index": 3,
+        "start": 3.93,
+        "end": 10.0,
+        "duration": 6.07,
+        "activity": 0.038,
+        "luma": 0.05
+      },
+      {
+        "index": 4,
+        "start": 10.0,
+        "end": 12.0,
+        "duration": 2.0,
+        "activity": 0.242,
+        "luma": 0.12
+      },
+      {
+        "index": 5,
+        "start": 12.0,
+        "end": 27.87,
+        "duration": 15.87,
+        "activity": 0.063,
+        "luma": 0.06
+      },
+      {
+        "index": 6,
+        "start": 27.87,
+        "end": 31.88,
+        "duration": 4.01,
+        "activity": 0.045,
+        "luma": 0.07
+      },
+      {
+        "index": 7,
+        "start": 31.88,
+        "end": 32.88,
+        "duration": 1.0,
+        "activity": 0.11,
+        "luma": 0.07
+      },
+      {
+        "index": 8,
+        "start": 32.88,
+        "end": 34.5,
+        "duration": 1.62,
+        "activity": 0.028,
+        "luma": 0.07
+      },
+      {
+        "index": 9,
+        "start": 34.5,
+        "end": 35.53,
+        "duration": 1.03,
+        "activity": 0.575,
+        "luma": 0.4
+      },
+      {
+        "index": 10,
+        "start": 35.53,
+        "end": 74.12,
+        "duration": 38.59,
+        "activity": 0.053,
+        "luma": 0.06
+      },
+      {
+        "index": 11,
+        "start": 74.12,
+        "end": 92.23,
+        "duration": 18.11,
+        "activity": 0.043,
+        "luma": 0.05
+      },
+      {
+        "index": 12,
+        "start": 92.23,
+        "end": 96.7,
+        "duration": 4.47,
+        "activity": 0.095,
+        "luma": 0.17
+      },
+      {
+        "index": 13,
+        "start": 96.7,
+        "end": 97.5,
+        "duration": 0.8,
+        "activity": 0.462,
+        "luma": 0.07
+      },
+      {
+        "index": 14,
+        "start": 97.5,
+        "end": 98.9,
+        "duration": 1.4,
+        "activity": 0.246,
+        "luma": 0.15
+      },
+      {
+        "index": 15,
+        "start": 98.9,
+        "end": 106.38,
+        "duration": 7.47,
+        "activity": 0.051,
+        "luma": 0.06
+      },
+      {
+        "index": 16,
+        "start": 106.38,
+        "end": 107.38,
+        "duration": 1.0,
+        "activity": 0.911,
+        "luma": 0.35
+      },
+      {
+        "index": 17,
+        "start": 107.38,
+        "end": 108.67,
+        "duration": 1.29,
+        "activity": 0.42,
+        "luma": 0.3
+      },
+      {
+        "index": 18,
+        "start": 108.67,
+        "end": 110.38,
+        "duration": 1.71,
+        "activity": 0.708,
+        "luma": 0.36
+      },
+      {
+        "index": 19,
+        "start": 110.38,
+        "end": 112.12,
+        "duration": 1.75,
+        "activity": 0.713,
+        "luma": 0.37
+      },
+      {
+        "index": 20,
+        "start": 112.12,
+        "end": 113.4,
+        "duration": 1.28,
+        "activity": 0.694,
+        "luma": 0.37
+      },
+      {
+        "index": 21,
+        "start": 113.4,
+        "end": 114.17,
+        "duration": 0.77,
+        "activity": 0.433,
+        "luma": 0.72
+      },
+      {
+        "index": 22,
+        "start": 114.17,
+        "end": 114.8,
+        "duration": 0.63,
+        "activity": 0.545,
+        "luma": 0.44
+      },
+      {
+        "index": 23,
+        "start": 114.8,
+        "end": 115.62,
+        "duration": 0.83,
+        "activity": 0.459,
+        "luma": 0.12
+      },
+      {
+        "index": 24,
+        "start": 115.62,
+        "end": 121.03,
+        "duration": 5.41,
+        "activity": 0.026,
+        "luma": 0.03
+      },
+      {
+        "index": 25,
+        "start": 121.03,
+        "end": 137.88,
+        "duration": 16.84,
+        "activity": 0.133,
+        "luma": 0.71
+      },
+      {
+        "index": 26,
+        "start": 137.88,
+        "end": 153.43,
+        "duration": 15.56,
+        "activity": 0.054,
+        "luma": 0.04
+      }
+    ],
+    "static_holds": [
+      [
+        1.62,
+        2.88
+      ],
+      [
+        56.12,
+        56.88
+      ],
+      [
+        94.38,
+        95.12
+      ],
+      [
+        104.88,
+        105.88
+      ],
+      [
+        117.88,
+        120.88
+      ],
+      [
+        123.88,
+        125.38
+      ],
+      [
+        127.12,
+        128.38
+      ],
+      [
+        130.88,
+        131.62
+      ],
+      [
+        133.12,
+        133.88
+      ],
+      [
+        138.38,
+        139.62
+      ],
+      [
+        141.12,
+        142.62
+      ],
+      [
+        142.88,
+        145.38
+      ],
+      [
+        150.12,
+        150.88
+      ],
+      [
+        151.62,
+        152.88
+      ]
+    ],
+    "mean_activity": 0.106,
+    "luma": {
+      "mean": 0.15,
+      "dark_share": 0.85,
+      "light_share": 0.11
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.717
+      },
+      {
+        "hex": "#181818",
+        "share": 0.049
+      },
+      {
+        "hex": "#c8c8b8",
+        "share": 0.02
+      },
+      {
+        "hex": "#b8b8a8",
+        "share": 0.018
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.017
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.014
+      },
+      {
+        "hex": "#383838",
+        "share": 0.013
+      },
+      {
+        "hex": "#484848",
+        "share": 0.012
+      },
+      {
+        "hex": "#b8a8a8",
+        "share": 0.011
+      },
+      {
+        "hex": "#a89888",
+        "share": 0.011
+      }
+    ],
+    "representative_times": [
+      0.31,
+      2.27,
+      5.45,
+      6.96,
+      8.48,
+      11.0,
+      15.97,
+      19.94,
+      23.9,
+      28.87,
+      29.88,
+      30.88,
+      32.38,
+      33.69,
+      35.02,
+      45.18,
+      54.83,
+      64.47,
+      78.65,
+      83.18,
+      87.7,
+      93.35,
+      94.47,
+      95.58,
+      97.1,
+      98.2,
+      100.77,
+      102.64,
+      104.51,
+      106.88,
+      108.03,
+      109.53,
+      111.25,
+      112.76,
+      113.78,
+      114.48,
+      115.21,
+      116.97,
+      118.33,
+      119.68,
+      125.24,
+      129.45,
+      133.67,
+      141.77,
+      145.66,
+      149.54
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -5.6,
+      "mean_dbfs_voiced": -20.2,
+      "silence_ratio": 0.06,
+      "onsets": 530,
+      "onset_rate_per_sec": 3.45,
+      "onset_times": [
+        0.09,
+        0.28,
+        0.67,
+        0.74,
+        0.98,
+        1.09,
+        1.56,
+        2.07,
+        2.55,
+        3.07,
+        3.51,
+        3.62,
+        3.74,
+        3.83,
+        4.06,
+        4.44,
+        4.57,
+        4.81,
+        4.95,
+        5.32,
+        5.43,
+        5.57,
+        5.94,
+        6.06,
+        6.29,
+        6.43,
+        6.57,
+        6.8,
+        6.94,
+        7.29,
+        7.57,
+        7.96,
+        8.06,
+        8.43,
+        8.57,
+        8.82,
+        8.96,
+        9.06,
+        9.31,
+        9.45,
+        9.57,
+        9.96,
+        10.05,
+        10.45,
+        10.57,
+        10.82,
+        10.96,
+        11.31,
+        11.45,
+        11.56,
+        11.96,
+        12.05,
+        12.26,
+        12.45,
+        12.56,
+        12.82,
+        12.96,
+        13.31,
+        13.44,
+        13.56,
+        13.86,
+        13.96,
+        14.05,
+        14.26,
+        14.58,
+        14.81,
+        15.44,
+        15.58,
+        16.07,
+        16.44,
+        16.58,
+        16.81,
+        17.32,
+        17.58,
+        17.95,
+        18.07,
+        18.44,
+        18.58,
+        18.81,
+        18.95,
+        19.16,
+        19.32,
+        19.57,
+        19.95,
+        20.13,
+        20.76,
+        21.27,
+        22.06,
+        22.18,
+        22.57,
+        23.13,
+        23.24,
+        23.41,
+        23.52,
+        23.68,
+        23.85,
+        23.96,
+        24.06,
+        24.36,
+        24.45,
+        24.57,
+        24.82,
+        24.96,
+        25.31,
+        25.45,
+        25.57,
+        25.87,
+        25.96,
+        26.05,
+        26.38,
+        26.56,
+        26.82,
+        26.96,
+        27.31,
+        27.45,
+        27.56,
+        27.96,
+        28.17,
+        28.26,
+        28.44,
+        28.51,
+        28.77,
+        28.96,
+        29.26,
+        29.33,
+        29.44,
+        29.51,
+        29.58,
+        29.95,
+        30.07,
+        30.44,
+        30.56,
+        30.81,
+        30.95,
+        31.3,
+        31.44,
+        31.58,
+        31.95,
+        32.07,
+        32.44,
+        32.58,
+        32.81,
+        32.95,
+        33.07,
+        33.32,
+        33.44,
+        33.58,
+        33.85,
+        33.95,
+        34.02,
+        34.16,
+        34.44,
+        34.57,
+        34.67,
+        34.81,
+        34.92,
+        35.04,
+        35.18,
+        35.29,
+        35.41,
+        35.55,
+        35.67,
+        35.76,
+        36.36,
+        36.43,
+        36.57,
+        36.8,
+        36.94,
+        37.31,
+        37.43,
+        37.57,
+        37.96,
+        38.06,
+        38.36,
+        38.45,
+        38.57,
+        38.82,
+        38.96,
+        39.31,
+        39.45,
+        39.57,
+        39.96,
+        40.05,
+        40.45,
+        40.57,
+        40.82,
+        40.96,
+        41.12,
+        41.31,
+        41.45,
+        41.56,
+        41.87,
+        41.96,
+        42.07,
+        42.45,
+        42.56,
+        42.82,
+        42.96,
+        43.31,
+        43.44,
+        43.56,
+        43.96,
+        44.07,
+        44.44,
+        44.56,
+        44.81,
+        44.95,
+        45.3,
+        45.44,
+        45.56,
+        45.95,
+        46.07,
+        46.44,
+        46.56,
+        46.81,
+        46.95,
+        47.32,
+        47.44,
+        47.58,
+        47.95,
+        48.07,
+        48.44,
+        48.55,
+        48.81,
+        48.92,
+        49.16,
+        49.3,
+        49.44,
+        49.57,
+        49.92,
+        50.06,
+        50.2,
+        50.43,
+        50.53,
+        50.81,
+        50.92,
+        51.32,
+        51.39,
+        51.57,
+        51.94,
+        52.06,
+        52.43,
+        52.57,
+        52.83,
+        52.96,
+        53.06,
+        53.31,
+        53.45,
+        53.57,
+        53.96,
+        54.06,
+        54.45,
+        54.57,
+        54.82,
+        54.96,
+        55.31,
+        55.45,
+        55.57,
+        55.96,
+        56.05,
+        56.26,
+        57.19,
+        57.38,
+        57.47,
+        57.56,
+        57.68,
+        58.07,
+        58.26,
+        58.44,
+        58.56,
+        58.82,
+        58.96,
+        59.44,
+        59.56,
+        59.95,
+        60.07,
+        60.44,
+        60.58,
+        60.81,
+        61.32,
+        61.56,
+        62.07,
+        62.44,
+        62.58,
+        62.81,
+        63.32,
+        63.44,
+        63.58,
+        63.95,
+        64.06,
+        64.44,
+        64.57,
+        64.81,
+        64.88,
+        64.97,
+        65.32,
+        65.43,
+        65.57,
+        65.88,
+        65.94,
+        66.06,
+        66.36,
+        66.43,
+        66.57,
+        66.8,
+        66.87,
+        66.94,
+        67.31,
+        67.45,
+        67.57,
+        67.94,
+        68.06,
+        68.17,
+        68.43,
+        68.57,
+        68.96,
+        69.03,
+        69.1,
+        69.57,
+        69.87,
+        69.96,
+        70.05,
+        70.45,
+        70.57,
+        70.82,
+        71.26,
+        71.45,
+        71.56,
+        71.96,
+        72.45,
+        72.56,
+        72.82,
+        72.96,
+        73.31,
+        73.44,
+        73.56,
+        73.96,
+        74.05,
+        74.26,
+        74.86,
+        75.35,
+        76.07,
+        76.44,
+        76.58,
+        76.81,
+        76.95,
+        77.32,
+        77.44,
+        77.58,
+        77.95,
+        78.07,
+        78.44,
+        78.58,
+        78.81,
+        78.95,
+        79.32,
+        79.44,
+        79.57,
+        79.95,
+        80.06,
+        80.43,
+        80.57,
+        80.81,
+        81.06,
+        81.32,
+        81.43,
+        81.57,
+        81.94,
+        82.06,
+        82.43,
+        82.57,
+        82.8,
+        82.94,
+        83.31,
+        83.45,
+        83.57,
+        83.96,
+        84.57,
+        85.31,
+        86.05,
+        86.45,
+        87.31,
+        87.56,
+        87.63,
+        87.7,
+        87.89,
+        88.07,
+        88.31,
+        88.4,
+        88.56,
+        88.82,
+        88.96,
+        89.33,
+        89.44,
+        89.56,
+        89.95,
+        90.07,
+        90.4,
+        90.58,
+        90.81
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.32,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 1094,
+      "band_share": {
+        "low_lt_250": 0.3,
+        "mid_250_2k": 0.51,
+        "high_gt_2k": 0.19
+      },
+      "syllabic_modulation_share": 0.28,
+      "boundary_onset_alignment": {
+        "boundaries": 25,
+        "tolerance_ms": 67,
+        "near_onset": 0.56,
+        "chance_level": 0.37,
+        "median_offset_ms": 65
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-58ff9f39df",
+      "overview": "reference/analysis/ref-58ff9f39df/overview.jpg",
+      "scenes": "reference/analysis/ref-58ff9f39df/scenes.jpg",
+      "transitions": "reference/analysis/ref-58ff9f39df/transitions.jpg",
+      "motion": "reference/analysis/ref-58ff9f39df/motion.jpg",
+      "audio": "reference/analysis/ref-58ff9f39df/audio.png",
+      "frames": "reference/analysis/ref-58ff9f39df/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.3,
+        "lra_lu": 12.5,
+        "true_peak_dbtp": -1.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 111,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 4,
+        "phrases": 4,
+        "speech_start": 34.19,
+        "speech_end": 151.82,
+        "speech_coverage": 0.03,
+        "wps_while_speaking": 0.9,
+        "wpm_over_span": 2,
+        "pace_thirds_wps": [
+          0.08,
+          0.0,
+          0.03
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.82,
+        "pauses": {
+          "count": 3,
+          "median_ms": 15070,
+          "max_ms": 93080,
+          "at": [
+            36.33,
+            42.11,
+            58.1
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 1,
+            "wps": 0.62
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 10,
+            "words": 2,
+            "wps": 0.05
+          },
+          {
+            "index": 11,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 12,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 13,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 14,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 15,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 16,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 17,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 18,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 19,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 20,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 21,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 22,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 23,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 24,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 25,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 26,
+            "words": 1,
+            "wps": 0.06
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 18,
+          "in_pause_share": 0.89,
+          "chance_level": 0.96,
+          "next_phrase_after_ms_median": 41659
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 530,
+        "accents": 106,
+        "accents_per_min": 41.5,
+        "accent_times": [
+          0.09,
+          0.98,
+          4.57,
+          5.57,
+          8.57,
+          9.31,
+          9.57,
+          11.31,
+          11.56,
+          12.56,
+          13.56,
+          16.58,
+          20.76,
+          22.57,
+          23.13,
+          24.57,
+          25.57,
+          27.56,
+          30.56,
+          33.07,
+          33.58,
+          34.57,
+          36.57,
+          37.31,
+          37.57,
+          38.57,
+          39.57,
+          40.57,
+          41.56,
+          42.56,
+          43.56,
+          44.56,
+          45.56,
+          48.55,
+          49.3,
+          49.57,
+          51.32,
+          51.57,
+          52.57,
+          53.31,
+          53.57,
+          54.57,
+          55.57,
+          56.26,
+          57.19,
+          58.56,
+          64.57,
+          65.57,
+          66.57,
+          67.31,
+          67.57,
+          68.57,
+          69.57,
+          70.57,
+          71.56,
+          72.56,
+          73.56,
+          74.26,
+          74.86,
+          75.35,
+          76.07,
+          77.58,
+          80.57,
+          81.57,
+          82.57,
+          83.57,
+          84.57,
+          88.56,
+          89.56,
+          91.56,
+          93.02,
+          93.37,
+          93.72,
+          94.06,
+          94.41,
+          95.06,
+          95.43,
+          96.57,
+          96.69,
+          96.83
+        ],
+        "accent_threshold": 0.33,
+        "boundaries_with_accent": {
+          "boundaries": 25,
+          "share": 0.12,
+          "tolerance_ms": 100,
+          "chance_level": 0.13
+        },
+        "onset_rate_during_speech": 5.42,
+        "onset_rate_outside_speech": 3.4,
+        "level_speech_minus_gaps_db": 1.0,
+        "sustained_share": 0.93,
+        "silences": [
+          [
+            117.93,
+            119.05
+          ],
+          [
+            119.14,
+            121.63
+          ],
+          [
+            140.29,
+            140.74
+          ],
+          [
+            140.83,
+            145.57
+          ]
+        ],
+        "level_head_vs_body_db": 0.9,
+        "level_tail_vs_body_db": -11.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-58ff9f39df/listen",
+        "sheet": "reference/analysis/ref-58ff9f39df/listen/listen.jpg",
+        "words": "reference/analysis/ref-58ff9f39df/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -153,7 +153,7 @@ Planning, visual intelligence, asset acquisition and motion QA on top of the stu
 | Style bake-off | `bakeoff/bakeoff.json`, `design-profile.json` | `scripts/bakeoff.py`, `src/pipeline/archetypes.py` |
 | Assets | `assets/library/`, `<project>/src/assets/manifest.json` | `scripts/assets.py`, `src/pipeline/assets/` |
 | Motion QA | `qa/motion/motion-qa.json` (objective / measured / judgment), critique pack; motion-variety and tween-conflict leads from the GSAP timeline | `scripts/motion-qa.py`, `scripts/dom-probe.mjs`, `scripts/tween-probe.mjs`, `src/pipeline/tweens.py` |
-| Script and story lint | timed sentence sheet, hook score, storyboard `why` table (pre-render, no browser); `audio/words.json` word times for captions and beats | `studio.py script`, `studio.py hook`, `studio.py captions --timing words`, `src/pipeline/scriptlint.py`, `hooks.py`, `captions.py`, `specs/hook-formulas.json` |
+| Script and story lint | timed sentence sheet (speed-aware, stale-audio aware), hook score and clarity notes, storyboard `why` table, named_things table (pre-render, no browser); film-time gap audit from the cached tween dump `qa/motion/tweens.json`; `audio/words.json` word times for captions and beats | `studio.py script [--probe]`, `studio.py hook`, `studio.py captions --timing words`, `src/pipeline/scriptlint.py`, `hooks.py`, `tweens.py`, `captions.py`, `specs/hook-formulas.json` |
 | Revision | spliced `renders/<format>/visuals.mp4` | `scripts/scene-revise.py` |
 
 Skills: `creative-director`, `asset-engine`, `motion-director`. `studio.py validate` checks these files when present. Credentials come from environment variables only.
@@ -170,6 +170,77 @@ A subject specialisation of the studio, not a second pipeline. The `/fitness` sk
 | Fitness kit | `src/studio/kits/fitness/{sculpt-data,sculpt,tibi,exercises,anatomy,graphics,library}.js` | synced with the runtime; `library.js` is generated from `assets/fitness/data/`, `sculpt-data.js` from the Cobalt Sculpt Tibi generator `src/fitness/tibi/` (Python master source; `fitness.py sculpt`) |
 | Assets and provenance | `assets/fitness/manifest.json` (`specs/fitness-asset-spec.json`), `assets/fitness/sheets/` -> `previews/`, `brand/` | `fitness.py check` ties manifest, data and kit together |
 | Sound identity | `.claude/skills/fitness/scripts/sinew_sound.py` | per-project `audio/generate_bed_and_sfx.py` calls it |
+
+Temporal fitness regression: `scripts/rig3d-seek.py` uses the owned
+`assets/fitness/lab3d/seek-bench.html` under the host lock to compare fresh and
+revisited frames. Runtime 1.9.1 fixes skin/toe/mode state recovery, runs
+`T3.bind` scene callbacks after camera preparation but before drawing, and
+keeps split projection cameras childless. The public pose/callback signatures
+are unchanged; pixel reads belong after the seek. This gate proves seek parity,
+not anatomical accuracy (`docs/fitness-studio.md` section 7).
+
+Historically, runtime 1.9.2 added opt-in `profileSampling: 'distance'` to Tibi/3D exercise
+creation: core tubes honour unevenly spaced physical profile stations.
+The legacy geometry remains the default pending the owner's look decision;
+caches are separated by body and profile. The anatomy bench now defines a
+240-cell diagnostic slice with image hashes and reviewed per-case verdicts;
+the seek suite expands to 20 cases per profile. See
+`docs/fitness-studio.md` section 8; neither suite grants human G3 approval.
+
+Runtime 1.10.0 makes the integrated distance body the 3D development default
+after the owner's full-body correction request. Profiled fans/bands, body-relative
+centres, a deep upper-arm brachialis, figure-local morph normals, convex surface
+colour mixing and a torso-owned top replace the exterior-looking forms.
+The skin grid is 3.5 units; explicit legacy retains its old geometry/rendering.
+Pose APIs, bone lengths, exercise timing and approved 2D art are unchanged.
+Normal/clay region review and local gates supplement, not replace, human G3.
+See `docs/fitness-studio.md` section 9.
+
+The owner's shoulder follow-up rejected the remaining 1.10 knobs. Runtime
+1.11.0 replaces the supporting joint orb/flat arm root with a sloping envelope
+and rounded tapered deltoids, and exposes the figure's neutral stance through
+`fig.defaultPose`. Authored-motion `T3.DEFAULT_POSE` values remain unchanged.
+Same-pose geometry review, neutral clearance and actual defect controls are
+separate checks; see `docs/fitness-studio.md` section 10.
+
+Fitness skill 2.1 and Body Lab style template v2 onboard source-linked
+communication lessons from a Yellow Dude web/still study, not its assets or
+toolchain. The guide separates visible observations, publisher-reported process,
+Sinew adaptations and unmeasured video/audio claims. It routes audience framing,
+claim-to-drawing trace, matched comparisons, qualified progressions, rough
+animatic review and original packaging into the existing authoring/review
+workflow; numerical pacing rules and human accuracy gates are unchanged.
+See `.claude/skills/fitness/references/yellow-dude-study.md` and
+`docs/fitness-studio.md` section 11. No fabricated video-corpus record or
+automatic creative promotion is part of this onboarding.
+
+<a id="visual-engines"></a>
+
+### 0.11 Visual engines and the visual director
+
+HyperFrames is the only compositor. Each storyboard scene is drawn natively in the page (HyperFrames SVG/DOM/Canvas, or Three.js inside it) or gets a **Blender plate**: an offline 3D render placed in the composition as a timed `<video>`. The `visual-director` skill and subagent decide per scene and record it in `projects/<slug>/visual-plan.json` (`specs/visual-plan-spec.json`); engines, routing signals and the pinned Blender build live in `specs/visual-engines.json`. Evaluation and evidence: `docs/visual-engines.md` (Remotion and Revideo stay blocked; Manim is proposed for equation morphing only).
+
+| Engine | Status | Draws | Into the film |
+| --- | --- | --- | --- |
+| HyperFrames + GSAP + studio runtime | approved | type, 2D diagrams, charts, math as SVG, algorithms, UI, all text | itself |
+| Three.js r158 (vendored) | experimental | stylised 3D, tracked 3D labels, the 3D Tibi | canvas in the page |
+| Blender 5.2.4 LTS (headless `bpy`) | experimental | light transport, volumetrics, simulations, real lenses and camera moves | `src/plates/<id>.<format>.mp4` (opaque) or `.webm` (VP9 alpha) |
+
+Flow: `visual-director.py plan <slug> --write` drafts decisions from the storyboard → the director decides, authors `blender/<id>.py` from `templates/blender/plates/` on the kit `src/blender/` (`mlab.py`: seconds, GSAP easing names, palette roles from the style sheet, short-side framing per format, seeded randomness) → `render --preview` contact sheets → the plate is placed in `src/index.html` → `studio.py validate` runs `check_plan` → `studio.py build` adds a `plates` stage before the HyperFrames render. Plates render once per format under the host render lock and carry a fingerprint (kit, script, job, Blender version) in `renders/plates/<id>/<format>/stamp.json`; a changed input re-renders the plate, and because plates live under `src/`, the film's own render stamp goes stale with them. `studio.py formats` rewrites `plates/<id>.<format>.<ext>` per entry file. No text is ever baked into a plate.
+
+<a id="frame-rate"></a>
+
+### 0.12 Frame rate: native re-render and measured interpolation
+
+Going from 30 fps to 60 fps (or higher) fills every gap between two frames with a new picture. The `frame-rate` skill and `scripts/frame-rate.py` (logic in `src/pipeline/framerate.py`) choose where that picture comes from.
+
+| Film | Path | Tool |
+| --- | --- | --- |
+| Studio project | **native**: `project.json` `fps: 60`, render again. HyperFrames samples the GSAP timeline at any rate, so every frame is real. The render fingerprint includes the fps, so old renders move to `renders/history/` on their own. | `frame-rate.py audit <slug> [--apply]`: 30 fps video layers (plates re-render at the project rate), authored moves that still strobe at the target rate (from `qa/motion/tweens.json` and the real GSAP ease slope), stepped motion (stays stepped), fps lookups, page motion blur (`data-motion-blur` on `#root`, kept by `rewrite_root`). |
+| Any finished film without a re-renderable source | **convert**: one method per source frame pair. Holds, cuts and stepped cadence are copied. Dissolves are blended. Motion is blended, or motion-compensated (FFmpeg `minterpolate`) where a leave-one-out probe on the film itself shows MCI beating blend by 10%. | `analyse` (analysis lock) → `convert` (render lock; raw yuv420p pipes, audio copied, `.partial` then rename) → `verify` (frame count, duration, audio, distinct frames per second) → `sheet` (labelled strips to look at). |
+| Above 60 fps | native 60, then convert 60 → 120 | Studio projects render at 24/25/30/60 (`specs/video-spec.json`). Platforms deliver at most 60. |
+
+Outputs for a slug go to `renders/<fmt>/hfr/` and `qa/frame-rate/`. Nothing is copied to `out/` automatically. Status: experimental. It was calibrated on the Windows host (four films, a synthetic ground-truth scene; evidence in `.claude/skills/frame-rate/references/gap-filling.md`) and has not yet run on the M2.
 
 ---
 
@@ -772,7 +843,8 @@ flowchart LR
 - **`p5-brush` (Experimental Library)**: Natural-media textured brush strokes on WebGL2 canvas; isolated prototype in `tests/prototypes/p5-brush/` validated with bitwise determinism (`PSNR=inf`).
 - **`lottie-web` / `text-to-lottie` (Experimental Capability)**: Declarative Lottie JSON vector animations scrubbed deterministically via GSAP timeline (`tests/prototypes/lottie/`).
 - **`genjutsu` (Blocked Candidate)**: Evaluated and rejected due to 100% overlap with existing skills and high token overhead. Registered as `blocked` in catalogue.
-- **`claude-remotion` (Blocked Candidate)**: Evaluated and blocked as production rendering engine due to React/Webpack build overhead and high memory footprint (>2.2 GB RAM); reusable UI patterns documented for GSAP adaptation.
+- **`claude-remotion` (Blocked Candidate)**: Evaluated and blocked as production rendering engine due to React/Webpack build overhead and high memory footprint (>2.2 GB RAM); reusable UI patterns documented for GSAP adaptation. Re-confirmed 2026-11-24 with Revideo (`tool-revideo`, blocked) in `docs/visual-engines.md`.
+- **`visual-director` (Experimental Skill + Subagent)**: Routes each scene to HyperFrames, Three.js or a Blender plate (`tool-blender`, experimental), authors and renders plates through `scripts/visual-director.py`, and composites them in HyperFrames (section 0.11).
 - **`wiggle` (Blocked Candidate)**: Evaluated and rejected due to fragile Python dependencies (`lottie[all]`, `cairosvg`, `pillow`) and narrow scope subsumed by Text-to-Lottie.
 
 ### 7.3 The 7-Domain Component Placement Taxonomy

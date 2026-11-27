@@ -66,7 +66,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (64 frames over 97.9 s, about 1.5 s apart) and the audio sheet with spectrogram. Scene sheet and strips generated, not viewed. Timestamps for individual chapters are approximate.",
+    "method": "Viewed overview (64 frames over 97.9 s, about 1.5 s apart) and the audio sheet with spectrogram. Scene sheet and strips generated, not viewed. Timestamps for individual chapters are approximate. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened (first 16 boundaries); 30 fps strips 72.30-73.20, 85.10-86.10 and 94.60-95.60 s; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at overview density.",
     "concept": {
       "observed": "A chaptered explainer of an AI data centre: building and power, data hall, rack, compute tray, an exploded chip, cluster, cooling and a closing summary, in white clay-render isometric 3D with coloured flow lines.",
@@ -101,6 +101,24 @@
         "observed": "Spectrogram viewed: steady sustained bands and a level envelope with section changes near 22 s and 50 s; no syllabic speech patterns.",
         "interpreted": "Ambient music bed; no narration.",
         "confidence": "medium"
+      },
+      "sound_design": {
+        "observed": "Integrated -38.2 LUFS, LRA 4.3 LU, true peak -24.3 dBTP: a near-silent ambient bed about 24 dB under the promos. 20 accents (12.3 a minute). Accents on cuts 0.00 against chance 0.04 (18 boundaries); onsets near boundaries 0.33 against 0.33. No silences; the bed is sustained (0.99). Listen sheet: the few accents fall on camera moves and part separations (a layer lifting off the exploded chip at 53.73 s, blocks lighting up at 59.58 s), never on chapter changes.",
+        "interpreted": "The sound of a captured interactive page: a faint bed that carries no structure. A film built on this staging needs its own bed and accents.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation found 0 words in 98 s.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No caption lane. Copy is a lower-left chapter block (a bold title with a two-to-three-line paragraph) over a bottom chapter and progress bar, plus small leader-line labels on the model: a web page's copy, not captions.",
+        "confidence": "medium"
+      },
+      "transitions": {
+        "observed": "Re-read 2026-11-27: 18 boundaries (5 cut, 0 grow, 0 cover, 13 continuous). A screen capture (frames are small; titles unreadable at sheet size). 22.38 s continuous: dip through white: the hall view fades to near-white (22.21-22.35 s) and the next view is there at 22.39 s while its title types in. 26.12 s continuous: camera dolly inside the hall. 28.68 s cut: hall to a single rack on white; the title types in. 43.30 s continuous: the tray fades up from white in about 0.3 s. 48.52 s cut: closer view of the tray. 50.32 s continuous: fade to white (50.33-50.50 s). 52.76 s cut: the lid swaps for the cold plate: one exploded-view step. 54.88 s continuous: exploded layers lift. 56.62 s continuous: exploded layers keep lifting. 58.96 s cut: top view of the chip grid. 60.38 s continuous: camera drift. 65.12 s continuous: a stack of blocks builds. 69.12 s continuous: the rack turns. 72.12 s continuous: the camera slides along the rack. 73.12 s continuous: dip through white, seen in the strip: out 72.33-72.53 s, empty about 0.05 s, up 72.57-72.83 s with the title typing. 80.45 s cut: to the cooling unit; the title types in. 85.62 s continuous: pipes animate their flow while the camera drifts. 95.12 s continuous: heat plumes rise while the camera drifts; a fade to white starts at about 95.5 s.",
+        "interpreted": "A screen capture of a scroll-driven 3D page: each section is a camera stop on one model with a typed title at lower left. It never wipes: hard cuts jump to a new camera stop, dips through the white page background mark the bigger section changes, and everything else is camera or model motion. A player's progress bar shows and hides at the bottom (screen capture, not design).",
+        "confidence": "medium"
       }
     },
     "scenes": [
@@ -131,7 +149,8 @@
     ],
     "uncertainties": [
       "Publisher and licence unknown",
-      "Chapter timestamps approximate"
+      "Chapter timestamps approximate",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -176,6 +195,14 @@
       "timestamps": [
         44.0
       ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        22.35,
+        50.45,
+        72.55
+      ]
     }
   ],
   "related": {
@@ -208,21 +235,23 @@
     "isometric",
     "infrastructure",
     "screen-capture",
-    "chapters"
+    "chapters",
+    "batch-0",
+    "batch-7"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 31.3
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 44.2
     },
     "sampling": {
       "scan_fps": 4.0,
@@ -1016,6 +1045,82 @@
       "audio": "reference/analysis/ref-37644838b5/audio.png",
       "frames": "reference/analysis/ref-37644838b5/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -38.2,
+        "lra_lu": 4.3,
+        "true_peak_dbtp": -24.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 6,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 389,
+        "accents": 20,
+        "accents_per_min": 12.3,
+        "accent_times": [
+          0.33,
+          1.25,
+          23.71,
+          26.96,
+          38.2,
+          40.36,
+          51.01,
+          52.36,
+          53.73,
+          56.35,
+          59.58,
+          63.02,
+          67.01,
+          75.84,
+          83.71,
+          84.36,
+          87.59,
+          88.35,
+          89.72,
+          95.71
+        ],
+        "accent_threshold": 0.2,
+        "boundaries_with_accent": {
+          "boundaries": 18,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.04
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.97,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -2.5,
+        "level_tail_vs_body_db": 0.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-37644838b5/listen",
+        "sheet": "reference/analysis/ref-37644838b5/listen/listen.jpg",
+        "words": "reference/analysis/ref-37644838b5/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

@@ -1,0 +1,77 @@
+{
+  "id": "flash-cut-turn",
+  "name": "Flash on the turn of the film",
+  "effect_id": "flash-cut",
+  "status": "experimental",
+  "visual_intent": "Mark the one or two biggest turns of a film with a flash under which the scene changes; pair it with the hit.",
+  "parameters": [
+    {
+      "name": "color",
+      "type": "color",
+      "default": "#ffffff",
+      "description": "White reads as exposure on a dark frame; on the light canvas use an accent or the radial shape"
+    },
+    {
+      "name": "shape",
+      "type": "string",
+      "default": "flat",
+      "description": "flat (whole frame) or radial (burst centred on the incoming subject)"
+    },
+    {
+      "name": "hold",
+      "type": "number",
+      "default": 1,
+      "description": "Frames at full opacity"
+    },
+    {
+      "name": "decay",
+      "type": "number",
+      "default": 0.25,
+      "description": "Seconds from full flash to clear (0.15-0.35 in the references)"
+    },
+    {
+      "name": "preDim",
+      "type": "number",
+      "default": 0,
+      "description": "Seconds the outgoing scene darkens before the flash"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or word times (Studio.cues.fromWords); place it on the word or beat it illustrates",
+    "easing_standard": "power2.out (decay); power1.in (pre-dim)",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "// the hit lands 0-250 ms after the flash; at most two or three per film\nStudio.fx.flash(tl, '#s2', '#s3', cue('turn'), { shape: 'radial', color: Studio.token('--c-accent-3'), center: '#s3 h1', preDim: 0.2 });"
+  },
+  "fallbacks": "Studio.cut on the beat with the hit alone, or Studio.fx.bloom when an element can carry the change.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.0,
+    "memory_impact": "Low; estimate, not measured on the M2"
+  },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/flash-and-container/index.html --serve-root . --fonts google --at <cue, cue + 1 frame, cue + decay>",
+    "On the render host: hyperframes snapshot at the cue and one frame after; count flashes per second for WCAG 2.3.1"
+  ],
+  "tags": [
+    "transition",
+    "flash",
+    "cut",
+    "reference-derived"
+  ],
+  "examples": [
+    "tests/reference-derived/flash-and-container/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/backlog-techniques.html in Playwright Chromium on Windows, 2026-11-28.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

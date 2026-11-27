@@ -1,6 +1,7 @@
 {
   "id": "step-progress-tracker",
   "name": "Step progress tracker",
+  "family": "explanation-device",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Three inspected references show where the viewer is in a process: a bottom row of step nodes, a chapter bar, step pills.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A row of numbered nodes on a rule fills as the process advances, giving a how-to or explainer a constant answer to 'where are we and how much is left'.",
@@ -18,7 +19,9 @@
   "provenance": [
     { "source_id": "ref-c3bc609841", "timestamps": [6.0, 15.0, 27.0], "observed": "A bottom row of six named step nodes fills in red as each ingredient is added; a side card shows the current step with its own progress bar." },
     { "source_id": "ref-37644838b5", "timestamps": [10.0, 60.0], "observed": "A chapter bar at the bottom tracks progress through the explainer." },
-    { "source_id": "ref-95c96d5c47", "timestamps": [18.75, 25.2], "observed": "Numbered step pills head each phase of the explanation." }
+    { "source_id": "ref-95c96d5c47", "timestamps": [18.75, 25.2], "observed": "Numbered step pills head each phase of the explanation." },
+    { "source_id": "ref-a339360a56", "timestamps": [4.15, 10.19, 16.23], "observed": "Three coloured tabs at the top fill in turn as the demo moves through its three steps." },
+    { "source_id": "ref-a943607659", "timestamps": [27.22, 30.92, 32.58, 35.42], "observed": "A camp label under the counter steps through named stages (base camp to summit) as the route advances." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -28,5 +31,5 @@
   "related": { "techniques": ["single-stage-progression"], "compositions": ["progress-stepper", "step-header"], "templates": ["illustrated-explainer", "technical-explainer"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
   "tags": ["stepper", "progress", "how-to", "recipe", "explainer", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-26" }
 }

@@ -344,6 +344,347 @@
     };
   };
 
+  // ------------------------------------------------------------------ inside-the-body plates (2026-11-23)
+  // Vascular tree, alveolus and joint sections use the Sinew inside language (STYLE.md): rosewood
+  // for tissue and vessels, ivory for tendon, ligament and cartilage, bone and cream for bone and
+  // cut edges, a dusk tone for oxygen-poor blood. Never the effort colours (coral, marigold, pale
+  // cobalt): nothing here is "working". Every plate carries an "illustrative" tag; structure
+  // follows OpenStax Anatomy and Physiology 2e (sections 9.4, 9.6, 20.1, 22.1; facts only, no
+  // figure copied), see assets/fitness/manifest.json for the exact references.
+  var IN = A.inside = {
+    rose: '#C98A82', roseDeep: '#A8645F', roseLine: '#8E5650', ivory: '#F3E7CF', ivoryLine: '#C9B48C',
+    bone: '#E3D5B6', boneLine: '#B39C72', cream: '#F6EFE0', dusk: '#6F5B70', duskLight: '#9B879A',
+    fluid: '#EFD9D2', air: '#FBF8F1'
+  };
+  function label(g, s, x, y, o) {
+    var e = o || {};
+    var t = svg('text', { x: num(x), y: num(y), 'text-anchor': e.anchor || 'start', 'font-family': e.mono ? 'JetBrains Mono' : 'Inter', 'font-weight': e.w || 600, 'font-size': e.size || 15, fill: e.fill || P.ink }, g);
+    t.textContent = s;
+    return t;
+  }
+  function leader(g, x1, y1, x2, y2) {
+    var l = svg('g', {}, g);
+    svg('line', { x1: num(x1), y1: num(y1), x2: num(x2), y2: num(y2), stroke: P.ink2, 'stroke-width': 1.4 }, l);
+    svg('circle', { cx: num(x2), cy: num(y2), r: 2.6, fill: P.ink }, l);
+    return l;
+  }
+  // a name with a leader line that leaves from the side of the text facing its target (never through it)
+  function named(g, list, s, x, y, lx, ly, anchor, size, from) {
+    var sz = size || 15, w = s.length * sz * 0.54, an = anchor || 'start';
+    var x0 = an === 'middle' ? x - w / 2 : (an === 'end' ? x - w : x), x1 = x0 + w;
+    var ng = svg('g', {}, g);
+    if (from) leader(ng, from[0], from[1], lx, ly);
+    else if (lx > x1 + 2) leader(ng, x1 + 5, y - sz * 0.33, lx, ly);
+    else if (lx < x0 - 2) leader(ng, x0 - 5, y - sz * 0.33, lx, ly);
+    else leader(ng, Math.max(x0, Math.min(x1, lx)), ly > y ? y + 5 : y - sz - 2, lx, ly);
+    label(ng, s, x, y, { anchor: an, size: sz, w: 700 });
+    list.push(ng);
+    return ng;
+  }
+  function tagIllustrative(g, x, y, text) {
+    return label(g, text || 'ILLUSTRATIVE', x, y, { mono: true, size: 12, w: 500, fill: P.ink3 });
+  }
+  function pathOf(pts) { return 'M' + pts.map(function (p) { return num(p[0]) + ' ' + num(p[1]); }).join(' L'); }
+  // a token travels a polyline at constant speed: one linear tween per leg, `period` per trip; with
+  // `until` the trip is cut there (the last leg ends part-way), so nothing runs past the scene
+  function travel(tl, el, pts, at, period, until) {
+    var L = 0, seg = [];
+    for (var i = 1; i < pts.length; i++) { var d = Math.sqrt(Math.pow(pts[i][0] - pts[i - 1][0], 2) + Math.pow(pts[i][1] - pts[i - 1][1], 2)); seg.push(d); L += d; }
+    var t = at, end = until === undefined ? Infinity : until;
+    for (var k = 1; k < pts.length && t < end - 1e-6; k++) {
+      var dur = period * seg[k - 1] / L, q = pts[k];
+      if (t + dur > end) { var f = (end - t) / dur; q = [pts[k - 1][0] + (pts[k][0] - pts[k - 1][0]) * f, pts[k - 1][1] + (pts[k][1] - pts[k - 1][1]) * f]; dur = end - t; }
+      tl.fromTo(el, { attr: { transform: 'translate(' + num(pts[k - 1][0]) + ' ' + num(pts[k - 1][1]) + ')' } }, { attr: { transform: 'translate(' + num(q[0]) + ' ' + num(q[1]) + ')' }, duration: dur, ease: 'none', immediateRender: false }, t);
+      t += dur;
+    }
+    return t;
+  }
+  // labels and leader groups appear one after another (progressive reveal for narration)
+  function revealer(items) {
+    items.forEach(function (it) { it.setAttribute('opacity', 0); });
+    return function (tl, at, stagger) {
+      var s = stagger === undefined ? 0.45 : stagger;
+      items.forEach(function (it, i) { tl.fromTo(it, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power1.out', immediateRender: false }, at + i * s); });
+      return at + items.length * s + 0.35;
+    };
+  }
+
+  /**
+   * A vascular tree: an artery branches into arterioles, a capillary bed, venules and a vein (with a
+   * valve); inset cross-sections compare wall thickness. Box 600 x 340, flow left to right.
+   * flow(tl, from, to, period) sends blood cells through (they turn from rosewood to dusk in the
+   * capillaries, where oxygen is given off); labels(tl, at, stagger) reveals the names.
+   * Facts: OpenStax A&P 2e 20.1 (arteries carry blood away from the heart and have thicker walls
+   * and smaller lumens; veins have thinner walls, larger lumens and, in the limbs, valves).
+   */
+  A.vascularTree = function (parent, opts) {
+    var o = opts || {};
+    var g = grp(parent, 'an-vascular', o.x, o.y, o.scale);
+    var cy = 140, rows = [-58, 0, 58];
+    var paths = rows.map(function (dy) {
+      return [[-10, cy], [120, cy], [180, cy + dy * 0.6], [235, cy + dy], [255, cy + dy - 8], [275, cy + dy + 8], [295, cy + dy - 8], [315, cy + dy + 8], [335, cy + dy],
+        [390, cy + dy * 0.6], [450, cy], [610, cy]];
+    });
+    var vessels = svg('g', {}, g);
+    // capillary bed: a fine mesh between the arteriole and venule ends
+    var bed = svg('g', {}, vessels);
+    rows.forEach(function (dy, i) {
+      svg('path', { d: Studio.rig.curve(paths[i].slice(3, 9), 0.7), fill: 'none', stroke: IN.rose, 'stroke-width': 4, 'stroke-linecap': 'round' }, bed);
+    });
+    [[245, 268, 'M245 ' + (cy - 50) + ' C255 ' + (cy - 20) + ' 250 ' + (cy - 10) + ' 262 ' + cy], [300, 320, 'M298 ' + (cy - 4) + ' C306 ' + (cy + 20) + ' 300 ' + (cy + 34) + ' 312 ' + (cy + 54)],
+      [270, 290, 'M276 ' + (cy + 6) + ' C284 ' + (cy - 20) + ' 280 ' + (cy - 34) + ' 290 ' + (cy - 54)], [320, 330, 'M318 ' + (cy - 54) + ' C326 ' + (cy - 30) + ' 322 ' + (cy - 14) + ' 332 ' + cy]
+    ].forEach(function (c) { svg('path', { d: c[2], fill: 'none', stroke: IN.duskLight, 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.9 }, bed); });
+    // arterial side: thick wall (roseDeep) around a smaller lumen
+    var art = svg('g', {}, vessels);
+    svg('path', { d: 'M-10 ' + cy + ' L120 ' + cy, stroke: IN.roseDeep, 'stroke-width': 30, 'stroke-linecap': 'round', fill: 'none' }, art);
+    rows.forEach(function (dy) { svg('path', { d: 'M118 ' + cy + ' Q170 ' + num(cy + dy * 0.5) + ' 238 ' + (cy + dy), stroke: IN.roseDeep, 'stroke-width': 13, 'stroke-linecap': 'round', fill: 'none' }, art); });
+    svg('path', { d: 'M-10 ' + cy + ' L120 ' + cy, stroke: IN.rose, 'stroke-width': 13, 'stroke-linecap': 'round', fill: 'none' }, art);
+    rows.forEach(function (dy) { svg('path', { d: 'M118 ' + cy + ' Q170 ' + num(cy + dy * 0.5) + ' 238 ' + (cy + dy), stroke: IN.rose, 'stroke-width': 5, 'stroke-linecap': 'round', fill: 'none' }, art); });
+    // venous side: thin wall (dusk) around a larger lumen, one valve
+    var ven = svg('g', {}, vessels);
+    rows.forEach(function (dy) { svg('path', { d: 'M332 ' + (cy + dy) + ' Q400 ' + num(cy + dy * 0.5) + ' 452 ' + cy, stroke: IN.dusk, 'stroke-width': 14, 'stroke-linecap': 'round', fill: 'none' }, ven); });
+    svg('path', { d: 'M450 ' + cy + ' L610 ' + cy, stroke: IN.dusk, 'stroke-width': 38, 'stroke-linecap': 'round', fill: 'none' }, ven);
+    rows.forEach(function (dy) { svg('path', { d: 'M332 ' + (cy + dy) + ' Q400 ' + num(cy + dy * 0.5) + ' 452 ' + cy, stroke: IN.duskLight, 'stroke-width': 9, 'stroke-linecap': 'round', fill: 'none' }, ven); });
+    svg('path', { d: 'M450 ' + cy + ' L610 ' + cy, stroke: IN.duskLight, 'stroke-width': 30, 'stroke-linecap': 'round', fill: 'none' }, ven);
+    var valve = svg('g', {}, ven);
+    svg('path', { d: 'M520 ' + (cy - 15) + ' Q540 ' + (cy - 6) + ' 552 ' + (cy - 1) + ' M520 ' + (cy + 15) + ' Q540 ' + (cy + 6) + ' 552 ' + (cy + 1), stroke: IN.cream, 'stroke-width': 3.4, fill: 'none', 'stroke-linecap': 'round' }, valve);
+    // cells ride above the vessels
+    var cells = svg('g', {}, g);
+    // insets: artery vs vein cut across
+    var insets = svg('g', {}, g);
+    function inset(x, wall, lumenR, rx, col, light, name) {
+      var ig = svg('g', { transform: 'translate(' + x + ' 272)' }, insets);
+      svg('ellipse', { rx: num(lumenR + wall), ry: num((lumenR + wall) * rx), fill: col }, ig);
+      svg('ellipse', { rx: num(lumenR), ry: num(lumenR * rx * 0.92), fill: light }, ig);
+      label(ig, name, 0, 50, { anchor: 'middle', size: 13, w: 600, fill: P.ink2 });
+      return ig;
+    }
+    var insA = inset(60, 13, 11, 1, IN.roseDeep, IN.rose, 'artery: thick wall');
+    var insV = inset(540, 5, 22, 0.72, IN.dusk, IN.duskLight, 'vein: thin wall, wide lumen');
+    var names = [];
+    function name(s, x, y, lx, ly) { return named(g, names, s, x, y, lx, ly, 'middle', 16); }
+    name('artery', 60, 92, 60, cy - 16);
+    name('arterioles', 175, 40, 190, cy - 44);
+    name('capillaries', 288, 30, 290, cy - 60);
+    name('venules', 400, 40, 392, cy - 46);
+    name('vein', 485, 92, 485, cy - 20);
+    name('valve', 588, 92, 545, cy - 6);
+    var tagEl = tagIllustrative(g, 0, 358, 'ILLUSTRATIVE · NOT TO SCALE');
+    var legend = svg('g', { transform: 'translate(180 300)' }, g);
+    svg('circle', { cx: 0, cy: -5, r: 7, fill: IN.roseDeep }, legend); label(legend, 'oxygen-rich', 12, 0, { size: 13 });
+    svg('circle', { cx: 130, cy: -5, r: 7, fill: IN.dusk }, legend); label(legend, 'oxygen-poor', 142, 0, { size: 13 });
+    return {
+      g: g, vessels: vessels, capillaries: bed, valve: valve, insets: [insA, insV], names: names, tag: tagEl, legend: legend, paths: paths,
+      labels: revealer(names),
+      /** Blood cells through every branch from `from` to `to`; period = seconds per trip. Returns `to`. */
+      flow: function (tl, from, to, period) {
+        var per = period || 3.2, lanes = paths.length, per2 = per / 5;
+        for (var lane = 0; lane < lanes; lane++) {
+          for (var k = 0; k < 5; k++) {
+            var cell = svg('g', { transform: 'translate(-20 ' + cy + ')', opacity: 0 }, cells);
+            var disc = svg('ellipse', { rx: 6.5, ry: 4.5, fill: IN.roseDeep, stroke: IN.cream, 'stroke-width': 1.4 }, cell);
+            var start = from + lane * per2 * 0.33 + k * per2;
+            if (start >= to) continue;
+            tl.fromTo(cell, { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, start);
+            for (var t0 = start; t0 < to - 1e-6; t0 += per) {
+              travel(tl, cell, paths[lane], t0, per, to);
+              // oxygen given off in the capillary bed: rosewood -> dusk, reset at the next trip
+              if (t0 + per * 0.6 <= to) tl.fromTo(disc, { attr: { fill: IN.roseDeep } }, { attr: { fill: IN.dusk }, duration: per * 0.18, ease: 'power1.inOut', immediateRender: false }, t0 + per * 0.42);
+              if (t0 + per <= to) tl.fromTo(disc, { attr: { fill: IN.dusk } }, { attr: { fill: IN.roseDeep }, duration: 0.01, ease: 'none', immediateRender: false }, t0 + per - 0.01);
+            }
+          }
+        }
+        return to;
+      }
+    };
+  };
+
+  /**
+   * One alveolus at a capillary: air comes down the bronchiole, oxygen crosses the thin respiratory
+   * membrane into the blood and carbon dioxide crosses out. Box 520 x 360. exchange(tl, from, to,
+   * period) moves the molecules; labels(tl, at, stagger) reveals the names.
+   * Facts: OpenStax A&P 2e 22.1 (alveolus about 200 um across; type I cells form most of the
+   * surface, type II cells secrete surfactant, alveolar macrophages roam the wall; the respiratory
+   * membrane is about 0.5 um thick and gases cross it by simple diffusion).
+   */
+  A.alveolus = function (parent, opts) {
+    var o = opts || {};
+    var g = grp(parent, 'an-alveolus', o.x, o.y, o.scale);
+    var C = [250, 190], R = 118;
+    // bronchiole from the top left into the sac, neighbour alveoli behind
+    svg('path', { d: 'M40 10 C80 40 120 70 170 96', fill: 'none', stroke: IN.rose, 'stroke-width': 46, 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M40 10 C80 40 120 70 170 96', fill: 'none', stroke: IN.air, 'stroke-width': 34, 'stroke-linecap': 'round' }, g);
+    [[118, 228, 62], [390, 110, 58]].forEach(function (c) { svg('circle', { cx: c[0], cy: c[1], r: c[2], fill: IN.air, stroke: IN.rose, 'stroke-width': 5 }, g); });
+    var sac = svg('circle', { cx: C[0], cy: C[1], r: R, fill: IN.air, stroke: IN.rose, 'stroke-width': 6 }, g);
+    // capillary hugging the lower right of the wall
+    var capD = 'M250 334 A144 144 0 0 0 392 196 A144 144 0 0 0 330 80';
+    var cap = svg('g', {}, g);
+    svg('path', { d: capD, fill: 'none', stroke: IN.roseDeep, 'stroke-width': 30, 'stroke-linecap': 'round' }, cap);
+    svg('path', { d: capD, fill: 'none', stroke: IN.rose, 'stroke-width': 20, 'stroke-linecap': 'round' }, cap);
+    // type II cell with surfactant, a macrophage on the wall
+    var t2 = svg('g', {}, g);
+    svg('path', { d: 'M150 232 C146 214 166 204 178 214 C190 224 182 246 166 246 C156 246 152 240 150 232 Z', fill: IN.cream, stroke: IN.roseLine, 'stroke-width': 2 }, t2);
+    [[170, 222], [176, 232], [164, 236]].forEach(function (p) { svg('circle', { cx: p[0], cy: p[1], r: 2.6, fill: IN.ivoryLine }, t2); });
+    var mac = svg('path', { d: 'M232 290 C222 280 236 268 248 274 C256 264 272 270 268 282 C280 288 272 302 260 300 C252 310 236 304 232 290 Z', fill: IN.ivory, stroke: IN.ivoryLine, 'stroke-width': 2 }, g);
+    var mols = svg('g', {}, g);
+    var names = [];
+    function name(s, x, y, lx, ly, anchor) { return named(g, names, s, x, y, lx, ly, anchor); }
+    name('alveolus (~200 \u00B5m)', 300, 40, 270, 76);
+    name('capillary', 430, 300, 380, 268);
+    name('respiratory membrane (~0.5 \u00B5m)', 410, 196, 368, 190);
+    name('type II cell: surfactant', 20, 300, 158, 244);
+    name('macrophage', 150, 346, 238, 300);
+    name('type I cells line the wall', 20, 150, 136, 160);
+    var tagEl = tagIllustrative(g, 380, 356, 'ILLUSTRATIVE · NOT TO SCALE');
+    var legend = svg('g', { transform: 'translate(330 18)' }, g);
+    svg('circle', { cx: 0, cy: -5, r: 7, fill: IN.cream, stroke: IN.roseDeep, 'stroke-width': 2.4 }, legend); label(legend, 'O\u2082', 12, 0, { size: 14, w: 700 });
+    svg('circle', { cx: 60, cy: -5, r: 7, fill: P.ink2 }, legend); label(legend, 'CO\u2082', 72, 0, { size: 14, w: 700 });
+    return {
+      g: g, sac: sac, capillary: cap, typeII: t2, macrophage: mac, names: names, tag: tagEl, legend: legend,
+      labels: revealer(names),
+      /** Oxygen in from the airway and across into the blood, carbon dioxide out the other way. */
+      exchange: function (tl, from, to, period) {
+        var per = period || 3.0;
+        var o2 = [[[60, 24], [130, 70], [220, 150], [300, 214], [352, 236], [372, 210], [366, 150], [340, 100]],
+          [[70, 30], [150, 90], [240, 190], [312, 260], [330, 282], [296, 312], [260, 328]],
+          [[80, 20], [160, 80], [250, 120], [330, 170], [364, 182], [372, 214], [354, 270]]];
+        var co2 = [[[262, 330], [300, 312], [318, 288], [250, 230], [170, 110], [70, 30]],
+          [[346, 110], [366, 150], [344, 172], [260, 140], [160, 80], [60, 20]]];
+        function stream(set, fill, stroke, offset) {
+          set.forEach(function (pts, i) {
+            var m = svg('g', { transform: 'translate(' + pts[0][0] + ' ' + pts[0][1] + ')', opacity: 0 }, mols);
+            svg('circle', { r: 7, fill: fill, stroke: stroke || 'none', 'stroke-width': 2.4 }, m);
+            var start = from + offset + i * per / set.length;
+            if (start >= to) return;
+            tl.fromTo(m, { opacity: 0 }, { opacity: 1, duration: 0.25, immediateRender: false }, start);
+            for (var t0 = start; t0 < to - 1e-6; t0 += per) travel(tl, m, pts, t0, per, to);
+          });
+        }
+        stream(o2, IN.cream, IN.roseDeep, 0);
+        stream(co2, P.ink2, null, per * 0.3);
+        return to;
+      }
+    };
+  };
+
+  /**
+   * A synovial joint cut open: 'knee' (side, front of the knee to the right), 'hip' or 'shoulder'
+   * (from the front, the body's midline to the left). Bones in bone tone with ivory articular
+   * cartilage, the capsule and synovial cavity, and the joint's own supports (menisci and cruciate
+   * ligaments; acetabular labrum and ligament of the head of the femur; glenoid labrum, rotator
+   * cuff tendon and subacromial bursa). Box 400 x 420. labels(tl, at, stagger) reveals the names;
+   * isolate(tl, part, at, dur) dims everything but one part (part ids in handle.parts).
+   * Facts: OpenStax A&P 2e 9.4 (synovial joint structure) and 9.6 (knee, hip, shoulder).
+   */
+  A.joint = function (parent, opts) {
+    var o = opts || {};
+    var kind = o.joint || 'knee';
+    var g = grp(parent, 'an-joint an-joint-' + kind, o.x, o.y, o.scale);
+    var parts = {}, names = [];
+    function part(id) { var pg = svg('g', { 'class': 'an-part', 'data-part': id }, g); parts[id] = pg; return pg; }
+    function name(s, x, y, lx, ly, anchor, from) { named(g, names, s, x, y, lx, ly, anchor, 15, from); }
+    var B = { fill: IN.bone, stroke: IN.boneLine, 'stroke-width': 2.4 };
+    var cart = { fill: 'none', stroke: IN.ivory, 'stroke-width': 9, 'stroke-linecap': 'round' };
+    if (kind === 'knee') {
+      var cap0 = part('capsule');
+      svg('path', { d: 'M132 120 C110 200 112 270 140 320 L262 320 C300 280 316 200 296 120', fill: IN.fluid, stroke: IN.roseDeep, 'stroke-width': 3.4 }, cap0);
+      var quad = part('quadriceps');
+      svg('path', { d: 'M236 0 L300 0 L302 84 L272 104 Z', fill: IN.rose, stroke: IN.roseLine, 'stroke-width': 2 }, quad);
+      svg('path', { d: 'M286 86 C288 100 286 114 282 134', stroke: IN.ivory, 'stroke-width': 16, 'stroke-linecap': 'round', fill: 'none' }, quad);
+      var fem = part('femur');
+      svg('path', { d: 'M150 0 L232 0 L238 118 C262 140 262 200 228 222 C204 238 168 236 148 216 C124 190 128 140 152 120 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': B['stroke-width'] }, fem);
+      var tib = part('tibia');
+      svg('path', { d: 'M132 262 L270 262 C276 276 264 292 248 300 L240 420 L170 420 L162 300 C144 292 128 278 132 262 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': B['stroke-width'] }, tib);
+      var car = part('cartilage');
+      svg('path', Object.assign({ d: 'M142 196 C150 228 196 240 228 222 C246 210 256 190 256 168' }, cart), car);
+      svg('path', Object.assign({ d: 'M140 262 L262 262' }, cart), car);
+      var men = part('menisci');
+      svg('path', { d: 'M136 258 L170 258 L136 244 Z', fill: IN.ivory, stroke: IN.ivoryLine, 'stroke-width': 1.8 }, men);
+      svg('path', { d: 'M266 258 L232 258 L268 242 Z', fill: IN.ivory, stroke: IN.ivoryLine, 'stroke-width': 1.8 }, men);
+      var cru = part('cruciates');
+      svg('path', { d: 'M222 258 L170 176', stroke: IN.ivoryLine, 'stroke-width': 9, 'stroke-linecap': 'round', fill: 'none' }, cru);
+      svg('path', { d: 'M176 262 L214 184', stroke: IN.ivory, 'stroke-width': 9, 'stroke-linecap': 'round', fill: 'none' }, cru);
+      var pat = part('patella');
+      svg('ellipse', { cx: 282, cy: 172, rx: 22, ry: 40, fill: IN.bone, stroke: IN.boneLine, 'stroke-width': 2.4, transform: 'rotate(-8 282 172)' }, pat);
+      var pl = part('patellar-ligament');
+      svg('path', { d: 'M288 210 C292 244 276 280 258 304', stroke: IN.ivory, 'stroke-width': 10, 'stroke-linecap': 'round', fill: 'none' }, pl);
+      name('femur', 20, 60, 150, 70);
+      name('quadriceps and its tendon', 316, 60, 290, 104, 'start');
+      name('patella', 330, 170, 304, 170);
+      name('articular cartilage', 330, 236, 254, 196);
+      name('patellar ligament', 300, 330, 276, 284);
+      name('menisci', 20, 250, 140, 254);
+      name('cruciate ligaments', 20, 210, 180, 200);
+      name('synovial cavity', 20, 300, 136, 290);
+      name('tibia', 20, 380, 168, 380);
+    } else if (kind === 'hip') {
+      var capH = part('capsule');
+      svg('path', { d: 'M96 92 C150 60 250 76 290 140 C306 188 290 236 262 262 L196 286 C150 240 110 170 96 92 Z', fill: IN.fluid, stroke: IN.roseDeep, 'stroke-width': 5 }, capH);
+      var pel = part('pelvis');
+      svg('path', { d: 'M0 0 L250 0 C262 40 256 70 236 92 C214 72 186 64 158 66 C120 70 92 96 84 134 C80 160 90 186 104 204 L60 250 L0 250 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': 2.4 }, pel);
+      var femH = part('femur');
+      svg('path', { d: 'M150 112 C186 84 236 100 246 142 C252 168 242 192 224 206 L280 260 C300 250 324 256 330 276 C338 300 322 320 310 330 L300 420 L232 420 L236 330 L180 246 C150 236 128 210 124 180 C120 150 130 126 150 112 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': 2.4 }, femH);
+      var carH = part('cartilage');
+      svg('path', Object.assign({ d: 'M132 168 C126 124 166 94 208 98 C230 102 244 118 250 136' }, cart), carH);
+      svg('path', Object.assign({ d: 'M100 170 C98 120 132 84 176 80 C206 78 226 88 240 100', 'stroke-width': 7 }, cart), carH);
+      var lab = part('labrum');
+      svg('path', { d: 'M232 88 L260 100 L240 112 Z M100 196 L84 214 L110 214 Z', fill: IN.ivory, stroke: IN.ivoryLine, 'stroke-width': 1.8 }, lab);
+      var lt = part('ligament-of-head');
+      svg('path', { d: 'M150 146 C134 140 120 132 110 124', stroke: IN.ivoryLine, 'stroke-width': 7, 'stroke-linecap': 'round', fill: 'none' }, lt);
+      var ilio = part('iliofemoral');
+      svg('path', { d: 'M260 70 C290 120 300 190 282 252', stroke: IN.ivoryLine, 'stroke-width': 10, 'stroke-linecap': 'round', fill: 'none', opacity: 0.9 }, ilio);
+      name('hip bone (acetabulum)', 20, 30, 120, 80);
+      name('acetabular labrum', 290, 60, 252, 98);
+      name('head of femur', 300, 150, 230, 150);
+      name('articular cartilage', 300, 120, 246, 132);
+      name('ligament of the head', 20, 300, 124, 132);
+      name('capsule (iliofemoral ligament)', 300, 230, 286, 222);
+      name('femoral neck', 300, 290, 258, 236);
+    } else {
+      var acro = part('acromion');
+      svg('path', { d: 'M40 30 C120 10 230 14 300 40 C306 54 296 64 282 66 C220 52 150 52 96 70 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': 2.4 }, acro);
+      var bur = part('bursa');
+      svg('path', { d: 'M150 84 C190 70 240 72 268 86 C238 92 186 94 150 84 Z', fill: IN.fluid, stroke: IN.roseLine, 'stroke-width': 1.6 }, bur);
+      var cuff = part('rotator-cuff');
+      svg('path', { d: 'M0 80 C80 70 180 80 250 100 C290 112 310 140 312 168 L292 172 C284 140 260 124 230 118 C160 104 80 102 0 108 Z', fill: IN.rose, stroke: IN.roseLine, 'stroke-width': 2 }, cuff);
+      svg('path', { d: 'M232 104 C270 112 300 136 310 170', stroke: IN.ivory, 'stroke-width': 9, 'stroke-linecap': 'round', fill: 'none' }, cuff);
+      var capS = part('capsule');
+      svg('path', { d: 'M110 126 C140 112 270 120 300 180 C318 240 292 300 248 318 C200 330 150 300 128 262 C112 230 104 170 110 126 Z', fill: IN.fluid, stroke: IN.roseDeep, 'stroke-width': 3 }, capS);
+      var scap = part('scapula');
+      svg('path', { d: 'M0 120 L96 132 C120 150 128 200 118 236 L96 252 L0 300 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': 2.4 }, scap);
+      var hum = part('humerus');
+      svg('path', { d: 'M150 170 C160 124 236 120 270 156 C296 186 292 236 262 262 L262 420 L196 420 L196 268 C162 254 142 214 150 170 Z', fill: B.fill, stroke: B.stroke, 'stroke-width': 2.4 }, hum);
+      var carS = part('cartilage');
+      svg('path', Object.assign({ d: 'M150 176 C156 132 226 126 262 154' }, cart), carS);
+      svg('path', Object.assign({ d: 'M120 160 C130 186 130 214 120 238', 'stroke-width': 7 }, cart), carS);
+      var labS = part('labrum');
+      svg('path', { d: 'M110 148 L128 156 L116 166 Z M110 250 L128 240 L118 230 Z', fill: IN.ivory, stroke: IN.ivoryLine, 'stroke-width': 1.8 }, labS);
+      name('acromion', 320, 30, 290, 46);
+      name('subacromial bursa', 320, 80, 258, 84);
+      name('rotator cuff tendon', 320, 130, 300, 148);
+      name('head of humerus', 320, 210, 260, 200);
+      // the two glenoid names stack below the scapula; their leaders leave from opposite ends so they never cross
+      name('glenoid labrum', 20, 345, 112, 250, 'start', [60, 329]);
+      name('glenoid (shallow socket)', 20, 385, 124, 205, 'start', [222, 378]);
+      name('loose capsule', 320, 300, 250, 306);
+    }
+    var tagEl = tagIllustrative(g, 0, 440, 'ILLUSTRATIVE · SCHEMATIC SECTION');
+    return {
+      g: g, joint: kind, parts: parts, names: names, tag: tagEl,
+      labels: revealer(names),
+      /** Dim every part except `id` to 25 % over dur, hold, and return them at `at + dur + hold`. */
+      isolate: function (tl, id, at, dur, hold) {
+        var d = dur || 0.4, h = hold === undefined ? 1.6 : hold;
+        Object.keys(parts).forEach(function (k) {
+          if (k === id) return;
+          tl.fromTo(parts[k], { opacity: 1 }, { opacity: 0.25, duration: d, ease: 'power1.inOut', immediateRender: false }, at);
+          tl.fromTo(parts[k], { opacity: 0.25 }, { opacity: 1, duration: d, ease: 'power1.inOut', immediateRender: false }, at + d + h);
+        });
+        return at + 2 * d + h;
+      }
+    };
+  };
+
   // ------------------------------------------------------------------ zoom ladder through scales
   /**
    * Scale ladder: show plates one after another as if zooming in through a lens, each with a

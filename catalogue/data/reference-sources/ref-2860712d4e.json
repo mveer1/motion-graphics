@@ -1,0 +1,641 @@
+{
+  "id": "ref-2860712d4e",
+  "name": "Pencil-on-paper launch film: a ball protagonist, a figure-ground cut to chalkboard, falling letters and a bar wipe",
+  "status": "experimental",
+  "source": {
+    "filename": "paper-style-launch-film-51b08cc6.mp4",
+    "aliases": [],
+    "sha256": "2860712d4eaa83e6124944c5145ed81b8f3e9b8e514eb001972b8a0be09871bc",
+    "bytes": 2078394,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Product mark and wordmark in the end card",
+        "timestamps": [
+          13.12,
+          14.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Product name inside the headline",
+        "timestamps": [
+          7.12,
+          8.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Launch film with the product's name in the headline and its logo; reuse the ball-as-protagonist, the inversion cut, the falling-letter headline and the bar wipe with original art."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 2078394,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 835,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 259
+    },
+    "overall_kbps": 1108
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), the transitions sheet (all 4 boundaries, every 2nd frame = 30 fps for this 60 fps file) and the listen sheet (12 accent hits at -0.1/0/+0.1 s); automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 15.0 s; the cut, the letter drop, the topple and the wipe at 30 fps; every listed accent checked against its frame.",
+    "concept": {
+      "observed": "A launch for a construction-estimating product drawn as pencil sketches on warm paper: a teal ball bounces down sketched stairs to a 'your firm' label, documents gather round it with hand-written notes, a cut inverts the page to a dark chalkboard, a headline's letters fall into place, the ball becomes its full stop, the letters topple, the ball draws a growth curve past a 'ceiling', bars wipe back to paper, and the ball rolls into the logo.",
+      "interpreted": "One protagonist object carries the viewer through every scene; the paper and chalkboard registers separate the problem from the payoff.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Hand-written annotations with arrows; one heavy condensed headline; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm off-white paper with pencil-grey lines and one teal accent; a dark green-black chalkboard section (5.0-11.4 s); mean luma 0.59 (57% light, 42% dark)."
+      },
+      "typography": {
+        "observed": "Hand-written annotation script; heavy condensed sans headline with an offset shadow; serif tagline in the end card."
+      },
+      "shapes_and_materials": {
+        "observed": "Pencil sketches with hatching, paper texture, a sticky note, paper documents."
+      },
+      "motion": {
+        "observed": "The ball squashes on each bounce (0.56, 0.81, 1.04 s); cards slide and settle; letters drop with a small bounce (6.78-7.06 s) and topple with rotation (8.81-9.14 s); the ball draws an S-curve (10.05-10.88 s)."
+      },
+      "transitions": {
+        "observed": "Four boundaries plus in-place changes. 5.00 s: hard cut that keeps the whole layout and inverts it from paper to chalkboard (cut, figure-ground match). 6.94 s: the headline's letters drop in one by one from above over 0.3 s (6.78-7.06 s; continuous). 8.97 s: the letters topple and fall out of frame with rotation over 0.33 s (8.81-9.14 s; continuous). 11.37 s: horizontal bars of random length and position cover the chalkboard and uncover paper in 0.3 s (11.21-11.51 s; cover). Not detected: 2.6-4.6 s documents slide in around the ball, 9.2-9.4 s chart axes draw, 12.4-13.1 s the ball rolls into the lockup (all continuous).",
+        "interpreted": "The two hard-edged changes (the inversion cut and the bar wipe) enter and leave the payoff section; everything else moves inside a scene.",
+        "confidence": "high"
+      },
+      "sound_design": {
+        "observed": "-14.2 LUFS, LRA 1.7 LU, true peak -2.4 dBTP; tempo estimate 118 bpm (low); 13 accents (52/min): on the three bounce contacts (0.56, 0.81, 1.04 s), the hand-written label (1.81 s), documents landing (2.04, 2.55, 2.72 s), then on a 1.00 s grid at x.05 s, each on an arrival: the last letter lands (7.06 s), the ball becomes the full stop (8.06 s), the curve starts (10.05 s) and tops out at the check (11.05 s). 0 of 4 boundaries carry an accent (chance 0.16); 1 of 4 within 50 ms of an onset (chance 0.35); no silences; head +0.8 dB, tail -1.8 dB. Accents may be part of the music.",
+        "interpreted": "Sound on contacts and arrivals; none on the cut or the wipe.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 0 words (15 raw words) over music.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None. Hand-written annotations sit next to the object they name, with curved arrows (1.8-4.6 s and 9.4-10.9 s); one centred headline in the dark section."
+      },
+      "motifs": {
+        "observed": "The teal ball: protagonist, full stop, pen and logo element."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.8,
+        "observed": "The ball bounces down sketched stairs."
+      },
+      {
+        "start": 1.8,
+        "end": 5.0,
+        "observed": "Documents and hand-written notes gather around the ball."
+      },
+      {
+        "start": 5.0,
+        "end": 6.7,
+        "observed": "Chalkboard negative: the ball glows and stretches."
+      },
+      {
+        "start": 6.7,
+        "end": 8.8,
+        "observed": "Headline letters drop in; the ball becomes the full stop."
+      },
+      {
+        "start": 8.8,
+        "end": 9.3,
+        "observed": "The letters topple out."
+      },
+      {
+        "start": 9.3,
+        "end": 11.2,
+        "observed": "Chart: a flat 'ceiling', then the ball draws a rising curve."
+      },
+      {
+        "start": 11.2,
+        "end": 11.5,
+        "observed": "Bar wipe back to paper."
+      },
+      {
+        "start": 11.5,
+        "end": 15.0,
+        "observed": "The ball rolls into the logo; end card with tagline and address."
+      }
+    ],
+    "moments": [
+      {
+        "t": 5.0,
+        "observed": "Hard cut: the same layout (documents, ball, sticky note) flips from pencil-on-paper to a dark chalkboard negative; the ball starts to glow.",
+        "interpreted": "A figure-ground swap says 'now look closer' without moving anything."
+      },
+      {
+        "t": 8.06,
+        "observed": "The ball drops into the end of the headline as its full stop, with an accent on the 1 s grid."
+      }
+    ],
+    "difficult": [
+      "Pencil hatching is drawn illustration; rebuild with original SVG line art and a paper texture, never by tracing"
+    ],
+    "uncertainties": [
+      "Whether the line work boils frame to frame cannot be read from every-2nd-frame sheets",
+      "Whether the wipe's bar pattern is random per bar or a fixed pattern"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "squash-stretch-bounce",
+      "timestamps": [
+        0.56,
+        0.81,
+        1.04,
+        6.38
+      ]
+    },
+    {
+      "id": "annotation-callouts",
+      "timestamps": [
+        1.81,
+        3.38,
+        9.38
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        5.0
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        7.88,
+        8.06
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        7.06,
+        8.06,
+        10.05,
+        11.05
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        10.05,
+        10.88
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        0.56,
+        0.81,
+        1.04
+      ]
+    },
+    {
+      "id": "gravity-letter-drop",
+      "timestamps": [
+        6.78,
+        7.06,
+        8.81,
+        9.14
+      ]
+    },
+    {
+      "id": "random-bar-wipe",
+      "timestamps": [
+        11.21,
+        11.37,
+        11.51
+      ]
+    },
+    {
+      "id": "pencil-sketch-paper-style",
+      "timestamps": [
+        1.12,
+        3.38,
+        5.0,
+        13.88
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "squash-bounce",
+      "pen-stroke",
+      "hand-underline",
+      "paper-place"
+    ],
+    "compositions": [
+      "annotation-callout",
+      "animated-chart",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo",
+      "illustrated-explainer"
+    ],
+    "styles": [
+      "mixed-media",
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "hand-drawn-illustration",
+    "kinetic-typography",
+    "scene-transitions",
+    "explainer"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "paper",
+    "pencil",
+    "teal",
+    "protagonist-object",
+    "figure-ground-cut",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 13.4
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 5.0,
+        "kind": "cut",
+        "score": 1.314,
+        "isolation": 0.99,
+        "frame": 300
+      },
+      {
+        "t": 6.938,
+        "kind": "soft",
+        "score": 0.209
+      },
+      {
+        "t": 8.967,
+        "kind": "soft",
+        "score": 0.049,
+        "isolation": 0.0
+      },
+      {
+        "t": 11.367,
+        "kind": "soft",
+        "score": 0.171,
+        "isolation": 0.29
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 5.0,
+        "duration": 5.0,
+        "activity": 0.014,
+        "luma": 0.92
+      },
+      {
+        "index": 2,
+        "start": 5.0,
+        "end": 6.94,
+        "duration": 1.94,
+        "activity": 0.122,
+        "luma": 0.12
+      },
+      {
+        "index": 3,
+        "start": 6.94,
+        "end": 8.97,
+        "duration": 2.03,
+        "activity": 0.039,
+        "luma": 0.22
+      },
+      {
+        "index": 4,
+        "start": 8.97,
+        "end": 11.37,
+        "duration": 2.4,
+        "activity": 0.057,
+        "luma": 0.13
+      },
+      {
+        "index": 5,
+        "start": 11.37,
+        "end": 15.0,
+        "duration": 3.63,
+        "activity": 0.036,
+        "luma": 0.91
+      }
+    ],
+    "static_holds": [
+      [
+        1.56,
+        2.31
+      ],
+      [
+        7.69,
+        8.44
+      ],
+      [
+        13.44,
+        14.94
+      ]
+    ],
+    "mean_activity": 0.044,
+    "luma": {
+      "mean": 0.59,
+      "dark_share": 0.42,
+      "light_share": 0.57
+    },
+    "palette": [
+      {
+        "hex": "#181818",
+        "share": 0.239
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.182
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.171
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.089
+      },
+      {
+        "hex": "#081818",
+        "share": 0.059
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.052
+      },
+      {
+        "hex": "#182818",
+        "share": 0.049
+      },
+      {
+        "hex": "#d8e8d8",
+        "share": 0.04
+      },
+      {
+        "hex": "#e8f8e8",
+        "share": 0.038
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.033
+      }
+    ],
+    "representative_times": [
+      1.25,
+      2.5,
+      3.75,
+      5.97,
+      7.96,
+      10.17,
+      13.18
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -4.4,
+      "mean_dbfs_voiced": -19.5,
+      "silence_ratio": 0.01,
+      "onsets": 65,
+      "onset_rate_per_sec": 4.31,
+      "onset_times": [
+        0.16,
+        0.23,
+        0.35,
+        0.56,
+        0.81,
+        1.04,
+        1.39,
+        1.56,
+        1.81,
+        2.04,
+        2.32,
+        2.55,
+        2.72,
+        2.81,
+        2.88,
+        3.07,
+        3.32,
+        3.51,
+        3.81,
+        3.95,
+        4.06,
+        4.32,
+        4.55,
+        4.81,
+        5.87,
+        6.55,
+        6.83,
+        6.94,
+        7.06,
+        7.31,
+        7.55,
+        7.71,
+        7.83,
+        8.06,
+        8.31,
+        8.41,
+        8.48,
+        8.57,
+        9.06,
+        9.33,
+        9.5,
+        9.82,
+        10.05,
+        10.31,
+        10.38,
+        10.52,
+        10.82,
+        10.94,
+        11.05,
+        11.87,
+        11.96,
+        12.54,
+        12.82,
+        13.05,
+        13.12,
+        13.33,
+        13.42,
+        13.56,
+        13.75,
+        13.84,
+        13.98,
+        14.05,
+        14.33,
+        14.56,
+        14.7
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.3,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 1568,
+      "band_share": {
+        "low_lt_250": 0.26,
+        "mid_250_2k": 0.41,
+        "high_gt_2k": 0.33
+      },
+      "syllabic_modulation_share": 0.32,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 0.25,
+        "chance_level": 0.35,
+        "median_offset_ms": 141
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-2860712d4e",
+      "overview": "reference/analysis/ref-2860712d4e/overview.jpg",
+      "scenes": "reference/analysis/ref-2860712d4e/scenes.jpg",
+      "transitions": "reference/analysis/ref-2860712d4e/transitions.jpg",
+      "motion": "reference/analysis/ref-2860712d4e/motion.jpg",
+      "audio": "reference/analysis/ref-2860712d4e/audio.png",
+      "frames": "reference/analysis/ref-2860712d4e/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.2,
+        "lra_lu": 1.7,
+        "true_peak_dbtp": -2.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 15,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 65,
+        "accents": 13,
+        "accents_per_min": 52.0,
+        "accent_times": [
+          0.56,
+          0.81,
+          1.04,
+          1.81,
+          2.04,
+          2.55,
+          2.72,
+          4.55,
+          7.06,
+          8.06,
+          10.05,
+          11.05,
+          14.56
+        ],
+        "accent_threshold": 0.36,
+        "boundaries_with_accent": {
+          "boundaries": 4,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.16
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 4.33,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.98,
+        "silences": [],
+        "level_head_vs_body_db": 0.8,
+        "level_tail_vs_body_db": -1.8,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-2860712d4e/listen",
+        "sheet": "reference/analysis/ref-2860712d4e/listen/listen.jpg",
+        "words": "reference/analysis/ref-2860712d4e/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "trace-pair",
+  "name": "Linked trace projection",
+  "purpose": "A point turning round a circle carries its height across to a graph that draws itself; both views come from one angle so they never drift apart.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "svg-path",
+      "svg-shape"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "cycles",
+      "type": "number",
+      "description": "graph length in turns",
+      "default": 1.5
+    },
+    {
+      "name": "period",
+      "type": "number",
+      "description": "seconds per turn",
+      "default": 2
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.tracePair(parent, {cycles, period, label}, {width, height}) -> {enter, run(tl, at, {cycles, period}), exit, geometry}"
+  },
+  "layout_notes": "SVG sized to its parent; circle at the left, graph to the right at the same centre line.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-equation-trace/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-equation-trace/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "equation-build",
+    "animated-chart"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "math",
+    "wave",
+    "projection"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

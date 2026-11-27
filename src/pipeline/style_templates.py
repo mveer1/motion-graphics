@@ -20,6 +20,9 @@ from typing import Any, Dict, List, Optional, Tuple
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "catalogue" / "schemas" / "style-template.schema.json"
 CAPABILITY_COLLECTIONS = ("primitives", "effects", "recipes", "compositions")
+# Storyboard `pace` scales the narration budget (story-writer rulebook 3.5): a slow scene gets at most 90% of
+# words_per_10s_max, a fast recap or loop line up to 110%. Starting values from the rulebook, not yet calibrated.
+PACE_BUDGET = {"slow": 0.9, "normal": 1.0, "fast": 1.1}
 
 # (level, message). Levels: "warn" needs a decision, "note" is information.
 Finding = Tuple[str, str]
@@ -164,17 +167,25 @@ def is_portrait_first(project: Dict[str, Any]) -> bool:
     return ids == ["portrait"] or primary == "portrait"
 
 
-def _scene_durations(pdir: Path, scenes: List[Dict[str, Any]]) -> Tuple[Dict[str, float], str]:
-    """Measured clip duration per scene id from audio/timeline.json when it exists, else the storyboard span."""
+def _scene_durations(pdir: Path, scenes: List[Dict[str, Any]], narration: Optional[Dict[str, str]] = None) -> Tuple[Dict[str, float], str]:
+    """Measured clip duration per scene id from audio/timeline.json when it exists, else the storyboard span.
+
+    A clip whose recorded text differs from the scene's current narration measured other words: that scene falls
+    back to its storyboard span, and the source says the audio is stale."""
     tl = pdir / "audio" / "timeline.json"
+    spans = {s["id"]: s["end_sec"] - s["start_sec"] for s in scenes}
     if tl.exists():
         try:
-            measured = {s["id"]: float(s["duration_sec"]) for s in load_json(tl).get("scenes", []) if "duration_sec" in s}
+            clips = [s for s in load_json(tl).get("scenes", []) if "duration_sec" in s]
+            stale = [s["id"] for s in clips if narration and "text" in s and s["id"] in narration and s["text"] != narration[s["id"]]]
+            measured = {s["id"]: float(s["duration_sec"]) for s in clips if s["id"] not in stale}
+            if stale:
+                return {**spans, **measured}, f"audio is stale in {', '.join(stale)} (storyboard span there; measured clips elsewhere)"
             if measured:
                 return measured, "measured clips (audio/timeline.json)"
         except (ValueError, KeyError, TypeError):
             pass
-    return {s["id"]: s["end_sec"] - s["start_sec"] for s in scenes}, "storyboard span (narration not yet measured)"
+    return spans, "storyboard span (narration not yet measured)"
 
 
 def beat_gaps(scene: Dict[str, Any]) -> Tuple[List[float], float, bool]:
@@ -225,12 +236,12 @@ def check_project(pdir: Path, project: Dict[str, Any], brief: Optional[Dict[str,
         return out
     sb = load_json(sb_path)
     scenes = sorted(sb.get("scenes", []), key=lambda s: s["start_sec"])
-    durations, dur_src = _scene_durations(pdir, scenes)
 
     narration: Dict[str, str] = {}
     nj = pdir / "src" / "narration.json"
     if nj.exists():
         narration = {s["id"]: s.get("text", "") for s in load_json(nj).get("scenes", [])}
+    durations, dur_src = _scene_durations(pdir, scenes, narration)
 
     discouraged = set(tpl["motion"].get("discouraged_capabilities", []))
     no_beats, relative_scenes = [], []
@@ -253,9 +264,12 @@ def check_project(pdir: Path, project: Dict[str, Any], brief: Optional[Dict[str,
         dur = durations.get(sid)
         if text and dur:
             per10 = _words(text) / dur * 10
-            if per10 > rules["words_per_10s_max"] + 1e-6:
+            pace = sc.get("pace", "normal")
+            budget = rules["words_per_10s_max"] * PACE_BUDGET.get(pace, 1.0)
+            if per10 > budget + 1e-6:
+                paced = f" ({pace} pace: {PACE_BUDGET[pace]:g}x the {rules['words_per_10s_max']:g} cap)" if pace in PACE_BUDGET and pace != "normal" else ""
                 out.append(("warn", f"scene {sid} narration is {per10:.0f} words per 10 s over {dur:.1f}s ({dur_src}); "
-                                    f"budget {rules['words_per_10s_max']:g}. Cut words, do not raise the speed."))
+                                    f"budget {budget:g}{paced}. Cut words, do not raise the speed."))
 
         if sc.get("beats"):
             times, gap, rel = beat_gaps(sc)

@@ -1,0 +1,59 @@
+/*
+ * Style system: mythic-paper. Handmade rag paper, deckle-edged cut layers and public-domain
+ * photo plates in a lamp-lit diorama; mineral pigments (sindoor, lapis, turmeric, malachite)
+ * and gold leaf. The default look of the mythic-tale template. Kit: src/studio/kits/mythic/.
+ * Gold (--c-accent-3, --c-gold) is for leaf, haloes, borders and display type only (3.3:1).
+ */
+:root {
+  --c-paper: #f4ecdd;
+  --c-paper-2: #e9dcc3;
+  --c-ink: #2b1d14;
+  --c-ink-2: #5e4a3a;
+  --c-rule: #cdb48e;
+  --c-accent: #b0301d;
+  --c-accent-2: #1f3f8a;
+  --c-accent-3: #a87a12;
+  --c-gold: #c8961e;
+  --c-gold-light: #ebc66a;
+  --c-malachite: #2f7a55;
+  --c-peacock: #0e6e78;
+  --c-lotus: #c25578;
+  --c-saffron: #e07a1f;
+  --c-sky: #9cb9d8;
+  --c-night: #1d2a4a;
+  --c-leather-red: #c2412a;
+  --c-leather-ochre: #d9902a;
+  --c-leather-green: #3f7d5a;
+  --c-leather-blue: #2f5f9e;
+  --c-lamp: rgba(255, 170, 70, 0.20);
+  --c-highlight: rgba(200, 150, 30, 0.34);
+  --c-positive: #2f7a55;
+  --c-negative: #b0301d;
+  --c-info: #1f3f8a;
+  --c-shadow: rgba(43, 29, 20, 0.26);
+  --c-caption-ink: #fbf4e6;
+  --c-caption-bg: rgba(43, 29, 20, 0.88);
+  --c-caption-hl: #ebc66a;
+
+  --font-display: 'Playfair Display', serif;
+  --font-text: 'EB Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: 0em;
+  --track-kicker: 0.2em;
+
+  --ease-out: power3.out;
+  --ease-in: power2.in;
+  --ease-in-out: sine.inOut;
+  --dur-enter: 0.85;
+  --dur-exit: 0.6;
+  --stagger: 0.09;
+
+  --grain-blend: multiply;
+}
+
+.st-paper {
+  background: var(--c-paper-2);
+  box-shadow: calc(var(--u) * 0.35) calc(var(--u) * 0.6) calc(var(--u) * 0.9) var(--c-shadow);
+}

@@ -1,25 +1,340 @@
 {
   "id": "ui-demo-micro-interactions",
   "name": "Product UI micro-interactions (generic)",
+  "family": "explanation-device",
   "status": "proposed",
-  "source": { "type": "user-provided-reference", "description": "Two inspected product promos demonstrate software with typed inputs, cursor clicks, toggles, notification stacks, a long link compressing into a short pill and charts drawing.", "inspected": true, "inspected_on": "2026-10-30" },
+  "source": {
+    "type": "user-provided-reference",
+    "description": "Two inspected product promos demonstrate software with typed inputs, cursor clicks, toggles, notification stacks, a long link compressing into a short pill and charts drawing.",
+    "inspected": true,
+    "inspected_on": "2026-10-30"
+  },
   "technique": "Simplified, generic UI fragments perform one interaction each (type, click, toggle, notify, compress) in close-up, so a product's value is shown as action rather than as a screenshot tour.",
   "purpose": "Product promos and onboarding: show what the product does in seconds.",
   "visual_behaviour": "A URL types itself and shrinks into a short pill; a cursor glides and clicks a button that depresses; toggles flip; cards stack in; a chart line draws with a counter.",
   "mechanics": "Typewriter, FLIP width morphs, cursor paths with ease-in-out and a press scale, staggered card entrances, counters.",
-  "decomposition": { "primitives": ["styled-text", "svg-shape"], "effects": ["typewriter-reveal", "counter-roll", "clip-path-reveal"], "timing": "One interaction per 0.8-2 s." },
-  "use_cases": ["product promo", "SaaS launch", "onboarding", "app store preview"],
-  "failure_modes": ["Recreating a real product's proprietary UI (forbidden without authorisation)", "Too much UI detail to read at 720p or on phones"],
-  "implementation_state": "documented",
-  "implemented_by": [],
-  "implementation": { "approach": "Generic mock UI components (input, button, toggle, card) in the studio style tokens; typewriter (Studio.type.typewriter), counters (Studio.type.count), pen-led chart lines (Studio.draw.pen). Candidate composition 'ui-mock' for the product-promo template." },
-  "capability": { "support": "native", "compatible_components": ["typewriter-reveal", "counter-roll", "pen-stroke"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 3, "note": "Highest-value missing piece for the product-promo template." } },
-  "provenance": [
-    { "source_id": "ref-1cbe55c987", "timestamps": [0.5, 1.2, 5.0, 7.0], "observed": "A typed long link becomes a short link pill; a dashboard chart draws and switches metrics (approx., from overview spacing)." },
-    { "source_id": "ref-ce769bc33e", "timestamps": [3.0, 9.5], "observed": "A link is pasted into an input and submitted with a cursor click; settings toggles flip on a phone mockup." }
+  "decomposition": {
+    "primitives": [
+      "styled-text",
+      "svg-shape"
+    ],
+    "effects": [
+      "typewriter-reveal",
+      "counter-roll",
+      "clip-path-reveal"
+    ],
+    "timing": "One interaction per 0.8-2 s."
+  },
+  "use_cases": [
+    "product promo",
+    "SaaS launch",
+    "onboarding",
+    "app store preview"
   ],
-  "related": { "techniques": ["centred-word-build", "word-slot-roll"], "effects": ["typewriter-reveal", "counter-roll"], "templates": ["product-promo"] },
+  "failure_modes": [
+    "Recreating a real product's proprietary UI (forbidden without authorisation)",
+    "Too much UI detail to read at 720p or on phones"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "ui-demo-widgets"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.ui (runtime 1.18.0): generic, unbranded input (types by a proxy character count, caret), button (press scale and brighten), toggle (proxy knob and track), cursor (moves on a hand-like arc with different x and y eases to a target measured as it renders, click with ripple) and notification (drops in with back.out).",
+    "runtime_api": [
+      "Studio.comp.ui"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "compatible_components": [
+      "typewriter-reveal",
+      "counter-roll",
+      "pen-stroke"
+    ],
+    "complexity": "medium",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 3,
+      "note": "Highest-value missing piece for the product-promo template."
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-1cbe55c987",
+      "timestamps": [
+        0.5,
+        1.2,
+        5.0,
+        7.0
+      ],
+      "observed": "A typed long link becomes a short link pill; a dashboard chart draws and switches metrics (approx., from overview spacing)."
+    },
+    {
+      "source_id": "ref-ce769bc33e",
+      "timestamps": [
+        3.0,
+        9.5
+      ],
+      "observed": "A link is pasted into an input and submitted with a cursor click; settings toggles flip on a phone mockup."
+    },
+    {
+      "source_id": "ref-a339360a56",
+      "timestamps": [
+        4.91,
+        10.94,
+        14.72,
+        38.11
+      ],
+      "observed": "An upload card fills a progress bar, a script editor highlights a line, and a cursor clicks the end-card button."
+    },
+    {
+      "source_id": "ref-0b13aa7f02",
+      "timestamps": [
+        12.26,
+        13.0,
+        16.04
+      ],
+      "observed": "A 'Taken' button fills a grid of days cell by cell; a tap ripple ring expands over a phone close-up."
+    },
+    {
+      "source_id": "ref-6f68999b60",
+      "timestamps": [
+        14.67,
+        16.18
+      ],
+      "observed": "A reply box types a response and a send button appears."
+    },
+    {
+      "source_id": "ref-5a2816d4db",
+      "timestamps": [
+        8.64,
+        9.75,
+        10.01
+      ],
+      "observed": "Table rows fill one by one and a cursor selects a row, each with an accent (8.24-10.70 s)."
+    },
+    {
+      "source_id": "ref-3abcbedd20",
+      "timestamps": [
+        11.62,
+        16.12,
+        21.63
+      ],
+      "observed": "Notes type with a live preview; a card toggles; the cursor clicks the theme toggle (21.63 s)."
+    },
+    {
+      "source_id": "ref-b4e79aa0a4",
+      "timestamps": [
+        0.53,
+        15.25,
+        17.48
+      ],
+      "observed": "A click opens a popup (0.53 s); an agent chat answers and opens an integrations screen (15.25-18.96 s)."
+    },
+    {
+      "source_id": "ref-ee70618e88",
+      "timestamps": [
+        1.11,
+        8.52,
+        9.68
+      ],
+      "observed": "A craving types into a prompt field, a chat confirms the dish and a cursor presses Order (9.26-9.75 s)."
+    },
+    {
+      "source_id": "ref-d386e5f0ae",
+      "timestamps": [
+        2.59,
+        4.07,
+        19.63
+      ],
+      "observed": "A handle types into an input, a profile card appears, and a cursor clicks the end-card button (19.6 s)."
+    },
+    {
+      "source_id": "ref-85d3a83400",
+      "timestamps": [
+        5.71,
+        19.12,
+        20.62
+      ],
+      "observed": "Contact rows highlight, a prospect card builds with a score, and a message types in a composer."
+    },
+    {
+      "source_id": "ref-c2addc76df",
+      "timestamps": [
+        5.43,
+        6.97,
+        7.92
+      ],
+      "observed": "A search result drops in, a Play button appears, and the app window floods green as the playing state (7.65-7.85 s)."
+    },
+    {
+      "source_id": "ref-32fea7dae3",
+      "timestamps": [
+        12.98,
+        13.73,
+        15.21
+      ],
+      "observed": "A code card grows in, an API call types with a caret, and a 'Settled' status appears (12.98-15.21 s)."
+    },
+    {
+      "source_id": "ref-7a185cb08d",
+      "timestamps": [
+        2.0,
+        9.3,
+        18.97,
+        20.46
+      ],
+      "observed": "A cursor presses a pill button, drags a 'golden hour' slider that relights the photo, picks frame and size, and orders (Ordered state at 20.46 s)."
+    },
+    {
+      "source_id": "ref-cfaf668ebf",
+      "timestamps": [
+        7.21,
+        9.76
+      ],
+      "observed": "A terminal types a one-line command and prints output beside the headline (6.4-10.6 s)."
+    },
+    {
+      "source_id": "ref-e40080c790",
+      "timestamps": [
+        2.35,
+        4.34,
+        6.36,
+        10.36
+      ],
+      "observed": "A cursor presses play, drags a volume slider, flips a toggle and types a search query; each interaction triggers the next state."
+    },
+    {
+      "source_id": "ref-ad023ce9dc",
+      "timestamps": [
+        5.0,
+        8.6
+      ],
+      "observed": "A prompt types into a chat input over about 3.5 s and is sent (5.0-10.1 s)."
+    },
+    {
+      "source_id": "ref-c87967b288",
+      "timestamps": [
+        39.17,
+        40.66
+      ],
+      "observed": "On a device-sized terminal an order ticket slides in, the buy button is pressed and a confirmation pill appears (38.4-40.7 s)."
+    },
+    {
+      "source_id": "ref-9459c8097f",
+      "timestamps": [
+        2.62,
+        3.38,
+        9.38,
+        11.62
+      ],
+      "observed": "A link types into an input with a red button (2.6-3.4 s), a transcript panel fills, a waveform panel runs a playhead (8.5-10 s) and a JSON panel lights green (11.0-12.4 s)."
+    },
+    {
+      "source_id": "ref-a1c9ef89a3",
+      "timestamps": [
+        1.13,
+        4.89,
+        6.39
+      ],
+      "observed": "In two panes at once a cursor opens windows (1.1-1.9 s), a prompt types on a desktop (4.1-5.2 s) and image cards pop up and multiply (6.24-8.1 s)."
+    },
+    {
+      "source_id": "ref-0b2552b64e",
+      "timestamps": [
+        0.38,
+        7.93,
+        14.72,
+        39.64
+      ],
+      "observed": "A call card rings and turns to missed (0-3.4 s), chat bubbles and a waveform build (6.4-10.9 s), calendar events pop into slots (14.7-16.2 s), a booking page offers a QR code (38.9-40.4 s)."
+    },
+    {
+      "source_id": "ref-2a6c654bfe",
+      "timestamps": [
+        5.69,
+        6.38
+      ],
+      "observed": "Inbox rows add one at a time beside particle share and save icons (5.7-6.4 s)."
+    },
+    {
+      "source_id": "ref-31ce9d6332",
+      "timestamps": [
+        24.86,
+        27.67,
+        38.93
+      ],
+      "observed": "On the phone a word is tapped and a definition card opens (24.9 s), saved and marked on the page (27.7 s), then a chat answers a question about the story (38.9 s)."
+    },
+    {
+      "source_id": "ref-9ed4034cad",
+      "timestamps": [
+        4.12,
+        5.62,
+        13.88
+      ],
+      "observed": "A prompt types and Create is clicked (4.1-5.6 s); the end card's button is clicked by a cursor (13.7-13.9 s)."
+    },
+    {
+      "source_id": "ref-05acc490f6",
+      "timestamps": [
+        33.59,
+        34.34
+      ],
+      "observed": "A price card's button is clicked by a cursor and confirms (33.6-34.4 s)."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "centred-word-build",
+      "word-slot-roll"
+    ],
+    "effects": [
+      "typewriter-reveal",
+      "counter-roll"
+    ],
+    "templates": [
+      "product-promo"
+    ]
+  },
   "licensing_notes": "Technique only. The references show two companies' proprietary UIs and logos: never reproduce them; use generic, original UI.",
-  "tags": ["ui-product-demo", "product-promo", "micro-interaction", "cursor", "backlog", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "tags": [
+    "ui-product-demo",
+    "product-promo",
+    "micro-interaction",
+    "cursor",
+    "backlog",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-slider-ui/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
 }

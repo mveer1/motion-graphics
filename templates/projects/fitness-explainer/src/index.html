@@ -7,8 +7,13 @@
   <link rel="stylesheet" href="_studio/styles/{{STYLE}}.css">
   <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
   <style>
-    /* Sinew fitness starter. Fonts named literally so HyperFrames injects them: 'Outfit', 'Inter', 'JetBrains Mono'. */
-    #stage { position: absolute; left: 0; top: 0; width: var(--w); height: var(--h); font-family: 'Outfit', 'Inter', sans-serif; }
+    /* Sinew fitness starter. Fonts named literally so HyperFrames injects them: 'Outfit', 'Inter', 'JetBrains Mono'.
+       Layers: #camera (gym + Tibi stations, drifts per scene) under #cards (exercise cards) under #ui (brand graphics)
+       under the captions. Bands per format come from Studio.kit.fitness.layout(): portrait header to y 440, stage
+       440-850, captions below; landscape and square put the card column left of the stage. */
+    #root { font-family: 'Outfit', 'Inter', sans-serif; }
+    #camera, #world, #art, #cards, #ui { position: absolute; left: 0; top: 0; width: var(--w); height: var(--h); }
+    #ui { overflow: visible; }
   </style>
   <script src="_studio/vendor/gsap.min.js"></script>
 </head>
@@ -20,7 +25,12 @@
      data-height="720"
      data-fps="30"
      data-duration="16">
-  <svg id="stage" viewBox="0 0 1280 720" aria-hidden="true"></svg>
+  <div id="camera">
+    <svg id="world" aria-hidden="true"></svg>
+    <div id="art"></div>
+  </div>
+  <div id="cards"></div>
+  <svg id="ui" aria-hidden="true"></svg>
 </div>
 
 <script src="_studio/studio-core.js"></script>
@@ -28,8 +38,10 @@
 <script src="_studio/studio-type.js"></script>
 <script src="_studio/studio-motion.js"></script>
 <script src="_studio/studio-compositions.js"></script>
+<script src="_studio/studio-film.js"></script>
+<script src="_studio/studio-explain.js"></script>
 <!-- Sinew fitness kit: rig engine, brand palette, Tibi (Cobalt Sculpt: generated shapes, then the painter),
-     movement library, anatomy, brand graphics, generated library data -->
+     movement library, anatomy, brand graphics, generated library data, then layout, exercise cards and stations -->
 <script src="_studio/studio-rig.js"></script>
 <script src="_studio/kits/fitness/brand.js"></script>
 <script src="_studio/kits/fitness/sculpt-data.js"></script>
@@ -38,42 +50,95 @@
 <script src="_studio/kits/fitness/anatomy.js"></script>
 <script src="_studio/kits/fitness/graphics.js"></script>
 <script src="_studio/kits/fitness/library.js"></script>
+<!-- 3D stations (opt-in): uncomment these four to turn station 2 into a 3D curl with a fitted camera.
+<script src="_studio/vendor/three.min.js"></script>
+<script src="_studio/kits/fitness/tibi3d.js"></script>
+<script src="_studio/kits/fitness/anatomy3d.js"></script>
+<script src="_studio/kits/fitness/exercises3d.js"></script>
+-->
+<script src="_studio/kits/fitness/stations.js"></script>
 <script src="captions.js"></script>
 <script>
 Studio.build(function (tl, f, S) {
-  // Scene cues mirror storyboard.json; replace with measured narration times.
-  var cue = S.cues({ s1: 0, s2: 4.4, s3: 8.8, s4: 13.2, end: 16 });
+  var K = S.kit.fitness, G = K.graphics, L = K.layout();
+  var W = f.width, H = f.height, D = f.duration / 16;
+
+  // Cue times snap to the spoken words: Studio.cues.fromWords reads the measured words that
+  // `studio.py captions --timing words` writes into captions.js (`studio.py words <slug> "<phrase>"` shows them).
+  // Until the narration is timed every cue takes its fallback: the storyboard times, scaled to the film's length.
+  // Replace each `say` with the words that should trigger the beat.
+  var cue = S.cues.fromWords({
+    s1: 0,
+    s2: { say: 'Replace with the first exercise name', fallback: 4.4 * D },
+    s2muscles: { say: 'Replace with the first muscle named', after: 's2', fallback: 5.3 * D },
+    s2cue1: { say: 'Replace with the first cue', after: 's2', fallback: 6.0 * D },
+    s2cue2: { say: 'Replace with the second cue', after: 's2', fallback: 6.8 * D },
+    s2tip: { say: 'Replace with the tip', after: 's2', fallback: 7.6 * D },
+    s3: { say: 'Replace with the second exercise name', fallback: 8.8 * D },
+    s4: { say: 'Replace with the takeaway', fallback: 13.2 * D },
+    end: f.duration
+  });
+
+  ['world', 'ui'].forEach(function (id) { document.getElementById(id).setAttribute('viewBox', '0 0 ' + W + ' ' + H); });
+  // The gym follows the bands: the chair rail is the header/stage divider in portrait and runs only behind the stage
+  // in landscape and square, so it never crosses card text; the dumbbell rack stands in the stage, not behind a card.
+  var gym = G.env.gym(document.getElementById('world'), { w: W, h: H, floor: L.floor, railY: L.rail.y, railX: L.rail.x,
+    dumbbellX: L.mode === 'stack' ? L.stage.x + S.u(2) : undefined });
+  var ui = document.getElementById('ui');
+  // Captions sit in the caption lane under the floor in every format (K.captionLane): a cue moves there, as wide as
+  // the lane, and shrinks until it fits, so it never covers Tibi or the card. A storyboard caption_lane 'upper' stays.
   var caps = S.comp.captions(document.getElementById('root'), window.STUDIO_CAPTIONS || []);
-  var K = S.kit.fitness, G = K.graphics;
-  var stage = document.getElementById('stage');
+  K.captionLane(caps, { layout: L });
 
-  // World: the gym, Tibi (Cobalt Sculpt; gender 'male' or 'female') on the floor line, bodyweight
-  // squats from frame 0 (the mascot never freezes). Rig moves on one Tibi go in time order.
-  var gym = G.env.gym(stage, { w: 1280, h: 720, floor: 600 });
-  var tibi = K.sculpt(stage, { gender: 'male', view: 'side', x: 760, floor: gym.floor, scale: 1.05 });
-  function squats(at, n) {
-    var t = at;
-    for (var i = 0; i < n; i++) {
-      t = tibi.to(tl, 'squat', t, 1.1, { ease: 'power2.inOut' });
-      t = tibi.to(tl, 'stand', t + 0.15, 1.0, { ease: 'sine.inOut' });
-    }
-    return t;
-  }
-  var ui = S.svg('g', {}, stage);
-  var title = G.titleCard(ui, { x: 64, y: 210, kicker: 'Sinew', title: '{{TITLE}}', size: 52, align: 'left' });
-  var badge = G.evidenceBadge(ui, { x: 64, y: 300, grade: 'established' });
-  var cite = G.citation(ui, { x: 64, y: 660, text: 'Replace with: Author et al. year · design · n' });
+  // Stations: one per exercise, each with its own Tibi (Cobalt Sculpt; gender 'male' or 'female'), reps that fill
+  // its window and its exercise card in the header band, cross-faded into the next. The takeaway station has no card.
+  var use3d = !!K.t3d;
+  var curl = K.cardData('dumbbell-curl', { index: 2, total: 2,
+    cues: ['Replace with: elbows stay by the ribs'],
+    tip: { text: 'Replace with the tip, in one line.', grade: 'moderate', source: 'Replace: Author 2024 \u00b7 RCT \u00b7 n = 20' },
+    swaps: { easier: 'Replace with an easier swap', harder: 'Replace with a harder swap' }
+  });
+  var st = K.stations(['#art', '#cards'], [
+    // station 1 opens the film (Tibi squats from frame 0 under the hook title); its card enters at s2
+    { exercise: 'bodyweight-squat', start: 0, end: cue('s3'), cardAt: cue('s2'),
+      card: { index: 1, total: 2,
+        cues: ['Replace with: sit between the heels', 'Replace with: knees follow the toes'],
+        tip: { text: 'Replace with the tip, in one line.', grade: 'established', source: 'Replace: Author 2024 \u00b7 RCT \u00b7 n = 20' } },
+      beats: { muscles: cue('s2muscles'), cues: [cue('s2cue1'), cue('s2cue2')], tip: cue('s2tip') } },
+    // With the 3D scripts loaded, station 2 is the 3D curl: T3.scene(stage, 'curl', {fit: {rect}}) solves the camera
+    // from the posed body and dumbbells over the whole set, so the figure stays inside the stage band (fitted cameras
+    // are opt-in: decision 2026-11-21). Without them it is the 2D curl.
+    use3d
+      ? { mode: '3d', exercise3d: 'curl', shot: 'three', start: cue('s3'), end: cue('s4'), card: curl, beats: 'auto',
+          fit: { rect: [L.stage.left, L.stage.top, L.stage.right, L.stage.bottom] } }
+      : { exercise: 'dumbbell-curl', start: cue('s3'), end: cue('s4'), card: curl, beats: 'auto' },
+    { exercise: 'bodyweight-squat', start: cue('s4'), end: cue('end'), card: false }
+  ], { layout: L, fade: 0.5 });
+  st.schedule(tl);
 
-  title.show(tl, cue('s1', 0.2));
-  var t = squats(0.3, 2);
-  // activation: the generator's squat set (coral prime movers, marigold secondary, pale stabilisers);
-  // a map works too, e.g. {quadriceps: 3, 'gluteus-maximus': 3, hamstrings: 2}
-  tibi.activate(tl, 'squat', cue('s2'), 0.6);
-  badge.show(tl, cue('s2', 0.8));
-  squats(Math.max(t, cue('s2', 0.6)), 2);
-  cite.show(tl, cue('s3'));
-  tibi.activate(tl, null, cue('s4'), 0.6);
-  title.hide(tl, cue('s4', 1));
+  // Per-scene drift on the gym and Tibi (the cards and brand graphics stay still), scaled about the middle of the
+  // stage (rail to floor) so neither the rail nor Tibi's feet drift out of their gaps into the card or the captions.
+  S.space.sceneDrift(tl, [
+    { target: '#camera', start: 0, end: cue('s2') }, { target: '#camera', start: cue('s2'), end: cue('s3') },
+    { target: '#camera', start: cue('s3'), end: cue('s4') }, { target: '#camera', start: cue('s4'), end: cue('end') }
+  ], { amount: 0.02, travel: 0.6, origin: '50% ' + ((L.rail.y + L.floor) / 2 / H * 100).toFixed(2) + '%' });
+
+  // Hook: the title is drawn on frame 0 while Tibi already squats.
+  var hx = L.header.x, hy = L.header.y, ts = S.pick({ landscape: 52, portrait: 54, square: 60 });
+  var title = G.titleCard(ui, { x: hx, y: hy + ts * 2.3, kicker: 'Sinew', title: '{{TITLE}}', size: ts, align: 'left' });
+  title.show(tl, 0);
+  title.hide(tl, cue('s2', -0.3));
+
+  // Takeaway: back to the first movement, with the evidence grade and the source line beside the claim, inside the
+  // header band (portrait has room for one takeaway line, landscape and square for two).
+  var lines = S.pick({ portrait: ['Replace with the takeaway'], landscape: ['Replace with the takeaway', 'Replace with the second line'], square: ['Replace with the takeaway', 'Replace with the second line'] });
+  var end = G.endCard(ui, { x: hx, y: hy, width: Math.min(S.u(64), L.header.w), lines: lines });
+  var noteY = hy + lines.length * 70 + 34;       // G.endCard: rows every 70, the note's baseline 34 under them
+  var badge = G.evidenceBadge(ui, { x: hx, y: noteY + 14, grade: 'established' });
+  var cite = G.citation(ui, { x: hx, y: noteY + 14 + 34 + 26, text: 'Replace: Author 2024 \u00b7 RCT \u00b7 n = 20' });
+  end.show(tl, cue('s4', 0.4));
+  badge.show(tl, cue('s4', 1.4));
+  cite.show(tl, cue('s4', 1.7));
 
   caps.schedule(tl);
 });

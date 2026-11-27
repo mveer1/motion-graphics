@@ -1,0 +1,684 @@
+{
+  "id": "ref-0fe1abc90a",
+  "name": "Mathematics reel on a dark instrument frame: circle to sine, epicycles draw pi, Euler's identity builds",
+  "status": "experimental",
+  "source": {
+    "filename": "mathematics-motion-reel-57394385.mp4",
+    "aliases": [],
+    "sha256": "0fe1abc90ad2877dd0f23bea2ccd43dab0eceb4f2569622c48b291c1aed19d4a",
+    "bytes": 4801888,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "lockup",
+        "description": "Wordmark of an AI company's model with a tagline on the end card",
+        "timestamps": [
+          18.89,
+          19.63
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Showcase reel ending on an AI model's wordmark; reuse the drawing devices and the glitch-cut principle only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4801888,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 20.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1200,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1651,
+    "keyframes": 20,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 20.075,
+      "kbps": 255
+    },
+    "overall_kbps": 1921
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (27 frames), transition strips at all 5 boundaries, the listen sheet (1 dictation phrase, 12 accent hits) and 30 fps strips at 7.90-8.20 and 15.90-16.20 s (glitch cuts); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 20.0 s; two section cuts at frame level.",
+    "concept": {
+      "observed": "A tour of mathematical images on a dark instrument-like frame: a point on the unit circle traces a sine wave, rotating circles (epicycles) draw the letter pi beside a growing histogram, Lissajous curves with a grid of variants, a 3D surface of dots, Julia-set fractals, a sunflower spiral of dots, Euler's identity built next to its circle, then a wordmark.",
+      "interpreted": "The beauty of maths as vignettes of one idea drawn live.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; tiny monospace labels and formulas in the corners; one equation as the climax."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black navy (77% of pixels), cyan-teal and magenta-pink lines, violet-to-coral fractal gradients, warm gold for pi."
+      },
+      "typography": {
+        "observed": "Monospace micro-labels in the frame corners (title, coordinates, formula); math italic serif for the equation; spaced capitals for the end wordmark."
+      },
+      "composition": {
+        "observed": "A HUD-like frame with corner labels and rulers on every shot; one figure centred; secondary panels (histogram left, variant grid right)."
+      },
+      "motion": {
+        "observed": "Pen points trace curves continuously (circle to sine 2-4 s; pi drawn by epicycles 4.1-7.5 s); pi fills with a gradient (7.45-7.65 s); dots spiral outward (14.4-15.9 s); the fractal morphs its parameter (13.3-13.7 s); the equation's terms appear one by one beside a rotating radius (16.7-18.1 s) and the final 0 gets a ring."
+      },
+      "transitions": {
+        "observed": "Section changes are a signal-glitch cut on whole seconds (4, 8, 10, 12, 16, 18 s; 5 detected): one frame of the outgoing picture sliced into horizontal bands with colour fringes (7.97, 15.97 s), then 3-4 frames of a lifted grey frame with scan lines (8.00-8.10, 16.00-16.10 s), clean by 8.13 and 16.13 s. At 12.0 s the fractal enters through the glitch inside a circle that expands (12.04-12.18 s). 12.81 and 13.50 s are soft in-place changes of the fractal.",
+        "interpreted": "A grey 'signal' frame is the dark-frame equivalent of a white flash: it hides the edit and reads as a channel change.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Vignettes of 2-4 s: circle 0-4, pi 4-8, curves 8-10, surface 10-12, fractal 12-14, spiral 14-16, Euler 16-18, wordmark 18-20 s."
+      },
+      "sound_design": {
+        "observed": "-14.1 LUFS, LRA 1.3 LU (very even), true peak -3.6 dBTP; tempo 117.5 bpm (medium); 17 accents (51/min) on a 0.50 s grid at x.05 and x.55 s from 4.55 to 15.56 s; 2 of 5 boundaries carry an accent within 100 ms (0.40 against chance 0.16); onsets within 50 ms of boundaries 0.20 (chance 0.32), near the beat 0.40 (chance 0.24). The glitch cuts sit on whole seconds and the accent follows 50-60 ms later when present (8.06, 10.05, 12.05 s). Between cuts the accents fall while the pen draws (4.55-7.55 s) and while the spiral's dots appear (14.56-15.56 s); none after 15.56 s (the Euler section is calmer). Head and tail 4.4 dB below the body; no silences. Accents may be part of the music.",
+        "interpreted": "Beat-locked section cuts with a pulse under the drawing: a music-video grammar applied to maths.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation heard 2 words in 1 phrase (16.12-20.02 s) while the spiral, the equation and the black end frame show; recogniser noise over music.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy: monospace micro-labels in the frame corners (about 1% of the height) and the equation e^(i pi) + 1 = 0, built term by term at mid-right beside its circle (16.7-18.1 s), the final 0 ringed in pink."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 4.0,
+        "observed": "Unit circle; a point turns and its height draws a sine wave."
+      },
+      {
+        "start": 4.0,
+        "end": 8.0,
+        "observed": "Epicycles draw pi beside a growing histogram; pi fills."
+      },
+      {
+        "start": 8.0,
+        "end": 10.0,
+        "observed": "Lissajous curves with a grid of variants."
+      },
+      {
+        "start": 10.0,
+        "end": 12.0,
+        "observed": "A 3D ripple surface of dots."
+      },
+      {
+        "start": 12.0,
+        "end": 14.0,
+        "observed": "Julia-set fractals; the parameter morphs."
+      },
+      {
+        "start": 14.0,
+        "end": 16.0,
+        "observed": "A sunflower spiral of dots builds outward."
+      },
+      {
+        "start": 16.0,
+        "end": 18.0,
+        "observed": "Euler's identity builds term by term beside its circle."
+      },
+      {
+        "start": 18.0,
+        "end": 20.0,
+        "observed": "Wordmark with tagline."
+      }
+    ],
+    "moments": [
+      {
+        "t": 2.59,
+        "observed": "A point turns on the unit circle while a guide line carries its height across to draw a sine wave on the right.",
+        "interpreted": "Two representations shown as one motion."
+      },
+      {
+        "t": 17.41,
+        "observed": "Euler's identity builds term by term beside the circle whose half-turn it describes; the final 0 gets a ring.",
+        "interpreted": "The equation is read against the geometry it states."
+      }
+    ],
+    "difficult": [
+      "The 3D dot surface and the fractals (per-pixel colouring at 720p is heavy for DOM/SVG; canvas or a pre-rendered plate would be needed)"
+    ],
+    "uncertainties": [
+      "Whether the glitch frames carry a separate sound effect",
+      "Whether pi is drawn by a true Fourier epicycle sum or a hand-animated path"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        8.0,
+        12.0,
+        16.0,
+        18.0
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        8.0,
+        10.0,
+        12.0,
+        16.0,
+        18.0
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        0.37,
+        10.74
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        4.55,
+        6.06,
+        7.06
+      ]
+    },
+    {
+      "id": "linked-trace-projection",
+      "timestamps": [
+        2.59,
+        3.33
+      ]
+    },
+    {
+      "id": "equation-term-build",
+      "timestamps": [
+        16.67,
+        17.41,
+        18.15
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "stroke-draw",
+      "pen-stroke",
+      "particle-drift"
+    ],
+    "compositions": [
+      "frame-hud",
+      "animated-chart"
+    ],
+    "templates": [
+      "technical-explainer",
+      "title-sequence"
+    ],
+    "styles": [
+      "sci-viz",
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "diagram",
+    "generative",
+    "line-art",
+    "music-sync",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "mathematics",
+    "dark-navy",
+    "hud",
+    "glitch-cut",
+    "proof-canvas",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 14.6
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 5,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 12.0,
+        "kind": "cut",
+        "score": 0.13,
+        "isolation": 0.57,
+        "frame": 720
+      },
+      {
+        "t": 12.812,
+        "kind": "soft",
+        "score": 0.202
+      },
+      {
+        "t": 13.5,
+        "kind": "soft",
+        "score": 0.09,
+        "isolation": 0.2
+      },
+      {
+        "t": 16.0,
+        "kind": "cut",
+        "score": 0.207,
+        "isolation": 0.7,
+        "frame": 960
+      },
+      {
+        "t": 18.0,
+        "kind": "cut",
+        "score": 0.32,
+        "isolation": 0.94,
+        "frame": 1080
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 12.0,
+        "duration": 12.0,
+        "activity": 0.119,
+        "luma": 0.05
+      },
+      {
+        "index": 2,
+        "start": 12.0,
+        "end": 12.81,
+        "duration": 0.81,
+        "activity": 0.403,
+        "luma": 0.16
+      },
+      {
+        "index": 3,
+        "start": 12.81,
+        "end": 13.5,
+        "duration": 0.69,
+        "activity": 0.193,
+        "luma": 0.19
+      },
+      {
+        "index": 4,
+        "start": 13.5,
+        "end": 16.0,
+        "duration": 2.5,
+        "activity": 0.186,
+        "luma": 0.06
+      },
+      {
+        "index": 5,
+        "start": 16.0,
+        "end": 18.0,
+        "duration": 2.0,
+        "activity": 0.144,
+        "luma": 0.05
+      },
+      {
+        "index": 6,
+        "start": 18.0,
+        "end": 20.0,
+        "duration": 2.0,
+        "activity": 0.176,
+        "luma": 0.06
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.149,
+    "luma": {
+      "mean": 0.06,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.597
+      },
+      {
+        "hex": "#080818",
+        "share": 0.174
+      },
+      {
+        "hex": "#181818",
+        "share": 0.047
+      },
+      {
+        "hex": "#181828",
+        "share": 0.04
+      },
+      {
+        "hex": "#282828",
+        "share": 0.032
+      },
+      {
+        "hex": "#282838",
+        "share": 0.029
+      },
+      {
+        "hex": "#281848",
+        "share": 0.016
+      },
+      {
+        "hex": "#383838",
+        "share": 0.01
+      },
+      {
+        "hex": "#282848",
+        "share": 0.01
+      },
+      {
+        "hex": "#b868b8",
+        "share": 0.008
+      }
+    ],
+    "representative_times": [
+      3.0,
+      6.0,
+      9.0,
+      12.41,
+      13.16,
+      14.75,
+      17.0,
+      19.0
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -4.8,
+      "mean_dbfs_voiced": -16.3,
+      "silence_ratio": 0.0,
+      "onsets": 78,
+      "onset_rate_per_sec": 3.89,
+      "onset_times": [
+        0.07,
+        0.56,
+        1.04,
+        1.56,
+        2.04,
+        2.3,
+        2.55,
+        2.81,
+        3.04,
+        3.3,
+        3.55,
+        3.81,
+        4.06,
+        4.3,
+        4.55,
+        4.81,
+        5.06,
+        5.32,
+        5.55,
+        5.8,
+        6.06,
+        6.29,
+        6.55,
+        6.8,
+        7.06,
+        7.29,
+        7.55,
+        7.8,
+        8.06,
+        8.17,
+        8.31,
+        8.57,
+        8.8,
+        9.06,
+        9.31,
+        9.57,
+        9.8,
+        10.05,
+        10.31,
+        10.43,
+        10.57,
+        10.68,
+        10.8,
+        10.94,
+        11.05,
+        11.19,
+        11.31,
+        11.42,
+        11.56,
+        11.8,
+        12.05,
+        12.31,
+        12.56,
+        12.82,
+        12.93,
+        13.05,
+        13.19,
+        13.31,
+        13.56,
+        13.82,
+        13.93,
+        14.05,
+        14.19,
+        14.3,
+        14.56,
+        14.81,
+        15.05,
+        15.3,
+        15.44,
+        15.56,
+        15.81,
+        15.93,
+        16.07,
+        16.56,
+        17.04,
+        17.3,
+        17.55,
+        18.07
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.57,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 789,
+      "band_share": {
+        "low_lt_250": 0.42,
+        "mid_250_2k": 0.45,
+        "high_gt_2k": 0.13
+      },
+      "syllabic_modulation_share": 0.38,
+      "boundary_onset_alignment": {
+        "boundaries": 5,
+        "tolerance_ms": 50,
+        "near_onset": 0.2,
+        "chance_level": 0.32,
+        "median_offset_ms": 60,
+        "near_beat": 0.4,
+        "beat_chance_level": 0.24,
+        "beat_phase_sec": 0.096
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-0fe1abc90a",
+      "overview": "reference/analysis/ref-0fe1abc90a/overview.jpg",
+      "scenes": "reference/analysis/ref-0fe1abc90a/scenes.jpg",
+      "transitions": "reference/analysis/ref-0fe1abc90a/transitions.jpg",
+      "motion": "reference/analysis/ref-0fe1abc90a/motion.jpg",
+      "audio": "reference/analysis/ref-0fe1abc90a/audio.png",
+      "frames": "reference/analysis/ref-0fe1abc90a/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.1,
+        "lra_lu": 1.3,
+        "true_peak_dbtp": -3.6,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 10,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 1,
+        "speech_start": 16.12,
+        "speech_end": 20.02,
+        "speech_coverage": 0.19,
+        "wps_while_speaking": 0.51,
+        "wpm_over_span": 31,
+        "pace_thirds_wps": [
+          0.77,
+          0.77,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 2.0,
+        "phrase_sec_median": 3.9,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 1,
+            "wps": 0.5
+          },
+          {
+            "index": 6,
+            "words": 1,
+            "wps": 0.5
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 1,
+          "in_pause_share": 0.0,
+          "chance_level": 0.0,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 78,
+        "accents": 17,
+        "accents_per_min": 51.0,
+        "accent_times": [
+          4.55,
+          5.55,
+          6.06,
+          6.55,
+          7.06,
+          7.55,
+          8.06,
+          9.57,
+          10.05,
+          10.57,
+          11.05,
+          11.56,
+          12.05,
+          13.56,
+          14.56,
+          15.05,
+          15.56
+        ],
+        "accent_threshold": 0.46,
+        "boundaries_with_accent": {
+          "boundaries": 5,
+          "share": 0.4,
+          "tolerance_ms": 100,
+          "chance_level": 0.16
+        },
+        "onset_rate_during_speech": 1.28,
+        "onset_rate_outside_speech": 4.53,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -4.4,
+        "level_tail_vs_body_db": -4.4,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-0fe1abc90a/listen",
+        "sheet": "reference/analysis/ref-0fe1abc90a/listen/listen.jpg",
+        "words": "reference/analysis/ref-0fe1abc90a/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

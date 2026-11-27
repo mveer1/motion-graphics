@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Studio runtime checks: explanation devices (runtime 1.18.0)</title>
+  <!-- studio-explain.js: equation, slider, tracePair, simulation, barRace, progression, space.tour, fx.dip, copySlot,
+       ui widgets, headline pair and build. Loads the vendored GSAP, so it runs offline. Driven by
+       tests/test-studio-runtime.py. -->
+  <link rel="stylesheet" href="../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #root { background: var(--c-paper); }
+    .box { position: absolute; }
+    #tourCanvas { position: absolute; left: 0; top: 0; width: 2560px; height: 1440px; }
+    #p1 { position: absolute; left: 200px; top: 200px; width: 400px; height: 300px; background: #f3d9c8; }
+    #p2 { position: absolute; left: 1800px; top: 1000px; width: 500px; height: 300px; background: #cfe0f5; }
+    #hlPair { left: 40px; top: 20px; width: 600px; }
+    #hlBuild { left: 660px; top: 20px; width: 580px; }
+    #eqBox { left: 40px; top: 140px; }
+    #sliderBox { left: 660px; top: 140px; width: 560px; }
+    #traceBox { left: 40px; top: 260px; width: 560px; height: 180px; }
+    #simBox { left: 660px; top: 300px; width: 580px; height: 300px; }
+    #raceBox { left: 40px; top: 460px; width: 560px; height: 220px; }
+    #progItems { left: 300px; top: 600px; display: flex; gap: 20px; }
+    #progItems div { width: 60px; height: 40px; background: #888; }
+    #progUi { left: 300px; top: 650px; width: 300px; }
+    #uiBox { left: 900px; top: 600px; display: flex; gap: 12px; align-items: center; }
+    #dipOut { left: 40px; top: 400px; width: 100px; height: 40px; background: #d9483b; }
+    #dipIn { left: 160px; top: 400px; width: 100px; height: 40px; background: #1d4ed8; }
+    #copyBox { left: 660px; top: 240px; font-size: 24px; }
+    #notifyBox { left: 900px; top: 540px; }
+  </style>
+  <script src="../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="20">
+  <div id="tourCanvas"><div id="p1"></div><div id="p2"></div></div>
+  <div class="box" id="hlPair"></div>
+  <div class="box" id="hlPair2"></div>
+  <div class="box" id="hlBuild"></div>
+  <div class="box" id="eqBox"></div>
+  <div class="box" id="sliderBox"></div>
+  <div class="box" id="traceBox"></div>
+  <div class="box" id="simBox"></div>
+  <div class="box" id="raceBox"></div>
+  <div class="box" id="progItems"><div id="i0"></div><div id="i1"></div><div id="i2"></div></div>
+  <div class="box" id="progUi"></div>
+  <div class="box" id="uiBox"></div>
+  <div class="box" id="notifyBox"></div>
+  <div class="box" id="dipOut"></div>
+  <div class="box" id="dipIn"></div>
+  <div class="box" id="copyBox"></div>
+</div>
+<script src="../../src/studio/studio-core.js"></script>
+<script src="../../src/studio/studio-draw.js"></script>
+<script src="../../src/studio/studio-type.js"></script>
+<script src="../../src/studio/studio-motion.js"></script>
+<script src="../../src/studio/studio-compositions.js"></script>
+<script src="../../src/studio/studio-explain.js"></script>
+<script>
+var T = {};
+Studio.build(function (tl, f, S) {
+  var C = S.comp;
+  T.pair = C.headline('#hlPair', { line1: 'Light bends', line2: 'near mass.' });
+  T.pairEnd = T.pair.enter(tl, 0.2);
+  T.pairBad = C.headline('#hlPair2', { line1: 'Short', line2: 'a much longer second line' });
+  T.build = C.headline('#hlBuild', { text: 'one two three four' }, { preset: 'build' });
+  T.buildEnd = T.build.enter(tl, 0.2, { times: [0.2, 0.6, 1.0, 1.4] });
+
+  T.eq = C.equation('#eqBox', { terms: ['e', '^iπ', '+ 1', { text: '= 0', tone: 'accent' }] });
+  T.eqEnd = T.eq.build(tl, { at: 1, gap: 0.6 });
+  T.ringEnd = T.eq.ring(tl, 3, 3.2);
+
+  T.sl = C.slider('#sliderBox', { min: 0, max: 1000, value: 50, step: 10, scale: 10,
+    input: { label: 'Units', decimals: 0 }, output: { label: 'Cost', prefix: '$' }, caveat: 'Before tax' });
+  T.sl.enter(tl, 0.5);
+  T.slEnd = T.sl.drag(tl, 4, { to: 500 });
+  T.cavEnd = T.sl.caveat(tl, 6.4);
+
+  T.tr = C.tracePair('#traceBox', { cycles: 1.5, period: 2 });
+  T.tr.enter(tl, 0.3);
+  T.trEnd = T.tr.run(tl, 7);
+
+  var ev = C.simulationScript(7, [{ from: 0.5, to: 1.5, rate: 10, kind: 'take' }, { from: 2, to: 4, rate: 2, kind: 'refill' }]);
+  T.ev = ev;
+  T.sim = C.simulation('#simBox', { capacity: 5, events: ev, duration: 5,
+    regimes: [{ t: 0, text: 'Full bucket' }, { t: 0.5, text: 'A burst drains it' }, { t: 2, text: 'Refills trickle in' }] }, { chartHeight: 8 });
+  T.sim.enter(tl, 0.4);
+  T.simEnd = T.sim.run(tl, 10.5);
+
+  T.race = C.barRace('#raceBox', { names: ['Ash', 'Birch', 'Cedar'], frames: [
+    { label: '2001', values: [10, 20, 30] }, { label: '2002', values: [35, 22, 31] },
+    { label: '2003', values: [40, 45, 32] }, { label: '2004', values: [41, 50, 60] }] }, { rows: 3 });
+  T.race.enter(tl, 0.4);
+  T.raceEnd = T.race.play(tl, 11, { step: 0.4 });
+
+  T.prog = C.progression('#progUi', { items: ['#i0', '#i1', '#i2'], steps: [
+    { focus: 0, caption: 'Step one' }, { focus: 1, caption: 'Step two' }, { focus: [1, 2], caption: 'Both' }] });
+  T.prog.enter(tl, 0.4);
+  T.prog.to(tl, 1, 12.5);
+  T.prog.to(tl, 2, 13.5);
+
+  T.tourEnd = S.space.tour(tl, '#tourCanvas', [{ target: '#p1', at: 14 }, { target: '#p2', at: 16 }], { pullBack: 18.5 });
+
+  S.show(tl, '#dipOut', 0);
+  T.dipEnd = S.fx.dip(tl, '#dipOut', '#dipIn', 15);
+
+  T.copy = C.copySlot('#copyBox', ['First line', 'Second line', 'Third line']);
+  T.copy.enter(tl, 0, 0.5);
+  T.copy.swap(tl, 1, 16.5, { words: [{ start: 15.6, end: 15.9, word: 'calm' }, { start: 16.5, end: 16.8, word: 'second' }] });
+  T.copy.swap(tl, 2, 17.5, { words: [{ start: 17.0, end: 17.3, word: 'oops' }] });
+
+  T.input = C.ui.input('#uiBox', { placeholder: 'Search', text: 'hello world' });
+  T.inputEnd = T.input.type(tl, 1);
+  T.btn = C.ui.button('#uiBox', { label: 'Go' });
+  T.btn.el.id = 'btn';
+  T.btn.press(tl, 2.6);
+  T.tog = C.ui.toggle('#uiBox', { on: false });
+  T.tog.flip(tl, 3, true);
+  T.cur = C.ui.cursor('#root');
+  T.cur.enter(tl, 0.5, { x: 100, y: 600 });
+  T.curEnd = T.cur.moveTo(tl, '#btn', 2, { duration: 0.5 });
+  T.cur.click(tl, 2.6);
+  T.note = C.ui.notify('#notifyBox', { title: 'Saved', body: 'Your change is live' });
+  T.note.enter(tl, 3.5);
+});
+</script>
+<script>
+(function () {
+  var results = [];
+  function check(name, cond, detail) { results.push({ name: name, ok: !!cond, detail: detail === undefined ? '' : String(detail) }); }
+  function near(a, b, tol) { return Math.abs(a - b) <= tol; }
+  function vis(el) { var cs = getComputedStyle(el); return cs.visibility !== 'hidden' && parseFloat(cs.opacity) > 0.01; }
+  function $(s) { return document.querySelector(s); }
+  function box(el) { var r = el.getBoundingClientRect(), o = $('#root').getBoundingClientRect(); return { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height }; }
+  function tx(el) { var m = /translate[XY]?\(([-0-9.]+)px/.exec(el.style.transform); return m ? parseFloat(m[1]) : 0; }
+
+  function run() {
+    var tl = window.__timelines && window.__timelines.root;
+    var err = $('#root').getAttribute('data-studio-error');
+    if (!tl && !err) { setTimeout(run, 30); return; }
+    check('build without error', !err, err);
+    if (err) { window.__studioTestResults = results; return; }
+    check('timeline within data-duration', tl.duration() <= 20 + 1e-3, tl.duration());
+
+    // Headline pair and build
+    var w = T.pair.words;
+    tl.seek(0.25);
+    check('pair: line 2 waits for line 1', vis(w[0]) && !vis(w[2]));
+    tl.seek(T.pairEnd + 0.01);
+    check('pair: all words in', w.every(vis));
+    check('pair: line 2 in the accent', getComputedStyle(w[2]).color !== getComputedStyle(w[0]).color);
+    check('pair: warns when line 2 is longer', T.pairBad.warnings.length === 1 && T.pair.warnings.length === 0, T.pairBad.warnings.join(' / '));
+    tl.seek(T.buildEnd + 0.01);
+    var line = $('#hlBuild .st-hl-line'), hb = box($('#hlBuild')), lb = box(line);
+    var bw = T.build.words, lastB = box(bw[bw.length - 1]), firstB = box(bw[0]);
+    check('build: the full line is centred', near(firstB.x + (lastB.x + lastB.w - firstB.x) / 2, hb.x + hb.w / 2, 1.5), JSON.stringify([firstB, lastB, hb]));
+    tl.seek(0.62 + 0.4);
+    var b2 = box(bw[1]);
+    check('build: two words centred while two are shown', !vis(bw[2]) && near(firstB.x + 0, firstB.x, 0) && near((box(bw[0]).x + b2.x + b2.w) / 2, hb.x + hb.w / 2, 1.5), JSON.stringify([box(bw[0]), b2, hb]));
+
+    // Equation
+    var terms = T.eq.terms;
+    tl.seek(1.5);
+    check('equation: term 1 in, term 2 not yet', vis(terms[0]) && !vis(terms[1]));
+    var x3 = box(terms[3]).x;
+    tl.seek(T.eqEnd + 0.01);
+    check('equation: all terms in', terms.every(vis));
+    check('equation: no reflow as terms arrive', near(box(terms[3]).x, x3, 0.5), box(terms[3]).x + ' vs ' + x3);
+    var ring = T.eq.rings[0];
+    tl.seek(3.21);
+    check('equation: ring not drawn at its cue', parseFloat(getComputedStyle(ring).strokeDashoffset) > 5);
+    tl.seek(T.ringEnd + 0.01);
+    check('equation: ring drawn', parseFloat(getComputedStyle(ring).strokeDashoffset) < 1, getComputedStyle(ring).strokeDashoffset);
+    var rb = box(ring), t3 = box(terms[3]);
+    check('equation: ring surrounds the final term', rb.x < t3.x && rb.x + rb.w > t3.x + t3.w, JSON.stringify([rb, t3]));
+
+    // Slider
+    tl.seek(3.9);
+    check('slider: starts at its value', T.sl.input.textContent === '50' && T.sl.output.textContent === '$500', T.sl.input.textContent + ' ' + T.sl.output.textContent);
+    tl.seek(4.85);
+    var mid = parseInt(T.sl.input.textContent, 10);
+    check('slider: input moves with the handle', mid > 50 && mid < 500, mid);
+    check('slider: output follows input', T.sl.output.textContent === '$' + (mid * 10).toLocaleString('en-US'), T.sl.output.textContent);
+    tl.seek(5.65);
+    check('slider: settle step 1 reads short', T.sl.output.textContent === '$4,997', T.sl.output.textContent);
+    tl.seek(5.84);
+    check('slider: settle step 2', T.sl.output.textContent === '$4,999', T.sl.output.textContent);
+    tl.seek(T.slEnd + 0.05);
+    check('slider: lands on the value', T.sl.output.textContent === '$5,000' && T.sl.input.textContent === '500', T.sl.output.textContent);
+    var tw = $('#sliderBox .st-slider-track').offsetWidth;
+    check('slider: handle at half the track', near(tx(T.sl.handle), tw / 2, 1), tx(T.sl.handle) + ' / ' + tw);
+    tl.seek(T.cavEnd + 0.05);
+    check('slider: caveat stamped', vis(T.sl.caveatEl));
+
+    // Trace pair
+    var dot = $('#traceBox circle[r]:nth-last-of-type(2)'), gdot = $('#traceBox circle:last-of-type');
+    var guide = $('#traceBox line[stroke-dasharray]');
+    var G = T.tr.geometry;
+    tl.seek(7 + 0.5);
+    var th = Math.PI / 2;
+    check('trace: point at a quarter turn after a quarter period', near(+dot.getAttribute('cx'), G.cx, 0.5) && near(+dot.getAttribute('cy'), G.cy - G.R, 0.5), dot.getAttribute('cx') + ',' + dot.getAttribute('cy'));
+    check('trace: guide line is level', guide.getAttribute('y1') === guide.getAttribute('y2'));
+    check('trace: graph point at the same height', gdot.getAttribute('cy') === dot.getAttribute('cy'));
+    check('trace: graph point advanced a quarter cycle', near(+gdot.getAttribute('cx'), G.x0 + G.cycleW / 4, 0.5), gdot.getAttribute('cx'));
+    check('trace: runs 1.5 turns of 2 s', near(T.trEnd, 10, 1e-6), T.trEnd);
+
+    // Simulation
+    var st = T.sim.states;
+    var firstReject = st.filter(function (s) { return !s.ok; })[0];
+    check('simulation: seeded script is stable', T.ev.length === 14 && JSON.stringify(T.ev) === JSON.stringify(Studio.comp.simulationScript(7, [{ from: 0.5, to: 1.5, rate: 10, kind: 'take' }, { from: 2, to: 4, rate: 2, kind: 'refill' }])), T.ev.length);
+    check('simulation: a take on empty is rejected', !!firstReject);
+    tl.seek(10.5 + firstReject.t + 0.01);
+    var count = $('#simBox .st-sim-count');
+    check('simulation: gauge at zero turns red', count.textContent === '0' && getComputedStyle(count).color !== getComputedStyle($('#simBox')).color, count.textContent);
+    var lastRow = $('#simBox .st-sim-row:last-child');
+    check('simulation: log shows the rejection last', lastRow.children[2].textContent === 'rejected' && lastRow.children[1].textContent === '#' + (firstReject.i + 1), lastRow.textContent);
+    check('simulation: outcome colour on the marker, text in ink', getComputedStyle(lastRow.querySelector('.st-sim-dot')).backgroundColor !== getComputedStyle(lastRow.children[2]).color);
+    check('simulation: cells agree with the count', $('#simBox').querySelectorAll('.st-sim-cell').length === 5);
+    var cap = Array.prototype.filter.call(document.querySelectorAll('#simBox .st-sim-caption span'), function (s) { return +s.style.opacity > 0.5; });
+    check('simulation: one regime caption shown', cap.length === 1 && cap[0].textContent === 'A burst drains it', cap.map(function (c) { return c.textContent; }).join('|'));
+    tl.seek(T.simEnd + 0.01);
+    check('simulation: refills counted', count.textContent === String(st[st.length - 1].value), count.textContent);
+
+    // Bar race
+    tl.seek(11 + 1.2 + 0.01);
+    var rows = T.race.bars;
+    check('race: last frame ranks Cedar first', near(tx(rows[2].row), 0, 0.5) && tx(rows[0].row) > tx(rows[1].row), [tx(rows[0].row), tx(rows[1].row), tx(rows[2].row)].join(','));
+    check('race: date label advanced', T.race.date.textContent === '2004', T.race.date.textContent);
+    check('race: value labels', rows[2].val.textContent === '60', rows[2].val.textContent);
+    tl.seek(11.2);
+    check('race: mid-step values interpolate', rows[0].val.textContent === '23', rows[0].val.textContent);
+
+    // Progression
+    tl.seek(12.0);
+    check('progression: step 0 focuses item 0', +$('#i0').style.opacity > 0.99 && +$('#i1').style.opacity < 0.3);
+    tl.seek(13.0);
+    check('progression: step 1 focuses item 1', +$('#i1').style.opacity > 0.99 && +$('#i0').style.opacity < 0.3);
+    tl.seek(14.0);
+    check('progression: step 2 focuses two items', +$('#i1').style.opacity > 0.99 && +$('#i2').style.opacity > 0.99);
+    var pc = Array.prototype.filter.call(document.querySelectorAll('#progUi .st-prog-caption span'), function (s) { return +s.style.opacity > 0.5; });
+    check('progression: caption swapped in place', pc.length === 1 && pc[0].textContent === 'Both');
+
+    // Tour
+    tl.seek(14 + 0.8 + 0.001);
+    var p1 = box($('#p1'));
+    check('tour: first stop framed and centred', near(p1.x + p1.w / 2, 640, 1) && near(p1.y + p1.h / 2, 360, 1), JSON.stringify(p1));
+    tl.seek(15.9);
+    var p1b = box($('#p1'));
+    check('tour: drifts in during the hold', p1b.w > p1.w * 1.01 && near(p1b.x + p1b.w / 2, 640, 1), p1b.w / p1.w);
+    tl.seek(T.tourEnd + 0.01);
+    var cv = box($('#tourCanvas'));
+    check('tour: pulls back to the whole canvas', cv.w <= 1280 + 1 && cv.h <= 720 + 1 && cv.w > 1000, JSON.stringify(cv));
+
+    // Dip
+    tl.seek(14.4);
+    check('dip: outgoing still in before the exit', vis($('#dipOut')));
+    tl.seek(14.85);
+    check('dip: empty stage during the hold', !vis($('#dipOut')) && !vis($('#dipIn')));
+    tl.seek(T.dipEnd + 0.01);
+    check('dip: incoming in after', vis($('#dipIn')));
+
+    // Copy slot
+    var cs = T.copy.versions;
+    tl.seek(16.15);
+    check('copy: slot empty in the gap', !vis(cs[0]) && !vis(cs[1]), getComputedStyle(cs[0]).opacity + ' ' + getComputedStyle(cs[1]).opacity);
+    tl.seek(16.35);
+    check('copy: new copy visible before its phrase', vis(cs[1]) && !vis(cs[0]));
+    check('copy: warns when a swap lands on a word', T.copy.warnings.length === 1 && /oops/.test(T.copy.warnings[0]), T.copy.warnings.join(' / '));
+    check('copy: versions share one cell', near(box(cs[0]).x, box(cs[2]).x, 0.5) && near(box(cs[0]).y, box(cs[2]).y, 0.5));
+
+    // UI widgets
+    tl.seek(1.3);
+    var typed = $('#uiBox .st-ui-text').textContent;
+    check('ui: input types progressively', typed.length > 0 && typed.length < 11 && 'hello world'.indexOf(typed) === 0, typed);
+    tl.seek(T.inputEnd + 0.01);
+    check('ui: input complete, caret gone', $('#uiBox .st-ui-text').textContent === 'hello world' && $('#uiBox .st-ui-caret').style.opacity === '0');
+    tl.seek(T.curEnd + 0.01);
+    var cb = box(T.cur.el), bb = box($('#btn'));
+    check('ui: cursor tip on the button', near(cb.x, bb.x + bb.w / 2, 1.5) && near(cb.y, bb.y + bb.h / 2, 1.5), JSON.stringify([cb, bb]));
+    tl.seek(3.4);
+    check('ui: toggle on', T.tog.el.style.background !== '' && near(tx(T.tog.el.querySelector('.st-ui-knob')), Studio.u(3.6), 0.5));
+    tl.seek(4.1);
+    check('ui: notification in', vis(T.note.el));
+
+    // Seek-order independence across the whole film
+    function state() {
+      var parts = [];
+      ['#simBox', '#raceBox', '#sliderBox', '#progUi', '#uiBox', '#copyBox', '#eqBox', '#hlBuild'].forEach(function (s) { parts.push($(s).textContent); });
+      Array.prototype.forEach.call(document.querySelectorAll('#root *'), function (el) {
+        if (el.style && (el.style.transform || el.style.opacity)) parts.push(el.style.transform + '/' + (+el.style.opacity || 0).toFixed(3));
+        var cs = getComputedStyle(el); parts.push(cs.visibility[0]);
+      });
+      Array.prototype.forEach.call(document.querySelectorAll('#traceBox circle, #traceBox line'), function (el) { parts.push(el.getAttribute('cx') + ',' + el.getAttribute('x2')); });
+      return parts.join('|');
+    }
+    [[5.7, [19, 0.2]], [11.5, [3, 18]], [13.2, [0, 17]], [16.4, [12, 19.5]], [8.1, [15, 2]]].forEach(function (c) {
+      tl.seek(c[0]); var s1 = state();
+      c[1].forEach(function (t) { tl.seek(t); });
+      tl.seek(c[0]);
+      check('seek order independent at ' + c[0], state() === s1);
+    });
+    window.__studioTestResults = results;
+  }
+  run();
+})();
+</script>
+</body>
+</html>

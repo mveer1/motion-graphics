@@ -4,7 +4,9 @@
   "status": "experimental",
   "source": {
     "filename": "play_720p (6).mp4",
-    "aliases": [],
+    "aliases": [
+      "link-analytics-launch-26877454.mp4"
+    ],
     "sha256": "1cbe55c98734e72eed59104790d8e10fd1034dcfc718e32b64c1837ffc2195b2",
     "bytes": 2469022,
     "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
@@ -76,7 +78,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (20 frames over 15.07 s) and scene sheet (7 scenes). Transition strips generated, not viewed. Timestamps inside the long 1.52-10.52 s scene are approximate (overview spacing 0.75 s). Audio from measurements only.",
+    "method": "Viewed overview (20 frames over 15.07 s) and scene sheet (7 scenes). Transition strips generated, not viewed. Timestamps inside the long 1.52-10.52 s scene are approximate (overview spacing 0.75 s). Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; 30 fps strips 1.30-1.75 s and 10.60-10.95 s; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at overview density; the word-card burst at boundary level.",
     "concept": {
       "observed": "Product launch promo: a typed link becomes a short link, counters roll over a dotted globe, a dashboard draws, partners orbit a hub, then a burst of feature words and an end card with a call to action.",
@@ -105,7 +107,9 @@
         "interpreted": "Slow demonstration, then a rapid recap."
       },
       "transitions": {
-        "observed": "Continuous camera moves inside the UI section; hard cuts for word cards; mark scales into the end card."
+        "observed": "Re-read 2026-11-27: 4 boundaries (2 cut, 2 grow, 0 cover, 0 continuous). 1.52 s grow: the typed line contracts to a glowing ember (1.30-1.50 s), one grey wash frame (1.53 s), then a pill grows from the centre and types its text (1.57-1.73 s): a small implode-and-burst. 10.75 s cut: white word card to a dark tile card through a two-frame dissolve (10.77-10.80 s) that reads as a cut. 11.50 s cut: dark outline-word card to a gradient card, the same two-frame dissolve. 12.50 s grow: reversed: after one light frame the mark arrives frame-filling and scales down to its end-card size in about 0.15 s (12.54-12.68 s). Earlier reading (2026-10-30): Continuous camera moves inside the UI section; hard cuts for word cards; mark scales into the end card.",
+        "interpreted": "Cuts only inside the word list; the open grows out of a point and the close grows into the mark. Between 1.5 and 10.5 s there is no boundary: the UI section moves continuously.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "A dashboard card tilted in perspective; glowing dotted globe horizon."
@@ -113,6 +117,19 @@
       "audio_and_sync": {
         "observed": "3.7 onsets/s, tempo estimate 118 bpm (medium); boundaries not aligned with onsets above chance (0.25 vs 0.31).",
         "confidence": "low"
+      },
+      "sound_design": {
+        "observed": "Integrated -13.6 LUFS, LRA 1.7 LU, true peak -0.3 dBTP. Tempo estimate 118 bpm (medium). 12 accents (47.8 a minute), about 0.5 s apart (2.60, 3.09, 3.60, 5.09, 5.60, 6.08, 6.59, 8.59, 9.10, 9.59, 11.10, 11.59 s). Accents on cuts 0.25 against chance 0.15 (1 of 4); onsets near boundaries 0.25 against 0.31. No silences; head -16.9 dB (quiet intro), tail -5.1 dB. Listen sheet: accents on the rolling total's jumps (2.60-3.60 s), metric cards switching (5.09-6.59 s), partner pills popping round the hub (8.59-9.59 s), and on the closing word cards, which arrive on cuts (11.10, 11.59 s).",
+        "interpreted": "Accents carry the data changes on a half-second grid; only the closing word-card run puts them on cuts. A heavily compressed promo master.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation found 0 words in 15 s.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None; copy is a centred headline with one recoloured accent word, full-frame word cards and large numerals; no caption lane.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -142,7 +159,8 @@
     ],
     "uncertainties": [
       "Exact times of UI moments inside the long scene",
-      "Whether the counter uses per-digit odometer columns or a single roll"
+      "Whether the counter uses per-digit odometer columns or a single roll",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -201,6 +219,23 @@
         8.5,
         9.5
       ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        2.6,
+        3.09,
+        3.6,
+        5.09,
+        5.6
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        1.47,
+        1.57
+      ]
     }
   ],
   "related": {
@@ -235,21 +270,23 @@
     "launch",
     "ui",
     "counter",
-    "brand-marks-present"
+    "brand-marks-present",
+    "batch-0",
+    "batch-7"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 13.9
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 20.4
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -488,6 +525,74 @@
       "audio": "reference/analysis/ref-1cbe55c987/audio.png",
       "frames": "reference/analysis/ref-1cbe55c987/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -13.6,
+        "lra_lu": 1.7,
+        "true_peak_dbtp": -0.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 12,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 56,
+        "accents": 12,
+        "accents_per_min": 47.8,
+        "accent_times": [
+          2.6,
+          3.09,
+          3.6,
+          5.09,
+          5.6,
+          6.08,
+          6.59,
+          8.59,
+          9.1,
+          9.59,
+          11.1,
+          11.59
+        ],
+        "accent_threshold": 0.44,
+        "boundaries_with_accent": {
+          "boundaries": 4,
+          "share": 0.25,
+          "tolerance_ms": 100,
+          "chance_level": 0.15
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.72,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -16.9,
+        "level_tail_vs_body_db": -5.1,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-1cbe55c987/listen",
+        "sheet": "reference/analysis/ref-1cbe55c987/listen/listen.jpg",
+        "words": "reference/analysis/ref-1cbe55c987/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

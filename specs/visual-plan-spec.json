@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VisualPlan",
+  "description": "projects/<slug>/visual-plan.json: the visual director's per-scene engine decision and the Blender plates the composition needs. HyperFrames is always the compositor; plates are layers inside it. Engines and routing: specs/visual-engines.json.",
+  "type": "object",
+  "required": ["spec_version", "slug", "scenes", "plates"],
+  "additionalProperties": false,
+  "properties": {
+    "spec_version": { "type": "string", "const": "1.0.0" },
+    "slug": { "type": "string" },
+    "decided_by": {
+      "type": "string",
+      "enum": ["heuristic", "director"],
+      "description": "heuristic: drafted by `visual-director.py plan` and not yet reviewed; director: the visual director has decided every scene."
+    },
+    "notes": { "type": "string" },
+    "scenes": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/scene" }
+    },
+    "plates": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/plate" }
+    }
+  },
+  "definitions": {
+    "scene": {
+      "type": "object",
+      "required": ["scene", "engine", "mode", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "scene": { "type": "string", "description": "storyboard.json scene id" },
+        "engine": { "type": "string", "enum": ["hyperframes", "threejs", "blender"] },
+        "mode": { "type": "string", "enum": ["native", "plate-full", "plate-under", "plate-over"] },
+        "plates": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "plate ids used by this scene (required when mode is a plate mode)"
+        },
+        "reason": { "type": "string", "description": "why this engine: the visual job a cheaper engine could not do" },
+        "signals": { "type": "array", "items": { "type": "string" }, "description": "routing terms that matched (heuristic drafts)" },
+        "overlay": { "type": "string", "description": "what HyperFrames draws above the plate (text, labels, data)" }
+      }
+    },
+    "plate": {
+      "type": "object",
+      "required": ["id", "script", "start_sec", "duration_sec", "alpha"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "script": { "type": "string", "description": "Plate script relative to the project folder, normally blender/<id>.py; defines build(lab, job)." },
+        "template": { "type": "string", "description": "templates/blender/plates/<name>.py the script was copied from (provenance only)" },
+        "scene": { "type": "string", "description": "storyboard scene id the plate belongs to" },
+        "start_sec": { "type": "number", "minimum": 0, "description": "film time the plate starts (data-start of its <video>)" },
+        "duration_sec": { "type": "number", "exclusiveMinimum": 0 },
+        "alpha": { "type": "boolean", "description": "true: transparent film, delivered as VP9 WebM with alpha; false: opaque H.264 MP4" },
+        "formats": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["landscape", "portrait", "square"] },
+          "description": "formats to render; default every format in project.json. Each format is framed by its own camera aspect, never cropped."
+        },
+        "engine": { "type": "string", "enum": ["eevee", "cycles", "workbench"], "default": "eevee" },
+        "samples": { "type": "integer", "minimum": 1, "maximum": 4096 },
+        "seed": { "type": "integer", "minimum": 0, "description": "seed for lab.rng() and Cycles; default derived from the plate id" },
+        "cues": {
+          "type": "object",
+          "additionalProperties": { "type": "number", "minimum": 0 },
+          "description": "named moments in plate-relative seconds (e.g. from `studio.py words`), read by the plate script through lab.f(job['cues'][name])"
+        },
+        "params": { "type": "object", "description": "free parameters for the plate script (palette roles, counts, speeds)" }
+      }
+    }
+  }
+}

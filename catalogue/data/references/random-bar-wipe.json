@@ -1,0 +1,32 @@
+{
+  "id": "random-bar-wipe",
+  "name": "Random bar wipe",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "3 inspected reference films (batch-3, batch-6, 2026-11-26): a pencil-on-paper launch film leaves its dark payoff section through horizontal bars of random length.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Horizontal bars of random length and position appear across the frame, merge into full cover and clear to reveal the next scene. It reads as a quick digital redraw, faster and less formal than a straight wipe.",
+  "purpose": "A quick, informal change of register between sections, read as a digital redraw.",
+  "visual_behaviour": "Horizontal bars of random length and position grow across the frame until it is covered, then clear in the same pattern onto the next scene, in about 0.3 s.",
+  "mechanics": "10-14 horizontal bars of 1/16-1/10 of the frame height with seeded x offsets and lengths; bars in the incoming scene's colour grow in from random x over about 0.12 s until full cover at about 0.15 s; the scene swaps under cover; bars clear in the same pattern over 0.15 s (ref-2860712d4e 11.21-11.51 s, 0.3 s in all, 30 fps sheet).",
+  "decomposition": { "primitives": ["clip-mask", "svg-shape"], "effects": ["mask-wipe"], "timing": "About 0.3 s." },
+  "parameters": [
+    { "name": "bars", "description": "Number of bars", "default": 12 },
+    { "name": "duration", "description": "Seconds, cover plus clear", "default": 0.3 },
+    { "name": "seed", "description": "PRNG seed for the bar pattern", "default": 1 }
+  ],
+  "use_cases": ["Leaving a dark section for a light canvas", "A quick change of register between sections"],
+  "failure_modes": ["An unseeded pattern changes between renders", "Too slow reads as a broken screen"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "10-14 bars of 1/16-1/10 of the frame height in an overlay layer, with seeded x offsets and lengths, grow in the incoming scene's colour over about 0.12 s to full cover at 0.15 s; swap the scene under cover; clear in the same pattern over 0.15 s. Seed the pattern with the Studio PRNG. Not built (the overlay works like the curtain type of Studio.transition).", "runtime_api": ["Studio.transition"] },
+  "capability": { "support": "native", "requirements": ["overlay layer", "seeded pattern"], "compatible_components": ["mask-wipe", "shape-cover-transition"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-2860712d4e", "timestamps": [11.21, 11.37, 11.51], "observed": "Horizontal bars of random lengths cover a dark chalkboard scene and uncover the paper canvas in 0.3 s." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [12.85], "observed": "Stepped variant: orange bars of different heights rise from the bottom and cover the frame (12.79-12.99 s) onto the end card." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [3.42], "observed": "Pixel-block variant (check 0.37): square blocks dissolve from the top-right corner across the frame while a black ball rolls in (3.33-3.60 s)." }
+  ],
+  "related": { "techniques": ["diagonal-band-wipe", "grid-wave-propagation"], "effects": ["mask-wipe", "shape-cover-transition"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "cover", "wipe", "bars", "digital", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

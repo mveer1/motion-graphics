@@ -1,6 +1,7 @@
 {
   "id": "self-describing-kinetic-words",
   "name": "Self-describing kinetic words",
+  "family": "kinetic-typography",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Three inspected references animate a word the way the word means: STRETCH stretches, SPIN spins, a falling word drops, a word about easing smears.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Each word performs its own meaning, so the motion is the definition. It works because the viewer reads and sees the same idea at once (dual coding) and the treatment never feels arbitrary.",
@@ -27,7 +28,12 @@
   "provenance": [
     { "source_id": "ref-392ee4d0f9", "timestamps": [3.9, 5.3, 6.0, 7.5], "observed": "Single verbs on cards: a heavy word drops, STRETCH is stretched wide, SPIN rotates, SNAP lands on drawn guide lines." },
     { "source_id": "ref-92c22222a2", "timestamps": [11.72, 12.18], "observed": "A word about easing arrives stretched and smeared; NEVER falls in letter by letter and then tiles the frame." },
-    { "source_id": "ref-b97f9168c6", "timestamps": [27.0], "observed": "BOLD. is stacked with outlined echo copies above and below." }
+    { "source_id": "ref-b97f9168c6", "timestamps": [27.0], "observed": "BOLD. is stacked with outlined echo copies above and below." },
+    { "source_id": "ref-a2496929ca", "timestamps": [0.37, 2.59], "observed": "A heavy word about waiting sits on a beam that bows under it while a small serif line appears beneath." },
+    { "source_id": "ref-58ff9f39df", "timestamps": [27.57, 33.07], "observed": "The word for tokens splits into two boxed halves (27.57 s); a word whose letters are being counted glitches its letters apart (33.07-35.5 s)." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [2.53, 3.62, 5.19], "observed": "'blur' blurs (2.53 s), 'zoom' zooms (3.62 s), 'translate' turns into other languages (5.06-5.92 s)." },
+    { "source_id": "ref-57fd2ce3b4", "timestamps": [16.2, 17.72, 18.47], "observed": "A word about exploring settles as a compass needle spins; the spaced letters of a word about planning are joined by a stepped line drawn through them; a check mark draws beside the next word (16.0-18.5 s)." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [2.8, 3.3], "observed": "In a three-line promise the word for complexity assembles from scattered, rotated letters (2.77-3.17 s) and the word for clarity then writes on cleanly in an orange italic serif (3.27-3.53 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -37,5 +43,5 @@
   "related": { "techniques": ["word-per-beat-sequence", "directional-smear", "typographic-repetition"], "compositions": ["word-beats"], "templates": ["kinetic-typography"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Word list in the test is original.",
   "tags": ["kinetic-typography", "typography", "verb", "education", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-26" }
 }

@@ -122,7 +122,7 @@
     "sfx": "quiet instrument ticks on label arrival"
   },
   "rendering": {
-    "strategy": "CSS 3D / SVG isometric for most cases; Three.js only when a real model is needed. Pre-rendered Blender plates are an additional dependency and not available here.",
+    "strategy": "CSS 3D / SVG isometric for most cases; Three.js only when a real model is needed. Blender plates (scripts/visual-director.py, experimental) when light, volume or simulation is the point; text stays in HyperFrames.",
     "preferred_asset_types": [
       "scene-3d",
       "programmatic",
@@ -149,7 +149,7 @@
   },
   "weaknesses": [
     "Real 3D fidelity is limited to what CSS 3D, SVG or Three.js can do on 8 GB.",
-    "Pre-rendered Blender scenes are an additional dependency.",
+    "Blender plates cost minutes per scene and are experimental (not yet rendered on the M2).",
     "Dark field plus thin labels needs care for small-screen legibility."
   ],
   "example_scenes": [

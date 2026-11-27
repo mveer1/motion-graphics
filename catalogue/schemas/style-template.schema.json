@@ -67,9 +67,10 @@
             "narrative",
             "evidence",
             "natural-world",
-            "body-mechanism"
+            "body-mechanism",
+            "myth"
           ],
-          "description": "mechanism: how parts interact. proof: an abstract argument built step by step. quantity: how much, and how it changes. sequence: what happened, in what order, where. narrative: people, stakes and an emotional arc. evidence: what is known, from whom, how sure. natural-world: physical structure, scale and process. body-mechanism: what happens inside the human body during a movement, shown on a rigged character (fitness)."
+          "description": "mechanism: how parts interact. proof: an abstract argument built step by step. quantity: how much, and how it changes. sequence: what happened, in what order, where. narrative: people, stakes and an emotional arc. evidence: what is known, from whom, how sure. natural-world: physical structure, scale and process. body-mechanism: what happens inside the human body during a movement, shown on a rigged character (fitness). myth: a sacred or legendary story retold by a storyteller in a tradition's own imagery: gods and heroes identified by their iconography, cosmic stakes, the version and source named."
         },
         "viewer_leaves_able_to": {
           "type": "string",
@@ -265,6 +266,33 @@
         "ending": {
           "type": "string",
           "description": "How the film must close. Judged in review; not machine-checked."
+        },
+        "static_hold_sec": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Optional. Longest narrated stretch the rendered picture may hold before motion-qa static-hold warns. Default: max_beat_gap_sec."
+        },
+        "label_floor_fraction": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 0.2,
+          "description": "Optional. Smallest on-screen text as a fraction of the frame's short side, read by motion-qa text-size-floor. Default: specs/format-presets.json text_floor_fraction."
+        },
+        "caption_band": {
+          "type": "object",
+          "description": "Optional. Where films made to this template draw their own caption band, per format, as fractions of the frame height. motion-qa waives low-contrast and text-echoes-narration for text inside it (runtime captions, class st-caption, need no entry).",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^(landscape|portrait|square)$": {
+              "type": "object",
+              "required": ["top", "bottom"],
+              "additionalProperties": false,
+              "properties": {
+                "top": { "type": "number", "minimum": 0, "maximum": 1 },
+                "bottom": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
         },
         "short_form": {
           "type": "object",

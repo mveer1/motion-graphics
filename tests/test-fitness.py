@@ -68,7 +68,9 @@ class TestLibraryAndManifest(unittest.TestCase):
         md = json.loads((fitness.DATA / "muscles.json").read_text())
         muscles = {m["id"] for m in md["muscles"]} | {m["id"] for m in md.get("deep_not_drawn", [])}
         for e in json.loads((fitness.DATA / "exercises.json").read_text())["exercises"]:
-            if e.get("engine") == "3d":                      # 3D-only lifts: they must name a rig in exercises3d.js instead
+            if e.get("engine") == "3d" and e.get("rig3d_status") == "pending":   # knowledge first; the 3D rig comes later
+                self.assertNotIn("rig3d", e, f"{e['id']}: drop rig3d_status 'pending' once rig3d is set")
+            elif e.get("engine") == "3d":                    # 3D-only lifts: they must name a rig in exercises3d.js instead
                 self.assertIn(f"id: '{e['rig3d']}'", (fitness.KIT / "exercises3d.js").read_text(), e["id"])
             else:
                 self.assertTrue(f"EX['{e['id']}']" in src or f"EX.{e['id']} " in src or e["id"] in ("walk", "jog", "sprint"), e["id"])
@@ -162,9 +164,19 @@ class TestTemplateAndStyle(unittest.TestCase):
         idx = [html.index("_studio/" + f) for f in order]
         self.assertEqual(idx, sorted(idx), "kit scripts load in dependency order")
         self.assertNotIn("kits/fitness/tibi.js", html)
-        # the generated data loads before the painter, and new films start on the Cobalt Sculpt Tibi
+        # the generated data loads before the painter, and new films start on the Cobalt Sculpt Tibi: the template
+        # builds its Tibis through the kit's stations (K.stations), which paint each one with K.sculpt
         self.assertLess(html.index("sculpt-data.js"), html.index("kits/fitness/sculpt.js"))
-        self.assertIn("K.sculpt(", html)
+        self.assertIn("K.stations(", html)
+        stations_js = (fitness.KIT / "stations.js").read_text(encoding="utf-8")
+        self.assertIn("F.sculpt(", stations_js)
+        # stations.js needs studio-film.js (after the compositions) and the whole 2D kit before it
+        self.assertLess(html.index("_studio/studio-compositions.js"), html.index("_studio/studio-film.js"))
+        self.assertLess(html.index("_studio/studio-film.js"), html.index("_studio/studio-rig.js"))
+        self.assertLess(html.index("_studio/kits/fitness/library.js"), html.index("_studio/kits/fitness/stations.js"))
+        # GSAP comes from the vendored copy, never a CDN
+        self.assertIn('src="_studio/vendor/gsap.min.js"', html)
+        self.assertNotRegex(html, r"<script[^>]+src=\"https?:")
 
     def test_style_template_and_caption_preset(self):
         tpl = json.loads((ROOT / "catalogue" / "data" / "style-templates" / "body-lab.json").read_text())
@@ -296,9 +308,39 @@ class TestSculptTibi(unittest.TestCase):
         js = (ROOT / "src" / "studio" / "kits" / "fitness" / "exercises.js").read_text(encoding="utf-8")
         ids = {e["id"] for e in json.loads((fitness.DATA / "exercises.json").read_text())["exercises"]}
         for i in ("push-up", "dumbbell-bench-press", "dumbbell-fly", "pull-up", "one-arm-row", "rear-delt-fly", "overhead-press",
-                  "lateral-raise", "prone-y-raise", "incline-curl", "overhead-triceps-extension", "dip", "dumbbell-curl"):
+                  "lateral-raise", "prone-y-raise", "incline-curl", "overhead-triceps-extension", "dip", "dumbbell-curl",
+                  "back-squat", "deadlift", "barbell-bench-press", "leg-press", "lat-pulldown"):
             self.assertIn(i, ids)
             self.assertIn("EX['" + i + "']", js)
+
+    def test_arm_blend_windows_leave_named_poses_unchanged(self):
+        # sculpt kit 2.2.0 blends arm art inside per-view angle windows; a named pose inside a window would be
+        # drawn half-blended, so every named pose must sit fully outside them (the exercise end poses are
+        # audited in the browser: prompts/state/p05/2d-report.md)
+        js = (ROOT / "src" / "studio" / "kits" / "fitness" / "sculpt.js").read_text(encoding="utf-8")
+        raise_win = {v: (float(a), float(b)) for v, a, b in re.findall(r"(\w+): \[(\d+), (\d+)\]", re.search(r"var RAISE_WIN = \{([^}]*)\}", js).group(1))}
+        bend = tuple(float(x) for x in re.search(r"BEND_WIN = \[(\d+), (\d+)\]", js).groups())
+        self.assertEqual(set(raise_win), {"front", "back", "top", "above"})
+
+        def ramp(v, w):
+            x = min(1.0, max(0.0, (v - w[0]) / (w[1] - w[0])))
+            return x * x * (3 - 2 * x)
+
+        for g in ("m", "f"):
+            for view, win in raise_win.items():
+                for name, pose in self.data["poses"][g][view].items():
+                    for x in "RL":
+                        r = ramp(pose["j"].get("shoulder" + x, 0), win)
+                        self.assertIn(r, (0.0, 1.0), f"{g} {view} {name}: shoulder{x} inside the blend window {win}")
+                        if r == 1.0:
+                            self.assertIn(ramp(pose["j"].get("elbow" + x, 0), bend), (0.0, 1.0), f"{g} {view} {name}: elbow{x} inside {bend}")
+
+    def test_front_squat_pose(self):
+        for g in ("m", "f"):
+            sq = self.data["poses"][g]["front"]["squat"]
+            self.assertLess(sq["f"]["hipR"], 0.5, "thighs point at the camera: foreshortened")
+            self.assertTrue(sq["grip"])
+        self.assertIn("front-squat", self.data["acts"])
 
 
 if __name__ == "__main__":

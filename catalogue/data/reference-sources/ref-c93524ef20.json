@@ -84,7 +84,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (19 frames over 14.5 s, 0.76 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only.",
+    "method": "Viewed overview (19 frames over 14.5 s, 0.76 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at overview density; timestamps approximate.",
     "concept": {
       "observed": "A brand film cutting between black-and-white archival imagery (snowflake photographs, motion-study photographs, engravings, sculpture, a sunflower spiral) with thin construction lines, serif words with an accent question mark or full stop, and a closing mark and line.",
@@ -118,6 +118,24 @@
       },
       "motifs": {
         "observed": "Spirals and construction lines; the accent mark."
+      },
+      "sound_design": {
+        "observed": "Integrated -14.3 LUFS, LRA 1.8 LU, true peak -0.9 dBTP. 21 accents (87.1 a minute, the densest of the 14 after the 15 s grid reel). Accents on cuts 0.33 against chance 0.25 (3 boundaries); onsets near boundaries 1.00 against 0.51. Silence 14.14-14.49 s at the end; head +3.2 dB (a loud start). Listen sheet: nearly every accent brings a new archival image or word: a question mark (0.56 s), a snowflake in a ring (1.11 s), a proportion figure (1.53 s), a word (2.41 s), a snowflake grid (3.39 s), anatomy plates (4.25, 4.50 s), a word that changes letters (5.22-5.87 s), a vessel (8.34 s) and the closing word (10.80 s).",
+        "interpreted": "A montage cut to the sound, one image per accent every 0.4-0.9 s; the analyser's 3 boundaries undercount the soft image swaps.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "1 word in 1 phrase (12.8-14.0 s) over the end card; no speaker on any phrase frame; 1-2 word 'phrases' are dictation noise over the music. Verdict: none.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "None; copy is centred lowercase serif words with one accent-colour letter or dot; no caption lane.",
+        "confidence": "high"
+      },
+      "transitions": {
+        "observed": "Re-read 2026-11-27: 3 boundaries (1 cut, 2 grow, 0 cover, 0 continuous). 0.75 s grow: the question mark's hook retracts into its dot (0.59-0.69 s), the dot becomes a stroke that draws a circle (0.72-0.93 s) and an engraving appears inside it. 2.81 s cut: the collage page to a hand-with-pen engraving on a clean change between 2.79 and 2.82 s; an orange ring draws on it. 10.72 s grow: a spiral winds into a dot (10.56-10.62 s), the dot becomes an asterisk, one inverted black frame (10.69 s), then the asterisk shrinks back to a dot that becomes the dot of the next word as it smears in (10.72-10.89 s).",
+        "interpreted": "The orange dot is the hinge: it opens the film's two section turns. The detector finds 3 boundaries in 14.5 s; the collage also changes in place between them (overview).",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -142,7 +160,8 @@
     ],
     "uncertainties": [
       "Most internal image changes were not detected as boundaries (soft or within-scene)",
-      "Timing of the strip-slice moment approximate"
+      "Timing of the strip-slice moment approximate",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -171,6 +190,22 @@
         3.0,
         6.0,
         9.0
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        1.11,
+        1.53,
+        2.41,
+        3.39
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        10.62,
+        10.69
       ]
     }
   ],
@@ -202,21 +237,23 @@
     "archive",
     "monochrome",
     "brand-film",
-    "brand-marks-present"
+    "brand-marks-present",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 13.0
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 15.8
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -485,6 +522,136 @@
       "audio": "reference/analysis/ref-c93524ef20/audio.png",
       "frames": "reference/analysis/ref-c93524ef20/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.3,
+        "lra_lu": 1.8,
+        "true_peak_dbtp": -0.9,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 8,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 12.77,
+        "speech_end": 13.96,
+        "speech_coverage": 0.08,
+        "wps_while_speaking": 0.84,
+        "wpm_over_span": 50,
+        "pace_thirds_wps": [
+          2.52,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.19,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 1,
+            "wps": 0.27
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 103,
+        "accents": 21,
+        "accents_per_min": 87.1,
+        "accent_times": [
+          0.56,
+          1.11,
+          1.53,
+          2.41,
+          3.39,
+          4.25,
+          4.5,
+          4.97,
+          5.22,
+          5.62,
+          5.87,
+          6.64,
+          7.04,
+          8.34,
+          8.71,
+          8.89,
+          9.36,
+          9.85,
+          10.73,
+          10.8,
+          11.22
+        ],
+        "accent_threshold": 0.42,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.33,
+          "tolerance_ms": 100,
+          "chance_level": 0.25
+        },
+        "onset_rate_during_speech": 3.36,
+        "onset_rate_outside_speech": 7.46,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.94,
+        "silences": [
+          [
+            14.14,
+            14.49
+          ]
+        ],
+        "level_head_vs_body_db": 3.2,
+        "level_tail_vs_body_db": -2.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-c93524ef20/listen",
+        "sheet": "reference/analysis/ref-c93524ef20/listen/listen.jpg",
+        "words": "reference/analysis/ref-c93524ef20/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

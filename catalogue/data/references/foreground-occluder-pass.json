@@ -1,0 +1,30 @@
+{
+  "id": "foreground-occluder-pass",
+  "name": "Foreground occluder pass",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-3, 2026-11-26): a transformation reel hides a morph behind a large blurred ring sweeping across the lens.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A large, heavily blurred object sweeps across the lens for a few frames while the subject changes form behind it. The occluder hides the change and adds depth, like a camera passing a foreground object.",
+  "purpose": "Hide a morph or state change and add depth, like a camera passing a foreground object.",
+  "visual_behaviour": "A huge, heavily blurred object crosses the frame in a quarter second; behind it the subject has changed form.",
+  "mechanics": "Foreground element 1.5-3x the frame height, blur 20-40 px, opacity 0.6-0.9, crossing the frame in 0.2-0.3 s (ref-19cee08f9c 4.12-4.35 s, 30 fps strip); swap or morph the subject while it is covered; move the occluder against the camera's direction.",
+  "decomposition": { "primitives": ["svg-shape", "depth-layer"], "effects": ["smear-motion"], "timing": "A 0.2-0.3 s pass." },
+  "parameters": [
+    { "name": "duration", "description": "Seconds to cross the frame", "default": 0.25 },
+    { "name": "blur_px", "description": "Blur radius of the occluder", "default": 30 },
+    { "name": "scale", "description": "Occluder height relative to the frame", "default": 2.0 }
+  ],
+  "use_cases": ["Hiding a morph or a state change", "Adding depth to a 2D stage", "A softer alternative to a cut"],
+  "failure_modes": ["A sharp occluder reads as an object in the scene, not a lens pass", "Large blur filters cost raster time"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "A top-layer shape 1.5-3x the frame height, CSS blur 20-40 px, opacity 0.6-0.9, crossing in 0.2-0.3 s against the camera's direction (Studio.fx.smear for the motion); swap or morph the subject while covered; land the strongest accent on the pass. Not built as a component.", "runtime_api": ["Studio.fx.smear"] },
+  "capability": { "support": "native", "requirements": ["CSS blur filter", "top overlay layer"], "compatible_components": ["smear-motion", "parallax-camera"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 2, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-19cee08f9c", "timestamps": [4.12, 4.3], "observed": "A large blurred ring sweeps across the lens in about 0.23 s while chrome rings close into a sphere cage behind it; the strongest accent of that stretch lands at 4.27 s." }
+  ],
+  "related": { "techniques": ["directional-smear", "container-transform", "morph-ready-shape-sequence"], "effects": ["smear-motion"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "cover", "occluder", "depth", "lens", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

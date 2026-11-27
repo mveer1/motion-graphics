@@ -2,6 +2,8 @@
 
 Blender is the top rung: real global illumination, volumetrics, refraction/caustics, physically-based DOF and motion blur, and arbitrary-resolution stills. Reach for it when the look *requires* light transport — glass/crystal, god rays, subsurface — or when a 3D piece must print large. Do not reach for it when 2D canvas or a shader would produce the same read; the iteration loop is 10–100× slower.
 
+**Inside a Motion Lab film**, do not use this page: Blender renders plates through the workspace kit and CLI (`scripts/visual-director.py`, `src/blender/`, the `visual-director` skill), pinned to Blender 5.2.4 LTS and run under the host render lock. This page is for standalone generative art pieces.
+
 ## Two access modes
 
 **1. Blender MCP** (if `mcp__blender__*` tools are connected): drive a live Blender session with `execute_blender_code`, verify with `get_viewport_screenshot` — the critique loop works the same as 2D, just slower.

@@ -4,10 +4,14 @@
   "component_type": "tool",
   "purpose": "Checks the 3D Tibi without rendering: per-frame continuity (teleporting joints), activation colour steps, muscle presence and size, planted soles, IK reach, joint limits and per-exercise assertions.",
   "capabilities": [
-    "fitness.py rig3d check [exercise ...] (node, exit 1 on failure)"
+    "fitness.py rig3d check [exercise ...] (node, exit 1 on failure)",
+    "IK-to-FK seek recovery: direct leg poses cannot retain a previous heel lift",
+    "--profile legacy|distance (distance default) selects the same body variant as the bench and films",
+    "Actual composited skin and cloth colour changes are measured per frame, in addition to muscle ramp records",
+    "Framing (distance profile): every declared shot fitted on a 720x1280 stage must keep body and equipment in frame at every sampled frame; the fixed def.camera overflow is reported"
   ],
   "location": "scripts/rig3d-check.js",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "installation": {
     "required": false,
     "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
@@ -17,9 +21,9 @@
     "threejs"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
-    "notes": "stills take the host render lock."
+    "notes": "Node-only numeric checks with current/legacy profile selection and actual surface-colour steps. Historical Mac results do not cover the current 1.10.0 body; Mac rerun pending."
   },
   "documentation_urls": [
     ".claude/skills/fitness/references/motion-3d.md"
@@ -39,9 +43,9 @@
   },
   "owner": "motion-graphics",
   "status": "experimental",
-  "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+  "approval_evidence": "2026-11-20, Windows: nine rig tests pass across all eight exercises, both bodies and both profiles. The actual-colour gate caught an early compositor regression, then passed after the source correction; the 0.12 channel-step limit and exercise timing were not relaxed. Mac rerun pending.",
   "architecture_ref": "ARCHITECTURE.md",
-  "last_verified": "2026-11-12",
+  "last_verified": "2026-11-20",
   "tags": [
     "fitness",
     "3d",

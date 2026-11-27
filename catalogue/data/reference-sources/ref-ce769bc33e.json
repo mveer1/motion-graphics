@@ -4,7 +4,9 @@
   "status": "experimental",
   "source": {
     "filename": "play_720p (5).mp4",
-    "aliases": [],
+    "aliases": [
+      "ugc-ad-generator-promo-874c9cec.mp4"
+    ],
     "sha256": "ce769bc33e3e025007e34c5a00f268b839de9330a76f319276f4ec8444aa408a",
     "bytes": 3059833,
     "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
@@ -85,7 +87,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (27 frames over 20 s, 0.74 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only.",
+    "method": "Viewed overview (27 frames over 20 s, 0.74 s apart). Scene sheet and strips generated, not viewed. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at overview density; timestamps approximate.",
     "concept": {
       "observed": "Promo for an ad-creation tool: a centred headline builds word by word, a link is pasted and submitted, a grid and a curved carousel of portrait video cards spin, settings toggles flip on a phone, big stat cards, a word slot rolls, app icon and logo close.",
@@ -116,6 +118,24 @@
         "observed": "5.4 onsets/s, tempo estimate 123 bpm (medium); 75% of boundaries within 50 ms of an onset (chance 42%).",
         "interpreted": "Edited to the track.",
         "confidence": "low"
+      },
+      "sound_design": {
+        "observed": "Integrated -13.6 LUFS, LRA 1.6 LU, true peak -1.0 dBTP. Tempo estimate 123 bpm (medium). 22 accents (65.9 a minute). Accents on cuts 0.00 against chance 0.20 (4 boundaries); onsets near boundaries 0.75 against 0.42. No silences; fully sustained bed. Listen sheet: accents on the first typed word (0.07 s), a wall of video tiles appearing (4.57 s), three list rows arriving 0.5 s apart (6.57, 7.06, 7.57 s), then each step of the card carousel (8.57, 9.08, 9.57, 10.08 s).",
+        "interpreted": "A half-second grid (one accent per beat at about 123 bpm) drives the list and carousel steps; the four cuts carry no accent.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "4 words in 2 phrases spanning 0.11-4.67 s and 13.41-16.11 s over typing, a tile wall and stat cards; no speaker on any phrase frame; 1-2 word 'phrases' are dictation noise over the music. Verdict: none.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "None; copy is a centred typed headline, list rows with small labels, and stat cards with large numerals; no caption lane.",
+        "confidence": "high"
+      },
+      "transitions": {
+        "observed": "Re-read 2026-11-27: 4 boundaries (0 cut, 1 grow, 0 cover, 3 continuous). 4.22 s grow: the clicked button becomes a circle that opens onto a grid of photo cards and grows past the frame in about 0.14 s (4.12-4.26 s). 6.08 s continuous: the card wall blurs and darkens to black while one typed line fades up (5.99-6.12 s). 8.69 s continuous: a curved 3D carousel of cards turns. 11.44 s continuous: the carousel keeps turning.",
+        "interpreted": "The product's own button opens the demo; after that one camera-like carousel carries the rest without a cut.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -144,7 +164,8 @@
       "Carousel reflections and blur in a DOM renderer (CSS 3D plus smear approximations)"
     ],
     "uncertainties": [
-      "Exact timing of the word roll and stat cards"
+      "Exact timing of the word roll and stat cards",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -181,6 +202,22 @@
         1.5,
         2.5
       ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        6.57,
+        7.06,
+        7.57,
+        8.57,
+        9.08
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        4.19
+      ]
     }
   ],
   "related": {
@@ -214,21 +251,23 @@
     "ads",
     "carousel",
     "stats",
-    "brand-marks-present"
+    "brand-marks-present",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 11.9
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 17.3
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -521,6 +560,139 @@
       "audio": "reference/analysis/ref-ce769bc33e/audio.png",
       "frames": "reference/analysis/ref-ce769bc33e/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -13.6,
+        "lra_lu": 1.6,
+        "true_peak_dbtp": -1.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 12,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 4,
+        "phrases": 2,
+        "speech_start": 0.11,
+        "speech_end": 16.11,
+        "speech_coverage": 0.36,
+        "wps_while_speaking": 0.55,
+        "wpm_over_span": 15,
+        "pace_thirds_wps": [
+          0.38,
+          0.0,
+          0.38
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 2.0,
+        "phrase_sec_median": 3.63,
+        "pauses": {
+          "count": 1,
+          "median_ms": 8740,
+          "max_ms": 8740,
+          "at": [
+            4.67
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 2,
+            "wps": 0.47
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 2,
+            "wps": 0.23
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 4,
+          "in_pause_share": 0.75,
+          "chance_level": 0.55,
+          "next_phrase_after_ms_median": 4722
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 109,
+        "accents": 22,
+        "accents_per_min": 65.9,
+        "accent_times": [
+          0.07,
+          4.57,
+          6.57,
+          7.06,
+          7.57,
+          8.57,
+          9.08,
+          9.45,
+          9.57,
+          10.08,
+          11.31,
+          11.56,
+          12.59,
+          14.56,
+          15.07,
+          16.32,
+          16.56,
+          17.07,
+          18.32,
+          18.58,
+          19.06,
+          19.3
+        ],
+        "accent_threshold": 0.35,
+        "boundaries_with_accent": {
+          "boundaries": 4,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.2
+        },
+        "onset_rate_during_speech": 4.41,
+        "onset_rate_outside_speech": 6.04,
+        "level_speech_minus_gaps_db": -0.4,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -2.9,
+        "level_tail_vs_body_db": -0.1,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-ce769bc33e/listen",
+        "sheet": "reference/analysis/ref-ce769bc33e/listen/listen.jpg",
+        "words": "reference/analysis/ref-ce769bc33e/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

@@ -1,0 +1,732 @@
+{
+  "id": "ref-fd749e7ebc",
+  "name": "Motion showreel built from scratch: a bouncing keyframe ball, two blooms, a shape morph chain and a 0.2 s montage",
+  "status": "experimental",
+  "source": {
+    "filename": "showreel-from-scratch-44163f23.mp4",
+    "aliases": [],
+    "sha256": "fd749e7ebc85b8fb6f10cfb853181e8bc2bdfe33539b9cdd6831baf6818be307",
+    "bytes": 5206977,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Name with a full stop on the end card",
+        "timestamps": [
+          13.88,
+          14.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "character",
+        "description": "Lime ball character with a face",
+        "timestamps": [
+          10.12,
+          10.88
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A personal showreel; reuse the progression structure, blooms and montage timing only, with original designs."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5206977,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 2506,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 257
+    },
+    "overall_kbps": 2777
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions strips at all 7 boundaries (every 2nd frame), the listen sheet (1 phrase, 12 accent hits); strips at 0.30-1.90 s (15 fps) and 11.20-13.30 s (30 fps, 11 montage cuts). Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 15.0 s (1280x720, 60 fps); boundaries at 2-frame steps; the opening and the montage at 15-30 fps.",
+    "concept": {
+      "observed": "A motion designer's showreel that starts from a single bouncing keyframe ball and moves through what the designer can do: type, shape morphs, flow fields, particles, a character, a montage of styles, and the name.",
+      "interpreted": "Craft shown as a progression from the simplest animation to a full style range.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; giant condensed caps for the few words."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Black (34%), ultramarine (#2838f8, 14%), vermilion (#f84828, 11%), cream, lime; each section takes one or two of them."
+      },
+      "typography": {
+        "observed": "Heavy condensed grotesque caps (statement and section words); a chromatic-split word; a lower-case heavy sans name with an orange full stop at the end."
+      },
+      "composition": {
+        "observed": "Centred subjects; a keyframe-editor ruler and HUD corner brackets with tiny labels frame most sections."
+      },
+      "motion": {
+        "observed": "Ball bounces on the ruler with dotted arc trails, contacts at about 0.50, 0.97 and 1.43 s; blob -> square -> triangle -> star -> flower morphs on a halftone field (4.1-5.5 s); flow-field lines form a word (5.6-7.1 s); a particle sphere becomes a torus and breaks up (7.8-9.1 s); a lime ball squashes, winks and leaps out (9.4-11.2 s); the name types in letter by letter with a bounce (13.14-13.30 s)."
+      },
+      "transitions": {
+        "observed": "1.85 s grow: the ball rises and grows into the full orange frame in 0.10 s (1.76-1.86 s). 3.42 s cover: square pixel blocks dissolve from the top-right while a black ball rolls in (3.33-3.60 s). 5.63 s cut to the dark flow field. 9.35 s grow: a blue circle blooms from the centre in 0.10 s (9.26-9.36 s). 11.27-13.03 s: a montage of 11 cards, 0.10-0.27 s each (the detector found 2 of these cuts at its 8 fps scan). 13.03 s: one light-grey frame, 0.1 s of dark, then the name.",
+        "interpreted": "Two blooms of 0.10 s open the two big sections; the montage is the climax.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of 1.5-2.0 s, then the montage at 0.10-0.27 s per card (median 0.13 s), then a 2 s name card."
+      },
+      "sound_design": {
+        "observed": "-13.2 LUFS, LRA 0.6 LU (the most compressed in batch 6), true peak -0.9 dBTP; tempo 64.6 bpm (medium); 64 onsets; 13 accents (52/min). Accents on boundaries 2 of 7 (0.29, chance 0.16); onsets within 50 ms of boundaries 0.29 (chance 0.35). The strongest accents land on the ball's contacts (0.51, 0.98, 1.46 s), on shape changes (4.27, 5.22 s), then 1.86-1.88 s apart on section events (5.22, 7.08 the word forms, 8.96 the torus breaks, 10.84 the wink), and in the montage 0.23-0.24 s apart (11.54, 11.77, 12.00, 12.24 s), each within 0-40 ms of a montage cut (11.50, 11.77, 11.97, 12.20 s); 13.17 s the name types. No silences; head -6.9 dB, tail -6.3 dB. Accents may be part of the music.",
+        "interpreted": "Outside the montage, sound follows the action (bounces, morphs); in the montage the cut is the event and lands on the accent.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 1 confident word (7 raw), a single phrase over the pixel wipe and the shape morphs (3.43-4.80 s).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy is the picture: a three-line centred statement in giant caps (1.93-3.4 s), single section words, the name centred at the end with an orange full stop."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.85,
+        "observed": "A ball bounces along a keyframe ruler."
+      },
+      {
+        "start": 1.85,
+        "end": 3.42,
+        "observed": "Orange bloom; a three-line statement in giant caps."
+      },
+      {
+        "start": 3.42,
+        "end": 5.63,
+        "observed": "Pixel wipe to cream; a shape morph chain on a halftone field."
+      },
+      {
+        "start": 5.63,
+        "end": 9.35,
+        "observed": "Flow field forms a word; particle sphere to torus."
+      },
+      {
+        "start": 9.35,
+        "end": 11.25,
+        "observed": "Blue bloom; a lime ball character squashes and winks."
+      },
+      {
+        "start": 11.25,
+        "end": 13.03,
+        "observed": "Montage of 11 style cards."
+      },
+      {
+        "start": 13.03,
+        "end": 15.0,
+        "observed": "Flash frame; the name types in; end card."
+      }
+    ],
+    "moments": [
+      {
+        "t": 1.76,
+        "observed": "The bouncing ball rises to the centre and grows into a full orange frame in 0.10 s (1.76-1.86 s).",
+        "interpreted": "The simplest animation (a bounce) becomes the stage for everything else."
+      }
+    ],
+    "difficult": [
+      "Flow-field and particle sections need Canvas 2D or WebGL; the torus of particles reads as 3D"
+    ],
+    "uncertainties": [
+      "Durations of the shortest montage cards (30 fps strip, 60 fps source: +/- 17 ms)",
+      "Whether the end-card name is a person's name or a brand"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "squash-stretch-bounce",
+      "timestamps": [
+        0.5,
+        0.97,
+        10.84
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        1.82,
+        9.32
+      ]
+    },
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        4.12,
+        4.88,
+        5.22
+      ]
+    },
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        7.12,
+        8.62
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        11.5,
+        11.77,
+        11.97,
+        12.2
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        0.38,
+        7.12,
+        14.62
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        13.03
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        14.62
+      ]
+    },
+    {
+      "id": "random-bar-wipe",
+      "timestamps": [
+        3.42
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        0.51,
+        0.98,
+        1.46
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "squash-bounce",
+      "element-bloom",
+      "shape-morph",
+      "particle-drift",
+      "onion-trail"
+    ],
+    "compositions": [
+      "frame-hud",
+      "end-card"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "title-sequence"
+    ],
+    "styles": [
+      "mixed-media",
+      "abstract-geometric"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "generative",
+    "shape-morphing",
+    "character-animation",
+    "scene-transitions",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "showreel",
+    "dark",
+    "ultramarine",
+    "vermilion",
+    "lime",
+    "montage",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 12.4
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 7,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 1.85,
+        "kind": "cut",
+        "score": 0.724,
+        "isolation": 0.76,
+        "frame": 111
+      },
+      {
+        "t": 3.417,
+        "kind": "soft",
+        "score": 0.117,
+        "isolation": 0.0
+      },
+      {
+        "t": 5.633,
+        "kind": "cut",
+        "score": 1.344,
+        "isolation": 1.0,
+        "frame": 338
+      },
+      {
+        "t": 9.35,
+        "kind": "soft",
+        "score": 0.216,
+        "isolation": 0.01
+      },
+      {
+        "t": 11.25,
+        "kind": "cut",
+        "score": 0.95,
+        "isolation": 0.86,
+        "frame": 675
+      },
+      {
+        "t": 11.5,
+        "kind": "cut",
+        "score": 1.04,
+        "isolation": 0.92,
+        "frame": 690
+      },
+      {
+        "t": 13.067,
+        "kind": "soft",
+        "score": 0.728,
+        "isolation": 0.0
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.85,
+        "duration": 1.85,
+        "activity": 0.015,
+        "luma": 0.06
+      },
+      {
+        "index": 2,
+        "start": 1.85,
+        "end": 3.42,
+        "duration": 1.57,
+        "activity": 0.227,
+        "luma": 0.44
+      },
+      {
+        "index": 3,
+        "start": 3.42,
+        "end": 5.63,
+        "duration": 2.22,
+        "activity": 0.211,
+        "luma": 0.88
+      },
+      {
+        "index": 4,
+        "start": 5.63,
+        "end": 9.35,
+        "duration": 3.72,
+        "activity": 0.153,
+        "luma": 0.08
+      },
+      {
+        "index": 5,
+        "start": 9.35,
+        "end": 11.25,
+        "duration": 1.9,
+        "activity": 0.111,
+        "luma": 0.33
+      },
+      {
+        "index": 6,
+        "start": 11.25,
+        "end": 11.5,
+        "duration": 0.25,
+        "activity": 0.605,
+        "luma": 0.73
+      },
+      {
+        "index": 7,
+        "start": 11.5,
+        "end": 13.07,
+        "duration": 1.57,
+        "activity": 0.702,
+        "luma": 0.34
+      },
+      {
+        "index": 8,
+        "start": 13.07,
+        "end": 15.0,
+        "duration": 1.93,
+        "activity": 0.15,
+        "luma": 0.11
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.213,
+    "luma": {
+      "mean": 0.31,
+      "dark_share": 0.54,
+      "light_share": 0.17
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.336
+      },
+      {
+        "hex": "#2838f8",
+        "share": 0.142
+      },
+      {
+        "hex": "#f84828",
+        "share": 0.111
+      },
+      {
+        "hex": "#080818",
+        "share": 0.071
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.055
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.036
+      },
+      {
+        "hex": "#181818",
+        "share": 0.034
+      },
+      {
+        "hex": "#180808",
+        "share": 0.032
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.024
+      },
+      {
+        "hex": "#282828",
+        "share": 0.021
+      }
+    ],
+    "representative_times": [
+      0.93,
+      2.63,
+      4.53,
+      7.49,
+      10.3,
+      11.38,
+      12.29,
+      14.04
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.3,
+      "mean_dbfs_voiced": -15.6,
+      "silence_ratio": 0.01,
+      "onsets": 64,
+      "onset_rate_per_sec": 4.24,
+      "onset_times": [
+        0.07,
+        0.28,
+        0.51,
+        0.98,
+        1.46,
+        1.93,
+        2.16,
+        2.41,
+        2.65,
+        2.86,
+        3.09,
+        3.34,
+        3.58,
+        3.81,
+        4.04,
+        4.27,
+        4.5,
+        4.74,
+        4.99,
+        5.22,
+        5.46,
+        5.57,
+        5.67,
+        5.92,
+        6.15,
+        6.39,
+        6.62,
+        6.73,
+        6.85,
+        7.08,
+        7.31,
+        7.8,
+        8.03,
+        8.27,
+        8.38,
+        8.5,
+        8.61,
+        8.73,
+        8.96,
+        9.2,
+        9.43,
+        9.66,
+        9.89,
+        10.12,
+        10.36,
+        10.47,
+        10.61,
+        10.84,
+        11.08,
+        11.19,
+        11.31,
+        11.54,
+        11.77,
+        12.0,
+        12.24,
+        12.38,
+        12.49,
+        12.61,
+        12.72,
+        12.84,
+        12.96,
+        13.17,
+        14.12,
+        14.4
+      ],
+      "tempo_estimate": {
+        "bpm": 64.6,
+        "autocorr": 0.59,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 880,
+      "band_share": {
+        "low_lt_250": 0.43,
+        "mid_250_2k": 0.4,
+        "high_gt_2k": 0.17
+      },
+      "syllabic_modulation_share": 0.38,
+      "boundary_onset_alignment": {
+        "boundaries": 7,
+        "tolerance_ms": 50,
+        "near_onset": 0.29,
+        "chance_level": 0.35,
+        "median_offset_ms": 73,
+        "near_beat": 0.0,
+        "beat_chance_level": 0.13,
+        "beat_phase_sec": 0.193
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-fd749e7ebc",
+      "overview": "reference/analysis/ref-fd749e7ebc/overview.jpg",
+      "scenes": "reference/analysis/ref-fd749e7ebc/scenes.jpg",
+      "transitions": "reference/analysis/ref-fd749e7ebc/transitions.jpg",
+      "motion": "reference/analysis/ref-fd749e7ebc/motion.jpg",
+      "audio": "reference/analysis/ref-fd749e7ebc/audio.png",
+      "frames": "reference/analysis/ref-fd749e7ebc/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -13.2,
+        "lra_lu": 0.6,
+        "true_peak_dbtp": -0.9,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 7,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 3.43,
+        "speech_end": 4.8,
+        "speech_coverage": 0.09,
+        "wps_while_speaking": 0.73,
+        "wpm_over_span": 44,
+        "pace_thirds_wps": [
+          2.19,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.37,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 1,
+            "wps": 0.45
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 64,
+        "accents": 13,
+        "accents_per_min": 52.0,
+        "accent_times": [
+          0.51,
+          0.98,
+          1.46,
+          4.27,
+          5.22,
+          7.08,
+          8.96,
+          10.84,
+          11.54,
+          11.77,
+          12.0,
+          12.24,
+          13.17
+        ],
+        "accent_threshold": 0.52,
+        "boundaries_with_accent": {
+          "boundaries": 7,
+          "share": 0.29,
+          "tolerance_ms": 100,
+          "chance_level": 0.16
+        },
+        "onset_rate_during_speech": 4.38,
+        "onset_rate_outside_speech": 4.26,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -6.9,
+        "level_tail_vs_body_db": -6.3,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-fd749e7ebc/listen",
+        "sheet": "reference/analysis/ref-fd749e7ebc/listen/listen.jpg",
+        "words": "reference/analysis/ref-fd749e7ebc/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

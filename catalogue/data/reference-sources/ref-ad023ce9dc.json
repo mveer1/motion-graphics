@@ -1,0 +1,750 @@
+{
+  "id": "ref-ad023ce9dc",
+  "name": "Light-canvas AI demo: one camera over a UI canvas, an image that resolves, a step caption pill",
+  "status": "experimental",
+  "source": {
+    "filename": "branded-image-generation-clip-a426350e.mp4",
+    "aliases": [],
+    "sha256": "ad023ce9dc5399e38bc5f06d44045a510cdcf288a53a728d10c57b8c584f19c5",
+    "bytes": 3753842,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark and logo",
+        "timestamps": [
+          27.38,
+          29.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "A third-party coffee brand's name, product and photography in the generated image and the email",
+        "timestamps": [
+          13.12,
+          22.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Chat and email-builder interface",
+        "timestamps": [
+          5.62,
+          18.38
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Product demo showing two brands; reuse the canvas camera, the resolve and the caption pill with original UI."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3753842,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 30.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 731,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 30.08,
+      "kbps": 260
+    },
+    "overall_kbps": 1001
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames), the transitions sheet (all 4 boundaries, every 2nd frame = 15 fps), the listen sheet (12 accent hits at -0.1/0/+0.1 s), and strips 10.80-13.20 s (10 fps) and 17.90-18.70 s (15 fps); automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 30.0 s; every boundary; the image resolve and the shared-element move at 10-15 fps.",
+    "concept": {
+      "observed": "A product demo on an ivory canvas with warm gradient corners: a question, a chat panel where a prompt is typed, a grey placeholder that resolves into a generated photo, the photo moving into an email layout, the camera pulling back over the whole canvas, then the product wordmark.",
+      "interpreted": "Show the workflow, not the tool: one continuous canvas and a camera that frames each step make the demo feel effortless.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "A centred question at the open, then one-line step captions in a dark pill; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Ivory canvas (#f8f8e8 45%, #f8f8f8 38%) with peach and sage gradient corners, white panels, dark-brown buttons, a green accent in the open and the logo; mean luma 0.91."
+      },
+      "typography": {
+        "observed": "Medium grotesk question with one key phrase in green; small UI text; captions in white on a near-black pill."
+      },
+      "camera": {
+        "observed": "A virtual camera pans and pushes across one large canvas: framing the chat (2.6-10 s), a push on the image (10.8-13.2 s), following the image into the email (17.6-18.7 s), push in (20.06 s), pan (22.69 s), pull back to the whole canvas (25.19 s)."
+      },
+      "transitions": {
+        "observed": "No cuts. Four soft boundaries, all camera moves on one canvas (continuous): 18.31 s the image travels as a shared element from the chat into the email hero while the camera follows (17.9-18.7 s; grow, container transform); 20.06 s push in on the email; 22.69 s pan; 25.19 s pull back. Not detected: 1.88 s the question rises and the UI enters from below (continuous); 26.62 s the UI fades to the empty ivory canvas, which holds about 0.4 s before the wordmark types on at 27.38 s (continuous, dip on the film's own background).",
+        "interpreted": "A light canvas plus a camera replaces cuts; the dip before the logo uses the film's own background, never black.",
+        "confidence": "high"
+      },
+      "sound_design": {
+        "observed": "-13.5 LUFS, LRA 5.3 LU, true peak +0.8 dBTP (above full scale); tempo estimate 74 bpm (medium); 62 accents (124/min) in a repeating 0.67 s / 0.42 s figure from 2.74 to 16.93 s and denser from 20.2 s; the listen frames show typing and small UI moves, not arrivals, on these accents, so they are the music's rhythm. 2 of 4 boundaries carry an accent (chance 0.34); all 4 are within 67 ms of an onset (chance 0.50, inflated by dense onsets); silence 0.05-1.02 s while the question fades in (head 21.6 dB below the body); tail +1.1 dB. Accents may be part of the music.",
+        "interpreted": "Music-led: a busy loop gives energy but no sound marks a step; the steps are marked by the caption pill instead.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 0 words (41 raw words, all below the confidence cut, over a busy loop).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "Five step captions in a dark rounded pill at bottom centre (about 90% down): one line of 4-8 words in white sentence case, appearing as a whole line and held 3.5-5 s (cues at about 4.9, 11.6, 15.4, 20.6 and 25.9 s); no word highlight and no voice to sync to. The opening question is centred mid-frame with one key phrase in green."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.9,
+        "observed": "A centred question on ivory."
+      },
+      {
+        "start": 1.9,
+        "end": 10.1,
+        "observed": "Chat panel: a prompt is typed and sent."
+      },
+      {
+        "start": 10.1,
+        "end": 13.2,
+        "observed": "A grey placeholder resolves into a photo."
+      },
+      {
+        "start": 13.2,
+        "end": 17.6,
+        "observed": "The image with the brand painted into the scene."
+      },
+      {
+        "start": 17.6,
+        "end": 20.6,
+        "observed": "The image moves into the email layout; push in."
+      },
+      {
+        "start": 20.6,
+        "end": 25.9,
+        "observed": "The email is shown; the camera pans and pulls back."
+      },
+      {
+        "start": 25.9,
+        "end": 26.6,
+        "observed": "The whole canvas."
+      },
+      {
+        "start": 26.6,
+        "end": 30.0,
+        "observed": "Dip to ivory; the wordmark types on; tagline and button."
+      }
+    ],
+    "moments": [
+      {
+        "t": 10.88,
+        "observed": "A grey placeholder in the chat gets scattered warm patches (12.0-12.6 s) that spread until the photo resolves at 13.1 s, 2.2 s in all.",
+        "interpreted": "Generation is shown as a process, so the result feels earned."
+      },
+      {
+        "t": 17.9,
+        "observed": "The image scales from the chat bubble into the email hero over 0.8 s while the camera follows it; the old layout stays behind."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the resolve is a real model's progressive output or designed",
+      "Whether the true-peak overshoot is in the delivered file or a decode artefact"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "container-transform",
+      "timestamps": [
+        17.9,
+        18.66
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        2.62,
+        25.19
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        5.0,
+        8.6
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        26.62
+      ]
+    },
+    {
+      "id": "canvas-camera-tour",
+      "timestamps": [
+        18.31,
+        20.06,
+        22.69,
+        25.19
+      ]
+    },
+    {
+      "id": "placeholder-image-resolve",
+      "timestamps": [
+        10.88,
+        12.4,
+        13.1
+      ]
+    },
+    {
+      "id": "step-caption-pill",
+      "timestamps": [
+        4.88,
+        11.62,
+        15.38,
+        20.62,
+        25.88
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "parallax-camera",
+      "crossfade-dissolve"
+    ],
+    "compositions": [
+      "caption-plate",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "ui-product-demo",
+    "product-promo",
+    "editorial-layout",
+    "explainer"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "light",
+    "ivory",
+    "ui",
+    "camera-move",
+    "caption-pill",
+    "no-cuts",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 11.1
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 18.312,
+        "kind": "soft",
+        "score": 0.178
+      },
+      {
+        "t": 20.062,
+        "kind": "soft",
+        "score": 0.239
+      },
+      {
+        "t": 22.688,
+        "kind": "soft",
+        "score": 0.254
+      },
+      {
+        "t": 25.188,
+        "kind": "soft",
+        "score": 0.151
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 18.31,
+        "duration": 18.31,
+        "activity": 0.053,
+        "luma": 0.93
+      },
+      {
+        "index": 2,
+        "start": 18.31,
+        "end": 20.06,
+        "duration": 1.75,
+        "activity": 0.275,
+        "luma": 0.86
+      },
+      {
+        "index": 3,
+        "start": 20.06,
+        "end": 22.69,
+        "duration": 2.63,
+        "activity": 0.107,
+        "luma": 0.82
+      },
+      {
+        "index": 4,
+        "start": 22.69,
+        "end": 25.19,
+        "duration": 2.5,
+        "activity": 0.241,
+        "luma": 0.87
+      },
+      {
+        "index": 5,
+        "start": 25.19,
+        "end": 30.0,
+        "duration": 4.81,
+        "activity": 0.03,
+        "luma": 0.93
+      }
+    ],
+    "static_holds": [
+      [
+        28.44,
+        29.94
+      ]
+    ],
+    "mean_activity": 0.083,
+    "luma": {
+      "mean": 0.91,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8e8",
+        "share": 0.454
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.381
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.043
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.029
+      },
+      {
+        "hex": "#f8e8d8",
+        "share": 0.013
+      },
+      {
+        "hex": "#a89888",
+        "share": 0.011
+      },
+      {
+        "hex": "#886848",
+        "share": 0.01
+      },
+      {
+        "hex": "#b8a898",
+        "share": 0.01
+      },
+      {
+        "hex": "#a88878",
+        "share": 0.007
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      4.58,
+      9.15,
+      13.73,
+      19.18,
+      21.38,
+      23.94,
+      26.39,
+      27.59,
+      28.8
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.9,
+      "mean_dbfs_voiced": -20.5,
+      "silence_ratio": 0.03,
+      "onsets": 156,
+      "onset_rate_per_sec": 5.19,
+      "onset_times": [
+        1.93,
+        2.21,
+        2.35,
+        2.6,
+        2.74,
+        3.02,
+        3.41,
+        3.58,
+        3.83,
+        4.11,
+        4.39,
+        4.5,
+        4.67,
+        4.78,
+        4.92,
+        5.2,
+        5.6,
+        5.76,
+        6.01,
+        6.29,
+        6.55,
+        6.69,
+        6.85,
+        6.97,
+        7.11,
+        7.38,
+        7.78,
+        8.2,
+        8.48,
+        8.73,
+        8.87,
+        9.15,
+        9.29,
+        9.57,
+        9.96,
+        10.1,
+        10.38,
+        10.59,
+        10.66,
+        10.91,
+        11.05,
+        11.19,
+        11.33,
+        11.47,
+        11.75,
+        12.14,
+        12.28,
+        12.56,
+        12.84,
+        13.1,
+        13.24,
+        13.37,
+        13.51,
+        13.65,
+        13.93,
+        14.33,
+        14.47,
+        14.74,
+        15.02,
+        15.28,
+        15.42,
+        15.56,
+        15.7,
+        15.84,
+        16.11,
+        16.51,
+        16.65,
+        16.93,
+        17.21,
+        17.46,
+        17.6,
+        17.74,
+        17.88,
+        18.02,
+        18.16,
+        18.3,
+        18.55,
+        18.72,
+        18.83,
+        19.39,
+        19.64,
+        19.78,
+        19.92,
+        20.06,
+        20.2,
+        20.34,
+        20.48,
+        20.62,
+        20.74,
+        20.87,
+        21.01,
+        21.15,
+        21.29,
+        21.43,
+        21.55,
+        21.71,
+        21.83,
+        21.97,
+        22.11,
+        22.24,
+        22.38,
+        22.52,
+        22.64,
+        22.78,
+        22.92,
+        23.06,
+        23.2,
+        23.34,
+        23.48,
+        23.61,
+        23.73,
+        23.87,
+        24.01,
+        24.15,
+        24.29,
+        24.43,
+        24.57,
+        24.71,
+        24.82,
+        24.96,
+        25.1,
+        25.24,
+        25.38,
+        25.52,
+        25.66,
+        25.8,
+        25.91,
+        26.05,
+        26.19,
+        26.33,
+        26.47,
+        26.61,
+        26.75,
+        26.89,
+        27.0,
+        27.14,
+        27.28,
+        27.42,
+        27.56,
+        27.7,
+        27.84,
+        27.98,
+        28.1,
+        28.24,
+        28.37,
+        28.51,
+        28.65,
+        28.79,
+        28.93,
+        29.07,
+        29.19,
+        29.33,
+        29.47,
+        29.61,
+        29.74,
+        29.88
+      ],
+      "tempo_estimate": {
+        "bpm": 73.8,
+        "autocorr": 0.57,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1109,
+      "band_share": {
+        "low_lt_250": 0.23,
+        "mid_250_2k": 0.53,
+        "high_gt_2k": 0.23
+      },
+      "syllabic_modulation_share": 0.45,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 67,
+        "near_onset": 1.0,
+        "chance_level": 0.5,
+        "median_offset_ms": 32,
+        "near_beat": 0.0,
+        "beat_chance_level": 0.15,
+        "beat_phase_sec": 0.305
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-ad023ce9dc",
+      "overview": "reference/analysis/ref-ad023ce9dc/overview.jpg",
+      "scenes": "reference/analysis/ref-ad023ce9dc/scenes.jpg",
+      "transitions": "reference/analysis/ref-ad023ce9dc/transitions.jpg",
+      "motion": "reference/analysis/ref-ad023ce9dc/motion.jpg",
+      "audio": "reference/analysis/ref-ad023ce9dc/audio.png",
+      "frames": "reference/analysis/ref-ad023ce9dc/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -13.5,
+        "lra_lu": 5.3,
+        "true_peak_dbtp": 0.8,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 41,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 156,
+        "accents": 62,
+        "accents_per_min": 124.0,
+        "accent_times": [
+          2.74,
+          3.83,
+          4.5,
+          4.92,
+          5.6,
+          6.01,
+          6.69,
+          7.11,
+          7.78,
+          8.2,
+          8.87,
+          9.29,
+          9.96,
+          10.38,
+          11.05,
+          11.47,
+          12.14,
+          12.56,
+          13.24,
+          13.37,
+          13.65,
+          14.33,
+          14.47,
+          14.74,
+          15.42,
+          15.56,
+          15.84,
+          16.51,
+          16.93,
+          20.2,
+          20.74,
+          21.01,
+          21.29,
+          21.97,
+          22.38,
+          22.64,
+          22.92,
+          23.06,
+          23.2,
+          23.48,
+          24.15,
+          24.29,
+          24.57,
+          24.82,
+          25.1,
+          25.24,
+          25.38,
+          25.66,
+          25.91,
+          26.19,
+          26.33,
+          26.47,
+          26.75,
+          27.0,
+          27.28,
+          27.42,
+          27.56,
+          27.84,
+          28.1,
+          28.51,
+          28.93,
+          29.47
+        ],
+        "accent_threshold": 0.57,
+        "boundaries_with_accent": {
+          "boundaries": 4,
+          "share": 0.5,
+          "tolerance_ms": 100,
+          "chance_level": 0.34
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.2,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.96,
+        "silences": [
+          [
+            0.05,
+            1.02
+          ]
+        ],
+        "level_head_vs_body_db": -21.6,
+        "level_tail_vs_body_db": 1.1,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-ad023ce9dc/listen",
+        "sheet": "reference/analysis/ref-ad023ce9dc/listen/listen.jpg",
+        "words": "reference/analysis/ref-ad023ce9dc/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

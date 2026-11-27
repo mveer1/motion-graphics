@@ -1,0 +1,57 @@
+{
+  "id": "skill-frame-rate",
+  "name": "Frame Rate Skill",
+  "component_type": "skill",
+  "purpose": "Lift a 30 fps film to 60 fps or higher and make its motion smoother: re-render studio projects natively at the new rate after auditing what still strobes or stays at 30 fps, and interpolate any other finished film per gap (copy, blend or motion-compensated) from a leave-one-out probe measured on the film itself.",
+  "capabilities": [
+    "Path choice: native re-render for studio projects, measured interpolation for finished films, native 60 then 60 -> 120 above 60",
+    "Gap filling rules: holds, cuts and stepped motion copied; dissolves blended; motion blended or motion-compensated by measured evidence",
+    "Smooth-motion craft at 60 fps: strobe threshold per frame, ease peak speeds, page motion blur, transitions",
+    "Verification: frame count, duration, audio, distinct frames per second, labelled contact strips"
+  ],
+  "location": ".claude/skills/frame-rate",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Installed in workspace under .claude/skills/frame-rate."
+  },
+  "dependencies": [
+    "tool-frame-rate",
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Instructional skill over scripts/frame-rate.py and src/pipeline/framerate.py. Calibrated on the Windows host (FFmpeg 9.0.2) only; not yet run on the M2."
+  },
+  "documentation_urls": [
+    ".claude/skills/frame-rate/SKILL.md",
+    ".claude/skills/frame-rate/references/gap-filling.md",
+    ".claude/skills/frame-rate/references/smooth-motion.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Workspace-authored. Motion craft rules paraphrased (ideas, no code) from the HyperFrames motion notes (Apache-2.0) shipped with the hyperframes install."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Instructional guidance only; the tool record covers execution."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Not yet approved: exercised on 2026-11-25 on the Windows host (one real 24 s film converted and inspected, a synthetic ground-truth scene, tests/test-frame-rate.py). No native 60 fps studio build and no M2 run yet.",
+  "architecture_ref": "ARCHITECTURE.md#frame-rate",
+  "last_verified": "2026-11-25",
+  "tags": [
+    "frame-rate",
+    "60fps",
+    "interpolation",
+    "motion-blur",
+    "smoothness"
+  ]
+}

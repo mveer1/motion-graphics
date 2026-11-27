@@ -1,0 +1,49 @@
+{
+  "id": "mythic-armoury",
+  "name": "Mythic armoury: weapons, attributes and auras",
+  "kind": "group",
+  "status": "experimental",
+  "description": "Twenty weapons and held attributes drawn once at their grip, pointing up, in the human figure units, lit from the upper left, gold on the sacred parts: kodanda, shara (with tejas glow), tuna, gada, trishula, damaru, ankusha, pasha, parashu, Sudarshana chakra, shankha, vajra, khadga, venu, padma, dory, aspis (gorgoneion), Gungnir (cold glow, abstract marks, no runes), Mjolnir, keraunos. M.weapons.place puts one into a hand through an SVG transform (posing still rotates the hand). Seven auras (tejas, agni, cosmic with 13 Nataraja flames, lotus, radiant, storm, calm) as a radial glow plus rotatable ray and ring parts, kept in every look. Forms researched 2026-11-24 (figure-design.md section 6); shapes marked [synthesis] where no source fixes them.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "weapon",
+      "type": "string",
+      "description": "M.weapons.ids: kodanda|shara|tuna|gada|trishula|damaru|ankusha|pasha|parashu|chakra|shankha|vajra|khadga|venu|padma|dory|aspis|gungnir|mjolnir|keraunos"
+    },
+    {
+      "name": "place",
+      "type": "object",
+      "description": "{id, parent, at: [x, y] grip in figure units, angle (degrees), scale, flip, behind}"
+    },
+    {
+      "name": "aura",
+      "type": "string",
+      "description": "M.auras.kinds: tejas|agni|cosmic|lotus|radiant|storm|calm; make(kind, {cx, cy, r})"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/armoury.js",
+    "api": "Studio.kit.mythic.weapons.<id>(opts) -> {d, fill, layers, extra}; weapons.place(spec, opts) -> parts; auras.make(kind, {cx, cy, r}) -> parts [aura, aura-rays, aura-ring]"
+  },
+  "validation": {
+    "evidence": "tests/test-mythic.py (every weapon placed with its transform, every aura kind, auras kept in silhouette) and the armoury review sheet (tests/mythic-kit/armoury.html) in Playwright Chromium on Windows, 2026-11-24. Not rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-24"
+  },
+  "tags": [
+    "weapon",
+    "attribute",
+    "aura",
+    "iconography",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-24",
+    "updated_at": "2026-11-24"
+  }
+}

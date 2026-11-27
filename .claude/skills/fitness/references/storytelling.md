@@ -28,7 +28,7 @@ Rules: one myth per film, the myth stamp once, no mocking the viewer ("you've he
 ## Pattern 3: exercise tutorial ("The squat, muscle by muscle")
 
 1. The movement whole, in side view, at real tempo (2 reps).
-2. Phases: freeze at each phase, x-ray on, highlight the *primary* muscles from `K.library.exercises[id].muscles`, and say "mainly" (never "only").
+2. Phases: hold the relevant pose while its annotation develops. Show surface effort for the *primary* muscles from `K.library.exercises[id].muscles`, or a labelled anatomy window with its distinct colour language; do not conflate the two. Say "mainly" (never "only"). Narration never continues over a frozen canvas.
 3. Joint actions with angle arcs (labelled illustrative) and the bar path.
 4. One or two common errors, using the kit's error poses with a coaching face. Show the fix, never pain.
 5. A cue the viewer can use, then the movement again with the cue.
@@ -51,3 +51,25 @@ Camera: side view for sagittal mechanics; mention when a front view would show k
 ## Hooks that fit the brand
 
 Myth flip ("Lifting doesn't grow your muscles by tearing them."), concrete question ("Why do runners get faster from slow runs?"), small change, big effect ("Lighter weights can build as much muscle, if the last reps are hard."), human scale ("Your calves load several times your body weight with every running step."). Every number in a hook must be in the dossier, and every hook passes the Truth, Pull and Clear gates.
+
+## Reference-informed authoring pass
+
+Source distinctions and adoption limits: [Yellow Dude study](yellow-dude-study.md).
+These are Sinew rules, not copied scripts or an assertion about video retention.
+
+- State the viewer's concrete problem and one promised understanding before
+  listing anatomy. Keep training/running context, not generic motivation.
+- Carry dossier claim IDs into the planned drawing and review notes. Ask for
+  qualified input on scope early; technical approval stays pending until the
+  appropriate human review, never inferred from an attractive storyboard.
+- Finalise three original hook options after the evidence/body draft exists.
+  The selected promise must be paid off by what the viewer actually sees.
+- Read aloud for spoken language: remove filler and repetitive scaffolds,
+  without deleting qualifiers or changing technical meaning.
+- A comparison changes one declared variable at a matched camera, scale and
+  movement phase. A progression identifies entry assumptions and a sourced
+  easier alternative; never invent readiness criteria or rename an unsupported rig motion.
+- Review the unpolished animatic before decorative sound or finish. Follow
+  Motion Lab's approved-story/measured-audio ordering, not another studio's schedule.
+- Sketch original cover concepts during story/design work. Keep any authorised
+  commercial segment separate from the scientific takeaway.

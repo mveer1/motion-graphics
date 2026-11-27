@@ -3,7 +3,8 @@
   "note": "Hook formulas for narrated explainers and short-form films. Write three hooks from three different formulas, score them with `python scripts/studio.py hook score`, then pick. Each entry says what the formula is for and how it gets ruined. `signals` are loose regexes used only to suggest which formula a finished line resembles. Original wording; the 'write several, score, choose' loop and the idea of a formula library come from Jake Schincariol's short-form skills (MIT), see docs/short-form-lessons.md. Every hook in an explainer must also pass the Clear gate (story-writer rulebook 3.3): read cold, every noun, number and unit has its referent inside the line ('an extra year in prison', not 'one year'), with no bare pronoun and no term to learn first. An intriguing but ambiguous hook fails, whatever `hook score` says.",
   "revisions": [
     {"revision": 1, "date": "2026-11-05", "change": "Initial library of twelve formulas."},
-    {"revision": 2, "date": "2026-11-07", "change": "Clear gate added to the note; nobody-did, number-collapse and chain-of-small-steps fail when a referent or unit is missing.", "why": "Owner review of game-theory-trust: 'its hard to understand what year are we talking about. So for technical videos lets not put confusing hook lines. It should always be clear.' The hook 'Nobody made a mistake. Both lost one year.' scored 100/100 here (story-writer lessons L12)."}
+    {"revision": 2, "date": "2026-11-07", "change": "Clear gate added to the note; nobody-did, number-collapse and chain-of-small-steps fail when a referent or unit is missing.", "why": "Owner review of game-theory-trust: 'its hard to understand what year are we talking about. So for technical videos lets not put confusing hook lines. It should always be clear.' The hook 'Nobody made a mistake. Both lost one year.'     scored 100/100 here (story-writer lessons L12)."},
+        {"revision": 3, "date": "2026-11-23", "change": "Added impossible-feat and boon-loophole for the new mythology category (mythic-tale template).", "why": "Every subject category needs a hook formula (tests/test-short-form.py); myth hooks must attribute the telling rather than assert or debunk."}
   ],
   "formulas": [
     {
@@ -137,6 +138,28 @@
       "use_when": "The film teaches one portable formula or heuristic.",
       "fails_when": "The rule is stated without a first example the viewer can try.",
       "signals": ["\\b(divide|multiply|rule of|the rule|formula)\\b"]
+    },
+    {
+      "id": "impossible-feat",
+      "name": "Impossible feat, attributed",
+      "template": "<A concrete impossible act, with its number or measure>. <That is how the named telling tells it>.",
+      "example": "A mountain, held up on one finger for seven days. That is how the Bhagavata Purana tells it.",
+      "on_screen": "ONE FINGER, SEVEN DAYS",
+      "best_for": ["mythology", "storytelling"],
+      "use_when": "The episode turns on a deed that cannot happen, and the source can be named in a few words.",
+      "fails_when": "The feat is vague ('a great power'), or the attribution is dropped so the line asserts or mocks the miracle instead of telling it.",
+      "signals": ["\\b(god|goddess|gods|demon|giant|hero)\\b", "\\b(purana|ramayana|mahabharata|edda|iliad|odyssey|metamorphoses|jataka|sutra)\\b", "\\btells it\\b|\\bas told\\b"]
+    },
+    {
+      "id": "boon-loophole",
+      "name": "The boon and its loophole",
+      "template": "<Who> was promised <the exact terms of a boon or oath>. <The one thing the terms left out>.",
+      "example": "He could not be killed by man or beast, by day or by night, indoors or out. So the god came at dusk, on a threshold, as neither.",
+      "on_screen": "NOT MAN. NOT BEAST.",
+      "best_for": ["mythology"],
+      "use_when": "The story is a boon, curse, oath or prophecy whose exact wording decides the ending.",
+      "fails_when": "The terms are paraphrased so loosely that the loophole cannot be seen coming.",
+      "signals": ["\\b(boon|curse|oath|prophecy|promised|vowed)\\b", "\\bneither\\b|\\bnor\\b"]
     }
   ]
 }

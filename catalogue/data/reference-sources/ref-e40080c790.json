@@ -1,0 +1,582 @@
+{
+  "id": "ref-e40080c790",
+  "name": "One container, twelve UI states: cursor-driven shape changes on a 2 s beat (square)",
+  "status": "experimental",
+  "source": {
+    "filename": "one-shape-twelve-ui-states-c530cd34.mp4",
+    "aliases": [],
+    "sha256": "e40080c790068ce56a66d02701a6ac2c76e9143148bacbe5e835bedb843aa4f8",
+    "bytes": 914362,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "No marks seen; generic UI with placeholder copy. Rights unverified; reuse the container-continuity principle only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 914362,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 14.0,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 840,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 245,
+    "keyframes": 14,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 14.08,
+      "kbps": 263
+    },
+    "overall_kbps": 522
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (19 frames), the transitions sheet (all 3 boundaries, every 2nd frame = 30 fps for this 60 fps file) and the listen sheet (10 accent hits at -0.1/0/+0.1 s); automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 14.0 s; the three detected changes at 30 fps, the others from the overview and the listen frames.",
+    "concept": {
+      "observed": "A square loop on a pale grey canvas: one black control becomes a button, a check, a music player, a volume slider, a toggle, a segmented control, a chart card, a search input, a command palette and a toast, then returns to the button; a cursor triggers every change.",
+      "interpreted": "Continuity of one container makes twelve interface features feel like one product.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Generic UI copy only; no headline and no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Pale warm grey canvas (#e8e8e8, 73%), black controls, white cards and one orange-violet gradient thumbnail; mean luma 0.87."
+      },
+      "composition": {
+        "observed": "One centred element, 25-60% of the frame width, always in the same place, with generous empty space."
+      },
+      "motion": {
+        "observed": "The container tweens size and corner radius in 0.2-0.33 s; content fades out before and in after; numbers roll (7.7-9.2 s); a query types into the search field (10.4-11.4 s); the cursor moves with ease-in-out and presses."
+      },
+      "easing": {
+        "observed": "Box changes settle without overshoot in 6-8 frames at 30 fps (power-style ease-out), read from the transitions sheet."
+      },
+      "transitions": {
+        "observed": "No cuts. Three soft boundaries and about nine undetected changes, all one family (continuous, container transform): the pill grows into the player card 1.73-1.99 s (0.26 s, content after the box); the player card shrinks into the volume slider 3.73-3.99 s (content fades 3.76-3.83 s, before the box lands); the palette collapses into a toast pill 11.90-12.20 s. From the overview: button to spinner to check (0.4-1.1 s), slider to toggle (4.8-5.5 s), toggle to segmented control (6.3-6.5 s), segmented control to chart card (7.0-7.7 s), chart card to input (9.2-9.95 s), input to palette (9.95-10.7 s), toast back to the button (12.2-12.9 s, the loop point).",
+        "interpreted": "A container transform needs no cut because the box carries the eye, and each change is caused by a visible press.",
+        "confidence": "high"
+      },
+      "sound_design": {
+        "observed": "-14.1 LUFS, LRA 0.9 LU (flat), true peak -1.0 dBTP; tempo estimate 118 bpm (medium); 17 accents (73/min). Six accents sit on a 2.00 s grid (2.35, 4.34, 6.36, 8.34, 10.36, 12.35 s, within 20 ms) and four off-beats 0.25 s later (2.60, 4.60, 6.59, 8.61 s); each falls on a cursor press, a slider drag or a toggle (listen frames). 0 of 3 boundaries carry an accent (chance 0.22); 2 of 3 boundaries are within 50 ms of an onset (chance 0.44; too few to mean anything); no silences; head +0.7 dB, tail -1.7 dB. Accents may be part of the music.",
+        "interpreted": "The interactions were timed to the music's grid, so each click is heard as a click.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 0 words (4 raw words) over music.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None; the only copy is inside the UI (labels, a track title, a search query, a toast)."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.1,
+        "observed": "Button pressed; a spinner becomes a check."
+      },
+      {
+        "start": 1.1,
+        "end": 3.7,
+        "observed": "Music player card; play pressed, progress moves."
+      },
+      {
+        "start": 3.7,
+        "end": 5.3,
+        "observed": "Volume slider dragged."
+      },
+      {
+        "start": 5.3,
+        "end": 6.4,
+        "observed": "Toggle switched off."
+      },
+      {
+        "start": 6.4,
+        "end": 7.4,
+        "observed": "Segmented control (day, week, month)."
+      },
+      {
+        "start": 7.4,
+        "end": 9.3,
+        "observed": "Chart card with a rolling total and a tooltip."
+      },
+      {
+        "start": 9.3,
+        "end": 11.9,
+        "observed": "Input, then a command palette with a typed query."
+      },
+      {
+        "start": 11.9,
+        "end": 12.9,
+        "observed": "Toast with a check."
+      },
+      {
+        "start": 12.9,
+        "end": 14.0,
+        "observed": "Back to the first button (loop hold 13.19-13.94 s)."
+      }
+    ],
+    "moments": [
+      {
+        "t": 3.73,
+        "observed": "The player's content fades in 0.1 s while the card shrinks into a slider in 0.26 s; the slider fill is already moving under the cursor when the box lands.",
+        "interpreted": "Overlapping the content swap with the box move hides the seam."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Size and corner-radius easing read from every-2nd-frame sheets, not measured frame by frame",
+      "Whether the off-beat accents are interface sounds or the music"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "container-transform",
+      "timestamps": [
+        1.82,
+        3.82,
+        12.06
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        2.35,
+        4.34,
+        6.36,
+        10.36
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        7.74,
+        9.21
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        2.35,
+        4.34,
+        6.36,
+        8.34,
+        10.36,
+        12.35
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.37,
+        13.63
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        2.35,
+        4.6,
+        6.36,
+        8.61
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "slot-roll",
+      "typewriter-reveal",
+      "counter-roll"
+    ],
+    "compositions": [],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light",
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "ui-product-demo",
+    "shape-morphing",
+    "loop",
+    "music-sync",
+    "product-promo"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "square",
+    "light",
+    "ui",
+    "container-transform",
+    "loop",
+    "no-cuts"
+  ],
+  "confidence": "high",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 10.5
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 112,
+      "scan_size": "96x54",
+      "overview_frames": 19,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 1.817,
+        "kind": "soft",
+        "score": 0.061,
+        "isolation": 0.03
+      },
+      {
+        "t": 3.817,
+        "kind": "soft",
+        "score": 0.051,
+        "isolation": 0.23
+      },
+      {
+        "t": 12.062,
+        "kind": "soft",
+        "score": 0.143
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.82,
+        "duration": 1.82,
+        "activity": 0.022,
+        "luma": 0.88
+      },
+      {
+        "index": 2,
+        "start": 1.82,
+        "end": 3.82,
+        "duration": 2.0,
+        "activity": 0.036,
+        "luma": 0.66
+      },
+      {
+        "index": 3,
+        "start": 3.82,
+        "end": 12.06,
+        "duration": 8.24,
+        "activity": 0.068,
+        "luma": 0.91
+      },
+      {
+        "index": 4,
+        "start": 12.06,
+        "end": 14.0,
+        "duration": 1.94,
+        "activity": 0.014,
+        "luma": 0.87
+      }
+    ],
+    "static_holds": [
+      [
+        13.19,
+        13.94
+      ]
+    ],
+    "mean_activity": 0.05,
+    "luma": {
+      "mean": 0.87,
+      "dark_share": 0.0,
+      "light_share": 0.86
+    },
+    "palette": [
+      {
+        "hex": "#e8e8e8",
+        "share": 0.726
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.106
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.061
+      },
+      {
+        "hex": "#080808",
+        "share": 0.039
+      },
+      {
+        "hex": "#e8f8e8",
+        "share": 0.02
+      },
+      {
+        "hex": "#989898",
+        "share": 0.01
+      },
+      {
+        "hex": "#888888",
+        "share": 0.009
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.007
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.005
+      },
+      {
+        "hex": "#585858",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      0.91,
+      2.82,
+      5.88,
+      7.94,
+      10.0,
+      13.03
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.7,
+      "mean_dbfs_voiced": -17.3,
+      "silence_ratio": 0.0,
+      "onsets": 81,
+      "onset_rate_per_sec": 5.75,
+      "onset_times": [
+        0.07,
+        0.35,
+        0.6,
+        0.86,
+        1.11,
+        1.35,
+        1.49,
+        1.6,
+        1.86,
+        1.97,
+        2.11,
+        2.35,
+        2.6,
+        2.86,
+        3.11,
+        3.34,
+        3.48,
+        3.6,
+        3.85,
+        4.13,
+        4.25,
+        4.34,
+        4.48,
+        4.6,
+        4.85,
+        4.97,
+        5.11,
+        5.22,
+        5.34,
+        5.48,
+        5.6,
+        5.87,
+        5.97,
+        6.11,
+        6.22,
+        6.36,
+        6.59,
+        6.85,
+        7.08,
+        7.22,
+        7.34,
+        7.5,
+        7.59,
+        7.85,
+        7.96,
+        8.1,
+        8.34,
+        8.45,
+        8.61,
+        8.87,
+        8.99,
+        9.1,
+        9.22,
+        9.36,
+        9.5,
+        9.61,
+        9.85,
+        9.98,
+        10.1,
+        10.36,
+        10.61,
+        10.84,
+        11.1,
+        11.24,
+        11.35,
+        11.49,
+        11.59,
+        11.84,
+        11.98,
+        12.12,
+        12.35,
+        12.42,
+        12.54,
+        12.82,
+        12.98,
+        13.1,
+        13.24,
+        13.35,
+        13.49,
+        13.61,
+        13.86
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.5,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1265,
+      "band_share": {
+        "low_lt_250": 0.32,
+        "mid_250_2k": 0.42,
+        "high_gt_2k": 0.26
+      },
+      "syllabic_modulation_share": 0.36,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 50,
+        "near_onset": 0.67,
+        "chance_level": 0.44,
+        "median_offset_ms": 41,
+        "near_beat": 0.67,
+        "beat_chance_level": 0.24,
+        "beat_phase_sec": 0.309
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-e40080c790",
+      "overview": "reference/analysis/ref-e40080c790/overview.jpg",
+      "scenes": "reference/analysis/ref-e40080c790/scenes.jpg",
+      "transitions": "reference/analysis/ref-e40080c790/transitions.jpg",
+      "motion": "reference/analysis/ref-e40080c790/motion.jpg",
+      "audio": "reference/analysis/ref-e40080c790/audio.png",
+      "frames": "reference/analysis/ref-e40080c790/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.1,
+        "lra_lu": 0.9,
+        "true_peak_dbtp": -1.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 4,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 81,
+        "accents": 17,
+        "accents_per_min": 72.9,
+        "accent_times": [
+          0.07,
+          2.35,
+          2.6,
+          4.34,
+          4.6,
+          5.11,
+          6.36,
+          6.59,
+          8.34,
+          8.61,
+          9.1,
+          10.36,
+          11.1,
+          11.49,
+          12.35,
+          13.1,
+          13.61
+        ],
+        "accent_threshold": 0.45,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.22
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.79,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": 0.7,
+        "level_tail_vs_body_db": -1.7,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-e40080c790/listen",
+        "sheet": "reference/analysis/ref-e40080c790/listen/listen.jpg",
+        "words": "reference/analysis/ref-e40080c790/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

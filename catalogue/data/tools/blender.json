@@ -1,0 +1,57 @@
+{
+  "id": "tool-blender",
+  "name": "Blender (headless 3D renderer for plates)",
+  "component_type": "tool",
+  "purpose": "Offline 3D engine for plates HyperFrames composites: physically based light (glass, caustics, subsurface), volumetrics, rigid-body/cloth/particle/fluid simulation, real depth of field and motion blur, camera moves through 3D sets. Driven only through scripts/visual-director.py and the src/blender kit; never carries text.",
+  "capabilities": [
+    "EEVEE and Cycles rendering from Python (bpy), headless with factory settings",
+    "Baked rigid-body, particle and cloth simulations with fixed seeds",
+    "PNG frame sequences (RGB or RGBA) encoded to H.264 MP4 or VP9-alpha WebM plates"
+  ],
+  "location": "https://www.blender.org/download/releases/5-2/",
+  "version": "5.2.4",
+  "version_constraints": "Pinned to 5.2.4 LTS (supported to 2028-07); hashes per platform in specs/visual-engines.json. A different version is a different plate: every plate re-renders.",
+  "installation": {
+    "required": true,
+    "instructions": "python scripts/visual-director.py install-blender (downloads the pinned build from download.blender.org, verifies SHA-256, unpacks to %LOCALAPPDATA%\\Programs\\Blender on Windows, ~/Applications/Blender-5.2.4.app on macOS, ~/.local/opt on Linux). Override discovery with MOTION_LAB_BLENDER."
+  },
+  "dependencies": [
+    "tool-ffmpeg"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "binary (bundled Python 3.13)",
+    "notes": "Verified on Windows 11 x64 with Intel Iris Xe (2026-11-24): EEVEE renders 720x1280 plates at about 2.9 s/frame (16 samples) after 40-70 s of shader compilation. Not yet run on the M2 render host (Metal backend for Cycles, EEVEE on Metal)."
+  },
+  "documentation_urls": [
+    "https://docs.blender.org/api/5.2/",
+    "docs/visual-engines.md",
+    ".claude/skills/visual-director/references/blender-plates.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "GPL-2.0-or-later",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Run as an external application; nothing linked or vendored. Rendered output belongs to its author (blender.org/about/license). Plate scripts import bpy only inside Blender."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Started with --factory-startup (no user add-ons or startup scripts) and a workspace runner; writes only under projects/<slug>/renders/plates/. Installer downloads over HTTPS from download.blender.org and checks a pinned SHA-256."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "2026-11-24, Windows host: installed 5.2.4 LTS (SHA-256 bbd78f89... matched the official list), rendered the hero-orbit plate for projects/lab-blender-hybrid (132 frames, 720x1280) and composited it in HyperFrames 0.8.226 (snapshots at 0.6, 2.2, 4.1 s show the plate under DOM text and gone after data-duration). Approval needs a render on the M2 host and one shipped film.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "3d",
+    "blender",
+    "render",
+    "plates",
+    "simulation",
+    "lighting"
+  ]
+}

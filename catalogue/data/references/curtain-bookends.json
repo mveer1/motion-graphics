@@ -1,6 +1,7 @@
 {
   "id": "curtain-bookends",
   "name": "Theatre curtain bookends",
+  "family": "transition-cover",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected storybook piece opens and closes on stage curtains.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Curtains part to open the story and close at the end, framing the piece as a performance and giving it a clear beginning and end.",

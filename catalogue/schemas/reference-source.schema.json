@@ -84,7 +84,13 @@
       "properties": {
         "boundaries": { "type": "array", "items": { "type": "object", "required": ["t", "kind"], "properties": { "t": { "type": "number" }, "kind": { "enum": ["cut", "soft"] } } } },
         "scenes": { "type": "array", "items": { "type": "object", "required": ["index", "start", "end"] } },
-        "artifacts": { "type": "object", "required": ["cache_dir", "tracked"], "properties": { "tracked": { "const": false } } }
+        "artifacts": { "type": "object", "required": ["cache_dir", "tracked"], "properties": { "tracked": { "const": false } } },
+        "listen": {
+          "type": "object",
+          "description": "Written by scripts/reference-corpus.py listen and kept when analyze re-runs: loudness, speech word-time metrics (never the words), accent hits against cuts and speech. Its artifacts stay in the untracked cache.",
+          "required": ["version", "run_on"],
+          "properties": { "artifacts": { "type": "object", "properties": { "tracked": { "const": false } } } }
+        }
       }
     },
     "analysis": {
@@ -116,6 +122,9 @@
             "texture_and_effects": { "$ref": "#/definitions/note" },
             "camera": { "$ref": "#/definitions/note" },
             "audio_and_sync": { "$ref": "#/definitions/note" },
+            "sound_design": { "$ref": "#/definitions/note", "description": "How effects, music and silence are placed against the picture (accents on arrivals, drops before hits, sonified motion); cite automated.listen numbers." },
+            "narration": { "$ref": "#/definitions/note", "description": "Voice-over presence and pace: words per second, pauses, pace curve, where cuts fall against phrases (automated.listen.speech)." },
+            "captions": { "$ref": "#/definitions/note", "description": "On-screen words that carry speech or copy: lane (top, lower third, under the subject), grouping, highlight, timing against the voice." },
             "motifs": { "$ref": "#/definitions/note" }
           }
         },

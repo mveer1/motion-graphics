@@ -1,0 +1,48 @@
+{
+  "id": "scroll-unroll",
+  "name": "Scroll unroll",
+  "category": "mask_reveal",
+  "visual_intent": "A painted scroll unrolls between two rollers from its centre or from the left, after Phad and Patua scroll recitation.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "reveal",
+    "scroll",
+    "phad",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "scroll-unroll-recipe"
+  ],
+  "implementation_summary": "A painted scroll unrolls between two rollers from its centre or from the left, after Phad and Patua scroll recitation.",
+  "primitives": [],
+  "runtime_api": "Studio.kit.mythic.scroll(parent, {x, y, w, h, content}) + Studio.kit.mythic.unroll(tl, scroll, at, {from, duration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

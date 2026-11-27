@@ -1,0 +1,30 @@
+{
+  "id": "radar-sweep-reveal",
+  "name": "Radar sweep reveal",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-4, batch-6, 2026-11-26): a SaaS launch sweeps a wedge over concentric rings and pops labelled signal points as it passes them.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A wedge rotates over concentric rings and each labelled point appears as the wedge passes it, so discovery is shown as scanning: the viewer watches the system find things instead of a list appearing.",
+  "purpose": "Show discovery as scanning: the viewer watches the system find things instead of a list appearing.",
+  "visual_behaviour": "A wedge sweeps round concentric rings; each labelled point pops in as the wedge passes it.",
+  "mechanics": "Wedge as a conic gradient or SVG path rotating 0 -> 360 deg linearly over 2-4 s; each point's reveal time = its angle / 360 x period; point pop (scale 0 -> 1, back.out) plus a label slide; rings static; optional pulse ring on each hit; point angles from a seeded PRNG.",
+  "decomposition": { "primitives": ["svg-path", "seeded-particles"], "effects": ["glow-pulse"], "timing": "One sweep in 2-4 s; points about 0.2-0.4 s apart (reference 12-17.6 s)." },
+  "parameters": [
+    { "name": "period", "description": "Seconds per sweep", "default": 3.0 },
+    { "name": "rings", "description": "Number of concentric rings", "default": 4 }
+  ],
+  "use_cases": ["Monitoring and detection products", "Search or discovery steps", "Showing many signals found over time"],
+  "failure_modes": ["Points that appear before the wedge reaches them", "Too many labels to read at 720p"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Rotate an SVG wedge (or a conic gradient) 0-360 degrees linearly over 2-4 s; each point's reveal time = its angle / 360 x period; pop each point with Studio.space.pop (back.out) and slide its label; seed the point angles with the Studio PRNG, never Math.random. Not built as a component.", "runtime_api": ["Studio.space.pop"] },
+  "capability": { "support": "native", "requirements": ["SVG rotation", "seeded positions"], "compatible_components": ["glow-pulse"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-85d3a83400", "timestamps": [12.38, 14.62, 16.12], "observed": "On cream, a peach wedge sweeps over concentric rings and labelled signal points pop as it passes (12-17.6 s)." },
+    { "source_id": "ref-9459c8097f", "timestamps": [4.11, 4.41], "observed": "Linear variant: a red glowing horizontal line sweeps down a transcript panel and each timestamped row appears as the line passes (about 4.0-4.5 s, 10 fps)." }
+  ],
+  "related": { "techniques": ["orbit-constellation", "hud-frame-overlay"], "effects": ["glow-pulse"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["explanation-device", "radar", "scan", "discovery", "monitoring", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

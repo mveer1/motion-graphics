@@ -1,6 +1,7 @@
 {
   "id": "vessel-fill-pour",
   "name": "Vessel fill and pour",
+  "family": "explanation-device",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected recipe animation pours liquids into a glass: a stream from a tilted bottle and a rising, tinting liquid level with measurement ticks.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A container fills as a pour stream connects bottle and liquid; the level rises against measurement ticks and the colour mixes with each ingredient, so quantities become visible.",

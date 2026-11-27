@@ -1,0 +1,30 @@
+{
+  "id": "end-card-in-the-tail",
+  "name": "End card built in the music's decay",
+  "family": "sound-design",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-6, 2026-11-26): two promos end their music before the end card and build logo, line and button while the last sound decays.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The music's last event comes before the end card, and the logo, line and call to action build while that sound decays. The close lands calm instead of shouted, and small sounds (keystrokes, a button) are heard clearly.",
+  "purpose": "Land the close calm instead of shouted; small sounds on the card (keystrokes, a button) are heard clearly.",
+  "visual_behaviour": "The music's last event comes just before the end card; the logo, line and call to action build in its decay, elements about 0.2 s apart or typed letter by letter.",
+  "mechanics": "Last music onset 0.7-1.7 s before the card starts; the level decays 15-45 dB over the card (12.12 s last onset, -18 dB at 12.9 s, -26 at 13.2 s, -35 at 14.3 s, -65 at 15.0 s; or a hit at 14.42 s decaying -13 -> -20 dB over 14.4-19.8 s and fading by 20.7 s). Card elements arrive 0.2 s apart (12.84, 13.04, 13.24, 13.44 s) or type in at 0.14-0.17 s per letter with a keystroke each (16.1-18.4 s).",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["typewriter-reveal"], "timing": "Tail of 2.5-6 s." },
+  "parameters": [
+    { "name": "musicOutBeforeCard", "description": "Seconds between the last music event and the card", "default": 0.7 },
+    { "name": "tail", "description": "Seconds of decay under the card", "default": 3.0 }
+  ],
+  "use_cases": ["Product ads ending on a call to action", "Logo reveals", "Any film whose last line should feel considered"],
+  "failure_modes": ["Dead silence with no tail reads as an export error", "A tail much longer than the card loses the viewer"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "End the bed with its own release (or a final hit) 0.7-1.7 s before the end card; build the card in the decay (Studio.comp.endCard, elements 0.2 s apart, or Studio.type.typewriter with one keystroke sound per letter); let the tail run 2.5-6 s. Kept separate from quiet-after-overload, which is a mid-film stop after the densest stretch, not the close.", "runtime_api": ["Studio.comp.endCard", "Studio.type.typewriter"] },
+  "capability": { "support": "native", "requirements": ["bed release before the card"], "compatible_components": ["end-card", "typewriter-reveal"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-9459c8097f", "timestamps": [12.12, 12.84, 13.24], "observed": "The last onset is at 12.12 s; the end card's logo (12.84 s), user count (13.04-13.24 s) and button (13.44 s) build while the level decays from -18 to -65 dB (12.9-15.0 s)." },
+    { "source_id": "ref-04d81a6a3e", "timestamps": [14.42, 16.12, 18.38], "observed": "After the logo hit at 14.42 s no music onset follows; the icon moves left and the wordmark types in with keystroke accents (16.1-18.4 s) over the hit's decay (-13 -> -20 dB), fading by 20.7 s." }
+  ],
+  "related": { "techniques": ["quiet-after-overload", "action-synced-foley"], "effects": ["typewriter-reveal"], "compositions": ["end-card"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["sound-design", "end-card", "decay", "tail", "close", "mix", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

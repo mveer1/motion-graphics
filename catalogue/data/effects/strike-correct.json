@@ -1,0 +1,58 @@
+{
+  "id": "strike-correct",
+  "name": "Strike and correct",
+  "category": "typography",
+  "visual_intent": "Myth versus fact made visible: a claim types in, is struck through, steps back small and grey, and the correction types in under it.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "typography",
+    "strike",
+    "correction",
+    "myth-vs-fact",
+    "hook",
+    "reference-derived"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "character spans of both lines + 1 SVG path",
+    "memory_profile": "Low (estimate, not measured on the M2)"
+  },
+  "recipes": [
+    "strike-correct-claim"
+  ],
+  "implementation_summary": "Studio.type.strike draws a hand line (or a scribble) through the claim inside the claim element, so it rides the demotion; Studio.type.strikeCorrect splits both lines into characters, types the claim, strikes it, holds it `read` seconds, demotes it (shrink-up, fade or fall) and types the correction.",
+  "primitives": [
+    "styled-text",
+    "svg-path"
+  ],
+  "runtime_api": "Studio.type.strikeCorrect(tl, claim, correction, at, {cps, read, demote, scale, lift, dim, gap, strike}); Studio.type.strike(tl, el, at, {color, duration, overshoot, y, style})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/reference-derived/scramble-strike-caption/index.html",
+    "tests/studio-runtime/backlog-techniques.html"
+  ],
+  "related": [
+    "typewriter-reveal",
+    "hand-underline",
+    "stamp-impact"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/backlog-techniques.html (strike inside the claim, drawn on its cue, correction hidden while the claim is read, claim demoted, correction typed) in Playwright Chromium on Windows, 2026-11-28; frame review tests/reference-derived/scramble-strike-caption/qa/report.json (0 errors, 0 warnings). Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

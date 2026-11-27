@@ -1,0 +1,30 @@
+{
+  "id": "macro-typing-push",
+  "name": "Macro typing push",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-4, 2026-11-26): a food-ordering film pushes into a typed prompt at macro scale and glides along it behind a soft gradient caret.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "After text is typed in a UI, the camera pushes into it at macro scale and glides along the line with motion blur while a soft gradient caret leads the next letters, so a few typed words become a full-frame headline without a scene change.",
+  "purpose": "Turn a typed query into the film's full-frame headline without a scene change.",
+  "visual_behaviour": "Text typed in an input grows to macro scale as the camera pushes in, glides along the line with motion blur behind a soft gradient caret, then tilts away.",
+  "mechanics": "Scale the input text 1 -> about 8x about the caret (0.2-0.3 s, power3.in); translate x along the line at constant speed with a directional smear of 6-12 px while letters type at 15-25 characters per second; caret = a 60-120 px gradient block (accent to transparent) with a solid 4 px edge; exit with a 3D tilt (rotateY 20-30 deg) and fade over 0.2-0.3 s.",
+  "decomposition": { "primitives": ["split-text", "styled-text"], "effects": ["typewriter-reveal", "smear-motion"], "timing": "Push 0.2-0.3 s; glide 0.7-1.0 s; exit 0.3 s (reference 2.12-3.15 s)." },
+  "parameters": [
+    { "name": "zoom", "description": "Final scale of the typed text", "default": 8 },
+    { "name": "cps", "description": "Characters per second while gliding", "default": 20 },
+    { "name": "blur", "description": "Directional smear in px", "default": 8 }
+  ],
+  "use_cases": ["Prompt-driven products", "Turning a typed query into the film's headline", "Search-led explainers"],
+  "failure_modes": ["A fast glide makes the blurred letters unreadable", "Pixelated type if the text is rasterised before scaling"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.type.typewriter at 15-25 characters/s; scale the text group from 1 to about 8x about the caret (0.2-0.3 s, power3.in); translate along the line at constant speed with Studio.fx.smear (6-12 px); caret = a gradient block with a solid 4 px edge; exit with rotateY 20-30 degrees and a fade. Keep the type as live text (not rasterised) so it stays sharp at 8x.", "runtime_api": ["Studio.type.typewriter", "Studio.fx.smear"] },
+  "capability": { "support": "native", "requirements": ["vector text scaling", "directional smear"], "compatible_components": ["typewriter-reveal", "smear-motion", "smear-entrance"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-ee70618e88", "timestamps": [2.12, 2.44, 2.79], "observed": "The typed words 'spicy, crispy and filling' fill the frame at macro scale behind a blurred blue gradient caret and glide left with blur (2.12-2.79 s), then tilt away in 3D (2.88-3.15 s)." }
+  ],
+  "related": { "techniques": ["directional-smear", "ui-demo-micro-interactions", "zoom-through-transition", "markup-renders-to-type"], "effects": ["typewriter-reveal", "smear-motion"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "typing", "macro", "camera-push", "prompt", "ui", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

@@ -1,0 +1,81 @@
+{
+  "spec_version": 1,
+  "slug": "{{SLUG}}",
+  "title": "{{TITLE}}",
+  "categories": ["mythology"],
+  "objective": "TODO: the episode the viewer can retell afterwards, as this tradition tells it, and the figure they can recognise by its emblem.",
+  "audience": "TODO: who is watching, what they already know of this tradition, and whether they belong to it",
+  "platforms": ["instagram-reels"],
+  "deliverables": {
+    "formats": ["portrait"],
+    "duration_sec": { "min": 20, "target": 45, "max": 60 }
+  },
+  "message": {
+    "core_message": "TODO: the turn of the episode in one sentence, attributed to its telling ('In the Valmiki Ramayana, ...')",
+    "key_points": ["TODO: the source text and version", "TODO: the figure and the emblem that identifies it", "TODO: the turn", "TODO: what the tradition draws from it"]
+  },
+  "tone": {
+    "emotional_response": ["wonder", "warmth", "respect"],
+    "keywords": ["myth", "legend", "storyteller", "lamp-lit", "handmade paper"],
+    "avoid": ["preaching or debunking", "deity images at foot level or destroyed", "pop-culture versions as source", "bounce or whoosh on sacred figures", "dark theme unless asked"]
+  },
+  "constraints": [
+    "Name the text and version on screen (source cartouche) and in narration",
+    "Every god or hero is identified by an emblem on first appearance",
+    "Every image is public domain or licensed and credited; generated stills are flagged and iconography-checked",
+    "Readable with sound off"
+  ],
+  "assets_provided": [],
+  "references": [],
+  "audio": { "narration": "optional", "music": "optional", "sfx": "optional", "captions": true },
+  "research": { "required": false, "reason": "Set to true before writing the story: every myth film is researched (mythic-tales skill, step 2): the telling followed and its variants, the iconography checklist from references/traditions/, and the image sources." },
+  "complexity": "standard",
+  "creative_directions": [
+    {
+      "id": "direction-a",
+      "name": "Lamp-lit paper diorama",
+      "concept": "TODO: the storyteller opens a kaavad box; the world is laid out in deckle-edged paper under a flickering lamp; the god rises into a prabhavali; blossoms fall at the turn.",
+      "visual_identity": {
+        "style_system": "mythic-paper",
+        "palette": "Rag paper, lamp-black ink, sindoor, lapis, malachite and gold leaf",
+        "typography": "Playfair Display titles, EB Garamond text",
+        "texture": "Paper fibre, deckle edges, duotoned museum plates"
+      },
+      "motion_language": {
+        "personality": "Reverent and handmade",
+        "signature_moves": ["paper-place", "reverent-rise", "halo-bloom", "lamp-flicker"],
+        "transitions": "Kaavad doors, lamp carried, dissolve under the lamp"
+      },
+      "composition": { "approach": "Portrait: source cartouche top, sacred figure on the upper-middle third inside an arch, captions low." },
+      "pacing": "Measured: an event every 2-3 s, breathing holds on the sacred figure",
+      "why_it_fits": "TODO"
+    },
+    {
+      "id": "direction-b",
+      "name": "Shadow theatre",
+      "concept": "TODO: the episode performed by jointed leather puppets against a lamp-lit screen (shadow-lantern style); best for battles and journeys.",
+      "visual_identity": { "style_system": "shadow-lantern", "palette": "Lamp-lit screen, lamp-black, dyed leather", "typography": "Playfair Display, EB Garamond", "texture": "Woven screen, punched holes" },
+      "motion_language": { "personality": "Theatrical, rod-driven", "signature_moves": ["puppet-pose", "lamp-flicker"], "transitions": "Lamp carried across the screen" },
+      "composition": { "approach": "Figures in profile on one ground line; the lamp marks the scene that matters." },
+      "pacing": "Performative; poses change on the spoken verb",
+      "why_it_fits": "TODO"
+    },
+    {
+      "id": "direction-c",
+      "name": "Painted folio or museum relief",
+      "concept": "TODO: the tradition's own art carries the film: a folio border and register strips (painted-folio) or duotoned museum objects in 2.5D (carved-relief).",
+      "visual_identity": { "style_system": "painted-folio", "palette": "Ivory folio, folio red, lapis, gold", "typography": "Playfair Display, EB Garamond", "texture": "Folio grain, gold-leaf border" },
+      "motion_language": { "personality": "Ceremonial, reading order", "signature_moves": ["border-draw", "scroll-unroll", "photo-plate"], "transitions": "Scroll unroll, panel by panel" },
+      "composition": { "approach": "Registers read in the tradition's order; one plate dominant." },
+      "pacing": "Ceremonial",
+      "why_it_fits": "TODO"
+    }
+  ],
+  "selected_direction": null,
+  "success_criteria": [
+    "The viewer can name the text, the figure and the turn",
+    "No sacred image is shown at foot level, destroyed or mocked",
+    "Every image credited on screen or in the end card",
+    "The ending returns to the opening lamp and holds for at least 2 seconds"
+  ]
+}

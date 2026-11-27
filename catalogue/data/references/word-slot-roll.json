@@ -1,6 +1,7 @@
 {
   "id": "word-slot-roll",
   "name": "Word or number slot roll",
+  "family": "kinetic-typography",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Three inspected references swap one word or number inside a still layout with a vertical roll (a slot, an odometer, a list scroller with a focused item).", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "One slot of a sentence or figure rolls vertically to its next value while everything around it holds still, so the change itself is the message (what varies, what stays).",
@@ -18,7 +19,20 @@
   "provenance": [
     { "source_id": "ref-ce769bc33e", "timestamps": [16.5], "observed": "The last word of a line cycles through three nouns in a vertical roll (approx., from overview spacing)." },
     { "source_id": "ref-49459ad8c1", "timestamps": [6.0, 7.0], "observed": "A vertical list scrolls with the focused item at full strength and the others faded." },
-    { "source_id": "ref-1cbe55c987", "timestamps": [2.5], "observed": "A figure counts up with rolling digits above a dotted globe (approx., from overview spacing)." }
+    { "source_id": "ref-1cbe55c987", "timestamps": [2.5], "observed": "A figure counts up with rolling digits above a dotted globe (approx., from overview spacing)." },
+    { "source_id": "ref-0b13aa7f02", "timestamps": [14.49, 15.23, 15.97], "observed": "Verdict pills roll vertically with blur through options and stop on the positive one." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [5.06, 5.41, 5.78], "observed": "Variant: one word changes language in place every 0.3-0.4 s through a blur crossfade (not a vertical roll) while the card holds (5.06-5.92 s)." },
+    { "source_id": "ref-32fea7dae3", "timestamps": [4.08, 4.82, 5.57], "observed": "In 'Pay anyone. Anywhere.' the currency code and the country counter change in place each beat while the headline holds (direction of the roll not resolved at the sampling used)." },
+    { "source_id": "ref-cfaf668ebf", "timestamps": [18.3, 22.48, 38.95], "observed": "An odometer rolls 0 to 1,000,000 over 4.2 s (18.30-22.48 s) with digits at different speeds; later one large word of a held phrase swaps in place through a 0.25 s blur crossfade (36.9-39.02 s), a roll variant with no vertical motion." },
+    { "source_id": "ref-e40080c790", "timestamps": [7.74, 9.21], "observed": "A chart card's total rolls digit by digit to a new value when the period changes (7.7-8.5 s and 9.1-9.2 s)." },
+    { "source_id": "ref-a943607659", "timestamps": [5.59, 10.07, 27.22, 35.42], "observed": "A glowing step counter rolls 4,808 to 9,847 (5.6-10.1 s); a team counter rolls 0 to 100,000 over 8 s as the climb progresses (27.2-35.4 s)." },
+    { "source_id": "ref-b34f751c59", "timestamps": [2.66, 4.41, 8.62], "observed": "A giant tabular token count changes in place with every event: 9 -> 0 between 2.50 and 3.36 s during the burst (about one step per 0.07-0.1 s), flickering 0 -> 1 -> 0 while empty (4.31-5.41 s), 2 -> 10 during recovery (7.1-11.6 s)." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [5.6, 6.58, 7.58], "observed": "Stat cards roll their numbers in place: 1 -> 14 in 0.36 s while 13 bars grow (5.47-5.83 s), 0.0% -> 30.6% -> 99.4% (6.45-7.2 s), 0+ -> 32+ -> 100+ (7.45-8.3 s)." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [6.0, 6.5], "observed": "A dollar counter rolls with blurred digit slots to 10,000 (5.90-6.73 s), accents at 6.15 and 6.62 s." },
+    { "source_id": "ref-dc626241e6", "timestamps": [5.55, 6.06], "observed": "Earnings figures roll to their values ($1.35 -> $6.75, $28.20B -> $95.72B) at 5.45-6.42 s." },
+    { "source_id": "ref-31ce9d6332", "timestamps": [3.78, 4.34], "observed": "A large counter rolls 66 -> 80 -> 90 -> 98 / 100 beside the opening question (3.68-4.44 s)." },
+    { "source_id": "ref-9ed4034cad", "timestamps": [9.46, 10.45, 11.01], "observed": "The earnings figure rolls $500 -> $5,000 as the slider moves, settling $4,997 -> $4,999 -> $5,000 (9.3-11.0 s)." },
+    { "source_id": "ref-c324a3d516", "timestamps": [11.62, 12.38], "observed": "A percentage counter rolls 00% -> 100% digit by digit over a thumbnail strip (11.3-13.0 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -27,5 +41,5 @@
   "related": { "techniques": ["word-per-beat-sequence", "centred-word-build"], "effects": ["slot-roll", "counter-roll"], "templates": ["product-promo", "kinetic-typography"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
   "tags": ["typography", "roll", "slot", "counter", "promo", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

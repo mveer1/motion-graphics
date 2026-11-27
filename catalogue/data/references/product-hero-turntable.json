@@ -1,6 +1,7 @@
 {
   "id": "product-hero-turntable",
   "name": "Product hero turntable",
+  "family": "staging-depth",
   "status": "proposed",
   "source": {
     "type": "genre-convention",

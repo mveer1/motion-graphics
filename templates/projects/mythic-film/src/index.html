@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="_studio/studio-base.css">
+  <link rel="stylesheet" href="_studio/styles/{{STYLE}}.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:300px;--safe-left:43px;}</style>
+  <style>
+    /* Project styles. Sizes use --u (1% of the short side); per-format rules use #root[data-format]. */
+    #world { z-index: 1; }
+    .st-scene { z-index: 5; }
+    /* HyperFrames injects a bundled family only when a declaration names it in the page itself. */
+    .mx-font-display { font-family: 'Playfair Display', serif; }
+    .mx-font-text { font-family: 'EB Garamond', serif; }
+    .mx-font-mono { font-family: 'IBM Plex Mono', monospace; }
+  </style>
+  <script src="_studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root"
+     data-composition-id="root"
+     data-format="portrait"
+     data-width="720"
+     data-height="1280"
+     data-fps="30"
+     data-duration="45">
+
+  <!-- Persistent diorama: one paper world that the story changes (continuity across scenes). -->
+  <div class="st-layer" id="world"></div>
+
+  <!-- Per-scene text and devices. -->
+  <section class="st-scene" id="s1"></section>
+  <section class="st-scene" id="s2"></section>
+  <section class="st-scene" id="s3"></section>
+  <section class="st-scene" id="s4"></section>
+  <section class="st-scene" id="s5"></section>
+</div>
+
+<script src="_studio/studio-core.js"></script>
+<script src="_studio/studio-draw.js"></script>
+<script src="_studio/studio-type.js"></script>
+<script src="_studio/studio-motion.js"></script>
+<script src="_studio/studio-compositions.js"></script>
+<script src="_studio/studio-explain.js"></script>
+<script src="_studio/kits/mythic/mythic.js"></script>
+<script src="_studio/kits/mythic/figures.js"></script>
+<script src="_studio/kits/mythic/figures-human.js"></script>
+<script src="_studio/kits/mythic/armoury.js"></script>
+<script src="captions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  // Scaffold for the mythic-tale style template (guide: .claude/skills/mythic-tales/).
+  // Storyboard times are written for a 45 s short; T() scales them to data-duration. Once narration is
+  // measured, replace the cue map with measured times and snap beats to words (studio.py words).
+  var M = S.kit.mythic, W = f.width, H = f.height, P = S.pick, D = f.duration;
+  var T = function (s) { return s * D / 45; };
+  var cue = S.cues({ s1: 0, s2: T(6.5), s3: T(15), s4: T(25), s5: T(35), end: D });
+  var caps = S.comp.captions(document.getElementById('root'), window.STUDIO_CAPTIONS || []);
+  var root = document.getElementById('root'), world = document.getElementById('world');
+  var sc = function (id) { return document.getElementById(id); };
+
+  // ------------------------------------------------------------------ build the DOM first
+  var stage = M.stage(world);
+  var lamp = M.lamp(world, { x: 0.5, y: P({ portrait: 0.45, landscape: 0.42, square: 0.45 }), radius: 0.6 });
+  var border = M.border(root, { motif: 'lotus', band: P({ portrait: 2.6, landscape: 3.0, square: 2.8 }) });
+
+  // World planes, far to near. Replace shapes and colours with the story's own landscape.
+  var sunGold = M.gold(S.u(26));
+  var sun = M.sheet(stage.layer(0), { shape: 'disc', x: W * 0.6, y: H * P({ portrait: 0.15, landscape: 0.09, square: 0.1 }), w: S.u(26), h: S.u(26), fill: sunGold, seed: 3 });
+  var clouds = M.sheet(stage.layer(0), { shape: 'clouds', x: W * 0.06, y: H * P({ portrait: 0.2, landscape: 0.14, square: 0.16 }), w: W * 0.5, h: H * 0.08, fill: '--c-paper', seed: 5 });
+  var peaks = M.sheet(stage.layer(1), { shape: 'peaks', peaks: 4, x: -W * 0.1, y: H * P({ portrait: 0.34, landscape: 0.3, square: 0.32 }), w: W * 1.2, h: H * 0.32, fill: '--c-sky', seed: 8 });
+  var hills = M.sheet(stage.layer(2), { shape: 'hills', x: -W * 0.1, y: H * P({ portrait: 0.5, landscape: 0.5, square: 0.5 }), w: W * 1.2, h: H * 0.32, fill: '--c-malachite', seed: 13 });
+
+  // The sacred figure: a placeholder puppet. Use a library figure (figure: 'rama' | 'hanuman' |
+  // 'shiva' | 'ganesha' | 'athena' | 'odin' | 'tirthankara' | 'buddha', look: 'leather' | 'paper' |
+  // 'painted' | 'silhouette'), a traced silhouette (parts) or a museum plate (M.plate, frame:
+  // 'cutout'), keep it high in the frame, and walk its iconography checklist (references/traditions/).
+  // Greek, Roman and Norse gods get no halo; the border takes {tradition: 'greek'} and so on.
+  var heroH = S.u(P({ portrait: 58, landscape: 54, square: 52 })), heroW = heroH / 2;
+  var heroX = W / 2 - heroW / 2, heroY = H * P({ portrait: 0.8, landscape: 0.86, square: 0.84 }) - heroH;
+  var halo = M.halo(stage.layer(3), { kind: 'prabhavali', x: heroX + heroW * 0.54, y: heroY + heroH * 0.22, r: heroH * 0.22 });
+  var hero = M.puppet(stage.layer(3), { x: heroX, y: heroY, h: heroH, look: 'leather', seed: 21 });
+  var waves = M.sheet(stage.layer(4), { shape: 'waves', crests: 5, x: -W * 0.1, y: H * P({ portrait: 0.77, landscape: 0.8, square: 0.78 }), w: W * 1.2, h: H * 0.26, fill: '--c-accent-2', seed: 17 });
+  var arch = M.sheet(stage.layer(5), {
+    shape: 'arch', spring: 0.36, fill: '--c-accent', seed: 34,
+    thickness: P({ portrait: 0.1, landscape: 0.14, square: 0.12 }),
+    x: W * P({ portrait: -0.03, landscape: 0.2, square: 0.05 }), y: H * P({ portrait: 0.24, landscape: 0.14, square: 0.2 }),
+    w: W * P({ portrait: 1.06, landscape: 0.6, square: 0.9 }), h: H * P({ portrait: 0.8, landscape: 0.92, square: 0.84 })
+  });
+  var lotusW = S.u(P({ portrait: 46, landscape: 40, square: 42 }));
+  var lotus = M.sheet(stage.layer(5), { shape: 'lotus', petals: 9, x: W / 2 - lotusW / 2, y: heroY + heroH - lotusW * 0.3, w: lotusW, h: lotusW * 0.42, fill: '--c-lotus', stroke: '--c-ink', strokeWidth: 0.2, seed: 41 });
+
+  // Text. Every placeholder must be replaced; each card is 6 words or fewer in portrait.
+  var title = M.title(sc('s1'), { kicker: 'A tale retold', title: '{{TITLE}}', top: H * P({ portrait: 0.19, landscape: 0.2, square: 0.2 }) });
+  var cart1 = M.cartouche(sc('s1'), { kicker: 'As told in', title: 'Name the text and version' });
+  var doors = M.doors(sc('s1'), {
+    x: W * P({ portrait: 0.12, landscape: 0.29, square: 0.18 }), y: H * P({ portrait: 0.38, landscape: 0.44, square: 0.42 }),
+    w: W * P({ portrait: 0.76, landscape: 0.42, square: 0.64 }), h: H * P({ portrait: 0.4, landscape: 0.46, square: 0.44 })
+  });
+  var cart2 = M.cartouche(sc('s2'), { kicker: 'The world', title: 'Name the realm' });
+  var cart3 = M.cartouche(sc('s3'), { kicker: 'Identify by emblem', title: 'Name, emblem', plate: true });
+  var cart4 = M.cartouche(sc('s4'), { kicker: 'The trial', title: 'Name the test', plate: true });
+  var teach = M.title(sc('s5'), { kicker: 'The tradition reads it', title: 'One line of meaning', plate: true, top: H * P({ portrait: 0.14, landscape: 0.07, square: 0.1 }) });
+  var credit = M.credit(sc('s5'), 'Credit every image and the text');
+  var dim = S.el('div', 'mx-lamp', null, world);
+  dim.style.background = 'var(--c-ink)';
+  dim.style.zIndex = '41';
+
+  // ------------------------------------------------------------------ continuous life (whole film)
+  M.flicker(tl, lamp, 0, D, { fps: 6, amount: 0.16, seed: 2 });
+
+  // ------------------------------------------------------------------ s1 invocation
+  S.show(tl, '#s1', cue('s1'));
+  M.borderIn(tl, border, T(0.3));
+  M.titleIn(tl, title, T(1.4));
+  M.cartoucheIn(tl, cart1, T(2.8));
+  M.open(tl, doors, T(4.4), { duration: 1.5 });
+  M.lift(tl, [title.el, cart1.el], T(6.0), { duration: 0.5 });
+
+  // ------------------------------------------------------------------ s2 world
+  S.crossfade(tl, '#s1', '#s2', cue('s2'), 0.6);
+  M.place(tl, [sun, clouds], T(6.8), { stagger: 0.3 });
+  M.sway(tl, clouds, T(8.2), D, { degrees: 1.2, period: 5, origin: '50% 50%' });
+  M.place(tl, peaks, T(8.3));
+  M.place(tl, hills, T(9.8));
+  M.cartoucheIn(tl, cart2, T(9.9));
+  M.place(tl, waves, T(11.3));
+  M.sway(tl, waves, T(12.4), D, { degrees: 0.8, period: 3.4 });
+  S.space.camera(tl, stage.el, T(12.6), { scale: 1.05, y: -S.u(1.2), duration: 2.2 });
+  M.glint(tl, sunGold, T(14.0));
+  M.lift(tl, cart2.el, T(14.4), { duration: 0.5 });
+
+  // ------------------------------------------------------------------ s3 revelation
+  S.cut(tl, '#s2', '#s3', cue('s3'));
+  M.place(tl, arch, T(15.3), { lift: 4, tilt: 0.4 });
+  M.rise(tl, hero, T(16.6), { duration: 1.6 });
+  M.haloIn(tl, halo, T(18.0));
+  M.turn(tl, halo, T(18.0), D, { degrees: 24 });
+  M.breathe(tl, hero, T(18.6), D);
+  M.cartoucheIn(tl, cart3, T(20.0));
+  M.glint(tl, halo.gold, T(21.6));
+  M.pose(tl, hero, T(23.0), { 'arm-front': -35, 'hand-front': -20 }, { duration: 0.9 });
+  S.space.camera(tl, stage.el, T(24.4), { scale: 1.1, y: -S.u(2.4), duration: 2.4 });
+  M.lift(tl, cart3.el, T(24.4), { duration: 0.5 });
+
+  // ------------------------------------------------------------------ s4 trial and turn
+  S.cut(tl, '#s3', '#s4', cue('s4'));
+  M.tint(tl, world, T(25.2), T(32.4) + 0.6, { color: '--c-accent', amount: 0.55 });
+  M.shower(tl, world, T(25.2), T(32.6), { kind: 'ember', count: 22, seed: 61 });
+  M.pose(tl, hero, T(26.6), { 'arm-front': -95, 'hand-front': -10, head: -4 }, { duration: 0.8 });
+  S.space.camera(tl, stage.el, T(28.0), { scale: 1.12, x: S.u(2.5), y: -S.u(2.6), duration: 2.2 });
+  M.cartoucheIn(tl, cart4, T(29.6));
+  M.pose(tl, hero, T(31.0), { 'arm-front': -20, 'hand-front': 0, head: 0 }, { duration: 1.0 });
+  M.lampTo(tl, lamp, T(33.8), { x: 0.5, y: P({ portrait: 0.52, landscape: 0.45, square: 0.5 }), duration: 1.4 });
+  M.lift(tl, cart4.el, T(34.4), { duration: 0.5 });
+
+  // ------------------------------------------------------------------ s5 aftermath, teaching, closing
+  S.cut(tl, '#s4', '#s5', cue('s5'));
+  M.place(tl, lotus, T(35.2), { lift: 3, tilt: 0.3 });
+  M.shower(tl, world, T(36.4), D - 0.3, { count: 34, seed: 71 });
+  M.titleIn(tl, teach, T(38.0));
+  S.space.camera(tl, stage.el, T(40.4), { scale: 1.0, x: 0, y: 0, duration: 2.4 });
+  tl.fromTo(credit, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'power1.out', immediateRender: true }, T(41.6));
+  M.lampTo(tl, lamp, T(43.0), { x: 0.5, y: 0.45, duration: 1.2 });
+  tl.fromTo(dim, { autoAlpha: 0 }, { autoAlpha: 0.2, duration: 1.4, ease: 'power1.inOut', immediateRender: true }, T(43.0));
+
+  caps.schedule(tl);
+});
+</script>
+</body>
+</html>

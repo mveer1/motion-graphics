@@ -1,0 +1,40 @@
+{
+  "id": "implode-burst-reveal",
+  "name": "Implode to a point, then a ring burst reveal",
+  "family": "transition-grow",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "7 inspected reference films (batch-2, batch-3, batch-4, batch-5, batch-6, 2026-11-26): a light editor launch collapses its frame into a point before each logo moment, and a dark showreel closes to a point before particles burst out.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Everything on screen collapses into one point, the frame holds its breath (a slight dim), then one bright frame and an expanding ring release the next scene while its mark assembles from the debris. The collapse makes the reveal feel caused and loaded.",
+  "purpose": "Give a logo, title or naming moment a caused, loaded entrance: the frame gathers itself, holds its breath, then releases.",
+  "visual_behaviour": "Elements stream along straight rays into one point while the background dims slightly; one bright frame; a thin ring expands from the point and fades while the new mark assembles from scattered particles. Light-canvas variant: the outgoing interface shrinks into one accent dot (about 0.33 s), the dot holds while particles gather, then releases the next act as concentric discs (accent, then the new background) in about 0.27 s, with no bright frame.",
+  "mechanics": "Converge: elements travel to one point along straight dashed rays over 0.3-0.5 s, power2.in (ref-3abcbedd20 7.00-7.30 s). Pre-dim: background brightness to about 85% over 0.15-0.2 s (7.30-7.47 s). Release: one bright frame (7.50-7.53 s), then a 1-2 px ring scales from radius 0 to about 40% of the frame width over 0.27 s, power2.out, opacity fading (7.53-7.80 s); the mark assembles from scattered particles over 0.3-1.0 s. Hit on the first ring frame (accent 7.55 s). Dark variant: a dark circle closes, then particles burst outward from a point over 0.15 s (ref-70c57c2adf 9.19-9.53 s). Also (batch-4): ref-85d3a83400: the UI window blanks, blurs, recolours orange and shrinks to a dot in about 0.33 s (8.41-8.74 s, power-in); the dot holds about 2.7 s while particles gather around it (9.9-10.9 s); release: the dot grows into a full-frame orange disc and a cream disc opens inside it, about 0.27 s in all (11.41-11.68 s). No bright frame; accent within 100 ms of the release boundary: none (1 of 3 boundaries overall).",
+  "decomposition": { "primitives": ["seeded-particles", "svg-shape"], "effects": ["element-bloom", "object-assembly"], "timing": "Converge 0.3-0.5 s; dim 0.15-0.2 s; ring 0.25-0.3 s; assembly 0.3-1.0 s; once or twice per film." },
+  "parameters": [
+    { "name": "converge_sec", "description": "collapse to the point", "default": 0.4 },
+    { "name": "dim", "description": "background brightness at the end of the collapse", "default": 0.85 },
+    { "name": "ring_sec", "description": "ring expansion", "default": 0.27 },
+    { "name": "ring_max_width_fraction", "description": "final ring radius as a fraction of frame width", "default": 0.4 }
+  ],
+  "use_cases": ["Logo or title reveal", "The moment a product or idea is named", "End card", "Problem-to-solution act change", "Entering a new colour world from a single point"],
+  "failure_modes": ["No dim before the release: it reads as a plain bloom", "Used more than twice it stops being an event", "A thick ring reads as a target graphic", "A long hold with nothing moving reads as a stall; gather particles or pulse the dot"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Converge: tween each element to the focal point along a straight path (power2.in, 0.3-0.5 s). Dim: a full-frame dark overlay to about 15% over 0.15-0.2 s. Release: one-frame light flash, then an SVG circle stroke (1-2 px) scaled from 0 to about 40% of the frame width over 0.27 s (power2.out) with opacity to 0; the mark assembles with Studio.space.assemble from seeded scatter. Place the hit sound on the first ring frame.", "runtime_api": ["Studio.space.assemble", "Studio.fx.bloom"] },
+  "capability": { "support": "native", "requirements": ["SVG stroke scale", "seeded particle scatter"], "compatible_components": ["element-bloom", "object-assembly", "scatter-assemble", "halo-bloom"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-3abcbedd20", "timestamps": [7.0, 7.55, 26.09, 26.32], "observed": "Dashed rays converge on a point while the page dims, a bright frame, a ring expands for 0.27 s and the icon assembles from markup characters; repeated on dark for the end card." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [9.36, 9.43], "observed": "A dark circle closes over the frame, then particles burst outward from a point (9.39-9.53 s) and later form a word." },
+    { "source_id": "ref-85d3a83400", "timestamps": [8.57, 11.41], "observed": "A UI window shrinks into an orange dot (8.41-8.74 s), the dot holds with gathering particles, then blooms into an orange disc with a cream disc opening inside it (11.41-11.68 s), turning the charcoal act into the cream act." },
+    { "source_id": "ref-99713f6e72", "timestamps": [11.87, 12.53], "observed": "Particles spiral into one point in 0.17 s (11.70-11.87 s), a tiny mark holds 0.6 s in silence, then a warm full-frame bloom (12.50-12.53 s) releases the lockup." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [7.72, 7.97, 8.06], "observed": "A word twists into a vortex (7.70-7.86 s), shrinks to a glowing ball (7.90 s) and a point (7.97 s), and the point bursts into ink that fills the next scene (8.00-8.40 s)." },
+    { "source_id": "ref-c87967b288", "timestamps": [27.23, 35.44, 36.18], "observed": "Slow version: the terminal shrinks to a small box over about 1.7 s (25.7-27.4 s) and becomes a star; after an 8 s starfield the stars converge to a point (35.2-35.6 s) and a device-sized terminal grows from it over about 1.5 s (35.7-37.2 s)." },
+    { "source_id": "ref-2a6c654bfe", "timestamps": [12.5, 12.68], "observed": "The e-reader screen flashes black (12.50-12.58 s), a ring of particles bursts from its centre (12.62 s) and grows past the frame (12.82 s) into the white end card while the level dips 28 dB. Note: Variant: a screen flash to black replaces the collapse to a point." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [1.47, 1.57], "observed": "The typed line contracts to a glowing ember (1.30-1.50 s), one grey wash frame (1.53 s), then a pill grows from the centre (1.57-1.73 s)." },
+    { "source_id": "ref-92c22222a2", "timestamps": [1.82, 1.89], "observed": "A spark shrinks to a dot (1.73-1.86 s), then a cream disc bursts from it with an orange disc growing inside (1.89-2.06 s)." },
+    { "source_id": "ref-c93524ef20", "timestamps": [10.62, 10.69], "observed": "A spiral winds into a dot (10.56-10.62 s), the dot becomes an asterisk, one inverted black frame (10.69 s), then the dot becomes the dot of the next word (10.72-10.89 s)." }
+  ],
+  "related": { "techniques": ["element-bloom-transition", "particle-assemble-glyph", "flash-frame-cut"], "effects": ["element-bloom", "object-assembly", "halo-bloom"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "grow", "implode", "ring", "burst", "logo-reveal", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

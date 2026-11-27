@@ -1,6 +1,7 @@
 {
   "id": "hud-frame-overlay",
   "name": "HUD frame overlay",
+  "family": "staging-depth",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Six inspected references keep a constant frame layer over changing scenes: corner brackets and micro labels, an engineering-drawing border, life-stat counters or a chapter progress bar.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A thin, persistent frame (corner marks, tiny labels, a counter, a progress rule) sits above every scene and survives every cut. It turns a sequence of disparate shots into one designed object and gives the viewer a sense of place and progress.",
@@ -34,7 +35,17 @@
     { "source_id": "ref-b97f9168c6", "timestamps": [1.0, 20.0], "observed": "Both halves keep small corner meta text over every card." },
     { "source_id": "ref-736d4ef2c2", "timestamps": [1.0, 15.0], "observed": "An engineering-drawing border with a title block frames the type compositions." },
     { "source_id": "ref-5924215625", "timestamps": [4.5, 12.0], "observed": "Age and heart-rate counters in the top corners update from scene to scene." },
-    { "source_id": "ref-37644838b5", "timestamps": [10.0, 60.0], "observed": "A chapter progress bar and caption block stay on screen while the 3D scene changes." }
+    { "source_id": "ref-37644838b5", "timestamps": [10.0, 60.0], "observed": "A chapter progress bar and caption block stay on screen while the 3D scene changes." },
+    { "source_id": "ref-81650adf49", "timestamps": [8.56, 9.31, 12.28], "observed": "Corner telemetry (a T+ mission clock, distance and speed readouts) ticks over every shot of the photon's trip." },
+    { "source_id": "ref-aff23e662b", "timestamps": [2.62, 6.38], "observed": "Small corner labels and a boxed rolling counter frame every card of the reel." },
+    { "source_id": "ref-58ff9f39df", "timestamps": [1.2, 56.34, 130.66], "observed": "A thin header bar (label, live dot, context counter, rule) stays at the top of every scene for all 153 s, across dark and light sections." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [0.37, 9.3], "observed": "A tiny corner label and a round badge bottom-left survive every cut of the word-card section." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [0.37, 7.85, 14.58], "observed": "Monospace labels in all four corners and a progress rule at the bottom persist across every scene." },
+    { "source_id": "ref-0fe1abc90a", "timestamps": [0.37, 10.74], "observed": "Every shot sits in an instrument frame of monospace corner labels, rulers and readouts." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [0.38, 14.62], "observed": "Thin corner marks and tiny labels stay on every frame across all the object changes." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [0.38, 7.12, 14.62], "observed": "Corner brackets, tiny labels and a ruler frame every section of the reel (0.4-14.6 s)." },
+    { "source_id": "ref-05c4222dae", "timestamps": [1.13, 14.69], "observed": "Corner marks and tiny mono labels frame the index card and the chapters (1.1-14.7 s)." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [0.38, 12.39], "observed": "Tiny corner labels and a faint dot grid frame every section (0.4-12.4 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Label swap, progress tracks time, stays above a bloom." },
@@ -44,5 +55,5 @@
   "related": { "techniques": ["word-per-beat-sequence", "single-stage-progression"], "compositions": ["frame-hud", "caption-band"], "templates": ["kinetic-typography", "technical-explainer", "product-promo"] },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Labels and layout are original.",
   "tags": ["hud", "frame", "overlay", "continuity", "editorial-layout", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-26" }
 }

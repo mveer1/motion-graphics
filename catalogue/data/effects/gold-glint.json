@@ -1,0 +1,50 @@
+{
+  "id": "gold-glint",
+  "name": "Gold-leaf glint",
+  "category": "texture_material",
+  "visual_intent": "A light band sweeps across gold-leaf fills (haloes, crowns, borders), the Tanjore and manuscript gold catching the lamp.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "gold",
+    "shine",
+    "material",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "gold-glint-recipe"
+  ],
+  "implementation_summary": "A light band sweeps across gold-leaf fills (haloes, crowns, borders), the Tanjore and manuscript gold catching the lamp.",
+  "primitives": [
+    "deckle-sheet"
+  ],
+  "runtime_api": "Studio.kit.mythic.gold(w) -> fill url; Studio.kit.mythic.glint(tl, url, at, {duration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

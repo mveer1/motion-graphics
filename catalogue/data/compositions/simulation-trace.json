@@ -1,0 +1,84 @@
+{
+  "id": "simulation-trace",
+  "name": "Live simulation trace",
+  "purpose": "A system runs on one seeded event list: a gauge with a cell stack, an event log, a step chart with event ticks and a regime caption swapped in place all read the same state.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "svg-path",
+      "styled-text"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "capacity/start",
+      "type": "number",
+      "description": "gauge range and start",
+      "default": 10
+    },
+    {
+      "name": "events",
+      "type": "array",
+      "description": "[{t, kind take|refill, amount}], e.g. from Studio.comp.simulationScript(seed, phases)"
+    },
+    {
+      "name": "regimes",
+      "type": "array",
+      "description": "[{t, text}] caption per regime"
+    },
+    {
+      "name": "duration",
+      "type": "number",
+      "description": "simulated seconds"
+    },
+    {
+      "name": "labels",
+      "type": "object",
+      "description": "{ok, rejected, refill}"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.simulation(parent, data, {logRows, chartHeight}) -> {enter, run(tl, at, {duration}), exit, states}; Studio.comp.simulationScript(seed, phases) -> events"
+  },
+  "layout_notes": "Grid: gauge and log on top, chart filling the middle row, regime caption under it; give the parent a height.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-simulation-race/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-simulation-race/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "animated-chart",
+    "tile-grid"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "system",
+    "simulation",
+    "rate-limit"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

@@ -107,9 +107,9 @@ class TestProfiles(unittest.TestCase):
         cls.styles = {json.loads(p.read_text())["id"]: 1 for p in (ROOT / "catalogue/data/styles").glob("*.json")}
         cls.techs = {json.loads(p.read_text())["id"]: 1 for p in (ROOT / "catalogue/data/references").glob("*.json")}
 
-    def test_registry_has_nine_styles_and_fourteen_extracted_references(self):
+    def test_registry_has_ten_styles_and_fourteen_extracted_references(self):
         kinds = [p["kind"] for p in self.reg.values()]
-        self.assertEqual(kinds.count("registry"), 9)
+        self.assertEqual(kinds.count("registry"), 10)   # 9 originals + mythic-storyteller (2026-11-23)
         self.assertEqual(kinds.count("extracted"), 14)
 
     def test_every_profile_validates(self):
@@ -216,6 +216,33 @@ class TestBeatmap(unittest.TestCase):
             errs = list(jsonschema.Draft7Validator(json.loads((ROOT / "specs/storyboard-spec.json").read_text())).iter_errors(sb))
             self.assertEqual([e.message for e in errs], [])
             self.assertEqual(sb["scenes"][1]["start_sec"], 10.0)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_storyboard_times_follow_scene_speed_and_ignore_a_stale_timeline(self):
+        d = self.good()
+        long_line = " ".join(["word"] * 40)   # about 13.8 s at 1.15x, 17.3 s at 0.92x: longer than the 10 s target
+        tmp = Path(tempfile.mkdtemp())
+        try:
+            (tmp / "src").mkdir()
+            ids = [b["id"] for b in d["beats"]]
+            narr = [{"id": i, "text": long_line if k == 0 else "short line", **({"speed": 0.92} if k == 0 else {})} for k, i in enumerate(ids)]
+            (tmp / "src" / "narration.json").write_text(json.dumps({"scenes": narr}))
+            times, basis = self.bm.beat_times(tmp, d["beats"], 40)
+            self.assertIn("stretched", basis)
+            self.assertAlmostEqual(times[0][1], 40 / (2.9 * 0.92 / 1.15) + 0.5, places=1)
+            self.assertEqual(times[1][1] - times[1][0], 10.0)
+            # a timeline made from other words: not used, and the basis says why
+            tl = {"scenes": [{"id": i, "text": "old words", "start_time_sec": 3.0 * k, "end_time_sec": 3.0 * k + 2.5} for k, i in enumerate(ids)]}
+            (tmp / "audio").mkdir()
+            (tmp / "audio" / "timeline.json").write_text(json.dumps(tl))
+            times2, basis2 = self.bm.beat_times(tmp, d["beats"], 40)
+            self.assertIn("audio is stale", basis2)
+            self.assertEqual(times2, times)
+            for s, n in zip(tl["scenes"], narr):
+                s["text"] = n["text"]
+            (tmp / "audio" / "timeline.json").write_text(json.dumps(tl))
+            self.assertEqual(self.bm.beat_times(tmp, d["beats"], 40)[1], "audio/timeline.json")
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
@@ -765,6 +792,73 @@ class TestMotionQAComposition(unittest.TestCase):
         d = self.lint(body, "hud2", ctx)
         self.assertNotIn("hud-label", self.ids(d))
         self.assertTrue([f for f in d["findings"] if f["id"] == "hud-label" and "waived_by" in f])
+
+
+# ------------------------------------------------------------------------------------------- motion QA: style template rules
+class TestMotionQARules(unittest.TestCase):
+    """Pure parts of motion-qa that read the project's style template; no ffmpeg or browser needed."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.mq = load_script("motion-qa")
+
+    def ctx(self, rules=None, caps=None):
+        c = self.mq.Context(None, "portrait")
+        c.rules, c.template_id = rules or {}, "t"
+        c.caps = caps or {}
+        return c
+
+    def test_pinned_template_sets_the_static_limit_and_label_floor(self):
+        tid, rules = self.mq.template_rules({"style_template": {"id": "proof-canvas", "version": 2}})
+        self.assertEqual(tid, "proof-canvas")
+        self.assertEqual(self.mq.static_limit(self.ctx(rules)), rules["max_beat_gap_sec"])
+        self.assertEqual(self.mq.static_limit(self.ctx({**rules, "static_hold_sec": 1.5})), 1.5)
+        self.assertEqual(self.mq.static_limit(self.ctx()), self.mq.STATIC_WARN_SEC)
+        self.assertEqual(self.mq.label_floor_fraction(self.ctx()), self.mq.PRESETS["text_floor_fraction"])
+        self.assertEqual(self.mq.label_floor_fraction(self.ctx({"label_floor_fraction": 0.03})), 0.03)
+        self.assertEqual(self.mq.template_rules({}), (None, {}))
+
+    def test_hold_verdict_uses_the_limit_and_the_changed_share(self):
+        hv = self.mq.hold_verdict
+        self.assertEqual(hv(2.5, 0.05, 0.0, True, False, 2.0), ("static-hold", "warn", "frozen"))
+        self.assertEqual(hv(2.5, 0.05, 0.0, True, False, 3.0)[1], "note")      # under a 3 s template limit
+        self.assertEqual(hv(4.0, 0.05, 0.06, True, False, 2.0), ("static-hold", "note", "localized"))
+        self.assertEqual(hv(4.0, 1.2, 0.0, True, False, 2.0)[0], "slow-drift")
+        self.assertEqual(hv(4.0, 0.05, 0.0, True, True, 2.0)[1], "note")       # the end of the film
+
+    def test_changed_fraction_sees_a_small_moving_region(self):
+        import videoscan as vs
+        still = np.full((30, 36, 64), 200, np.uint8)
+        self.assertEqual(vs.changed_fraction(still, 0, 29, 15), 0.0)
+        live = still.copy()
+        for i in range(30):
+            live[i, 2:8, 2:8] = 40 if (i // 15) % 2 else 200   # a 6x6 counter flips: 36 of 2304 pixels
+        self.assertAlmostEqual(vs.changed_fraction(live, 0, 29, 15), 36 / (36 * 64), places=3)
+
+    def test_caption_text_is_recognised_by_class_template_band_and_storyboard_lane(self):
+        mq = self.mq
+        box = {"x": 100, "y": 900, "w": 400, "h": 40, "cls": ""}
+        self.assertEqual(mq.caption_source({**box, "cls": "st-caption-word"}, [], 1280), "runtime")
+        self.assertIsNone(mq.caption_source(box, mq.caption_bands(self.ctx(), "portrait", ["s1"]), 1280))
+        tpl = self.ctx({"caption_band": {"portrait": {"top": 0.68, "bottom": 0.78}}})
+        self.assertEqual(mq.caption_source(box, mq.caption_bands(tpl, "portrait", ["s1"]), 1280), "style-template")
+        sb = self.ctx(caps={"s1": {"caption-band"}})
+        self.assertEqual(mq.caption_source(box, mq.caption_bands(sb, "portrait", ["s1"]), 1280), "storyboard")
+        self.assertIsNone(mq.caption_source(box, mq.caption_bands(sb, "portrait", ["s2"]), 1280))
+
+    def test_echo_share(self):
+        said = "The thermostats were reachable from the internet and nobody changed the passwords"
+        self.assertGreater(self.mq.echo_share(["thermostats were reachable from internet, nobody changed passwords"], said), 0.7)
+        self.assertIsNone(self.mq.echo_share(["four degrees"], said))
+
+    def test_new_rules_validate_against_the_schema(self):
+        import jsonschema
+        tpl = json.loads((ROOT / "catalogue/data/style-templates/news-brief.json").read_text(encoding="utf-8"))
+        tpl["rules"].update({"static_hold_sec": 2.5, "label_floor_fraction": 0.026, "caption_band": {"portrait": {"top": 0.66, "bottom": 0.77}}})
+        schema = json.loads((ROOT / "catalogue/schemas/style-template.schema.json").read_text(encoding="utf-8"))
+        self.assertEqual([e.message for e in jsonschema.Draft7Validator(schema).iter_errors(tpl)], [])
+        tpl["rules"]["caption_band"] = {"tall": {"top": 0.1, "bottom": 0.2}}
+        self.assertTrue(list(jsonschema.Draft7Validator(schema).iter_errors(tpl)))
 
 
 # ------------------------------------------------------------------------------------------- studio.py integration

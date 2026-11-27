@@ -165,7 +165,9 @@
    * Design comes from a preset (specs/caption-presets.json): options.preset, else window.STUDIO_CAPTION_PRESET,
    * which `studio.py captions` writes into src/captions.js: {id, enter: fade|pop|rise, roles: {hook|body|outro:
    * {lane, scale}}}. A cue's lane is cue.lane (storyboard caption_lane), else its role's lane, else lower; its size
-   * is the role's scale. With no preset the band keeps the plain look and sits in the lower lane.
+   * is the role's scale. Lane 'subject' puts the cue beside cue.anchor (a selector; storyboard caption_anchor),
+   * below it unless cue.side is 'above', measured at the cue's start and held (no anchor found: lower).
+   * With no preset the band keeps the plain look and sits in the lower lane.
    * Each caption carries data-layout-allow-caption-zone for HyperFrames' caption-zone gate.
    */
   C.captions = function (parent, cues, options) {
@@ -183,7 +185,12 @@
       var rule = preset && preset.roles && preset.roles[role];
       p.setAttribute('data-layout-allow-caption-zone', '');
       p.setAttribute('data-role', role);
-      p.setAttribute('data-lane', c.lane || (rule && rule.lane) || 'lower');
+      var lane = c.lane || (rule && rule.lane) || 'lower';
+      if (lane === 'subject' && !(c.anchor && document.querySelector(c.anchor))) {
+        if (global.console) global.console.warn('[studio] caption at ' + c.start + ' s: subject lane without a findable anchor (' + c.anchor + '); using lower.');
+        lane = 'lower';
+      }
+      p.setAttribute('data-lane', lane);
       if (rule && rule.scale && rule.scale !== 1) p.style.setProperty('--cap-scale', String(rule.scale));
       spans[i] = [];
       if (timed) {
@@ -199,6 +206,7 @@
       el: band,
       schedule: function (tl) {
         cues.forEach(function (c, i) {
+          if (els[i].getAttribute('data-lane') === 'subject') placeBySubject(tl, els[i], c);
           var fade = Math.min(0.12, (c.end - c.start) / 4);
           var from = { autoAlpha: 0 };
           var to = { autoAlpha: 1, duration: fade, ease: 'none', immediateRender: false };
@@ -226,6 +234,25 @@
       }
     };
   };
+
+  /**
+   * Subject lane: the caption sits beside the element it talks about (cue.anchor, a selector), measured as the
+   * anchor renders at the cue's start and then held for the whole cue, so it never chases a moving subject.
+   * cue.side 'below' (default) or 'above'; it flips when the preferred side leaves the safe area and is clamped
+   * inside it horizontally.
+   */
+  function placeBySubject(tl, p, c) {
+    var f = Studio.format, s = f.safe;
+    var box = Studio.boxAt(tl, c.anchor, c.start + 0.002);
+    var w = p.offsetWidth, h = p.offsetHeight, gap = Studio.u(1.6);
+    var below = box.y + box.h + gap, above = box.y - gap - h;
+    var fitsBelow = below + h <= f.height - s.bottom, fitsAbove = above >= s.top;
+    var top = c.side === 'above' ? (fitsAbove || !fitsBelow ? above : below) : (fitsBelow || !fitsAbove ? below : above);
+    top = Math.max(s.top, Math.min(top, f.height - s.bottom - h));
+    var left = Math.max(s.left, Math.min(box.cx - w / 2, f.width - s.right - w));
+    p.style.left = left.toFixed(1) + 'px';
+    p.style.top = top.toFixed(1) + 'px';
+  }
 
   // ------------------------------------------------------------------ reference-derived compositions
   function beatTimes(count, beats) {

@@ -12,7 +12,7 @@ Business context (goals, scale, subjects, non-goals): @docs/VISION.md
 - Always pass `--low-memory-mode` and redirect stdin: `hyperframes render . --fps 30 --quality looks --low-memory-mode --output ../renders/visuals.mp4 < /dev/null`. Without `< /dev/null` the rating survey blocks.
 - Render duration is not a constraint. Don't cut visual density to save time.
 - Never hold back a runtime, preset or template upgrade because it makes earlier videos stale. Make the upgrade, run `studio.py upgrade --all` (re-syncs `src/_studio/`, regenerates entry files, moves superseded renders to `renders/history/`), and re-render what needs it, one build at a time.
-- `studio.py build` takes the render lock itself and stamps each render (`renders/<fmt>/visuals.stamp.json`): an edited composition re-renders on its own, and the stale render is first moved to `renders/history/<fmt>/<when>/` (its `out/` copy to `out/archive/`) with a `history.json` naming the files that changed, so nothing is overwritten. An unstamped legacy render is reused until `studio.py renders <slug> --archive --unstamped` retires it. Renders go to `visuals.partial.mp4` and are renamed only on success. Narration is re-made when `src/narration.json`, the voice or the speed no longer match what `audio/timeline.json` records (`build-audio.py` re-synthesises only the changed scenes and keeps the replaced audio in `audio/history/`); if the new audio moves scene timing, the build stops so the cue times hand-copied into `src/` can be re-timed (`--allow-narration-shift` overrides). `validate` warns on stale narration and errors when speech outruns `duration_sec`. `scene-revise.py` re-stamps the render after a splice, so the mux build keeps it. `build-audio.py`, `src/pipeline/tts.py`, `frame-review.py`, `reference-corpus.py doctor|analyze|strip` and the render stage of `build-project.sh`/`render.sh` take the same host lock themselves (re-entrant under a parent that holds it), so calling them directly is safe. Per-stage timings go to `logs/build-timings.jsonl`. Audit evidence: `docs/architecture-audit.md`.
+- `studio.py build` takes the render lock itself and stamps each render (`renders/<fmt>/visuals.stamp.json`): an edited composition re-renders on its own, and the stale render is first moved to `renders/history/<fmt>/<when>/` (its `out/` copy to `out/archive/`) with a `history.json` naming the files that changed, so nothing is overwritten. An unstamped legacy render is reused until `studio.py renders <slug> --archive --unstamped` retires it. Renders go to `visuals.partial.mp4` and are renamed only on success. Narration is re-made when `src/narration.json`, the voice or the speed no longer match what `audio/timeline.json` records (`build-audio.py` re-synthesises only the changed scenes and keeps the replaced audio in `audio/history/`); if the new audio moves scene timing, the build stops so the cue times hand-copied into `src/` can be re-timed (`--allow-narration-shift` overrides). `validate` warns on stale narration and errors when speech outruns `duration_sec`. `scene-revise.py` re-stamps the render after a splice, so the mux build keeps it. `build-audio.py`, `src/pipeline/tts.py`, `frame-review.py`, `reference-corpus.py doctor|analyze|strip|listen` and the render stage of `build-project.sh`/`render.sh` take the same host lock themselves (re-entrant under a parent that holds it), so calling them directly is safe. Per-stage timings go to `logs/build-timings.jsonl`. Audit evidence: `docs/architecture-audit.md`.
 - TTS goes through `src/pipeline/tts.py` (or `scripts/build-audio.py`). Never call `/opt/homebrew/bin/kokoro-tts` directly; it breaks on kokoro 0.9.x.
 - Use `python3.12` or `.venv/bin/python` for ML, TTS and schema work.
 
@@ -28,6 +28,7 @@ Business context (goals, scale, subjects, non-goals): @docs/VISION.md
 ## Commands
 
 Setup (once per clone):
+
 ```bash
 git submodule update --init --recursive        # tools/earshot, tools/clipwing-skills
 source .venv/bin/activate && pip install -e tools/earshot
@@ -36,22 +37,23 @@ source .venv/bin/activate && pip install -e tools/earshot
 Studio projects (`project.json` present), the main path. Every project is exactly one of three forms (`specs/video-types.json`, guide `docs/video-forms.md`), each with a 15 s margin at both ends of its range, and `new` requires `--type`. Each form has its own playbook skill for storytelling, scripting, pacing and editing (`.claude/skills/short-form`, `mid-form`, `long-form`); subject knowledge comes from the brief's categories and the style template:
 
 | `--type` | What | Format | Nominal length | Allowed (with margin) | Render |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | `short` | Short-form micro explainer: Hook, Explanation, Payoff | portrait | 20-60 s (45 preferred) | 15-75 s | one pass |
 | `mid` | Mid-form focused explainer: Hook, Context, Explanation, Demonstration, Conclusion | portrait or landscape (`--formats`) | 60-180 s | 45-195 s | one pass |
 | `long` | Long-form documentary or deep dive, told in chapters | landscape (portrait when the brief asks) | 5-12 min | 285-735 s | segments of ~90 s, resumable |
 
 The form fixes the allowed platforms and formats and the length window. `validate` errors when the project or brief falls outside them (195-285 s belongs to no form: cut it to mid or build it out to long); a legacy brief with no `deliverables.video_type` only gets a warning. The pre-2.0 ids `reel`, `long-reel` and `youtube` are accepted as aliases of `short`, `mid` and `long`. Any form can join a series, and one series may mix forms. A long film's `storyboard.json` carries `chapters` (descriptive title, one mechanism, at most three new terms, a re-hook), checked by `validate`. Above 180 s `studio.py build` renders through `scripts/render-segments.py`: segments cut at scene edges, a checkpoint after each in `renders/<fmt>/chunks/`, resume after a killed build, any `src/` edit restarts. Verified on a 22 s film; no 5-12 minute film has been built yet, so treat the long-form numbers as a first guess.
+
 ```bash
 python scripts/studio.py new <slug> --template illustrated-explainer --type short|mid|long [--formats portrait|landscape] --category history,finance
 python scripts/studio.py validate <slug>               # schema + cross-reference + determinism lint
 python scripts/frame-review.py <slug> --fonts google   # Playwright contact sheets in qa/frame-review/
 python scripts/studio.py build <slug> --dry-run        # print per-format plan; runs anywhere
-python scripts/studio.py build <slug>                  # render host only: render, mux, QA, then the poster
+python scripts/studio.py build <slug>                  # render host only: render, mux, QA, the cover still (qa/story-review.json packaging.cover -> out/<slug>-<format>-cover.png), then the poster
 python scripts/studio.py poster <slug> | --all        # poster.jpg = last non-black frame of the finished film (build does this itself)
 python scripts/studio.py review <slug> --init          # then score qa/creative-review.json
-python scripts/studio.py hook score "line one" "line two"   # rank hook lines (a lint, not a view predictor); `hook formulas` lists specs/hook-formulas.json
-python scripts/studio.py script <slug>                 # pre-render script and story lint: timed sentence sheet, hook, rhythm, loop, asks, storyboard why-table
+python scripts/studio.py hook score "line one" "line two"   # rank hook lines (a lint, not a view predictor) plus clarity notes (bare pronoun, bare unit; never scored); `hook formulas` lists specs/hook-formulas.json
+python scripts/studio.py script <slug> [--probe]       # pre-render script and story lint: timed sentence sheet (speed-aware; says "audio is stale" after a rewrite), hook, rhythm, loop, asks, why-table, named_things table, film-time gap audit (narration over 2 s with no visual event, from qa/motion/tweens.json; --probe refreshes it, browser + render lock)
 python scripts/studio.py captions <slug> --timing words [--preset id]        # local Whisper word times (takes the analysis lock itself) -> cues + audio/words.json + the caption design (preset from the style, lane per section); grouping follows the video type, phrase for reels, sentence for YouTube
 python scripts/studio.py words <slug> "four degrees"   # film time a phrase is spoken, to snap a storyboard beat to its noun
 python scripts/studio.py sync <slug>                   # refresh src/_studio/ from src/studio/
@@ -61,21 +63,26 @@ python scripts/studio.py formats <slug>                # regenerate src/index.<f
 ```
 
 Categories and series. `specs/categories.json` lists the subject categories (technology, finance, science, history, mathematics, news, storytelling). A brief takes one or more in `categories` (first is primary), and `validate` warns when it has none. Style records may be tagged with `categories`; a style with none is general-purpose. A series (`series/<slug>/series.json`, `specs/series-spec.json`) groups projects as `sequential` (numbered parts) or `collection` (unordered, same theme); the series owns membership:
+
 ```bash
 python scripts/studio.py series new <slug> --kind sequential|collection --category history
 python scripts/studio.py series add <series> <project> [--part N] [--planned [--type short|mid|long]]
 python scripts/studio.py series show|list|validate [<series>]
 ```
+
 Style templates. A style template (`catalogue/data/style-templates/`, `docs/style-templates.md`) is the unit you pick per film and the unit you refine: seven records split by visual job (`systems-blueprint`, `proof-canvas`, `data-ledger`, `chronicle`, `storybook`, `news-brief`, `science-atlas`). Each binds a style system and a design profile and adds scene grammar, measurable pacing rules, anti-patterns and a versioned revision log. `project.json` pins `style_template: {id, version}`; refine a template, bump its version, and `style check` lists every project that is behind. `validate` prints the same findings as warnings, never errors:
+
 ```bash
 python scripts/studio.py style recommend <slug>        # or --category finance --text "..."
 python scripts/studio.py style show <id> | list
 python scripts/studio.py style adopt <slug> <id>       # pin id and current version (also re-pins)
-python scripts/studio.py style check [<slug>]          # one project, or the whole portfolio
+python scripts/studio.py style check [<slug>]          # one project, or the whole portfolio; storyboard `pace` scales the word budget (slow 0.9x, fast 1.1x)
 python scripts/studio.py new <slug> --template illustrated-explainer --style-template <id> --category <c>
 python tests/test-style-templates.py
 ```
+
 Fitness films (Sinew brand, mascot Tibi): start with the `/fitness` skill (`.claude/skills/fitness/SKILL.md`), an orchestrator that loads capability skills on demand (`fitness-anatomy`, `fitness-animation`, `fitness-qa`, `fitness-publish`). It specialises the pipeline above; it is not a separate one. Architecture, audit, decisions and open items: `docs/fitness-studio.md`; look and language: `assets/fitness/STYLE.md`. Tibi exists in 2D (Cobalt Sculpt; master source `src/fitness/tibi/`, exported to `sculpt-data.js` by `fitness.py sculpt`, never edit that file) and in real 3D (Three.js, vendored): since runtime 1.9.0 the 3D body is ONE continuous skin whose muscles are surface relief and surface regions (`anatomy3d.js`), with cutaways, isolation and skeleton modes; muscles are never separate objects on the body. Rules and tools: `references/motion-3d.md`.
+
 ```bash
 python scripts/fitness.py plan "<topic>" [--type short|mid|long]      # pillar, form, visual systems, kit assets, steps
 python scripts/fitness.py new <slug> --topic "..." --type mid [--formats landscape]   # fitness-explainer template + dossier skeleton
@@ -94,41 +101,79 @@ node scripts/anatomy3d-check.js                                        # anatomi
 .venv/bin/python scripts/fitness-clip.py <film.mp4> --cut name:a:b --out out/dir   # frame-exact clips with honest metadata
 python3.12 tests/test-fitness.py && python3.12 tests/test-rig3d.py && python3.12 tests/test-anatomy3d.py
 ```
+
 Open decisions live in `TODO.md` (root).
+
+Myth and legend films (Hindu, Jain, Buddhist, Greek, Roman, Norse): start with the `mythic-tales` skill (`.claude/skills/mythic-tales/SKILL.md`). Category `mythology`, style template `mythic-tale` (default look `mythic-paper`; alternates `shadow-lantern`, `painted-folio`, `carved-relief`), runtime kit `Studio.kit.mythic` (`src/studio/kits/mythic/`), scaffold `--template mythic-film`, public-domain image search `scripts/myth-sources.py`. Storyteller stance: name the telling, attribute belief, never preach or debunk; sacred images stay high and whole. A figure, weapon or aura the kit lacks: the `mythic-figure-designer` skill (heroic human build in `kits/mythic/figures-human.js`, weapons and auras in `kits/mythic/armoury.js`; review sheets `python tests/mythic-kit/render-figures.py [--ids <id>-human]`).
+
+```bash
+python scripts/studio.py new <slug> --template mythic-film --style-template mythic-tale --type short --category mythology
+python scripts/myth-sources.py search "<figure> <episode>" --out projects/<slug>/research/plates.json
+python tests/test-mythic.py
+```
 
 Legacy technical explainers (no `project.json`): `./scripts/build-project.sh <slug>` runs the full Stage 0–9 chain. Individual steps: `python3 scripts/validate-research.py projects/<slug>`, `python3 scripts/build-audio.py <slug> [--speed 1.15] [--voice am_adam]`, `./scripts/build-all.sh` for the whole portfolio.
 
+Visual engines (start with the `visual-director` subagent or skill; `ARCHITECTURE.md` section 0.11, evaluation `docs/visual-engines.md`). HyperFrames is always the compositor; Blender 5.2.4 LTS (experimental) only renders plates, opaque MP4 or alpha WebM in `src/plates/`, placed as timed `<video>` layers, never with text. Remotion and Revideo are blocked, Manim proposed:
+
+```bash
+python scripts/visual-director.py doctor                 # which engines this host has (Blender pinned 5.2.4)
+python scripts/visual-director.py install-blender        # pinned download, SHA-256 checked, unpacked per user (no admin)
+python scripts/visual-director.py plan <slug> [--write]  # draft per-scene engine decisions into visual-plan.json
+python scripts/visual-director.py add-plate <slug> <id> --template hero-orbit|particle-field|rigid-collapse|light-shafts --scene s2 [--alpha]
+python scripts/visual-director.py render <slug> [--plate id] [--preview]   # host render lock; skips plates whose stamp is current
+python scripts/visual-director.py check <slug>           # also run by studio.py validate; studio.py build renders stale plates first
+python tests/test-visual-director.py
+```
+
+Frame rate (start with the `frame-rate` skill; `ARCHITECTURE.md` section 0.12). A studio project goes to 60 fps by a native re-render, never by interpolation; any other finished film is interpolated per frame pair from a probe measured on the film itself:
+
+```bash
+python scripts/frame-rate.py audit <slug> [--fps 60] [--apply]      # native path: 30 fps plates, moves that still strobe, motion blur; --apply sets project.json fps
+python scripts/frame-rate.py analyse <film.mp4|slug> --fps 60       # leave-one-out probe -> per-pair plan (analysis lock)
+python scripts/frame-rate.py convert <film.mp4|slug> --fps 60       # copy / blend / minterpolate per pair (render lock), then verify
+python scripts/frame-rate.py sheet <film-60fps.mp4> --plan <plan>   # labelled strips at the review moments: look before delivering
+python tests/test-frame-rate.py
+```
+
 Catalogue and governance:
+
 ```bash
 python scripts/motion-catalogue.py validate
 python scripts/motion-catalogue.py search "<intent>" --type effect|recipe|primitive|composition|template|style|technique|source
 python scripts/workspace-governance.py                 # run after any component change
 python scripts/reference-corpus.py report --backlog
+python scripts/reference-corpus.py listen <ref-id>... --root <folder>   # speech pace, loudness, accents vs cuts (after analyze; analysis lock)
+python scripts/reference-corpus.py playbook [--check]  # regenerate docs/reference-playbook.md from the records
 ```
 
 Creative intelligence layer (optional; see `specs/creative-intelligence-guide.md`). Use `.venv/bin/python` for these; run heavy ones under `session-guard.py run render --`:
+
 ```bash
 python scripts/beatmap.py arcs | init <slug> --arc <id> | validate <slug> | storyboard <slug>
 python scripts/design-dna.py kb for-beat projects/<slug>/beatmap.json <beat>   # also: measure, extract, verify, validate
 python scripts/bakeoff.py run <slug> --beat beat.json --profiles a,b,c         # then: decide
 python scripts/assets.py providers | procedural | import | list | export <slug> <ids>
-python scripts/motion-qa.py project <slug> --expect-audio                     # objective / measured / judgment; never a creative pass
+python scripts/motion-qa.py project <slug> --expect-audio                     # objective / measured / judgment; never a creative pass; reads the pinned style template (static-hold limit, label floor, caption band), writes qa/motion/tweens.json
 python scripts/scene-revise.py <slug> --scene s3                               # re-render one scene and splice it in
 python tests/test-creative-intelligence.py                                     # 54 tests; needs .venv (Pillow, NumPy, jsonschema)
 ```
 
 Tests. There is no test runner. Each `tests/test-*.py` is a standalone script, so run one file directly:
+
 ```bash
 python tests/test-studio.py              # CLI, QA-gate scripts, build delegation (needs bash; stubs ffmpeg/ffprobe)
 python tests/test-studio-runtime.py      # headless Chromium via Playwright; skips without it
 python tests/test-video-forms.py         # the three forms, chapters, segment planner, segmented build plan (pure Python)
 python tests/test-short-form.py          # hooks, word-timed captions, script/story lint, tween variety and conflicts (pure Python, no browser)
+python tests/test-explanation-devices.py  # device table, handbook and golden scenes agree; storyboard `device` checks (pure Python)
 python tests/test-motion-catalogue.py
 python tests/test-motion-primitives.py
 python tests/test-reference-corpus.py
 python tests/test-workspace-governance.py
 python tests/test-audio-stack.py         # fails on hosts without Earshot and FFmpeg
 ```
+
 There is no per-test filter. To narrow a run, edit the file or run the single script you need. `pyproject.toml` configures ruff (`line-length = 100`, rules E/F/W/I); run `ruff check` on the Python you touch.
 
 ## Architecture: the big picture
@@ -136,6 +181,7 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 **Two tracks, one toolchain.** Studio projects (`projects/<slug>/project.json`, schema `specs/video-spec.json`) are driven by `scripts/studio.py`. Legacy explainers (no `project.json`) are driven by `scripts/build-project.sh`. `studio.py build` delegates legacy projects to that script, and `build-project.sh` delegates studio projects back to `studio.py build`. Keep both entry points working when you change either one.
 
 **Studio lifecycle: four phases, each ending at a gate** (full table: `ARCHITECTURE.md` section 0.1, steps: `AGENTS.md` section 1).
+
 1. **Brief and research:** `brief.json` sets categories, formats, length range and style template. `research.json`/`research.md` hold facts only, and only when `brief.research.required`.
 2. **Story and structure:** the `story-writer` subagent writes `beatmap.json`, `storyboard.json` and the `src/narration.json` text, loops with research, and signs off in `qa/story-review.json`. `creative-director` then settles the look.
 3. **Audio, visuals and sound, as one sequential loop:** measured audio, then `src/index.html` (plus generated `src/index.<format>.html`) snapped to it, then SFX. They are not parallel: visuals are timed to measured speech, and the heavy steps share the host lock. Ends at the pre-render gate: `studio.py validate` + `frame-review.py`.
@@ -143,13 +189,13 @@ There is no per-test filter. To narrow a run, edit the file or run the single sc
 
 Specs for each file are in `specs/`, and project templates are in `templates/projects/`.
 
-**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight; 1.3.0 added caption presets and lanes (`specs/caption-presets.json`, `docs/caption-design.md`: a preset per style system, a lane per section, `caption_lane` on a storyboard scene); 1.2.0 vendored GSAP 3.12.5 as `_studio/vendor/gsap.min.js`, so renders need no network: load it from there, never from a CDN; 1.4.x added the rig and the fitness kit; 1.5.0 added the Cobalt Sculpt Tibi and the rig's `derive` hook for pose-dependent attributes; 1.6.0 retired the classic Tibi and added per-joint foreshortening, back, top and above views, a bending shoe, grip hands and the 12-exercise library). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
+**Runtime and determinism.** `src/studio/` is the canonical runtime (`studio-core.js` for format, safe area, seeded randomness and timeline registration; `studio-draw/type/motion/compositions.js`; `styles/`). HyperFrames serves only the project folder, so `studio.py sync` copies it into `projects/<slug>/src/_studio/` and records SHA-256 hashes in `studio.lock.json`. Edits to the copy are rejected. A runtime change reaches projects through `studio.py upgrade` (version label `Studio.version`; 1.1.0 added the spoken-word caption highlight; 1.3.0 added caption presets and lanes (`specs/caption-presets.json`, `docs/caption-design.md`: a preset per style system, a lane per section, `caption_lane` on a storyboard scene); 1.2.0 vendored GSAP 3.12.5 as `_studio/vendor/gsap.min.js`, so renders need no network: load it from there, never from a CDN; 1.4.x added the rig and the fitness kit; 1.5.0 added the Cobalt Sculpt Tibi and the rig's `derive` hook for pose-dependent attributes; 1.6.0 retired the classic Tibi and added per-joint foreshortening, back, top and above views, a bending shoe, grip hands and the 12-exercise library; 1.15.0 added `studio-film.js` (typed kicker, caption plate, stamp, tile grid, stations, odometer, per-scene drift, word-snapped cues `Studio.cues.fromWords`; load it after `studio-compositions.js`), the fitness kit's `stations.js`, the 3D shoulder girdle and 18 more 3D exercises; 1.17.0 added the reference-backlog techniques `Studio.fx.flash` (flash-frame cut with a WCAG 2.3.1 guard), `Studio.fx.containerTransform`, `Studio.type.scramble`, `Studio.type.strike`/`strikeCorrect` and the `subject` caption lane (`caption_anchor` on a storyboard scene); 1.18.0 added `studio-explain.js`, the explanation devices chosen by narrator job (equation build, slider, trace pair, simulation, bar race, progression, `Studio.space.tour`, `Studio.fx.dip`, copy slot, UI widgets, headline pair and build; load it after `studio-compositions.js`), with the device table `specs/explanation-devices.json`, the handbook `docs/explanation-devices.md` and a storyboard `device: {job, id, why}` per scene that `validate` checks). Compositions must register one paused GSAP timeline through `Studio.build`. `studio.py validate` enforces the rules: no `Math.random`, no wall-clock time, no timers or `requestAnimationFrame`, no infinite repeats, and entrances use `fromTo` with `immediateRender`.
 
 **Layouts are composed per format, not cropped.** Each format is set by `specs/format-presets.json`. Authors write one `src/index.html`, and layout adapts through `#root[data-format=…]` rules and `Studio.pick({landscape, portrait, square})`. Sizes use `--u` (1% of the short side) and `--safe-*`, not pixel values.
 
 **Capability catalogue.** `catalogue/data/` holds libraries, primitives, effects, recipes, compositions, styles, templates, techniques and reference sources. Each record validates against `catalogue/schemas/`, and `motion-catalogue.py validate` checks cross-references. New components start as `experimental` and are promoted only after a HyperFrames render on the render host. Components with `approved` status need render-host evidence, so don't mark one approved from a Windows or non-Mac host.
 
-**Reference corpus.** Videos stay outside the repo, and `scripts/reference-corpus.py` writes analysis caches to `reference/analysis/` (untracked). Only technique records (`catalogue/data/references/`) and source records (`catalogue/data/reference-sources/`) are committed. Learn techniques, never assets. Logos, footage and shot sequences are excluded.
+**Reference corpus.** Videos stay outside the repo, and `scripts/reference-corpus.py` writes analysis caches to `reference/analysis/` (untracked). Only technique records (`catalogue/data/references/`, each with a `family`) and source records (`catalogue/data/reference-sources/`) are committed; `listen` adds speech, loudness and accent numbers to a source's `automated.listen` (transcripts stay in the cache), and `playbook` regenerates the grouped index in `docs/reference-playbook.md`, which the story, visual, caption and sound skills read. Learn techniques, never assets. Logos, footage and shot sequences are excluded.
 
 **QA.** Three layers: `scripts/frame-review.py` (Playwright preview: clipped text, safe areas, contrast, dead stretches), `.claude/skills/video-assembler/scripts/run-qa-gates.sh` (the five technical gates: streams, EBU R128 loudness, black gaps, bitrate, Earshot), and `qa/creative-review.json` (12 criteria scored 1–5; passes when every score is ≥3 and the mean is ≥3.5). Automated checks do not replace looking at the frames.
 
@@ -157,7 +203,7 @@ Specs for each file are in `specs/`, and project templates are in `templates/pro
 
 **Governance.** `.claude/skills/` holds the project skills (including `workspace-steward`, which owns placement and registration of new components) and `.claude/skills/parallel-session/` for multi-session coordination. Consult `workspace-steward` before adding a library, tool, skill or integration. Never commit secrets or machine-specific credentials.
 
-**Posters.** Every project has `poster.jpg` (plus `poster.json`: source film, time, film length) in its folder, or in each version folder for a legacy project. It is the last non-black frame of the finished film (the primary format's current render, else the newest in `renders/history/`), made by `scripts/poster.py`. `studio.py build` makes it as its last stage and `build-project.sh` after the legacy export, so a new project gets one without a separate step; re-run `studio.py poster <slug>` after a `scene-revise` splice. Posters are small (about 100 KB each). The catalogue (`python3 scripts/build-catalogue.py` -> `out/catalogue.html`) shows the poster on every tile, tags it with a video type (the brief's `video_type`, else by the film's length: up to 60 s reel, up to 180 s long reel, longer YouTube) and a progress stage (in production, rendered, reviewed, plus a re-render flag). The story-writer's publishing cover is a separate, chosen frame; the poster is the workspace's own thumbnail.
+**Posters.** Every project has `poster.jpg` (plus `poster.json`: source film, time, film length) in its folder, or in each version folder for a legacy project. It is the last non-black frame of the finished film (the primary format's current render, else the newest in `renders/history/`), made by `scripts/poster.py`. `studio.py build` makes it as its last stage and `build-project.sh` after the legacy export, so a new project gets one without a separate step; re-run `studio.py poster <slug>` after a `scene-revise` splice. Posters are small (about 100 KB each). The catalogue (`python3 scripts/build-catalogue.py` -> `out/catalogue.html`) shows the poster on every tile, tags it with a video type (the brief's `video_type`, else by the film's length: up to 60 s reel, up to 180 s long reel, longer YouTube) and a progress stage (in production, rendered, reviewed, plus a re-render flag). The story-writer's publishing cover is a separate, chosen frame (`qa/story-review.json` `packaging.cover`), which `studio.py build` exports per format to `out/<slug>-<format>-cover.png` after delivery; the poster is the workspace's own thumbnail.
 
 **Ideas backlog.** `docs/project-ideas.md` is the source of the catalogue's Ideas tab, an editable sheet (add, edit, delete, sort, search, paste rows from Excel, copy out for Excel) split into sheets by video length (`reel`, `long-reel`, `youtube`). Every idea carries a `[length]` tag, which the builder requires. The sheet keeps edits in the browser only: use its "Download .md" and save the file over `docs/project-ideas.md`, then rebuild with `python3 scripts/build-catalogue.py`. The download matches the file's own format byte for byte.
 

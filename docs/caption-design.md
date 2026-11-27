@@ -26,7 +26,7 @@ All fonts are bundled with HyperFrames, so they render offline. Sizes are in `--
 |---|---|---|---|---|---|---|---|
 | `clean-plate` | editorial-light, swiss-minimal, data-journalism, abstract-geometric, sci-viz | calm, factual: finance, news, science, maths, tech | Inter 700, sentence case | 6.6u (48 px) | 4.4u (32 px) | style plate | fade |
 | `bold-pop` | mixed-media (or pin it for a punchy reel) | high energy, youth, culture | Montserrat 800, caps | 7.4u (53 px) | 4.6u (33 px) | none, outline and shadow | pop; spoken word grows 8 % |
-| `serif-quiet` | archival, cinematic-dark | documentary, history, reflective | EB Garamond 600 | 7.2u (52 px) | 4.8u (35 px) | style plate, 94 % | fade |
+| `serif-quiet` | archival, cinematic-dark, mythic-paper, shadow-lantern, painted-folio, carved-relief | documentary, history, reflective, myth | EB Garamond 600 | 7.2u (52 px) | 4.8u (35 px) | style plate, 94 % | fade |
 | `paper-label` | paper-cut | playful, handmade, storybook | Nunito 800 | 6.8u (49 px) | 4.5u (32 px) | style plate, round | rise |
 | `mono-type` | dark-tech | technical, terminal | JetBrains Mono 600 | 5.8u (42 px) | 3.9u (28 px) | style plate, 94 % | fade |
 
@@ -48,8 +48,11 @@ A lane is a vertical position, as a fraction of the frame height. Captions are a
 | landscape 1280x720 | `lower` | bottom edge | 92 % (y 662) | Always |
 | landscape | `upper` | top edge | 8 % (y 58) | Only when the lower band holds a lower third or source line |
 | square 1080x1080 | `lower` / `upper` | 91 % / 10 % | | as landscape |
+| any format | `subject` | beside an element | measured per cue | A scene where the voice names one thing on screen (a part of a diagram, an illustrated object): the caption sits beside it |
 
 Plates are centred on the frame, at most two lines, and never wider than the safe area. In portrait keep the right 12 % clear below 52 % of the height (button rail).
+
+**Subject lane** (runtime 1.17.0). Mark the scene `"caption_lane": "subject"` with `"caption_anchor": "#id-of-the-element"` (and `"caption_side": "above"` when the space below is taken). `studio.py captions` copies the anchor onto every cue in that scene; `Studio.comp.captions` centres the plate on the anchor, a small gap below it (or above), measured as the anchor renders when the cue starts and then held for the whole cue, so it never chases a moving subject. It flips sides when the preferred side leaves the safe area and is clamped inside it. A scene with no anchor, or an anchor the page does not have, falls back to `lower` (`validate` warns). It counts as a lane in the two-lanes-per-film rule. Do not anchor to the hero object itself when the plate would cover the part being named; anchor to the part. Evidence: `tests/reference-derived/scramble-strike-caption/` (frame review), `tests/studio-runtime/backlog-techniques.html` (runtime checks); not yet rendered on the M2 host.
 
 ## 3. Section by section
 

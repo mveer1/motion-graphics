@@ -728,6 +728,40 @@ class BuildBookkeepingTests(unittest.TestCase):
         stages = [s["stage"] for s in studio.build_plan(CHAI, None, None)]
         self.assertLess(stages.index("formats"), stages.index("validate"))
 
+    def test_cover_still_is_exported_after_delivery_from_the_named_frame(self):
+        out = self._isolated_out()
+        pdir = copy_project(CHAI, self.tmpdir)
+        project = json.loads((pdir / "project.json").read_text(encoding="utf-8"))
+        fid = studio.format_entries(project)[0]["id"]
+        self.assertFalse([s for s in studio.build_plan(pdir, None, [fid]) if s["stage"].startswith("cover:")])  # nothing named
+        review = pdir / "qa" / "story-review.json"
+        review.parent.mkdir(parents=True, exist_ok=True)
+        review.write_text(json.dumps({"packaging": {"cover": {"scene": "x", "at_sec": 2.5, "text": "Four degrees"}}}), encoding="utf-8")
+        plan = studio.build_plan(pdir, None, [fid])
+        stages = [s["stage"] for s in plan]
+        cover = plan[stages.index(f"cover:{fid}")]
+        self.assertGreater(stages.index(f"cover:{fid}"), stages.index(f"deliver:{fid}"))
+        self.assertEqual(cover["cmd"][cover["cmd"].index("-ss") + 1], "2.500")
+        self.assertEqual(cover["cmd"][cover["cmd"].index("-frames:v") + 1], "1")
+        png = out / f"{studio.delivered_path(pdir, project, fid).stem}-cover.png"
+        self.assertEqual(cover["output"], png.resolve().as_posix())
+        # stub ffmpeg: write the file the real command would write, through the normal build runner
+        self._fake_render(pdir, fid)
+        stub = dict(cover, cmd=[sys.executable, "-c", f"open(r'{png}', 'wb').write(b'PNG')"])
+        shutil.rmtree(out)  # the runner must create out/ itself
+        self.assertEqual(studio.run_build_plan(pdir, [stub]), 0)
+        self.assertEqual(png.read_bytes(), b"PNG")
+        # a cover that names only its scene takes the middle of that scene
+        sb = json.loads((pdir / "storyboard.json").read_text(encoding="utf-8"))["scenes"][0]
+        review.write_text(json.dumps({"packaging": {"cover": {"scene": sb["id"]}}}), encoding="utf-8")
+        self.assertAlmostEqual(studio.cover_spec(pdir, project)[0], (sb["start_sec"] + sb["end_sec"]) / 2)
+        # a cover outside the film is reported by validate and produces no step
+        review.write_text(json.dumps({"packaging": {"cover": {"at_sec": project["duration_sec"] + 5}}}), encoding="utf-8")
+        self.assertEqual(studio.cover_spec(pdir, project)[0], None)
+        self.assertIn("outside the film", studio.cover_spec(pdir, project)[1])
+        self.assertFalse([s for s in studio.build_plan(pdir, None, [fid]) if s["stage"].startswith("cover:")])
+        self.assertTrue(any("cover still" in w for w in studio.validate_project(pdir).warnings))
+
     def test_upgrade_resyncs_regenerates_and_moves_superseded_renders(self):
         self._isolated_out()
         pdir = copy_project(CHAI, self.tmpdir)
@@ -819,6 +853,17 @@ class BuildBookkeepingTests(unittest.TestCase):
         self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
         self.assertIn("CHILD GOT", res.stdout)
         self.assertIn("OTHER BUSY", res.stdout)
+
+    @unittest.skipUnless(sys.platform == "win32", "the encoding fallback is Windows-only")
+    def test_lock_messages_survive_a_non_utf8_console(self):
+        code = (
+            "import importlib.util as u;"
+            f"s=u.spec_from_file_location('g', r'{SESSION_GUARD}');m=u.module_from_spec(s);s.loader.exec_module(m)\n"
+            "with m.acquire_lock('render', slug='cp1252'): print('GOT')\n"
+        )
+        res = self._guard({"MOTION_LAB_LOCK_DIR": str(self.tmpdir / "locks"), "PYTHONIOENCODING": "cp1252"}, code)
+        self.assertEqual(res.returncode, 0, res.stdout + res.stderr)
+        self.assertIn("GOT", res.stdout)
 
     @unittest.skipUnless(shutil.which("git"), "git not available")
     def test_worktree_resolves_to_the_main_checkout_lock_dir(self):

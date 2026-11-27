@@ -1,0 +1,546 @@
+{
+  "id": "ref-a3031376e7",
+  "name": "Ball escaping twelve rings: a sonified physics loop (portrait)",
+  "status": "experimental",
+  "source": {
+    "filename": "ball-escaping-twelve-rings-1e2d3ee2.mp4",
+    "aliases": [],
+    "sha256": "a3031376e753c435e3c948d8b74c2f898554ac27ed4857e11d30d407561ae579",
+    "bytes": 5184578,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Outro credit naming an AI model and a 'made with' line",
+        "timestamps": [
+          29.84,
+          31.36
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Reuse the sonification principle only; melodies and sounds must be original."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5184578,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 31.733,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 1280,
+    "video_codec": "avc1.640020",
+    "frame_count": 1904,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1044,
+    "keyframes": 32,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 31.787,
+      "kbps": 249
+    },
+    "overall_kbps": 1307
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (42 frames), the transition strip at the one cut, and the listen grid (9 dictation phrases, 14 accent frames); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 31.7 s.",
+    "concept": {
+      "observed": "A ball bounces inside twelve concentric rings, each with a gap; each escape breaks a ring; a counter falls; the last escape triggers a flash and 'ESCAPED.'; an outro says every frame and note is code.",
+      "interpreted": "A satisfying challenge loop where sound and picture come from the same events.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "A question hook fixed at the top, a 'sound on' chip and a footnote saying every bounce plays the next note."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black navy; rings shift from pink through purple and blue to cyan as they fall; white text."
+      },
+      "composition": {
+        "observed": "Portrait: hook text in the top band, rings centred in the middle third, footnote at the bottom."
+      },
+      "motion": {
+        "observed": "Physics bounce with a short trail; rings break into particle rings; the counter updates in place."
+      },
+      "transitions": {
+        "observed": "One flash-wash cut at 26.73 s into 'ESCAPED.'; otherwise one continuous stage."
+      },
+      "timing_and_rhythm": {
+        "observed": "A ring breaks every 1-3 s; breaks come faster as fewer rings remain."
+      },
+      "sound_design": {
+        "observed": "-8.9 LUFS (loud), LRA 3.9 LU, true peak -0.4 dBTP; 76% of energy in 250 Hz-2 kHz and 14% below 250 Hz: tonal notes with no bass bed; 64 onsets; the strongest fall on ring breaks (8.78, 10.22, 13.35, 15.12, 16.83 s) and on the final escape (26.80 s); ends in 1.2 s of silence.",
+        "interpreted": "The motion is the score; loudness rises with event importance (bounce < break < escape).",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "No voice-over: dictation picked 13 words out of tonal notes (classified sparse), not speech.",
+        "interpreted": "Music-only film."
+      },
+      "captions": {
+        "observed": "The hook line stays in the top band and a footnote in the bottom band for the whole film; the counter line under the hook updates in the ring colour."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 26.73,
+        "observed": "The ball bounces inside the rings; rings break one by one; the counter falls from 12 to 1."
+      },
+      {
+        "start": 26.73,
+        "end": 29.0,
+        "observed": "Flash wash; 'ESCAPED.'"
+      },
+      {
+        "start": 29.0,
+        "end": 31.73,
+        "observed": "Outro lines type one by one with a credit line."
+      }
+    ],
+    "moments": [
+      {
+        "t": 26.8,
+        "observed": "Final escape: the frame washes grey-white with a ring of particles and the loudest hit."
+      }
+    ],
+    "difficult": [
+      "A believable bounce needs a deterministic physics step driven by timeline time (no requestAnimationFrame)"
+    ],
+    "uncertainties": [
+      "Whether pitch rises with progress (no pitch analysis)",
+      "Exact note-to-bounce mapping"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "sonified-motion",
+      "timestamps": [
+        0.21,
+        8.78,
+        10.22,
+        13.35,
+        15.12,
+        26.8
+      ]
+    },
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        7.18,
+        10.2,
+        26.82
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        26.73
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.38,
+        13.22,
+        25.31
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "particle-drift",
+      "counter-roll"
+    ],
+    "compositions": [],
+    "templates": [
+      "music-visualizer"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "generative",
+    "music-sync",
+    "loop"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "portrait",
+    "physics",
+    "sonification",
+    "rings",
+    "countdown",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 13.8
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 190,
+      "scan_size": "96x54",
+      "overview_frames": 42,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 1,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 26.733,
+        "kind": "cut",
+        "score": 1.167,
+        "isolation": 0.94,
+        "frame": 1604
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 26.73,
+        "duration": 26.73,
+        "activity": 0.059,
+        "luma": 0.1
+      },
+      {
+        "index": 2,
+        "start": 26.73,
+        "end": 31.73,
+        "duration": 5.0,
+        "activity": 0.111,
+        "luma": 0.09
+      }
+    ],
+    "static_holds": [
+      [
+        27.92,
+        28.58
+      ],
+      [
+        30.42,
+        31.58
+      ]
+    ],
+    "mean_activity": 0.067,
+    "luma": {
+      "mean": 0.1,
+      "dark_share": 0.99,
+      "light_share": 0.01
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.437
+      },
+      {
+        "hex": "#080808",
+        "share": 0.233
+      },
+      {
+        "hex": "#181828",
+        "share": 0.062
+      },
+      {
+        "hex": "#181838",
+        "share": 0.059
+      },
+      {
+        "hex": "#081818",
+        "share": 0.04
+      },
+      {
+        "hex": "#989898",
+        "share": 0.021
+      },
+      {
+        "hex": "#081828",
+        "share": 0.019
+      },
+      {
+        "hex": "#384868",
+        "share": 0.016
+      },
+      {
+        "hex": "#180818",
+        "share": 0.012
+      },
+      {
+        "hex": "#180828",
+        "share": 0.012
+      }
+    ],
+    "representative_times": [
+      6.68,
+      13.37,
+      20.05,
+      27.98,
+      29.23,
+      30.48
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.0,
+      "mean_dbfs_voiced": -16.3,
+      "silence_ratio": 0.04,
+      "onsets": 64,
+      "onset_rate_per_sec": 2.01,
+      "onset_times": [
+        0.21,
+        0.37,
+        0.56,
+        0.74,
+        0.93,
+        1.11,
+        1.3,
+        1.49,
+        1.67,
+        1.83,
+        2.04,
+        2.3,
+        2.55,
+        2.81,
+        3.09,
+        3.34,
+        3.62,
+        3.9,
+        4.25,
+        4.57,
+        4.85,
+        5.18,
+        5.5,
+        5.8,
+        6.13,
+        6.43,
+        6.78,
+        7.11,
+        7.52,
+        7.94,
+        8.34,
+        8.78,
+        9.24,
+        9.73,
+        10.22,
+        10.8,
+        11.31,
+        11.82,
+        12.35,
+        12.82,
+        13.35,
+        13.93,
+        14.42,
+        15.12,
+        15.7,
+        16.18,
+        16.83,
+        17.44,
+        17.97,
+        18.74,
+        19.44,
+        20.04,
+        20.76,
+        21.39,
+        21.92,
+        22.43,
+        23.01,
+        23.45,
+        23.96,
+        24.66,
+        25.33,
+        25.77,
+        26.24,
+        26.8
+      ],
+      "tempo_estimate": {
+        "bpm": 112.3,
+        "autocorr": 0.18,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 772,
+      "band_share": {
+        "low_lt_250": 0.14,
+        "mid_250_2k": 0.76,
+        "high_gt_2k": 0.1
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 1,
+        "tolerance_ms": 50,
+        "near_onset": 0.0,
+        "chance_level": 0.18,
+        "median_offset_ms": 63
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-a3031376e7",
+      "overview": "reference/analysis/ref-a3031376e7/overview.jpg",
+      "scenes": "reference/analysis/ref-a3031376e7/scenes.jpg",
+      "transitions": "reference/analysis/ref-a3031376e7/transitions.jpg",
+      "motion": "reference/analysis/ref-a3031376e7/motion.jpg",
+      "audio": "reference/analysis/ref-a3031376e7/audio.png",
+      "frames": "reference/analysis/ref-a3031376e7/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -8.9,
+        "lra_lu": 3.9,
+        "true_peak_dbtp": -0.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 29,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 13,
+        "phrases": 9,
+        "speech_start": 2.16,
+        "speech_end": 25.72,
+        "speech_coverage": 0.34,
+        "wps_while_speaking": 1.22,
+        "wpm_over_span": 33,
+        "pace_thirds_wps": [
+          0.51,
+          0.76,
+          0.38
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.09,
+        "pauses": {
+          "count": 8,
+          "median_ms": 910,
+          "max_ms": 4860,
+          "at": [
+            3.59,
+            9.69,
+            10.79,
+            12.39,
+            14.57,
+            15.77,
+            17.92,
+            19.98
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 13,
+            "wps": 0.49
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 64,
+        "accents": 14,
+        "accents_per_min": 26.5,
+        "accent_times": [
+          0.21,
+          8.78,
+          10.22,
+          13.35,
+          15.12,
+          16.83,
+          18.74,
+          19.44,
+          20.76,
+          22.43,
+          23.01,
+          23.45,
+          24.66,
+          26.8
+        ],
+        "accent_threshold": 0.49,
+        "boundaries_with_accent": {
+          "boundaries": 1,
+          "share": 1.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.08
+        },
+        "onset_rate_during_speech": 1.79,
+        "onset_rate_outside_speech": 2.13,
+        "level_speech_minus_gaps_db": 1.2,
+        "sustained_share": 0.94,
+        "silences": [
+          [
+            30.49,
+            31.72
+          ]
+        ],
+        "level_head_vs_body_db": 2.6,
+        "level_tail_vs_body_db": -31.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-a3031376e7/listen",
+        "sheet": "reference/analysis/ref-a3031376e7/listen/listen.jpg",
+        "words": "reference/analysis/ref-a3031376e7/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+/*
+ * Style system: shadow-lantern. Shadow-puppet theatre: a lamp-lit cloth screen, jointed
+ * silhouettes in lamp-black and translucent dyed leather (Tholu Bommalata, Karagiozis,
+ * Reiniger). Light mode: the screen is bright, the figures are dark. Alternate look of the
+ * mythic-tale template. Dyed-leather colours are fills with --c-ink outlines, never text.
+ */
+:root {
+  --c-paper: #f5e2b8;
+  --c-paper-2: #ebcb8f;
+  --c-ink: #1e140c;
+  --c-ink-2: #5a3a1e;
+  --c-rule: #c9a46a;
+  --c-accent: #a3301a;
+  --c-accent-2: #1d5856;
+  --c-accent-3: #9a5f0e;
+  --c-gold: #d99a2b;
+  --c-gold-light: #f2c46b;
+  --c-leather-red: #c2412a;
+  --c-leather-green: #3f7d5a;
+  --c-leather-blue: #2f5f9e;
+  --c-leather-ochre: #d9902a;
+  --c-screen-glow: #fff1cf;
+  --c-malachite: #3f7d5a;
+  --c-sky: #f9ecd0;
+  --c-lotus: #b8506a;
+  --c-saffron: #d9822b;
+  --c-peacock: #1d5856;
+  --c-night: #2a1a10;
+  --c-lamp: rgba(255, 160, 60, 0.26);
+  --c-highlight: rgba(217, 154, 43, 0.36);
+  --c-positive: #3f7d5a;
+  --c-negative: #a3301a;
+  --c-info: #1d5856;
+  --c-shadow: rgba(30, 20, 12, 0.34);
+  --c-caption-ink: #fff1cf;
+  --c-caption-bg: rgba(30, 20, 12, 0.88);
+  --c-caption-hl: #f2c46b;
+
+  --font-display: 'Playfair Display', serif;
+  --font-text: 'EB Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: 0.01em;
+  --track-kicker: 0.22em;
+
+  --ease-out: sine.out;
+  --ease-in: sine.in;
+  --ease-in-out: sine.inOut;
+  --dur-enter: 0.9;
+  --dur-exit: 0.7;
+  --stagger: 0.12;
+
+  --grain-blend: multiply;
+}
+
+.st-paper {
+  background: var(--c-paper-2);
+  box-shadow: 0 0 calc(var(--u) * 1.4) var(--c-shadow);
+}

@@ -1,0 +1,182 @@
+{
+  "target": "tests\\reference-derived\\explain-slider-ui\\index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    1.342,
+    2.685,
+    4.027,
+    5.37,
+    6.712,
+    8.055,
+    9.397,
+    10.739,
+    12.082,
+    13.424,
+    14.767
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 14.8,
+      "fps": 30,
+      "timeline_duration": 14.8,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f00-t000.00.png",
+          "visible_text": [
+            "Money, part 3"
+          ]
+        },
+        {
+          "time": 1.333,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f01-t001.33.png",
+          "visible_text": [
+            "Money, part 3",
+            "Save a little more each month",
+            "Each month",
+            "$50",
+            "After 10 years",
+            "$7,764"
+          ]
+        },
+        {
+          "time": 2.7,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f02-t002.70.png",
+          "visible_text": [
+            "Money, part 3",
+            "Save a little more each month",
+            "Each month",
+            "$80",
+            "After 10 years",
+            "$12,423"
+          ]
+        },
+        {
+          "time": 4.033,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f03-t004.03.png",
+          "visible_text": [
+            "Money, part 3",
+            "Save a little more each month",
+            "Each month",
+            "$300",
+            "After 10 years",
+            "$46,584"
+          ]
+        },
+        {
+          "time": 5.367,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f04-t005.37.png",
+          "visible_text": [
+            "Money, part 3",
+            "Save a little more each month",
+            "Each month",
+            "$300",
+            "After 10 years",
+            "$46,585",
+            "Assumes 5% a year"
+          ]
+        },
+        {
+          "time": 6.7,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f05-t006.70.png",
+          "visible_text": [
+            "Money, part 3",
+            "Save a little more each month",
+            "Each month",
+            "$300",
+            "After 10 years",
+            "$46,585",
+            "Assumes 5% a year"
+          ]
+        },
+        {
+          "time": 8.067,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f06-t008.07.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "Amount",
+            "Save rule",
+            "Move it on payday"
+          ]
+        },
+        {
+          "time": 9.4,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f07-t009.40.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "$300 every month",
+            "Save rule",
+            "Move it on payday"
+          ]
+        },
+        {
+          "time": 10.733,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f08-t010.73.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "$300 every month",
+            "Save rule",
+            "Move it on payday"
+          ]
+        },
+        {
+          "time": 12.067,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f09-t012.07.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "$300 every month",
+            "Save rule",
+            "Move it on payday",
+            "Rule saved",
+            "$300 moves on the 1st"
+          ]
+        },
+        {
+          "time": 13.433,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f10-t013.43.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "$300 every month",
+            "Save rule",
+            "Move it on payday",
+            "Rule saved",
+            "$300 moves on the 1st"
+          ]
+        },
+        {
+          "time": 14.767,
+          "path": "tests/reference-derived/explain-slider-ui/qa/landscape/f11-t014.77.png",
+          "visible_text": [
+            "Money, part 3",
+            "Set it once",
+            "$300 every month",
+            "Save rule",
+            "Move it on payday",
+            "Rule saved",
+            "$300 moves on the 1st"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/explain-slider-ui/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

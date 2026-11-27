@@ -1,0 +1,38 @@
+{
+  "id": "action-synced-foley",
+  "name": "Sound on the action, not on the edit",
+  "family": "sound-design",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "11 inspected reference films (batch-0, batch-2, batch-3, batch-4, batch-5, batch-6, 2026-11-26): a wordless story short has accents only on the keeper's steps and none on its cuts; an editor launch sonifies its keystrokes.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Short sounds follow what a character or element does (each step, keystroke or click on its own contact frame) while cuts carry none. In a wordless film they are the only accents, so the sound tells you where to look.",
+  "purpose": "Tell the viewer where to look: sound follows what a character or element does, while edits stay dry.",
+  "visual_behaviour": "Each step, keystroke or click lands with a short sound on its own contact frame; the cuts carry none.",
+  "mechanics": "Accent onset on the contact frame of each action. ref-1e22836116: accents every 0.42 s on the stair climb (17.86, 18.27, 18.69, 19.11 s) and 14.05-15.39 s across the room; 0 of 6 cuts carry an accent (chance 6%); 18.4 accents per minute. ref-3abcbedd20: accents on typed characters at 0.07, 0.39, 0.77 and 2.04 s. Build: take contact frames from the animation (real-sfx from_hyperframes.py) and place earshot kit sounds (knock, tick) on them. Also (batch-4): ref-7a185cb08d: accents at the wordmark collapsing into its full stop (0.86 s), the dot stretching into a pill (1.60-1.74 s), the button press (2.00-2.11 s), the circle becoming a tile (3.11 s) and the tile splitting into a grid (3.85-4.11 s); spacing 0.11-1.0 s, irregular; 2 of 10 boundaries carry an accent within 100 ms (0.20, chance 0.19).",
+  "decomposition": { "primitives": [], "effects": [], "timing": "One sound per action; spacing follows the walk cycle (0.4-0.5 s) or typing speed." },
+  "parameters": [
+    { "name": "onset_tolerance_ms", "description": "maximum offset from the contact frame", "default": 40 }
+  ],
+  "use_cases": ["Character walks and actions", "Typing and UI demos", "Stamps and placements", "Object-journey product films", "Shape-morph transitions"],
+  "failure_modes": ["Every action at the same level becomes noise", "Sounds more than about 40 ms off the contact frame read as late", "Accents on every small move become noise; keep them to shape changes"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Take the contact frames from the composition (real-sfx from_hyperframes.py), place one short earshot kit sound per contact (knock, tick, key) within 40 ms of the frame, vary the level so the key action is loudest, and leave scene boundaries without an accent. No runtime change; check accents on cuts against chance with reference-corpus.py listen on the render." },
+  "capability": { "support": "native", "requirements": ["contact-frame cue extraction", "short foley sounds"], "compatible_components": [], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-1e22836116", "timestamps": [14.05, 17.86, 18.27, 18.69, 19.11], "observed": "The only accents coincide with the keeper's steps, 0.42 s apart on the stair (consistent with footsteps; not listened to)." },
+    { "source_id": "ref-3abcbedd20", "timestamps": [0.07, 0.39, 0.77, 2.04], "observed": "Accents coincide with characters being typed." },
+    { "source_id": "ref-7a185cb08d", "timestamps": [0.86, 1.6, 2.0, 3.11, 3.85], "observed": "Accents land on each change of the container's shape (wordmark to dot, dot to pill, press, circle to tile, tile to grid) at irregular spacing; boundaries carry accents only at chance (0.20 vs 0.19)." },
+    { "source_id": "ref-5924215625", "timestamps": [0.3, 0.81, 2.81, 3.3, 3.58], "observed": "Accents fall on the heartbeat blips of the line and on the child's ball bouncing, not on the 7 scene changes (0.14 against chance 0.16)." },
+    { "source_id": "ref-392ee4d0f9", "timestamps": [0.51, 0.98], "observed": "Accents land on the ball's floor contacts, where it squashes; no strong accent falls on a cut (0 of 5)." },
+    { "source_id": "ref-99713f6e72", "timestamps": [5.06, 6.32, 7.55], "observed": "Accents fall on the strike (5.06 s), the question mark landing (6.32 s) and the shatter (7.55 s); the film has no cuts." },
+    { "source_id": "ref-e40080c790", "timestamps": [2.35, 4.6, 6.36, 8.61], "observed": "Accents land on the press and drag frames of a cursor, never on a boundary (0 of 3, chance 0.22)." },
+    { "source_id": "ref-2860712d4e", "timestamps": [0.56, 0.81, 1.04], "observed": "Accents on each bounce contact of the ball; none on the inversion cut or the bar wipe." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [0.51, 0.98, 1.46], "observed": "Accents land on each contact of a bouncing ball on a keyframe ruler (contacts at about 0.50, 0.97, 1.43 s), before any music grid takes over." },
+    { "source_id": "ref-04d81a6a3e", "timestamps": [16.76, 17.09, 17.39, 17.72], "observed": "After the logo hit, a wordmark types in letter by letter with a caret (16.1-18.4 s) and the accents are keystrokes 0.14-0.17 s apart, heard over the decaying hit." },
+    { "source_id": "ref-0a270a1575", "timestamps": [5.69, 7.2, 9.89, 11.82, 27.35], "observed": "Accents follow tiles hopping into the grid (11 accents 5.69-11.82 s, 0.35-0.63 s apart) and the Q's landing (27.35 s); 0 of 11 boundaries carry one (chance 0.08)." }
+  ],
+  "related": { "techniques": ["sonified-motion", "beat-grid-element-arrivals", "ui-demo-micro-interactions"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["sound-design", "foley", "action", "contact-frame", "accent", "sync", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

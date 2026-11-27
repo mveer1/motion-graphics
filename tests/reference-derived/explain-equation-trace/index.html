@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Golden scene: linked trace and equation build</title>
+  <!--
+    Golden scene for docs/explanation-devices.md. Copy the pattern, not the words.
+      JOB trace-cause / change-over-time -> DEVICE trace-pair     (Studio.comp.tracePair)
+      JOB build-up                       -> DEVICE equation-build (Studio.comp.equation)
+    Rule shown here: each term of the equation arrives when the figure shows that part, never before.
+    Narration (stand-in timings): "Spin a point round a circle [1.0]. Track only its height [3.0], and over time
+    [4.6] that height draws a wave [6.2]. We call it [8.2] y [8.6] equals [9.0] sine [9.4] of theta [9.9]."
+    Original layout and copy; no reference footage, marks or shot sequences.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    .st-scene { background: var(--c-paper); }
+    .stage { position: absolute; inset: 0; }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    #title { position: absolute; left: var(--safe-left); top: calc(var(--safe-top) + var(--u) * 4); margin: 0; }
+    #trace { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 30%; height: 42%; }
+    #eq { position: absolute; left: 0; right: 0; top: 78%; text-align: center; }
+    #lab-h { position: absolute; left: 52%; top: 26%; font: 600 calc(var(--u) * 2.6) / 1 var(--font-text); color: var(--c-accent-2); }
+    #lab-t { position: absolute; right: var(--safe-right); top: 74%; font: 600 calc(var(--u) * 2.6) / 1 var(--font-text); color: var(--c-ink-2); }
+  </style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="13">
+  <div class="st-scene" id="sceneA">
+    <div class="stage" id="stage">
+      <div class="st-kicker kick">Waves, part 2</div>
+      <h2 class="st-title" id="title">Where a sine wave comes from</h2>
+      <div id="trace"></div>
+      <div id="lab-h">height</div>
+      <div id="lab-t">time &rarr;</div>
+      <div id="eq"></div>
+    </div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script src="../../../src/studio/studio-explain.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var C = S.comp;
+  var at = S.cues({ spin: 1.0, height: 3.0, time: 4.6, wave: 6.2, call: 8.2, y: 8.6, eq: 9.0, sin: 9.4, theta: 9.9 });
+  S.show(tl, '#sceneA', 0);
+  S.space.drift(tl, '#stage', 0, 13, { startScale: 1, endScale: 1.03 });
+  tl.fromTo('#title', { autoAlpha: 0, y: S.u(1.5) }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', immediateRender: true }, 0.2);
+
+  // JOB trace-cause -> trace-pair: one angle drives the point, the guide line and the curve.
+  var trace = C.tracePair('#trace', { cycles: 3, period: 2.6, label: 'A point on a circle traces a sine wave over time' });
+  trace.enter(tl, at('spin', -0.4));
+  trace.run(tl, at('spin'), { cycles: 2 });       // runs 1.0 -> 6.2, so two waves stand on "wave"
+  trace.run(tl, at('wave'), { cycles: 1, period: 5.8 });   // a slower third turn keeps the figure alive under the equation
+  tl.fromTo('#lab-h', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'none', immediateRender: true }, at('height'));
+  tl.fromTo('#lab-t', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: 'none', immediateRender: true }, at('time'));
+
+  // JOB build-up -> equation-build: laid out whole, terms on their spoken words, the result ringed.
+  var eq = C.equation('#eq', { terms: ['y', '=', 'sin', { text: '(θ)', tone: 'accent' }] });
+  eq.build(tl, [at('y'), at('eq'), at('sin'), at('theta')]);
+  eq.ring(tl, 3, at('theta', 0.5));
+});
+</script>
+</body>
+</html>

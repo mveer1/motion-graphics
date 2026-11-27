@@ -1,0 +1,759 @@
+{
+  "id": "ref-dc626241e6",
+  "name": "Dark market-news app reel: violet diagonal band wipes every 2.00 s, two-tone headlines, a card-wall pull-back",
+  "status": "experimental",
+  "source": {
+    "filename": "portfolio-highlight-reel-b7bd4473.mp4",
+    "aliases": [],
+    "sha256": "dc626241e68f192d042e6b0f32fb9175da1191846c378be118675daef1b99078",
+    "bytes": 3233746,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "App mark and wordmark on the end card",
+        "timestamps": [
+          1.12,
+          14.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Market-news interface cards",
+        "timestamps": [
+          4.12,
+          6.38,
+          12.38
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Third-party company names and tickers inside the cards",
+        "timestamps": [
+          1.88,
+          6.38,
+          12.38
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App launch reel; reuse the wipe-as-metronome and two-tone headline principles only, with original interface and data."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3233746,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 450,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 1452,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 262
+    },
+    "overall_kbps": 1725
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions sheet (9 boundaries, every 2nd frame), listen sheet (1 phrase and 13 accents) and a 30 fps strip at 2.80-3.40 s (ffmpeg backend). Accent grid and boundary offsets from measure_batch5.py. nothing was listened to.",
+    "coverage": "Full 15.0 s (1280x720, 30 fps); every boundary at 15 fps, one wipe at 30 fps.",
+    "concept": {
+      "observed": "A launch reel for a market-news app: a mark, a three-word statement on a ticker band, then five feature panels (headlines, earnings, week ahead, price targets, tickers) each opened by the same wipe, a pull-back into a wall of every screen and the end card.",
+      "interpreted": "One wipe used as a metronome turns a feature list into a rhythm.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; each panel carries a two-line headline (statement in white, payoff in violet) beside floating interface cards."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Deep navy to black (#080818, 31%; #181828, 17%), white type, one violet-periwinkle accent (the wipe and headline line 2), green and red market badges."
+      },
+      "typography": {
+        "observed": "Heavy condensed grotesk caps for the opening statement (about 12% of the height), bold grotesk two-line headlines at left, tabular numerals in the cards."
+      },
+      "composition": {
+        "observed": "Statement centred between two ticker bands; feature panels put the headline left (about 25-35% of the height) and tilted interface cards right."
+      },
+      "motion": {
+        "observed": "Cards fly in tilted and settle; numbers roll ($1.35 -> $6.75 at 5.45-6.42 s); a badge pops in (6.32 s); calendar cards drop in one by one (7.3-8.2 s)."
+      },
+      "transitions": {
+        "observed": "9 boundaries. 2.03 s: in-place word swap with a one-frame red-cyan split (cut). 3.13, 5.13, 7.13, 9.13, 11.13 s: diagonal band wipes (cover): light stripes enter from the left at x.87, solid violet covers the frame for about 0.1 s centred on the whole second (2.97-3.03 s), stripes exit right by x.13, about 0.27 s in all. 12.53 s: the panel pulls back into a tilted wall of screens (continuous). 13.70 s: the wall washes to white and the dark logo scene emerges (continuous, about 0.3 s). 14.87 s: fade to black.",
+        "interpreted": "The same cover every 2.00 s makes each feature a bar of the same song.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Features exactly 2.00 s apart (3.13-11.13 s); the wipe's solid cover peaks on the whole second."
+      },
+      "sound_design": {
+        "observed": "-11.4 LUFS, LRA 0.7 LU, true peak -0.5 dBTP (loud and flat). Tempo 80.7 bpm (medium), but accents sit on a 0.25 s grid (phase x.05, x.30, x.55): 24 accents, 96/min. Accents on boundaries 1/9 (0.11, chance 0.27); onsets on boundaries 0.22 (chance 0.46). Each wipe exits at x.13 and the accent comes about 0.17 s later on the first headline word (3.30, 7.31 s) or on card arrivals (4.06-4.55 s, 6.06-6.55 s). No silences; head 8.4 dB under the body. Accents may be part of the music.",
+        "interpreted": "Sound marks what arrives after the wipe, not the wipe itself.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: 20 raw words, 1 confident word in 1 phrase (1.33-1.78 s) over the statement; no speaker. Engine Windows desktop dictation (System.Speech en-US), rough."
+      },
+      "captions": {
+        "observed": "No captions; copy is headlines (two lines, 2-5 words, line 2 in violet, held about 2 s) and the opening three-word statement, one word per beat."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.5,
+        "observed": "Mark animates on a dark glow."
+      },
+      {
+        "start": 1.5,
+        "end": 2.95,
+        "observed": "Statement on a ticker band, one word at a time."
+      },
+      {
+        "start": 2.95,
+        "end": 5.0,
+        "observed": "Headlines feature: news cards stack."
+      },
+      {
+        "start": 5.0,
+        "end": 7.0,
+        "observed": "Earnings card: numbers roll, a badge pops."
+      },
+      {
+        "start": 7.0,
+        "end": 9.0,
+        "observed": "Week ahead: calendar cards drop in."
+      },
+      {
+        "start": 9.0,
+        "end": 11.0,
+        "observed": "Price targets: a chart and a card."
+      },
+      {
+        "start": 11.0,
+        "end": 12.5,
+        "observed": "Tickers list builds."
+      },
+      {
+        "start": 12.5,
+        "end": 13.7,
+        "observed": "Pull back into a wall of screens."
+      },
+      {
+        "start": 13.7,
+        "end": 15.0,
+        "observed": "Mark and tagline, fade to black."
+      }
+    ],
+    "moments": [
+      {
+        "t": 2.97,
+        "observed": "Stripes enter at 2.87 s, solid violet covers the frame 2.97-3.03 s, stripes exit by 3.13 s; the headline's first word lands at 3.27-3.33 s with an accent at 3.30 s."
+      }
+    ],
+    "difficult": [
+      "None beyond care: the wipe, tilted cards and rolling numbers are native; the wall of screens needs many card renders."
+    ],
+    "uncertainties": [
+      "The file name says a portfolio reel; the content is a single app launch",
+      "Whether the 0.25 s accents are music or added ticks"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        3.0,
+        5.0,
+        7.0,
+        9.0,
+        11.0
+      ]
+    },
+    {
+      "id": "chromatic-punch-word",
+      "timestamps": [
+        1.55,
+        2.05
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        3.37,
+        9.35,
+        11.35
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        5.55,
+        6.06
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        4.12,
+        12.62
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        3.3,
+        4.06,
+        4.3,
+        4.55
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "shape-cover-transition",
+      "counter-roll"
+    ],
+    "compositions": [
+      "end-card",
+      "tile-grid"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "dark",
+    "music-only",
+    "wipe-grid",
+    "finance",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 19.6
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 9,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.033,
+        "kind": "soft",
+        "score": 0.452,
+        "isolation": 0.38
+      },
+      {
+        "t": 3.133,
+        "kind": "cut",
+        "score": 0.516,
+        "isolation": 0.51,
+        "frame": 94
+      },
+      {
+        "t": 5.133,
+        "kind": "cut",
+        "score": 0.51,
+        "isolation": 0.55,
+        "frame": 154
+      },
+      {
+        "t": 7.133,
+        "kind": "cut",
+        "score": 0.538,
+        "isolation": 0.57,
+        "frame": 214
+      },
+      {
+        "t": 9.133,
+        "kind": "cut",
+        "score": 0.489,
+        "isolation": 0.54,
+        "frame": 274
+      },
+      {
+        "t": 11.133,
+        "kind": "cut",
+        "score": 0.534,
+        "isolation": 0.55,
+        "frame": 334
+      },
+      {
+        "t": 12.533,
+        "kind": "soft",
+        "score": 0.388,
+        "isolation": 0.0
+      },
+      {
+        "t": 13.7,
+        "kind": "soft",
+        "score": 0.573,
+        "isolation": 0.0
+      },
+      {
+        "t": 14.867,
+        "kind": "soft",
+        "score": 0.091,
+        "isolation": 0.0
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.03,
+        "duration": 2.03,
+        "activity": 0.171,
+        "luma": 0.12
+      },
+      {
+        "index": 2,
+        "start": 2.03,
+        "end": 3.13,
+        "duration": 1.1,
+        "activity": 0.583,
+        "luma": 0.26
+      },
+      {
+        "index": 3,
+        "start": 3.13,
+        "end": 5.13,
+        "duration": 2.0,
+        "activity": 0.216,
+        "luma": 0.29
+      },
+      {
+        "index": 4,
+        "start": 5.13,
+        "end": 7.13,
+        "duration": 2.0,
+        "activity": 0.225,
+        "luma": 0.33
+      },
+      {
+        "index": 5,
+        "start": 7.13,
+        "end": 9.13,
+        "duration": 2.0,
+        "activity": 0.303,
+        "luma": 0.34
+      },
+      {
+        "index": 6,
+        "start": 9.13,
+        "end": 11.13,
+        "duration": 2.0,
+        "activity": 0.193,
+        "luma": 0.28
+      },
+      {
+        "index": 7,
+        "start": 11.13,
+        "end": 12.53,
+        "duration": 1.4,
+        "activity": 0.252,
+        "luma": 0.23
+      },
+      {
+        "index": 8,
+        "start": 12.53,
+        "end": 13.7,
+        "duration": 1.17,
+        "activity": 0.679,
+        "luma": 0.76
+      },
+      {
+        "index": 9,
+        "start": 13.7,
+        "end": 14.87,
+        "duration": 1.17,
+        "activity": 0.238,
+        "luma": 0.12
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.294,
+    "luma": {
+      "mean": 0.29,
+      "dark_share": 0.43,
+      "light_share": 0.07
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.313
+      },
+      {
+        "hex": "#181828",
+        "share": 0.171
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.133
+      },
+      {
+        "hex": "#181838",
+        "share": 0.058
+      },
+      {
+        "hex": "#080828",
+        "share": 0.052
+      },
+      {
+        "hex": "#181848",
+        "share": 0.038
+      },
+      {
+        "hex": "#5858f8",
+        "share": 0.029
+      },
+      {
+        "hex": "#888898",
+        "share": 0.021
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.02
+      },
+      {
+        "hex": "#080808",
+        "share": 0.017
+      }
+    ],
+    "representative_times": [
+      1.01,
+      2.58,
+      4.13,
+      6.13,
+      8.13,
+      10.13,
+      11.83,
+      13.11,
+      14.29
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.4,
+      "mean_dbfs_voiced": -15.2,
+      "silence_ratio": 0.0,
+      "onsets": 69,
+      "onset_rate_per_sec": 4.57,
+      "onset_times": [
+        1.56,
+        1.81,
+        2.07,
+        2.14,
+        2.32,
+        2.55,
+        2.81,
+        2.95,
+        3.3,
+        3.55,
+        3.81,
+        4.06,
+        4.3,
+        4.55,
+        4.81,
+        4.95,
+        5.02,
+        5.32,
+        5.43,
+        5.55,
+        5.8,
+        5.94,
+        6.06,
+        6.18,
+        6.32,
+        6.43,
+        6.55,
+        6.8,
+        6.94,
+        7.01,
+        7.31,
+        7.43,
+        7.55,
+        7.8,
+        7.94,
+        8.06,
+        8.17,
+        8.31,
+        8.43,
+        8.54,
+        8.82,
+        8.94,
+        9.31,
+        9.43,
+        9.57,
+        9.82,
+        9.94,
+        10.05,
+        10.19,
+        10.31,
+        10.43,
+        10.57,
+        10.82,
+        10.94,
+        11.01,
+        11.31,
+        11.42,
+        11.56,
+        11.82,
+        11.94,
+        12.05,
+        12.19,
+        12.31,
+        12.42,
+        12.56,
+        12.82,
+        12.93,
+        13.05,
+        13.56
+      ],
+      "tempo_estimate": {
+        "bpm": 80.7,
+        "autocorr": 0.46,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 853,
+      "band_share": {
+        "low_lt_250": 0.52,
+        "mid_250_2k": 0.27,
+        "high_gt_2k": 0.2
+      },
+      "syllabic_modulation_share": 0.36,
+      "boundary_onset_alignment": {
+        "boundaries": 9,
+        "tolerance_ms": 67,
+        "near_onset": 0.22,
+        "chance_level": 0.46,
+        "median_offset_ms": 127,
+        "near_beat": 0.11,
+        "beat_chance_level": 0.16,
+        "beat_phase_sec": 0.372
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-dc626241e6",
+      "overview": "reference/analysis/ref-dc626241e6/overview.jpg",
+      "scenes": "reference/analysis/ref-dc626241e6/scenes.jpg",
+      "transitions": "reference/analysis/ref-dc626241e6/transitions.jpg",
+      "motion": "reference/analysis/ref-dc626241e6/motion.jpg",
+      "audio": "reference/analysis/ref-dc626241e6/audio.png",
+      "frames": "reference/analysis/ref-dc626241e6/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -11.4,
+        "lra_lu": 0.7,
+        "true_peak_dbtp": -0.5,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 20,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 1.33,
+        "speech_end": 1.78,
+        "speech_coverage": 0.03,
+        "wps_while_speaking": 2.22,
+        "wpm_over_span": 133,
+        "pace_thirds_wps": [
+          6.67,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.45,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 1,
+            "wps": 0.49
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 69,
+        "accents": 24,
+        "accents_per_min": 96.0,
+        "accent_times": [
+          3.3,
+          3.55,
+          4.06,
+          4.3,
+          4.55,
+          5.55,
+          6.06,
+          6.32,
+          6.55,
+          7.31,
+          7.55,
+          8.06,
+          8.31,
+          8.54,
+          9.31,
+          9.57,
+          10.05,
+          10.31,
+          10.57,
+          11.31,
+          11.56,
+          12.05,
+          12.31,
+          12.56
+        ],
+        "accent_threshold": 0.53,
+        "boundaries_with_accent": {
+          "boundaries": 9,
+          "share": 0.11,
+          "tolerance_ms": 100,
+          "chance_level": 0.27
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 4.67,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -8.4,
+        "level_tail_vs_body_db": 1.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-dc626241e6/listen",
+        "sheet": "reference/analysis/ref-dc626241e6/listen/listen.jpg",
+        "words": "reference/analysis/ref-dc626241e6/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

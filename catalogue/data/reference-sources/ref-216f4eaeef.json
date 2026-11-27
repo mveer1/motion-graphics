@@ -1,0 +1,376 @@
+{
+  "id": "ref-216f4eaeef",
+  "name": "Silent hand-drawn explainer told in a typed caption strip (12 fps, no audio)",
+  "status": "experimental",
+  "source": {
+    "filename": "hand-drawn-stop-motion-explainer-2fabe3de.mp4",
+    "aliases": [],
+    "sha256": "216f4eaeefea50778b7d08200f31433e78c49e36f0f544c942260ae12900f779",
+    "bytes": 6938677,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product name in the title and end card",
+        "timestamps": [
+          0.45,
+          54.83
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Third-party protocol names in boxes and clouds, and a website address",
+        "timestamps": [
+          5.89,
+          43.05,
+          54.83
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand explainer; reuse the caption-as-voice structure and notebook staging only, with original drawings and copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 6938677,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 58.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1086,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 696,
+    "variable_frame_rate": false,
+    "fps": 12.0,
+    "fps_exact": "90000/7500",
+    "video_kbps": 956,
+    "keyframes": 58,
+    "audio": null,
+    "overall_kbps": 957
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session A) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames) and motion sheet (4 windows at 10 fps) in place of a transitions sheet (none was made: the detector found 0 boundaries), one full-resolution frame at 7.6 s and a strip 42.5-44.0 s at 12 fps; confirmed with ffprobe that the file has a video stream only, so there is no listen sheet. Caption pace measured by counting word blobs in the caption band at the source 12 fps (prompts/state/reference-parallel/batch-2/measure_caption_pace.py, calibrated on the 7.6 s frame: 19 of 19 words); counts only, no text kept.",
+    "coverage": "Full 58 s; every caption cue and every redraw located by the caption measurement.",
+    "concept": {
+      "observed": "A software tool explains in the first person what it sees when a user connects a crypto wallet: positions as boxes, a health gauge watched overnight while the price falls, an automatic repay at a trigger, a smaller loan in the morning, other jobs (moving a loan, a recipe of steps, a stop on a chart, a practice mode), the many protocols it knows, what it can and cannot do (you hold the key), and its sign-off.",
+      "interpreted": "A trust-building explainer: the tool's point of view, modest and calm, drawn like a notebook.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Pencil-and-marker drawings on grey paper with handwritten labels and blue hand annotations; the whole script is a typed caption on a taped paper strip; no sound.",
+      "interpreted": "Intimate, patient, notebook-like."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Light grey paper, graphite lines, one blue for annotations and highlights, a yellow highlighter loop, red for the danger threshold; a dark bar under the caption strip."
+      },
+      "typography": {
+        "observed": "A handwritten-style font for labels and the caption; a handwritten title with a blue underline."
+      },
+      "composition": {
+        "observed": "Drawing in the upper 80% of the frame; the caption strip of paper taped over a dark bottom bar (about y 590-690 of 720), centred text, 1-3 lines."
+      },
+      "motion": {
+        "observed": "Drawings appear element by element at 12 fps (stepped motion); a price line draws down; a gauge level falls and recovers; a small figure hops between protocol clouds leaving a dotted trail (42.6-44.0 s); a hand loop and a blue note mark one position (7.0-7.7 s); moon and sun icons mark night and morning."
+      },
+      "transitions": {
+        "observed": "The detector found no boundaries because both sides of every change are pale paper. Strips show hard cuts to an empty page followed by a redraw (7.95 to 8.05 s, 45.95 to 46.05 s). Each of the 10 caption cues starts on the redraw frame at a whole second (3.0, 8.0, 14.0, 20.0, 27.0, 32.0, 41.0, 46.0, 52.0 s).",
+        "interpreted": "One page, wiped and redrawn: the notebook metaphor; the caption and the page change together.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Scenes of 4-9 s, one per caption cue."
+      },
+      "sound_design": {
+        "observed": "No audio track: the container holds one H.264 video stream and nothing else (ffprobe).",
+        "interpreted": "A silent film by design; nothing to measure."
+      },
+      "narration": {
+        "observed": "None: no audio. The monologue is carried by the caption. Measured on the caption band: 10 cues, 192 words in 57.9 s (199 words a minute on screen); each cue types in at 6.3-8.3 words/s (median 7.8) and then holds complete for 1.4-4.9 s (median 3.5 s); 8-32 words per cue (median 17.5).",
+        "interpreted": "Reading replaces listening: the type-on is about twice speaking speed, and the hold gives reading time, so a viewer reads at their own pace.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "Lower-third paper strip, centred, 1-3 lines, typed word by word with no highlight; a new cue replaces the old one on a redraw at a whole second; each cue stays 2.9-8.9 s from first word to clear. The caption is the only voice of the film."
+      },
+      "motifs": {
+        "observed": "Notebook paper, tape and hand annotation; night and day icons; a thermometer-style gauge."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.0,
+        "observed": "Handwritten title with an underline; the caption introduces the film."
+      },
+      {
+        "start": 3.0,
+        "end": 8.0,
+        "observed": "A wallet address branches into three position boxes; a loop marks one."
+      },
+      {
+        "start": 8.0,
+        "end": 14.0,
+        "observed": "One position: numbers and a health gauge."
+      },
+      {
+        "start": 14.0,
+        "end": 20.0,
+        "observed": "Night: the price line falls and the gauge drops toward the red line."
+      },
+      {
+        "start": 20.0,
+        "end": 27.0,
+        "observed": "A trigger and a step list: repay part of the loan in one transaction."
+      },
+      {
+        "start": 27.0,
+        "end": 32.0,
+        "observed": "Morning: a smaller loan and a check mark."
+      },
+      {
+        "start": 32.0,
+        "end": 41.0,
+        "observed": "Other jobs: moving a loan, a recipe of steps, a stop on a chart, practice mode."
+      },
+      {
+        "start": 41.0,
+        "end": 46.0,
+        "observed": "Protocol names as clouds; a small figure hops between them."
+      },
+      {
+        "start": 46.0,
+        "end": 52.0,
+        "observed": "You hold the key; the tool holds a pencil; what it cannot do."
+      },
+      {
+        "start": 52.0,
+        "end": 58.0,
+        "observed": "Sign-off over the night scene with the gauge."
+      }
+    ],
+    "moments": [
+      {
+        "t": 20.0,
+        "observed": "A 26-word caption types in over 3.2 s while the step list draws above it, then holds 3.75 s.",
+        "interpreted": "Text pace and drawing pace are locked: the drawing finishes while the reader catches up."
+      },
+      {
+        "t": 7.0,
+        "observed": "A yellow hand loop circles one position box and a blue handwritten note appears under it."
+      }
+    ],
+    "difficult": [
+      "Hand-drawn stepped drawing at 12 fps: a native approximation (stroke draws on twos) loses the pencil texture"
+    ],
+    "uncertainties": [
+      "Line boil was not confirmed: the 12 fps strip at 42.5-44.0 s shows the moving figure and the caption, but outline jitter is not visible at strip size",
+      "Word counts come from ink blobs; a hyphenated or very short word next to punctuation may be merged (calibration frame: exact)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        3.0,
+        20.39,
+        32.17
+      ]
+    },
+    {
+      "id": "annotation-callouts",
+      "timestamps": [
+        7.0,
+        7.7
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        4.98,
+        5.89
+      ]
+    },
+    {
+      "id": "caption-voice-strip",
+      "timestamps": [
+        3.0,
+        20.0,
+        46.0
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "stroke-draw",
+      "hand-underline",
+      "line-art-reveal"
+    ],
+    "compositions": [
+      "caption-plate",
+      "annotation-callout"
+    ],
+    "templates": [
+      "illustrated-explainer"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "hand-drawn-illustration",
+    "line-art",
+    "diagram",
+    "data-visualisation"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-2",
+    "silent",
+    "no-audio",
+    "12fps",
+    "paper",
+    "caption-monologue",
+    "first-person",
+    "finance",
+    "brand-marks-present"
+  ],
+  "confidence": "high",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 10.4
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 348,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 58.0,
+        "duration": 58.0,
+        "activity": 0.028,
+        "luma": 0.82
+      }
+    ],
+    "static_holds": [
+      [
+        56.42,
+        57.92
+      ]
+    ],
+    "mean_activity": 0.028,
+    "luma": {
+      "mean": 0.82,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#e8e8e8",
+        "share": 0.269
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.25
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.129
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.104
+      },
+      {
+        "hex": "#989898",
+        "share": 0.08
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.078
+      },
+      {
+        "hex": "#d8e8d8",
+        "share": 0.038
+      },
+      {
+        "hex": "#c8d8c8",
+        "share": 0.018
+      },
+      {
+        "hex": "#c8c8c8",
+        "share": 0.012
+      },
+      {
+        "hex": "#e8f8e8",
+        "share": 0.009
+      }
+    ],
+    "representative_times": [
+      14.5,
+      29.0,
+      43.5
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-216f4eaeef",
+      "overview": "reference/analysis/ref-216f4eaeef/overview.jpg",
+      "scenes": "reference/analysis/ref-216f4eaeef/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-216f4eaeef/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-216f4eaeef/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

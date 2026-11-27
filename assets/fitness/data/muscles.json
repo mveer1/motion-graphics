@@ -1,473 +1,523 @@
 {
- "spec": "specs/fitness-asset-spec.json#/definitions/muscle",
- "description": "Anatomy metadata for the muscles drawn on Tibi's x-ray layer (src/studio/kits/fitness/tibi.js). Origins, insertions and actions are standard textbook anatomy, cross-checked against OpenStax Anatomy and Physiology 2e, chapter 11 (CC BY-NC-SA 4.0; used as a factual reference only, nothing copied). Drawings are stylised and placed, not an atlas: never use them to teach exact attachment sites; use the text here or a cited atlas plate.",
- "reference": "openstax-ap2e",
- "muscles": [
-  {
-   "id": "deltoid",
-   "name": "Deltoid",
-   "group": "shoulder",
-   "region": "upper-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq",
-    "back"
-   ],
-   "origin": "Lateral third of the clavicle, acromion and spine of the scapula",
-   "insertion": "Deltoid tuberosity of the humerus",
-   "actions": [
-    "Shoulder abduction (middle fibres)",
-    "Shoulder flexion and medial rotation (anterior fibres)",
-    "Shoulder extension and lateral rotation (posterior fibres)"
-   ]
-  },
-  {
-   "id": "pectoralis-major",
-   "name": "Pectoralis major",
-   "group": "chest",
-   "region": "trunk",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Medial clavicle, sternum and costal cartilages of ribs 1-6",
-   "insertion": "Lateral lip of the intertubercular sulcus of the humerus",
-   "actions": [
-    "Shoulder horizontal adduction",
-    "Shoulder adduction and medial rotation",
-    "Shoulder flexion (clavicular head)"
-   ]
-  },
-  {
-   "id": "biceps-brachii",
-   "name": "Biceps brachii",
-   "group": "arm-anterior",
-   "region": "upper-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Short head: coracoid process; long head: supraglenoid tubercle of the scapula",
-   "insertion": "Radial tuberosity and bicipital aponeurosis",
-   "actions": [
-    "Elbow flexion",
-    "Forearm supination",
-    "Assists shoulder flexion"
-   ]
-  },
-  {
-   "id": "triceps-brachii",
-   "name": "Triceps brachii",
-   "group": "arm-posterior",
-   "region": "upper-limb",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Long head: infraglenoid tubercle of the scapula; lateral and medial heads: posterior humerus",
-   "insertion": "Olecranon process of the ulna",
-   "actions": [
-    "Elbow extension",
-    "Long head assists shoulder extension"
-   ]
-  },
-  {
-   "id": "forearm-flexors",
-   "name": "Forearm flexor group",
-   "group": "forearm",
-   "region": "upper-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Medial epicondyle of the humerus (common flexor origin)",
-   "insertion": "Carpals, metacarpals and phalanges",
-   "actions": [
-    "Wrist flexion",
-    "Finger flexion (grip)"
-   ],
-   "note": "A group, drawn as one shape."
-  },
-  {
-   "id": "forearm-extensors",
-   "name": "Forearm extensor group",
-   "group": "forearm",
-   "region": "upper-limb",
-   "views": [
-    "back"
-   ],
-   "origin": "Lateral epicondyle of the humerus (common extensor origin)",
-   "insertion": "Metacarpals and phalanges",
-   "actions": [
-    "Wrist extension",
-    "Finger extension"
-   ],
-   "note": "A group, drawn as one shape."
-  },
-  {
-   "id": "rectus-abdominis",
-   "name": "Rectus abdominis",
-   "group": "core",
-   "region": "trunk",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Pubic crest and pubic symphysis",
-   "insertion": "Xiphoid process and costal cartilages of ribs 5-7",
-   "actions": [
-    "Trunk flexion",
-    "Compresses the abdomen"
-   ]
-  },
-  {
-   "id": "external-oblique",
-   "name": "External oblique",
-   "group": "core",
-   "region": "trunk",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "External surfaces of ribs 5-12",
-   "insertion": "Linea alba, pubic tubercle and anterior iliac crest",
-   "actions": [
-    "Trunk rotation to the opposite side",
-    "Lateral flexion",
-    "Trunk flexion (both sides)"
-   ]
-  },
-  {
-   "id": "latissimus-dorsi",
-   "name": "Latissimus dorsi",
-   "group": "back",
-   "region": "trunk",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Spinous processes of T7-L5 via the thoracolumbar fascia, iliac crest and lower ribs",
-   "insertion": "Floor of the intertubercular sulcus of the humerus",
-   "actions": [
-    "Shoulder extension",
-    "Shoulder adduction",
-    "Shoulder medial rotation"
-   ]
-  },
-  {
-   "id": "trapezius",
-   "name": "Trapezius",
-   "group": "back",
-   "region": "trunk",
-   "views": [
-    "front",
-    "side",
-    "back"
-   ],
-   "origin": "Occipital bone, ligamentum nuchae and spinous processes of C7-T12",
-   "insertion": "Lateral clavicle, acromion and spine of the scapula",
-   "actions": [
-    "Scapular elevation (upper fibres)",
-    "Scapular retraction (middle fibres)",
-    "Scapular depression (lower fibres)",
-    "Upward rotation of the scapula"
-   ]
-  },
-  {
-   "id": "erector-spinae",
-   "name": "Erector spinae",
-   "group": "back",
-   "region": "trunk",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Sacrum, iliac crest and spinous processes of the lumbar and lower thoracic vertebrae",
-   "insertion": "Ribs, transverse and spinous processes of the vertebrae, mastoid process",
-   "actions": [
-    "Trunk extension",
-    "Lateral flexion",
-    "Holds the spine upright against flexion under load"
-   ],
-   "note": "A group of three columns (iliocostalis, longissimus, spinalis), drawn as one."
-  },
-  {
-   "id": "gluteus-maximus",
-   "name": "Gluteus maximus",
-   "group": "hip",
-   "region": "lower-limb",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Posterior ilium, sacrum, coccyx and thoracolumbar fascia",
-   "insertion": "Gluteal tuberosity of the femur and iliotibial tract",
-   "actions": [
-    "Hip extension",
-    "Hip external rotation"
-   ]
-  },
-  {
-   "id": "quadriceps",
-   "name": "Quadriceps femoris",
-   "group": "thigh-anterior",
-   "region": "lower-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Rectus femoris: anterior inferior iliac spine; vastus lateralis, medialis and intermedius: femur",
-   "insertion": "Tibial tuberosity via the patella and patellar ligament",
-   "actions": [
-    "Knee extension",
-    "Hip flexion (rectus femoris only)"
-   ],
-   "note": "Four heads, drawn as one shape."
-  },
-  {
-   "id": "hamstrings",
-   "name": "Hamstrings",
-   "group": "thigh-posterior",
-   "region": "lower-limb",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Ischial tuberosity (biceps femoris short head: linea aspera of the femur)",
-   "insertion": "Head of the fibula (biceps femoris); medial tibia (semitendinosus, semimembranosus)",
-   "actions": [
-    "Knee flexion",
-    "Hip extension"
-   ],
-   "note": "Biceps femoris, semitendinosus and semimembranosus, drawn as one shape."
-  },
-  {
-   "id": "adductors",
-   "name": "Hip adductor group",
-   "group": "thigh-medial",
-   "region": "lower-limb",
-   "views": [
-    "front",
-    "threeq"
-   ],
-   "origin": "Pubis and ischium",
-   "insertion": "Linea aspera and adductor tubercle of the femur",
-   "actions": [
-    "Hip adduction",
-    "Adductor magnus also assists hip extension"
-   ],
-   "note": "Adductor magnus, longus and brevis, drawn as one shape."
-  },
-  {
-   "id": "gastrocnemius",
-   "name": "Gastrocnemius",
-   "group": "calf",
-   "region": "lower-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq",
-    "back"
-   ],
-   "origin": "Medial and lateral condyles of the femur",
-   "insertion": "Calcaneus via the calcaneal (Achilles) tendon",
-   "actions": [
-    "Ankle plantarflexion",
-    "Assists knee flexion"
-   ]
-  },
-  {
-   "id": "soleus",
-   "name": "Soleus",
-   "group": "calf",
-   "region": "lower-limb",
-   "views": [
-    "side",
-    "back"
-   ],
-   "origin": "Head and upper shaft of the fibula, soleal line of the tibia",
-   "insertion": "Calcaneus via the calcaneal (Achilles) tendon",
-   "actions": [
-    "Ankle plantarflexion (works whatever the knee angle)"
-   ]
-  },
-  {
-   "id": "tibialis-anterior",
-   "name": "Tibialis anterior",
-   "group": "shin",
-   "region": "lower-limb",
-   "views": [
-    "front",
-    "side",
-    "threeq"
-   ],
-   "origin": "Lateral condyle and upper lateral shaft of the tibia",
-   "insertion": "Medial cuneiform and base of the first metatarsal",
-   "actions": [
-    "Ankle dorsiflexion",
-    "Foot inversion"
-   ]
-  },
-  {
-   "id": "serratus-anterior",
-   "name": "Serratus anterior",
-   "group": "shoulder-girdle",
-   "region": "trunk",
-   "views": [
-    "front",
-    "side"
-   ],
-   "origin": "Outer surfaces of the upper eight or nine ribs",
-   "insertion": "Costal (front) surface of the medial border of the scapula",
-   "actions": [
-    "Scapular protraction",
-    "Upward rotation of the scapula (with the trapezius)",
-    "Holds the scapula against the rib cage"
-   ]
-  },
-  {
-   "id": "rhomboids",
-   "name": "Rhomboid major and minor",
-   "group": "shoulder-girdle",
-   "region": "trunk",
-   "views": [
-    "back"
-   ],
-   "origin": "Spinous processes of C7 to T5",
-   "insertion": "Medial border of the scapula",
-   "actions": [
-    "Scapular retraction",
-    "Downward rotation of the scapula"
-   ]
-  },
-  {
-   "id": "brachioradialis",
-   "name": "Brachioradialis",
-   "group": "forearm",
-   "region": "upper-limb",
-   "views": [
-    "front",
-    "side"
-   ],
-   "origin": "Lateral supracondylar ridge of the humerus",
-   "insertion": "Styloid process of the radius",
-   "actions": [
-    "Elbow flexion, strongest with the forearm mid-way between palm up and palm down"
-   ]
-  },
-  {
-   "id": "infraspinatus",
-   "name": "Infraspinatus (rotator cuff)",
-   "group": "shoulder",
-   "region": "upper-limb",
-   "views": [
-    "back"
-   ],
-   "origin": "Infraspinous fossa of the scapula",
-   "insertion": "Greater tubercle of the humerus (middle facet)",
-   "actions": [
-    "Shoulder lateral rotation",
-    "Stabilises the head of the humerus in the socket"
-   ]
-  },
-  {
-   "id": "teres-major",
-   "name": "Teres major",
-   "group": "shoulder",
-   "region": "upper-limb",
-   "views": [
-    "back"
-   ],
-   "origin": "Inferior angle of the scapula",
-   "insertion": "Medial lip of the intertubercular groove of the humerus",
-   "actions": [
-    "Shoulder extension",
-    "Shoulder adduction and medial rotation (with the latissimus dorsi)"
-   ]
-  }
- ],
- "deep_not_drawn": [
-  {
-   "id": "iliopsoas",
-   "name": "Iliopsoas",
-   "origin": "Lumbar vertebrae (psoas major) and iliac fossa (iliacus)",
-   "insertion": "Lesser trochanter of the femur",
-   "actions": [
-    "Hip flexion"
-   ]
-  },
-  {
-   "id": "rotator-cuff",
-   "name": "Rotator cuff (supraspinatus, infraspinatus, teres minor, subscapularis)",
-   "origin": "Scapula",
-   "insertion": "Greater and lesser tubercles of the humerus",
-   "actions": [
-    "Stabilise the glenohumeral joint",
-    "Shoulder rotation and abduction (supraspinatus)"
-   ]
-  },
-  {
-   "id": "brachialis",
-   "name": "Brachialis",
-   "origin": "Anterior distal humerus",
-   "insertion": "Coronoid process and tuberosity of the ulna",
-   "actions": [
-    "Elbow flexion in every forearm position"
-   ]
-  },
-  {
-   "id": "transversus-abdominis",
-   "name": "Transversus abdominis",
-   "origin": "Iliac crest, thoracolumbar fascia, lower costal cartilages",
-   "insertion": "Linea alba and pubic crest",
-   "actions": [
-    "Compresses the abdomen",
-    "Raises intra-abdominal pressure"
-   ]
-  },
-  {
-   "id": "gluteus-medius",
-   "name": "Gluteus medius",
-   "origin": "Outer surface of the ilium",
-   "insertion": "Greater trochanter of the femur",
-   "actions": [
-    "Hip abduction",
-    "Stabilises the pelvis in single-leg stance (running, walking, lunges)"
-   ]
-  },
-  {
-   "id": "brachialis",
-   "name": "Brachialis",
-   "origin": "Distal half of the front of the humerus",
-   "insertion": "Coronoid process and tuberosity of the ulna",
-   "actions": [
-    "Elbow flexion in every forearm position"
-   ]
-  }
- ],
- "bones_drawn": [
-  "skull",
-  "cervical-spine",
-  "ribcage",
-  "thoracic-spine",
-  "clavicle",
-  "scapula",
-  "lumbar-spine",
-  "pelvis",
-  "humerus",
-  "radius",
-  "ulna",
-  "femur",
-  "patella",
-  "tibia",
-  "fibula",
-  "foot"
- ]
+  "spec": "specs/fitness-asset-spec.json#/definitions/muscle",
+  "description": "Shared anatomy facts for Tibi's 2D and 3D educational layers. deep_not_drawn retains the legacy 2D grouping; the 3D internal layers can include those muscles. Sources are factual references only: no source artwork or model is copied. The character is stylised, not an atlas; never use its geometry to teach exact attachment sites. Rig dimensions are original authoring choices, not measured human dimensions.",
+  "reference": "openstax-ap2e",
+  "rendering_references": [
+    {
+      "id": "openstax-upper",
+      "title": "Muscles of the Pectoral Girdle and Upper Limbs",
+      "url": "https://med.libretexts.org/Bookshelves/Anatomy_and_Physiology/Anatomy_and_Physiology_2e_(OpenStax)/02%3A_Support_and_Movement/11%3A_The_Muscular_System/11.06%3A_Muscles_of_the_Pectoral_Girdle_and_Upper_Limbs",
+      "checked": "2026-11-20",
+      "use": "Broad lat/pectoral forms, upper-limb muscle regions and layers; factual guidance, not copied diagrams."
+    },
+    {
+      "id": "statpearls-deltoid",
+      "title": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+      "url": "https://www.ncbi.nlm.nih.gov/sites/books/NBK537056/?report=reader",
+      "checked": "2026-11-20",
+      "use": "Triangular three-part shoulder cap and convergence toward the deltoid tuberosity."
+    },
+    {
+      "id": "elsevier-brachialis",
+      "title": "Brachialis Muscle, Elsevier Complete Anatomy",
+      "url": "https://www.elsevier.com/resources/anatomy/muscular-system/muscles-of-upper-limb/brachialis-muscle/18221",
+      "checked": "2026-11-20",
+      "use": "Distal anterior humerus belly, deep to biceps; no proprietary mesh or artwork reused."
+    },
+    {
+      "id": "openstax-trunk",
+      "title": "Axial Muscles of the Abdominal Wall, and Thorax",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax",
+      "checked": "2026-11-20",
+      "use": "Continuous paired rectus bands with intersections and broad abdominal wall layers."
+    },
+    {
+      "id": "openstax-lower",
+      "title": "Appendicular Muscles of the Pelvic Girdle and Lower Limbs",
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+      "checked": "2026-11-20",
+      "use": "Thigh compartments, superficial gastrocnemius, broad deep soleus and anterolateral tibialis anterior."
+    }
+  ],
+  "muscles": [
+    {
+      "id": "deltoid",
+      "name": "Deltoid",
+      "group": "shoulder",
+      "region": "upper-limb",
+      "note": "3D uses rounded-end triangular fans tapering into the upper arm, supported by a sloping shoulder envelope rather than an exposed joint orb. Inspect the actual posed contour, not only muscle volumes. Qualitative reference: statpearls-deltoid; dimensions remain illustrative.",
+      "views": [
+        "front",
+        "side",
+        "threeq",
+        "back"
+      ],
+      "origin": "Lateral third of the clavicle, acromion and spine of the scapula",
+      "insertion": "Deltoid tuberosity of the humerus",
+      "actions": [
+        "Shoulder abduction (middle fibres)",
+        "Shoulder flexion and medial rotation (anterior fibres)",
+        "Shoulder extension and lateral rotation (posterior fibres)"
+      ]
+    },
+    {
+      "id": "pectoralis-major",
+      "name": "Pectoralis major",
+      "group": "chest",
+      "region": "trunk",
+      "note": "3D uses a broad fan across the chest, not a separate oval disc. Its lateral end converges toward the humerus with a rounded end wrapped onto the rib cage, and the clavicular edge sits lower than the defined lower border (1.12). Qualitative reference: openstax-upper.",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Medial clavicle, sternum and costal cartilages of ribs 1-6",
+      "insertion": "Lateral lip of the intertubercular sulcus of the humerus",
+      "actions": [
+        "Shoulder horizontal adduction",
+        "Shoulder adduction and medial rotation",
+        "Shoulder flexion (clavicular head)"
+      ]
+    },
+    {
+      "id": "biceps-brachii",
+      "name": "Biceps brachii",
+      "group": "arm-anterior",
+      "region": "upper-limb",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Short head: coracoid process; long head: supraglenoid tubercle of the scapula",
+      "insertion": "Radial tuberosity and bicipital aponeurosis",
+      "actions": [
+        "Elbow flexion",
+        "Forearm supination",
+        "Assists shoulder flexion"
+      ]
+    },
+    {
+      "id": "triceps-brachii",
+      "name": "Triceps brachii",
+      "group": "arm-posterior",
+      "region": "upper-limb",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Long head: infraglenoid tubercle of the scapula; lateral and medial heads: posterior humerus",
+      "insertion": "Olecranon process of the ulna",
+      "actions": [
+        "Elbow extension",
+        "Long head assists shoulder extension"
+      ]
+    },
+    {
+      "id": "forearm-flexors",
+      "name": "Forearm flexor group",
+      "group": "forearm",
+      "region": "upper-limb",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Medial epicondyle of the humerus (common flexor origin)",
+      "insertion": "Carpals, metacarpals and phalanges",
+      "actions": [
+        "Wrist flexion",
+        "Finger flexion (grip)"
+      ],
+      "note": "A group, drawn as one shape."
+    },
+    {
+      "id": "forearm-extensors",
+      "name": "Forearm extensor group",
+      "group": "forearm",
+      "region": "upper-limb",
+      "views": [
+        "back"
+      ],
+      "origin": "Lateral epicondyle of the humerus (common extensor origin)",
+      "insertion": "Metacarpals and phalanges",
+      "actions": [
+        "Wrist extension",
+        "Finger extension"
+      ],
+      "note": "A group, drawn as one shape."
+    },
+    {
+      "id": "rectus-abdominis",
+      "name": "Rectus abdominis",
+      "group": "core",
+      "region": "trunk",
+      "note": "3D uses paired continuous bands with shallow intersections rather than six separate objects. Qualitative reference: openstax-trunk.",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Pubic crest and pubic symphysis",
+      "insertion": "Xiphoid process and costal cartilages of ribs 5-7",
+      "actions": [
+        "Trunk flexion",
+        "Compresses the abdomen"
+      ]
+    },
+    {
+      "id": "external-oblique",
+      "name": "External oblique",
+      "group": "core",
+      "region": "trunk",
+      "note": "3D relief stays embedded in the abdominal wall and follows the selected torso profile. Qualitative reference: openstax-trunk.",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "External surfaces of ribs 5-12",
+      "insertion": "Linea alba, pubic tubercle and anterior iliac crest",
+      "actions": [
+        "Trunk rotation to the opposite side",
+        "Lateral flexion",
+        "Trunk flexion (both sides)"
+      ]
+    },
+    {
+      "id": "latissimus-dorsi",
+      "name": "Latissimus dorsi",
+      "group": "back",
+      "region": "trunk",
+      "note": "3D depicts a broad thin posterior fan, not a hanging flank spindle. No unvalidated elevation-only bulge is added. Qualitative reference: openstax-upper; exact attachment sites must not be inferred from the character.",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Spinous processes of T7-L5 via the thoracolumbar fascia, iliac crest and lower ribs",
+      "insertion": "Floor of the intertubercular sulcus of the humerus",
+      "actions": [
+        "Shoulder extension",
+        "Shoulder adduction",
+        "Shoulder medial rotation"
+      ]
+    },
+    {
+      "id": "trapezius",
+      "name": "Trapezius",
+      "group": "back",
+      "region": "trunk",
+      "note": "3D uses embedded upper and lower portions instead of isolated neck knobs. Qualitative reference: openstax-upper.",
+      "views": [
+        "front",
+        "side",
+        "back"
+      ],
+      "origin": "Occipital bone, ligamentum nuchae and spinous processes of C7-T12",
+      "insertion": "Lateral clavicle, acromion and spine of the scapula",
+      "actions": [
+        "Scapular elevation (upper fibres)",
+        "Scapular retraction (middle fibres)",
+        "Scapular depression (lower fibres)",
+        "Upward rotation of the scapula"
+      ]
+    },
+    {
+      "id": "erector-spinae",
+      "name": "Erector spinae",
+      "group": "back",
+      "region": "trunk",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Sacrum, iliac crest and spinous processes of the lumbar and lower thoracic vertebrae",
+      "insertion": "Ribs, transverse and spinous processes of the vertebrae, mastoid process",
+      "actions": [
+        "Trunk extension",
+        "Lateral flexion",
+        "Holds the spine upright against flexion under load"
+      ],
+      "note": "A group of three columns (iliocostalis, longissimus, spinalis), grouped schematically. 3D relief is embedded rather than an external rope; reference: openstax-trunk."
+    },
+    {
+      "id": "gluteus-maximus",
+      "name": "Gluteus maximus",
+      "group": "hip",
+      "region": "lower-limb",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Posterior ilium, sacrum, coccyx and thoracolumbar fascia",
+      "insertion": "Gluteal tuberosity of the femur and iliotibial tract",
+      "actions": [
+        "Hip extension",
+        "Hip external rotation"
+      ]
+    },
+    {
+      "id": "quadriceps",
+      "name": "Quadriceps femoris",
+      "group": "thigh-anterior",
+      "region": "lower-limb",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Rectus femoris: anterior inferior iliac spine; vastus lateralis, medialis and intermedius: femur",
+      "insertion": "Tibial tuberosity via the patella and patellar ligament",
+      "actions": [
+        "Knee extension",
+        "Hip flexion (rectus femoris only)"
+      ],
+      "note": "Four heads grouped in 2D; 3D uses named superficial/deep volumes within one thigh surface. Qualitative reference: openstax-lower."
+    },
+    {
+      "id": "hamstrings",
+      "name": "Hamstrings",
+      "group": "thigh-posterior",
+      "region": "lower-limb",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Ischial tuberosity (biceps femoris short head: linea aspera of the femur)",
+      "insertion": "Head of the fibula (biceps femoris); medial tibia (semitendinosus, semimembranosus)",
+      "actions": [
+        "Knee flexion",
+        "Hip extension"
+      ],
+      "note": "Biceps femoris, semitendinosus and semimembranosus, grouped schematically. 3D volumes remain embedded in the posterior thigh envelope; reference: openstax-lower."
+    },
+    {
+      "id": "adductors",
+      "name": "Hip adductor group",
+      "group": "thigh-medial",
+      "region": "lower-limb",
+      "views": [
+        "front",
+        "threeq"
+      ],
+      "origin": "Pubis and ischium",
+      "insertion": "Linea aspera and adductor tubercle of the femur",
+      "actions": [
+        "Hip adduction",
+        "Adductor magnus also assists hip extension"
+      ],
+      "note": "Adductor magnus, longus and brevis, drawn as one shape."
+    },
+    {
+      "id": "gastrocnemius",
+      "name": "Gastrocnemius",
+      "group": "calf",
+      "region": "lower-limb",
+      "note": "3D tapers the two bellies toward the distal tendon while keeping them superficial to soleus. Qualitative reference: openstax-lower.",
+      "views": [
+        "front",
+        "side",
+        "threeq",
+        "back"
+      ],
+      "origin": "Medial and lateral condyles of the femur",
+      "insertion": "Calcaneus via the calcaneal (Achilles) tendon",
+      "actions": [
+        "Ankle plantarflexion",
+        "Assists knee flexion"
+      ]
+    },
+    {
+      "id": "soleus",
+      "name": "Soleus",
+      "group": "calf",
+      "region": "lower-limb",
+      "note": "3D depicts a broad, flatter deep volume rather than an outer calf lobe. Qualitative reference: openstax-lower.",
+      "views": [
+        "side",
+        "back"
+      ],
+      "origin": "Head and upper shaft of the fibula, soleal line of the tibia",
+      "insertion": "Calcaneus via the calcaneal (Achilles) tendon",
+      "actions": [
+        "Ankle plantarflexion (works whatever the knee angle)"
+      ]
+    },
+    {
+      "id": "tibialis-anterior",
+      "name": "Tibialis anterior",
+      "group": "shin",
+      "region": "lower-limb",
+      "note": "3D relief is anterolateral and integrated with the shin, not a central armour-like plate. Qualitative reference: openstax-lower.",
+      "views": [
+        "front",
+        "side",
+        "threeq"
+      ],
+      "origin": "Lateral condyle and upper lateral shaft of the tibia",
+      "insertion": "Medial cuneiform and base of the first metatarsal",
+      "actions": [
+        "Ankle dorsiflexion",
+        "Foot inversion"
+      ]
+    },
+    {
+      "id": "serratus-anterior",
+      "name": "Serratus anterior",
+      "group": "shoulder-girdle",
+      "region": "trunk",
+      "note": "3D uses a thin sheet on the lateral rib wall that follows the flank, not a thick lateral slab; the old slab ended in a visible ledge under the arm (fixed 1.12). Digitations are not modelled. Qualitative reference: openstax-upper.",
+      "views": [
+        "front",
+        "side"
+      ],
+      "origin": "Outer surfaces of the upper eight or nine ribs",
+      "insertion": "Costal (front) surface of the medial border of the scapula",
+      "actions": [
+        "Scapular protraction",
+        "Upward rotation of the scapula (with the trapezius)",
+        "Holds the scapula against the rib cage"
+      ]
+    },
+    {
+      "id": "rhomboids",
+      "name": "Rhomboid major and minor",
+      "group": "shoulder-girdle",
+      "region": "trunk",
+      "views": [
+        "back"
+      ],
+      "origin": "Spinous processes of C7 to T5",
+      "insertion": "Medial border of the scapula",
+      "actions": [
+        "Scapular retraction",
+        "Downward rotation of the scapula"
+      ]
+    },
+    {
+      "id": "brachioradialis",
+      "name": "Brachioradialis",
+      "group": "forearm",
+      "region": "upper-limb",
+      "views": [
+        "front",
+        "side"
+      ],
+      "origin": "Lateral supracondylar ridge of the humerus",
+      "insertion": "Styloid process of the radius",
+      "actions": [
+        "Elbow flexion, strongest with the forearm mid-way between palm up and palm down"
+      ]
+    },
+    {
+      "id": "infraspinatus",
+      "name": "Infraspinatus (rotator cuff)",
+      "group": "shoulder",
+      "region": "upper-limb",
+      "views": [
+        "back"
+      ],
+      "origin": "Infraspinous fossa of the scapula",
+      "insertion": "Greater tubercle of the humerus (middle facet)",
+      "actions": [
+        "Shoulder lateral rotation",
+        "Stabilises the head of the humerus in the socket"
+      ]
+    },
+    {
+      "id": "teres-major",
+      "name": "Teres major",
+      "group": "shoulder",
+      "region": "upper-limb",
+      "views": [
+        "back"
+      ],
+      "origin": "Inferior angle of the scapula",
+      "insertion": "Medial lip of the intertubercular groove of the humerus",
+      "actions": [
+        "Shoulder extension",
+        "Shoulder adduction and medial rotation (with the latissimus dorsi)"
+      ]
+    }
+  ],
+  "deep_not_drawn": [
+    {
+      "id": "iliopsoas",
+      "name": "Iliopsoas",
+      "origin": "Lumbar vertebrae (psoas major) and iliac fossa (iliacus)",
+      "insertion": "Lesser trochanter of the femur",
+      "actions": [
+        "Hip flexion"
+      ]
+    },
+    {
+      "id": "rotator-cuff",
+      "name": "Rotator cuff (supraspinatus, infraspinatus, teres minor, subscapularis)",
+      "origin": "Scapula",
+      "insertion": "Greater and lesser tubercles of the humerus",
+      "actions": [
+        "Stabilise the glenohumeral joint",
+        "Shoulder rotation and abduction (supraspinatus)"
+      ]
+    },
+    {
+      "id": "brachialis",
+      "name": "Brachialis",
+      "origin": "Anterior distal humerus",
+      "insertion": "Coronoid process and tuberosity of the ulna",
+      "note": "The 3D belly is on distal humerus, deep to biceps, not on the forearm. Reference: elsevier-brachialis. This list name is a legacy 2D convention.",
+      "actions": [
+        "Elbow flexion in every forearm position"
+      ]
+    },
+    {
+      "id": "transversus-abdominis",
+      "name": "Transversus abdominis",
+      "origin": "Iliac crest, thoracolumbar fascia, lower costal cartilages",
+      "insertion": "Linea alba and pubic crest",
+      "actions": [
+        "Compresses the abdomen",
+        "Raises intra-abdominal pressure"
+      ]
+    },
+    {
+      "id": "gluteus-medius",
+      "name": "Gluteus medius",
+      "note": "3D keeps it deep to gluteus maximus on the outer ilium, ending below the waistband; a wide lateral egg reaching the band read as a hip shelf (fixed 1.12). Qualitative reference: openstax-lower.",
+      "origin": "Outer surface of the ilium",
+      "insertion": "Greater trochanter of the femur",
+      "actions": [
+        "Hip abduction",
+        "Stabilises the pelvis in single-leg stance (running, walking, lunges)"
+      ]
+    },
+    {
+      "id": "brachialis",
+      "name": "Brachialis",
+      "origin": "Distal half of the front of the humerus",
+      "insertion": "Coronoid process and tuberosity of the ulna",
+      "note": "The 3D belly is on distal humerus, deep to biceps, not on the forearm. Reference: elsevier-brachialis. This list name is a legacy 2D convention.",
+      "actions": [
+        "Elbow flexion in every forearm position"
+      ]
+    }
+  ],
+  "bones_drawn": [
+    "skull",
+    "cervical-spine",
+    "ribcage",
+    "thoracic-spine",
+    "clavicle",
+    "scapula",
+    "lumbar-spine",
+    "pelvis",
+    "humerus",
+    "radius",
+    "ulna",
+    "femur",
+    "patella",
+    "tibia",
+    "fibula",
+    "foot"
+  ]
 }

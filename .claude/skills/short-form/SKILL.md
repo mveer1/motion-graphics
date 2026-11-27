@@ -19,6 +19,7 @@ One interesting idea, fact, discovery or insight, told fast and dense, with one 
 - A visual change every 2-3 s; kinetic type, hard cuts and striking transitions are right here. A mid-film re-hook near 35 s once the film passes about 35 s.
 - Captions: phrase cues of one to three words, mid lane in the hook window, lower lane in the body (`caption-designer`).
 - Portrait 720x1280, safe area from `specs/format-presets.json`. Style: any registered style template; `editorial-light` by default.
+- Reference evidence (`docs/reference-playbook.md`): 15-20 s reels in the corpus hold shots for a median 1.8-2.8 s, cut word sections every 0.23-0.75 s on the beat, and spend their 2-4 big transitions (flash, bloom, zoom-through) on the turns. A portrait reference keeps its hook line fixed in the top band for the whole film. A one-verb-per-card list runs at 1.00 s per card with the proof (a UI action) about half a second into each card (`ref-b4e79aa0a4` 0.97-9.98 s); a portrait list can build a line every 0.5-1.0 s on the beat with the earlier lines dimmed (`dim-previous-line-stack`, `ref-32fea7dae3`).
 
 ## Gates (all existing)
 `studio.py validate`, `studio.py script`, `frame-review.py`, `studio.py build`, `studio.py review`. Renders in one pass. When the same idea has a longer treatment, this film is its own cut-down with its own hook and payoff, never a trimmed copy.

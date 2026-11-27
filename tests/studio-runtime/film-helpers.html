@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Studio film helpers self-test</title>
+  <script>
+    // The runtime must never use unseeded randomness.
+    Math.random = function () { throw new Error('Math.random is banned in compositions'); };
+  </script>
+  <link rel="stylesheet" href="../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../src/studio/styles/sinew-lab.css">
+  <style id="studio-format">:root{--w:720px;--h:1280px;--u:7.2px;--safe-top:128px;--safe-right:72px;--safe-bottom:300px;--safe-left:43px;}</style>
+  <style>
+    /* fonts named literally, as in the fitness template: 'Outfit', 'Inter', 'JetBrains Mono' */
+    #root { position: relative; width: 720px; height: 1280px; overflow: hidden; background: #f6f3ec; font-family: 'Inter', sans-serif; }
+    #kick { position: absolute; left: 60px; top: 140px; }
+    #grid { position: absolute; left: 60px; top: 260px; width: 400px; }
+    #odo { position: absolute; left: 480px; top: 260px; font-size: 60px; font-family: 'JetBrains Mono', monospace; }
+    #drift { position: absolute; left: 60px; top: 720px; width: 200px; height: 100px; background: #2f56e0; }
+    #stamps { position: absolute; inset: 0; }
+    #stationsHost { position: absolute; inset: 0; }
+  </style>
+  <script src="../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="portrait" data-width="720" data-height="1280" data-fps="30" data-duration="24">
+  <div id="kick"></div>
+  <div id="grid"></div>
+  <div id="odo"></div>
+  <div id="drift"></div>
+  <div id="stamps"></div>
+  <div id="stationsHost"></div>
+  <div id="fitHost" style="position:absolute;inset:0"></div>
+</div>
+
+<script>
+  // Measured words as `studio.py captions --timing words` writes them into src/captions.js.
+  window.STUDIO_CAPTIONS = [
+    { start: 1.0, end: 2.4, text: 'Push the floor away.', words: [{ text: 'Push', start: 1.0, end: 1.3 }, { text: 'the', start: 1.3, end: 1.45 }, { text: 'floor', start: 1.45, end: 1.9 }, { text: 'away.', start: 1.9, end: 2.4 }] },
+    { start: 2.6, end: 4.0, text: 'Then push-up again.', words: [{ text: 'Then', start: 2.6, end: 2.9 }, { text: 'push-up', start: 2.9, end: 3.5 }, { text: 'again.', start: 3.5, end: 4.0 }] },
+    { start: 4.2, end: 5.6, text: 'Push the floor, slowly.', words: [{ text: 'Push', start: 4.2, end: 4.5 }, { text: 'the', start: 4.5, end: 4.6 }, { text: 'floor,', start: 4.6, end: 5.0 }, { text: 'slowly.', start: 5.0, end: 5.6 }] }
+  ];
+</script>
+<script src="../../src/studio/studio-core.js"></script>
+<script src="../../src/studio/studio-draw.js"></script>
+<script src="../../src/studio/studio-type.js"></script>
+<script src="../../src/studio/studio-motion.js"></script>
+<script src="../../src/studio/studio-compositions.js"></script>
+<script src="../../src/studio/studio-film.js"></script>
+<script src="../../src/studio/studio-rig.js"></script>
+<script src="../../src/studio/kits/fitness/brand.js"></script>
+<script src="../../src/studio/kits/fitness/sculpt-data.js"></script>
+<script src="../../src/studio/kits/fitness/sculpt.js"></script>
+<script src="../../src/studio/kits/fitness/exercises.js"></script>
+<script src="../../src/studio/kits/fitness/graphics.js"></script>
+<script src="../../src/studio/kits/fitness/library.js"></script>
+<script src="../../src/studio/kits/fitness/stations.js"></script>
+<script>
+(function () {
+  var results = [];
+  function check(name, cond, detail) { results.push({ name: name, ok: !!cond, detail: detail === undefined ? '' : String(detail) }); }
+  function near(a, b, eps) { return Math.abs(a - b) <= (eps || 1e-6); }
+  function vis(el) { var s = getComputedStyle(el); return s.visibility !== 'hidden' && parseFloat(s.opacity) > 0.01; }
+  function alpha(el) { var s = getComputedStyle(el); return s.visibility === 'hidden' ? 0 : parseFloat(s.opacity); }
+
+  // ---------------------------------------------------------------- word-snapped cues (pure, before the build)
+  var S = Studio;
+  check('norm matches captions.py norm()', S.cues.norm('Push-up,') === 'pushup' && S.cues.norm('"Floor."') === 'floor');
+  var cue = S.cues.fromWords({
+    a: { say: 'push the floor', fallback: 9 },
+    b: { say: 'push the floor', nth: 2, fallback: 9 },
+    c: { say: 'push-up', edge: 'end', offset: 0.1, fallback: 9 },
+    d: { say: 'push', after: 'c', fallback: 9 },
+    e: { say: 'deadlift', fallback: 'a', offset: 0.5 },
+    f: 12.5
+  });
+  check('fromWords snaps to the onset', near(cue('a'), 1.0), cue('a'));
+  check('fromWords nth occurrence', near(cue('b'), 4.2), cue('b'));
+  check('fromWords end edge plus offset', near(cue('c'), 3.6), cue('c'));
+  check('fromWords after an earlier cue', near(cue('d'), 4.2), cue('d'));
+  check('fromWords missing phrase falls back (cue name + offset)', near(cue('e'), 1.5) && cue.missing.join() === 'e', cue('e') + ' ' + cue.missing.join());
+  check('fromWords fixed time and offsets', near(cue('f'), 12.5) && near(cue('a', -0.2), 0.8));
+  check('fromWords reports its source', cue.source === 'words' && cue.snapped.length === 4, cue.snapped.join());
+  var none = S.cues.fromWords({ a: { say: 'push', fallback: 2 } }, { words: [] });
+  check('no measured words: every cue takes its fallback', none.source === 'none' && near(none('a'), 2));
+  var threw = false;
+  try { S.cues.fromWords({ a: { say: 'deadlift', fallback: 2 } }, { strict: true }); } catch (err) { threw = true; }
+  check('strict: a missing phrase throws', threw);
+  threw = false;
+  try { S.cues.fromWords({ a: { say: 'deadlift' } }); } catch (err) { threw = true; }
+  check('a missing phrase with no fallback throws', threw);
+  var scenes = { s1: [{ text: 'Push', start: 1, end: 1.2 }], s2: [{ text: 'the', start: 2, end: 2.1 }, { text: 'Push', start: 2.2, end: 2.4 }] };
+  check('words.json scenes: phrases never match across scenes', S.cues.findAll('push the', S.cues.words(scenes)).length === 0 && S.cues.findAll('push', S.cues.words({ scenes: scenes })).length === 2);
+  check('words.json scene filter', near(S.cues.fromWords({ x: { say: 'push', scene: 's2', fallback: 0 } }, { words: { scenes: scenes } })('x'), 2.2));
+
+  // ---------------------------------------------------------------- fitness layout
+  var F = S.kit.fitness;
+  var L = F.layout();
+  check('portrait fitness bands: rail at y 340, floor 870, caption lane 879-980 under the floor', near(L.rail.y, 340.48, 0.01) && near(L.stage.top, 340.48, 0.01) && near(L.header.bottom, 340.48 - 1.6 * 7.2, 0.01) && near(L.floor, 870.4, 0.01) && near(L.captions.top, 870.4 + 1.6 * 7.2, 0.01) && L.captions.bottom === 980 && L.mode === 'slot' && L.figureHeight > 0.38 * 1280,
+    JSON.stringify([L.rail.y, L.header.bottom, L.floor, L.captions.top, L.captions.bottom, L.figureHeight]));
+
+  S.build(function (tl, fmt, S) {
+    // typed kicker
+    var kick = S.comp.kicker('#kick', { text: ['Scene one', 'Korea, 2024'] }, { cps: 20 });
+    var kEnd = kick.enter(tl, 0.5);
+    var kEnd2 = kick.type(tl, 1, 3.0);
+    check('kicker splits each label into characters', kick.versions[0].chars.length === 8 && kick.versions[1].chars.length === 10, kick.versions.map(function (v) { return v.chars.length; }).join());
+    check('kicker end times', near(kEnd, 0.5 + 8 / 20) && kEnd2 > 3.0, kEnd + ' ' + kEnd2);
+    check('kicker keeps the full text for screen readers', document.querySelector('.st-tkicker').getAttribute('aria-label') === 'Scene one / Korea, 2024');
+    window.__k = kick;
+
+    // caption band owned by the film
+    var band = S.comp.captionBand('#root', window.STUDIO_CAPTIONS);
+    check('caption band default: a strip ending at the safe bottom', near(band.band.bottom, 980 / 1280, 1e-4) && band.band.top < band.band.bottom, JSON.stringify(band.band));
+    check('caption band texts carry st-caption (motion-qa and the gap audit read the class)', band.texts.every(function (p) { return p.className.indexOf('st-caption') === 0; }));
+    band.schedule(tl);
+    window.__band = band;
+    var band2 = S.comp.captionBand('#root', [], { band: { portrait: { top: 0.664, bottom: 0.766 }, landscape: { top: 0.84, bottom: 0.92 } } });
+    check('caption band per-format fractions', near(band2.band.top, 0.664) && near(band2.band.bottom, 0.766));
+
+    // stamp
+    var stamp = S.comp.stamp('#stamps', { text: 'Confirmed', sub: 'two sources', tone: 'positive', x: 0.6, y: { portrait: 0.5, landscape: 0.4 } });
+    var sEnd = stamp.enter(tl, 6.0, { shake: '#drift' });
+    check('stamp returns its settle time', sEnd > 6.2 && sEnd < 6.8, sEnd);
+    window.__stamp = stamp;
+
+    // tile grid
+    var grid = S.comp.tileGrid('#grid', { count: 40, columns: { portrait: 8, landscape: 10 }, states: { off: '--c-rule', on: '--c-accent', warn: '#f2553d' }, order: 'seeded', seed: 4 });
+    var g2 = S.comp.tileGrid(document.createElement('div'), { count: 40, columns: 8, order: 'seeded', seed: 4 });
+    check('tile grid seeded order is deterministic', grid.order.join() === g2.order.join() && grid.order.join() !== S.comp.tileGrid(document.createElement('div'), { count: 40, columns: 8, order: 'seeded', seed: 5 }).order.join());
+    check('tile grid columns per format', getComputedStyle(grid.el).getPropertyValue('--tg-cols').trim() === '8');
+    grid.enter(tl, 7.0);
+    var gEnd = grid.to(tl, { on: 20 }, 8.0, { stagger: 0.01 });
+    grid.to(tl, { on: 10, warn: 5 }, 9.0, { stagger: 0.01 });
+    check('tile grid end time covers the stagger', near(gEnd, 8.0 + 0.3 + 0.01 * 19), gEnd);
+    window.__grid = grid;
+
+    // odometer
+    var odo = S.type.counterRoll('#odo', { value: 0, digits: 1, suffix: '%' });
+    odo.to(tl, 1234, 10.0, { duration: 1.0, ease: 'none' });
+    odo.to(tl, 7, 12.0, { duration: 0.5 });
+    check('odometer grows columns to the largest value (plus a group separator)', odo.el.querySelectorAll('.st-odo-col').length === 4 && odo.el.querySelectorAll('.st-odo-sep').length === 1);
+    window.__odo = odo;
+
+    // per-scene drift on one shared stage
+    var dEnd = S.space.sceneDrift(tl, [{ target: '#drift', start: 13.0, end: 15.0 }, { target: '#drift', start: 15.0, end: 17.0 }], { seed: 3 });
+    check('scene drift returns the last end', dEnd === 17.0);
+
+    // stations: three plain stations, cross-faded
+    var built = [];
+    var st = S.comp.stations('#stationsHost', [
+      { id: 'a', start: 17.0, end: 19.0, build: function (layers, win) { built.push(win); S.el('p', null, 'A', layers[0]); } },
+      { id: 'b', start: 19.0, end: 21.0, build: function (layers, win) { built.push(win); } },
+      { id: 'c', start: 21.5, end: 23.0, build: function (layers, win) { built.push(win); } }
+    ], { fade: 0.4, hold: false });
+    st.schedule(tl);
+    check('stations call each builder with its window', built.length === 3 && near(built[0].out, 18.8) && near(built[1].in, 19.2) && near(built[1].out, 19.0 + 2.0) && near(built[2].in, 21.5), JSON.stringify(built.map(function (w) { return [w.in, w.out]; })));
+    window.__st = st;
+
+    // fitness: exercise card + two Tibi stations
+    var fit = F.stations('#fitHost', [
+      { exercise: 'bodyweight-squat', start: 0, end: 5.0, card: { cues: ['Sit between the heels', 'Knees follow the toes'], tip: { text: 'Depth is a choice.', grade: 'moderate', source: 'Example et al. 2020 · RCT · n = 20' }, swaps: { easier: 'Box squat', harder: 'Goblet squat' } },
+        beats: { muscles: 1.0, cues: [1.8, 2.6], tip: 3.4, swaps: 4.2 } },
+      { exercise: 'dumbbell-curl', start: 5.0, end: 9.0, card: { cues: ['Elbows still'], tip: { text: 'Slow lowering.', grade: 'preliminary', source: 'Example 2021 · n = 12' } }, beats: 'auto' }
+    ], { fade: 0.5 });
+    fit.schedule(tl);
+    check('fitness stations build a Tibi and a card per exercise', fit.items.length === 2 && !!fit.items[0].tibi && !!fit.items[1].card && fit.items[0].card.parts.name.textContent === 'Bodyweight squat',
+      fit.items[0] && fit.items[0].card ? fit.items[0].card.parts.name.textContent : 'none');
+    check('card number and total', fit.items[1].card.parts.num.textContent === '02' && /02/.test(document.querySelectorAll('.sn-card-of')[1].textContent));
+    check('reps fill the station window', fit.items[0].repsEnd > 3.5 && fit.items[0].repsEnd <= 5.0, fit.items[0].repsEnd);
+    threw = false;
+    try { F.exerciseCard(document.createElement('div'), { name: 'x', tip: { text: 'claim', grade: 'strong' } }); } catch (err) { threw = true; }
+    check('a tip without a source line is refused', threw);
+    window.__fit = fit;
+
+    // card fit: the tallest moment of a card (head, chips, the tallest part in the slot) stays inside its host
+    function overflow(card) {
+      var r = card.el.getBoundingClientRect(), bottom = r.top;
+      Array.prototype.forEach.call(card.el.querySelectorAll('*'), function (c) { bottom = Math.max(bottom, c.getBoundingClientRect().bottom); });
+      return bottom - r.bottom;
+    }
+    check('portrait exercise cards stay inside the header band', fit.items.every(function (it) { return overflow(it.card) <= 0.5; }),
+      fit.items.map(function (it) { return overflow(it.card).toFixed(1) + '@' + it.card.el.getAttribute('data-fit'); }).join(' '));
+    var longCard = { index: 3, total: 9, name: 'Rear-foot elevated split squat', muscles: [{ name: 'Quadriceps femoris', role: 'prime' }, { name: 'Gluteus maximus', role: 'prime' }, { name: 'Hip adductor group', role: 'second' }, { name: 'Hamstrings', role: 'second' }],
+      cues: ['Front shin stays near vertical', 'Back knee drops straight down'], tip: { text: 'Depth comes from the hip, not the lower back.', grade: 'moderate', source: 'Example et al. 2020 \u00b7 RCT \u00b7 n = 20 \u00b7 trained men' }, swaps: { easier: 'Split squat, rear foot on the floor', harder: 'Hold dumbbells' } };
+    function cardHost() { var h = S.el('div', null, null, document.getElementById('fitHost')); h.style.cssText = 'position:absolute;left:0;top:0;width:400px;height:440px;visibility:hidden'; return h; }
+    var tight = F.exerciseCard(cardHost(), longCard, { mode: 'stack' });
+    var loose = F.exerciseCard(cardHost(), longCard, { mode: 'stack', fit: false });
+    check('a card too tall for its host shrinks to fit (and would overflow without the fit)', overflow(tight) <= 0.5 && +tight.el.getAttribute('data-fit') < 1 && overflow(loose) > 0.5,
+      overflow(tight).toFixed(1) + '@' + tight.el.getAttribute('data-fit') + ' vs ' + overflow(loose).toFixed(1));
+    check('the fit leaves the floor-size lines (grade, source) at the floor', getComputedStyle(tight.parts.tip.querySelector('.sn-tip-src')).fontSize === getComputedStyle(loose.parts.tip.querySelector('.sn-tip-src')).fontSize);
+    check('stack mode: tip and swaps take turns in one place', tight.parts.tip.offsetTop === tight.parts.swaps.offsetTop, tight.parts.tip.offsetTop + ' / ' + tight.parts.swaps.offsetTop);
+  });
+
+  function waitTimeline() {
+    var tl = window.__timelines && window.__timelines.root;
+    if (!tl) { setTimeout(waitTimeline, 30); return; }
+    check('timeline registered and paused', tl.paused());
+    check('timeline within data-duration', tl.duration() <= 24 + 1e-3, tl.duration());
+
+    var kick = window.__k;
+    function typed(v) { return kick.versions[v].chars.filter(vis).length; }
+    function caretX() { return gsap.getProperty(kick.caret, 'x'); }
+    tl.seek(0.2);
+    check('kicker hidden before it enters', !vis(kick.el));
+    tl.seek(0.5 + 4.5 / 20);
+    check('kicker: five characters typed, the caret after the fifth', typed(0) === 5 && near(caretX(), kick.versions[0].stops[5], 0.01), typed(0) + ' / ' + caretX() + ' vs ' + kick.versions[0].stops[5]);
+    check('kicker caret visible while typing', vis(kick.caret));
+    tl.seek(2.95);
+    check('kicker caret blinks out after the pass', !vis(kick.caret) && typed(0) === 8);
+    tl.seek(5.0);
+    check('kicker retyped to the second label', typed(0) === 0 && typed(1) === 10, typed(0) + '/' + typed(1));
+    tl.seek(0.5 + 4.5 / 20);
+    check('kicker backward seek restores the first pass', typed(0) === 5 && typed(1) === 0 && near(caretX(), kick.versions[0].stops[5], 0.01));
+
+    var band = window.__band;
+    tl.seek(0.5);
+    check('caption band hidden before its first cue', !vis(band.el));
+    tl.seek(1.6);
+    var w = band.texts[0].querySelectorAll('.st-caption-word');
+    check('caption band shows cue 1 and lights the spoken word', vis(band.el) && vis(band.texts[0]) && !vis(band.texts[1]) && parseFloat(w[2].style.getPropertyValue('--st-hl')) > 0.99 && parseFloat(w[0].style.getPropertyValue('--st-hl')) < 0.01);
+    tl.seek(3.0);
+    check('caption band swaps to cue 2 inside the same plate', vis(band.el) && !vis(band.texts[0]) && vis(band.texts[1]));
+    tl.seek(6.2);
+    check('caption band leaves after the last cue', !vis(band.el));
+
+    var stamp = window.__stamp;
+    tl.seek(5.9);
+    check('stamp hidden before the slam', !vis(stamp.el));
+    tl.seek(7.0);
+    check('stamp settled at its tilt and full size', vis(stamp.el) && near(gsap.getProperty(stamp.el, 'rotation'), -7, 0.01) && near(gsap.getProperty(stamp.el, 'scale'), 1, 0.01));
+    check('stamp shake returns the shaken element to rest', near(gsap.getProperty('#drift', 'x'), 0, 0.01));
+
+    var grid = window.__grid;
+    function count(colour) { return grid.tiles.filter(function (t) { return getComputedStyle(t).backgroundColor === colour; }).length; }
+    var probe = document.createElement('span'); document.body.appendChild(probe);
+    function rgb(c) { probe.style.color = c; return getComputedStyle(probe).color; }
+    var on = rgb(grid.states.on), warn = rgb(grid.states.warn), off = rgb(grid.states.off);
+    tl.seek(8.9);
+    check('tile grid: 20 tiles on after the first change', count(on) === 20 && count(off) === 20, count(on) + '/' + count(off));
+    check('tile grid follows its order', getComputedStyle(grid.tiles[grid.order[0]]).backgroundColor === on && getComputedStyle(grid.tiles[grid.order[39]]).backgroundColor === off);
+    tl.seek(10.0);
+    check('tile grid: 10 on, 5 warn, 25 off after the second', count(on) === 10 && count(warn) === 5 && count(off) === 25, count(on) + '/' + count(warn) + '/' + count(off));
+    tl.seek(7.5); var mid = count(on);
+    tl.seek(8.9);
+    check('tile grid backward and forward seeks agree', count(on) === 20 && mid === 0, mid);
+
+    var odo = window.__odo;
+    function digits() {
+      return Array.prototype.map.call(odo.el.querySelectorAll('.st-odo-col'), function (c) {
+        var m = /translateY\((-?[0-9.]+)em\)/.exec(c.firstChild.style.transform);
+        return { pos: m ? -parseFloat(m[1]) : 0, op: parseFloat(c.style.opacity) };
+      });
+    }
+    tl.seek(9.5);
+    var d0 = digits();
+    check('odometer starts at 0 with leading columns hidden', near(d0[3].pos, 0) && d0[0].op === 0 && d0[3].op === 1, JSON.stringify(d0));
+    tl.seek(11.2);
+    var d1 = digits();
+    check('odometer reads 1234 after the roll', [1, 2, 3, 4].every(function (n, i) { return near(d1[i].pos, n, 1e-3) && d1[i].op === 1; }), JSON.stringify(d1));
+    tl.seek(10.5);
+    var dm = digits();
+    check('odometer mid-roll: the units column rolls between whole digits', dm[3].pos >= 0 && dm[3].pos <= 10 && dm[0].op <= 1, JSON.stringify(dm));
+    tl.seek(12.6);
+    var d2 = digits();
+    check('odometer rolls back down to 7 and hides the leading columns', near(d2[3].pos, 7, 1e-3) && d2[0].op === 0 && d2[1].op === 0, JSON.stringify(d2));
+    check('odometer is readable text for its affixes', /%/.test(odo.el.textContent));
+
+    tl.seek(14.999); var sa = gsap.getProperty('#drift', 'scale'), xa = gsap.getProperty('#drift', 'x');
+    tl.seek(15.001); var sb = gsap.getProperty('#drift', 'scale'), xb = gsap.getProperty('#drift', 'x');
+    check('scene drift is continuous across scenes on one stage', near(sa, sb, 1e-3) && near(xa, xb, 0.05), sa + '/' + sb + ' ' + xa + '/' + xb);
+    tl.seek(17.0);
+    check('scene drift alternates scale back toward 1', near(gsap.getProperty('#drift', 'scale'), 1, 1e-3), gsap.getProperty('#drift', 'scale'));
+
+    var L = window.__st.layers;
+    tl.seek(18.0);
+    check('station a alone mid-window', near(alpha(L[0][0]), 1) && alpha(L[1][0]) === 0);
+    tl.seek(19.0);
+    var sum = alpha(L[0][0]) + alpha(L[1][0]);
+    check('station boundary is a zero-dip cross-fade', alpha(L[0][0]) > 0.2 && alpha(L[1][0]) > 0.2 && sum > 0.95, sum);
+    tl.seek(21.2);
+    check('a gap between stations shows neither', alpha(L[1][0]) === 0 && alpha(L[2][0]) === 0);
+    tl.seek(23.5);
+    check('hold:false hides the last station at its end', alpha(L[2][0]) === 0);
+
+    var fit = window.__fit, c0 = fit.items[0].card, p = c0.parts;
+    tl.seek(0);
+    check('the opening station is on screen on frame 0', alpha(fit.stations.layers[0][0]) === 1);
+    tl.seek(2.0);
+    check('card (slot mode): first cue showing, tip not yet', vis(p.cueList) && vis(p.cues[0]) && !vis(p.tip) && vis(p.chips[0]));
+    tl.seek(3.0);
+    check('card: the earlier cue dims when the next is spoken', near(parseFloat(getComputedStyle(p.cues[0]).opacity), 0.5, 0.01) && vis(p.cues[1]));
+    tl.seek(3.8);
+    check('card: the tip takes the slot from the cues', !vis(p.cueList) && vis(p.tip));
+    tl.seek(4.6);
+    check('card: swaps take the slot from the tip', !vis(p.tip) && vis(p.swaps));
+    tl.seek(7.0);
+    check('fitness stations cross-fade to the second exercise', alpha(fit.stations.layers[0][0]) === 0 && alpha(fit.stations.layers[1][0]) === 1);
+    tl.seek(2.0);
+    check('card: backward seek restores the cue slot', vis(p.cueList) && !vis(p.tip) && !vis(p.swaps));
+
+    // seek-order independence over the whole page
+    function snap() {
+      return Array.prototype.map.call(document.querySelectorAll('#root *'), function (el) {
+        var s = getComputedStyle(el);
+        return s.visibility + s.opacity + s.transform + s.backgroundColor;
+      }).join('|');
+    }
+    tl.seek(10.5); var a = snap();
+    tl.seek(3.0); tl.seek(22.0); tl.seek(0); tl.seek(10.5);
+    check('seek order independent', snap() === a);
+    window.__studioTestResults = results;
+  }
+  waitTimeline();
+})();
+</script>
+</body>
+</html>

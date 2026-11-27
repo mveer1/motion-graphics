@@ -2,20 +2,25 @@
   "id": "tool-anatomy3d-check",
   "name": "3D Tibi anatomical acceptance tests (scripts/anatomy3d-check.js)",
   "component_type": "tool",
-  "purpose": "Checks the unified body without rendering: watertight single-component skin, nothing protrudes, layer order along each cut axis, mask coverage and soft edges, highlight registration across five poses, deformation, colour language.",
+  "purpose": "Checks connected/closed skin, separate non-manifold counts, internal envelope and selected layer rays, local sheet relief, normals, registration, deformation and actual surface colour/garment ownership. It does not certify human anatomy.",
   "capabilities": [
-    "node scripts/anatomy3d-check.js [--gender m|f|both] [--json]"
+    "node scripts/anatomy3d-check.js [--gender m|f|both] [--json]",
+    "Exact position/color/colorC recovery after a nearby pose, exposing history-dependent skin caches",
+    "--profile legacy|distance (distance default); torso stations must meet the core contour within half a mesh cell",
+    "Zero boundary edges; broad bounded lat relief and no elevation-only inflation; biceps > brachialis > humerus ray",
+    "Exact morph normals, cross-instance isolation, bounded RGB for all three roles and no top colour on arm-dominated vertices",
+    "Actual posed shoulder crest and neutral upper-arm/lower-arm/palm silhouette clearance, including unmasked supporting volumes"
   ],
   "location": "scripts/anatomy3d-check.js",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "dependencies": [
     "shared-fitness-kit",
     "threejs"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "python3.12 or node; ffmpeg where noted",
-    "notes": "Heavy browser steps take the host render lock."
+    "notes": "Node-only checks. Existing thresholds remain; the current profile gains stricter local gates and a zero-open-boundary rule. Legacy is an explicit compatibility reference with documented defects. Mac rerun pending."
   },
   "documentation_urls": [
     ".claude/skills/fitness-anatomy/SKILL.md",
@@ -28,7 +33,7 @@
     "sensitive_data_exposure": false,
     "notes": "Writes only under qa/ or the named output directory."
   },
-  "approval_evidence": "tests/test-anatomy3d.py (2026-11-13): passes for both bodies and fails on a protruding muscle and a hard-edged mask.",
+  "approval_evidence": "0.5.0, Windows 2026-11-20: both current bodies pass; the anatomy suite has 23 passing tests. Restoring the joint orb, flat arm root or forward-hanging neutral stance makes the actual silhouette gate fail. Zero boundary edges; three male/four female non-manifold edges remain reported separately. These are engineering guards, not clinical approval. Mac rerun pending.",
   "tags": [
     "fitness",
     "qa",
@@ -47,5 +52,5 @@
   "owner": "motion-graphics",
   "status": "experimental",
   "architecture_ref": "ARCHITECTURE.md",
-  "last_verified": "2026-11-13"
+  "last_verified": "2026-11-20"
 }

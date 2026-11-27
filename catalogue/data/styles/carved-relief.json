@@ -1,0 +1,93 @@
+{
+  "id": "carved-relief",
+  "name": "Carved Relief",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "Museum light on stone, bronze and terracotta: public-domain photographs of sculpture, vases and picture stones cut out and layered in 2.5D, with letter-spaced inscriptional capitals. Alternate look of the mythic-tale template for Greek, Roman, Norse and temple-sculpture stories.",
+  "location": "src/studio/styles/carved-relief.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f0eae0",
+      "paper-2": "#dfd6c7",
+      "ink": "#221f1c",
+      "ink-2": "#57504a",
+      "rule": "#bfb4a3",
+      "accent": "#9c4527",
+      "accent-2": "#2b5a69",
+      "accent-3": "#8c6b2c",
+      "gold": "#b98f3e"
+    },
+    "typography": {
+      "display": "'EB Garamond', serif",
+      "text": "'EB Garamond', serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Stone grain, raking light vignette, soft contact shadows under photo cut-outs (Studio.kit.mythic.plate)",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Monumental and slow: a camera moving over objects in a gallery; parallax between cut-out photographs; no object performs",
+    "ease_in": "power1.in",
+    "ease_out": "power2.out",
+    "enter_duration_sec": 1.1,
+    "stagger_sec": 0.12,
+    "notes": "Photographs never bounce or squash. Use duotone on mixed sources so plates from different museums sit together."
+  },
+  "fonts": [
+    {
+      "family": "EB Garamond",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 13.7:1",
+    "ink-2/paper 6.6:1",
+    "accent/paper 5.3:1",
+    "accent-2/paper 6.3:1",
+    "accent-3/paper 4.1:1",
+    "ink/paper-2 11.4:1",
+    "Below 4.5:1 (accent-3/paper 4.1:1): leaf, borders, shapes and display type 24px+ only; never body or caption text"
+  ],
+  "suitable_for": [
+    "myths and legends told through artefacts",
+    "Greek, Roman and Norse stories",
+    "temple sculpture and iconography",
+    "museum-object storytelling"
+  ],
+  "categories": [
+    "mythology"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-23. Frame-reviewed in Playwright Chromium on Windows through the mythic-film scaffold; not yet rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-23"
+  },
+  "related": [
+    "mythic-paper",
+    "shadow-lantern",
+    "painted-folio"
+  ],
+  "tags": [
+    "light",
+    "museum",
+    "photographic",
+    "relief",
+    "myth",
+    "2.5d"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  },
+  "avoid_for": [
+    "stories with no surviving artefacts to show",
+    "playful tone"
+  ]
+}

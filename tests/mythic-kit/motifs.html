@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mythic motifs, friezes and registers</title>
+  <link rel="stylesheet" href="/src/studio/studio-base.css">
+  <link rel="stylesheet" href="/src/studio/styles/painted-folio.css">
+  <style>:root{--w:1280px;--h:900px;--u:9px;--safe-top:30px;--safe-right:30px;--safe-bottom:30px;--safe-left:30px;}
+    .lbl{position:absolute;font:600 14px 'EB Garamond',serif;color:var(--c-ink);letter-spacing:.08em;text-transform:uppercase}</style>
+  <script src="/src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<!-- Review sheet: every border motif, the tradition presets, a frieze and bottom-up registers. -->
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="900" data-fps="30" data-duration="1"></div>
+<script src="/src/studio/studio-core.js"></script>
+<script src="/src/studio/studio-draw.js"></script>
+<script src="/src/studio/studio-type.js"></script>
+<script src="/src/studio/studio-motion.js"></script>
+<script src="/src/studio/studio-compositions.js"></script>
+<script src="/src/studio/kits/mythic/mythic.js"></script>
+<script src="/src/studio/kits/mythic/figures.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var M = S.kit.mythic, root = document.getElementById('root');
+  var label = function (t, x, y) { var l = S.el('div', 'lbl', t, root); l.style.left = x + 'px'; l.style.top = y + 'px'; };
+  M.motifs.forEach(function (m, i) {
+    var x = 30 + (i % 6) * 205, y = 30 + Math.floor(i / 6) * 150;
+    M.border(root, { motif: m, x: x, y: y, w: 190, h: 110, inset: 0, band: 2.6 });
+    label(m, x + 34, y + 44);
+  });
+  Object.keys(M.traditions).forEach(function (t, i) {
+    var x = 30 + i * 205, y = 330;
+    M.border(root, { tradition: t, x: x, y: y, w: 190, h: 110, inset: 0, band: 2.6 });
+    label(t, x + 34, y + 44);
+  });
+  var fr = M.frieze(root, { x: 30, y: 480, w: 760, h: 180, panels: 5, visible: 4, ground: '--c-paper-2' });
+  fr.panels.forEach(function (p, i) {
+    M.cutout(p.el, { figure: ['rama', 'hanuman', 'shiva', 'athena', 'odin'][i], h: 160, x: p.w / 2 - 40, y: 10 });
+  });
+  label('frieze (5 panels, 4 visible)', 30, 668);
+  var regs = M.registers(root, { x: 830, y: 480, w: 420, h: 380, rows: 3, order: 'bottom-up', ground: '--c-paper-2' });
+  regs.rows.forEach(function (r, i) { var l = S.el('div', 'lbl', 'field ' + (i + 1), r.el); l.style.left = '12px'; l.style.top = '10px'; });
+  label('registers, read bottom-up', 830, 866);
+  var leap = M.puppet(root, { figure: 'hanuman', look: 'leather', h: 200, x: 300, y: 680 });
+  gsap.set(leap.part('leg-back'), { rotation: 38, svgOrigin: leap.pivots['leg-back'].join(' ') });
+  gsap.set(leap.part('leg-front'), { rotation: -52, svgOrigin: leap.pivots['leg-front'].join(' ') });
+  gsap.set(leap.part('arm-front'), { rotation: -150, svgOrigin: leap.pivots['arm-front'].join(' ') });
+  gsap.set(leap.part('torso'), { rotation: 16, svgOrigin: leap.pivots['torso'].join(' ') });
+  gsap.set(leap.el, { rotation: 62, transformOrigin: '50% 50%' });
+  label('leap pose (legs and arm on pivots)', 520, 866);
+});
+</script>
+</body>
+</html>

@@ -9,6 +9,7 @@
     { "id": "mathematics", "name": "Mathematics", "description": "Proofs, structures, patterns and quantitative ideas." },
     { "id": "news", "name": "News", "description": "Current events and explainers on them." },
     { "id": "fitness", "name": "Fitness & exercise science", "description": "Training, running, muscle and exercise physiology, sport science and performance; evidence-graded (see the fitness skill's research protocol)." },
+    { "id": "mythology", "name": "Mythology & sacred stories", "description": "Myths, legends and religious narratives (gods, heroes, epics, origin stories) retold as a tradition tells them, with the source text and version named (see the mythic-tales skill)." },
     { "id": "storytelling", "name": "Storytelling", "description": "Narrative-first pieces where story, character or mood leads over explanation." }
   ]
 }

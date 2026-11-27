@@ -261,3 +261,15 @@ def lag_energy(frames: np.ndarray, start: int, end: int, lag: int, step: int = 3
     idx = range(max(0, start), max(start + 1, end - lag), step)
     vals = [float(np.abs(f[i + lag] - f[i]).mean()) for i in idx if i + lag < len(f)]
     return float(np.mean(vals)) if vals else 0.0
+
+
+def changed_fraction(frames: np.ndarray, start: int, end: int, lag: int, step: int = 3, level: float = 10.0) -> float:
+    """Largest share of the frame whose luma moves by more than `level` across `lag` frames inside a stretch.
+
+    The mean-difference measures above read the whole frame, so a counter or one lit tile on a still stage looks
+    frozen. This says how much of the frame actually changes (0.0 nothing, 1.0 everything). `level` sits above
+    H.264 noise on flat ground (1-3 levels)."""
+    f = frames.astype(np.float32)
+    idx = range(max(0, start), max(start + 1, end - lag + 1), step)
+    vals = [float((np.abs(f[i + lag] - f[i]) > level).mean()) for i in idx if i + lag < len(f)]
+    return max(vals) if vals else 0.0

@@ -17,6 +17,7 @@ Pure Python, no render host needed.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -25,11 +26,16 @@ from typing import Any, Dict, List, Optional, Tuple
 import captions as capmod
 import hooks
 import style_templates
+import tweens as tw
 
 SHORT_FORM_MAX_SEC = 60.0
 LONG_SENTENCE_SEC = 8.0
 ABSTRACT_RUN = 3
 MIN_WHY_WORDS = 4
+LABEL_WORDS = 3  # an on-screen card this short, with no pronoun or function word, is a label or a term; uncalibrated
+PRONOUNS = {"he", "she", "her", "his", "him", "it", "its", "we", "you", "i", "our", "they", "them", "their", "no", "too"}
+TWEEN_DUMP = Path("qa") / "motion" / "tweens.json"
+COMPOSITION_SUFFIXES = {".html", ".js", ".css"}
 CTA_PATTERNS = [
     ("follow", r"\bfollow (me|us|for|the)\b|\bfollow\.?$"),
     ("subscribe", r"\bsubscribe\b"),
@@ -79,17 +85,41 @@ def load_inputs(pdir: Path) -> Dict[str, Any]:
         "narration": maybe("src/narration.json"),
         "timeline": maybe("audio/timeline.json"),
         "words": maybe("audio/words.json"),
+        "story_review": maybe("qa/story-review.json"),
     }
 
 
 # --------------------------------------------------------------------------- sentence sheet
+REFERENCE_SPEED = 1.15  # hooks.DEFAULT_WPS was measured at am_adam 1.15x; words per second scale with speed
+
+
+def film_speed(inputs: Dict[str, Any]) -> float:
+    """The film's narration speed: project.json audio.speed, else what audio/timeline.json records, else 1.15."""
+    audio = (inputs.get("project") or {}).get("audio") or {}
+    return float(audio.get("speed") or (inputs.get("timeline") or {}).get("speed") or REFERENCE_SPEED)
+
+
+def scene_wps(scene: Dict[str, Any], inputs: Dict[str, Any], wps: float = hooks.DEFAULT_WPS) -> float:
+    """Estimated words per second for one src/narration.json scene: `wps` at 1.15x, scaled by the scene's own
+    `speed` (story-writer pace map), else the film speed."""
+    speed = float(scene["speed"]) if scene.get("speed") is not None else film_speed(inputs)
+    return wps * speed / REFERENCE_SPEED
+
+
 def sentence_rows(inputs: Dict[str, Any], wps: float = hooks.DEFAULT_WPS) -> Tuple[List[Dict[str, Any]], str]:
-    """One row per spoken sentence with film-time start and end. Returns (rows, timing source)."""
+    """One row per spoken sentence with film-time start and end. Returns (rows, timing source).
+
+    When the narration text changed after audio/timeline.json was made, the old clips and word times describe
+    other words, so every sentence is estimated instead and the source says the audio is stale."""
     narration = (inputs.get("narration") or {}).get("scenes", [])
-    tl = {s["id"]: s for s in (inputs.get("timeline") or {}).get("scenes", [])}
-    word_times = (inputs.get("words") or {}).get("scenes", {})
+    stale = stale_scenes(inputs)
+    tl = {} if stale else {s["id"]: s for s in (inputs.get("timeline") or {}).get("scenes", [])}
+    word_times = {} if stale else (inputs.get("words") or {}).get("scenes", {})
     rows: List[Dict[str, Any]] = []
-    source = "estimated from words per second (narration not yet measured)"
+    source = "estimated from words per second at each scene's speed (narration not yet measured)"
+    if stale:
+        source = (f"audio is stale (narration text changed in {', '.join(stale)} since audio/timeline.json was made); "
+                  "estimated from words per second at each scene's speed until build-audio.py re-makes it")
     t_cursor = 0.0
     for sc in narration:
         sid, text = sc["id"], sc.get("text", "")
@@ -122,8 +152,9 @@ def sentence_rows(inputs: Dict[str, Any], wps: float = hooks.DEFAULT_WPS) -> Tup
                 source = "measured clip lengths (audio/timeline.json), split by sentence length"
             continue
         t = t_cursor
+        rate = scene_wps(sc, inputs, wps)
         for s in sents:
-            d = hooks.spoken_seconds(s, wps)
+            d = hooks.spoken_seconds(s, rate)
             rows.append(_row(sid, s, t, t + d))
             t += d
         t_cursor = t + 0.5
@@ -160,6 +191,8 @@ def script_findings(rows: List[Dict[str, Any]], inputs: Dict[str, Any], source: 
     project = inputs.get("project") or {}
     if not rows:
         return [("note", "no-narration", "no src/narration.json scenes with text; nothing to lint.")]
+    if source.startswith("audio is stale"):
+        out.append(("note", "audio-stale", f"{source.split(';')[0]}: sentence times below are estimates, not the old clip lengths."))
     total = project.get("duration_sec") or rows[-1]["end"]
     short_form = is_short_form(project)
     reel_length = bool(total) and total <= SHORT_FORM_MAX_SEC
@@ -173,6 +206,10 @@ def script_findings(rows: List[Dict[str, Any]], inputs: Dict[str, Any], source: 
         out.append(("warn", "hook-long", f"{where} runs past the {hooks.HOOK_WINDOW_SEC:g}s hook window; say the claim first, move the detail to the next sentence."))
     if h["score"] < 50 and not h["capped_by"]:
         out.append(("note", "hook-weak", f"hook scores {h['score']}/100 ({'; '.join(h['notes'][:2]) or 'see studio.py hook score'}). A lint, not a prediction; write two alternatives from other formulas."))
+    # clarity reads the whole hook window: "Nobody made a mistake. Both lost one year." is two sentences, one hook
+    window = " ".join(r["text"] for r in rows if r["start"] < first["start"] + hooks.HOOK_WINDOW_SEC)
+    for note in hooks.clarity_notes(window):
+        out.append(("note", "hook-unclear", f"hook {note}"))
 
     # abstract runs: consecutive sentences with nothing checkable in them
     run: List[Dict[str, Any]] = []
@@ -224,6 +261,99 @@ def script_findings(rows: List[Dict[str, Any]], inputs: Dict[str, Any], source: 
     return out
 
 
+# --------------------------------------------------------------------------- film-time gap audit
+def stale_scenes(inputs: Dict[str, Any]) -> List[str]:
+    """Scenes whose src/narration.json text differs from the text audio/timeline.json says it was made from.
+
+    Empty when the timeline does not record text (an older format): staleness cannot be told then."""
+    tl = {s["id"]: s for s in (inputs.get("timeline") or {}).get("scenes", []) if "id" in s}
+    out = []
+    for sc in (inputs.get("narration") or {}).get("scenes", []):
+        old = tl.get(sc.get("id"))
+        if old is not None and "text" in old and old["text"] != sc.get("text", ""):
+            out.append(sc["id"])
+    return out
+
+
+def composition_hash(pdir: Path) -> str:
+    """SHA-256 of the authored composition (src/ html, js and css, without the vendored _studio/ runtime).
+
+    Line endings are normalised so a Windows and a Mac checkout of the same composition agree."""
+    h = hashlib.sha256()
+    src = pdir / "src"
+    if src.is_dir():
+        for p in sorted(src.rglob("*")):
+            rel = p.relative_to(src)
+            if not p.is_file() or rel.parts[0] == "_studio" or p.suffix not in COMPOSITION_SUFFIXES:
+                continue
+            h.update(rel.as_posix().encode("utf-8") + b"\0")
+            h.update(p.read_bytes().replace(b"\r\n", b"\n"))
+    return h.hexdigest()
+
+
+def load_tween_dump(pdir: Path) -> Tuple[Optional[Dict[str, Any]], str]:
+    """(dump, 'current' | 'stale' | 'missing'): the tween dump `studio.py script --probe` or motion-qa cached."""
+    p = pdir / TWEEN_DUMP
+    if not p.exists():
+        return None, "missing"
+    try:
+        dump = load_json(p)
+    except ValueError:
+        return None, "missing"
+    return dump, ("current" if dump.get("composition_sha256") == composition_hash(pdir) else "stale")
+
+
+def write_tween_dump(pdir: Path, dump: Dict[str, Any]) -> Path:
+    p = pdir / TWEEN_DUMP
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps({**dump, "composition_sha256": composition_hash(pdir)}, indent=1) + "\n", encoding="utf-8")
+    return p
+
+
+def narration_spans(timeline: Optional[Dict[str, Any]]) -> List[Tuple[float, float, str]]:
+    spans = []
+    for s in (timeline or {}).get("scenes", []):
+        a = float(s.get("start_time_sec", 0.0))
+        b = float(s.get("end_time_sec", a + float(s.get("duration_sec", 0.0))))
+        if b > a:
+            spans.append((a, b, s.get("id", "?")))
+    return spans
+
+
+def gap_findings(pdir: Path, inputs: Dict[str, Any]) -> List[Finding]:
+    """Narration stretches over 2 s with no visual event, from the composition's own tweens. Warnings, never errors:
+    the 2 s limit is the anti-laziness rule, and the event/ambient split is uncalibrated (see docs/short-form-lessons.md)."""
+    probe_hint = f"`python scripts/studio.py script {pdir.name} --probe` on a host with the HyperFrames browser"
+    dump, state = load_tween_dump(pdir)
+    if state == "missing":
+        return [("note", "gap-audit", f"no tween dump ({TWEEN_DUMP.as_posix()}), so narration stretches with no visual change are not "
+                                      f"checked before the render; run {probe_hint}.")]
+    if state == "stale":
+        return [("note", "gap-audit", f"the composition changed since {TWEEN_DUMP.as_posix()} was written; re-run {probe_hint}.")]
+    spans = narration_spans(inputs.get("timeline"))
+    if not spans:
+        return [("note", "gap-audit", "narration is not measured yet (no audio/timeline.json scenes); the gap audit needs measured speech.")]
+    stale = stale_scenes(inputs)
+    if stale:
+        return [("note", "gap-audit", f"audio is stale: narration text changed in {', '.join(stale)} since audio/timeline.json was made, "
+                                      f"so speech times are unknown. Run `python scripts/build-audio.py {pdir.name}`, then re-run.")]
+    gaps = tw.narration_gaps(dump.get("tweens", []), spans, film_end=dump.get("duration"))
+    hard = [g for g in gaps if g["ambient_share"] < 0.5]
+    soft = [g for g in gaps if g["ambient_share"] >= 0.5]
+    out: List[Finding] = []
+
+    def show(gs: List[Dict[str, Any]]) -> str:
+        return "; ".join(f"{g['scene']} {g['start']:.1f}-{g['end']:.1f}s ({g['sec']:.1f}s)" for g in gs[:6])
+
+    if hard:
+        out.append(("warn", "visual-gap", f"{len(hard)} narration stretch(es) over {tw.GAP_WARN_SEC:g}s where nothing in the timeline changes the picture "
+                                          f"({show(hard)}). Snap a reveal, highlight or counter to a spoken word in each (`studio.py words`)."))
+    if soft:
+        out.append(("note", "ambient-only-gap", f"{len(soft)} narration stretch(es) over {tw.GAP_WARN_SEC:g}s where only a drift or pulse layer moves "
+                                                f"({show(soft)}). Alive, but no visual event; consider a beat."))
+    return out
+
+
 def story_rows(inputs: Dict[str, Any]) -> List[Dict[str, Any]]:
     sb = inputs.get("storyboard") or {}
     rows = []
@@ -267,6 +397,113 @@ def story_findings(rows: List[Dict[str, Any]], inputs: Dict[str, Any]) -> List[F
     return out
 
 
+# --------------------------------------------------------------------------- named things
+def spoken_names(text: str, known_caps: Optional[set] = None) -> List[str]:
+    """Names and figures a viewer hears: runs of capitalised words, and figures or number words with the word they
+    count ('22 days', 'seven hundred stores'). A lone sentence-opening word counts only when the same word is also
+    capitalised mid-sentence in the text (or in `known_caps`, the film's other text). Heuristic, no parser."""
+    sents = [[re.sub(r"['’]s$", "", t.rstrip(".")) for t in re.findall(r"[A-Za-z0-9$%][A-Za-z0-9$%'’.-]*", s)] for s in split_sentences(text)]
+    mid_caps = {t for toks in sents for t in toks[1:] if t[:1].isupper()} | (known_caps or set())
+    out: List[str] = []
+    for toks in sents:
+        i = 0
+        while i < len(toks):
+            t = toks[i]
+            if t[:1].isdigit() or t[:1] == "$" or t.lower() in hooks.NUMBER_WORDS - {"one", "half", "double"}:
+                j = i
+                while j + 1 < len(toks) and (toks[j + 1].lower() in hooks.NUMBER_WORDS or toks[j + 1][:1].isdigit()):
+                    j += 1
+                counted = j + 1 < len(toks) and toks[j + 1][:1].islower() and toks[j + 1] not in hooks.FUNCTION_WORDS
+                if counted or "$" in t or "%" in toks[j]:  # a bare number is no name; '22 days', '$2.5' and '38%' are
+                    out.append(" ".join(toks[i: j + 1 + counted]))
+                i = j + 1 + counted
+                continue
+            if t[:1].isupper() and len(t) > 1:
+                j = i
+                while j + 1 < len(toks) and toks[j + 1][:1].isupper():
+                    j += 1
+                start = i
+                while start <= j and (toks[start].lower() in hooks.FUNCTION_WORDS | STOP | PRONOUNS):
+                    start += 1  # "Then Nash", "The Valmiki Ramayana": a capitalised opener is not part of the name
+                if start <= j and (start or j > start or toks[start] in mid_caps):
+                    out.append(" ".join(toks[start: j + 1]))
+                i = j + 1
+                continue
+            i += 1
+    unique: List[str] = []
+    for n in out:
+        if n.lower() not in {u.lower() for u in unique}:
+            unique.append(n)
+    return unique
+
+
+def _listed(candidate: str, things: List[str]) -> bool:
+    c = candidate.lower()
+    toks = {w for w in re.findall(r"[a-z0-9]{3,}", c) if w not in STOP and w not in hooks.NUMBER_WORDS}
+    for th in things:
+        t = th.lower()
+        if c in t or t in c or (toks and toks & set(re.findall(r"[a-z0-9]{3,}", t))):
+            return True
+    return False
+
+
+def named_things(inputs: Dict[str, Any]) -> Tuple[Optional[List[Dict[str, Any]]], str]:
+    """The story-writer's named_things list: qa/story-review.json, else a top-level storyboard.json entry."""
+    for key, where in (("story_review", "qa/story-review.json"), ("storyboard", "storyboard.json")):
+        doc = inputs.get(key) or {}
+        if isinstance(doc.get("named_things"), list):
+            return doc["named_things"], where
+    return None, ""
+
+
+def named_rows(inputs: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """Per scene: on-screen labels and spoken names beside the named_things entries, with what is not listed.
+
+    A card of LABEL_WORDS words or fewer is a label or a term and counts whole; a longer card is a sentence, and
+    only the names and figures in it count."""
+    things, _ = named_things(inputs)
+    listed = [str(t.get("thing", "")) for t in (things or []) if isinstance(t, dict)]
+    narration = {s["id"]: s.get("text", "") for s in (inputs.get("narration") or {}).get("scenes", [])}
+    scenes = sorted((inputs.get("storyboard") or {}).get("scenes", []), key=lambda s: s["start_sec"])
+    caps = {t for s in split_sentences(" ".join(narration.values())) for t in re.findall(r"[A-Za-z][A-Za-z'’-]*", s)[1:] if t[:1].isupper()}
+    rows = []
+    for sc in scenes:
+        shown: List[str] = []
+        for card in (t.strip() for t in sc.get("on_screen_text", [])):
+            toks = [w.lower().strip(".,;:!?") for w in hooks.words(card)]
+            if not toks:
+                continue
+            label = len(toks) <= LABEL_WORDS and not set(toks) & (hooks.FUNCTION_WORDS | PRONOUNS)
+            shown += [card] if label else spoken_names(card, caps)
+        spoken = spoken_names(narration.get(sc["id"]) or sc.get("narration", ""), caps)
+        unlisted = [n for n in shown + spoken if not _listed(n, listed)] if things is not None else []
+        if shown or spoken:
+            rows.append({"scene": sc["id"], "shown": shown, "spoken": spoken, "unlisted": unlisted})
+    return rows
+
+
+def named_findings(rows: List[Dict[str, Any]], inputs: Dict[str, Any]) -> List[Finding]:
+    """Leads only: the extraction is a heuristic (capitalised runs and counted figures), calibrated on no film yet."""
+    things, where = named_things(inputs)
+    if things is None:
+        if not rows:
+            return []
+        return [("note", "named-things-missing", "no named_things list (qa/story-review.json, story-writer step 6), so names and figures "
+                                                 "cannot be checked for an explanation; the table below lists what the scenes show and say.")]
+    out: List[Finding] = []
+    gaps = [t for t in things if isinstance(t, dict) and (not str(t.get("explained_by", "")).strip() or "MISSING" in str(t.get("explained_by", "")))]
+    if gaps:
+        shown = "; ".join(f"{t.get('thing', '?')} ({t.get('named_in', '?')})" for t in gaps[:6])
+        out.append(("warn", "named-unexplained", f"{len(gaps)} of {len(things)} named_things in {where} have no explanation yet ({shown}). "
+                                                 "Add a card, label, legend or definition, or cut the name."))
+    unlisted = [(r["scene"], n) for r in rows for n in r["unlisted"]]
+    if unlisted:
+        shown = "; ".join(f"{s}: {n[:40]}" for s, n in unlisted[:8])
+        out.append(("note", "named-not-listed", f"{len(unlisted)} on-screen label(s) or spoken name(s) are not in {where} named_things ({shown}). "
+                                                "List each with where it is explained, or confirm it needs none."))
+    return out
+
+
 def delete_test_prompts(rows: List[Dict[str, Any]]) -> List[str]:
     """The two judgment checks a script cannot run. Printed for the reviewer."""
     ev = [r["id"] for r in rows if r["why"] and re.search(r"\b(evidence|proof|demonstrat|example|detail|number|source)\b", r["why"].lower())]
@@ -283,8 +520,10 @@ def script_report(pdir: Path, wps: float = hooks.DEFAULT_WPS) -> Dict[str, Any]:
     rows, source = sentence_rows(inputs, wps)
     tag_beats(rows, inputs.get("storyboard"))
     srows = story_rows(inputs)
-    findings = script_findings(rows, inputs, source) + story_findings(srows, inputs)
-    return {"project": pdir.name, "timing_source": source, "sentences": rows, "story": srows,
+    nrows = named_rows(inputs)
+    findings = (script_findings(rows, inputs, source) + gap_findings(pdir, inputs) + story_findings(srows, inputs)
+                + named_findings(nrows, inputs))
+    return {"project": pdir.name, "timing_source": source, "sentences": rows, "story": srows, "named": nrows,
             "findings": findings, "prompts": delete_test_prompts(srows),
             "hook": hooks.score_hook(rows[0]["text"]) if rows else None}
 
@@ -304,6 +543,12 @@ def render_text(rep: Dict[str, Any], *, sheet: bool = True) -> str:
         lines.append(f"{'#':>2}  {'scene':<10} {'time':>11}  on screen  ->  why")
         for r in rep["story"]:
             lines.append(f"{r['n']:>2}  {r['id']:<10} {r['start']:5.1f}-{r['end']:5.1f}  {r['on_screen'][:44] or '(none)'}  ->  {r['why'] or '(no why)'}")
+        lines.append("")
+    if rep.get("named"):
+        lines.append("NAMED THINGS (shown | spoken; * = not in named_things)")
+        for r in rep["named"]:
+            mark = lambda n: ("*" if n in r["unlisted"] else "") + n[:36]  # noqa: E731
+            lines.append(f"  {r['scene']:<10} {', '.join(mark(n) for n in r['shown']) or '-'}  |  {', '.join(mark(n) for n in r['spoken']) or '-'}")
         lines.append("")
     for level, fid, msg in rep["findings"]:
         lines.append(f"  [{level.upper():4}] {fid}: {msg}")

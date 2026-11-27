@@ -1,0 +1,30 @@
+{
+  "id": "index-card-bookend",
+  "name": "Index card bookend (the film opens and closes on its contents)",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-6, 2026-11-26): a chaptered type reel opens on an index card listing its chapters and returns to it at the end, completed with an icon per chapter.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The film opens on a card that lists its chapters, plays each chapter as a short self-contained piece, and returns to the same card at the end, now completed with an icon per chapter. The card states the promise; the return proves it was kept.",
+  "purpose": "State the film's promise up front and prove it was kept: the return to the completed card closes the loop.",
+  "visual_behaviour": "A card with a title and four chapter rows flips in and holds; a detail of the card (its accent full stop) starts chapter 1; at the end the film cuts back to the card, the title reassembles and each row now carries an icon.",
+  "mechanics": "Card on a contrasting surround with corner marks; enters with a perspective flip (0.10-0.45 s); four chapter rows; holds about 1.5 s; the first chapter starts from a detail of the card (its accent full stop grows at 1.82 s, cut at 1.87 s). End: cut back to the card (13.13 s); the title's letters reassemble over 0.35 s (13.15-13.48 s); each row now carries an icon; hold about 1.5 s.",
+  "decomposition": { "primitives": ["scene-container", "styled-text"], "effects": [], "timing": "Card about 1.9 s at each end; chapters of 2.7-4.6 s." },
+  "parameters": [
+    { "name": "chapters", "description": "Rows on the card", "default": 4 },
+    { "name": "cardHold", "description": "Seconds the card holds at each end", "default": 1.5 },
+    { "name": "flip", "description": "Entrance flip duration in seconds", "default": 0.35 }
+  ],
+  "use_cases": ["Reels and showreels with sections", "Chapter films and series openers", "Explainers with a stated list"],
+  "failure_modes": ["More than about five rows will not read in 1.5 s", "Returning to an unchanged card wastes the bookend"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "A card in Studio.comp.heroStage with a CSS 3D flip in (0.35 s); hold about 1.5 s; start chapter 1 from a detail of the card (bloom from its accent full stop); at the end cut back to the same card, reassemble the title over about 0.35 s and add one icon per row; hold about 1.5 s. The progress-stepper composition is the closest component; not built.", "runtime_api": ["Studio.comp.heroStage"] },
+  "capability": { "support": "native", "requirements": ["CSS 3D flip", "a reusable card layout"], "compatible_components": ["hero-stage", "progress-stepper", "item-list"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-05c4222dae", "timestamps": [0.25, 1.13, 13.15, 14.69], "observed": "An index card with a name and four chapter rows flips in (0.10-0.45 s), its orange full stop starts chapter 1 (1.82-1.87 s), and the film cuts back to the card at 13.13 s where the name reassembles and each row gains an icon (14.69 s)." }
+  ],
+  "related": { "techniques": ["step-progress-tracker", "element-bloom-transition", "curtain-bookends"], "compositions": ["hero-stage", "progress-stepper"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["explanation-device", "contents", "chapters", "bookend", "series-opener", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

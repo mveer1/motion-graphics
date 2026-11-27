@@ -1,0 +1,669 @@
+{
+  "id": "ref-b8cf9a12b0",
+  "name": "Dark-navy wholesale pitch: a full stop blooms, a counter rolls to a stamp, a listing resolves, the chart arrow becomes the logo",
+  "status": "experimental",
+  "source": {
+    "filename": "wholesale-pitch-to-a-brand-da49d737.mp4",
+    "aliases": [],
+    "sha256": "b8cf9a12b055634861f79c1cf55c267a8cce00b095f7d82cce43ab46445ce53d",
+    "bytes": 2428227,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Company logo badge and wordmark",
+        "timestamps": [
+          0.38,
+          13.89,
+          14.64
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Marketplace brand names on cards",
+        "timestamps": [
+          10.89,
+          11.64
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Product photograph on the listing card",
+        "timestamps": [
+          8.63
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Website address on the end card",
+        "timestamps": [
+          14.64
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A B2B pitch; reuse the full-stop bloom, counter-and-stamp and arrow-to-logo match principles only, with original marks and data."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 2428227,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.017,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1023,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 256
+    },
+    "overall_kbps": 1294
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions strips at all 5 boundaries (every 2nd frame), the listen sheet (10 accent hits; no speech phrases) and a 30 fps strip at 5.90-7.20 s (the counter and the stamp). The 7.8-9.1 s strip was generated but not viewed. Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 15.02 s (1280x720, 60 fps); all boundaries at 2-frame steps; the counter and stamp at 30 fps.",
+    "concept": {
+      "observed": "A pitch to brands from a wholesale reseller: your brand deserves better than a price war; too many sellers, the price slides; we protect the price; we buy upfront; we rebuild your listings; one partner for every marketplace; scale; logo.",
+      "interpreted": "Problem, then four promises, each with one proof object.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; two-line heavy caps headlines, line 2 in an accent colour."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Dark navy and teal-blues (#081828, #080818, #082838); electric blue accent and glows; red for the problem section; a green stamp; white listing cards."
+      },
+      "typography": {
+        "observed": "Heavy condensed caps, two lines of 1-3 words, line 2 in blue (or red for problems); tabular numerals in cards; tiny corner labels."
+      },
+      "composition": {
+        "observed": "Headline left or top-left, proof card right or centred; connector diagram centred-left to three cards right; HUD corner labels and a faint dot grid."
+      },
+      "motion": {
+        "observed": "The logo badge glows and dims (0-1.4 s); headlines smear out sideways (2.71-2.81 s, 13.06 s); a price ticks down (3.38-3.91 s); a dollar counter rolls with blurred digit slots from about 2,800 to 10,000 (5.90-6.73 s) while ten dots fill; a 'paid' stamp slams down rotated (6.77-6.87 s); a light bar sweeps across a grey listing card and it resolves into a full listing (8.0-9.0 s); the card shrinks into an icon tile (9.69-9.89 s); connectors draw to three marketplace cards (10.0-11.0 s); a line chart rises to an arrow (12.4 s)."
+      },
+      "transitions": {
+        "observed": "2.83 s soft: the headline smears off and its blue full stop grows into a full-frame blue disc (2.81-2.91 s, 0.10 s), a dark hole opens inside it and reveals the next scene (2.91-3.01 s). 4.70 s cut with a white glow flash (4.71-4.74 s), problem to solution. 7.50 s soft: a diagonal light band sweeps across (7.44-7.54 s). 9.72 s soft: the listing card shrinks into an icon (container). 13.18 s cut: the chart's arrow tip survives the cut and becomes the logo's arrow (13.09-13.36 s).",
+        "interpreted": "Each change is carried by an object: a full stop, a flash, a card, an arrow.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of about 2.8, 1.9, 1.2, 1.9, 2.2, 2.0, 1.5 and 1.8 s; the problem is told in 3.1 s, the promises in 7.5 s."
+      },
+      "sound_design": {
+        "observed": "-13.9 LUFS, LRA 4.9 LU, true peak -1.0 dBTP; tempo 64.6 bpm (medium); 48 onsets; 10 accents (40/min). Accents on boundaries 0 of 5 (chance 0.12); onsets within 50 ms of boundaries 0.6 (chance 0.27), median 46 ms; near the beat 0.4 (chance 0.13). Strongest accents: the price ticking down (3.81 s), the counter roll (6.15, 6.62 s), the stamp landing (6.80 s), then a 0.93-0.95 s grid on each promise's proof: the light bar on the listing (8.01 s), the finished listing (8.96 s), card to icon (9.89 s), the connectors (10.84 s), the dissolve (11.77 s). Pre-hit dip: the level falls to -36 dB (film median -16.1 dB) over 1.44-1.90 s between the logo badge and the first headline, back to -14.7 dB at 2.0 s as the headline lands. Head -3.4 dB, tail -10.1 dB. Accents may be part of the music.",
+        "interpreted": "Cuts on the beat, hits on the proof objects; a short silence separates the logo from the pitch.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation recognised 0 confident words (16 raw); no speech phrases.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lanes: two-line caps headlines top-left or left (1-3 words per line, about 2 s each), a centred headline with a sub line (1.9-2.8 s), the logo lockup with a one-line tagline and URL centred at the end."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.9,
+        "observed": "Logo badge glows and dims."
+      },
+      {
+        "start": 1.9,
+        "end": 2.83,
+        "observed": "Opening statement with a blue full stop."
+      },
+      {
+        "start": 2.83,
+        "end": 4.7,
+        "observed": "Problem: too many sellers, price sliding."
+      },
+      {
+        "start": 4.7,
+        "end": 5.9,
+        "observed": "Flash cut: price protected."
+      },
+      {
+        "start": 5.9,
+        "end": 7.5,
+        "observed": "We buy upfront: counter to 10,000 and a paid stamp."
+      },
+      {
+        "start": 7.5,
+        "end": 9.72,
+        "observed": "Listings rebuilt: a grey card resolves under a light bar."
+      },
+      {
+        "start": 9.72,
+        "end": 12.0,
+        "observed": "One partner, every marketplace: connectors."
+      },
+      {
+        "start": 12.0,
+        "end": 13.18,
+        "observed": "Scale: a rising chart with an arrow."
+      },
+      {
+        "start": 13.18,
+        "end": 15.02,
+        "observed": "The arrow becomes the logo; tagline and URL."
+      }
+    ],
+    "moments": [
+      {
+        "t": 6.77,
+        "observed": "A dollar counter rolls to 10,000 (5.90-6.73 s) and a green rotated stamp slams onto the card (6.77-6.87 s) on the 6.80 s accent.",
+        "interpreted": "The number lands, then the proof is stamped."
+      }
+    ],
+    "difficult": [
+      "Product photography on the listing card (stock or render)"
+    ],
+    "uncertainties": [
+      "Whether the listing resolve is a wipe or a dissolve under the light bar (strip not viewed)",
+      "Exact counter start value (blurred digits)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "pre-hit-dropout",
+      "timestamps": [
+        1.44,
+        2.0
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        1.88,
+        2.84
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        2.84
+      ]
+    },
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        2.74,
+        13.06
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        4.71
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        6.0,
+        6.5
+      ]
+    },
+    {
+      "id": "stamp-state-change",
+      "timestamps": [
+        6.8
+      ]
+    },
+    {
+      "id": "container-transform",
+      "timestamps": [
+        9.72
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        10.14,
+        10.89
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        13.18
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        8.01,
+        8.96,
+        9.89,
+        10.84
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        0.38,
+        12.39
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        3.38,
+        4.88,
+        6.38,
+        10.89,
+        12.39
+      ]
+    },
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        7.47
+      ]
+    },
+    {
+      "id": "placeholder-image-resolve",
+      "timestamps": [
+        8.01,
+        8.96
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "counter-roll",
+      "stamp-impact",
+      "smear-motion",
+      "connector-draw",
+      "match-cut"
+    ],
+    "compositions": [
+      "verdict-stamp",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "kinetic-typography",
+    "data-visualisation",
+    "scene-transitions",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-7",
+    "dark",
+    "navy",
+    "electric-blue",
+    "b2b-pitch",
+    "stamp",
+    "pre-hit-dip",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 13.6
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 5,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.833,
+        "kind": "soft",
+        "score": 0.365,
+        "isolation": 0.15
+      },
+      {
+        "t": 4.7,
+        "kind": "cut",
+        "score": 0.886,
+        "isolation": 0.75,
+        "frame": 282
+      },
+      {
+        "t": 7.5,
+        "kind": "soft",
+        "score": 0.249,
+        "isolation": 0.25
+      },
+      {
+        "t": 9.717,
+        "kind": "soft",
+        "score": 0.091,
+        "isolation": 0.07
+      },
+      {
+        "t": 13.183,
+        "kind": "cut",
+        "score": 0.578,
+        "isolation": 0.83,
+        "frame": 791
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.83,
+        "duration": 2.83,
+        "activity": 0.047,
+        "luma": 0.13
+      },
+      {
+        "index": 2,
+        "start": 2.83,
+        "end": 4.7,
+        "duration": 1.87,
+        "activity": 0.097,
+        "luma": 0.12
+      },
+      {
+        "index": 3,
+        "start": 4.7,
+        "end": 7.5,
+        "duration": 2.8,
+        "activity": 0.126,
+        "luma": 0.14
+      },
+      {
+        "index": 4,
+        "start": 7.5,
+        "end": 9.72,
+        "duration": 2.22,
+        "activity": 0.11,
+        "luma": 0.41
+      },
+      {
+        "index": 5,
+        "start": 9.72,
+        "end": 13.18,
+        "duration": 3.47,
+        "activity": 0.051,
+        "luma": 0.13
+      },
+      {
+        "index": 6,
+        "start": 13.18,
+        "end": 15.02,
+        "duration": 1.83,
+        "activity": 0.154,
+        "luma": 0.2
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.091,
+    "luma": {
+      "mean": 0.18,
+      "dark_share": 0.84,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#081828",
+        "share": 0.231
+      },
+      {
+        "hex": "#080818",
+        "share": 0.201
+      },
+      {
+        "hex": "#082838",
+        "share": 0.175
+      },
+      {
+        "hex": "#182838",
+        "share": 0.078
+      },
+      {
+        "hex": "#183848",
+        "share": 0.051
+      },
+      {
+        "hex": "#081818",
+        "share": 0.037
+      },
+      {
+        "hex": "#083848",
+        "share": 0.034
+      },
+      {
+        "hex": "#182848",
+        "share": 0.032
+      },
+      {
+        "hex": "#e8f8f8",
+        "share": 0.027
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.015
+      }
+    ],
+    "representative_times": [
+      1.42,
+      3.77,
+      6.1,
+      8.61,
+      11.45,
+      14.1
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.8,
+      "mean_dbfs_voiced": -17.4,
+      "silence_ratio": 0.01,
+      "onsets": 48,
+      "onset_rate_per_sec": 3.18,
+      "onset_times": [
+        0.35,
+        0.51,
+        1.09,
+        1.39,
+        1.93,
+        2.9,
+        3.34,
+        3.58,
+        3.81,
+        4.04,
+        4.27,
+        4.41,
+        4.53,
+        4.74,
+        5.22,
+        5.46,
+        5.69,
+        5.92,
+        6.15,
+        6.39,
+        6.62,
+        6.8,
+        7.08,
+        7.34,
+        7.55,
+        7.8,
+        8.01,
+        8.27,
+        8.5,
+        8.96,
+        9.2,
+        9.43,
+        9.68,
+        9.89,
+        10.15,
+        10.36,
+        10.61,
+        10.84,
+        11.08,
+        11.31,
+        11.54,
+        11.77,
+        12.0,
+        12.24,
+        12.49,
+        12.7,
+        12.96,
+        13.24
+      ],
+      "tempo_estimate": {
+        "bpm": 64.6,
+        "autocorr": 0.54,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 927,
+      "band_share": {
+        "low_lt_250": 0.54,
+        "mid_250_2k": 0.24,
+        "high_gt_2k": 0.22
+      },
+      "syllabic_modulation_share": 0.31,
+      "boundary_onset_alignment": {
+        "boundaries": 5,
+        "tolerance_ms": 50,
+        "near_onset": 0.6,
+        "chance_level": 0.27,
+        "median_offset_ms": 46,
+        "near_beat": 0.4,
+        "beat_chance_level": 0.13,
+        "beat_phase_sec": 0.0
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-b8cf9a12b0",
+      "overview": "reference/analysis/ref-b8cf9a12b0/overview.jpg",
+      "scenes": "reference/analysis/ref-b8cf9a12b0/scenes.jpg",
+      "transitions": "reference/analysis/ref-b8cf9a12b0/transitions.jpg",
+      "motion": "reference/analysis/ref-b8cf9a12b0/motion.jpg",
+      "audio": "reference/analysis/ref-b8cf9a12b0/audio.png",
+      "frames": "reference/analysis/ref-b8cf9a12b0/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -13.9,
+        "lra_lu": 4.9,
+        "true_peak_dbtp": -1.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 16,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 48,
+        "accents": 10,
+        "accents_per_min": 40.0,
+        "accent_times": [
+          3.81,
+          6.15,
+          6.62,
+          6.8,
+          7.08,
+          8.01,
+          8.96,
+          9.89,
+          10.84,
+          11.77
+        ],
+        "accent_threshold": 0.53,
+        "boundaries_with_accent": {
+          "boundaries": 5,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.12
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.2,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -3.4,
+        "level_tail_vs_body_db": -10.1,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-b8cf9a12b0/listen",
+        "sheet": "reference/analysis/ref-b8cf9a12b0/listen/listen.jpg",
+        "words": "reference/analysis/ref-b8cf9a12b0/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

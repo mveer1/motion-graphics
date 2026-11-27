@@ -1,0 +1,286 @@
+{
+  "$comment": "Explanation devices: which runtime device to use for which narrator job. Read by `studio.py validate` (storyboard scene `device`), docs/explanation-devices.md (the handbook) and the story-writer, motion-graphics-designer and visual-director skills. Chosen by the 2026-11-28 technique-scope council from the 96 reference technique records: about 13 devices picked by narration job, the rest kept as rules or recipes. Edit here, then run `python tests/test-studio.py` and `python scripts/studio.py validate <slug>`.",
+  "spec_version": 1,
+  "updated_at": "2026-11-28",
+  "runtime_min": "1.18.0",
+  "jobs": {
+    "hook-headline": "Open a film or section with the claim in two short lines or a word build.",
+    "introduce-term": "Name a new term or object and show what it refers to.",
+    "build-up": "Assemble a whole (a formula, a definition, a system) part by part as the narrator names each part.",
+    "compare": "Set two things side by side and show the difference that matters.",
+    "trace-cause": "Show that changing one thing changes another (an input drives an output, one view drives another).",
+    "process-step": "Walk through the steps of a process or the parts of a system, one at a time.",
+    "change-over-time": "Show a value or a shape changing as time passes.",
+    "rank-over-time": "Show who leads and how the order changes over time.",
+    "system-running": "Let a system run so the viewer watches its behaviour emerge (bursts, queues, limits, recovery).",
+    "demo-interaction": "Show how someone uses an interface: type, press, toggle, get feedback.",
+    "correct-myth": "State a common belief, strike it, and replace it with the correct one.",
+    "change-chapter": "Turn from one section to the next so the viewer feels the reset."
+  },
+  "devices": [
+    {
+      "id": "headline-pair",
+      "api": "Studio.comp.headline",
+      "call": "Studio.comp.headline(parent, {line1, line2}, {preset: 'pair'})",
+      "technique": "two-tone-headline-pair",
+      "jobs": [
+        "hook-headline",
+        "compare"
+      ],
+      "use_when": "A claim splits into a set-up and a punch line of five words or fewer each.",
+      "avoid_when": "Line 2 is longer than line 1, or the accent colour is already used elsewhere on screen.",
+      "max_per_film": 3,
+      "golden": "tests/reference-derived/explain-headline-copy/index.html"
+    },
+    {
+      "id": "headline-build",
+      "api": "Studio.comp.headline",
+      "call": "Studio.comp.headline(parent, {text}, {preset: 'build'})",
+      "technique": "centred-word-build",
+      "jobs": [
+        "hook-headline",
+        "introduce-term"
+      ],
+      "use_when": "The narrator speaks a short phrase word by word and each word adds meaning; snap each word to its spoken time.",
+      "avoid_when": "The phrase has more than about seven words or wraps onto two lines.",
+      "max_per_film": 2,
+      "golden": "tests/reference-derived/explain-headline-copy/index.html"
+    },
+    {
+      "id": "equation-build",
+      "api": "Studio.comp.equation",
+      "call": "Studio.comp.equation(parent, {terms})",
+      "technique": "equation-term-build",
+      "jobs": [
+        "build-up",
+        "introduce-term"
+      ],
+      "use_when": "A formula is explained term by term while a figure shows each part; ring the final term when the result lands.",
+      "avoid_when": "No figure shows the terms (the equation then reads as a caption), or the formula has more than about six terms.",
+      "max_per_film": 3,
+      "golden": "tests/reference-derived/explain-equation-trace/index.html"
+    },
+    {
+      "id": "trace-pair",
+      "api": "Studio.comp.tracePair",
+      "call": "Studio.comp.tracePair(parent, {cycles, period})",
+      "technique": "linked-trace-projection",
+      "jobs": [
+        "trace-cause",
+        "change-over-time"
+      ],
+      "use_when": "One quantity seen two ways at once: a rotation and its height, a cause and its graph over time.",
+      "avoid_when": "The two views are not driven by the same variable.",
+      "max_per_film": 1,
+      "golden": "tests/reference-derived/explain-equation-trace/index.html"
+    },
+    {
+      "id": "slider",
+      "api": "Studio.comp.slider",
+      "call": "Studio.comp.slider(parent, {min, max, value, step, scale|map, input, output, caveat})",
+      "technique": "slider-driven-counter",
+      "jobs": [
+        "trace-cause",
+        "compare"
+      ],
+      "use_when": "\"If you change X, Y changes by this much\": one input, one output, a clear end value held at least 1 s.",
+      "avoid_when": "The relationship has more than one input, or the end value is not the point.",
+      "max_per_film": 2,
+      "golden": "tests/reference-derived/explain-slider-ui/index.html"
+    },
+    {
+      "id": "simulation",
+      "api": "Studio.comp.simulation",
+      "call": "Studio.comp.simulation(parent, {capacity, events: Studio.comp.simulationScript(seed, phases), regimes, duration})",
+      "technique": "live-simulation-trace",
+      "jobs": [
+        "system-running"
+      ],
+      "use_when": "A system's behaviour only makes sense when watched running (rate limiters, queues, caches, buffers); name each regime in the caption.",
+      "avoid_when": "More than about 10 events a second, or no regime captions.",
+      "max_per_film": 1,
+      "golden": "tests/reference-derived/explain-simulation-race/index.html"
+    },
+    {
+      "id": "bar-race",
+      "api": "Studio.comp.barRace",
+      "call": "Studio.comp.barRace(parent, {names, frames, format}, {rows})",
+      "technique": "bar-chart-race",
+      "jobs": [
+        "rank-over-time"
+      ],
+      "use_when": "The story is who overtakes whom over time; at most about 8 bars.",
+      "avoid_when": "Only the end ranking matters (use a sorted bar chart), or steps are faster than about 0.25 s.",
+      "max_per_film": 1,
+      "golden": "tests/reference-derived/explain-simulation-race/index.html"
+    },
+    {
+      "id": "progression",
+      "api": "Studio.comp.progression",
+      "call": "Studio.comp.progression(parent, {items, steps: [{focus, caption}]})",
+      "technique": "single-stage-progression",
+      "jobs": [
+        "process-step",
+        "build-up"
+      ],
+      "use_when": "Several parts stay on one stage and the narrator walks through them; one focus change per step, named in the caption.",
+      "avoid_when": "More than about 7 items, or each step needs a different picture (use scenes).",
+      "max_per_film": 3,
+      "golden": "tests/reference-derived/explain-tour-progression/index.html"
+    },
+    {
+      "id": "canvas-tour",
+      "api": "Studio.space.tour",
+      "call": "Studio.space.tour(tl, canvas, [{target, at}], {pullBack})",
+      "technique": "canvas-camera-tour",
+      "jobs": [
+        "process-step",
+        "trace-cause"
+      ],
+      "use_when": "A system laid out as a map larger than the frame; the camera visits each part and pulls back to the whole at the end.",
+      "avoid_when": "Fewer than three stops, or text that needs reading while the camera moves.",
+      "max_per_film": 1,
+      "golden": "tests/reference-derived/explain-tour-progression/index.html"
+    },
+    {
+      "id": "copy-slot",
+      "api": "Studio.comp.copySlot",
+      "call": "Studio.comp.copySlot(parent, versions); slot.swap(tl, i, phraseStart, {words})",
+      "technique": "pause-locked-copy-swap",
+      "jobs": [
+        "process-step",
+        "demo-interaction"
+      ],
+      "use_when": "A line of copy beside a demo changes as the narration moves on; pass the measured words so each swap lands in a pause.",
+      "avoid_when": "No measured words yet (time it after build-audio and captions --timing words).",
+      "max_per_film": 4,
+      "golden": "tests/reference-derived/explain-headline-copy/index.html"
+    },
+    {
+      "id": "ui-demo",
+      "api": "Studio.comp.ui",
+      "call": "Studio.comp.ui.input|button|toggle|cursor|notify(parent, data)",
+      "technique": "ui-demo-micro-interactions",
+      "jobs": [
+        "demo-interaction"
+      ],
+      "use_when": "Showing how a generic interface is used: a field types, a cursor moves and clicks, a toggle flips, a notice arrives.",
+      "avoid_when": "Recreating a real product's interface or brand.",
+      "max_per_film": 4,
+      "golden": "tests/reference-derived/explain-slider-ui/index.html"
+    },
+    {
+      "id": "container-transform",
+      "api": "Studio.fx.containerTransform",
+      "call": "Studio.fx.containerTransform(tl, tile, card, at, {outTarget, inTarget})",
+      "technique": "container-transform",
+      "jobs": [
+        "introduce-term",
+        "process-step"
+      ],
+      "use_when": "A small tile opens into the detail it stands for (a card into its contents, an icon into its system).",
+      "avoid_when": "The tile and the card are not the same object.",
+      "max_per_film": 2,
+      "golden": "tests/reference-derived/flash-and-container/index.html"
+    },
+    {
+      "id": "strike-correct",
+      "api": "Studio.type.strikeCorrect",
+      "call": "Studio.type.strikeCorrect(tl, claim, fix, at)",
+      "technique": "strike-and-correct",
+      "jobs": [
+        "correct-myth"
+      ],
+      "use_when": "The narrator states a belief and then corrects it; the struck claim stays readable while the correction types in.",
+      "avoid_when": "The claim is not actually wrong (use compare).",
+      "max_per_film": 2,
+      "golden": "tests/reference-derived/scramble-strike-caption/index.html"
+    },
+    {
+      "id": "empty-stage-dip",
+      "api": "Studio.fx.dip",
+      "call": "Studio.fx.dip(tl, outGroup, inGroup, titleStart, {hold: 0.25})",
+      "technique": "empty-stage-dip",
+      "jobs": [
+        "change-chapter"
+      ],
+      "use_when": "A section turn; put the title start on the first word of the next phrase so the dip sits in the narration pause.",
+      "avoid_when": "Every scene change (it slows the film), or a hold over 0.5 s.",
+      "max_per_film": 6,
+      "golden": "tests/reference-derived/explain-tour-progression/index.html"
+    }
+  ],
+  "existing": {
+    "$comment": "Runtime pieces that already serve a job; a scene may name one of these ids as its device too.",
+    "split-stage": {
+      "api": "Studio.comp.splitStage",
+      "jobs": [
+        "compare"
+      ]
+    },
+    "monument-stat": {
+      "api": "Studio.comp.monumentStat",
+      "jobs": [
+        "introduce-term",
+        "compare"
+      ]
+    },
+    "line-chart": {
+      "api": "Studio.draw.chart.line",
+      "jobs": [
+        "change-over-time"
+      ]
+    },
+    "highlight": {
+      "api": "Studio.type.highlight",
+      "jobs": [
+        "introduce-term"
+      ]
+    },
+    "timeline": {
+      "api": "Studio.comp.timeline",
+      "jobs": [
+        "process-step",
+        "change-over-time"
+      ]
+    },
+    "stations": {
+      "api": "Studio.comp.stations",
+      "jobs": [
+        "process-step"
+      ]
+    },
+    "scene-crossfade": {
+      "api": "Studio.crossfade",
+      "jobs": [
+        "change-chapter"
+      ]
+    }
+  },
+  "not_under_narration": {
+    "$comment": "Devices that must sit in a narration pause or over music only. validate warns when a scene with narration lists one in capabilities or transition_out.capability (catalogue ids) or names the technique.",
+    "apis": [
+      "Studio.fx.flash"
+    ],
+    "techniques": [
+      "flash-frame-cut",
+      "glitch-type",
+      "chromatic-punch-word",
+      "cut-on-beat",
+      "beat-grid-element-arrivals",
+      "word-per-beat-sequence"
+    ],
+    "capabilities": [
+      "flash-cut",
+      "flash-cut-turn",
+      "beat-pulse"
+    ]
+  },
+  "film_rules": {
+    "max_distinct_devices_short": 4,
+    "max_distinct_devices_mid": 7,
+    "max_distinct_devices_long": 12,
+    "same_device_back_to_back": "note",
+    "$comment": "A film reads as designed when a few devices recur with meaning, not when every scene shows a new trick."
+  }
+}

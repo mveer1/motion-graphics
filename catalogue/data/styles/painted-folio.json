@@ -1,0 +1,98 @@
+{
+  "id": "painted-folio",
+  "name": "Painted Folio",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "A painted manuscript or scroll: ivory folio, flat mineral colour, ornamental border bands and register strips that sequence the story (Pattachitra, Kalpasutra folios, Phad scrolls, black- and red-figure friezes). Alternate look of the mythic-tale template.",
+  "location": "src/studio/styles/painted-folio.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f6eedb",
+      "paper-2": "#ecddbc",
+      "ink": "#231a12",
+      "ink-2": "#5a4632",
+      "rule": "#b99a62",
+      "accent": "#a3271c",
+      "accent-2": "#233e8b",
+      "accent-3": "#94700f",
+      "gold": "#c4932a"
+    },
+    "typography": {
+      "display": "'Playfair Display', serif",
+      "text": "'EB Garamond', serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Folio paper grain, worn pigment edges (#st-rough), gold-leaf border bands (Studio.kit.mythic.border)",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Ceremonial and orderly: panels open, scrolls unroll, figures appear inside their register; motion follows the reading order",
+    "ease_in": "power2.in",
+    "ease_out": "power2.out",
+    "enter_duration_sec": 0.8,
+    "stagger_sec": 0.08,
+    "notes": "Follow the tradition's reading order and register logic. No camera rotation inside a folio; pan along the scroll instead."
+  },
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "EB Garamond",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 14.8:1",
+    "ink-2/paper 7.7:1",
+    "accent/paper 6.3:1",
+    "accent-2/paper 8.5:1",
+    "accent-3/paper 4.0:1",
+    "ink/paper-2 12.7:1",
+    "Below 4.5:1 (accent-3/paper 4.0:1): leaf, borders, shapes and display type 24px+ only; never body or caption text"
+  ],
+  "suitable_for": [
+    "myths and legends",
+    "manuscript and scroll traditions",
+    "sequenced episodes",
+    "Jain, Buddhist and Indian folk-art retellings"
+  ],
+  "categories": [
+    "mythology"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-23. Frame-reviewed in Playwright Chromium on Windows through the mythic-film scaffold; not yet rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-23"
+  },
+  "related": [
+    "mythic-paper",
+    "shadow-lantern",
+    "carved-relief"
+  ],
+  "tags": [
+    "light",
+    "manuscript",
+    "folio",
+    "scroll",
+    "myth",
+    "ornament"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  },
+  "avoid_for": [
+    "photographic realism",
+    "fast-paced news"
+  ]
+}

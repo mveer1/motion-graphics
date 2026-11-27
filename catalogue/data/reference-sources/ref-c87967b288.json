@@ -1,0 +1,436 @@
+{
+  "id": "ref-c87967b288",
+  "name": "Silent dark trading-terminal reveal: power-on from a dot, camera tour of the panels, collapse to a star and regrow",
+  "status": "experimental",
+  "source": {
+    "filename": "trading-terminal-reveal-42833e61.mp4",
+    "aliases": [],
+    "sha256": "c87967b288a0bd530c9048645f13be539b4e787eee83aea67479ecf87b75a871",
+    "bytes": 6872342,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark and tagline on the end card",
+        "timestamps": [
+          43.64,
+          45.88
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Trading terminal and mobile trading interface",
+        "timestamps": [
+          10.07,
+          18.28,
+          37.67
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Trading platform launch; reuse the power-on, camera-tour and collapse-and-regrow principles only, with an original interface."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 6872342,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 46.999,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1408,
+    "variable_frame_rate": true,
+    "fps": 29.958,
+    "fps_exact": "average of 579 timing runs",
+    "video_kbps": 1166,
+    "keyframes": 47,
+    "audio": null,
+    "overall_kbps": 1170
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (63 frames) and transitions strips at the 4 boundaries (every 2nd frame); strips at 3.20-5.80 s (10 fps), 25.60-27.40 s and 35.20-37.20 s (15 fps). No listen sheet or audio panel (no audio track); nothing was listened to.",
+    "coverage": "Full 47.0 s (1280x720, 29.96 fps); the power-on, the collapse and the regrow at 10-15 fps.",
+    "concept": {
+      "observed": "A launch reveal for a trading terminal: a pulsing dot powers on into the interface, the camera tours the chart, a macro of the candles, the order book and an options payoff chart, then the terminal shrinks to a point that becomes a star, stars converge back to a point, and a device-sized version of the terminal grows out of it for an order and the end card.",
+      "interpreted": "Desktop to mobile told as one continuous object that collapses and re-forms.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Silent; no copy except interface labels and a small tagline over the wordmark at the end."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Black (#080808, 56%) and very dark navy; teal-green and red candles, a bright teal price tag, faint violet and red nebula colour in the starfield."
+      },
+      "typography": {
+        "observed": "Interface type only: small grotesque labels and tabular prices; a large blurred price tag in the macro shots; a light wordmark and tagline at the end."
+      },
+      "camera": {
+        "observed": "Continuous virtual camera: push into the chart (11.5-13.8 s), macro on the candles with shallow depth of field and bokeh (13.8-17.0 s), pull back to the order book (17.1-18.3 s), options panel (21-23.5 s), pull back to the whole terminal (24-25.7 s)."
+      },
+      "motion": {
+        "observed": "Dot pulses (0-3.4 s); a line grows across the frame (3.7-4.3 s), opens into a band (4.4 s) and then the frame (4.5-4.8 s); panels draw in one by one (5.3-11 s); the price tag ticks; the terminal shrinks to a small box over about 1.7 s, accelerating (25.7-27.4 s); a starfield drifts (28-35 s); stars converge to a point (35.2-35.6 s) and a device screen grows from it over about 1.5 s (35.7-37.2 s); an order ticket slides in and confirms (38.4-40.7 s)."
+      },
+      "transitions": {
+        "observed": "No cuts. The 4 soft boundaries (13.42, 14.42, 15.42, 17.08 s) are inside the macro camera move (depth-of-field shifts). The real changes are continuous: a power-on from a dot through a line (3.5-4.8 s, the reverse of a CRT collapse), a camera tour, a shrink to a point (25.7-27.4 s) that becomes a star, and a regrow from a point (35.2-37.2 s).",
+        "interpreted": "Every change is a camera move or a change of scale of the same object; the act break (desktop to mobile) is a collapse to a point and a regrow, not a cut.",
+        "confidence": "high"
+      },
+      "depth_and_layering": {
+        "observed": "Macro shots (13.8-17 s) have shallow depth of field, glowing nodes and dot-matrix glass candle bodies: they read as rendered 3D rather than flat interface."
+      },
+      "timing_and_rhythm": {
+        "observed": "Slow: 3.4 s of a lone dot, about 6 s of panel build, 14 s of camera tour, 8 s of starfield drift, then 10 s of mobile and end card."
+      },
+      "sound_design": {
+        "observed": "No audio track (ffprobe: one H.264 video stream).",
+        "interpreted": "A silent film: rhythm is carried by motion and holds alone.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None: silent film.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions or headlines; interface labels only, and a small centred tagline over the wordmark (42.9-46.6 s)."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.5,
+        "observed": "A pulsing dot on black."
+      },
+      {
+        "start": 3.5,
+        "end": 4.8,
+        "observed": "The dot becomes a line, a band and the frame."
+      },
+      {
+        "start": 4.8,
+        "end": 11.5,
+        "observed": "The terminal builds panel by panel."
+      },
+      {
+        "start": 11.5,
+        "end": 25.7,
+        "observed": "Camera tour: chart push, candle macro, order book, options payoff, pull back."
+      },
+      {
+        "start": 25.7,
+        "end": 35.2,
+        "observed": "The terminal shrinks to a point that becomes a star; starfield drift."
+      },
+      {
+        "start": 35.2,
+        "end": 42.2,
+        "observed": "Stars converge; a device screen grows from the point; an order is placed."
+      },
+      {
+        "start": 42.2,
+        "end": 47.0,
+        "observed": "Device rises; tagline and wordmark."
+      }
+    ],
+    "moments": [
+      {
+        "t": 3.7,
+        "observed": "After the dot vanishes, a hairline grows across the frame (3.7-4.3 s), opens into a band (4.4 s) and then into the full interface frame (4.5-4.8 s).",
+        "interpreted": "A power-on: the interface is switched on rather than cut to."
+      }
+    ],
+    "difficult": [
+      "The candle macro with depth of field and glass materials looks like a 3D render (Blender plate or WebGL)",
+      "The starfield with nebula colour needs many soft particles; heavy as filtered DOM layers at 720p"
+    ],
+    "uncertainties": [
+      "Whether the film was published silent or the audio was stripped before it reached us",
+      "Easing of the shrink and regrow (10-15 fps strips only)",
+      "Whether the macro shots are rendered 3D or 2.5D layers with blur"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "crt-collapse-to-line",
+      "timestamps": [
+        3.7,
+        4.4
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        13.42,
+        13.8
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        14.55,
+        16.04
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        39.17,
+        40.66
+      ]
+    },
+    {
+      "id": "canvas-camera-tour",
+      "timestamps": [
+        11.56,
+        17.08,
+        18.28,
+        24.25
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        27.23,
+        35.44,
+        36.18
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "parallax-camera",
+      "particle-drift"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech",
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "3d-render",
+    "scene-transitions",
+    "2.5d-depth"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "dark",
+    "silent",
+    "trading",
+    "camera-tour",
+    "power-on",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 11.0
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 281,
+      "scan_size": "96x54",
+      "overview_frames": 63,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 13.417,
+        "kind": "soft",
+        "score": 0.171
+      },
+      {
+        "t": 14.417,
+        "kind": "soft",
+        "score": 0.154
+      },
+      {
+        "t": 15.417,
+        "kind": "soft",
+        "score": 0.154
+      },
+      {
+        "t": 17.083,
+        "kind": "soft",
+        "score": 0.25
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 13.42,
+        "duration": 13.42,
+        "activity": 0.048,
+        "luma": 0.04
+      },
+      {
+        "index": 2,
+        "start": 13.42,
+        "end": 14.42,
+        "duration": 1.0,
+        "activity": 0.254,
+        "luma": 0.11
+      },
+      {
+        "index": 3,
+        "start": 14.42,
+        "end": 15.42,
+        "duration": 1.0,
+        "activity": 0.197,
+        "luma": 0.09
+      },
+      {
+        "index": 4,
+        "start": 15.42,
+        "end": 17.08,
+        "duration": 1.67,
+        "activity": 0.287,
+        "luma": 0.13
+      },
+      {
+        "index": 5,
+        "start": 17.08,
+        "end": 47.0,
+        "duration": 29.92,
+        "activity": 0.072,
+        "luma": 0.05
+      }
+    ],
+    "static_holds": [
+      [
+        0.08,
+        4.25
+      ],
+      [
+        32.08,
+        33.08
+      ],
+      [
+        44.75,
+        46.08
+      ]
+    ],
+    "mean_activity": 0.079,
+    "luma": {
+      "mean": 0.05,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.559
+      },
+      {
+        "hex": "#080818",
+        "share": 0.207
+      },
+      {
+        "hex": "#181818",
+        "share": 0.079
+      },
+      {
+        "hex": "#081818",
+        "share": 0.05
+      },
+      {
+        "hex": "#282828",
+        "share": 0.02
+      },
+      {
+        "hex": "#283838",
+        "share": 0.016
+      },
+      {
+        "hex": "#282838",
+        "share": 0.009
+      },
+      {
+        "hex": "#181828",
+        "share": 0.008
+      },
+      {
+        "hex": "#182828",
+        "share": 0.008
+      },
+      {
+        "hex": "#383838",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      3.35,
+      6.71,
+      10.06,
+      13.92,
+      14.92,
+      16.25,
+      24.56,
+      32.04,
+      39.52
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-c87967b288",
+      "overview": "reference/analysis/ref-c87967b288/overview.jpg",
+      "scenes": "reference/analysis/ref-c87967b288/scenes.jpg",
+      "transitions": "reference/analysis/ref-c87967b288/transitions.jpg",
+      "motion": "reference/analysis/ref-c87967b288/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-c87967b288/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

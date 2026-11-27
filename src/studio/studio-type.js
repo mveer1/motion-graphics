@@ -295,6 +295,119 @@
     return Studio.draw.stroke(tl, path, at, { duration: o.duration || 0.6, ease: o.ease || 'power2.inOut' });
   };
 
+  /**
+   * Scramble-decode (technique text-scramble-decode): each character slot cycles seeded glyphs in the accent colour,
+   * then locks into its letter left to right, which settles from the accent to the text colour. Seek-safe: every
+   * glyph is a prebuilt span switched on the timeline (no callbacks, no Math.random). Use short words; a monospace
+   * face keeps the width steady. Entrance (hidden until `at`). options: {charset 'A-Z0-9<>/[]#', lead (s of pure
+   * scramble before the first lock, 0.25), stagger (s between locks, 0.04), step (s per glyph, 2 frames), seed (1),
+   * settle (s accent -> text colour, 0.2)}. Returns the time the last slot settles.
+   */
+  T.scramble = function (tl, target, at, options) {
+    var o = options || {};
+    var el = resolve(target);
+    if (!el) throw new Error('Studio.type.scramble: target not found');
+    var text = normalisedText(el);
+    if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', text);
+    var charset = o.charset || 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/[]#';
+    var lead = o.lead === undefined ? 0.25 : o.lead;
+    var stagger = o.stagger === undefined ? 0.04 : o.stagger;
+    var step = o.step || 2 / (Studio.format.fps || 30);
+    var settle = o.settle === undefined ? 0.2 : o.settle;
+    var rng = Studio.rng(((o.seed || 1) * 7919) ^ Studio.hash(text));
+    var ink = global.getComputedStyle(el).color;
+    var accent = Studio.token('--c-accent', '#c8462b');
+    el.textContent = '';
+    var end = at, slot = 0;
+    text.split('').forEach(function (ch) {
+      if (ch === ' ') { el.appendChild(document.createTextNode(' ')); return; }
+      var box = span('st-scr-slot');
+      var fin = span('st-scr-final');
+      fin.textContent = ch;
+      box.appendChild(fin);
+      el.appendChild(box);
+      var lock = at + lead + slot * stagger;
+      tl.fromTo(fin, { autoAlpha: 0, color: accent }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: true }, lock);
+      tl.fromTo(fin, { color: accent }, { color: ink, duration: settle, ease: 'power1.out', immediateRender: false }, lock);
+      for (var t = at; t < lock - 1e-6; t += step) {
+        var g = span('st-scr-glyph');
+        g.textContent = charset.charAt(Math.floor(rng() * charset.length) % charset.length);
+        g.style.visibility = 'hidden';
+        box.appendChild(g);
+        tl.fromTo(g, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: true }, t);
+        tl.fromTo(g, { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.001, ease: 'none', immediateRender: false }, Math.min(lock, t + step));
+      }
+      end = Math.max(end, lock + settle);
+      slot += 1;
+    });
+    return end;
+  };
+
+  /**
+   * Strike: a line drawn left to right through `target`'s text, overshooting it slightly (technique
+   * strike-and-correct). The SVG lives inside the target, so it moves and scales with it. options: {color (default
+   * --c-strike, else the accent), duration 0.2, overshoot (fraction of the width per side, 0.04), y (fraction of the
+   * height, 0.56), style 'line'|'scribble', seed}. Returns the end time.
+   */
+  T.strike = function (tl, target, at, options) {
+    var o = options || {};
+    var el = resolve(target);
+    if (global.getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    var w = el.offsetWidth, h = el.offsetHeight;
+    var over = w * (o.overshoot === undefined ? 0.04 : o.overshoot);
+    var y = h * (o.y === undefined ? 0.56 : o.y);
+    var svg = Studio.svg('svg', {
+      'class': 'st-strike', width: w + 2 * over, height: h, viewBox: '0 0 ' + (w + 2 * over) + ' ' + h,
+      'aria-hidden': 'true', 'data-layout-ignore': ''
+    });
+    svg.style.left = (-over) + 'px';
+    svg.style.top = '0px';
+    el.appendChild(svg);
+    var d;
+    if (o.style === 'scribble') {
+      var r = Studio.rng(o.seed || 23), pts = [], n = 7;
+      for (var i = 0; i <= n; i++) pts.push([i * (w + 2 * over) / n, y + (i % 2 ? -1 : 1) * h * (0.08 + r() * 0.06)]);
+      d = 'M' + pts.map(function (p) { return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L');
+    } else {
+      d = Studio.draw.handLine(o.seed || 17, 0, y + h * 0.02, w + 2 * over, y - h * 0.03, { segments: 3, jitter: 0.004 });
+    }
+    var path = Studio.svg('path', { d: d, 'class': 'st-strike-path' }, svg);
+    if (o.color) path.style.stroke = o.color;
+    return Studio.draw.stroke(tl, path, at, { duration: o.duration || 0.2, ease: o.ease || 'power2.out' });
+  };
+
+  /**
+   * Strike and correct (technique strike-and-correct): the claim types in, a strike draws through it, the claim is
+   * demoted (shrinks toward its top-left, lifts and greys) and the correction types in below. Both elements are
+   * split into characters here; style the correction (accent colour, at least the claim's size) in CSS.
+   * options: {cps 30, read (s the struck claim stays full size so it can be read, 0.6), demote 'shrink-up'|'fade'|
+   * 'fall', scale 0.55, lift (u, 4), dim 0.5, gap (s between demotion and the correction, 0.1), strike: {...T.strike
+   * options}}. Returns {struck, demoted, end}.
+   */
+  T.strikeCorrect = function (tl, claim, correction, at, options) {
+    var o = options || {};
+    var c = resolve(claim), k = resolve(correction);
+    var cps = o.cps || 30;
+    var a = T.split(c, { type: 'words,chars' }), b = T.split(k, { type: 'words,chars' });
+    var typed = T.typewriter(tl, a.chars, at, { cps: cps });
+    var struck = T.strike(tl, c, typed + 0.15, o.strike || {});
+    var demoteAt = struck + (o.read === undefined ? 0.6 : o.read);
+    var mode = o.demote || 'shrink-up';
+    var dim = o.dim === undefined ? 0.5 : o.dim;
+    var to = { opacity: dim, duration: 0.3, ease: 'power2.inOut', immediateRender: false };
+    var from = { opacity: 1 };
+    if (mode === 'shrink-up') {
+      from.scale = 1; from.y = 0; to.scale = o.scale || 0.55; to.y = -Studio.u(o.lift === undefined ? 4 : o.lift);
+      global.gsap.set(c, { transformOrigin: '0% 0%' });
+    } else if (mode === 'fall') {
+      from.y = 0; from.rotation = 0; to.y = Studio.u(3); to.rotation = 2;
+    }
+    tl.fromTo(c, from, to, demoteAt);
+    var demoted = demoteAt + 0.3;
+    var end = T.typewriter(tl, b.chars, demoted + (o.gap === undefined ? 0.1 : o.gap), { cps: cps });
+    return { struck: struck, demoted: demoted, end: end };
+  };
+
   /** Integer counter (seek-safe: GSAP sets innerText on every render, no callbacks). */
   T.count = function (tl, target, at, options) {
     var o = options || {};

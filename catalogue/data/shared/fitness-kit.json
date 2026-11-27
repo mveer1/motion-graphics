@@ -14,10 +14,20 @@
     "kits/fitness/library.js: generated metadata",
     "kits/fitness/tibi3d.js + exercises3d.js: Tibi in real 3D (Three.js r158 vendored): skinned figure, muscles that never pop, free camera, activation by intensity, pure-function-of-time motion tracks; curl, bench press, lateral raise, back squat (and knees blocked), barbell hip thrust, standing and seated calf raise; glute/adductor/soleus, heel lift, chest-frame IK, split-screen views; film3d.js overlays (references/motion-3d.md)",
     "kits/fitness/anatomy3d.js: Tibi's one continuous skin (signed-distance union of cores and muscle volumes), activation gradients on the surface, internal muscles, tendons and bones, cut windows, isolation and skeleton modes (1.9.0)",
-    "kits/fitness/scenes3d.js + film3d.js: reusable exercise demo and cutaway scenes; rep HUD, tempo bar, cue card, joint-angle arc, movement trail, EMG sensor and state chip overlays (1.9.0)"
+    "kits/fitness/scenes3d.js + film3d.js: reusable exercise demo and cutaway scenes; rep HUD, tempo bar, cue card, joint-angle arc, movement trail, EMG sensor and state chip overlays (1.9.0)",
+    "1.9.1: exact skin-cache state, IK-to-FK toe reset, ghost-to-normal shader reset, pre-draw onFrame visibility and childless split-view projection cameras",
+    "1.9.2: opt-in distance-based core profile sampling; caches separated by profile",
+    "1.10.0: integrated distance body is the 3D development default; fan/band anatomy, deep upper-arm brachialis, local morph normals, bounded per-vertex effort, finer skin and a torso-owned top",
+    "1.11.0: sloping shoulder envelope, rounded deltoid fans, refined wrist/hand and a separated neutral stance (fig.defaultPose)",
+    "1.12.0 (anatomy 1.3.0): no flank or hip ledges; thin serratus sheet, rounded and wrapped pec ends, deep glute medius, rounded leg-tube tops; flank/hip step gate in anatomy3d-check",
+    "1.13.0 (Tibi 0.5.0): camera fitting to the posed body and props over a set (stage.fit, T3.fitScene, T3.scene fit option); framing gate in rig3d-check",
+    "1.14.0 (anatomy 1.4.0, Tibi 0.6.0): known limits: flat glute fan, shape-weighted effort and subdued cloth tint, solid glute cutaway, female deltoid, shoulder-ridge weights, elbow/knee/hip fold correctives; ponytail follow-through, bench arch (T3.solveArch), one bending sole and foot roll (T3.footRoll, tf key); a gate per fix",
+    "1.15.0 (anatomy 1.6.0, Tibi 0.8.0, sculpt 2.2.0): shoulder girdle bones, 18 new 3D exercises and mistake variants, stations.js (layout, exercise card, captionLane, audit)",
+    "1.15.1: exercise card keeps chips, cues, tip and swaps at or above 2.6% of the short side (--sn-read-floor); a card that still overflows drops trailing chips to 3, then secondary ones only; fitCard measures leaf content (the flex-grown slot made every card shrink); audit kind card-below-floor with a negative control",
+    "1.16.0 (Tibi 0.9.0): motion family 3 on the shoulder girdle: seated dumbbell overhead press, lat pulldown, pull-up, seated cable row, one-arm dumbbell row, each with a mistake variant (lower-back arch, swing-back, short range, trunk rock, torso twist); T3.girdleJoint (the joint the girdle will move to, exact), chest-frame arm solvers, a balance-solved hang, garS hand-roll branch key; rig3d-check measures reach from the moved joint and gates hand-orientation snaps"
   ],
   "location": "src/studio/kits/fitness",
-  "version": "1.9.0",
+  "version": "1.18.0",
   "installation": {
     "required": false,
     "instructions": "Synced into projects with the runtime (studio.py sync/upgrade); load the scripts as the fitness-explainer template does."
@@ -26,9 +36,9 @@
     "shared-studio-runtime"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "browser (HyperFrames headless Chrome)",
-    "notes": "Cobalt Sculpt Tibi (2026-11-09, runtime 1.6.0): verified in headless Chrome and HyperFrames snapshots; rendered in projects/upper-body-workout (see its qa/). Classic Tibi retired."
+    "notes": "1.11 refines shoulder/arm geometry and the neutral stance exposed by fig.defaultPose. Authored-motion defaults, pose keys, palette and 2D art are unchanged. Explicit legacy remains a compatibility reference. Mac production and human G3 remain pending."
   },
   "documentation_urls": [
     ".claude/skills/fitness/references/visual-systems.md",
@@ -50,9 +60,9 @@
   },
   "owner": "video-production",
   "status": "experimental",
-  "approval_evidence": "One HyperFrames render (how-muscles-grow, 97.5 s, QA gates passed) on 2026-11-08. Cobalt Sculpt Tibi: no film render yet. 1.9.0 (2026-11-13): anatomy acceptance tests and rig3d-check pass for both bodies; nine regression videos re-rendered.",
+  "approval_evidence": "1.12.0, Windows 2026-11-21: flank/hip steps fall from 10.6 (male) / 9.4 and 8.2 (female) to at most 3.2 units per 5; three actual-checker defect controls fail as intended; 59 tests and 40 temporal cases pass; explicit legacy is byte-identical. 1.11.0, Windows 2026-11-20: 59 tests without skips, 40 temporal passes and actual old-orb/flat-root/old-stance defect controls. Same-pose shoulder correction and new neutral stance are separated in the PNGs. All 80 sampled authored pose/bone/prop states and 20 explicit-legacy images remain identical. Hands remain stylised. No Mac or human G3 approval.",
   "architecture_ref": "ARCHITECTURE.md#runtime",
-  "last_verified": "2026-11-13",
+  "last_verified": "2026-11-28",
   "tags": [
     "fitness",
     "character",

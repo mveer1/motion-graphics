@@ -1,0 +1,162 @@
+{
+  "id": "pause-locked-copy-swap",
+  "name": "Copy swaps in the narrator's pauses",
+  "family": "narration-captions",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "1 inspected reference film (batch-5, 2026-11-27): the corpus's first narrated film (a 60 s light-canvas reading-app explainer) changes every headline inside a pause of the voice, readable just before the phrase that says it.",
+    "inspected": true,
+    "inspected_on": "2026-11-27"
+  },
+  "technique": "In a narrated film every change of on-screen copy (headline, list line, card) happens inside a pause of the voice, never over a word, and the new copy is readable a beat before the phrase that says it. The viewer reads the line, then hears it confirmed, and nothing changes while they listen.",
+  "purpose": "Keep reading and listening from competing: the viewer reads the new line in the breath, then hears it confirmed, and no copy changes over a spoken word.",
+  "visual_behaviour": "A headline lane beside a demo. At each pause in the narration the old line fades out, the slot is empty for a moment and the new line fades in a fraction of a second before the phrase that names it; list lines arrive the same way, one per phrase. The demo beside it keeps moving.",
+  "mechanics": "Take phrase times from the measured narration (word times or voice activity). For each copy change pick the pause before the phrase that names the new copy: old copy fades out 0.17-0.20 s, the slot stays empty 0.07-0.10 s, new copy fades in over 0.13-0.15 s, timed so it is first visible 0.2-0.6 s before the phrase starts (list lines about 0.2 s). Keep the demo beside it moving so the pause is not a frozen frame.",
+  "decomposition": {
+    "primitives": [
+      "styled-text",
+      "scene-container"
+    ],
+    "effects": [
+      "crossfade-dissolve"
+    ],
+    "timing": "Swap about 0.35 s in all. Observed: 11 of 11 swaps in pauses (chance 0.28); swap starts a median 0.60 s (0.01-0.94) before the phrase; first visible 0.27 and 0.58 s before it (strips); list lines 0.21 s before. This voice's pauses: median 0.50 s, max 1.12 s."
+  },
+  "parameters": [
+    {
+      "name": "lead",
+      "description": "new copy first visible before the phrase starts (s)",
+      "default": 0.3
+    },
+    {
+      "name": "fade_out",
+      "description": "old copy fade (s)",
+      "default": 0.18
+    },
+    {
+      "name": "gap",
+      "description": "empty slot between lines (s)",
+      "default": 0.08
+    },
+    {
+      "name": "fade_in",
+      "description": "new copy fade (s)",
+      "default": 0.14
+    },
+    {
+      "name": "min_pause",
+      "description": "shortest pause that can hold a swap (s)",
+      "default": 0.35
+    }
+  ],
+  "use_cases": [
+    "Narrated explainers with a headline lane beside a demo",
+    "Lists built one line per phrase",
+    "Any copy change in a voiced film"
+  ],
+  "failure_modes": [
+    "A pause shorter than the swap: start it in the previous pause or shorten the fades",
+    "Copy that appears after its phrase reads as a lagging caption",
+    "Swaps on a fixed grid instead of measured pauses land over words"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "copy-slot"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.copySlot(parent, versions) (runtime 1.18.0): versions share one grid cell; swap(tl, i, phraseStart, {words}) fades out 0.18 s, leaves 0.08 s empty and fades in 0.14 s, first visible 0.3 s before the phrase, and warns (api.warnings) when the swap window overlaps a measured spoken word.",
+    "runtime_api": [
+      "Studio.comp.copySlot"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "measured word times (audio/words.json)",
+      "one headline slot per lane"
+    ],
+    "compatible_components": [
+      "crossfade-dissolve",
+      "typed-kicker",
+      "step-header",
+      "item-list"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 5,
+      "cost": 2,
+      "note": "Highest-value narration finding so far (11 of 11 swaps in pauses against 0.28 chance), but from one film measured with rough dictation; confirm on a second narrated reference or with a Mac whisper re-run."
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-31ce9d6332",
+      "timestamps": [
+        9.23,
+        18.7,
+        28.87,
+        42.53
+      ],
+      "observed": "All 11 headline swaps fall in voice pauses; the headline at 18.70 s fades out, the slot is empty about 0.1 s and the new one is visible at 19.03 s, 0.27 s before the phrase (19.30 s); the list line at 42.53 s leads its phrase by 0.21 s."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "lyric-word-onset-sync",
+      "word-highlight-caption",
+      "dim-previous-line-stack",
+      "step-caption-pill",
+      "empty-stage-dip"
+    ],
+    "effects": [
+      "crossfade-dissolve"
+    ],
+    "compositions": [
+      "typed-kicker",
+      "step-header",
+      "item-list"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "narration-captions",
+    "narration",
+    "headline",
+    "copy-timing",
+    "pauses",
+    "voice-led",
+    "explainer",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-27",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-headline-copy/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

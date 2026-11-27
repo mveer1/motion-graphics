@@ -1,0 +1,30 @@
+{
+  "id": "split-screen-parallel",
+  "name": "Split-screen parallel demo (both panes on the same beat)",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-6, 2026-11-26): a 12 s sting runs two products through the same steps in two equal panes, every cut in both panes on the same frame.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Two subjects (products, methods, before and after) run the same sequence of steps in two equal panes. Each step starts on the same frame in both panes and every cut happens in both at once, so the viewer compares by glancing left and right at the same moment, without narration.",
+  "purpose": "Let the viewer compare two subjects by glancing left and right at the same moment, without narration.",
+  "visual_behaviour": "Two equal panes under a thin label bar go through the same sequence of steps; each step starts, and each cut happens, in both panes on the same frame; the film closes on both names side by side.",
+  "mechanics": "Two equal panes (50% of the width each, a 1-2 px gutter) under a thin label bar naming each side; one shared list of steps; each step's entrance starts on the same frame in both panes (4 cuts checked at 2-frame steps: 3.38, 5.31, 8.17, 10.04 s); steps of 1.9-3.2 s; close on both names side by side, blurred large and scaling to sharp in 0.17 s (10.05-10.22 s).",
+  "decomposition": { "primitives": ["scene-container"], "effects": [], "timing": "Steps of 1.9-3.2 s; five steps in a 12 s sting." },
+  "parameters": [
+    { "name": "gutter", "description": "Gap between panes in px", "default": 2 },
+    { "name": "stepLength", "description": "Seconds per shared step", "default": 2.4 },
+    { "name": "labelBar", "description": "Height of the label bar as a share of the frame", "default": 0.04 }
+  ],
+  "use_cases": ["Product or tool comparisons", "Before and after", "Two algorithms doing the same task"],
+  "failure_modes": ["Unequal step timing breaks the comparison", "Each pane is near-square at 16:9, so text halves in size; in portrait stack the panes top and bottom", "Too much detail per pane"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.comp.splitStage with one shared step list driving both panes, so every entrance and cut is on the same frame; steps of 1.9-3.2 s; a 1-2 px gutter; in portrait stack the panes top and bottom. A mirrored-step helper is not built.", "runtime_api": ["Studio.comp.splitStage"] },
+  "capability": { "support": "native", "requirements": ["two panes on one shared timeline"], "compatible_components": ["split-stage"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-a1c9ef89a3", "timestamps": [0.38, 3.38, 5.31, 8.17, 10.05], "observed": "Two products in equal panes go through icon, window, prompt, document, image cards and loaders on the same frames; all 4 cuts happen in both panes at once; the film closes on both studio names blurring into focus." }
+  ],
+  "related": { "techniques": ["ui-demo-micro-interactions", "film-match-cut"], "compositions": ["split-stage"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["explanation-device", "split-screen", "comparison", "before-after", "parallel", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

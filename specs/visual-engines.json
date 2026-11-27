@@ -1,0 +1,144 @@
+{
+  "spec_version": "1.0.0",
+  "description": "Render engines the visual director can route a scene to, the signals that route it, the pinned engine builds, and the engines evaluated and turned down. Read by scripts/visual-director.py and the visual-director skill. Evaluation and evidence: docs/visual-engines.md.",
+  "compositor": "hyperframes",
+  "engines": {
+    "hyperframes": {
+      "name": "HyperFrames + GSAP 3 + studio runtime",
+      "catalogue": "tool-hyperframes",
+      "status": "approved",
+      "role": "The compositor and the default engine. Every film is a HyperFrames composition; other engines only supply plates to it.",
+      "best_for": [
+        "kinetic typography, captions, titles, labels, numbers",
+        "2D diagrams, charts, maps, timelines, flowcharts",
+        "algorithm and data-structure walkthroughs (SVG + GSAP)",
+        "math visuals drawn as SVG (axes, curves, geometry, vectors)",
+        "UI and code demonstrations",
+        "per-format layouts (portrait, landscape, square) from one source"
+      ],
+      "cost": "low: one headless Chrome, about 0.4 GB peak, about 1.5 s per film second at 720p"
+    },
+    "threejs": {
+      "name": "Three.js r158 inside the HyperFrames page",
+      "catalogue": "threejs",
+      "status": "experimental",
+      "role": "Real-time stylised 3D that must stay a pure function of film time and carry HTML labels that track 3D anchors.",
+      "best_for": [
+        "stylised or toon 3D objects and characters (the 3D Tibi)",
+        "turntables and orbits of simple models with tracked labels",
+        "3D charts, globes, molecules and lattices with flat or toon shading",
+        "anything that must change when the composition changes, with no pre-render step"
+      ],
+      "cost": "low to medium: same browser, software or hardware WebGL; no global illumination"
+    },
+    "blender": {
+      "name": "Blender (headless, Python bpy) rendering plates",
+      "catalogue": "tool-blender",
+      "status": "experimental",
+      "role": "Offline 3D plates (opaque MP4 or alpha WebM) that HyperFrames composites under or over its DOM layers. Never carries text.",
+      "best_for": [
+        "physically based light: glass, refraction, caustics, subsurface, soft shadows, global illumination",
+        "volumetrics: fog, god rays, smoke, fire, clouds",
+        "simulations: rigid bodies, cloth, fluids, particles with lighting",
+        "cinematic cameras: real depth of field, motion blur, long dolly and crane moves through 3D environments",
+        "3D environments and landscapes, product hero shots, planets and terrain"
+      ],
+      "cost": "high: a second toolchain; EEVEE seconds per frame, Cycles tens of seconds per frame on the M2; one heavy job at a time"
+    }
+  },
+  "routing": {
+    "description": "Signals are matched case-insensitively against a storyboard scene's title, visual, layout, beats, capabilities and asset_refs. `terms` name a visual treatment and always count; `subject_terms` name what is shown and count only when no 2D form term (the compositor's `terms`: chart, diagram, equation, ...) is present, because a chart about water is still a chart. The engine with the highest weighted score wins; a tie or a score under min_score stays on the cheaper engine. A heuristic draft only: the visual director decides.",
+    "min_score": 2,
+    "form_engine": "hyperframes",
+    "signals": {
+      "blender": {
+        "weight": 2,
+        "terms": [
+          "photoreal", "photorealistic", "cinematic lighting", "studio lighting", "global illumination",
+          "volumetric", "god rays", "light shafts", "caustics", "subsurface",
+          "depth of field", "bokeh", "motion blur", "rack focus",
+          "fly-through", "flythrough", "crane shot", "dolly through", "3d environment",
+          "simulation", "rigid body", "shatter", "collapse", "product hero", "hero shot"
+        ],
+        "subject_weight": 1,
+        "subject_terms": [
+          "fog", "mist", "haze", "smoke", "fire", "flame", "explosion", "clouds",
+          "fluid", "liquid", "water", "pour", "splash", "ocean",
+          "cloth", "fabric", "drape", "debris", "domino",
+          "glass", "refraction", "crystal", "metal reflections",
+          "landscape", "terrain", "planet", "galaxy"
+        ]
+      },
+      "threejs": {
+        "weight": 2,
+        "terms": [
+          "3d model", "3d object", "turntable", "orbit the", "rotate the model", "isometric 3d", "toon 3d", "low-poly",
+          "3d chart", "3d bar", "3d scatter", "wireframe", "tibi 3d", "3d tibi", "anatomy3d", "skeleton view", "cutaway"
+        ],
+        "subject_weight": 1,
+        "subject_terms": ["globe", "molecule", "lattice"]
+      },
+      "hyperframes": {
+        "weight": 1,
+        "terms": [
+          "chart", "graph", "diagram", "headline", "title card", "typography", "kinetic type", "caption", "counter",
+          "equation", "formula", "code", "algorithm", "array", "tree", "flowchart", "timeline", "map", "table",
+          "icon", "label", "callout", "split screen", "stat", "number"
+        ]
+      }
+    }
+  },
+  "composition_modes": {
+    "native": "Drawn entirely in the HyperFrames page (SVG, DOM, Canvas, or Three.js).",
+    "plate-full": "An opaque Blender plate fills the frame; HyperFrames adds text and graphics above it.",
+    "plate-under": "An opaque or alpha plate sits behind HyperFrames graphics as an environment or backdrop.",
+    "plate-over": "An alpha plate (VP9 WebM) sits above some DOM layers and below the text: an object, particles or fog in front of a diagram."
+  },
+  "plate_defaults": {
+    "engine": "eevee",
+    "samples": { "eevee": 32, "cycles": 64 },
+    "view_transform": "Standard",
+    "opaque_codec": "h264-crf16",
+    "alpha_codec": "vp9-alpha-crf24",
+    "frame_format": "png-rgba",
+    "preview": { "resolution_percent": 50, "frame_step": 6, "samples": 8 }
+  },
+  "blender": {
+    "pinned_version": "5.2.4",
+    "series": "5.2 LTS",
+    "supported_until": "2028-07",
+    "license": "GPL-2.0-or-later (the application); renders are the author's own work",
+    "downloads": {
+      "windows-x64": {
+        "url": "https://download.blender.org/release/Blender5.2/blender-5.2.4-windows-x64.zip",
+        "sha256": "bbd78f8931dc940444da4ff2983374930f9f5c092ae0e330588e9760bb9d967c"
+      },
+      "macos-arm64": {
+        "url": "https://download.blender.org/release/Blender5.2/blender-5.2.4-macos-arm64.dmg",
+        "sha256": "e73d564f97061b2496ccc5a0bd738937d2d3d0acae23621a00bbc7534dfd135f"
+      },
+      "linux-x64": {
+        "url": "https://download.blender.org/release/Blender5.2/blender-5.2.4-linux-x64.tar.xz",
+        "sha256": "2fd14c50987426897ba60237ee996edf2b4151f4b1a72a460ca20be58c1d2d86"
+      }
+    },
+    "checksums_source": "https://download.blender.org/release/Blender5.2/blender-5.2.4.sha256"
+  },
+  "not_adopted": {
+    "remotion": {
+      "decision": "blocked",
+      "catalogue": "skill-claude-remotion",
+      "reason": "A second headless-Chromium frame renderer that duplicates HyperFrames (React components instead of a GSAP timeline), with a Webpack build and multi-process rendering measured above 2 GB on the 8 GB host. Source-available licence, not OSI: free for individuals and for-profit organisations of up to 3 employees, a company licence above that."
+    },
+    "revideo": {
+      "decision": "blocked",
+      "catalogue": "tool-revideo",
+      "reason": "A Motion Canvas fork (TSX generator functions, Vite build) that duplicates what HyperFrames + GSAP + SVG already render; rejected in specs/motion-graphics-evolution-report.md section 5.2; upstream activity has slowed since its lead contributor left in 2025."
+    },
+    "manim": {
+      "decision": "proposed",
+      "catalogue": "tool-manim",
+      "reason": "Manim Community (MIT, Python) is the strongest code-driven engine for equation morphing and LaTeX-heavy math. Not installed: it needs a LaTeX distribution (gigabytes) and a third plate pipeline. Revisit when a brief needs equation-to-equation transforms that SVG + GSAP cannot carry."
+    }
+  }
+}

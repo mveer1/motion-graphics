@@ -1,0 +1,43 @@
+{
+  "id": "shared-visual-plan-spec",
+  "name": "Visual Plan Specification",
+  "component_type": "shared_asset",
+  "purpose": "JSON Schema for projects/<slug>/visual-plan.json: per-scene engine and mode with a reason, and the Blender plates (script, timing, alpha, engine, samples, seed, cues, params, formats).",
+  "location": "specs/visual-plan-spec.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Validated by visual-director.py check and studio.py validate."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "json-schema",
+    "notes": "Draft-07."
+  },
+  "documentation_urls": [
+    ".claude/skills/visual-director/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace schema."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static schema definition."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Validated against projects/lab-blender-hybrid/visual-plan.json (2026-11-24).",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "schema",
+    "visual-plan",
+    "json-schema"
+  ]
+}

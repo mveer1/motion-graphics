@@ -1,0 +1,959 @@
+{
+  "id": "ref-31ce9d6332",
+  "name": "Narrated light-canvas reading-app explainer: headline left, phone right, every headline swap in the voice's pause",
+  "status": "experimental",
+  "source": {
+    "filename": "reading-app-explainer-f512d1d2.mp4",
+    "aliases": [],
+    "sha256": "31ce9d63327c5f40231f41e548035aa2512e66986e759d9b83502d0d7c9308d6",
+    "bytes": 5278781,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "App wordmark and letter mark",
+        "timestamps": [
+          11.72,
+          15.48,
+          54.87
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Reading app screens on the phone",
+        "timestamps": [
+          16.41,
+          24.86,
+          38.93
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "A book cover and a price and address on the end cards",
+        "timestamps": [
+          20.17,
+          52.06,
+          55.81
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A narrated product explainer; reuse the timing principles (copy swaps in pauses, copy leading the phrase) and the layout idea only, with original copy, voice and interface."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5278781,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 60.033,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1800,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 458,
+    "keyframes": 60,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 60.075,
+      "kbps": 237
+    },
+    "overall_kbps": 703
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames), transitions sheet (2 boundaries, every 2nd frame), listen sheet (12 phrases and the strongest accents), the audio panel (envelope and spectrogram) and 30 fps strips at 18.40-19.40 s and 28.60-29.90 s (ffmpeg backend). Measured with prompts/state/reference-parallel/batch-5/measure_frames_batch5.py (30 fps frame differences in the headline and list regions; energy voice activity from 20 ms RMS, threshold midway between the 10th and 90th percentile, gaps under 0.15 s merged) and narration_31ce.py (dictated word times from the untracked cache, counted inside voice blocks). nothing was listened to; dictation text stays in the cache.",
+    "coverage": "Full 60.0 s (1280x720, 30 fps); every headline swap at 30 fps frame differences, two swaps on strips.",
+    "concept": {
+      "observed": "Explains a language-reading app in five steps (pick a language and level, read a book at your level, tap a word, hear it read aloud, talk about it), opening on a question about how many words you need and closing on the price and a two-line call to action.",
+      "interpreted": "One persistent layout (headline left, phone right) lets the voice carry the argument while the phone proves each claim.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Narrated by one voice over a quiet bed; the headline at left restates each step in 2-7 words, the phone at right demonstrates it."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm blush-ivory canvas (#f8e8e8, 73% of pixels) and cream cards, charcoal serif type, amber word highlights, terracotta buttons, one near-black price card (51.3-53.4 s)."
+      },
+      "typography": {
+        "observed": "A light high-contrast serif for headlines (about 4-5% of the height), small grotesk labels, a large numeral with '/ 100' for the opening counter."
+      },
+      "composition": {
+        "observed": "Headline lane top-left at about 25-46% of the height and 2-30% of the width; the phone right at about 60-80% of the width; cards centred or paired for the opening and the close."
+      },
+      "motion": {
+        "observed": "Quiet: the counter rolls 66 -> 98 / 100 (3.6-4.4 s), a second card slides in beside the first (9.2-9.5 s), phone screens scroll and push inside the device, list lines and chat lines add one at a time. The analyser found 15 static holds of 0.7-3.5 s, all while the voice speaks over a still headline."
+      },
+      "transitions": {
+        "observed": "0 cuts. Two soft boundaries: 51.33 s the dark price card fades in beside the list card (about 0.3 s); 53.43 s the frame empties to the bare canvas (53.45-53.62 s) and the end card fades in. Eleven in-place headline swaps the analyser did not mark (5.87, 9.23, 11.50, 15.57, 18.70, 22.37, 26.87, 28.87, 36.80, 47.00, 53.37 s): the old line fades out in 0.17-0.20 s, the slot stays empty 0.07-0.10 s, the new line fades in over 0.13-0.15 s (strips at 18.7 and 28.9 s).",
+        "interpreted": "Continuous family throughout: the page is never replaced, only its headline, so the viewer keeps the phone in view.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Steps last 3-10 s each; headline swaps are 1.6-10 s apart and always fall in a pause of the voice (11 of 11, chance 0.28)."
+      },
+      "sound_design": {
+        "observed": "-16.1 LUFS integrated, LRA 1.9 LU, true peak -1.5 dBTP. No beat (tempo confidence low, autocorr 0.05). 55 accents (55/min) that do not sit on a grid: most fall on speech, so they are syllables, not effects. Accents on the 2 boundaries 0/2 (chance 0.17); onsets on boundaries 0.0 (chance 0.45). Silence only at the head (0.05-0.56 s). The bed: the voice blocks sit at about -15 dBFS and the pauses at about -40 dBFS (90th and 10th percentile of 20 ms RMS), so the bed is about 25 dB under the voice; 24 level dips of 0.28-0.83 s are the speech pauses.",
+        "interpreted": "A voice-led mix: the bed stays out of the way and the picture adds no hits.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "Narrated: the corpus's first confirmed voice. Engine Windows desktop dictation (System.Speech en-US), rough: 170 raw words, 61 confident (>= 0.2) in 21 phrases; on the phrase frames the dictated content follows the on-screen copy in at least 8 places, and the spectrogram shows harmonic speech blocks. Energy voice activity: 33 blocks, 41.4 s of talk over a 57.5 s span (0.60-58.09 s; 0.69 of the film), block median 1.23 s (0.26-2.59). Words per second while speaking: 1.35 (confident words in voice blocks, lower bound) to 3.65 (151 raw words in voice blocks, an estimate that dictation may inflate); words per minute over the span 58-158. Pauses: 32, median 0.50 s, max 1.12 s, 16 of them 0.5 s or longer. Pace over thirds: talk share 0.73 / 0.68 / 0.74 and raw words per speaking second 3.49 / 3.97 / 3.52, so steady; the tool's 'accelerates' (0.91 / 0.86 / 1.50 w/s) only reflects more recognisable words in the call to action. Picture changes in pauses: both boundaries (tool 1.0 vs chance 0.59) and 11 of 11 headline swaps (chance 0.28). Next phrase after a boundary 0.41 and 0.56 s; after a headline swap starts, median 0.60 s (0.01-0.94).",
+        "interpreted": "The edit waits for the breath: copy changes between phrases and is on screen just before the voice names it.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "No captions; the headline is the copy lane (top-left, 1-2 lines, 2-7 words, held for the whole step). Lead against speech: the new headline is first visible 0.27 s (19.03 vs 19.30 s) and 0.58 s (29.23 vs 29.81 s) before its phrase on the strips; supporting list lines arrive 0.21 s before the phrase that names them (42.53 vs 42.74 s, 44.10 vs 44.31 s). An in-app read-aloud demo (29.5-36 s) darkens a sentence word by word on the phone and in the left column.",
+        "interpreted": "Copy leads the voice by a beat, so the viewer reads the line and hears it confirmed.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 5.87,
+        "observed": "A question headline and a dot grid of words; the counter rolls to 98 / 100."
+      },
+      {
+        "start": 5.87,
+        "end": 11.5,
+        "observed": "A paragraph card, then the same story rewritten for your level in a second card."
+      },
+      {
+        "start": 11.5,
+        "end": 15.57,
+        "observed": "The wordmark beside the phone."
+      },
+      {
+        "start": 15.57,
+        "end": 26.87,
+        "observed": "Pick a language and level; a book at your level; tap any word for its meaning."
+      },
+      {
+        "start": 26.87,
+        "end": 36.8,
+        "observed": "Save the word; hear it read aloud with a word-by-word highlight."
+      },
+      {
+        "start": 36.8,
+        "end": 47.0,
+        "observed": "Talk about it: a chat on the phone and a three-item list built one line per phrase."
+      },
+      {
+        "start": 47.0,
+        "end": 53.43,
+        "observed": "Read and listen card, then the price card."
+      },
+      {
+        "start": 53.43,
+        "end": 60.03,
+        "observed": "Empty canvas, then a two-line call to action and the address."
+      }
+    ],
+    "moments": [
+      {
+        "t": 18.7,
+        "observed": "The old headline fades out (18.70-18.87 s), the slot is empty for about 0.1 s and the new one fades in (19.03-19.17 s); the voice resumes at 19.30 s.",
+        "interpreted": "The swap fits inside the breath, so no word is spoken over a changing line."
+      },
+      {
+        "t": 42.53,
+        "observed": "The first list line appears at 42.53 s and the phrase that names it starts at 42.74 s; the second at 44.10 s against 44.31 s."
+      }
+    ],
+    "difficult": [
+      "Nothing in the picture is hard; the craft is the timing of copy to measured speech, which needs word or phrase times from the narration audio."
+    ],
+    "uncertainties": [
+      "True word count and pace: dictation keeps 61 of 170 words and may invent or split words; the 1.35-3.65 words/s band is the honest limit",
+      "Whether the 32.8-39.1 s stretch is the narrator, the in-app French reader or both (an en-US recogniser drops French)",
+      "Whether the bed ducks under the voice or is simply quiet throughout"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        15.57,
+        22.37,
+        36.8
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        3.78,
+        4.34
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        24.86,
+        27.67,
+        38.93
+      ]
+    },
+    {
+      "id": "word-highlight-caption",
+      "timestamps": [
+        30.49,
+        33.3,
+        35.18
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        53.5
+      ]
+    },
+    {
+      "id": "pause-locked-copy-swap",
+      "timestamps": [
+        9.23,
+        18.7,
+        28.87,
+        42.53
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "crossfade-dissolve",
+      "counter-roll"
+    ],
+    "compositions": [
+      "split-stage",
+      "item-list",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo",
+      "technical-explainer"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "ui-product-demo",
+    "narration-sync",
+    "editorial-layout",
+    "product-promo"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "light",
+    "narrated",
+    "voice",
+    "serif",
+    "phone-mockup",
+    "pause-timing"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 17.1
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 360,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 2,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 51.333,
+        "kind": "soft",
+        "score": 0.123,
+        "isolation": 0.06
+      },
+      {
+        "t": 53.433,
+        "kind": "soft",
+        "score": 0.146,
+        "isolation": 0.23
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 51.33,
+        "duration": 51.33,
+        "activity": 0.016,
+        "luma": 0.91
+      },
+      {
+        "index": 2,
+        "start": 51.33,
+        "end": 53.43,
+        "duration": 2.1,
+        "activity": 0.072,
+        "luma": 0.78
+      },
+      {
+        "index": 3,
+        "start": 53.43,
+        "end": 60.03,
+        "duration": 6.6,
+        "activity": 0.009,
+        "luma": 0.92
+      }
+    ],
+    "static_holds": [
+      [
+        0.58,
+        1.25
+      ],
+      [
+        1.42,
+        2.42
+      ],
+      [
+        4.75,
+        5.75
+      ],
+      [
+        6.58,
+        7.25
+      ],
+      [
+        7.92,
+        8.75
+      ],
+      [
+        9.58,
+        10.92
+      ],
+      [
+        19.58,
+        20.58
+      ],
+      [
+        24.58,
+        25.25
+      ],
+      [
+        33.08,
+        33.92
+      ],
+      [
+        41.58,
+        42.42
+      ],
+      [
+        49.08,
+        50.42
+      ],
+      [
+        50.58,
+        51.25
+      ],
+      [
+        52.58,
+        53.25
+      ],
+      [
+        54.92,
+        55.58
+      ],
+      [
+        56.42,
+        59.92
+      ]
+    ],
+    "mean_activity": 0.017,
+    "luma": {
+      "mean": 0.9,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8e8e8",
+        "share": 0.726
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.105
+      },
+      {
+        "hex": "#f8e8d8",
+        "share": 0.078
+      },
+      {
+        "hex": "#d8c8b8",
+        "share": 0.042
+      },
+      {
+        "hex": "#c8c8b8",
+        "share": 0.015
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.009
+      },
+      {
+        "hex": "#786868",
+        "share": 0.007
+      },
+      {
+        "hex": "#d8c8c8",
+        "share": 0.005
+      },
+      {
+        "hex": "#c8b8a8",
+        "share": 0.005
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.003
+      }
+    ],
+    "representative_times": [
+      12.83,
+      25.66,
+      38.5,
+      52.38,
+      55.08,
+      56.73,
+      58.38
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.6,
+      "mean_dbfs_voiced": -25.5,
+      "silence_ratio": 0.01,
+      "onsets": 273,
+      "onset_rate_per_sec": 4.54,
+      "onset_times": [
+        0.58,
+        0.79,
+        0.86,
+        1.07,
+        1.23,
+        1.65,
+        1.74,
+        1.93,
+        2.14,
+        2.3,
+        2.81,
+        2.93,
+        3.07,
+        3.2,
+        3.37,
+        3.46,
+        3.58,
+        3.78,
+        3.85,
+        3.99,
+        4.11,
+        4.34,
+        4.44,
+        4.53,
+        4.69,
+        4.83,
+        5.02,
+        5.27,
+        5.55,
+        6.36,
+        6.43,
+        6.52,
+        6.64,
+        6.8,
+        7.22,
+        7.31,
+        7.45,
+        7.59,
+        7.73,
+        7.85,
+        7.92,
+        8.01,
+        8.08,
+        8.38,
+        8.59,
+        9.2,
+        9.29,
+        9.45,
+        9.64,
+        9.75,
+        9.89,
+        9.96,
+        10.19,
+        10.38,
+        10.54,
+        10.84,
+        11.1,
+        11.24,
+        12.1,
+        12.19,
+        12.38,
+        12.56,
+        12.65,
+        12.89,
+        12.96,
+        13.07,
+        13.17,
+        13.49,
+        13.63,
+        14.09,
+        14.33,
+        14.63,
+        14.86,
+        14.95,
+        15.14,
+        15.7,
+        15.86,
+        16.02,
+        16.25,
+        16.42,
+        16.79,
+        16.93,
+        17.25,
+        17.48,
+        17.62,
+        17.95,
+        18.07,
+        18.18,
+        18.41,
+        18.6,
+        18.92,
+        19.3,
+        19.53,
+        19.64,
+        19.83,
+        19.97,
+        20.11,
+        20.2,
+        20.32,
+        20.46,
+        20.92,
+        21.06,
+        21.15,
+        21.27,
+        21.39,
+        21.57,
+        21.78,
+        22.01,
+        22.22,
+        22.96,
+        23.2,
+        23.36,
+        23.52,
+        23.59,
+        23.78,
+        24.08,
+        24.17,
+        24.4,
+        24.54,
+        24.64,
+        24.73,
+        24.87,
+        25.17,
+        25.29,
+        25.45,
+        25.59,
+        25.8,
+        25.89,
+        26.15,
+        26.24,
+        26.91,
+        27.14,
+        27.4,
+        27.49,
+        27.7,
+        28.05,
+        28.28,
+        28.42,
+        28.51,
+        28.84,
+        29.49,
+        29.56,
+        29.77,
+        29.84,
+        30.07,
+        30.23,
+        30.39,
+        30.46,
+        30.53,
+        30.72,
+        30.93,
+        31.0,
+        31.21,
+        31.49,
+        31.83,
+        31.95,
+        32.02,
+        32.72,
+        32.88,
+        33.09,
+        33.23,
+        33.34,
+        33.44,
+        33.62,
+        33.92,
+        34.09,
+        34.34,
+        35.16,
+        35.29,
+        35.5,
+        35.67,
+        35.87,
+        36.01,
+        36.15,
+        36.29,
+        36.36,
+        36.55,
+        37.45,
+        37.87,
+        38.1,
+        38.57,
+        38.78,
+        38.87,
+        38.99,
+        39.08,
+        39.31,
+        39.43,
+        39.5,
+        39.73,
+        40.03,
+        40.31,
+        40.4,
+        40.61,
+        40.8,
+        41.17,
+        41.33,
+        41.47,
+        41.66,
+        41.87,
+        42.19,
+        42.75,
+        42.86,
+        43.14,
+        43.44,
+        43.72,
+        44.3,
+        44.4,
+        44.54,
+        44.63,
+        44.79,
+        44.95,
+        45.14,
+        45.6,
+        45.74,
+        46.0,
+        46.18,
+        46.3,
+        46.46,
+        46.56,
+        46.67,
+        46.76,
+        47.67,
+        48.23,
+        48.39,
+        48.48,
+        48.65,
+        48.81,
+        48.92,
+        49.16,
+        49.3,
+        49.39,
+        49.57,
+        49.88,
+        49.97,
+        50.43,
+        50.62,
+        50.76,
+        50.85,
+        50.94,
+        51.18,
+        51.73,
+        51.83,
+        52.13,
+        52.27,
+        52.5,
+        52.57,
+        52.66,
+        52.83,
+        52.99,
+        53.08,
+        54.01,
+        54.24,
+        54.4,
+        54.57,
+        54.68,
+        54.8,
+        54.92,
+        55.03,
+        55.12,
+        55.31,
+        55.45,
+        55.91,
+        55.98,
+        56.22,
+        56.49,
+        56.61,
+        57.05,
+        57.24,
+        57.47,
+        57.63,
+        57.79,
+        58.0,
+        58.26
+      ],
+      "tempo_estimate": {
+        "bpm": 184.6,
+        "autocorr": 0.05,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 1006,
+      "band_share": {
+        "low_lt_250": 0.2,
+        "mid_250_2k": 0.59,
+        "high_gt_2k": 0.21
+      },
+      "syllabic_modulation_share": 0.39,
+      "boundary_onset_alignment": {
+        "boundaries": 2,
+        "tolerance_ms": 67,
+        "near_onset": 0.0,
+        "chance_level": 0.45,
+        "median_offset_ms": 254
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-31ce9d6332",
+      "overview": "reference/analysis/ref-31ce9d6332/overview.jpg",
+      "scenes": "reference/analysis/ref-31ce9d6332/scenes.jpg",
+      "transitions": "reference/analysis/ref-31ce9d6332/transitions.jpg",
+      "motion": "reference/analysis/ref-31ce9d6332/motion.jpg",
+      "audio": "reference/analysis/ref-31ce9d6332/audio.png",
+      "frames": "reference/analysis/ref-31ce9d6332/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -16.1,
+        "lra_lu": 1.9,
+        "true_peak_dbtp": -1.5,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 170,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "narrated",
+        "words": 61,
+        "phrases": 21,
+        "speech_start": 1.1,
+        "speech_end": 57.2,
+        "speech_coverage": 0.38,
+        "wps_while_speaking": 2.65,
+        "wpm_over_span": 65,
+        "pace_thirds_wps": [
+          0.91,
+          0.86,
+          1.5
+        ],
+        "pace_trend": "accelerates",
+        "phrase_words_median": 2.0,
+        "phrase_sec_median": 0.75,
+        "pauses": {
+          "count": 20,
+          "median_ms": 1370,
+          "max_ms": 6240,
+          "at": [
+            1.85,
+            3.06,
+            4.1,
+            5.68,
+            10.78,
+            13.45,
+            15.31,
+            18.6,
+            20.0,
+            22.82,
+            26.13,
+            26.91,
+            28.95,
+            31.06,
+            32.81,
+            42.29,
+            46.95,
+            50.78,
+            53.38,
+            56.48
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 53,
+            "wps": 1.03
+          },
+          {
+            "index": 2,
+            "words": 5,
+            "wps": 2.38
+          },
+          {
+            "index": 3,
+            "words": 3,
+            "wps": 0.45
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 2,
+          "in_pause_share": 1.0,
+          "chance_level": 0.59,
+          "next_phrase_after_ms_median": 1617
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 273,
+        "accents": 55,
+        "accents_per_min": 55.0,
+        "accent_times": [
+          0.58,
+          0.79,
+          2.3,
+          3.78,
+          4.34,
+          4.53,
+          8.08,
+          8.59,
+          12.19,
+          14.09,
+          16.42,
+          16.79,
+          17.48,
+          18.18,
+          18.41,
+          19.3,
+          19.83,
+          20.11,
+          20.92,
+          21.78,
+          22.01,
+          22.96,
+          25.17,
+          25.45,
+          25.59,
+          25.89,
+          26.91,
+          27.4,
+          28.28,
+          28.84,
+          30.72,
+          32.72,
+          34.09,
+          35.16,
+          35.29,
+          37.45,
+          38.57,
+          38.99,
+          42.19,
+          42.75,
+          42.86,
+          43.72,
+          44.3,
+          44.79,
+          45.6,
+          45.74,
+          48.65,
+          50.62,
+          51.18,
+          51.83,
+          52.27,
+          54.8,
+          56.22,
+          57.05,
+          57.79
+        ],
+        "accent_threshold": 0.37,
+        "boundaries_with_accent": {
+          "boundaries": 2,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.17
+        },
+        "onset_rate_during_speech": 5.12,
+        "onset_rate_outside_speech": 4.19,
+        "level_speech_minus_gaps_db": 1.9,
+        "sustained_share": 0.98,
+        "silences": [
+          [
+            0.05,
+            0.56
+          ]
+        ],
+        "level_head_vs_body_db": 0.1,
+        "level_tail_vs_body_db": -4.6,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-31ce9d6332/listen",
+        "sheet": "reference/analysis/ref-31ce9d6332/listen/listen.jpg",
+        "words": "reference/analysis/ref-31ce9d6332/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,902 @@
+{
+  "id": "ref-e8125c24ca",
+  "name": "Lyric video: each sung word lands on its onset, the lane moves every phrase, sun and eclipse imagery",
+  "status": "experimental",
+  "source": {
+    "filename": "lyrics-synced-to-the-track-9f5731dc.mp4",
+    "aliases": [],
+    "sha256": "e8125c24caeefe2ec5a21fa55c098789e743e1981528760ea4af688af7659c27",
+    "bytes": 6149855,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "other",
+        "description": "Lyrics and title of a commercial song shown as text; reproduce neither",
+        "timestamps": [
+          0.38,
+          29.22
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Photographic sun, eclipse and fire imagery (source unknown)",
+        "timestamps": [
+          7.21,
+          11.76,
+          27.7
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Lyric video of a commercial song; reuse the word-onset timing, lane-per-phrase and light-event transition principles only, with original words, music and imagery."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 6149855,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 29.6,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1776,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1393,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 29.675,
+      "kbps": 256
+    },
+    "overall_kbps": 1662
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (39 frames), transition strips at all 12 boundaries (every 2nd frame), the listen sheet (2 dictation phrases, 12 accent hits) and 30 fps strips at 0.0-0.6, 1.0-1.5, 2.2-2.7, 3.3-3.8, 3.9-4.45, 4.4-5.0, 6.8-7.3, 7.7-8.2, 9.0-9.5, 11.2-11.8, 12.4-12.9, 13.0-13.5, 14.3-15.0, 15.9-16.5, 20.5-21.1, 21.3-21.9, 22.2-22.6 and 24.8-25.4 s (word and line changes); automated audio and listen metrics (signal features; Windows en-US dictation, which fails on singing; nothing was listened to). Word timing = first frame a word is visible against the nearest onset in automated.audio.onset_times.",
+    "coverage": "Full 29.6 s; 14 word or line arrivals and 3 line exits measured at 30 fps.",
+    "concept": {
+      "observed": "A lyric video for a love song: words appear as they are sung over a sunrise on the sea, a blazing sun, a grey eclipse, a field of fire, a cream ruled sheet, a split frame and a final eclipse, ending on a thin red arc and the title.",
+      "interpreted": "Each phrase gets its own image and its own text placement; the sun, eclipse and fire carry the song's 'world ending' theme.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Lyrics only, set in serif type at many sizes; no other copy except the closing title."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Black, ember orange and sun yellow; desaturated grey for the eclipse; a cream paper sheet with charcoal type and one red-orange accent (a red word, a red sun)."
+      },
+      "typography": {
+        "observed": "Serif throughout in three voices: light italic (small, lead-in words), heavy black display serif (big, key words: 'world was ending', 'If the party was over') and wide-tracked roman for held words ('y o u', 't h r o u g h'); key words red in the sheet section ('party', 'over')."
+      },
+      "composition": {
+        "observed": "The lane moves per phrase, eight placements in 30 s: on the horizon line (0-4.3 s), along an arc around the sun (4.4-6.8 s), top-left large (6.8-9.2 s and 11.5-13.8 s), centred over the eclipse (9.2-11.4 s), centred under the sun (14-18.6 s), the top rows of a ruled sheet (20.5-22.6 s), and lower-centre under a small italic line (23-27.7 s)."
+      },
+      "motion": {
+        "observed": "Words fade in over 2-6 frames at their final position; a light line flashes along the horizon on onsets; the sun swells on 'you' (16.03-16.13 s); a ring ripple marks 'ending' (13.10-13.17 s); sparks burst from 'world' (11.50-11.57 s); a held word tightens its letter-spacing over the held note ('through', 25.2-26.2 s)."
+      },
+      "transitions": {
+        "observed": "12 boundaries in 29.6 s (5 cuts, 7 soft). White overexposed cuts at 9.20 s (decays about 0.3 s onto the grey eclipse) and 17.68 s (the sun's rays burn to white); a red tint flash at 10.36 s; a grey film-burn card into the fire at 11.43-11.50 s; a dissolve from the fire into the sun at 13.81-13.97 s; a cream circle blooms across a dark frame in about 0.17 s (20.50-20.67 s) and reveals 'If the party'; a black panel wipes in from the right (22.89-23.06 s) and across the frame (24.80-25.17 s); the sun eclipses and the frame cuts to a thin red arc at 28.28 s.",
+        "interpreted": "Every picture change belongs to a phrase change, and most are light events (flash, burn, bloom), which suits a song about the sun.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Phrases of about 2-4.6 s; scene changes on phrase starts; accents on a 1.14 s grid (about 105 bpm, every second beat) from 3.55 to 26.33 s."
+      },
+      "sound_design": {
+        "observed": "-12.4 LUFS, LRA 3.9 LU, true peak -1.4 dBTP; tempo estimate 161.5 bpm (medium), but the 23 accents (46.6/min) sit on a 1.14 s grid; 6 of 12 boundaries carry an accent within 100 ms (0.50 against chance 0.14) and 50% are within 50 ms of an onset (chance 0.32). The strongest accents land on sung word arrivals ('promised' 1.28 s, 'I'ma' 4.69 s, 'world' 11.54 s, 'over' 21.78 s) and on the light events (white cut 9.24 s, red flash 10.40 s, dissolve 13.79 s). Head 3.7 dB below the body; the last 0.45 s (29.16-29.61 s) is silent. The accents are the song itself (voice and drums), not added effects.",
+        "interpreted": "In a lyric video the song is the narration: picture changes are cut to its onsets, unlike the product films where cuts avoid the accents.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "Singing, not narration: Windows en-US dictation found 3 words in 2 phrases, none matching the lyrics on screen, so dictation fails on this singing; timing was measured from onsets and frames instead.",
+        "interpreted": "No pace figures; the lyric timing is under captions.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "Lyrics appear word by word, not line by line. First visible frame against the nearest onset (30 fps): 'Nobody's' 0.07 vs 0.09 s (-20 ms); 'promised' 1.13 vs 1.09 (+40); 'So' 4.43 vs 4.46 (-30); 'I'ma' 4.67 vs 4.69 (-20); 'last' about 6.80 vs 6.76 (+40 or earlier); 'night' 7.20 vs 7.17 (+30); 'last' 9.17 vs 9.24 (-70); 'world' 11.47 vs 11.54 (-70); 'ending' 13.07 vs 13.07 (0); 'be' 14.57 vs 14.58 (0); 'you' 15.97 vs 16.09 (-120); 'the' 20.57 vs 20.55 (+20); 'over' 21.77 vs 21.78 (-10); 'through' 25.07 vs 25.19 (-120). Median about 15 ms early, range 120 ms early to 40 ms late; each word is fully legible 0.1-0.2 s after it starts. Lines hold 1-8 words (median 3) for 0.6-4.6 s (median about 2.3 s). A line clears with a 0.1-0.3 s dissolve that starts on the next phrase's onset (3.97-4.27 s; 22.55 s) and the frame is empty 0.07-0.15 s before the next first word, or the next word fades in over the outgoing picture (word 6.80 s, cut 7.00 s). No karaoke colour sweep: emphasis is size (the phrase-final word largest), weight, one red word per line in the sheet section, and letter-spacing that tightens over a held note.",
+        "interpreted": "Rule shown: a word starts to show on its sung onset or up to about four frames before it, and never more than about one frame after; a new lane or picture may lead the voice by up to 0.12 s but never trails it.",
+        "confidence": "high"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 4.3,
+        "observed": "Sunrise on the sea; the first line sits on the horizon."
+      },
+      {
+        "start": 4.4,
+        "end": 7.0,
+        "observed": "The next line curves along an arc around the rising sun."
+      },
+      {
+        "start": 7.0,
+        "end": 9.2,
+        "observed": "Blazing sun; big words top-left."
+      },
+      {
+        "start": 9.2,
+        "end": 11.47,
+        "observed": "Grey eclipse; one italic word at a time in the centre."
+      },
+      {
+        "start": 11.47,
+        "end": 13.8,
+        "observed": "Field of fire; 'world was ending' builds top-left."
+      },
+      {
+        "start": 13.8,
+        "end": 20.4,
+        "observed": "Sun close-up; a small italic line and a large final word under the sun."
+      },
+      {
+        "start": 20.5,
+        "end": 22.9,
+        "observed": "Cream ruled sheet; 'If the party was over' with a red sun as the full stop."
+      },
+      {
+        "start": 22.9,
+        "end": 25.2,
+        "observed": "Split cream and black frame; the red dot travels."
+      },
+      {
+        "start": 25.2,
+        "end": 28.28,
+        "observed": "Eclipse; 'through' tracked wide and tightening."
+      },
+      {
+        "start": 28.28,
+        "end": 29.6,
+        "observed": "A thin red arc and the song title."
+      }
+    ],
+    "moments": [
+      {
+        "t": 6.8,
+        "observed": "The next phrase's first word ('last', large, top-left) fades in over the outgoing horizon scene on the 6.76 s onset; the background cuts to the blazing sun 0.2 s later (7.00 s, onset 6.97 s).",
+        "interpreted": "The word leads and the picture follows, so the eye is already in the new lane when the image changes."
+      },
+      {
+        "t": 25.07,
+        "observed": "'through' fades in letter-spaced wide and tightens over the held note until about 26.2 s.",
+        "interpreted": "Tracking makes the length of the sung note visible."
+      }
+    ],
+    "difficult": [
+      "Photographic sun, eclipse and fire plates (footage or high-end renders): a Blender plate or licensed footage would be needed"
+    ],
+    "uncertainties": [
+      "Onsets are signal events (voice or drums); a word's sung start may sit between listed onsets",
+      "Fade starts read at 30 fps from a 60 fps file: each figure is +/- 17 ms",
+      "Dictation cannot transcribe singing, so word identity comes from the frames only"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        9.2,
+        17.68
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        20.5
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        9.2,
+        10.35,
+        11.47,
+        13.8,
+        18.32,
+        22.88
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        20.77,
+        24.9
+      ]
+    },
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        9.24,
+        10.4,
+        11.01
+      ]
+    },
+    {
+      "id": "lyric-word-onset-sync",
+      "timestamps": [
+        0.07,
+        1.13,
+        4.43,
+        6.8,
+        9.17,
+        11.47,
+        13.07,
+        15.97,
+        20.57,
+        21.77,
+        25.07
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "tracking-reveal",
+      "halo-bloom",
+      "crossfade-dissolve",
+      "element-bloom"
+    ],
+    "compositions": [
+      "word-beats"
+    ],
+    "templates": [
+      "kinetic-typography",
+      "music-visualizer"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "music-sync",
+    "narration-sync",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "lyrics",
+    "captions",
+    "sun",
+    "eclipse",
+    "serif",
+    "word-onset-timing",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 30.9
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 236,
+      "scan_size": "96x54",
+      "overview_frames": 39,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 12,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 7.0,
+        "kind": "cut",
+        "score": 0.439,
+        "isolation": 0.65,
+        "frame": 420
+      },
+      {
+        "t": 9.2,
+        "kind": "cut",
+        "score": 0.481,
+        "isolation": 0.61,
+        "frame": 552
+      },
+      {
+        "t": 10.35,
+        "kind": "soft",
+        "score": 0.397,
+        "isolation": 0.28
+      },
+      {
+        "t": 11.467,
+        "kind": "soft",
+        "score": 0.649,
+        "isolation": 0.47
+      },
+      {
+        "t": 13.8,
+        "kind": "soft",
+        "score": 0.276,
+        "isolation": 0.0
+      },
+      {
+        "t": 17.683,
+        "kind": "cut",
+        "score": 0.328,
+        "isolation": 0.62,
+        "frame": 1061
+      },
+      {
+        "t": 18.317,
+        "kind": "soft",
+        "score": 0.122,
+        "isolation": 0.0
+      },
+      {
+        "t": 20.867,
+        "kind": "cut",
+        "score": 0.276,
+        "isolation": 0.95,
+        "frame": 1252
+      },
+      {
+        "t": 22.883,
+        "kind": "soft",
+        "score": 0.097,
+        "isolation": 0.07
+      },
+      {
+        "t": 25.1,
+        "kind": "soft",
+        "score": 0.118,
+        "isolation": 0.0
+      },
+      {
+        "t": 26.817,
+        "kind": "soft",
+        "score": 0.438,
+        "isolation": 0.01
+      },
+      {
+        "t": 28.283,
+        "kind": "cut",
+        "score": 0.589,
+        "isolation": 0.73,
+        "frame": 1697
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 7.0,
+        "duration": 7.0,
+        "activity": 0.036,
+        "luma": 0.16
+      },
+      {
+        "index": 2,
+        "start": 7.0,
+        "end": 9.2,
+        "duration": 2.2,
+        "activity": 0.174,
+        "luma": 0.55
+      },
+      {
+        "index": 3,
+        "start": 9.2,
+        "end": 10.35,
+        "duration": 1.15,
+        "activity": 0.274,
+        "luma": 0.28
+      },
+      {
+        "index": 4,
+        "start": 10.35,
+        "end": 11.47,
+        "duration": 1.12,
+        "activity": 0.211,
+        "luma": 0.21
+      },
+      {
+        "index": 5,
+        "start": 11.47,
+        "end": 13.8,
+        "duration": 2.33,
+        "activity": 0.19,
+        "luma": 0.48
+      },
+      {
+        "index": 6,
+        "start": 13.8,
+        "end": 17.68,
+        "duration": 3.88,
+        "activity": 0.28,
+        "luma": 0.35
+      },
+      {
+        "index": 7,
+        "start": 17.68,
+        "end": 18.32,
+        "duration": 0.63,
+        "activity": 0.547,
+        "luma": 0.8
+      },
+      {
+        "index": 8,
+        "start": 18.32,
+        "end": 20.87,
+        "duration": 2.55,
+        "activity": 0.218,
+        "luma": 0.2
+      },
+      {
+        "index": 9,
+        "start": 20.87,
+        "end": 22.88,
+        "duration": 2.02,
+        "activity": 0.081,
+        "luma": 0.73
+      },
+      {
+        "index": 10,
+        "start": 22.88,
+        "end": 25.1,
+        "duration": 2.22,
+        "activity": 0.045,
+        "luma": 0.4
+      },
+      {
+        "index": 11,
+        "start": 25.1,
+        "end": 26.82,
+        "duration": 1.72,
+        "activity": 0.174,
+        "luma": 0.1
+      },
+      {
+        "index": 12,
+        "start": 26.82,
+        "end": 28.28,
+        "duration": 1.47,
+        "activity": 0.298,
+        "luma": 0.15
+      },
+      {
+        "index": 13,
+        "start": 28.28,
+        "end": 29.6,
+        "duration": 1.32,
+        "activity": 0.207,
+        "luma": 0.03
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.166,
+    "luma": {
+      "mean": 0.31,
+      "dark_share": 0.53,
+      "light_share": 0.1
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.189
+      },
+      {
+        "hex": "#180808",
+        "share": 0.101
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.048
+      },
+      {
+        "hex": "#381808",
+        "share": 0.045
+      },
+      {
+        "hex": "#280808",
+        "share": 0.022
+      },
+      {
+        "hex": "#181808",
+        "share": 0.022
+      },
+      {
+        "hex": "#c8c8b8",
+        "share": 0.019
+      },
+      {
+        "hex": "#481808",
+        "share": 0.017
+      },
+      {
+        "hex": "#280818",
+        "share": 0.016
+      },
+      {
+        "hex": "#581808",
+        "share": 0.014
+      }
+    ],
+    "representative_times": [
+      1.75,
+      3.5,
+      5.25,
+      8.1,
+      9.77,
+      10.91,
+      12.64,
+      15.74,
+      18.0,
+      19.59,
+      21.88,
+      23.99,
+      25.96,
+      27.55,
+      28.94
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.3,
+      "mean_dbfs_voiced": -17.1,
+      "silence_ratio": 0.02,
+      "onsets": 113,
+      "onset_rate_per_sec": 3.81,
+      "onset_times": [
+        0.09,
+        0.16,
+        0.51,
+        0.72,
+        1.09,
+        1.28,
+        1.65,
+        1.76,
+        2.02,
+        2.41,
+        2.53,
+        3.02,
+        3.3,
+        3.55,
+        3.92,
+        4.46,
+        4.55,
+        4.69,
+        4.9,
+        5.09,
+        5.27,
+        5.43,
+        5.64,
+        5.83,
+        5.92,
+        6.22,
+        6.34,
+        6.41,
+        6.59,
+        6.76,
+        6.97,
+        7.17,
+        7.34,
+        7.55,
+        7.73,
+        7.96,
+        8.1,
+        8.29,
+        8.5,
+        8.66,
+        8.87,
+        9.24,
+        9.66,
+        9.8,
+        10.19,
+        10.4,
+        10.77,
+        11.17,
+        11.54,
+        12.1,
+        12.28,
+        12.47,
+        12.65,
+        13.07,
+        13.24,
+        13.44,
+        13.65,
+        13.79,
+        14.19,
+        14.4,
+        14.58,
+        14.95,
+        15.35,
+        15.7,
+        16.09,
+        16.67,
+        16.88,
+        17.04,
+        17.23,
+        17.62,
+        17.81,
+        17.97,
+        18.18,
+        18.37,
+        18.74,
+        18.95,
+        19.13,
+        19.32,
+        19.5,
+        19.9,
+        20.27,
+        20.55,
+        20.64,
+        21.22,
+        21.41,
+        21.78,
+        22.2,
+        22.36,
+        22.55,
+        22.73,
+        22.92,
+        23.03,
+        23.24,
+        23.34,
+        23.5,
+        23.68,
+        23.87,
+        24.06,
+        24.17,
+        24.4,
+        24.82,
+        24.94,
+        25.19,
+        25.77,
+        25.98,
+        26.15,
+        26.33,
+        26.7,
+        26.94,
+        27.1,
+        27.49,
+        27.86,
+        28.24
+      ],
+      "tempo_estimate": {
+        "bpm": 161.5,
+        "autocorr": 0.42,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1252,
+      "band_share": {
+        "low_lt_250": 0.21,
+        "mid_250_2k": 0.59,
+        "high_gt_2k": 0.21
+      },
+      "syllabic_modulation_share": 0.38,
+      "boundary_onset_alignment": {
+        "boundaries": 12,
+        "tolerance_ms": 50,
+        "near_onset": 0.5,
+        "chance_level": 0.32,
+        "median_offset_ms": 51,
+        "near_beat": 0.33,
+        "beat_chance_level": 0.32,
+        "beat_phase_sec": 0.015
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-e8125c24ca",
+      "overview": "reference/analysis/ref-e8125c24ca/overview.jpg",
+      "scenes": "reference/analysis/ref-e8125c24ca/scenes.jpg",
+      "transitions": "reference/analysis/ref-e8125c24ca/transitions.jpg",
+      "motion": "reference/analysis/ref-e8125c24ca/motion.jpg",
+      "audio": "reference/analysis/ref-e8125c24ca/audio.png",
+      "frames": "reference/analysis/ref-e8125c24ca/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -12.4,
+        "lra_lu": 3.9,
+        "true_peak_dbtp": -1.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 23,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 3,
+        "phrases": 2,
+        "speech_start": 4.71,
+        "speech_end": 12.1,
+        "speech_coverage": 0.04,
+        "wps_while_speaking": 2.73,
+        "wpm_over_span": 24,
+        "pace_thirds_wps": [
+          0.41,
+          0.0,
+          0.81
+        ],
+        "pace_trend": "accelerates",
+        "phrase_words_median": 1.5,
+        "phrase_sec_median": 0.55,
+        "pauses": {
+          "count": 1,
+          "median_ms": 6290,
+          "max_ms": 6290,
+          "at": [
+            4.91
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 1,
+            "wps": 0.14
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 1,
+            "wps": 0.89
+          },
+          {
+            "index": 5,
+            "words": 1,
+            "wps": 0.43
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 10,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 11,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 12,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 13,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 4,
+          "in_pause_share": 0.75,
+          "chance_level": 0.85,
+          "next_phrase_after_ms_median": 2000
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 113,
+        "accents": 23,
+        "accents_per_min": 46.6,
+        "accent_times": [
+          0.09,
+          1.28,
+          3.55,
+          4.69,
+          5.83,
+          6.59,
+          8.1,
+          9.24,
+          10.4,
+          10.77,
+          11.54,
+          12.65,
+          13.79,
+          14.95,
+          17.23,
+          18.37,
+          19.5,
+          19.9,
+          21.78,
+          22.36,
+          22.92,
+          24.06,
+          26.33
+        ],
+        "accent_threshold": 0.32,
+        "boundaries_with_accent": {
+          "boundaries": 12,
+          "share": 0.5,
+          "tolerance_ms": 100,
+          "chance_level": 0.14
+        },
+        "onset_rate_during_speech": 2.73,
+        "onset_rate_outside_speech": 3.86,
+        "level_speech_minus_gaps_db": 1.6,
+        "sustained_share": 0.98,
+        "silences": [
+          [
+            29.16,
+            29.61
+          ]
+        ],
+        "level_head_vs_body_db": -3.7,
+        "level_tail_vs_body_db": 0.3,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-e8125c24ca/listen",
+        "sheet": "reference/analysis/ref-e8125c24ca/listen/listen.jpg",
+        "words": "reference/analysis/ref-e8125c24ca/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "id": "skill-kit-release",
+  "name": "Kit Release Skill",
+  "component_type": "skill",
+  "purpose": "The runtime and kit release ritual: bump Studio.version with one changelog line, update catalogue versions, run the numeric gates under the host lock, kit audits, tests and governance, release to every project with studio.py upgrade --all, prove the release and record it.",
+  "capabilities": [
+    "Ordered ten-step checklist with exact commands for Windows and macOS",
+    "Rules for other sessions' projects, legacy-profile hashing and host honesty",
+    "Stop rule when the tree's versions disagree with the last handoff"
+  ],
+  "location": ".claude/skills/kit-release",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-studio-cli",
+    "tool-session-guard",
+    "tool-workspace-governance",
+    "tool-anatomy3d-check",
+    "tool-rig3d-check"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Written and trialled on the Windows host (2026-11-25); the same commands run on macOS with .venv/bin/python."
+  },
+  "documentation_urls": [
+    ".claude/skills/kit-release/SKILL.md",
+    "CLAUDE.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace skill."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs repository scripts only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Encodes the release done by hand in every 2026-11-19..25 Tibi session; trialled for the 1.15.0 release on Windows (no render-host evidence).",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-11-25",
+  "tags": [
+    "skill",
+    "release",
+    "runtime",
+    "fitness",
+    "governance"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "odometer-counter",
+  "name": "Odometer counter",
+  "purpose": "A mechanical-counter number: one rolling digit column per place, lower places roll continuously and a higher place turns over only while the place below passes from 9 to 0; the box is as wide as the largest value it is sent to, so it never reflows.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["styled-text", "clip-mask"],
+    "effects": ["counter-roll", "slot-roll"],
+    "recipes": []
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "value", "type": "number", "default": 0, "description": "Start value" },
+    { "name": "digits", "type": "number", "default": 1, "description": "Minimum integer places" },
+    { "name": "decimals", "type": "number", "default": 0, "description": "Decimal places" },
+    { "name": "group", "type": "string", "default": ",", "description": "Thousands separator ('' for none)" },
+    { "name": "prefix, suffix", "type": "string", "description": "Static affixes (currency, %, units)" },
+    { "name": "pad", "type": "boolean", "default": false, "description": "Show leading zeros" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-film.js",
+    "api": "Studio.type.counterRoll(parent, {value, digits, decimals, group, prefix, suffix, pad}) -> {el, to(tl, value, at, {duration, ease}), value()}; call to() in time order"
+  },
+  "layout_notes": "Inline, tabular digits; the size comes from the parent's font size (set it in --u). Seek-safe: GSAP tweens one number whose setter places the columns.",
+  "styles_tested": ["sinew-lab"],
+  "examples": ["tests/studio-runtime/film-helpers.html"],
+  "validation_steps": ["python tests/test-studio-runtime.py (columns grow to the largest value, exact digits after a roll, leading columns hide on the way down)"],
+  "validation": {
+    "evidence": "Runtime self-test in Playwright Chromium on Windows, 2026-11-24. Not rendered through HyperFrames.",
+    "last_verified": "2026-11-24"
+  },
+  "related": ["monument-stat"],
+  "tags": ["composition", "typography", "counter", "odometer", "data"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-24", "updated_at": "2026-11-24" }
+}

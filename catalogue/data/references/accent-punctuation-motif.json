@@ -1,6 +1,7 @@
 {
   "id": "accent-punctuation-motif",
   "name": "Accent punctuation motif",
+  "family": "kinetic-typography",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Six inspected references give the full stop, question mark or i-dot a single accent colour and reuse that mark as a recurring character and as the seed of transitions.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A punctuation mark in the accent colour becomes the piece's signature: it ends statements with conviction, travels between scenes (i-dot, decimal point, full stop) and blooms or draws the next element.",
@@ -20,12 +21,22 @@
     { "source_id": "ref-49459ad8c1", "timestamps": [2.5, 9.0], "observed": "One accent dot serves as the i-dot of one word, a decimal point later and the start of an underline." },
     { "source_id": "ref-c93524ef20", "timestamps": [1.0, 13.5], "observed": "Serif words end with an accent question mark or full stop." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [10.52], "observed": "Each one-word card ends in a full stop." },
-    { "source_id": "ref-b97f9168c6", "timestamps": [16.0, 27.0], "observed": "Closing words with full stops; the stop of a name is accent-coloured." }
+    { "source_id": "ref-b97f9168c6", "timestamps": [16.0, 27.0], "observed": "Closing words with full stops; the stop of a name is accent-coloured." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [1.53, 3.62, 3.95], "observed": "Every verb ends in a blue full stop; at 1.53 s it stretches into a UI pill; at 3.62-3.95 s the camera flies into it and its blue becomes the next card." },
+    { "source_id": "ref-e8125c24ca", "timestamps": [20.77, 24.9], "observed": "A red dot grows at the end of a lyric line as its full stop (20.77-21.0 s), travels into the split frame and becomes the sun (24.8-25.17 s)." },
+    { "source_id": "ref-7a185cb08d", "timestamps": [0.77, 27.16], "observed": "The wordmark collapses into its own full stop (0.70-0.87 s), the dot becomes the product's first button, and a black pill opens back into the wordmark at the end (27.2-27.9 s)." },
+    { "source_id": "ref-2860712d4e", "timestamps": [7.88, 8.06], "observed": "The protagonist ball drops into the end of the headline as its full stop, with an accent at 8.06 s." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [1.4, 12.25], "observed": "The yellow dot sits in the counter of the O (1.4-2.1 s) and at the end flies in, circles once and lands as the full stop of the closing line (12.08-12.45 s, accent at 12.24 s)." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [1.13, 1.94], "observed": "The O of the first name is an orange dot (1.13 s) and becomes the bloom that opens the film's second section (1.94 s)." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [14.62], "observed": "The end-card name closes with an orange full stop (14.6 s), echoing the orange ball that opened the reel." },
+    { "source_id": "ref-05c4222dae", "timestamps": [1.13, 4.74, 14.69], "observed": "The orange full stop of the name on the index card (1.13 s) becomes the O of a chapter word (4.74 s) and an orange ball and dot in later chapters; it closes the film on the card (14.69 s)." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [1.88, 2.84], "observed": "The opening statement ends on a blue full stop (1.88 s) that becomes the bloom into the problem section (2.84 s)." },
+    { "source_id": "ref-c324a3d516", "timestamps": [13.88, 14.62], "observed": "The name on the end card ends on a vermilion full stop (13.9-14.6 s)." }
   ],
   "validation": { "state": "preview", "evidence": [ { "kind": "frame-review", "path": "tests/reference-derived/word-beats/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "STOP. card's accent dot seeds the bloom." },
     { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "The paper-coloured full stop of 'Fly.' becomes the page of the next scene. Frame review 0 errors, 0 warnings (preview grade)." } ] },
   "related": { "techniques": ["element-bloom-transition", "word-per-beat-sequence", "pen-led-stroke"] },
   "licensing_notes": "Technique only. Several references use it inside a specific brand identity (accent colour + serif + mark); never reproduce that combination; use the project's style tokens.",
   "tags": ["typography", "punctuation", "motif", "accent", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

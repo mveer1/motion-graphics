@@ -1,0 +1,167 @@
+{
+  "target": "tests\\reference-derived\\explain-tour-progression\\index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    1.952,
+    3.903,
+    5.855,
+    7.806,
+    9.758,
+    11.709,
+    13.661,
+    15.612,
+    17.564,
+    19.515,
+    21.467
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 21.5,
+      "fps": 30,
+      "timeline_duration": 21.5,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f00-t000.00.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Client",
+            "Sends a job, then moves on."
+          ]
+        },
+        {
+          "time": 1.967,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f01-t001.97.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Client",
+            "Sends a job, then moves on."
+          ]
+        },
+        {
+          "time": 3.9,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f02-t003.90.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Client",
+            "Sends a job, then moves on."
+          ]
+        },
+        {
+          "time": 5.867,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f03-t005.87.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Queue",
+            "Holds jobs in order."
+          ]
+        },
+        {
+          "time": 7.8,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f04-t007.80.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Worker",
+            "Does the oldest job first."
+          ]
+        },
+        {
+          "time": 9.767,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f05-t009.77.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Worker",
+            "Does the oldest job first."
+          ]
+        },
+        {
+          "time": 11.7,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f06-t011.70.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Client",
+            "Sends a job, then moves on.",
+            "Queue",
+            "Holds jobs in order.",
+            "Worker",
+            "Does the oldest job first."
+          ]
+        },
+        {
+          "time": 13.667,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f07-t013.67.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Inside the worker",
+            "Read",
+            "Check",
+            "Write",
+            "Three moves, for every job"
+          ]
+        },
+        {
+          "time": 15.6,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f08-t015.60.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Inside the worker",
+            "Read",
+            "Read the job from the queue"
+          ]
+        },
+        {
+          "time": 17.567,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f09-t017.57.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Inside the worker",
+            "Check",
+            "Check it is still wanted"
+          ]
+        },
+        {
+          "time": 19.5,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f10-t019.50.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Inside the worker",
+            "Write",
+            "Write the result, then ask for the next"
+          ]
+        },
+        {
+          "time": 21.467,
+          "path": "tests/reference-derived/explain-tour-progression/qa/landscape/f11-t021.47.png",
+          "visible_text": [
+            "Queues, part 1",
+            "Inside the worker",
+            "Write",
+            "Write the result, then ask for the next"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "text_overlap",
+          "severity": "info",
+          "message": "'Queues, part 1' overlaps 'Client' in 1 sampled frame(s)",
+          "time": 3.9
+        }
+      ],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/explain-tour-progression/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

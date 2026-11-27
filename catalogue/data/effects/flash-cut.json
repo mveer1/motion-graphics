@@ -1,0 +1,56 @@
+{
+  "id": "flash-cut",
+  "name": "Flash-frame cut",
+  "category": "transition",
+  "visual_intent": "A turning point: the scenes swap under one or two frames of flash that then decays, so a hard cut lands as an event instead of a jump.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "transition",
+    "flash",
+    "cut",
+    "turn",
+    "reference-derived"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "1 overlay per flash",
+    "memory_profile": "Low (<5MB); opacity on one full-frame div (estimate, not measured on the M2)"
+  },
+  "recipes": [
+    "flash-cut-turn"
+  ],
+  "implementation_summary": "One overlay div per flash, opaque for `hold` frames from the cue, scenes cut under it 1 ms later, opacity decays with power2.out, then hidden. shape 'radial' sets a radial-gradient burst centred on an incoming element measured with Studio.boxAt. preDim darkens the outgoing scene first. Throws on a fourth flash within one second of the same timeline (WCAG 2.3.1).",
+  "primitives": [
+    "scene-container"
+  ],
+  "runtime_api": "Studio.fx.flash(tl, outScene, inScene, at, {color, shape, center, x, y, hold, decay, preDim, dimTo})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/reference-derived/flash-and-container/index.html",
+    "tests/studio-runtime/backlog-techniques.html"
+  ],
+  "related": [
+    "crossfade-dissolve",
+    "halo-bloom",
+    "element-bloom"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/backlog-techniques.html (opaque on the cut, scenes swapped under it, decay, cleanup, radial burst, the WCAG guard, seek-order independence) in Playwright Chromium on Windows, 2026-11-28; frame review tests/reference-derived/flash-and-container/qa/report.json (0 errors). Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

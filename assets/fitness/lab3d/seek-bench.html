@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tibi seek-order bench</title>
+  <style>html,body{margin:0;background:#F6F3EC}#root{position:relative}</style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+  <script src="../../../src/studio/vendor/three.min.js"></script>
+  <script src="../../../src/studio/kits/fitness/brand.js"></script>
+  <script src="../../../src/studio/kits/fitness/tibi3d.js"></script>
+  <script src="../../../src/studio/kits/fitness/anatomy3d.js"></script>
+  <script src="../../../src/studio/kits/fitness/exercises3d.js"></script>
+  <script src="../../../src/studio/kits/fitness/film3d.js"></script>
+</head>
+<body><div id="root"></div>
+<script>
+'use strict';
+var q = new URLSearchParams(location.search), W = +(q.get('w') || 480), H = +(q.get('h') || 640);
+var kind = q.get('case') || 'skin', gender = q.get('g') || 'm';
+var profile = q.get('profile') || 'distance';
+var T3 = Studio.kit.fitness.t3d, FX = T3.film, host = document.getElementById('root');
+var start = performance.now();
+var stage = T3.stage(host, {width: W, height: H, grid: false});
+var fig = stage.tibi({gender: gender, id: 'q', profileSampling: profile});
+var buildMs = performance.now() - start;
+var tl = gsap.timeline({paused: true}), motion = T3.motion(), target = {}, priorPoses = [];
+var projected = [], drawn = [], split = kind === 'split-scene' || kind === 'camera-cache';
+var render = stage.renderer.render.bind(stage.renderer);
+stage.renderer.render = function (scene, camera) {
+  drawn = stage.figures.map(function (f) { return f.root.visible; });
+  render(scene, camera);
+};
+Object.assign(stage.cam, {az: 35, el: 8, dist: 2300, ty: 375});
+if (kind === 'skin') {
+  fig.roles({biceps: 3});
+  target = {'q.elL': 100, 'q.elR': 100, 'q.act.biceps': 0.5};
+  priorPoses = [{}, {'q.elL': 100.01, 'q.elR': 100.01, 'q.act.biceps': 0.50001}];
+  Object.assign(stage.cam, {az: 40, el: 4, dist: 1200, ty: 520});
+} else if (kind === 'foot') {
+  target = {'q.ikLegL': 0, 'q.ikLegR': 0, 'q.y': 376};
+  priorPoses = [{'q.hlL': 32, 'q.hlR': 24}];
+  Object.assign(stage.cam, {az: 75, el: 8, dist: 850, ty: 95});
+} else if (kind === 'mode-reset') {
+  priorPoses = [{'q.view.ghost': 1, 'q.view.layer': 1, 'q.cut.quad@L': 1.5}];
+} else if (kind === 'cutaway-locality') {
+  target = {'q.cut.calf@L': 1};
+  Object.assign(stage.cam, {az: 165, el: 8, dist: 2300, ty: 375});
+} else if (kind === 'shoulder-twist') {
+  fig.roles({'delt-side': 3, 'delt-front': 2, biceps: 1});
+  target = {'q.shL': 90, 'q.shR': 90, 'q.plL': 0, 'q.plR': 0,
+    'q.rtL': 90, 'q.rtR': -90, 'q.elL': 45, 'q.elR': 45,
+    'q.act.delt-side': 0.7, 'q.act.delt-front': 0.5, 'q.act.biceps': 0.4};
+  priorPoses = [{'q.rtL': -90, 'q.rtR': 90}, {'q.shL': 175, 'q.plL': 135}];
+} else if (kind === 'overhead') {
+  target = {'q.shL': 175, 'q.shR': 175, 'q.plL': 90, 'q.plR': 90};
+  priorPoses = [{'q.shL': 90, 'q.plL': 135, 'q.elL': 95},
+    {'q.view.ghost': 1, 'q.cut.arm@L': 2}];
+  Object.assign(stage.cam, {dist: 2700, ty: 440});
+} else if (kind === 'deep-flexion') {
+  target = {'q.ikLegL': 0, 'q.hpL': 120, 'q.knL': 150, 'q.elL': 150};
+  priorPoses = [{'q.hlL': 32, 'q.hlR': 24}, {'q.ikLegR': 0, 'q.hpR': 90, 'q.knR': 90}];
+} else if (kind === 'cutaway-ramp') {
+  fig.roles({biceps: 3, triceps: 2});
+  target = {'q.shL': 45, 'q.shR': 45, 'q.plL': 0, 'q.plR': 0,
+    'q.cut.arm@L': 0.5, 'q.cut.tri@R': 1.5, 'q.hi.biceps@L': 0.6,
+    'q.view.effort': 1, 'q.act.triceps': 0.7};
+  priorPoses = [{'q.cut.arm@L': 2, 'q.view.ghost': 1}, {}];
+  Object.assign(stage.cam, {az: 45, dist: 1700, ty: 540});
+} else if (kind === 'scene' || split) {
+  if (split) {
+    var other = stage.tibi({gender: gender, id: 'other', profileSampling: profile});
+    stage.views = [
+      {rect: [0, 0, W / 2, H], cam: {az: 15, el: 8, dist: 2800, fov: 26, tx: 0, ty: 375, tz: 0}, figs: [fig]},
+      {rect: [W / 2, 0, W / 2, H], cam: {az: 145, el: 8, dist: 2800, fov: 26, tx: 0, ty: 375, tz: 0}, figs: [other]}
+    ];
+    motion.base({'cam0.az': 15, 'cam1.az': 145});
+    motion.to(0, 3, {'cam0.az': 70, 'cam1.az': 200}, 'none');
+  } else {
+    motion.base({'cam.az': 15});
+    motion.to(0, 3, {'cam.az': 70}, 'none');
+  }
+  motion.base({'q.elL': 20, 'q.elR': 20});
+  motion.to(0, 3, {'q.elL': 130, 'q.elR': 130}, 'none');
+  var overlay = FX.overlay(host, {width: W, height: H});
+  var pins = stage.figures.map(function () {
+    return FX.pin(overlay, {text: 'elbow', color: '#1B1D29', size: 14, dx: 18, dy: -20});
+  });
+  T3.bind(tl, stage, motion, 3, function (values, t) {
+    projected = stage.figures.map(function (f, i) {
+      var visible = kind === 'camera-cache' || t < 1;
+      f.setVisible(visible);
+      var point = stage.project(f.world('elL'), split ? i : undefined);
+      pins[i].set(point, visible ? 1 : 0);
+      return point;
+    });
+  });
+} else {
+  throw new Error('Unknown seek case: ' + kind);
+}
+window.__timelines = {root: tl};
+
+function show(pose) {
+  fig.apply(pose);
+  stage.render();
+  stage.renderer.getContext().finish();
+}
+function hash(array) {
+  var bytes = new Uint8Array(array.buffer, array.byteOffset, array.byteLength), value = 2166136261;
+  for (var i = 0; i < bytes.length; i++) value = Math.imul(value ^ bytes[i], 16777619);
+  return (value >>> 0).toString(16);
+}
+function snapshot() {
+  var attributes = {};
+  ['position', 'normal', 'color', 'colorC'].forEach(function (name) {
+    attributes[name] = hash(fig.body.geo.getAttribute(name).array);
+  });
+  var toes = ['L', 'R'].map(function (side) {
+    return fig.bone['an' + side].children.filter(function (c) { return c.type === 'Group'; })[0].quaternion.toArray();
+  });
+  var material = fig.body.material;
+  var result = {attributes: attributes, toes: toes, drawn: drawn,
+    material: [material.side, material.transparent, material.opacity, material.depthWrite]};
+  if (kind === 'cutaway-locality') {
+    var windowSpec = T3.anatomy.WINDOWS.filter(function (w) { return w.name === 'calf'; })[0];
+    var points = [];
+    [-1, 1].forEach(function (x) { [-1, 1].forEach(function (y) { [-1, 1].forEach(function (z) {
+      points.push(stage.project(fig.point('knL',
+        windowSpec.c[0] + x * windowSpec.r[0] * 1.1,
+        windowSpec.c[1] + y * windowSpec.r[1] * 1.1,
+        windowSpec.c[2] + z * windowSpec.r[2] * 1.1)));
+    }); }); });
+    result.windowRoi = [
+      Math.max(0, Math.floor(Math.min.apply(null, points.map(function (p) { return p.x; }))) - 4),
+      Math.max(0, Math.floor(Math.min.apply(null, points.map(function (p) { return p.y; }))) - 4),
+      Math.min(W, Math.ceil(Math.max.apply(null, points.map(function (p) { return p.x; }))) + 4),
+      Math.min(H, Math.ceil(Math.max.apply(null, points.map(function (p) { return p.y; }))) + 4)
+    ];
+  }
+  if (split) result.projectionCameraChildren = stage.views.map(function (v) { return v.camera.children.length; });
+  if (projected.length) {
+    result.projectionError = Math.max.apply(null, stage.figures.map(function (f, i) {
+      var p = stage.project(f.world('elL'), split ? i : undefined);
+      return Math.hypot(p.x - projected[i].x, p.y - projected[i].y);
+    }));
+  }
+  return result;
+}
+function seek(t) {
+  tl.totalTime(t, true);
+  stage.renderer.getContext().finish();
+}
+window.seekBench = {
+  reference: function () {
+    if (kind === 'cutaway-locality') {
+      show(target); fig.body.inner.group.visible = false;
+      stage.render(); stage.renderer.getContext().finish();
+    } else if (kind === 'scene' || split) seek(0.6);
+    else show(target);
+    return snapshot();
+  },
+  revisit: function () {
+    if (kind === 'cutaway-locality') {
+      show({'q.view.ghost': 1, 'q.view.layer': 1});
+      show(target);
+      if (q.get('unclipped') === '1') {
+        fig.body.inner.materials.forEach(function (material) {
+          if (!material.userData.U.uWindowOnly) throw new Error('Window-clip control is unavailable');
+          material.userData.U.uWindowOnly.value = 0;
+        });
+        stage.render(); stage.renderer.getContext().finish();
+      }
+    } else if (kind === 'scene' || split) {
+      seek(1.6);
+      if (kind === 'camera-cache') for (var i = 0; i < 40; i++) stage.render();
+      seek(0.6);
+    } else {
+      priorPoses.forEach(show);
+      show(target);
+    }
+    return snapshot();
+  },
+  measure: function () {
+    var samples = [], sc = T3.scene(stage, 'curl',
+      {gender: gender, figId: 'perf', profileSampling: profile, at: 0, reps: 2, period: 3});
+    stage.figures.forEach(function (f) { f.setVisible(f === sc.fig); });
+    stage.views = null;
+    for (var i = -10; i < 60; i++) {
+      var t = Math.max(0, i) / 30, t0 = performance.now();
+      sc.fig.apply(sc.motion.at(t)); stage.render(); stage.renderer.getContext().finish();
+      if (i >= 0) samples.push(performance.now() - t0);
+    }
+    samples.sort(function (a, b) { return a - b; });
+    return {buildMs: buildMs, vertices: fig.body.data.n, triangles: fig.body.data.mesh.idx.length / 3,
+      frameMeanMs: samples.reduce(function (a, b) { return a + b; }, 0) / samples.length,
+      frameP95Ms: samples[Math.floor(samples.length * 0.95)], frames: samples.length,
+      javascriptHeapBytes: performance.memory ? performance.memory.usedJSHeapSize : null};
+  }
+};
+document.title = 'ready';
+</script></body>
+</html>

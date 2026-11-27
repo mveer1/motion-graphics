@@ -1,0 +1,30 @@
+{
+  "id": "quiet-after-overload",
+  "name": "Silence after the overload",
+  "family": "sound-design",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-2, batch-3, 2026-11-26): a long kinetic-type reel cuts its densest montage to one small line and drops the music for 3.7 s, then again for 5.3 s before the sign-off.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The densest, loudest stretch of the film ends on a hard cut to one small line, and the music stops (or thins to almost nothing) for several seconds while the picture slows and the palette softens. The relief is felt and makes the next words intimate. Unlike a pre-hit dropout it leads into quiet, not into a hit.",
+  "purpose": "Make the turn of a story felt as relief: contrast of density, not loudness, carries the moment and makes the next words intimate.",
+  "visual_behaviour": "The fastest, loudest stretch ends on a hard cut to one small line; the music stops for several seconds while the picture slows and the palette softens; the music returns under the new section.",
+  "mechanics": "Build: word cards every 0.2-0.3 s accelerating to colour swaps every 0.1 s (ref-58ff9f39df 108.4-115.8 s). Stop: hard cut to one small monospace line at 115.9 s; music out 117.93-121.63 s (3.7 s); during it the empty background lifts from black to cream over 0.6 s (120.97-121.6 s); music back under the new section. Second use before the sign-off: 140.29-145.57 s (5.3 s). The film's loudness range is 12.5 LU, against 1.1-8.2 LU in this batch's music-only promos.",
+  "decomposition": { "primitives": ["scene-container"], "effects": [], "timing": "Silence 3-5 s; at most twice per film; right after the loudest stretch." },
+  "parameters": [
+    { "name": "silence_sec", "description": "length of the music gap", "default": 3.7 },
+    { "name": "fade_out_ms", "description": "bed fade at the cut", "default": 30 }
+  ],
+  "use_cases": ["The turn of a story", "Before a confession, verdict or takeaway", "In narrated films, inside the narration pause before the key line"],
+  "failure_modes": ["Silence over a frozen frame reads as a broken render: keep drift or a slow background change", "Too early, before the viewer cares", "Over about 6 s viewers leave on social platforms"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Audio: bed gain automation in the mux (ffmpeg volume with enable='between(t,a,b)':volume=0, about 30 ms fades) for 3-5 s starting within a frame of the overload's last cut; in a narrated film put it in a narration pause or under one quiet line. Picture: keep Studio.space.drift or a slow background change running (never a frozen frame). Verify on the render with reference-corpus.py listen (silences).", "runtime_api": ["Studio.space.drift"] },
+  "capability": { "support": "native", "requirements": ["bed gain automation in the mix"], "compatible_components": [], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-58ff9f39df", "timestamps": [115.9, 117.93, 121.0, 140.29], "observed": "After a 7.5 s accelerating word montage the film cuts to one small line and the music stops for 3.7 s while the background turns cream; a second 5.3 s silence precedes the sign-off." },
+    { "source_id": "ref-a943607659", "timestamps": [20.2, 23.49], "observed": "A 0.245 s pulse (eighths at about 123 bpm) runs under the countdown (10.4-20.0 s, up to 33 onsets per 4 s); it stops at the win, onsets fall to 2 per 4 s, and after a dip to black a small two-line reflection appears. The texture thins rather than going silent." }
+  ],
+  "related": { "techniques": ["pre-hit-dropout", "background-palette-lift", "word-per-beat-sequence"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["sound-design", "silence", "dropout", "contrast", "turn", "mix", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

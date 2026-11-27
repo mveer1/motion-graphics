@@ -1,0 +1,522 @@
+{
+  "id": "ref-99713f6e72",
+  "name": "Dark teaser: rim-lit mark, struck statement, card wall to particles, silence before the lockup",
+  "status": "experimental",
+  "source": {
+    "filename": "next-feature-teaser-98b2c3cd.mp4",
+    "aliases": [],
+    "sha256": "99713f6e72c0d52990444ec36c1babbf9d238a36e18f01016327865cced171a3",
+    "bytes": 1484418,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "A third-party single-letter social platform mark used as the subject",
+        "timestamps": [
+          0.38,
+          4.12,
+          7.55
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "The platform's former name in the 'equals' statement",
+        "timestamps": [
+          4.12,
+          4.88
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Product name with an emoji icon in the lockup",
+        "timestamps": [
+          12.57,
+          14.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Social post cards",
+        "timestamps": [
+          7.88,
+          9.38
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Teaser built on a third-party platform's marks; reuse the negation structure, the rim-light reveal and the silence before the reveal only, with original subjects."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1484418,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 536,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 241
+    },
+    "overall_kbps": 792
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), motion sheet, audio panel and listen sheet (5 accent hits at -0.1/0/+0.1 s); strips 0.00-2.70 s (10 fps), 4.95-6.45 s (20 fps) and 11.70-12.80 s (30 fps). No transitions sheet exists (0 boundaries detected). automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 15.0 s; the strike, the scramble and the reveal at frame level; every accent checked against its frame.",
+    "concept": {
+      "observed": "A teaser on a near-black warm canvas: a rim light traces a large letter mark, a line states an old meaning, an 'equals' statement is struck through and scrambled into a question mark, the mark shatters, one post card multiplies into a wall, the wall dissolves into small mark-shaped particles that spiral into a point, and after half a second of silence the product name lands with a tagline and a closing word.",
+      "interpreted": "Tease by negation: show the old meaning, cross it out, ask, then reveal. The mystery comes from darkness, slowness and one silence.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Short centred lines in a clean sans, one italic serif word for the question and the closing word; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black warm brown (#080808, 84% of sampled pixels) with ember-orange highlights and white type; mean luma 0.05."
+      },
+      "typography": {
+        "observed": "Clean sans for statements; italic serif for the question mark and the closing word; small grey subtitle line."
+      },
+      "motion": {
+        "observed": "Slow light sweeps (0-2.6 s); glyph scramble (5.20-5.90 s); shatter (7.45-7.65 s); one card becomes a wall (7.9-10.1 s); particles swirl inward (11.70-11.87 s)."
+      },
+      "transitions": {
+        "observed": "No hard cut (the analyser found 0 boundaries); every change happens in place on the dark stage. 0.0-2.6 s a rim light travels along the mark's edges until its silhouette reads (continuous). 2.6-4.1 s the subtitle and the statement fade up (continuous). 5.00-6.35 s a strike line crosses the second word, the word scrambles to nothing and a question mark fades in (continuous). 7.45-7.65 s the mark shatters (continuous). 7.9-10.1 s one card becomes a wall (continuous). 10.14-10.24 s the wall dissolves into particles (cover by particles). 11.70-11.87 s the particles spiral into one point (grow, reversed). 12.47-12.57 s a warm two-frame bloom releases the lockup (grow).",
+        "interpreted": "A teaser can run without a cut: darkness lets each element appear and leave in place, and the one transition with weight is the implode-then-bloom at the reveal.",
+        "confidence": "high"
+      },
+      "texture_and_effects": {
+        "observed": "Glow, ember light leaks, soft depth of field on the card wall."
+      },
+      "sound_design": {
+        "observed": "-14.3 LUFS, LRA 8.7 LU, true peak -1.3 dBTP; tempo estimate 78 bpm (low confidence); 5 accents (20/min) at 0.26 s (first light), 5.06 s (strike), 6.32 s (question mark lands), 7.55 s (shatter) and 12.56 s (lockup); no picture boundaries to compare (chance 0.06). The level falls about 25 dB from 6.9 s and returns on the shatter at 7.55 s; full silence 12.00-12.54 s, then the lockup hit at 12.56 s; head 5.3 dB and tail 3.7 dB below the body. Accents may be part of the music.",
+        "interpreted": "Every accent marks a change of meaning (crossed out, questioned, broken, revealed), and the two biggest are prepared by taking sound away first.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 0 words (13 raw words below the confidence cut) over music; the listen frames show no speaker and no captions.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None; copy is centred statements with a smaller subtitle line under them and a centred end stack (name, line, closing word)."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.6,
+        "observed": "A rim light traces a large letter mark in the dark."
+      },
+      {
+        "start": 2.6,
+        "end": 4.95,
+        "observed": "A subtitle states the old meaning; an 'equals' statement."
+      },
+      {
+        "start": 4.95,
+        "end": 6.45,
+        "observed": "The second word is struck, scrambled away and replaced by a question mark."
+      },
+      {
+        "start": 6.45,
+        "end": 7.85,
+        "observed": "The mark glints and shatters."
+      },
+      {
+        "start": 7.85,
+        "end": 10.2,
+        "observed": "One post card multiplies into a wall of cards."
+      },
+      {
+        "start": 10.2,
+        "end": 11.9,
+        "observed": "The wall dissolves into mark-shaped particles that swirl into a point."
+      },
+      {
+        "start": 11.9,
+        "end": 12.5,
+        "observed": "A tiny mark holds in silence."
+      },
+      {
+        "start": 12.5,
+        "end": 15.0,
+        "observed": "Bloom; product name, tagline and a closing word."
+      }
+    ],
+    "moments": [
+      {
+        "t": 12.56,
+        "observed": "After 0.54 s of silence (12.00-12.54 s) a warm bloom fills the frame for two frames and the product name appears with the hit at 12.56 s.",
+        "interpreted": "Silence plus a bloom makes a quiet film's biggest moment without loudness."
+      },
+      {
+        "t": 5.05,
+        "observed": "A red line strikes the second word of the statement in 0.1 s; the struck word cycles through random glyphs for 0.7 s and fades; a question mark takes its place at 6.20-6.35 s."
+      }
+    ],
+    "difficult": [
+      "A soft rim light on a bevelled shape is easiest as a pre-rendered plate; an SVG edge stroke with a moving gradient approximates it"
+    ],
+    "uncertainties": [
+      "Whether the 6.9-7.5 s level drop is an intended dip or part of the music",
+      "Whether the particles are 2D sprites or rendered"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "strike-and-correct",
+      "timestamps": [
+        5.05,
+        6.32
+      ]
+    },
+    {
+      "id": "text-scramble-decode",
+      "timestamps": [
+        5.2,
+        5.9
+      ]
+    },
+    {
+      "id": "letter-shatter",
+      "timestamps": [
+        7.55
+      ]
+    },
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        10.24,
+        11.8
+      ]
+    },
+    {
+      "id": "pre-hit-dropout",
+      "timestamps": [
+        12.0,
+        12.56
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        2.62,
+        7.88
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        11.87,
+        12.53
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        5.06,
+        6.32,
+        7.55
+      ]
+    },
+    {
+      "id": "rim-light-sweep-reveal",
+      "timestamps": [
+        0.5,
+        1.5,
+        2.4
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "glow-pulse",
+      "halo-bloom",
+      "particle-drift"
+    ],
+    "compositions": [
+      "title-card",
+      "end-card"
+    ],
+    "templates": [
+      "title-sequence",
+      "product-promo"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "title-sequence",
+    "kinetic-typography",
+    "logo-reveal",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "dark",
+    "ember",
+    "teaser",
+    "no-cuts",
+    "silence-before-reveal",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 13.4
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 15.0,
+        "duration": 15.0,
+        "activity": 0.039,
+        "luma": 0.05
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.039,
+    "luma": {
+      "mean": 0.05,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.838
+      },
+      {
+        "hex": "#180808",
+        "share": 0.082
+      },
+      {
+        "hex": "#181818",
+        "share": 0.021
+      },
+      {
+        "hex": "#281818",
+        "share": 0.021
+      },
+      {
+        "hex": "#181808",
+        "share": 0.014
+      },
+      {
+        "hex": "#282818",
+        "share": 0.008
+      },
+      {
+        "hex": "#483838",
+        "share": 0.006
+      },
+      {
+        "hex": "#381818",
+        "share": 0.005
+      },
+      {
+        "hex": "#382818",
+        "share": 0.003
+      },
+      {
+        "hex": "#282828",
+        "share": 0.002
+      }
+    ],
+    "representative_times": [
+      3.75,
+      7.5,
+      11.25
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.6,
+      "mean_dbfs_voiced": -20.5,
+      "silence_ratio": 0.07,
+      "onsets": 27,
+      "onset_rate_per_sec": 1.79,
+      "onset_times": [
+        0.26,
+        0.46,
+        0.65,
+        1.32,
+        2.07,
+        2.25,
+        2.55,
+        3.81,
+        3.99,
+        4.62,
+        4.69,
+        5.06,
+        5.15,
+        6.32,
+        6.9,
+        7.55,
+        7.66,
+        8.22,
+        8.52,
+        8.66,
+        8.8,
+        9.38,
+        9.59,
+        10.15,
+        10.68,
+        11.31,
+        12.56
+      ],
+      "tempo_estimate": {
+        "bpm": 78.3,
+        "autocorr": 0.14,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 492,
+      "band_share": {
+        "low_lt_250": 0.64,
+        "mid_250_2k": 0.26,
+        "high_gt_2k": 0.1
+      },
+      "syllabic_modulation_share": 0.26,
+      "boundary_onset_alignment": null,
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-99713f6e72",
+      "overview": "reference/analysis/ref-99713f6e72/overview.jpg",
+      "scenes": "reference/analysis/ref-99713f6e72/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-99713f6e72/motion.jpg",
+      "audio": "reference/analysis/ref-99713f6e72/audio.png",
+      "frames": "reference/analysis/ref-99713f6e72/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.3,
+        "lra_lu": 8.7,
+        "true_peak_dbtp": -1.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 13,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 27,
+        "accents": 5,
+        "accents_per_min": 20.0,
+        "accent_times": [
+          0.26,
+          5.06,
+          6.32,
+          7.55,
+          12.56
+        ],
+        "accent_threshold": 0.2,
+        "boundaries_with_accent": {
+          "boundaries": 0,
+          "share": null,
+          "tolerance_ms": 100,
+          "chance_level": 0.06
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 1.8,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.9,
+        "silences": [
+          [
+            12.0,
+            12.54
+          ],
+          [
+            14.7,
+            15.02
+          ]
+        ],
+        "level_head_vs_body_db": -5.3,
+        "level_tail_vs_body_db": -3.7,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-99713f6e72/listen",
+        "sheet": "reference/analysis/ref-99713f6e72/listen/listen.jpg",
+        "words": "reference/analysis/ref-99713f6e72/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "id": "body-lab",
   "name": "Body Lab",
-  "version": 1,
+  "version": 3,
   "status": "experimental",
   "summary": "Character-led body science: Tibi, the Sinew mascot, does the movement, then the body turns to glass and the mechanism is shown inside it, down to the fibre when needed, with the evidence grade and source on screen. For training, running, muscle and exercise physiology.",
   "visual_job": {
@@ -41,6 +41,8 @@
       "workout",
       "gym",
       "training",
+      "calisthenics",
+      "progression",
       "fitness",
       "exercise",
       "glute",
@@ -72,7 +74,7 @@
     },
     {
       "role": "glass-body",
-      "formula": "Freeze the movement at its key phase; the body turns to glass and only the working muscles light (x-ray highlight).",
+      "formula": "Hold the key pose while annotations or a window develop; distinguish surface effort from labelled warm internal anatomy. Keep the canvas evolving during narration.",
       "capabilities": [
         "articulated-rig",
         "annotation-callout"
@@ -111,6 +113,30 @@
       ]
     },
     {
+      "role": "matched-contrast",
+      "formula": "Name one variable, then compare the movement at matched camera, scale and phase. Label any deliberate geometry or pose change and explain the bounded difference.",
+      "capabilities": [
+        "articulated-rig",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "qualified-progression",
+      "formula": "When the lesson needs a progression, state entry assumptions, a sourced easier alternative and the next-step criterion. Use registered movements; unsupported mechanics return to research/rig work.",
+      "capabilities": [
+        "articulated-rig",
+        "annotation-callout"
+      ]
+    },
+    {
+      "role": "exercise-station",
+      "formula": "One station per exercise (Studio.kit.fitness.stations): Tibi does reps that fill the station in the stage band; the exercise card sits in the header band (number, name, prime and secondary muscle chips, numbered cues, the tip with its evidence grade and source line, easier and harder swaps), each part revealed on the word that names it (Studio.cues.fromWords); the station cross-fades into the next. Portrait bands (of 1280): header to the chair rail at y 340, Tibi the hero below it (about 40 % of the frame height), floor at y 870, captions in the lane under the floor (882-980, Studio.kit.fitness.captionLane: never over Tibi); landscape and square put the card column left of the stage and run the rail only behind the stage, so no card text sits on it.",
+      "capabilities": [
+        "exercise-stations",
+        "articulated-rig"
+      ]
+    },
+    {
       "role": "takeaway",
       "formula": "Back to Tibi in the gym or on the track doing the movement, the one-sentence takeaway beside him.",
       "capabilities": [
@@ -120,7 +146,7 @@
   ],
   "motion": {
     "signature": "The character never stops moving: breathing, blinking, reps or a run loop; mechanism scenes open from the character's own body, not from a cut to a new diagram.",
-    "continuous_layer": "Tibi's idle (breath, blinks, spark sway) or an exercise rep loop; in diagram scenes, sarcomere strokes or drifting protein dots.",
+    "continuous_layer": "Tibi's idle (breath, blinks, spark sway) or an exercise rep loop under a per-scene camera drift on the gym and Tibi (Studio.space.sceneDrift; cards and brand graphics stay still); in diagram scenes, sarcomere strokes or drifting protein dots.",
     "avoid": [
       "A muscle shown lighting up alone as if the exercise isolated it.",
       "Numbers on screen without a source line.",
@@ -140,6 +166,11 @@
     "max_beat_gap_sec": 2.5,
     "max_scene_sec": 16,
     "words_per_10s_max": 28,
+    "caption_band": {
+      "portrait": { "top": 0.689, "bottom": 0.766 },
+      "landscape": { "top": 0.801, "bottom": 0.919 },
+      "square": { "top": 0.765, "bottom": 0.91 }
+    },
     "ending": "Tibi doing the movement again, now with the viewer able to see inside it, plus the takeaway and its evidence grade."
   },
   "anti_patterns": [
@@ -167,6 +198,21 @@
       "pattern": "Named or shown things the viewer cannot read an explanation of.",
       "why": "Owner review 2026-11-07: visuals carry what the narration skips (definition card, legend, source line).",
       "source": "owner review of game-theory-trust 2026-11-07"
+    },
+    {
+      "pattern": "A dramatic cover or hook promising more than the verified explanation delivers.",
+      "why": "Plan original packaging with the story; retain the claim's conditions and uncertainty instead of importing reference-channel hype.",
+      "source": ".claude/skills/fitness/references/yellow-dude-study.md"
+    },
+    {
+      "pattern": "A comparison changing camera, scale or movement phase without disclosure.",
+      "why": "The picture must isolate the named variable; changed staging must not masquerade as changed anatomy or effectiveness.",
+      "source": ".claude/skills/fitness/references/yellow-dude-study.md"
+    },
+    {
+      "pattern": "Reference-channel claims, branding, exact compositions or process specifications treated as approved Sinew assets or requirements.",
+      "why": "Adopt communication principles, verify science independently, and preserve our identity, toolchain, format and human accuracy gates.",
+      "source": ".claude/skills/fitness/references/yellow-dude-study.md"
     }
   ],
   "reference_projects": [
@@ -177,7 +223,8 @@
   ],
   "open_questions": [
     "Values in rules are first guesses; calibrate words_per_10s_max and max_beat_gap_sec after the first three films.",
-    "Whether short-form portrait films need a larger Tibi scale (the mascot is drawn for landscape first)."
+    "Whether short-form portrait films need a larger Tibi scale (the mascot is drawn for landscape first).",
+    "The fitness bands (portrait rail at y 340, floor at 870, caption lane 882-980 of 1280) were set on 2026-11-24 from the coordinator's review of the template; calibrate them on the first portrait film. Captions shrink to fit the 100 px lane (never below --fs-floor), so a long cue is set small: keep portrait cues to about eight words."
   ],
   "revisions": [
     {
@@ -185,12 +232,27 @@
       "date": "2026-11-08",
       "change": "Initial version, written with the Sinew fitness brand and kit.",
       "reason": "Owner request: an original fitness education brand and production capability."
+    },
+    {
+      "version": 2,
+      "date": "2026-11-20",
+      "change": "Add matched contrast and qualified progression grammar, hook/cover fidelity and reference-adoption safeguards; clarify pose holds versus frozen narration.",
+      "reason": "Owner requested deeper Yellow Dude design/style/content learning. Web/still observations and publisher-reported process are documented in the fitness reference guide; timing thresholds, palette and runtime remain unchanged."
+    },
+    {
+      "version": 3,
+      "date": "2026-11-24",
+      "change": "Add the exercise-station scene role (per-exercise card layout, per-station Tibi, word-snapped card reveals), the fitness bands (portrait: header to the rail at y 340, Tibi about 40 % of the frame, floor 870, caption lane 882-980) as rules.caption_band, and the per-scene drift as the continuous layer. The fitness-explainer template now builds on these (Studio.kit.fitness.layout / stations, Studio.cues.fromWords, Studio.space.sceneDrift).",
+      "reason": "Prompt 06 item 9: fold the upper-body-workout film's hand-coded lessons into the template and style, so the next fitness film does not re-implement them."
     }
   ],
   "tags": [
     "fitness",
     "anatomy",
     "character",
-    "light"
+    "light",
+    "coaching",
+    "reference-informed",
+    "yellow-dude-study"
   ]
 }

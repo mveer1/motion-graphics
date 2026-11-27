@@ -1,0 +1,158 @@
+{
+  "id": "live-simulation-trace",
+  "name": "Live simulation trace (gauge, log and chart on one clock)",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "1 inspected reference film (batch-6, 2026-11-26): a square explainer runs a rate limiter live for 18 s: a gauge, an event log and a chart driven by one clock, with a one-line regime caption.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "A system is explained by running it. One deterministic event script drives a state gauge (a big count and a bar stack), a scrolling event log and a time-series chart, all advanced by one clock, so the three views always agree. A one-line caption at the top names the current regime and swaps in place when the regime changes; there are no transitions.",
+  "purpose": "Explain a system by running it: three views of one state always agree, and the regime caption tells the viewer what to watch.",
+  "visual_behaviour": "A big count with a bar stack, a scrolling event log and a step chart advance together on one stage; a one-line caption at the top names the current regime and swaps in place; there are no transitions; the final state holds for several seconds.",
+  "mechanics": "One timeline clock; an event list [{t, kind}] from a seeded script. Each event updates the gauge (count and bar stack; the count turns red at 0), appends a log row (time, id, outcome in green or red, remainder) and adds a tick on the chart axis while the chart line steps to the new value. Measured: a burst drains 9 -> 0 between 2.50 and 3.36 s (one event per 0.07-0.1 s); single refills flicker 0 -> 1 -> 0 at the refill period (4.31-5.41 s); recovery 2 -> 10 over about 4.5 s. Regime caption: one line of 5-9 words swapped in place 4 times in 18 s; the closing rule in an accent colour; hold the final state 3-6 s.",
+  "decomposition": {
+    "primitives": [
+      "chart-spline",
+      "styled-text",
+      "scene-container"
+    ],
+    "effects": [
+      "counter-roll"
+    ],
+    "timing": "Regimes of 0.8-5.9 s; the burst is the shortest, the closing rule the longest."
+  },
+  "parameters": [
+    {
+      "name": "burstRate",
+      "description": "Events per second during the burst",
+      "default": 10
+    },
+    {
+      "name": "refillRate",
+      "description": "State refills per second",
+      "default": 2
+    },
+    {
+      "name": "capacity",
+      "description": "Maximum state value shown by the gauge",
+      "default": 10
+    },
+    {
+      "name": "logRows",
+      "description": "Visible rows in the event log",
+      "default": 6
+    },
+    {
+      "name": "finalHold",
+      "description": "Seconds the final state holds",
+      "default": 4.0
+    }
+  ],
+  "use_cases": [
+    "Rate limiters, queues, caches, retries, backpressure",
+    "Any algorithm whose state evolves over time (proof-canvas, systems-blueprint templates)"
+  ],
+  "failure_modes": [
+    "Views that disagree by one event destroy trust: drive all three from one event list",
+    "More than about 10 events per second become unreadable: aggregate or slow the clock",
+    "Without the regime caption the viewer does not know what to watch"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "simulation-trace"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.simulation(parent, {capacity, events, regimes, duration}) with Studio.comp.simulationScript(seed, phases) (runtime 1.18.0): the state after every event is precomputed once; one proxy clock picks the event index and redraws the gauge count (red at 0) and cells, the last log rows (outcome colour on a marker dot, text in ink for contrast), the clip over the step chart and its ticks, and the regime caption (0.15 s fade in place).",
+    "runtime_api": [
+      "Studio.comp.simulation",
+      "Studio.comp.simulationScript"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "one seeded event list",
+      "chart and counter updates per event"
+    ],
+    "compatible_components": [
+      "counter-roll",
+      "animated-chart",
+      "monument-stat"
+    ],
+    "complexity": "medium",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 2
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-b34f751c59",
+      "timestamps": [
+        2.5,
+        4.31,
+        7.12,
+        12.06
+      ],
+      "observed": "A token bucket of 10 simulated live for 18 s on one square stage: count, bar stack, a six-row request log and a step chart advance together; 9 -> 0 between 2.50 and 3.36 s during the burst; a regime line swaps in place four times; the final state holds 5.9 s."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "single-stage-progression",
+      "linked-trace-projection",
+      "step-progress-tracker"
+    ],
+    "effects": [
+      "counter-roll"
+    ],
+    "compositions": [
+      "animated-chart",
+      "monument-stat"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "explanation-device",
+    "simulation",
+    "systems",
+    "algorithm",
+    "gauge",
+    "log",
+    "chart",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-simulation-race/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

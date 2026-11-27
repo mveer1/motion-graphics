@@ -1,0 +1,1133 @@
+{
+  "id": "ref-57fd2ce3b4",
+  "name": "Branding-agency showreel: 28 sub-second cuts across identity work, then a black, silent tail",
+  "status": "experimental",
+  "source": {
+    "filename": "branding-agency-showreel-d5419c06.mp4",
+    "aliases": [],
+    "sha256": "57fd2ce3b42a40c01082e5e6e460a6a8825767fedbc0ae306852a7ba41cc829c",
+    "bytes": 4480125,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Client logos and marks across the reel",
+        "timestamps": [
+          0.38,
+          3.39,
+          9.62,
+          13.95,
+          19.98,
+          24.5
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Client wordmarks and product names",
+        "timestamps": [
+          3.88,
+          11.32,
+          18.8,
+          21.6
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Photographs of people, places and merchandise",
+        "timestamps": [
+          11.69,
+          14.7,
+          22.99
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "A search interface",
+        "timestamps": [
+          7.16
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Showreel of other brands' identities; reuse only the cutting rhythm and the centred-mark principle."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4480125,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 35.433,
+    "encoder": "Lavf62.12.102",
+    "width": 1294,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1062,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 814,
+    "keyframes": 36,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 35.584,
+      "kbps": 188
+    },
+    "overall_kbps": 1012
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (47 frames), the transitions sheet (the first 16 of 28 cuts; the sheet is capped at 16, every 2nd frame = 15 fps), 10 fps strips 13.80-19.80 and 19.80-25.20 s for the other 12 cuts, and the listen sheet (12 accent hits); automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 35.4 s (1294x720); all 28 cuts (16 at 15 fps, 12 at 10 fps); the 10.5 s tail checked as black and silent.",
+    "concept": {
+      "observed": "A branding studio's showreel: marks animating, ASCII and 3D renders, logos on merchandise, posters, editorial pages, photographs with type and kinetic wordmarks, cut every 0.27-2.87 s for 24.9 s; the remaining 10.5 s of the file are black and silent.",
+      "interpreted": "Volume as credibility: many projects at speed, each readable at a glance because every shot centres one mark.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; every word on screen belongs to the work shown."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Changes per project (olive, black, white, greens, teal, peach, red, yellow); black is 40% of sampled pixels because of the tail."
+      },
+      "composition": {
+        "observed": "One centred mark or word per shot; full-bleed photographs with type over them; flat colour fields."
+      },
+      "motion": {
+        "observed": "Short in-shot animation: a mark morphs (0.09-1.05 s), an ASCII letter densifies (1.1-2.4 s), a crystal pyramid turns (8.0-9.6 s), letters assemble over a photo (14.6-15.9 s), a compass spins as letters settle (16.0-16.6 s), a stepped line draws through spaced letters (17.3-18.0 s), a check draws (18.2-18.5 s), a mark builds from a bar and rotates (19.6-21.0 s)."
+      },
+      "transitions": {
+        "observed": "28 hard cuts (family cut) at 1.10, 1.80, 2.37, 3.60, 4.07, 5.27, 5.93, 6.47, 8.00, 9.60, 10.13, 10.53, 11.63, 11.97, 12.47, 13.37, 13.97, 14.57, 15.93, 18.80, 19.07, 19.57, 21.07, 21.53, 21.97, 23.17, 23.83 and 24.90 s (the last into black). Median shot 0.67 s, mean 0.89 s, shortest 0.27 s, longest 2.87 s (15.93-18.80 s, the kinetic-word run). At 3.60 s a round mark stays centred while its surface changes from a cap to an illustrated sky (match cut); 9.62-11.63 s shows one wordmark on six surfaces in 2.0 s. The 1.80 s cut is a scale jump inside one animation.",
+        "interpreted": "Cuts are the rhythm; the eye is held by putting each project's mark in the same centre.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Picture runs 0-24.9 s; static hold 24.92-35.25 s (black)."
+      },
+      "sound_design": {
+        "observed": "-9.6 LUFS (the loudest in batch-3), LRA 12.9 LU, true peak +0.4 dBTP; tempo estimate 96 bpm (medium); 33 accents (56/min over the file, about 80/min over the 24.6 s with picture). 20 of 28 cuts within 67 ms of an onset (0.71, chance 0.46), only 4 of 28 near the estimated beat grid (0.14, chance 0.19) and 5 of 28 with an accent within 100 ms (0.18, chance 0.17); silence 24.61-35.53 s; head 2.3 dB below the body. Accents may be part of the music.",
+        "interpreted": "The cuts follow the music's onsets but not its strongest hits or the estimated grid; in dense music, cutting on any onset reads as on the beat.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 0 words (19 raw words) over music.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None; every word on screen is part of the work shown."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "observed": "A mark morph and an ASCII letter."
+      },
+      {
+        "start": 2.4,
+        "end": 5.3,
+        "observed": "App icon, merchandise, illustrated sky, wordmark, posters."
+      },
+      {
+        "start": 5.3,
+        "end": 8.0,
+        "observed": "Editorial pages and a search interface."
+      },
+      {
+        "start": 8.0,
+        "end": 9.6,
+        "observed": "A crystal pyramid render."
+      },
+      {
+        "start": 9.6,
+        "end": 13.4,
+        "observed": "One wordmark across surfaces; a sign, a ticket, cards."
+      },
+      {
+        "start": 13.4,
+        "end": 15.93,
+        "observed": "A flag mark; photographs with type; letters assemble over a photo."
+      },
+      {
+        "start": 15.93,
+        "end": 18.8,
+        "observed": "Kinetic words on white: explore, plan, and."
+      },
+      {
+        "start": 18.8,
+        "end": 23.83,
+        "observed": "Restaurant identity, a mark built from a bar, book covers, a photograph."
+      },
+      {
+        "start": 23.83,
+        "end": 24.9,
+        "observed": "A yellow field with a drawn mark."
+      },
+      {
+        "start": 24.9,
+        "end": 35.43,
+        "observed": "Black and silent."
+      }
+    ],
+    "moments": [
+      {
+        "t": 9.62,
+        "observed": "One wordmark is shown on six surfaces in 2.0 s (9.62-11.63 s), always centred, with cuts on onsets.",
+        "interpreted": "Repetition of one mark in many contexts sells a system, not a logo."
+      },
+      {
+        "t": 17.3,
+        "observed": "Spaced letters are joined by a stepped line drawn through them (17.3-18.0 s); a check mark then draws beside the next word (18.2-18.5 s)."
+      }
+    ],
+    "difficult": [
+      "Photography, 3D renders and merchandise shots are footage or renders, not native"
+    ],
+    "uncertainties": [
+      "Whether the 10.5 s black tail belongs to the delivered piece or is an export error; the loudness range and accents per minute include it",
+      "The last 12 cuts were read from 10 fps strips, not frame by frame"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        0.19,
+        0.81
+      ]
+    },
+    {
+      "id": "film-match-cut",
+      "timestamps": [
+        3.6
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        8.08,
+        9.42
+      ]
+    },
+    {
+      "id": "cut-on-beat",
+      "timestamps": [
+        1.1,
+        2.37,
+        6.47,
+        8.0,
+        11.63,
+        15.93,
+        23.17
+      ]
+    },
+    {
+      "id": "self-describing-kinetic-words",
+      "timestamps": [
+        16.2,
+        17.72,
+        18.47
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "shape-morph",
+      "match-cut",
+      "stroke-draw"
+    ],
+    "compositions": [],
+    "templates": [
+      "title-sequence",
+      "brand-logo-resolve"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "logo-reveal",
+    "title-sequence",
+    "music-sync",
+    "scene-transitions",
+    "3d-render"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "showreel",
+    "fast-cuts",
+    "identity",
+    "black-tail",
+    "photography",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 28.8
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 212,
+      "scan_size": "96x54",
+      "overview_frames": 47,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 16,
+      "motion_strips": 2
+    },
+    "boundaries": [
+      {
+        "t": 1.1,
+        "kind": "cut",
+        "score": 0.925,
+        "isolation": 0.9,
+        "frame": 33
+      },
+      {
+        "t": 1.8,
+        "kind": "cut",
+        "score": 0.204,
+        "isolation": 0.78,
+        "frame": 54
+      },
+      {
+        "t": 2.367,
+        "kind": "cut",
+        "score": 1.331,
+        "isolation": 0.98,
+        "frame": 71
+      },
+      {
+        "t": 3.6,
+        "kind": "cut",
+        "score": 0.746,
+        "isolation": 1.0,
+        "frame": 108
+      },
+      {
+        "t": 4.067,
+        "kind": "cut",
+        "score": 1.235,
+        "isolation": 1.0,
+        "frame": 122
+      },
+      {
+        "t": 5.267,
+        "kind": "cut",
+        "score": 1.099,
+        "isolation": 0.93,
+        "frame": 158
+      },
+      {
+        "t": 5.933,
+        "kind": "cut",
+        "score": 0.589,
+        "isolation": 0.86,
+        "frame": 178
+      },
+      {
+        "t": 6.467,
+        "kind": "cut",
+        "score": 0.369,
+        "isolation": 0.86,
+        "frame": 194
+      },
+      {
+        "t": 8.0,
+        "kind": "cut",
+        "score": 1.297,
+        "isolation": 0.96,
+        "frame": 240
+      },
+      {
+        "t": 9.6,
+        "kind": "cut",
+        "score": 1.428,
+        "isolation": 1.0,
+        "frame": 288
+      },
+      {
+        "t": 10.133,
+        "kind": "cut",
+        "score": 0.959,
+        "isolation": 1.0,
+        "frame": 304
+      },
+      {
+        "t": 10.533,
+        "kind": "cut",
+        "score": 0.739,
+        "isolation": 1.0,
+        "frame": 316
+      },
+      {
+        "t": 11.633,
+        "kind": "cut",
+        "score": 0.63,
+        "isolation": 0.99,
+        "frame": 349
+      },
+      {
+        "t": 11.967,
+        "kind": "cut",
+        "score": 0.644,
+        "isolation": 0.99,
+        "frame": 359
+      },
+      {
+        "t": 12.467,
+        "kind": "cut",
+        "score": 0.692,
+        "isolation": 0.97,
+        "frame": 374
+      },
+      {
+        "t": 13.367,
+        "kind": "cut",
+        "score": 0.663,
+        "isolation": 0.96,
+        "frame": 401
+      },
+      {
+        "t": 13.967,
+        "kind": "cut",
+        "score": 0.916,
+        "isolation": 0.92,
+        "frame": 419
+      },
+      {
+        "t": 14.567,
+        "kind": "cut",
+        "score": 0.343,
+        "isolation": 0.51,
+        "frame": 437
+      },
+      {
+        "t": 15.933,
+        "kind": "cut",
+        "score": 0.799,
+        "isolation": 0.97,
+        "frame": 478
+      },
+      {
+        "t": 18.8,
+        "kind": "cut",
+        "score": 1.178,
+        "isolation": 1.0,
+        "frame": 564
+      },
+      {
+        "t": 19.067,
+        "kind": "cut",
+        "score": 1.033,
+        "isolation": 0.98,
+        "frame": 572
+      },
+      {
+        "t": 19.567,
+        "kind": "cut",
+        "score": 0.926,
+        "isolation": 0.99,
+        "frame": 587
+      },
+      {
+        "t": 21.067,
+        "kind": "cut",
+        "score": 0.855,
+        "isolation": 0.94,
+        "frame": 632
+      },
+      {
+        "t": 21.533,
+        "kind": "cut",
+        "score": 1.289,
+        "isolation": 1.0,
+        "frame": 646
+      },
+      {
+        "t": 21.967,
+        "kind": "cut",
+        "score": 1.314,
+        "isolation": 1.0,
+        "frame": 659
+      },
+      {
+        "t": 23.167,
+        "kind": "cut",
+        "score": 0.684,
+        "isolation": 0.99,
+        "frame": 695
+      },
+      {
+        "t": 23.833,
+        "kind": "cut",
+        "score": 0.725,
+        "isolation": 0.99,
+        "frame": 715
+      },
+      {
+        "t": 24.9,
+        "kind": "cut",
+        "score": 1.243,
+        "isolation": 1.0,
+        "frame": 747
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 1.1,
+        "duration": 1.1,
+        "activity": 0.045,
+        "luma": 0.39
+      },
+      {
+        "index": 2,
+        "start": 1.1,
+        "end": 1.8,
+        "duration": 0.7,
+        "activity": 0.262,
+        "luma": 0.02
+      },
+      {
+        "index": 3,
+        "start": 1.8,
+        "end": 2.37,
+        "duration": 0.57,
+        "activity": 0.18,
+        "luma": 0.12
+      },
+      {
+        "index": 4,
+        "start": 2.37,
+        "end": 3.6,
+        "duration": 1.23,
+        "activity": 0.268,
+        "luma": 0.84
+      },
+      {
+        "index": 5,
+        "start": 3.6,
+        "end": 4.07,
+        "duration": 0.47,
+        "activity": 0.945,
+        "luma": 0.82
+      },
+      {
+        "index": 6,
+        "start": 4.07,
+        "end": 5.27,
+        "duration": 1.2,
+        "activity": 0.393,
+        "luma": 0.72
+      },
+      {
+        "index": 7,
+        "start": 5.27,
+        "end": 5.93,
+        "duration": 0.67,
+        "activity": 0.594,
+        "luma": 0.47
+      },
+      {
+        "index": 8,
+        "start": 5.93,
+        "end": 6.47,
+        "duration": 0.53,
+        "activity": 0.531,
+        "luma": 0.8
+      },
+      {
+        "index": 9,
+        "start": 6.47,
+        "end": 8.0,
+        "duration": 1.53,
+        "activity": 0.197,
+        "luma": 0.92
+      },
+      {
+        "index": 10,
+        "start": 8.0,
+        "end": 9.6,
+        "duration": 1.6,
+        "activity": 0.141,
+        "luma": 0.03
+      },
+      {
+        "index": 11,
+        "start": 9.6,
+        "end": 10.13,
+        "duration": 0.53,
+        "activity": 0.928,
+        "luma": 0.55
+      },
+      {
+        "index": 12,
+        "start": 10.13,
+        "end": 10.53,
+        "duration": 0.4,
+        "activity": 0.823,
+        "luma": 0.59
+      },
+      {
+        "index": 13,
+        "start": 10.53,
+        "end": 11.63,
+        "duration": 1.1,
+        "activity": 0.169,
+        "luma": 0.4
+      },
+      {
+        "index": 14,
+        "start": 11.63,
+        "end": 11.97,
+        "duration": 0.33,
+        "activity": 0.926,
+        "luma": 0.5
+      },
+      {
+        "index": 15,
+        "start": 11.97,
+        "end": 12.47,
+        "duration": 0.5,
+        "activity": 0.568,
+        "luma": 0.85
+      },
+      {
+        "index": 16,
+        "start": 12.47,
+        "end": 13.37,
+        "duration": 0.9,
+        "activity": 0.199,
+        "luma": 0.5
+      },
+      {
+        "index": 17,
+        "start": 13.37,
+        "end": 13.97,
+        "duration": 0.6,
+        "activity": 0.168,
+        "luma": 0.87
+      },
+      {
+        "index": 18,
+        "start": 13.97,
+        "end": 14.57,
+        "duration": 0.6,
+        "activity": 0.657,
+        "luma": 0.44
+      },
+      {
+        "index": 19,
+        "start": 14.57,
+        "end": 15.93,
+        "duration": 1.37,
+        "activity": 0.403,
+        "luma": 0.49
+      },
+      {
+        "index": 20,
+        "start": 15.93,
+        "end": 18.8,
+        "duration": 2.87,
+        "activity": 0.063,
+        "luma": 0.98
+      },
+      {
+        "index": 21,
+        "start": 18.8,
+        "end": 19.07,
+        "duration": 0.27,
+        "activity": 0.999,
+        "luma": 0.28
+      },
+      {
+        "index": 22,
+        "start": 19.07,
+        "end": 19.57,
+        "duration": 0.5,
+        "activity": 0.772,
+        "luma": 0.86
+      },
+      {
+        "index": 23,
+        "start": 19.57,
+        "end": 21.07,
+        "duration": 1.5,
+        "activity": 0.16,
+        "luma": 0.25
+      },
+      {
+        "index": 24,
+        "start": 21.07,
+        "end": 21.53,
+        "duration": 0.47,
+        "activity": 0.902,
+        "luma": 0.52
+      },
+      {
+        "index": 25,
+        "start": 21.53,
+        "end": 21.97,
+        "duration": 0.43,
+        "activity": 0.489,
+        "luma": 0.11
+      },
+      {
+        "index": 26,
+        "start": 21.97,
+        "end": 23.17,
+        "duration": 1.2,
+        "activity": 0.463,
+        "luma": 0.27
+      },
+      {
+        "index": 27,
+        "start": 23.17,
+        "end": 23.83,
+        "duration": 0.67,
+        "activity": 0.277,
+        "luma": 0.49
+      },
+      {
+        "index": 28,
+        "start": 23.83,
+        "end": 24.9,
+        "duration": 1.07,
+        "activity": 0.158,
+        "luma": 0.76
+      },
+      {
+        "index": 29,
+        "start": 24.9,
+        "end": 35.43,
+        "duration": 10.53,
+        "activity": 0.016,
+        "luma": 0.0
+      }
+    ],
+    "static_holds": [
+      [
+        24.92,
+        35.25
+      ]
+    ],
+    "mean_activity": 0.231,
+    "luma": {
+      "mean": 0.39,
+      "dark_share": 0.45,
+      "light_share": 0.3
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.404
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.162
+      },
+      {
+        "hex": "#184838",
+        "share": 0.038
+      },
+      {
+        "hex": "#d8e8e8",
+        "share": 0.023
+      },
+      {
+        "hex": "#282828",
+        "share": 0.021
+      },
+      {
+        "hex": "#387878",
+        "share": 0.021
+      },
+      {
+        "hex": "#d8e8d8",
+        "share": 0.021
+      },
+      {
+        "hex": "#585848",
+        "share": 0.02
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.02
+      },
+      {
+        "hex": "#f8e8d8",
+        "share": 0.019
+      }
+    ],
+    "representative_times": [
+      0.55,
+      1.45,
+      2.08,
+      2.99,
+      3.83,
+      4.67,
+      5.6,
+      6.2,
+      7.23,
+      8.8,
+      9.87,
+      10.33,
+      11.08,
+      11.8,
+      12.22,
+      12.92,
+      13.67,
+      14.27,
+      15.25,
+      17.37,
+      18.94,
+      19.32,
+      20.32,
+      21.3,
+      21.75,
+      22.57,
+      23.5,
+      24.36,
+      27.53,
+      30.16,
+      32.8
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -0.1,
+      "mean_dbfs_voiced": -13.3,
+      "silence_ratio": 0.32,
+      "onsets": 164,
+      "onset_rate_per_sec": 4.61,
+      "onset_times": [
+        0.07,
+        0.19,
+        0.51,
+        0.58,
+        0.67,
+        0.81,
+        1.11,
+        1.28,
+        1.44,
+        1.56,
+        1.74,
+        1.86,
+        2.04,
+        2.21,
+        2.35,
+        2.41,
+        2.65,
+        2.72,
+        2.86,
+        3.0,
+        3.3,
+        3.48,
+        3.69,
+        3.78,
+        3.9,
+        4.09,
+        4.25,
+        4.32,
+        4.39,
+        4.5,
+        4.64,
+        4.81,
+        4.88,
+        5.09,
+        5.18,
+        5.34,
+        5.48,
+        5.64,
+        5.78,
+        6.06,
+        6.41,
+        6.52,
+        6.64,
+        6.71,
+        6.94,
+        7.2,
+        7.34,
+        7.5,
+        7.57,
+        7.64,
+        7.73,
+        7.85,
+        7.96,
+        8.27,
+        8.57,
+        8.73,
+        8.82,
+        9.2,
+        9.36,
+        9.5,
+        9.66,
+        9.8,
+        9.96,
+        10.1,
+        10.29,
+        10.43,
+        10.61,
+        10.68,
+        10.75,
+        10.82,
+        11.03,
+        11.22,
+        11.28,
+        11.38,
+        11.52,
+        11.66,
+        11.77,
+        11.94,
+        12.03,
+        12.14,
+        12.28,
+        12.47,
+        12.59,
+        12.91,
+        13.05,
+        13.21,
+        13.51,
+        13.68,
+        13.75,
+        13.84,
+        13.96,
+        14.14,
+        14.26,
+        14.47,
+        14.61,
+        14.77,
+        14.91,
+        15.07,
+        15.21,
+        15.37,
+        15.46,
+        15.53,
+        15.7,
+        15.84,
+        15.98,
+        16.23,
+        16.3,
+        16.46,
+        16.53,
+        16.6,
+        16.67,
+        16.93,
+        17.09,
+        17.23,
+        17.39,
+        17.53,
+        17.62,
+        17.74,
+        17.81,
+        17.95,
+        18.02,
+        18.16,
+        18.23,
+        18.46,
+        18.67,
+        18.78,
+        19.09,
+        19.25,
+        19.34,
+        19.41,
+        19.5,
+        19.57,
+        19.71,
+        19.85,
+        20.02,
+        20.22,
+        20.32,
+        20.43,
+        20.64,
+        20.74,
+        20.85,
+        20.94,
+        21.11,
+        21.18,
+        21.41,
+        21.57,
+        21.78,
+        22.04,
+        22.18,
+        22.29,
+        22.69,
+        22.8,
+        22.94,
+        23.17,
+        23.24,
+        23.36,
+        23.43,
+        23.55,
+        23.61,
+        24.1,
+        24.22,
+        24.31,
+        24.43,
+        24.54
+      ],
+      "tempo_estimate": {
+        "bpm": 95.7,
+        "autocorr": 0.46,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 793,
+      "band_share": {
+        "low_lt_250": 0.59,
+        "mid_250_2k": 0.25,
+        "high_gt_2k": 0.17
+      },
+      "syllabic_modulation_share": 0.34,
+      "boundary_onset_alignment": {
+        "boundaries": 28,
+        "tolerance_ms": 67,
+        "near_onset": 0.71,
+        "chance_level": 0.46,
+        "median_offset_ms": 38,
+        "near_beat": 0.14,
+        "beat_chance_level": 0.19,
+        "beat_phase_sec": 0.039
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-57fd2ce3b4",
+      "overview": "reference/analysis/ref-57fd2ce3b4/overview.jpg",
+      "scenes": "reference/analysis/ref-57fd2ce3b4/scenes.jpg",
+      "transitions": "reference/analysis/ref-57fd2ce3b4/transitions.jpg",
+      "motion": "reference/analysis/ref-57fd2ce3b4/motion.jpg",
+      "audio": "reference/analysis/ref-57fd2ce3b4/audio.png",
+      "frames": "reference/analysis/ref-57fd2ce3b4/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -9.6,
+        "lra_lu": 12.9,
+        "true_peak_dbtp": 0.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 19,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 164,
+        "accents": 33,
+        "accents_per_min": 55.9,
+        "accent_times": [
+          0.19,
+          0.81,
+          1.28,
+          1.74,
+          2.04,
+          2.86,
+          6.41,
+          6.64,
+          7.34,
+          8.57,
+          9.8,
+          10.68,
+          11.03,
+          11.52,
+          11.66,
+          11.77,
+          11.94,
+          12.28,
+          13.51,
+          15.37,
+          15.53,
+          15.7,
+          15.98,
+          16.93,
+          17.23,
+          17.53,
+          18.46,
+          19.71,
+          20.32,
+          22.8,
+          22.94,
+          23.55,
+          24.43
+        ],
+        "accent_threshold": 0.37,
+        "boundaries_with_accent": {
+          "boundaries": 28,
+          "share": 0.18,
+          "tolerance_ms": 100,
+          "chance_level": 0.17
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 4.63,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.68,
+        "silences": [
+          [
+            24.61,
+            35.53
+          ]
+        ],
+        "level_head_vs_body_db": -2.3,
+        "level_tail_vs_body_db": -99.6,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-57fd2ce3b4/listen",
+        "sheet": "reference/analysis/ref-57fd2ce3b4/listen/listen.jpg",
+        "words": "reference/analysis/ref-57fd2ce3b4/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

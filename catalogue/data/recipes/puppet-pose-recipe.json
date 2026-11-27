@@ -1,0 +1,53 @@
+{
+  "id": "puppet-pose-recipe",
+  "name": "Puppet pose and sway (mythic kit)",
+  "effect_id": "puppet-pose",
+  "status": "experimental",
+  "visual_intent": "Jointed puppet limbs rotate from their pivots between key poses and sway on their rods, giving shadow-theatre performance without a full rig.",
+  "parameters": [
+    {
+      "name": "at",
+      "type": "seconds",
+      "description": "Film time, snapped to the spoken word (studio.py words)"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "sine.inOut",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "html": "<script src=\"_studio/kits/mythic/mythic.js\"></script>\n<script src=\"_studio/kits/mythic/figures.js\"></script>",
+    "javascript": "var M = S.kit.mythic;\nvar hero = M.puppet(layer, {figure: 'hanuman', look: 'leather', h: S.u(36), x: x0, y: y0});\nM.pose(tl, hero, at('leap'), {'arm-front': -165, 'leg-back': 22}, {duration: 0.5, steps: true});"
+  },
+  "fallbacks": "Fall back to Studio.space.pop / crossfade or a plain fromTo opacity tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 3.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python tests/test-mythic.py",
+    "python scripts/frame-review.py <project> --fonts google (inspect the contact sheet)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "puppet",
+    "pose",
+    "shadow-theatre",
+    "mythic-kit"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

@@ -1,0 +1,673 @@
+{
+  "id": "ref-a1c9ef89a3",
+  "name": "Split-screen product sting: two products run the same beats in parallel panes, cut together on the music",
+  "status": "experimental",
+  "source": {
+    "filename": "square-product-sting-7d014509.mp4",
+    "aliases": [],
+    "sha256": "a1c9ef89a326f253ef2473687957061ef754a3c77207fe3395dd529920a75781",
+    "bytes": 1543870,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Two product names and icons",
+        "timestamps": [
+          0.38,
+          2.63
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Two studio names on the end card",
+        "timestamps": [
+          10.15,
+          11.65
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Desktop, prompt bar and document interfaces",
+        "timestamps": [
+          3.38,
+          5.64
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Photographic imagery on the cards (source unknown)",
+        "timestamps": [
+          6.39,
+          7.89
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A two-product sting; reuse the synchronised split-screen principle only, with original products and interfaces."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1543870,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 12.029,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 720,
+    "variable_frame_rate": true,
+    "fps": 59.857,
+    "fps_exact": "average of 717 timing runs",
+    "video_kbps": 747,
+    "keyframes": 12,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 12.096,
+      "kbps": 261
+    },
+    "overall_kbps": 1027
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (16 frames), transitions strips at all 6 boundaries (every 2nd frame) and the listen sheet (1 phrase, 12 accent hits). The 0-0.6 s strip was generated but not viewed. Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 12.03 s (1280x720, 59.86 fps); all boundaries at 2-frame steps.",
+    "concept": {
+      "observed": "Two products (each in its own half of the frame, under a thin label bar) go through the same steps at the same moments: an app icon and name, a window opening, an icon with orbiting tiles, a prompt typed on a desktop, a document, image cards, a loading state; the film ends on two studio names side by side.",
+      "interpreted": "Pairing by structure: the viewer compares by looking left and right at the same beat.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Music only; labels in the bar above each pane; two names as the end card."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Light (white 45%; pale-blue gradient opening), a saturated blue desktop wallpaper, small multicolour tiles; black end card with glowing white names."
+      },
+      "composition": {
+        "observed": "Two equal panes side by side under a thin black label bar; each pane centres its own subject; the same layout beat in both panes at once."
+      },
+      "motion": {
+        "observed": "Name pills fade and rise in (0.01-0.34 s); a cursor clicks and windows rise (1.1-1.9 s); four coloured tiles orbit each icon (2.4-3.35 s); a prompt types (4.1-5.2 s); image cards scale in from the bottom (6.24-6.41 s) and multiply (7.1-8.1 s); loader icons (8.2-10.0 s); the names blur in large and scale down to sharp, glowing titles in 0.17 s (10.05-10.22 s)."
+      },
+      "transitions": {
+        "observed": "4 cuts (3.38, 5.31, 8.17, 10.04 s), each in both panes on the same frame; 2 soft (0.17 s pills fading in; 6.23 s cards popping up). The 10.04 s cut is to black with a blur-to-focus title.",
+        "interpreted": "Cutting both panes together keeps them comparable.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of 3.2, 1.9, 2.9, 1.9 and 2.0 s."
+      },
+      "sound_design": {
+        "observed": "-14.2 LUFS, LRA 1.0 LU, true peak -2.2 dBTP; tempo 123 bpm (medium); 84 onsets; 17 accents (84.8/min, the highest in batch 6). Accents on boundaries 3 of 6 (0.50, chance 0.25): the pill reveal (0.17 s boundary, accent 0.16 s), the cards popping up (6.23 s, accent -52 ms) and the cut to the loaders (8.17 s, accent -69 ms); onsets within 50 ms of boundaries 0.67 (chance 0.50), median 21 ms; near the beat 0.5 (chance 0.25). Accent spacing is a multiple of about 0.24 s (an eighth at 123 bpm). The strongest accents land on interface arrivals: the orbiting tiles (2.53, 3.02 s), typing (4.95, 5.20 s), the cards (6.18, 6.90, 7.13, 7.62, 7.85 s), loaders (8.82, 9.31 s) and the titles (10.75, 11.01, 11.73 s). No silences; head -1.3 dB, tail 0.0 dB. Accents may be part of the music.",
+        "interpreted": "A sting short enough to cut on the music: here half the cuts carry an accent, against the corpus pattern.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 1 confident word (8 raw) at 0.21-0.34 s over the opening pills.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lanes: one small label per pane in the top bar; product names in pills; the two studio names centred in their panes at the end."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.38,
+        "observed": "Icons and names in both panes; windows open; tiles orbit the icons."
+      },
+      {
+        "start": 3.38,
+        "end": 5.31,
+        "observed": "A desktop with a prompt bar in each pane; a prompt types."
+      },
+      {
+        "start": 5.31,
+        "end": 8.17,
+        "observed": "Documents; image cards pop up and multiply."
+      },
+      {
+        "start": 8.17,
+        "end": 10.04,
+        "observed": "Blank panes with small loaders."
+      },
+      {
+        "start": 10.04,
+        "end": 12.03,
+        "observed": "Two studio names blur into focus on black."
+      }
+    ],
+    "moments": [
+      {
+        "t": 10.05,
+        "observed": "On a cut to black both names appear huge and blurred and scale down to sharp, glowing titles in 0.17 s (10.05-10.22 s).",
+        "interpreted": "A camera-focus pull on type as the sign-off."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the two panes are a comparison or a joint announcement (labels too small to read at sheet size)",
+      "The file name says square but the file is 1280x720 with two near-square panes"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        1.13,
+        4.89,
+        6.39
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        2.53,
+        3.02,
+        6.9,
+        7.62
+      ]
+    },
+    {
+      "id": "split-screen-parallel",
+      "timestamps": [
+        0.38,
+        3.38,
+        5.31,
+        8.17,
+        10.05
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "glow-pulse",
+      "clip-path-reveal"
+    ],
+    "compositions": [
+      "split-stage",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "ui-product-demo",
+    "product-promo",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "split-screen",
+    "light-canvas",
+    "sting",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 11.4
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 96,
+      "scan_size": "96x54",
+      "overview_frames": 16,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 6,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.167,
+        "kind": "soft",
+        "score": 0.134,
+        "isolation": 0.0
+      },
+      {
+        "t": 3.375,
+        "kind": "cut",
+        "score": 0.59,
+        "isolation": 0.98,
+        "frame": 202
+      },
+      {
+        "t": 5.313,
+        "kind": "cut",
+        "score": 0.618,
+        "isolation": 0.89,
+        "frame": 318
+      },
+      {
+        "t": 6.232,
+        "kind": "soft",
+        "score": 0.128,
+        "isolation": 0.28
+      },
+      {
+        "t": 8.169,
+        "kind": "cut",
+        "score": 0.21,
+        "isolation": 0.74,
+        "frame": 489
+      },
+      {
+        "t": 10.041,
+        "kind": "cut",
+        "score": 0.996,
+        "isolation": 0.93,
+        "frame": 601
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.17,
+        "end": 3.38,
+        "duration": 3.21,
+        "activity": 0.09,
+        "luma": 0.79
+      },
+      {
+        "index": 2,
+        "start": 3.38,
+        "end": 5.31,
+        "duration": 1.94,
+        "activity": 0.132,
+        "luma": 0.51
+      },
+      {
+        "index": 3,
+        "start": 5.31,
+        "end": 6.23,
+        "duration": 0.92,
+        "activity": 0.167,
+        "luma": 0.81
+      },
+      {
+        "index": 4,
+        "start": 6.23,
+        "end": 8.17,
+        "duration": 1.94,
+        "activity": 0.167,
+        "luma": 0.74
+      },
+      {
+        "index": 5,
+        "start": 8.17,
+        "end": 10.04,
+        "duration": 1.87,
+        "activity": 0.018,
+        "luma": 0.83
+      },
+      {
+        "index": 6,
+        "start": 10.04,
+        "end": 12.03,
+        "duration": 1.99,
+        "activity": 0.092,
+        "luma": 0.1
+      }
+    ],
+    "static_holds": [
+      [
+        8.69,
+        9.94
+      ]
+    ],
+    "mean_activity": 0.103,
+    "luma": {
+      "mean": 0.63,
+      "dark_share": 0.17,
+      "light_share": 0.67
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.445
+      },
+      {
+        "hex": "#080808",
+        "share": 0.068
+      },
+      {
+        "hex": "#080818",
+        "share": 0.051
+      },
+      {
+        "hex": "#181818",
+        "share": 0.044
+      },
+      {
+        "hex": "#081828",
+        "share": 0.042
+      },
+      {
+        "hex": "#384898",
+        "share": 0.037
+      },
+      {
+        "hex": "#e8e8f8",
+        "share": 0.035
+      },
+      {
+        "hex": "#484848",
+        "share": 0.033
+      },
+      {
+        "hex": "#d8e8f8",
+        "share": 0.03
+      },
+      {
+        "hex": "#282838",
+        "share": 0.027
+      }
+    ],
+    "representative_times": [
+      1.77,
+      4.34,
+      5.77,
+      7.2,
+      9.11,
+      11.04
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -3.2,
+      "mean_dbfs_voiced": -19.2,
+      "silence_ratio": 0.01,
+      "onsets": 84,
+      "onset_rate_per_sec": 6.94,
+      "onset_times": [
+        0.16,
+        0.35,
+        0.6,
+        0.84,
+        0.98,
+        1.09,
+        1.32,
+        1.58,
+        1.7,
+        1.81,
+        1.93,
+        2.04,
+        2.18,
+        2.3,
+        2.53,
+        2.79,
+        3.02,
+        3.27,
+        3.39,
+        3.51,
+        3.65,
+        3.76,
+        3.88,
+        3.99,
+        4.13,
+        4.23,
+        4.39,
+        4.48,
+        4.62,
+        4.71,
+        4.95,
+        5.2,
+        5.34,
+        5.43,
+        5.57,
+        5.69,
+        5.83,
+        5.92,
+        6.06,
+        6.18,
+        6.32,
+        6.41,
+        6.55,
+        6.66,
+        6.9,
+        7.13,
+        7.27,
+        7.38,
+        7.5,
+        7.62,
+        7.76,
+        7.85,
+        8.01,
+        8.1,
+        8.24,
+        8.34,
+        8.48,
+        8.59,
+        8.71,
+        8.82,
+        8.96,
+        9.08,
+        9.2,
+        9.31,
+        9.45,
+        9.57,
+        9.68,
+        9.8,
+        9.94,
+        10.03,
+        10.17,
+        10.29,
+        10.43,
+        10.52,
+        10.75,
+        11.01,
+        11.15,
+        11.24,
+        11.38,
+        11.49,
+        11.61,
+        11.73,
+        11.87,
+        11.98
+      ],
+      "tempo_estimate": {
+        "bpm": 123.0,
+        "autocorr": 0.72,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1636,
+      "band_share": {
+        "low_lt_250": 0.31,
+        "mid_250_2k": 0.35,
+        "high_gt_2k": 0.34
+      },
+      "syllabic_modulation_share": 0.31,
+      "boundary_onset_alignment": {
+        "boundaries": 6,
+        "tolerance_ms": 50,
+        "near_onset": 0.67,
+        "chance_level": 0.5,
+        "median_offset_ms": 21,
+        "near_beat": 0.5,
+        "beat_chance_level": 0.25,
+        "beat_phase_sec": 0.325
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-a1c9ef89a3",
+      "overview": "reference/analysis/ref-a1c9ef89a3/overview.jpg",
+      "scenes": "reference/analysis/ref-a1c9ef89a3/scenes.jpg",
+      "transitions": "reference/analysis/ref-a1c9ef89a3/transitions.jpg",
+      "motion": "reference/analysis/ref-a1c9ef89a3/motion.jpg",
+      "audio": "reference/analysis/ref-a1c9ef89a3/audio.png",
+      "frames": "reference/analysis/ref-a1c9ef89a3/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.2,
+        "lra_lu": 1.0,
+        "true_peak_dbtp": -2.2,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 8,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 0.21,
+        "speech_end": 0.34,
+        "speech_coverage": 0.01,
+        "wps_while_speaking": 7.69,
+        "wpm_over_span": 462,
+        "pace_thirds_wps": [
+          23.08,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.13,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 1,
+            "wps": 0.31
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 84,
+        "accents": 17,
+        "accents_per_min": 84.8,
+        "accent_times": [
+          0.16,
+          2.53,
+          3.02,
+          4.95,
+          5.2,
+          5.92,
+          6.18,
+          6.9,
+          7.13,
+          7.62,
+          7.85,
+          8.1,
+          8.82,
+          9.31,
+          10.75,
+          11.01,
+          11.73
+        ],
+        "accent_threshold": 0.49,
+        "boundaries_with_accent": {
+          "boundaries": 6,
+          "share": 0.5,
+          "tolerance_ms": 100,
+          "chance_level": 0.25
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 7.06,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -1.3,
+        "level_tail_vs_body_db": 0.0,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-a1c9ef89a3/listen",
+        "sheet": "reference/analysis/ref-a1c9ef89a3/listen/listen.jpg",
+        "words": "reference/analysis/ref-a1c9ef89a3/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

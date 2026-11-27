@@ -4,7 +4,9 @@
   "status": "experimental",
   "source": {
     "filename": "play_720p (9).mp4",
-    "aliases": [],
+    "aliases": [
+      "a-poster-breaks-its-frame-b6541697.mp4"
+    ],
     "sha256": "736d4ef2c2e7d205a6e706add167736e54ed7f78056a374ea12951f7d49ed9fd",
     "bytes": 5386131,
     "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
@@ -57,7 +59,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (40 frames over 30 s) and scene sheet (13 scenes). Strips generated, not viewed. Audio from measurements only.",
+    "method": "Viewed overview (40 frames over 30 s) and scene sheet (13 scenes). Strips generated, not viewed. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at scene level.",
     "concept": {
       "observed": "A typographic manifesto in constructivist/Bauhaus style on cream paper inside an engineering-drawing frame: FORM, MOTION, TYPE, BREAK OUT, letters on a perspective floor, a letter becoming rings, a letter shattering, a primary-shape composition, a final collage poster that shrinks to a badge with a credit.",
@@ -89,7 +91,9 @@
         "observed": "Measured median shot 2.15 s at analyzer 1.1; 4 cuts and 6 soft transitions at 1.2 (1.1 counted fast moves as cuts); static holds 2.06-2.69 s and 28.19-29.94 s (final badge)."
       },
       "transitions": {
-        "observed": "Hard cuts and panel pushes; a letter morphing into rings; a full-frame colour field turning white."
+        "observed": "Re-read 2026-11-27: 10 boundaries (3 cut, 3 grow, 3 cover, 1 continuous). 3.82 s continuous: a letter drops out of the held word (3.79-3.92 s). 5.97 s cover: a blue panel slides in from the right carrying the next word (5.81-6.14 s) and covers half the frame. 9.33 s cover: a red panel rises from the lower right and covers the frame in about 0.15 s (9.18-9.34 s); a letter lands on it at 9.41 s. 10.75 s grow: zoom into a letter until its black bowl fills the frame (10.59-10.72 s), then red with a dot that grows into a sun. 13.10 s cover: the white letters slide off to the left and reveal a grid on cream (12.94-13.11 s). 16.88 s cut: fragments to a large O. 18.65 s grow: concentric organic rings swap colours every frame or two, then the inner blue ring grows to fill the frame (18.66-18.73 s) and a grid draws on it. 21.57 s cut: a word slams in over the held composition. 26.27 s cut: the composition jumps to a new layout. 27.67 s grow: reversed, as the end: the whole poster rotates and shrinks to a dot in about 0.3 s (27.51-27.81 s). Earlier reading (2026-10-30): Hard cuts and panel pushes; a letter morphing into rings; a full-frame colour field turning white.",
+        "interpreted": "Colour panels cover like a poster being pasted over, letters are zoomed through for depth, and the end implodes to a dot.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "Paper layers with shadows; a perspective grid floor."
@@ -101,6 +105,19 @@
         "observed": "3.0 onsets/s, tempo estimate 129 bpm (medium); 40% of boundaries within 60 ms of the beat grid (chance 26%; weak evidence).",
         "interpreted": "Cuts mostly on the beat.",
         "confidence": "medium"
+      },
+      "sound_design": {
+        "observed": "Integrated -15.7 LUFS, LRA 6.3 LU, true peak -2.1 dBTP. Tempo estimate 129 bpm (medium). 18 accents (36 a minute). Accents on cuts 0.10 against chance 0.11 (10 boundaries); onsets near boundaries 0.40 against 0.26. Head -12.1 dB, tail -7.5 dB. Listen sheet: accents land on letters slamming into place: the letters of the first word at 1.00, 1.46 and 1.93 s (0.47 s apart, one beat at 129 bpm), a type word at 9.89 s, BREAK and OUT at 11.31 and 11.77 s, the A shattering at 20.69 s, NO at 21.62 s.",
+        "interpreted": "Letters land on the beat, cuts do not: the type is the percussion.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "2 one-word phrases (3.83-4.07 s, 20.73-20.96 s) over letterforms; no speaker on any phrase frame; 1-2 word 'phrases' are dictation noise over the music. Verdict: none.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "None; copy is the poster itself: black grotesk letters at poster scale used as shapes; no caption lane.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -142,7 +159,8 @@
     ],
     "uncertainties": [
       "Credit name may be the creator or a dedication",
-      "Scene contents between sampled frames"
+      "Scene contents between sampled frames",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -162,10 +180,10 @@
     {
       "id": "cut-on-beat",
       "timestamps": [
-        9.33,
-        10.75,
+        3.82,
         13.1,
-        16.88
+        16.88,
+        21.57
       ]
     },
     {
@@ -188,6 +206,33 @@
         22.0,
         24.0,
         27.0
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        1.0,
+        1.46,
+        1.93
+      ]
+    },
+    {
+      "id": "section-push-slide",
+      "timestamps": [
+        5.97,
+        9.33
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        10.7
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        18.7
       ]
     }
   ],
@@ -224,21 +269,23 @@
     "constructivist",
     "bauhaus",
     "poster",
-    "paper"
+    "paper",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-28"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 24.7
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 33.2
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -609,6 +656,165 @@
       "audio": "reference/analysis/ref-736d4ef2c2/audio.png",
       "frames": "reference/analysis/ref-736d4ef2c2/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -15.7,
+        "lra_lu": 6.3,
+        "true_peak_dbtp": -2.1,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 21,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 2,
+        "speech_start": 3.83,
+        "speech_end": 20.96,
+        "speech_coverage": 0.02,
+        "wps_while_speaking": 4.26,
+        "wpm_over_span": 7,
+        "pace_thirds_wps": [
+          0.18,
+          0.0,
+          0.18
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.24,
+        "pauses": {
+          "count": 1,
+          "median_ms": 16660,
+          "max_ms": 16660,
+          "at": [
+            4.07
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 1,
+            "wps": 0.47
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 1,
+            "wps": 0.34
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 10,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 11,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 6,
+          "in_pause_share": 1.0,
+          "chance_level": 0.97,
+          "next_phrase_after_ms_median": 8805
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 89,
+        "accents": 18,
+        "accents_per_min": 36.0,
+        "accent_times": [
+          1.0,
+          1.46,
+          1.93,
+          4.27,
+          8.96,
+          9.89,
+          11.31,
+          11.77,
+          14.58,
+          20.2,
+          20.69,
+          21.62,
+          22.08,
+          23.5,
+          23.96,
+          24.43,
+          24.89,
+          28.17
+        ],
+        "accent_threshold": 0.5,
+        "boundaries_with_accent": {
+          "boundaries": 10,
+          "share": 0.1,
+          "tolerance_ms": 100,
+          "chance_level": 0.11
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.01,
+        "level_speech_minus_gaps_db": 3.3,
+        "sustained_share": 0.97,
+        "silences": [],
+        "level_head_vs_body_db": -12.1,
+        "level_tail_vs_body_db": -7.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-736d4ef2c2/listen",
+        "sheet": "reference/analysis/ref-736d4ef2c2/listen/listen.jpg",
+        "words": "reference/analysis/ref-736d4ef2c2/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 {
   "id": "isometric-exploded-view",
   "name": "Isometric exploded view (2.5D)",
+  "family": "staging-depth",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected 3D explainer separates an object into labelled layers along one axis to show what it is made of.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "An object's layers slide apart along a vertical axis with leader-line labels, turning an opaque device into a readable stack; then collapse back together.",

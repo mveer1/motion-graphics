@@ -1,0 +1,54 @@
+{
+  "id": "mythic-figures",
+  "name": "Mythic figure library",
+  "kind": "group",
+  "status": "experimental",
+  "description": "Jointed figures built on one shared skeleton (same part ids for posing): Rama (bow, arrows, crown), Hanuman (mace, tail, monkey face), Shiva (trident, crescent, serpent, matted locks, damaru), Athena (helmet, spear, shield, aegis), Odin (one eye, spear, ravens, hat, cloak) standing in profile; Ganesha (broken tusk, modak, mouse, axe, noose), a seated Tirthankara (lanchhana per option: lion, bull, deer, conch, serpent hoods) and the Buddha (earth-touching gesture) seated frontal. Each carries meta {name, tradition, emblems, check}. Drawn in four looks: silhouette, leather, paper, painted. Two builds on the same joints: classic and heroic (broad shoulders, deep chest, narrow waist, defined arms, quads and calves; abdominal detail only on bare torsos; Ganesha keeps his belly; the Tirthankara and the Buddha get the smooth classical 'lion-like' torso; Athena athletic, not sexualised). A third build, 'human' (src/studio/kits/mythic/figures-human.js, ids '<id>-human'), redraws all eight as believable people seen from the front on one 8-head proportion grid: faces (lotus-petal eyes, brows, nose, lips), hair (Rama's jata knot, Shiva's jata-makuta with crescent and Ganga, curls and ushnisha), dress and ornament from the texts, and two-tone lamp-side shading, best in the new 'illustrated' look; each follows an identity block in .claude/skills/mythic-tales/references/figure-design.md. Since 2026-11-24 the human build of Rama, Hanuman, Shiva, Ganesha, Athena and Odin is heroic (HERO presets: broad shoulders, muscle as cel shapes, a wide stance, the head scaled about the chin, iconic poses from the tradition's own images, one wind) with an aura behind (tejas, agni, cosmic, lotus, radiant, storm) and weapons from the armoury (mythic-armoury); the Tirthankara and the Buddha stay calm.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "figure",
+      "type": "string",
+      "description": "rama|hanuman|shiva|ganesha|athena|odin|tirthankara|buddha, or the human build rama-human|hanuman-human|shiva-human|ganesha-human|athena-human|odin-human|tirthankara-human|buddha-human"
+    },
+    {
+      "name": "figureOptions",
+      "type": "object",
+      "description": "tirthankara: {emblem: lion|bull|deer|conch|snake, chhatra}; rama-human: {tone: blue|brown, attire: forest|royal}; hanuman-human: {form: veera|dasa}; ganesha-human: {tone: red|gold}; tirthankara-human: {emblem, sect: digambara|svetambara}"
+    },
+    {
+      "name": "look",
+      "type": "string",
+      "description": "silhouette|leather|paper|painted|illustrated (illustrated: shading layers and ink outline; made for the human build)"
+    },
+    {
+      "name": "build",
+      "type": "string",
+      "description": "classic (default) | heroic; also figure ids '<id>-heroic' (M.heroicIds); human figures are separate ids '<id>-human' (M.human.ids, front view)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/figures.js",
+    "api": "Studio.kit.mythic.puppet(parent, {figure, look, h, x, y}) / cutout(...); M.figures[id](), M.figureIds, M.geom (tube, smooth, ell), M.glyphs (lion, bull, deer, conch, mouse, bird), M.props; heroic: puppet({figure: 'hanuman-heroic'}) or figureOptions {build: 'heroic'}; M.builds, M.heroicIds; human: puppet({figure: 'rama-human', look: 'illustrated'}), M.human.ids, M.human.parts, M.human.geom (src/studio/kits/mythic/figures-human.js); heroic parts aura, aura-rays, aura-ring and placed weapons (bow, arrow, quiver, gada, trishula, damaru, ankusha, pasha, spear, shield)"
+  },
+  "validation": {
+    "evidence": "tests/test-mythic.py (Playwright Chromium: every figure in four looks, every human figure in five looks with shared joints, layers, clips, posing and options, stepped poses, frieze and registers, tradition presets, seek determinism), the human-figure review sheet (tests/mythic-kit/figures-human.html) and frame review of the four style-sample-mythic-* projects on Windows, 2026-11-23 and 2026-11-24. Not rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-24"
+  },
+  "tags": [
+    "figure",
+    "puppet",
+    "cut-out",
+    "iconography",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-24"
+  }
+}

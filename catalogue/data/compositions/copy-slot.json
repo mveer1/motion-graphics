@@ -1,0 +1,67 @@
+{
+  "id": "copy-slot",
+  "name": "Pause-locked copy slot",
+  "purpose": "A line of copy beside a demo changes in the narration pause before the phrase that names it: fade out 0.18 s, empty 0.08 s, fade in 0.14 s, first visible 0.3 s before the phrase; warns when a swap lands on a spoken word.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "versions",
+      "type": "string[]",
+      "description": "the copy lines"
+    },
+    {
+      "name": "words",
+      "type": "array",
+      "description": "measured words [{start, end, word}] (audio/words.json)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.copySlot(parent, versions) -> {enter(tl, i, at), swap(tl, i, phraseStart, {lead, fadeOut, gap, fadeIn, words}), warnings, exit}"
+  },
+  "layout_notes": "All versions share one grid cell, so the slot never reflows.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-headline-copy/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-headline-copy/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "caption-band",
+    "typed-kicker"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "copy",
+    "narration",
+    "pause"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

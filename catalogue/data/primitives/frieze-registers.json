@@ -1,0 +1,49 @@
+{
+  "id": "frieze-registers",
+  "name": "Frieze and register layouts",
+  "kind": "grid",
+  "status": "experimental",
+  "description": "Narrative layouts from the traditions' own art: a horizontal frieze of panels that travels from panel to panel (vase frieze, Oseberg procession, Phad episodes) and stacked registers read top-down (folios) or bottom-up (Gotland picture stones), revealed in reading order.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "panels|rows",
+      "type": "integer",
+      "description": "Panel or register count"
+    },
+    {
+      "name": "visible",
+      "type": "integer",
+      "description": "Frieze panels in view at once"
+    },
+    {
+      "name": "order",
+      "type": "string",
+      "description": "Registers: top-down|bottom-up"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "M.frieze(parent, {panels, visible}) + M.friezeTo(tl, fr, at, index); M.registers(parent, {rows, order}) ; M.panelsIn(tl, panels, at, {from})"
+  },
+  "validation": {
+    "evidence": "tests/test-mythic.py (Playwright Chromium: every figure in four looks, stepped poses, frieze and registers, tradition presets, seek determinism) and frame review of the four style-sample-mythic-* projects on Windows, 2026-11-23. Not rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "layout",
+    "frieze",
+    "register",
+    "folio",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

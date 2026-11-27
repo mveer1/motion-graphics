@@ -1,0 +1,54 @@
+{
+  "id": "photo-plate",
+  "name": "Public-domain photo plate",
+  "kind": "image",
+  "status": "experimental",
+  "description": "A photograph (museum public-domain or licensed asset) mounted as a paper plate: duotone to the style's ink and paper, deckled paper margin, rect/niche/disc window or a sticker-edged cut-out for alpha PNGs, lifted shadow.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "src",
+      "type": "path",
+      "description": "Image path relative to src/"
+    },
+    {
+      "name": "frame",
+      "type": "string",
+      "description": "rect|niche|disc|cutout"
+    },
+    {
+      "name": "duotone",
+      "type": "[dark, light]|false",
+      "description": "Duotone tokens (default ink/paper)"
+    },
+    {
+      "name": "border",
+      "type": "u",
+      "description": "Paper margin"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "Studio.kit.mythic.plate(parent, {src, x, y, w, h, frame, duotone, border}) -> piece"
+  },
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "photo",
+    "collage",
+    "museum",
+    "public-domain",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

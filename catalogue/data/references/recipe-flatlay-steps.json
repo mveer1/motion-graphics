@@ -1,6 +1,7 @@
 {
   "id": "recipe-flatlay-steps",
   "name": "Overhead recipe step sequence",
+  "family": "explanation-device",
   "status": "experimental",
   "source": {
     "type": "genre-convention",

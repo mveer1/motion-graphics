@@ -26,7 +26,7 @@
   "compatibility": {
     "apple_silicon_tested": true,
     "runtime": "python3",
-    "notes": "Uses standard library fcntl.flock on POSIX macOS; reads vm_stat and ps for the memory advisory and process-tree teardown."
+    "notes": "Uses standard library fcntl.flock on POSIX macOS; reads vm_stat and ps for the memory advisory and process-tree teardown. On Windows (test hosts only) a one-byte msvcrt lock stands in for flock and liveness uses OpenProcess; there is no memory advisory and no process-tree teardown."
   },
   "documentation_urls": [
     "ARCHITECTURE.md#lifecycle",

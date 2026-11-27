@@ -1,7 +1,7 @@
 ---
 name: fitness
 description: Orchestrator for every fitness, exercise-science, running, gym, muscle or physiology video in the Sinew brand (mascot Tibi). Use when the user asks for a fitness topic as a short, mid or long film, for an exercise clip or comparison, or for anything about the Sinew brand, Tibi, the fitness asset library, exercise animation, anatomy visuals, the quality gates or publishing. Understands the task, picks the form and pillar, then loads ONLY the capability skills and assets the task needs and runs the studio pipeline with the fitness research protocol and review gates on top.
-version: 2.0.0
+version: 2.1.0
 ---
 
 # /fitness: the Sinew studio's entry point
@@ -9,8 +9,9 @@ version: 2.0.0
 Sinew is the workspace's fitness education brand: **"See what your body is doing."** Its mascot **Tibi** is one body (male and female, Cobalt Sculpt identity): cobalt skin, marigold spark, white shoes; working muscles light up on the skin by role (coral prime mover, marigold helper, pale cobalt stabiliser); what lies under the skin is shown in a different, warm language. This skill orchestrates; it does not replace the studio pipeline (`studio.py`, `build-audio.py`, captions, HyperFrames, the QA gates, the story-writer rules).
 
 ## Route the task, load only what it needs
+
 | The task involves | Load | Key tools |
-|---|---|---|
+| --- | --- | --- |
 | any fitness film (always) | this skill + the form skill (`short-form`, `mid-form`, `long-form`) | `fitness.py plan/new/check` |
 | claims, studies, "does X work", numbers | `references/research-protocol.md`, `source-registry.md`, `storytelling.md` | dossier, Europe PMC |
 | an exercise demo, technique, mistake vs correct, a 3D lift | **`fitness-animation`** + `references/motion-3d.md` | `fitness.py exercise`, `T3.scenes.demo`, `rig3d-check` |
@@ -20,10 +21,14 @@ Sinew is the workspace's fitness education brand: **"See what your body is doing
 | review, gates, "is it done" | **`fitness-qa`** + `references/quality-rubric.md` | `fitness-gates.py`, `fitness-qa.py` |
 | titles, description, thumbnail, clips, platforms | **`fitness-publish`** | `fitness-publish.py`, `fitness-clip.py` |
 | the look, palette, type, camera language | `assets/fitness/STYLE.md` | |
+| reference-informed design/content, Yellow Dude learning, editorial or packaging choices | `references/yellow-dude-study.md` | Source-linked adoption rules; no copied assets or unmeasured video claims |
+| a change to the 3D/2D kit or runtime is finished, "release", "upgrade all" | **`kit-release`** | `studio.py upgrade --all` |
+| resuming or pausing multi-session Tibi work, Mac queue, owner decisions | **`session-handoff`** | `prompts/state/` |
 
 ## Invocation: `/fitness <topic> [short|mid|long] [portrait|landscape]`
+
 1. **Classify and plan.** `python scripts/fitness.py plan "<topic>" [--type T]` (pillar, form, visual systems, kit assets). For an exercise: `fitness.py exercise <id> --goal technique|muscle|mistake|compare` gives the explanation plan. Say which pillar and goal you chose and why.
-2. **Scaffold.** `fitness.py new <slug> --topic "..." --type <form>`; fill `brief.json` (1-3 directions).
+2. **Scaffold.** `fitness.py new <slug> --topic "..." --type <form>`; fill `brief.json` (1-3 directions). State the viewer problem and promised understanding; apply the operational checklist in `references/yellow-dude-study.md` when choosing the picture, story or packaging.
 3. **Research** (required unless the brief says it is a pure technique demo). Dossier with grades, `do_not_claim`; every source verified (Europe PMC); gate: `fitness.py dossier <slug>`. Never fabricate a citation, number or mechanism.
 4. **Story and script.** Story-writer rulebook + form skill + `storytelling.md`. A script says what to SHOW, not only what to say. Sign-off `qa/story-review.json`.
 5. **Storyboard and animatic.** `storyboard.json` shot by shot; `scripts/fitness-animatic.py <slug>` (real stills per scene, pacing lint). Fix pacing before audio.
@@ -35,9 +40,11 @@ Sinew is the workspace's fitness education brand: **"See what your body is doing
 11. **Fix, re-render, retro**, then `fitness-publish`. `qa/production-report.md`: what was used, timings, scores, open issues.
 
 ## Forms
+
 short (20-60 s, portrait): Hook, Explanation, Payoff, one claim, one mechanism. mid (60-180 s): + Context, Demonstration, Conclusion; re-hook every 45-60 s. long (5-12 min, landscape): chapter cards, one mechanism per chapter, a "what we don't know" beat. Adapt, never trim: a short is built around the long film's single strongest insight with its own hook.
 
 ## Rules that never bend
+
 - Claims: no fabricated citations or numbers, no activation percentages, no "isolates", no diagnosis or treatment; the general-education line on every film that suggests an action; a measurement is drawn as a measurement (electrode + graph), never as a muscle.
 - Highlights are defensible: every muscle the 3D rig lights up is listed with that role in `assets/fitness/data/exercises.json` (`fitness.py check` audits it).
 - Assets: original kit art or cleared sources only (`source-registry.md`). Brand: never copy existing characters or sequences (Yellow Dude, Kurzgesagt, 3Blue1Brown are studied for communication, not copied).
@@ -45,4 +52,5 @@ short (20-60 s, portrait): Hook, Explanation, Payoff, one claim, one mechanism. 
 - A film is complete only after a rendered, reviewed, human-signed-off pass, not when rendering succeeds.
 
 ## Extending
+
 New muscle or exercise: `fitness-anatomy` / `fitness-animation`. 2D art: `src/fitness/tibi/` generator (`HANDOVER.md`), `fitness.py sculpt`. New graphic: `graphics.js` + manifest entry + sheet. Always finish with `studio.py upgrade --all`, `python tests/test-fitness.py`, `python tests/test-rig3d.py`, `python tests/test-anatomy3d.py`, `python scripts/workspace-governance.py`. Architecture and decisions: `docs/fitness-studio.md`.

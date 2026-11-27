@@ -1,0 +1,31 @@
+{
+  "id": "step-caption-pill",
+  "name": "Step caption pill for a wordless demo",
+  "family": "narration-captions",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-3, batch-5, 2026-11-26): a wordless light product demo names each step in a one-line dark pill at bottom centre.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "In a product demo without a voice, a dark rounded pill at bottom centre carries one short line naming the current step and changes only when the step changes. It narrates without competing with the interface.",
+  "purpose": "Narrate a wordless demo one step at a time without competing with the interface.",
+  "visual_behaviour": "A near-black rounded pill at bottom centre carries one short white line naming the current step; it changes only when the next step starts.",
+  "mechanics": "Pill: near-black fill, full corner radius, 12-16 px white sentence-case text, one line of 4-8 words, about 90% down the frame, centred. It enters with a 0.2-0.3 s fade and a 4-6 px rise, holds 3.5-5 s, and swaps on the step's first action (ref-ad023ce9dc cues at about 4.9, 11.6, 15.4, 20.6 and 25.9 s). No word highlight.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["text-mask-rise"], "timing": "One cue per step; 3.5-5 s each; 5 cues in 30 s in the reference." },
+  "parameters": [
+    { "name": "hold", "description": "Seconds a cue stays", "default": 4.0 },
+    { "name": "max_words", "description": "Words per cue", "default": 8 },
+    { "name": "lane", "description": "Vertical position as a fraction of frame height", "default": 0.9 }
+  ],
+  "use_cases": ["Muted-autoplay product demos", "Step labels when there is no narration", "Portrait reels with a free lower third"],
+  "failure_modes": ["A caption that repeats the UI text adds nothing", "Cues that change faster than about 2.5 s cannot be read alongside the UI"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.comp.captions with a pill look (or the caption-plate composition): one line of 4-8 words, about 90% down the frame, fade plus 4-6 px rise in 0.2-0.3 s, held 3.5-5 s and swapped on the step's first action. No word highlight; cue times come from the storyboard steps, not from speech. Kept separate from caption-voice-strip (a typed script that is the film's voice): this is a held label per step.", "runtime_api": ["Studio.comp.captions"] },
+  "capability": { "support": "native", "requirements": ["caption plate in the lower lane"], "compatible_components": ["caption-plate", "caption-band"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-ad023ce9dc", "timestamps": [4.88, 11.62, 15.38, 20.62, 25.88], "observed": "Five one-line step captions in a dark pill at bottom centre, each held 3.5-5 s, over a music-only demo." },
+    { "source_id": "ref-debf607232", "timestamps": [1.86, 4.83, 9.29], "observed": "A vertical move title (two to four characters and a small romanised line) at the top right swaps in place with each move, about every 1.5 s (1.86, 4.83, 9.29 s). Note: Corner variant without a pill (check score 0.22 for 'named move title'): the same job, naming the current step and changing only with the step; it becomes a giant ghost in the sun for the finale." }
+  ],
+  "related": { "techniques": ["caption-voice-strip", "word-highlight-caption", "step-progress-tracker"], "compositions": ["caption-plate"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["captions", "narration-captions", "muted-autoplay", "step-label", "pill", "demo", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

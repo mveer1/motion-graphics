@@ -1,6 +1,6 @@
 # Fitness visual systems: kit API
 
-Load order in a composition (the `fitness-explainer` template does it): `_studio/vendor/gsap.min.js`, `studio-core.js` ... `studio-compositions.js`, then `studio-rig.js`, `kits/fitness/brand.js`, `sculpt-data.js`, `sculpt.js`, `exercises.js`, `anatomy.js`, `graphics.js`, `library.js`. Everything is under `Studio.kit.fitness` (`K` below; `G = K.graphics`, `A = K.anatomy`). All methods add explicit `fromTo` tweens; add rig moves for one Tibi in time order.
+Load order in a composition (the `fitness-explainer` template does it): `_studio/vendor/gsap.min.js`, `studio-core.js` ... `studio-compositions.js`, `studio-film.js`, then `studio-rig.js`, `kits/fitness/brand.js`, `sculpt-data.js`, `sculpt.js`, `exercises.js`, `anatomy.js`, `graphics.js`, `library.js`, (optional 3D: `vendor/three.min.js`, `tibi3d.js`, `anatomy3d.js`, `exercises3d.js`), `stations.js`. A workout or technique film is a list of stations: `K.stations(['#art', '#cards'], [{exercise, start, end, card, beats}])` with `K.layout()` bands, `K.captionLane()` and `K.audit()` (1.15.0). The exercise card fits its band without shrinking reading text: chips, cues, tip and swaps stay at or above 2.6% of the short side; a card that still overflows drops trailing chips to 3, then secondary ones only (a console warning names them; pass `K.cardData(id, {maxMuscles})` to choose), and `K.audit()` reports `card-below-floor` (1.15.1). Everything is under `Studio.kit.fitness` (`K` below; `G = K.graphics`, `A = K.anatomy`). All methods add explicit `fromTo` tweens; add rig moves for one Tibi in time order.
 
 ## A. Character animation
 
@@ -14,6 +14,7 @@ t.activate(tl, 'run-mid', at, 0.4);                            // or {quadriceps
 t.muscle('gluteus-maximus', 'run-mid');                        // [{name, level, far, x, y}] anchors for labels
 t.markers(tl, true, at); t.spark(tl, false, at);
 ```
+
 Exercises: `var ex = K.exercise(t, 'pull-up'); ex.reps(tl, at, n, {pause: 0.12}); t.activate(tl, ex.acts, at)`; `K.exercise.ids()` lists them. The Tibi's view must match `K.exercises[id].view`. Equipment is placed from Tibi's joints (`K.equipment`). Move a whole Tibi (step aside for a diagram) by tweening the `transform` attribute of the parent group.
 
 ## B. Anatomy visualisation
@@ -40,11 +41,11 @@ Exercises: `var ex = K.exercise(t, 'pull-up'); ex.reps(tl, at, n, {pause: 0.12})
 ## E. Exercise animation
 
 `var ex = K.exercise(t, 'back-squat'); ex.reps(tl, at, 3, {tempo: 1, pause: 0.3}); ex.phase(tl, 'squat-bottom', at, 0.8);`
-Ids: `back-squat`, `deadlift`, `bench-press`, `overhead-press`, `pull-up`, `push-up`, `barbell-row`, `lat-pulldown`, `biceps-curl`, `triceps-pushdown`, `lunge`, `leg-press`, `calf-raise`, `walk`, `jog`, `sprint` (gait: `ex.run(tl, at, seconds)`, `ex.speed` = belt speed for a scrolling floor). Error poses for coaching: `squat-error-heels`, `deadlift-error-round`, `pushup-error-sag`, `curl-error-swing`. Metadata (muscles, phases, landmarks, camera, errors) is in `K.library.exercises[id]`; highlight `muscles.primary` and never claim isolation.
+Ids (Cobalt Sculpt library, `K.exercise.ids()`): `push-up`, `dumbbell-bench-press`, `dumbbell-fly`, `pull-up`, `one-arm-row`, `rear-delt-fly`, `overhead-press`, `lateral-raise`, `prone-y-raise`, `incline-curl`, `dumbbell-curl`, `overhead-triceps-extension`, `dip`, `bodyweight-squat`, `calf-raise`, and since kit 2.2.0 `back-squat`, `deadlift`, `barbell-bench-press`, `leg-press`, `lat-pulldown`; gaits `walk`, `jog`, `sprint` (`ex.run(tl, at, seconds)`, `ex.speed` = belt speed for a scrolling floor). Each exercise needs the view it declares (`K.exercises[id].view`). Metadata (muscles, phases, landmarks, camera, errors) is in `K.library.exercises[id]`; highlight `muscles.primary` and never claim isolation.
 
 ## F. Environments and props
 
-`G.env.gym`, `G.env.track` (`scroll(tl, from, to, speed)`: use `ex.speed`), `G.env.outdoor` (`scroll`), `G.env.plate`. Equipment `K.equipment`: `plate` (`ghost` for see-through), `barbellEnd`, `dumbbell`, `dumbbellEnd`, `bench`, `rack`, `pullupBar`, `cableTower`, `seat`.
+`G.env.gym`, `G.env.track` (`scroll(tl, from, to, speed)`: use `ex.speed`), `G.env.outdoor` (`scroll`), `G.env.plate`. Equipment `K.equipment`: `dumbbellEnd`, `dumbbellBar`, `dumbbellHang`, `benchSide`, `benchTop`, `seatFront`, `bar`, `dipSide`, and since kit 2.2.0 `barbellEnd` (near/far plate), `rackSide`, `legPress`, `pulldownBack`. Inside-the-body plates: `A.vascularTree`, `A.alveolus`, `A.joint` (knee, hip, shoulder) in the inside palette (`STYLE.md`).
 
 ## G. Motion graphics components
 

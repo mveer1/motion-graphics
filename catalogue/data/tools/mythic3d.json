@@ -1,0 +1,54 @@
+{
+  "id": "tool-mythic3d",
+  "name": "Mythic 3D figure renderer",
+  "component_type": "tool",
+  "purpose": "Renders the 3D mythic figures (src/blender/mythic3d) in Blender, one figure per process under the host render lock, and lays out review sheets: a five-view turnaround per figure and look, and a gallery of hero shots.",
+  "capabilities": [
+    "list: the figure ids",
+    "render --figures <ids|all> --look painted|bronze|both --views hero,front,q3,profile,q3back,back,head --opt figure:key=value --samples N --size WxH --tag name --out DIR",
+    "sheets: turnaround-<id>-<look>.png and gallery-<look>.png from the rendered views"
+  ],
+  "location": "scripts/mythic3d.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "python scripts/mythic3d.py render. Needs Blender (python scripts/visual-director.py install-blender) and Pillow for the sheets."
+  },
+  "dependencies": [
+    "tool-blender",
+    "shared-mythic-figures-3d"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3 (stdlib + Pillow) driving Blender 5.2",
+    "notes": "Verified on Windows on 2026-11-25. Output goes to projects/_mythic-figures/3d/ (gitignored)."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-tales/references/figure-design.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Starts Blender in background mode with --factory-startup; writes renders, logs and job files under --out."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "2026-11-25 Windows: rendered all eight figures in both looks; sheets built; tests/test-mythic3d.py.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-25",
+  "tags": [
+    "blender",
+    "3d",
+    "figure",
+    "myth",
+    "review"
+  ]
+}

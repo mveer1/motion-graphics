@@ -57,7 +57,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (64 frames over 57 s, about 0.9 s apart) and the audio sheet with spectrogram. Scene sheet and strips generated, not viewed.",
+    "method": "Viewed overview (64 frames over 57 s, about 0.9 s apart) and the audio sheet with spectrogram. Scene sheet and strips generated, not viewed. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at overview density.",
     "concept": {
       "observed": "A short poem about what makes a house a home, staged as a paper theatre: curtains open on a silhouette village, a figure walks home, lights come on, smoke curls, the sky turns from dusk to night and morning; captions change on a hanging sign; curtains close.",
@@ -90,7 +90,9 @@
         "interpreted": "Paced for reading short poem lines."
       },
       "transitions": {
-        "observed": "Curtain open (about 0-2 s) and close (about 55-57 s); time-of-day colour shifts instead of cuts."
+        "observed": "Re-read 2026-11-27: 12 boundaries (0 cut, 0 grow, 1 cover, 11 continuous). 2.08 s continuous: the curtains have parted (about 0-2 s, a cover) and a caption board lowers from the top in about 0.2 s (2.12-2.26 s). 5.58 s continuous: the sky light shifts; nothing else. 6.58 s continuous: a house silhouette fades up and the board's line dissolves to the next one (6.42-6.76 s). 10.75 s continuous: the pink sky holds; the caption line changes in place. 34.08 s continuous: time-lapse on the held stage: the sky turns from night to day in about 0.3 s. 35.08 s continuous: the sky turns towards dusk. 36.08 s continuous: back to a warm day. 37.08 s continuous: to night; the moon appears. 38.08 s continuous: to day. 39.08 s continuous: to dusk; the cycle stops. 55.08 s cover: the curtains close (about 55.0-56.1 s). 56.25 s continuous: the closed curtain fades to black (56.1-56.4 s). Earlier reading (2026-10-30): Curtain open (about 0-2 s) and close (about 55-57 s); time-of-day colour shifts instead of cuts.",
+        "interpreted": "One stage for 57 s: the curtain is the only cover, and the sky cycling once per second (34-39 s) shows days passing without a cut.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "Three to five silhouette planes; a camera pull-back reveals more of the village."
@@ -105,6 +107,21 @@
       },
       "motifs": {
         "observed": "Lights coming on; the hanging sign."
+      },
+      "sound_design": {
+        "observed": "Integrated -23.2 LUFS, LRA 1.8 LU, true peak -8.6 dBTP (quiet and gentle). 25 accents (26.3 a minute). Accents on cuts 0.08 against chance 0.08 (12 boundaries); onsets near boundaries 0.17 against 0.19. Silence 56.38-57.0 s at the end; head -3.5 dB, tail +0.3 dB. Listen sheet: accents fall on the sign's lines changing (6.97-7.57 s, a second line at 10.05 s, 12.21-12.56 s), the moon and lit windows (16.72-20.06 s) and the door light opening (26.73-27.56 s), not on scene changes.",
+        "interpreted": "The music marks each new line of the poem and each light that comes on; the edit is silent.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "Sparse by the numbers: 7 words in 5 phrases, 13% coverage, 0.94 words/s while 'speaking', pace over thirds 0.17/0.11/0.11 words/s (slows), 4 pauses with median 11.7 s and maximum 22.2 s; cuts in pauses 0.73 against chance 0.86. Every phrase frame (1.0-3.4, 5.9-8.0, 28.8-30.1, 31.3-31.7, 53.9-55.1 s) shows the poem on the hanging sign. One-word phrases at those times look like dictation over the music rather than a reading voice, but that cannot be settled with this recogniser. Verdict: probably none.",
+        "interpreted": "If a voice does read the poem it is far quieter than the music; the Mac re-run decides.",
+        "confidence": "low"
+      },
+      "captions": {
+        "observed": "The poem is the caption: a dark wooden plaque hung on ropes in the top band (about 3-12% of the portrait height), italic serif, centred, 1-2 lines; a second line is added under the first (10.05 s); the text changes with the scene; no highlight, no voice to time it against.",
+        "interpreted": "A diegetic caption plate in the top band keeps the stage below it clear for the silhouette play.",
+        "confidence": "medium"
       }
     },
     "scenes": [
@@ -134,7 +151,8 @@
     ],
     "uncertainties": [
       "Exact caption timings",
-      "Whether the high transients are SFX (birds, door) or part of the music"
+      "Whether the high transients are SFX (birds, door) or part of the music",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -158,6 +176,17 @@
       "timestamps": [
         1.0,
         56.0
+      ]
+    },
+    {
+      "id": "background-palette-lift",
+      "timestamps": [
+        34.08,
+        35.08,
+        36.08,
+        37.08,
+        38.08,
+        39.08
       ]
     }
   ],
@@ -188,21 +217,23 @@
     "storybook",
     "poem",
     "silhouette",
-    "theatre"
+    "theatre",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 22.9
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 29.4
     },
     "sampling": {
       "scan_fps": 6.0,
@@ -619,6 +650,190 @@
       "audio": "reference/analysis/ref-910d9fc567/audio.png",
       "frames": "reference/analysis/ref-910d9fc567/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -23.2,
+        "lra_lu": 1.8,
+        "true_peak_dbtp": -8.6,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 30,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 7,
+        "phrases": 5,
+        "speech_start": 1.0,
+        "speech_end": 55.14,
+        "speech_coverage": 0.13,
+        "wps_while_speaking": 0.94,
+        "wpm_over_span": 8,
+        "pace_thirds_wps": [
+          0.17,
+          0.11,
+          0.11
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.32,
+        "pauses": {
+          "count": 4,
+          "median_ms": 11660,
+          "max_ms": 22170,
+          "at": [
+            3.39,
+            7.95,
+            30.12,
+            31.72
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 1,
+            "wps": 0.48
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 1,
+            "wps": 1.0
+          },
+          {
+            "index": 4,
+            "words": 1,
+            "wps": 0.24
+          },
+          {
+            "index": 5,
+            "words": 2,
+            "wps": 0.09
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 10,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 11,
+            "words": 2,
+            "wps": 0.12
+          },
+          {
+            "index": 12,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 13,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 11,
+          "in_pause_share": 0.73,
+          "chance_level": 0.86,
+          "next_phrase_after_ms_median": 17307
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 121,
+        "accents": 25,
+        "accents_per_min": 26.3,
+        "accent_times": [
+          3.39,
+          6.08,
+          6.97,
+          7.27,
+          7.57,
+          10.05,
+          11.87,
+          12.21,
+          12.56,
+          13.4,
+          16.72,
+          20.06,
+          26.73,
+          27.56,
+          32.55,
+          33.39,
+          34.64,
+          35.06,
+          36.73,
+          40.05,
+          41.73,
+          43.4,
+          48.39,
+          49.23,
+          50.06
+        ],
+        "accent_threshold": 0.45,
+        "boundaries_with_accent": {
+          "boundaries": 12,
+          "share": 0.08,
+          "tolerance_ms": 100,
+          "chance_level": 0.08
+        },
+        "onset_rate_during_speech": 2.96,
+        "onset_rate_outside_speech": 2.0,
+        "level_speech_minus_gaps_db": -1.1,
+        "sustained_share": 0.98,
+        "silences": [
+          [
+            56.38,
+            57.0
+          ]
+        ],
+        "level_head_vs_body_db": -3.5,
+        "level_tail_vs_body_db": 0.3,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-910d9fc567/listen",
+        "sheet": "reference/analysis/ref-910d9fc567/listen/listen.jpg",
+        "words": "reference/analysis/ref-910d9fc567/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

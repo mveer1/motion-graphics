@@ -1,0 +1,33 @@
+{
+  "id": "strike-and-correct",
+  "name": "Strike and correct",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "Two inspected product films (batch 1, 2026-11-26) strike a claim or a problem through in red and replace or demote it in front of the viewer.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A claim types in, a red line strikes it, the struck claim shrinks and steps back (smaller, greyer, higher), and the correction types in below in the accent colour. The viewer sees the old belief and the new fact in one frame.",
+  "purpose": "Myth versus fact, old estimate versus new, problem versus fix: contrast made visible instead of said.",
+  "visual_behaviour": "'Not a week.' types with a caret; a red strike draws through it left to right; it shrinks to a small grey line at the top; 'About 6 minutes' types below in blue with a caret.",
+  "mechanics": "Typewriter the claim (Studio.type.typewriter, about 25-35 cps); strike: a 2-4 px accent-red line scaleX 0 -> 1 from the left over 0.15-0.25 s (power2.out), slightly overshooting the text box; demote: scale 1 -> 0.55, y up, opacity 1 -> 0.5 over 0.3 s; correction: typewriter in the accent colour 0.1 s later. Sound: a soft scratch or tick on the strike, a pop on the correction's last character.",
+  "decomposition": { "primitives": ["styled-text", "svg-path"], "effects": ["typewriter-reveal", "hand-underline", "stamp-impact"], "timing": "Claim 0.4-0.8 s; strike 0.2 s; demote 0.3 s; correction 0.5-0.9 s." },
+  "parameters": [
+    { "name": "strike", "description": "line (clean), scribble (hand) or stamp", "default": "line" },
+    { "name": "demote", "description": "shrink-up, fade, fall", "default": "shrink-up" }
+  ],
+  "use_cases": ["myth versus fact in explainers", "before/after numbers", "problem -> solution turn", "correcting a common misconception in a hook"],
+  "failure_modes": ["Struck text removed too fast: the viewer never reads what was wrong", "Red strike on a red-accent film disappears; use the film's 'wrong' colour consistently", "Correction smaller than the claim undercuts it"],
+  "implementation_state": "implemented",
+  "implemented_by": ["strike-correct"],
+  "implementation": {"approach": "Studio.type.strike(tl, el, at, {color, duration, overshoot, y, style line|scribble}) draws a hand line through the claim inside the claim element (so it rides the demotion); Studio.type.strikeCorrect(tl, claim, correction, at, {cps, read, demote shrink-up|fade|fall, scale, lift, dim, gap, strike}) types the claim, strikes it, holds it `read` seconds, demotes it and types the correction (runtime 1.17.0). Colour of the strike: --c-strike, else the accent. No caret.", "runtime_api": ["Studio.type.strike", "Studio.type.strikeCorrect"]},
+  "validation": {"state": "preview", "evidence": [{"kind": "runtime-test", "path": "tests/studio-runtime/backlog-techniques.html", "result": "pass", "date": "2026-11-28"}, {"kind": "frame-review", "path": "tests/reference-derived/scramble-strike-caption/qa/report.json", "result": "pass", "date": "2026-11-28", "notes": "Contact sheet inspected: claim types (1.5 s), strike drawn (2.0 s), held, demoted to a small grey line (3.0 s), correction typed in the info blue (3.5-4.4 s). 0 errors after moving the test page's correction a line below the claim."}]},
+  "capability": { "support": "native", "requirements": ["typewriter", "line draw"], "compatible_components": ["typewriter-reveal", "hand-underline", "stamp-impact"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 5, "cost": 1, "note": "Directly useful for explainer hooks (misconception -> fact)." } },
+  "provenance": [
+    { "source_id": "ref-a339360a56", "timestamps": [22.26, 22.68, 23.02, 23.77], "observed": "'Not a week.' types in, a red line strikes it, it shrinks and moves up as a grey aside, and 'About 6 minutes' types in below in the accent blue with a caret." },
+    { "source_id": "ref-6f68999b60", "timestamps": [7.92, 8.65], "observed": "The third problem card is struck with a red scribble-like mark as an accent lands, while the first two stay unmarked." },
+    { "source_id": "ref-99713f6e72", "timestamps": [5.05, 6.32], "observed": "A red line strikes the second word of a held statement at 5.00-5.10 s; the struck word scrambles away and a question mark, not a correction, takes its place at 6.20-6.35 s." },
+    { "source_id": "ref-9ed4034cad", "timestamps": [1.62, 1.72], "observed": "A pink line strikes 'a friend' (1.62 s) and the correction lands below as a tilted sticker (1.72 s, with an accent)." }
+  ],
+  "related": { "techniques": ["stamp-state-change", "centred-word-build", "empty-stage-dip"], "effects": ["typewriter-reveal", "hand-underline", "stamp-impact"], "templates": ["illustrated-explainer", "kinetic-typography"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No copy is reused.",
+  "tags": ["kinetic-typography", "strike", "correction", "contrast", "myth-vs-fact", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-28" }
+}

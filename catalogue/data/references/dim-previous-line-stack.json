@@ -1,0 +1,33 @@
+{
+  "id": "dim-previous-line-stack",
+  "name": "Dim the previous lines as each new one lands",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "3 inspected reference films (batch-0, batch-3, batch-4, 2026-11-26): a portrait payments film builds its lists line by line and greys the earlier lines as each new one lands; an earlier announcement film does the same with a stacked word list.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A list or argument builds line by line in one block; as each new line lands, the earlier lines drop to grey, so only the newest has full contrast. It shows progress and keeps the eye on the new item without colour or arrows; a larger closing line sums the list up.",
+  "purpose": "Show progress through a list and keep the eye on the newest item without arrows or colour.",
+  "visual_behaviour": "Lines stack in one block; as each new line rises in, the earlier lines turn grey a frame before it lands; a larger summary line closes the list.",
+  "mechanics": "Lines stacked at one line of spacing, left-aligned. On each beat: earlier lines go from full contrast to about 40% (grey) in 1 frame (up to 0.1 s), then 1-2 frames later the new line rises from a mask (yPercent 100 -> 0 over 0.07-0.15 s, power3.out). The summary line enters at 1.5-2x size after the last item while all items stay grey.",
+  "decomposition": { "primitives": ["split-text", "styled-text"], "effects": ["text-mask-rise"], "timing": "One line per 0.5-1.0 s on the beat; the dim leads the new line by about 0.07 s (8.50 s vs 8.57 s)." },
+  "parameters": [
+    { "name": "dimContrast", "description": "Contrast of earlier lines relative to the current line", "default": 0.4 },
+    { "name": "lead", "description": "Seconds the dim precedes the new line", "default": 0.07 },
+    { "name": "rise", "description": "Masked rise duration of the new line in seconds", "default": 0.1 },
+    { "name": "summaryScale", "description": "Scale of the closing summary line", "default": 1.6 }
+  ],
+  "use_cases": ["Feature lists", "Step lists in explainers", "Building an argument line by line in portrait"],
+  "failure_modes": ["Dimming too far makes earlier lines unreadable: keep them legible for re-reading", "More than about six lines crowd a portrait frame"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Per item: tween the earlier lines' colour to about 40% contrast over 0-0.1 s, then rise the new line from a mask with Studio.type.rise about 0.07 s later over 0.07-0.15 s (power3.out); snap each item to its beat or spoken word. Studio.comp.itemList is the closest component; the dim-on-arrival option is not built.", "runtime_api": ["Studio.type.rise", "Studio.comp.itemList"] },
+  "capability": { "support": "native", "requirements": ["per-line colour tween", "masked line rise"], "compatible_components": ["text-mask-rise", "line-mask-rise", "item-list"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-32fea7dae3", "timestamps": [8.5, 8.57, 9.57, 10.05, 10.57, 11.56, 16.56, 17.55], "observed": "Six account types stack on dark; each lands on an x.55 accent in white while the earlier lines turn grey one frame before; 'One API.' closes the list larger; 'Open. Neutral. Global.' repeats the device." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [6.04, 6.55], "observed": "A right-aligned stacked word list: each new word takes the accent full stop at full contrast while the earlier words dim (6.0-6.7 s), each on an accent. Read from the listen sheet by the integrator." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [11.55, 12.05], "observed": "As the last word rises, the two earlier words above it turn to a grey particle texture while the newest word stays solid white (11.4-12.1 s)." }
+  ],
+  "related": { "techniques": ["word-per-beat-sequence", "centred-word-build", "swiss-kinetic-grid"], "effects": ["text-mask-rise"], "compositions": ["item-list"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "list", "stack", "dim", "progress", "portrait", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

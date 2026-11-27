@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Golden scene: hook headline, word build, pause-locked copy</title>
+  <!--
+    Golden scene for docs/explanation-devices.md. Copy the pattern, not the words.
+      JOB hook-headline   -> DEVICE headline-pair   (Studio.comp.headline, preset 'pair')
+      JOB introduce-term  -> DEVICE headline-build  (Studio.comp.headline, preset 'build')
+      JOB process-step    -> DEVICE copy-slot       (Studio.comp.copySlot, swaps locked to narration pauses)
+    The WORDS list stands in for projects/<slug>/audio/words.json (written by `studio.py captions --timing words`).
+    Original layout and copy; no reference footage, marks or shot sequences.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    .st-scene { background: var(--c-paper); }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    .stage { position: absolute; inset: 0; }
+    #pair { position: absolute; left: var(--safe-left); top: 27%; width: 86%; }
+    #pair .st-hl { font-size: calc(var(--u) * 13); }
+    #rule { position: absolute; left: var(--safe-left); top: 76%; width: calc(var(--u) * 14); height: calc(var(--u) * 0.8); background: var(--c-accent); transform-origin: 0 50%; }
+    #build { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 13%; }
+    #build .st-hl { font-size: calc(var(--u) * 9); }
+    #steps { position: absolute; left: var(--safe-left); top: 38%; width: 48%; height: 46%; display: flex; flex-direction: column; justify-content: space-between; }
+    .row { display: flex; align-items: center; gap: calc(var(--u) * 2.4); font: 600 calc(var(--u) * 4.4) / 1.2 var(--font-text); color: var(--c-ink); }
+    .row i { display: block; flex: none; width: calc(var(--u) * 5); height: calc(var(--u) * 5); border-radius: 50%; border: calc(var(--u) * 0.5) solid var(--c-rule); box-sizing: border-box; }
+    #copy { position: absolute; left: 58%; right: var(--safe-right); top: 50%; font: 500 calc(var(--u) * 4.6) / 1.3 var(--font-text); }
+    #copy span { display: block; padding-left: calc(var(--u) * 2.4); border-left: calc(var(--u) * 0.6) solid var(--c-accent-2); }
+  </style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="14.2">
+  <div class="st-scene" id="sceneA">
+    <div class="stage" id="stageA">
+      <div class="st-kicker kick">Habits, part 1</div>
+      <div id="pair"></div>
+      <div id="rule"></div>
+    </div>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div class="stage" id="stageB">
+      <div class="st-kicker kick">Habits, part 1</div>
+      <div id="build"></div>
+      <div id="steps">
+        <div class="row" id="r0"><i></i>Pick one small action</div>
+        <div class="row" id="r1"><i></i>Tie it to something you already do</div>
+        <div class="row" id="r2"><i></i>Count the days, not the minutes</div>
+      </div>
+      <div id="copy"></div>
+    </div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script src="../../../src/studio/studio-explain.js"></script>
+<script>
+// Measured words (start, end in film seconds). In a film, generate this list from audio/words.json.
+var WORDS = [
+  { word: 'Big', start: 0.40, end: 0.62 }, { word: 'goals', start: 0.64, end: 0.98 }, { word: 'fail.', start: 1.00, end: 1.40 },
+  { word: 'Small', start: 1.90, end: 2.22 }, { word: 'ones', start: 2.24, end: 2.50 }, { word: 'stick.', start: 2.52, end: 3.00 },
+  { word: 'Start', start: 4.70, end: 5.00 }, { word: 'small,', start: 5.30, end: 5.70 }, { word: 'repeat', start: 5.95, end: 6.30 }, { word: 'daily.', start: 6.55, end: 7.00 },
+  { word: 'Step', start: 7.80, end: 8.05 }, { word: 'one', start: 8.07, end: 8.30 }, { word: 'is', start: 8.32, end: 8.40 }, { word: 'tiny.', start: 8.42, end: 8.90 },
+  { word: 'Then', start: 9.90, end: 10.15 }, { word: 'anchor', start: 10.17, end: 10.55 }, { word: 'it.', start: 10.57, end: 10.80 },
+  { word: 'Then', start: 12.00, end: 12.25 }, { word: 'just', start: 12.27, end: 12.45 }, { word: 'count.', start: 12.47, end: 12.90 }
+];
+Studio.build(function (tl, f, S) {
+  var C = S.comp;
+  // Cue map: every visual beat names the word it illustrates.
+  var at = S.cues({ big: 0.40, small: 1.90, start: 4.70, smallB: 5.30, repeat: 5.95, daily: 6.55, step1: 7.80, step2: 9.90, step3: 12.00 });
+
+  // Scene A. JOB hook-headline -> headline-pair: line 2 lands on the spoken contrast word.
+  S.show(tl, '#sceneA', 0);
+  S.space.drift(tl, '#stageA', 0, 4.6, { startScale: 1, endScale: 1.03 });
+  var pair = C.headline('#pair', { line1: 'Big goals fail.', line2: 'Small ones stick.' }, { line2At: at('small') });
+  pair.enter(tl, at('big'));
+  tl.fromTo('#rule', { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: 'power3.out', immediateRender: true }, at('small', 0.6));
+
+  // Scene B. JOB introduce-term -> headline-build: one word per spoken word, the line stays centred.
+  S.crossfade(tl, '#sceneA', '#sceneB', 4.4, 0.4);
+  S.space.drift(tl, '#stageB', 4.2, 14.2, { startScale: 1, endScale: 1.025 });
+  var build = C.headline('#build', { text: 'Start small, repeat daily.' }, { preset: 'build' });
+  build.enter(tl, at('start'), { times: [at('start'), at('smallB'), at('repeat'), at('daily')] });
+
+  // JOB process-step -> rows on the left, copy-slot on the right; each swap sits in the pause before its phrase.
+  ['#r0', '#r1', '#r2'].forEach(function (r, i) {
+    var t = at('step' + (i + 1));
+    tl.fromTo(r, { autoAlpha: 0, x: -S.u(2) }, { autoAlpha: 1, x: 0, duration: 0.4, ease: 'power3.out', immediateRender: true }, t);
+    tl.fromTo(r + ' i', { backgroundColor: 'rgba(0,0,0,0)', borderColor: S.token('--c-rule') }, { backgroundColor: S.token('--c-accent'), borderColor: S.token('--c-accent'), duration: 0.25, ease: 'power1.out', immediateRender: false }, t + 0.25);
+  });
+  var copy = C.copySlot('#copy', ['Two minutes is enough to begin.', 'After coffee, before the phone.', 'A streak you can see keeps going.']);
+  copy.enter(tl, 0, at('step1', -0.3));
+  copy.swap(tl, 1, at('step2'), { words: WORDS });
+  copy.swap(tl, 2, at('step3'), { words: WORDS });
+  window.__goldenWarnings = pair.warnings.concat(build.warnings || [], copy.warnings);
+});
+</script>
+</body>
+</html>

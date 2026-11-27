@@ -1,0 +1,35 @@
+{
+  "id": "pre-hit-dropout",
+  "name": "Pre-hit dropout (silence before the reveal)",
+  "family": "sound-design",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected product film (batch 1, 2026-11-26) drops its soundtrack to near silence for half a second right before the key reveal accent; the same move is earshot's mixing advice (pull the music down 6-12 dB for 0.3-0.5 s before a hit).", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Just before the single most important reveal, take the music (and effects) out for 0.3-0.6 s, hold the picture in near-stillness, then land the reveal and its hit on the returning sound. Contrast, not loudness, makes it the biggest moment.",
+  "purpose": "Make one reveal per film land hardest; create anticipation without a riser.",
+  "visual_behaviour": "The picture slows or holds on the approach (an object about to meet its target); on the hit frame the element lands and motion resumes.",
+  "mechanics": "Mix: bed gain -inf (or -12 dB) from hit - 0.5 s to hit, restore on the hit with a 10-30 ms fade; the hit's onset on the reveal frame. Picture: the approach eases in (slow) during the gap; no new elements enter in the gap.",
+  "decomposition": { "primitives": ["scene-container"], "effects": ["stamp-impact"], "timing": "Gap 0.3-0.6 s; once (at most twice) per film." },
+  "parameters": [
+    { "name": "gap", "description": "Seconds of dropout before the hit", "default": 0.5 },
+    { "name": "depth_db", "description": "How far the bed drops (-inf = silence)", "default": -60 }
+  ],
+  "use_cases": ["the key 'it works' moment of a demo", "the answer after a question in an explainer", "logo or verdict reveal"],
+  "failure_modes": ["Used more than once or twice it stops being a surprise", "Never drop out under a spoken word: in narrated films place it in a narration pause", "A gap with moving picture and no sound feels like a fault; slow the picture too"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Audio side: volume automation on the bed in the mux (ffmpeg volume=enable='between(t,a,b)':volume=0) or earshot kit mix.stop_down; visual side: an ease-in approach that lands on the cue. Verify the gap with reference-corpus.py listen (silences) or earshot timeline on the render." },
+  "capability": { "support": "native", "requirements": ["bed gain automation in the mix"], "compatible_components": ["stamp-impact"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-fe7fb0ded2", "timestamps": [5.5, 6.06], "observed": "The soundtrack falls below -50 dBFS from 5.50 to 6.01 s, then an accent lands at 6.06 s as the paper receipt meets its matching transaction row." },
+    { "source_id": "ref-49459ad8c1", "timestamps": [5.13, 6.04], "observed": "The sound falls silent for 0.9 s (5.13-6.04 s), then the accent lands as the first word of a stacked list takes its full stop." },
+    { "source_id": "ref-99713f6e72", "timestamps": [12.0, 12.56], "observed": "Full silence 12.00-12.54 s while a tiny mark holds in the dark; the product name lands with a warm bloom and the hit at 12.56 s. An earlier partial dip (about 25 dB, 6.9-7.5 s) prepares the shatter at 7.55 s." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [1.07, 2.09], "observed": "After the name, the level falls to -39.6 dB (film median -17.2 dB) for 0.93 s (1.07-2.00 s); the body enters at 2.09-2.28 s (-10.3 dB) as the orange bloom fills the frame." },
+    { "source_id": "ref-04d81a6a3e", "timestamps": [13.89, 14.42], "observed": "Onsets stop at 13.65 s and the level falls to -37.7 dB (film median -17.6 dB) for 0.46 s (13.89-14.35 s); the hit lands at 14.42 s with a light burst and ring on the finished mark." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [1.44, 2.0], "observed": "Between the logo badge and the first headline the level falls to -36 dB (film median -16.1 dB) over 1.44-1.90 s and returns to -14.7 dB at 2.0 s as the headline lands." },
+    { "source_id": "ref-2a6c654bfe", "timestamps": [1.8, 12.8], "observed": "Level dips 22.6 dB under the film median at 1.44-2.28 s before the scan band and its accent grid, and 27.9 dB at 12.68-12.96 s during the ring burst before the end card." }
+  ],
+  "related": { "techniques": ["beat-grid-element-arrivals", "stamp-state-change"], "effects": ["stamp-impact"] },
+  "licensing_notes": "Technique only, measured from a user-supplied reference (inspiration-only, rights unknown).",
+  "tags": ["sound-design", "silence", "dropout", "anticipation", "mix", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

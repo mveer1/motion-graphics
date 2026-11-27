@@ -123,7 +123,7 @@ class TestRecommend(unittest.TestCase):
     def test_each_primary_category_picks_its_template(self):
         expect = {"mathematics": "proof-canvas", "finance": "data-ledger", "history": "chronicle",
                   "storytelling": "storybook", "science": "science-atlas", "technology": "systems-blueprint",
-                  "news": "news-brief"}
+                  "news": "news-brief", "mythology": "mythic-tale"}
         for cat, tid in expect.items():
             self.assertEqual(self.top([cat]), tid, cat)
 
@@ -192,12 +192,27 @@ class TestProjectCheck(unittest.TestCase):
         self.assertTrue(any("words per 10 s" in w for w in self.warns(self.check(narration={"s1": words}))))
         self.assertEqual(self.warns(self.check(narration={"s1": " ".join(["word"] * 20)})), [])
 
+    def test_pace_scales_the_narration_budget(self):
+        # news-brief caps narration at 27 words per 10 s: slow allows 24.3, fast 29.7
+        budget = lambda pace, n: self.warns(self.check(scenes=[self.scene(pace=pace)], narration={"s1": " ".join(["word"] * n)}))  # noqa: E731
+        self.assertEqual(budget("normal", 26), [])
+        self.assertTrue(any("slow pace" in w and "0.9x" in w for w in budget("slow", 26)))   # passed at the full cap before
+        self.assertEqual(budget("fast", 29), [])                                             # warned at the full cap before
+        self.assertTrue(any("fast pace" in w for w in budget("fast", 31)))
+
     def test_measured_clip_duration_beats_storyboard_span(self):
         pdir = make_project(self.tmp, self.tpl, pinned=self.tpl["version"], scenes=[self.scene()],
                             narration={"s1": " ".join(["word"] * 30)})
         write(pdir / "audio" / "timeline.json", {"scenes": [{"id": "s1", "duration_sec": 5.0}]})
         findings = st.check_project(pdir, json.loads((pdir / "project.json").read_text()), None, self.tpl)
         self.assertTrue(any("measured clips" in m for _, m in findings))
+
+    def test_clip_made_from_other_words_is_not_used_for_the_budget(self):
+        pdir = make_project(self.tmp, self.tpl, pinned=self.tpl["version"], scenes=[self.scene()],
+                            narration={"s1": " ".join(["word"] * 20)})
+        write(pdir / "audio" / "timeline.json", {"scenes": [{"id": "s1", "text": "old words", "duration_sec": 5.0}]})
+        findings = st.check_project(pdir, json.loads((pdir / "project.json").read_text()), None, self.tpl)
+        self.assertEqual(self.warns(findings), [])  # 20 words over the 10 s span, not over the old 5 s clip
 
     def test_discouraged_capability_is_flagged(self):
         sc = self.scene(capabilities=["squash-bounce"])

@@ -134,7 +134,7 @@ Build behaviour to know (Verified in this audit, scratch build): a render whose 
 
 ## 9. Concurrency model
 
-One heavy job at a time (permanent: VISION.md fixes the 8 GB machine). `session-guard.py` holds `fcntl.flock` locks in one `.locks/` directory shared by every worktree. `studio.py build` acquires the `render` lock itself and is re-entrant under `session-guard build`. Parallel sessions use `session-guard.py session-start <slug>` (git worktree per film). Parallel work helps authoring and validation, not rendering.
+One heavy job at a time (permanent: VISION.md fixes the 8 GB machine). `session-guard.py` holds `fcntl.flock` locks (a one-byte `msvcrt` lock on Windows test hosts) in one `.locks/` directory shared by every worktree. `studio.py build` acquires the `render` lock itself and is re-entrant under `session-guard build`. Parallel sessions use `session-guard.py session-start <slug>` (git worktree per film). Parallel work helps authoring and validation, not rendering.
 
 Still unlocked when called directly (Verified): `scripts/build-audio.py`, `scripts/frame-review.py`, `scripts/build-project.sh`. Route them through `session-guard.py run <resource> -- …`. Each film is a single `index.html`, so two people cannot work on different scenes of one film without merging.
 

@@ -1,0 +1,29 @@
+{
+  "id": "dither-edge-wipe",
+  "name": "Dithered-edge wipe",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-5, 2026-11-27): a particle-built product intro wipes from its dark opening to an ivory scene behind a leading edge of dithered grain.", "inspected": true, "inspected_on": "2026-11-27" },
+  "technique": "A wipe from a dark scene to a light one whose leading edge is a soft band of dithered grain, so the change reads as print or particles turning over rather than a hard line. It suits films built from dots or print texture.",
+  "purpose": "Change from dark to light with an edge that belongs to a print or particle look, instead of a clean line.",
+  "visual_behaviour": "A vertical edge crosses left to right in about a third of a second; the edge is a soft band of light dots thinning into the dark; the incoming headline is already in place under it.",
+  "mechanics": "A vertical edge crosses left to right in about 0.35 s; the edge is a band about 15-20% of the width of light dots thinning into the dark; the incoming headline is already in place under it.",
+  "decomposition": { "primitives": ["seeded-particles", "clip-mask"], "effects": ["mask-wipe"], "timing": "7.50-7.85 s, one use in 15 s." },
+  "parameters": [
+    { "name": "duration", "description": "edge crossing (s)", "default": 0.35 },
+    { "name": "band_width", "description": "dithered band, share of the width", "default": 0.18 }
+  ],
+  "use_cases": ["Dark-to-light act changes in particle or print-texture films"],
+  "failure_modes": ["Unseeded noise flickers between renders", "A wide band turns muddy"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.fx.wipe from the left (about 0.35 s) for the clip, with the hard edge replaced by a band about 18% of the width filled with a seeded dot pattern (Studio.rng, drawn once to a canvas and used as a CSS mask on the incoming layer), so every render is identical. The dithered mask is not built.", "runtime_api": ["Studio.fx.wipe"] },
+  "capability": { "support": "native", "requirements": ["seeded dot mask"], "compatible_components": ["mask-wipe", "edge-wipe", "stepped-grain"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2, "note": "One use in the corpus; kept as its own record because the mechanism (a noise-masked moving edge) differs from bars (random-bar-wipe) and from a striped band (diagonal-band-wipe)." } },
+  "provenance": [
+    { "source_id": "ref-2a6c654bfe", "timestamps": [7.55, 7.65], "observed": "A grain-edged wipe crosses from the left, dark to ivory, in about 0.35 s (7.50-7.85 s)." }
+  ],
+  "related": { "techniques": ["diagonal-band-wipe", "random-bar-wipe", "radar-sweep-reveal"], "effects": ["mask-wipe"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition-cover", "wipe", "dither", "grain", "particles", "dark-to-light", "print", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-27", "updated_at": "2026-11-27" }
+}

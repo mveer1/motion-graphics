@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Golden scene: live simulation trace and bar chart race</title>
+  <!--
+    Golden scene for docs/explanation-devices.md. Copy the pattern, not the words.
+      JOB system-running -> DEVICE simulation (Studio.comp.simulation + Studio.comp.simulationScript: one seeded event list
+                            drives the gauge, the log, the chart and the regime caption, so the views never disagree)
+      JOB rank-over-time -> DEVICE bar-race   (Studio.comp.barRace; numbers here are illustrative and say so on screen)
+    System shown: a token bucket of 8. A burst of 8 requests a second spends it and the rest are refused; refills at
+    2 a second outpace a steady 1 request a second, so it recovers.
+    Original layout and copy; no reference footage, marks or shot sequences.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    .st-scene { background: var(--c-paper); }
+    .stage { position: absolute; inset: 0; }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    .ttl { position: absolute; left: var(--safe-left); top: calc(var(--safe-top) + var(--u) * 4); margin: 0; }
+    #sim { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 26%; bottom: var(--safe-bottom); }
+    #race { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 26%; bottom: calc(var(--safe-bottom) + var(--u) * 4); }
+    #illus { position: absolute; left: var(--safe-left); bottom: var(--safe-bottom); font: 500 calc(var(--u) * 2.6) / 1 var(--font-text); color: var(--c-ink-2); }
+  </style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="18.5">
+  <div class="st-scene" id="sceneA">
+    <div class="stage" id="stageA">
+      <div class="st-kicker kick">Rate limits, part 2</div>
+      <h2 class="st-title ttl" id="titleA">A token bucket, running</h2>
+      <div id="sim"></div>
+    </div>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div class="stage" id="stageB">
+      <div class="st-kicker kick">Rate limits, part 2</div>
+      <h2 class="st-title ttl" id="titleB">Who sends the most</h2>
+      <div id="race"></div>
+      <div id="illus">Illustrative numbers</div>
+    </div>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script src="../../../src/studio/studio-explain.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var C = S.comp;
+  S.show(tl, '#sceneA', 0);
+  S.space.drift(tl, '#stageA', 0, 12.2, { startScale: 1, endScale: 1.02 });
+  tl.fromTo('#titleA', { autoAlpha: 0, y: S.u(1.5) }, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', immediateRender: true }, 0.2);
+
+  // JOB system-running -> simulation: one seeded script; the sim clock runs 1:1 with the film from 0.6 s.
+  var events = C.simulationScript(11, [
+    { from: 2.0, to: 3.9, rate: 8, kind: 'take' },
+    { from: 2.25, to: 10.5, rate: 2, kind: 'refill', jitter: 0 },
+    { from: 5.0, to: 10.5, rate: 1, kind: 'take' }
+  ]);
+  var sim = C.simulation('#sim', {
+    capacity: 8, events: events, duration: 11,
+    labels: { ok: 'allowed', rejected: 'refused', refill: '+1 token' },
+    regimes: [
+      { t: 0, text: 'Full: 8 tokens to spend' },
+      { t: 2.0, text: 'A burst spends them fast' },
+      { t: 3.8, text: 'Empty: extra requests are refused' },
+      { t: 5.6, text: 'Refills outpace a steady trickle' }
+    ]
+  });
+  sim.enter(tl, 0.4);
+  sim.run(tl, 0.6);
+
+  // JOB rank-over-time -> bar-race: steps slow enough to read each overtake.
+  S.crossfade(tl, '#sceneA', '#sceneB', 12.0, 0.5);
+  S.space.drift(tl, '#stageB', 11.8, 18.5, { startScale: 1, endScale: 1.02 });
+  var race = C.barRace('#race', {
+    names: ['Mobile app', 'Web app', 'Partner API', 'Batch jobs', 'Internal tools'],
+    frames: [
+      { label: 'Jan', values: [42, 55, 12, 30, 8] }, { label: 'Feb', values: [50, 54, 20, 31, 9] },
+      { label: 'Mar', values: [61, 52, 31, 29, 11] }, { label: 'Apr', values: [66, 51, 45, 30, 12] },
+      { label: 'May', values: [70, 50, 62, 33, 12] }, { label: 'Jun', values: [72, 49, 80, 35, 13] }
+    ],
+    format: { suffix: 'k' }
+  }, { rows: 5 });
+  race.play(tl, 12.8, { step: 0.7 });
+});
+</script>
+</body>
+</html>

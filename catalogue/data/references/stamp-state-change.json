@@ -1,6 +1,7 @@
 {
   "id": "stamp-state-change",
   "name": "Stamp impact for state changes",
+  "family": "motion-character",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "An inspected explainer marks failures and expiries with labels that slam down like rubber stamps.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A short uppercase state label lands from large scale with a tilt and a tiny squash, sometimes jolting the card it hits. The physical metaphor (an official stamp) makes a state change feel final.",
@@ -16,7 +17,11 @@
   "implementation": { "approach": "Studio.fx.stamp", "runtime_api": ["Studio.fx.stamp"] },
   "capability": { "support": "native", "compatible_components": ["stamp-impact", "paper-pop"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "negligible" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
   "provenance": [
-    { "source_id": "ref-95c96d5c47", "timestamps": [3.42, 35.84], "observed": "DOWN and EXPIRED labels land on hatched cards as a machine fails and a lease runs out." }
+    { "source_id": "ref-95c96d5c47", "timestamps": [3.42, 35.84], "observed": "DOWN and EXPIRED labels land on hatched cards as a machine fails and a lease runs out." },
+    { "source_id": "ref-6f68999b60", "timestamps": [7.92], "observed": "A red stamp-like mark lands on the third problem card together with a sound accent." },
+    { "source_id": "ref-58ff9f39df", "timestamps": [46.75, 49.15], "observed": "Two short uppercase labels land like stamps, tilted, on two bars of a probability chart at 46.75 and 49.15 s." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [6.8], "observed": "A green rotated 'paid' stamp slams onto the counter card (6.77-6.87 s) on the 6.80 s accent." },
+    { "source_id": "ref-9ed4034cad", "timestamps": [1.72, 8.27, 11.28], "observed": "Tilted sticker labels stamp in from large scale with an accent each (1.72, 8.27, 11.28 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -25,5 +30,5 @@
   "related": { "techniques": ["single-stage-progression", "sticker-brutalist-style"], "effects": ["stamp-impact"], "templates": ["technical-explainer", "illustrated-explainer"] },
   "licensing_notes": "Technique only, learned from a user-supplied reference (inspiration-only, rights unknown). Labels and layout are original.",
   "tags": ["stamp", "state", "diagram", "explainer", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

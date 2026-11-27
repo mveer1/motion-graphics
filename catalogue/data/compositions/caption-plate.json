@@ -1,0 +1,33 @@
+{
+  "id": "caption-plate",
+  "name": "Caption plate (film-owned caption band)",
+  "purpose": "One caption plate at a fixed height that the film owns, with the cue texts swapping inside it and the spoken word lit, instead of the runtime's floating per-cue plates (caption-band). For films whose layout reserves a band for captions.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["styled-text"],
+    "effects": ["marker-highlight"],
+    "recipes": []
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "cues", "type": "array", "description": "[{start, end, text, words?}] as `studio.py captions` writes them (window.STUDIO_CAPTIONS); measured words light as they are spoken" },
+    { "name": "band", "type": "{top, bottom} | per-format map", "description": "Fractions of the frame height; default a strip whose bottom edge is the safe bottom. Declare the same fractions in the style template's rules.caption_band" },
+    { "name": "full", "type": "boolean", "default": true, "description": "Edge to edge, or inside the safe sides" },
+    { "name": "hold", "type": "boolean", "default": false, "description": "Keep the plate after the last cue" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-film.js",
+    "api": "Studio.comp.captionBand(parent, cues, {band, full, enterAt, hold, highlight}) -> {el, texts, band, schedule(tl) -> end time}"
+  },
+  "layout_notes": "Band position is a fraction of the frame height per format (Studio.pick map); texts are padded by the safe insets and sized by --fs-caption. Texts carry class st-caption, so motion-qa waives them and the gap audit does not count them as picture changes.",
+  "styles_tested": ["sinew-lab"],
+  "examples": ["tests/studio-runtime/film-helpers.html"],
+  "validation_steps": ["python tests/test-studio-runtime.py (hidden before the first cue, swap inside one plate, word highlight, exit)"],
+  "validation": {
+    "evidence": "Runtime self-test in Playwright Chromium on Windows, 2026-11-24. Not rendered through HyperFrames.",
+    "last_verified": "2026-11-24"
+  },
+  "related": ["caption-band"],
+  "tags": ["composition", "captions", "accessibility", "word-highlight"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-24", "updated_at": "2026-11-24" }
+}

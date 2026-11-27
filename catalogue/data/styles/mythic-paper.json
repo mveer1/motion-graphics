@@ -1,0 +1,99 @@
+{
+  "id": "mythic-paper",
+  "name": "Mythic Paper",
+  "status": "experimental",
+  "mode": "light",
+  "default": false,
+  "description": "Handmade rag paper, deckle-edged cut layers and public-domain photo plates staged as a lamp-lit diorama; mineral pigments (sindoor vermilion, lapis, turmeric, malachite) with gold leaf. Default look of the mythic-tale template.",
+  "location": "src/studio/styles/mythic-paper.css",
+  "tokens": {
+    "colors": {
+      "paper": "#f4ecdd",
+      "paper-2": "#e9dcc3",
+      "ink": "#2b1d14",
+      "ink-2": "#5e4a3a",
+      "rule": "#cdb48e",
+      "accent": "#b0301d",
+      "accent-2": "#1f3f8a",
+      "accent-3": "#a87a12",
+      "gold": "#c8961e"
+    },
+    "typography": {
+      "display": "'Playfair Display', serif",
+      "text": "'EB Garamond', serif",
+      "mono": "'IBM Plex Mono', monospace"
+    },
+    "texture": "Rag-paper fibre (Studio.texture.grain, multiply), deckle edges (#st-deckle / Studio.kit.mythic.sheet), warm lamp vignette",
+    "spacing": "--u = 1% of short side; --gap; safe-area insets per format"
+  },
+  "motion": {
+    "personality": "Reverent and handmade: sheets placed by hand, slow settles, lamp-light breathing; no overshoot on sacred figures",
+    "ease_in": "power2.in",
+    "ease_out": "power3.out",
+    "enter_duration_sec": 0.85,
+    "stagger_sec": 0.09,
+    "notes": "Sacred figures enter by rising or unveiling, never by bouncing. Gold is for leaf, haloes, borders and display type only."
+  },
+  "fonts": [
+    {
+      "family": "Playfair Display",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "EB Garamond",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "source": "hyperframes-bundled",
+      "license": "OFL-1.1"
+    }
+  ],
+  "contrast_checked": [
+    "ink/paper 13.9:1",
+    "ink-2/paper 7.1:1",
+    "accent/paper 5.4:1",
+    "accent-2/paper 8.4:1",
+    "accent-3/paper 3.3:1",
+    "ink/paper-2 12.0:1",
+    "Below 4.5:1 (accent-3/paper 3.3:1): leaf, borders, shapes and display type 24px+ only; never body or caption text"
+  ],
+  "suitable_for": [
+    "myths and legends",
+    "religious and epic retellings",
+    "folk tales",
+    "culture and heritage stories"
+  ],
+  "categories": [
+    "mythology"
+  ],
+  "validation": {
+    "evidence": "Contrast ratios computed from the stylesheet hex values with src/pipeline/colorscience.py (WCAG 2.x), 2026-11-23. Frame-reviewed in Playwright Chromium on Windows through the mythic-film scaffold; not yet rendered through HyperFrames on the M2 host.",
+    "last_verified": "2026-11-23"
+  },
+  "related": [
+    "shadow-lantern",
+    "painted-folio",
+    "carved-relief"
+  ],
+  "tags": [
+    "light",
+    "paper",
+    "collage",
+    "myth",
+    "handmade",
+    "gold-leaf"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  },
+  "avoid_for": [
+    "dense numeric analysis",
+    "breaking news",
+    "playful product explainers"
+  ]
+}

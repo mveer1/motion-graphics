@@ -16,6 +16,9 @@ What the tool does (measurement):            What it does not do (judgement):
   contact sheets, transition and motion strips
   colour palette, static holds, activity
   audio envelope, onsets, tempo estimate, cut/onset alignment
+  (listen) speech word times, pace, pauses        judge what a narration or a sound means
+  (listen) loudness, accent hits vs cuts/speech   keep transcripts (they stay in the cache)
+  (listen) phrase / accent contact sheets
 The analyst (an agent using the reference-analyst skill, or a person) looks at the evidence and
 writes the `analysis`, `techniques` and `rights` blocks; this tool only rewrites `media` and
 `automated`, so re-running it never overwrites authored analysis.
@@ -28,10 +31,12 @@ Usage:
   python scripts/reference-corpus.py ingest <file-or-dir>... [--dry-run]
   python scripts/reference-corpus.py analyze <ref-id>... | --pending | --all  [--force] [--backend auto|browser|ffmpeg]
   python scripts/reference-corpus.py strip <ref-id> --from 3.2 --to 4.4 [--fps 15]
+  python scripts/reference-corpus.py listen <ref-id>... | --pending | --all  [--speech auto|hyperframes|windows|none] [--earshot auto|off]
   python scripts/reference-corpus.py status
   python scripts/reference-corpus.py locate <ref-id>
   python scripts/reference-corpus.py check --name "..." [--tags a,b] [--text "..."]
   python scripts/reference-corpus.py report [--backlog]
+  python scripts/reference-corpus.py playbook [--check]       # grouped index in docs/reference-playbook.md
 Files are found through --root DIR (repeatable) or MOTION_REFERENCE_ROOTS (os.pathsep list).
 """
 
@@ -1066,6 +1071,362 @@ def strip(record: Dict[str, Any], path: Path, decoder, t0: float, t1: float, fps
     return out
 
 
+# =============================================================================== listen
+# Narration pace, sound design and caption evidence. Measurement only, like `analyze`: speech word
+# times (local ASR), loudness (EBU R128), accent hits and their alignment with picture boundaries and
+# with speech. Transcripts stay in the untracked cache; the record gets numbers, never the words.
+LISTEN_VERSION = "1.0"
+PHRASE_GAP = 0.35          # a silence this long between words ends a phrase
+WIN_MIN_CONFIDENCE = 0.2   # Windows dictation emits near-zero-confidence words over music; drop them
+
+WIN_DICTATION_PS = r'''param([Parameter(Mandatory=$true)][string]$Wav, [Parameter(Mandatory=$true)][string]$Out)
+Add-Type -AssemblyName System.Speech
+$src = @"
+using System;
+using System.Globalization;
+using System.Speech.Recognition;
+using System.Text;
+using System.Threading;
+public static class WinDictation {
+  static string Esc(string s) { return s.Replace("\\", "\\\\").Replace("\"", "\\\""); }
+  public static string Run(string wav) {
+    var sb = new StringBuilder();
+    sb.Append("[");
+    bool first = true;
+    var done = new ManualResetEvent(false);
+    using (var eng = new SpeechRecognitionEngine(new CultureInfo("en-US"))) {
+      eng.LoadGrammar(new DictationGrammar());
+      eng.SetInputToWaveFile(wav);
+      eng.SpeechRecognized += (s, e) => {
+        var r = e.Result;
+        var p0 = r.Audio != null ? r.Audio.AudioPosition : TimeSpan.Zero;
+        foreach (var w in r.Words) {
+          var a = r.GetAudioForWordRange(w, w);
+          if (!first) sb.Append(",");
+          first = false;
+          sb.AppendFormat(CultureInfo.InvariantCulture, "{{\"text\":\"{0}\",\"start\":{1:0.000},\"end\":{2:0.000},\"confidence\":{3:0.00}}}",
+            Esc(w.Text), (p0 + a.AudioPosition).TotalSeconds, (p0 + a.AudioPosition + a.Duration).TotalSeconds, w.Confidence);
+        }
+      };
+      eng.RecognizeCompleted += (s, e) => done.Set();
+      eng.RecognizeAsync(RecognizeMode.Multiple);
+      done.WaitOne();
+    }
+    sb.Append("]");
+    return sb.ToString();
+  }
+}
+"@
+Add-Type -TypeDefinition $src -ReferencedAssemblies System.Speech
+[IO.File]::WriteAllText($Out, [WinDictation]::Run($Wav))
+'''
+
+
+def parse_ebur128(text: str) -> Optional[Dict[str, Any]]:
+    """Integrated loudness, loudness range and true peak from FFmpeg's ebur128 summary."""
+    if "Summary:" not in text:
+        return None
+    tail = text[text.rfind("Summary:"):]
+
+    def grab(label: str, unit: str) -> Optional[float]:
+        m = re.search(rf"\b{label}:\s*(-?[0-9.]+|-inf)\s*{unit}", tail)
+        return None if not m or m.group(1) == "-inf" else float(m.group(1))
+    return {"integrated_lufs": grab("I", "LUFS"), "lra_lu": grab("LRA", "LU"), "true_peak_dbtp": grab("Peak", "dBFS")}
+
+
+def measure_loudness(path: Path) -> Optional[Dict[str, Any]]:
+    ff = shutil.which("ffmpeg")
+    if not ff:
+        return None
+    r = subprocess.run([ff, "-hide_banner", "-nostdin", "-i", str(path), "-vn", "-af", "ebur128=peak=true", "-f", "null", "-"],
+                       capture_output=True, text=True, errors="replace")
+    res = parse_ebur128(r.stderr)
+    if res:
+        res["method"] = "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+    return res
+
+
+def transcribe_hyperframes(path: Path) -> Tuple[Optional[List[Dict[str, Any]]], str]:
+    """Word times from `hyperframes transcribe` (whisper.cpp or Parakeet). None when no recogniser is installed."""
+    import tempfile
+    exe = shutil.which("hyperframes.cmd") or shutil.which("hyperframes")
+    if not exe:
+        return None, "hyperframes not on PATH"
+    with tempfile.TemporaryDirectory(prefix="ref-asr-") as tmp:
+        r = subprocess.run([exe, "transcribe", str(path.resolve()), "--dir", tmp, "--json", "--no-runtime-install"],
+                           capture_output=True, text=True, errors="replace", stdin=subprocess.DEVNULL)
+        out = Path(tmp) / "transcript.json"
+        if r.returncode != 0 or not out.exists():
+            last = (r.stdout or r.stderr or "").strip().splitlines()[-1:] or [""]
+            return None, f"hyperframes transcribe unavailable: {last[0][:160]}"
+        return [{"text": w["text"], "start": float(w["start"]), "end": float(w["end"])} for w in load_json(out)], "hyperframes transcribe"
+
+
+def transcribe_windows(path: Path, work_dir: Path) -> Tuple[Optional[List[Dict[str, Any]]], str]:
+    """Word times from the Windows desktop dictation recogniser (System.Speech, en-US). Rough but local and offline."""
+    ff = shutil.which("ffmpeg")
+    ps = shutil.which("powershell") or shutil.which("pwsh")
+    if os.name != "nt" or not ff or not ps:
+        return None, "windows dictation needs Windows, PowerShell and ffmpeg"
+    wav, script, out = work_dir / "speech16k.wav", work_dir / "win-dictation.ps1", work_dir / "words-raw.json"
+    r = subprocess.run([ff, "-v", "error", "-nostdin", "-y", "-i", str(path), "-vn", "-ac", "1", "-ar", "16000", "-sample_fmt", "s16", str(wav)],
+                       capture_output=True, text=True, errors="replace")
+    if r.returncode:
+        return None, f"audio extraction failed: {r.stderr[-160:]}"
+    script.write_text(WIN_DICTATION_PS, encoding="utf-8")
+    r = subprocess.run([ps, "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(script), "-Wav", str(wav.resolve()), "-Out", str(out.resolve())],
+                       capture_output=True, text=True, errors="replace")
+    wav.unlink(missing_ok=True)
+    if r.returncode or not out.exists():
+        return None, f"windows dictation failed: {(r.stderr or r.stdout)[-200:]}"
+    return json.loads(out.read_text(encoding="utf-8-sig") or "[]"), "windows-system-speech (en-US desktop dictation)"
+
+
+def phrases_from_words(words: List[Dict[str, Any]], gap: float = PHRASE_GAP) -> List[Dict[str, Any]]:
+    out: List[Dict[str, Any]] = []
+    for w in sorted(words, key=lambda w: w["start"]):
+        if out and w["start"] - out[-1]["end"] <= gap:
+            out[-1]["end"] = max(out[-1]["end"], w["end"])
+            out[-1]["words"] += 1
+        else:
+            out.append({"start": w["start"], "end": w["end"], "words": 1})
+    return out
+
+
+def speech_metrics(words: List[Dict[str, Any]], duration: float, scenes: List[Dict[str, Any]],
+                   boundaries: List[float], gap: float = PHRASE_GAP) -> Dict[str, Any]:
+    """Pace of the spoken words: rates, pauses, the pace curve and where picture boundaries fall against speech.
+    `narration` is a first read for the analyst: narrated (sustained voice), sparse (a few phrases, possibly
+    recogniser false positives over music) or none."""
+    if not words:
+        return {"present": False, "words": 0, "narration": "none"}
+    ph = phrases_from_words(words, gap)
+    s0, s1 = ph[0]["start"], ph[-1]["end"]
+    span = max(1e-6, s1 - s0)
+    talk = sum(p["end"] - p["start"] for p in ph)
+    n = len(words)
+    narration = "narrated" if n >= 0.8 * duration and talk >= 0.25 * duration else ("sparse" if n >= 5 else "none")
+    thirds = []
+    for k in range(3):
+        a, b = s0 + span * k / 3, s0 + span * (k + 1) / 3
+        thirds.append(round(sum(1 for w in words if a <= w["start"] < b or (k == 2 and w["start"] == b)) / (span / 3), 2))
+    ratio = thirds[2] / thirds[0] if thirds[0] else None
+    trend = "steady" if ratio is None or 0.87 <= ratio <= 1.15 else ("accelerates" if ratio > 1.15 else "slows")
+    pauses = [(ph[i]["end"], ph[i + 1]["start"]) for i in range(len(ph) - 1)]
+    plen = [b - a for a, b in pauses]
+    per_scene = []
+    for s in scenes:
+        k = sum(1 for w in words if s["start"] <= w["start"] < s["end"])
+        per_scene.append({"index": s["index"], "words": k, "wps": round(k / max(1e-6, s["end"] - s["start"]), 2)})
+    inside = [b for b in boundaries if s0 <= b <= s1]
+    in_pause = [b for b in inside if any(a <= b <= c for a, c in pauses)]
+    leads = []
+    for b in in_pause:
+        nxt = [p["start"] for p in ph if p["start"] >= b]
+        if nxt:
+            leads.append((nxt[0] - b) * 1000)
+    return {
+        "present": True,
+        "narration": narration,
+        "words": n,
+        "phrases": len(ph),
+        "speech_start": round(s0, 2),
+        "speech_end": round(s1, 2),
+        "speech_coverage": round(talk / max(1e-6, duration), 2),
+        "wps_while_speaking": round(n / max(1e-6, talk), 2),
+        "wpm_over_span": round(n / span * 60),
+        "pace_thirds_wps": thirds,
+        "pace_trend": trend,
+        "phrase_words_median": float(np.median([p["words"] for p in ph])),
+        "phrase_sec_median": round(float(np.median([p["end"] - p["start"] for p in ph])), 2),
+        "pauses": {"count": len(plen), "median_ms": round(float(np.median(plen)) * 1000) if plen else None,
+                   "max_ms": round(max(plen) * 1000) if plen else None,
+                   "at": [round(a, 2) for a, _ in pauses][:40]},
+        "per_scene": per_scene,
+        "boundaries_vs_speech": {
+            "in_speech_span": len(inside),
+            "in_pause_share": round(len(in_pause) / len(inside), 2) if inside else None,
+            "chance_level": round(sum(plen) / span, 2) if inside else None,
+            "next_phrase_after_ms_median": round(float(np.median(leads))) if leads else None,
+        },
+    }
+
+
+def sound_metrics(x, sr: int, duration: float, boundaries: List[float], phrases: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Model-free sound design read: accent hits, where they land, density with and without speech, the level under speech."""
+    n_fft, hop = 1024, 256
+    if x is None or len(x) < n_fft * 2 or float(np.max(np.abs(x))) < 1e-4:
+        return {"present": False}
+    frames = np.lib.stride_tricks.sliding_window_view(x, n_fft)[::hop]
+    db = 20 * np.log10(np.sqrt(np.mean(frames ** 2, axis=1) + 1e-12) + 1e-9)
+    t = (np.arange(len(db)) * hop + n_fft / 2) / sr
+    spec = np.log1p(np.abs(np.fft.rfft(frames * np.hanning(n_fft).astype(np.float32), axis=1)) * 10)
+    flux = np.concatenate([[0], np.maximum(0, np.diff(spec, axis=0)).sum(axis=1)])
+    flux = flux / (np.max(flux) + 1e-9)
+    m, min_gap = 7, int(0.08 * sr / hop)
+    med = np.array([np.median(flux[max(0, i - m): i + m + 1]) for i in range(len(flux))])
+    onsets, last = [], -min_gap
+    for i in range(1, len(flux) - 1):
+        if flux[i] > med[i] + 0.08 and flux[i] >= flux[i - 1] and flux[i] >= flux[i + 1] and db[i] > -50 and i - last >= min_gap:
+            onsets.append((float(t[i]), float(flux[i] - med[i])))
+            last = i
+    strengths = [s for _, s in onsets]
+    # Top quintile, capped at 60 % of the strongest onset so a film of equally strong hits keeps them all.
+    cut = max(0.2, min(float(np.percentile(strengths, 80)), 0.6 * max(strengths))) if strengths else 1.0
+    accents = [o for o, s in onsets if s >= cut]
+    tol = 0.1
+    acc_rate = len(accents) / max(1e-6, duration)
+    near = [b for b in boundaries if accents and min(abs(b - a) for a in accents) <= tol]
+
+    def in_speech(tt: float) -> bool:
+        return any(p["start"] <= tt <= p["end"] for p in phrases)
+    talk = sum(p["end"] - p["start"] for p in phrases)
+    on_speech = sum(1 for o, _ in onsets if in_speech(o))
+    sp_mask = np.array([in_speech(float(tt)) for tt in t]) if phrases else np.zeros(len(t), bool)
+    span_mask = (t >= phrases[0]["start"]) & (t <= phrases[-1]["end"]) if phrases else np.zeros(len(t), bool)
+    gap_mask = span_mask & ~sp_mask & (db > -70)
+    silent = db < -50
+    runs, start = [], None
+    for i, s in enumerate(silent):
+        if s and start is None:
+            start = i
+        if (not s or i == len(silent) - 1) and start is not None:
+            a, b = float(t[start]), float(t[i])
+            if b - a >= 0.3:
+                runs.append([round(a, 2), round(b, 2)])
+            start = None
+    head, tail = db[t <= duration * 0.1], db[t >= duration * 0.9]
+    return {
+        "present": True,
+        "onsets": len(onsets),
+        "accents": len(accents),
+        "accents_per_min": round(acc_rate * 60, 1),
+        "accent_times": [round(a, 2) for a in accents][:80],
+        "accent_threshold": round(cut, 2),
+        "boundaries_with_accent": {"boundaries": len(boundaries), "share": round(len(near) / len(boundaries), 2) if boundaries else None,
+                                   "tolerance_ms": int(tol * 1000), "chance_level": round(1 - math.exp(-acc_rate * 2 * tol), 2)},
+        "onset_rate_during_speech": round(on_speech / talk, 2) if talk > 0.5 else None,
+        "onset_rate_outside_speech": round((len(onsets) - on_speech) / max(1e-6, duration - talk), 2),
+        "level_speech_minus_gaps_db": round(float(np.median(db[sp_mask]) - np.median(db[gap_mask])), 1)
+        if sp_mask.any() and gap_mask.sum() > 8 else None,
+        "sustained_share": round(float(np.mean(db > -45)), 2),
+        "silences": runs[:20],
+        "level_head_vs_body_db": round(float(np.median(head) - np.median(db)), 1) if len(head) else None,
+        "level_tail_vs_body_db": round(float(np.median(tail) - np.median(db)), 1) if len(tail) else None,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames",
+    }
+
+
+def earshot_ready() -> Tuple[Optional[Path], str]:
+    exe = REPO_ROOT / ".venv" / ("Scripts/earshot.exe" if os.name == "nt" else "bin/earshot")
+    if not exe.exists():
+        return None, "earshot not installed in .venv"
+    r = subprocess.run([str(exe), "doctor", "--json"], capture_output=True, text=True, errors="replace")
+    try:
+        cached = json.loads(r.stdout).get("models_cached", {})
+    except ValueError:
+        return None, "earshot doctor gave no JSON"
+    if cached and all(cached.values()):
+        return exe, "models cached"
+    return None, "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+
+
+def listen_sheet(record: Dict[str, Any], decoder, phrases: List[Dict[str, Any]], words: List[Dict[str, Any]],
+                 accents: List[float], out_dir: Path) -> Optional[Path]:
+    """Rows of frames to check captions and sync: each phrase at start / middle / end, or each accent hit at -0.1 / 0 / +0.1 s.
+    The decoder must already have the file open."""
+    media = record["media"]
+    dur, fps = float(media["duration_sec"]), float(media.get("fps") or 30)
+    last = (int(math.floor(dur * fps)) - 0.5) / fps
+    if int(media.get("height") or 0) > int(media.get("width") or 0):
+        # Portrait: one frame per phrase or hit in a grid; three-frame rows of tall frames are unreadable.
+        ts, labels = [], []
+        for k, p in enumerate(phrases[:12]):
+            ts.append(round(min(last, (p["start"] + p["end"]) / 2), 3))
+            labels.append(f"P{k + 1} {p['start']:.1f}-{p['end']:.1f}s")
+        for a in accents[:20]:
+            ts.append(round(min(last, a), 3))
+            labels.append(f"hit {a:.2f}s")
+        if not ts:
+            return None
+        out = out_dir / "listen.jpg"
+        grid_sheet(decoder.frames(ts, 200), labels, f"{record['id']} listen: phrase middles (P) then strongest sound onsets (hit)",
+                   out, cols=8, cell_w=150)
+        return out
+    rows = []
+    for k, p in enumerate(phrases[:12]):
+        ts = [round(min(last, x), 3) for x in (p["start"] + 0.05, (p["start"] + p["end"]) / 2, max(p["start"], p["end"] - 0.05))]
+        said = " ".join(w["text"] for w in words if p["start"] <= w["start"] <= p["end"])[:70]
+        rows.append((f"phrase {k + 1} {p['start']:.2f}-{p['end']:.2f}s {p['words']} words: {said}", decoder.frames(ts, 220),
+                     [f"{x:.2f}" for x in ts]))
+    for a in accents[:12]:
+        ts = [round(min(last, max(0.0, a + d)), 3) for d in (-0.1, 0.0, 0.1)]
+        rows.append((f"accent hit {a:.2f}s (-0.1 / 0 / +0.1 s)", decoder.frames(ts, 220), [f"{x:.2f}" for x in ts]))
+    title = f"{record['id']} listen: frames while each phrase is spoken, then on the strongest sound onsets"
+    if not rows:
+        return None
+    out = out_dir / "listen.jpg"
+    rows_sheet(rows, title, out, 220)
+    return out
+
+
+def listen(record: Dict[str, Any], path: Path, decoder, speech: str = "auto", use_earshot: str = "auto",
+           cache_dir: Path = CACHE_DIR, log=print) -> Dict[str, Any]:
+    auto = record.get("automated") or {}
+    media = record["media"]
+    dur = float(media["duration_sec"])
+    out_dir = cache_dir / record["id"] / "listen"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    bounds = [b["t"] for b in auto.get("boundaries", [])]
+    result: Dict[str, Any] = {"version": LISTEN_VERSION, "run_on": today(), "boundaries_from_analyzer": auto.get("analyzer", {}).get("version")}
+    if not media.get("audio"):
+        result.update({"audio": False, "method": "no audio track"})
+        return result
+    result["loudness"] = measure_loudness(path)
+    words, engine, notes = None, None, []
+    if speech in ("auto", "hyperframes"):
+        words, engine = transcribe_hyperframes(path)
+        if words is None:
+            notes.append(engine)
+    if words is None and speech in ("auto", "windows"):
+        raw, engine = transcribe_windows(path, out_dir)
+        if raw is None:
+            notes.append(engine)
+        else:
+            words = [w for w in raw if w.get("confidence", 1) >= WIN_MIN_CONFIDENCE]
+            result["speech_raw_words"] = len(raw)
+    if words is not None:
+        save_json(out_dir / "words.json", {"engine": engine, "words": words, "note": "untracked cache: third-party narration text"})
+    sp = speech_metrics(words or [], dur, auto.get("scenes", []), bounds)
+    sp["engine"] = engine if words is not None else None
+    if notes:
+        sp["notes"] = notes
+    log(f"  speech: {sp.get('words', 0)} words ({sp['engine'] or 'no recogniser'})")
+    phrases = phrases_from_words(words or [])
+    decoder.open(path)
+    x = decoder.audio(11025)
+    snd = sound_metrics(x, 11025, dur, bounds, phrases)
+    log(f"  sound: {snd.get('accents', 0)} accents, {snd.get('onsets', 0)} onsets")
+    result.update({"audio": True, "speech": sp, "sound": snd})
+    if use_earshot == "auto":
+        exe, why = earshot_ready()
+        if exe:
+            cues = ",".join(f"{b:.3f}" for b in bounds) or "0"
+            r = subprocess.run([str(exe), "timeline", str(path), "--cues", cues, "--detail", "normal", "--out", str(out_dir / "earshot-timeline.json")],
+                               capture_output=True, text=True, errors="replace")
+            subprocess.run([str(exe), "sheet", str(path), "-o", str(out_dir / "earshot-sheet.png"), "--cues", cues, "--detail", "low"],
+                           capture_output=True, text=True, errors="replace")
+            result["earshot"] = {"state": "run" if r.returncode == 0 else "failed", "artifacts": rel(out_dir)}
+        else:
+            result["earshot"] = {"state": "not-run", "reason": why}
+    sheet = listen_sheet(record, decoder, phrases, words or [], snd.get("accent_times", []), out_dir)
+    result["method"] = ("loudness via ffmpeg ebur128; speech word times via " + (sp["engine"] or "no recogniser") +
+                        "; accents and levels from signal features; nothing was listened to by a person")
+    result["artifacts"] = {"cache_dir": rel(out_dir), "sheet": rel(sheet) if sheet else None,
+                           "words": rel(out_dir / "words.json") if words is not None else None, "tracked": False}
+    return result
+
+
 # =============================================================================== duplicates check
 STOP = set("a an and the of to in on for with by from into as at is are be or its it that this then than".split())
 
@@ -1195,6 +1556,8 @@ def cmd_analyze(args) -> int:
             auto = analyse(rec, path, dec)
             auto["analyzer"]["elapsed_sec"] = round((_dt.datetime.now() - started).total_seconds(), 1)
             print(f"  analysed in {auto['analyzer']['elapsed_sec']}s")
+            if (rec.get("automated") or {}).get("listen"):
+                auto["listen"] = rec["automated"]["listen"]  # written by `listen`; re-run it if the boundaries moved
             rec["automated"] = auto
             if rec.get("analysis", {}).get("state") in (None, "pending"):
                 rec["analysis"] = {"state": "automated"}
@@ -1206,6 +1569,48 @@ def cmd_analyze(args) -> int:
                 continue
             save_json(SOURCES_DIR / f"{rec['id']}.json", rec)
             print(f"  -> {auto['artifacts']['overview']} (+ scenes, transitions, motion, audio)")
+    finally:
+        dec.close()
+    return 1 if failed else 0
+
+
+def cmd_listen(args) -> int:
+    sources = load_sources()
+    if args.all or args.pending:
+        todo = [r for r in sources.values() if r.get("automated")]
+        if args.pending:
+            todo = [r for r in todo if (r["automated"].get("listen") or {}).get("version") != LISTEN_VERSION]
+    else:
+        missing = [i for i in args.ids if i not in sources]
+        if missing:
+            raise SystemExit(f"Unknown reference id(s): {', '.join(missing)}")
+        todo = [sources[i] for i in args.ids]
+    unanalysed = [r["id"] for r in todo if not r.get("automated")]
+    if unanalysed:
+        raise SystemExit(f"Run `analyze` first (no picture boundaries yet): {', '.join(unanalysed)}")
+    if not todo:
+        print("Nothing to listen to (every analysed record has a current listen block; give ids to redo).")
+        return 0
+    roots = reference_roots(args.root)
+    dec = make_decoder(args.backend, args.channel)
+    failed = 0
+    try:
+        for rec in todo:
+            path = locate(rec, roots)
+            if not path:
+                print(f"{rec['id']}: file '{rec['source']['filename']}' not found in roots {[str(r) for r in roots]}")
+                failed += 1
+                continue
+            print(f"{rec['id']}: {path.name}")
+            rec["automated"]["listen"] = listen(rec, path, dec, speech=args.speech, use_earshot=args.earshot)
+            rec["metadata"]["updated_at"] = today()
+            errs = validate_source(rec)
+            if errs:
+                print(f"  [FAIL] record invalid after listen: {errs[:3]}")
+                failed += 1
+                continue
+            save_json(SOURCES_DIR / f"{rec['id']}.json", rec)
+            print(f"  -> {rec['automated']['listen'].get('artifacts', {}).get('sheet')}")
     finally:
         dec.close()
     return 1 if failed else 0
@@ -1231,12 +1636,13 @@ def cmd_strip(args) -> int:
 def cmd_status(args) -> int:
     sources = load_sources()
     techs = load_techniques()
-    print(f"{'id':15} {'status':12} {'analysis':10} {'dur':>7} {'size':11} {'scenes':>6} {'tech':>4}  name")
+    print(f"{'id':15} {'status':12} {'analysis':10} {'dur':>7} {'size':11} {'scenes':>6} {'tech':>4} {'lsn':>3}  name")
     for r in sources.values():
         m = r["media"]
         sc = len(r.get("automated", {}).get("scenes", [])) if r.get("automated") else "-"
+        ls = "yes" if (r.get("automated") or {}).get("listen") else "-"
         print(f"{r['id']:15} {r['status']:12} {r.get('analysis', {}).get('state', '?'):10} {m['duration_sec']:7.2f} "
-              f"{str(m['width']) + 'x' + str(m['height']):11} {sc:>6} {len(r.get('techniques', [])):>4}  {r['name'][:60]}")
+              f"{str(m['width']) + 'x' + str(m['height']):11} {sc:>6} {len(r.get('techniques', [])):>4} {ls:>3}  {r['name'][:60]}")
     linked = {t["id"] for r in sources.values() for t in r.get("techniques", [])}
     print(f"\n{len(sources)} references, {len(techs)} technique records ({len(linked)} linked from references).")
     return 0
@@ -1271,6 +1677,126 @@ def cmd_check(args) -> int:
 
 
 SUPPORT_ORDER = ["native", "approximation", "additional-dependencies", "resource-constrained", "research-required"]
+
+PLAYBOOK = REPO_ROOT / "docs" / "reference-playbook.md"
+PLAYBOOK_BEGIN = "<!-- BEGIN GENERATED: python scripts/reference-corpus.py playbook (do not edit between these markers) -->"
+PLAYBOOK_END = "<!-- END GENERATED -->"
+FAMILIES = [
+    ("transition-cut", "Transitions: the cut carries the change", "Hard cuts made meaningful: on the beat, on a matching shape, through a flash."),
+    ("transition-grow", "Transitions: an element grows into the next scene", "A dot, a letter, a mark or a card expands until it becomes the next frame."),
+    ("transition-cover", "Transitions: something covers or wipes the frame", "Liquid, curtains, an eyelid, a collapse to a line, a ripple across a grid."),
+    ("transition-continuous", "Transitions without a cut", "One stage that evolves, a breath on the empty stage, a line or shape that persists."),
+    ("kinetic-typography", "Kinetic typography", "Words as the picture: per-beat words, builds, rolls, strikes, scrambles, structures."),
+    ("motion-character", "Motion character", "How things move: squash, smear, stamps, trails, pens, particles."),
+    ("staging-depth", "Staging and depth", "Space and framing: CSS 3D, layered stages, exploded views, HUD frames."),
+    ("explanation-device", "Explanation devices", "Diagrams, UI demos, trackers, callouts, fills."),
+    ("style-texture", "Style and texture systems", "Whole-look systems: collage, stickers, cut paper, line boil."),
+    ("sound-design", "Sound design against the picture", "Where effects, music and silence land relative to what the viewer sees."),
+    ("narration-captions", "Narration and captions", "Voice pace and the on-screen words that carry speech."),
+]
+
+
+def _lifecycle(t: Dict[str, Any]) -> str:
+    v = t.get("validation", {}).get("state", "none")
+    if t.get("status") == "approved":
+        return "approved"
+    if v in ("preview", "render"):
+        return f"tested ({v})"
+    return {"observed": "observed", "documented": "specified", "prototyped": "prototyped", "implemented": "implemented"}.get(
+        t.get("implementation_state", ""), "?")
+
+
+def _one(text: str) -> str:
+    return " ".join(str(text or "").split())
+
+
+def playbook_markdown(sources: Dict[str, Dict[str, Any]], techs: Dict[str, Dict[str, Any]]) -> str:
+    inspected = [r for r in sources.values() if r.get("analysis", {}).get("state") in ("inspected", "reviewed")]
+    listened = [r for r in sources.values() if (r.get("automated") or {}).get("listen")]
+    batches: Dict[str, int] = {}
+    for r in inspected:
+        b = next((t for t in r.get("tags", []) if t.startswith("batch-")), "before batches")
+        batches[b] = batches.get(b, 0) + 1
+    used: Dict[str, List[Tuple[str, float]]] = {}
+    for r in sources.values():
+        for t in r.get("techniques", []):
+            used.setdefault(t["id"], []).append((r["id"], t["timestamps"][0] if t["timestamps"] else 0.0))
+    fam_of = {tid: t.get("family", "unassigned") for tid, t in techs.items()}
+    out = [PLAYBOOK_BEGIN, "",
+           "## Corpus at a glance", "",
+           f"- {len(sources)} reference videos registered; {len(inspected)} inspected; {len(listened)} with a `listen` block (speech, loudness, accents).",
+           "- Inspected by batch: " + ", ".join(f"{k}: {v}" for k, v in sorted(batches.items())) + ".",
+           f"- {len(techs)} technique records in {len({f for f in fam_of.values()})} families. Records: `catalogue/data/references/`; sources: `catalogue/data/reference-sources/`; local evidence sheets: `reference/analysis/<ref-id>/` (untracked).",
+           "", "| family | techniques | most used (references) |", "| --- | --- | --- |"]
+    for fid, title, _ in FAMILIES:
+        ids = sorted((t for t in techs if fam_of[t] == fid), key=lambda t: -len(used.get(t, [])))
+        if ids:
+            top = ", ".join(f"`{t}` ({len(used.get(t, []))})" for t in ids[:3])
+            out.append(f"| [{title}](#{fid}) | {len(ids)} | {top} |")
+    for fid, title, blurb in FAMILIES:
+        ids = sorted((t for t in techs if fam_of[t] == fid), key=lambda t: (-len(used.get(t, [])), t))
+        if not ids:
+            continue
+        out += ["", f'<a id="{fid}"></a>', f"## {title}", "", blurb]
+        for tid in ids:
+            t = techs[tid]
+            cap = t.get("capability", {})
+            impl = t.get("implementation", {})
+            runtime = ", ".join(impl.get("runtime_api", []) or t.get("implemented_by", [])) or "not built yet"
+            seen = used.get(tid, [])
+            out += ["", f"### `{tid}`: {t['name']}",
+                    f"- **Lifecycle** {_lifecycle(t)}; support {cap.get('support', '-')}; seen in {len(seen)} reference(s). "
+                    f"Record: [`{tid}.json`](../catalogue/data/references/{tid}.json)",
+                    f"- **What:** {_one(t.get('technique'))}"]
+            how = t.get("mechanics") or impl.get("approach")
+            if how:
+                out.append(f"- **Recreate:** {_one(how)}")
+            if t.get("decomposition", {}).get("timing"):
+                out.append(f"- **Timing:** {_one(t['decomposition']['timing'])}")
+            out.append(f"- **Runtime:** {runtime}")
+            if seen:
+                out.append("- **Precedents:** " + "; ".join(f"`{s}` at {ts:g} s" for s, ts in seen[:8]))
+            if t.get("failure_modes"):
+                out.append("- **Watch out:** " + " / ".join(_one(f) for f in t["failure_modes"][:2]))
+    out += ["", "## Sound, narration and pace by reference", "",
+            "From `automated.listen` (signal features and local speech recognition; nobody listened). Accents = strongest sound onsets; "
+            "'on cuts' = share of picture boundaries with an accent within 100 ms, chance level in brackets.", "",
+            "| reference | s | LUFS | LRA | TP dBTP | accents/min | accents on cuts | narration | words/s speaking |",
+            "| --- | ---: | ---: | ---: | ---: | ---: | --- | --- | ---: |"]
+    for r in sorted(listened, key=lambda r: r["id"]):
+        li = r["automated"]["listen"]
+        ld, sn, sp = li.get("loudness") or {}, li.get("sound") or {}, li.get("speech") or {}
+        bw = sn.get("boundaries_with_accent") or {}
+        on_cuts = f"{bw['share']} ({bw['chance_level']})" if bw.get("share") is not None else "-"
+        out.append(f"| `{r['id']}` {_one(r['name'])[:48]} | {r['media']['duration_sec']:.0f} | {ld.get('integrated_lufs', '-')} | {ld.get('lra_lu', '-')} | "
+                   f"{ld.get('true_peak_dbtp', '-')} | {sn.get('accents_per_min', '-')} | {on_cuts} | {sp.get('narration', 'no audio' if not li.get('audio') else '-')} | "
+                   f"{sp.get('wps_while_speaking', '-') if sp.get('narration') == 'narrated' else '-'} |")
+    out += ["", "## Transition census by reference", "",
+            "| reference | cuts | soft | transition families used |", "| --- | ---: | ---: | --- |"]
+    for r in sorted(inspected, key=lambda r: r["id"]):
+        b = (r.get("automated") or {}).get("boundaries", [])
+        fams = sorted({fam_of.get(t["id"], "?") for t in r.get("techniques", []) if fam_of.get(t["id"], "").startswith("transition")})
+        out.append(f"| `{r['id']}` {_one(r['name'])[:56]} | {sum(x['kind'] == 'cut' for x in b)} | {sum(x['kind'] == 'soft' for x in b)} | {', '.join(fams) or '-'} |")
+    out += ["", PLAYBOOK_END]
+    return "\n".join(out) + "\n"
+
+
+def cmd_playbook(args) -> int:
+    body = playbook_markdown(load_sources(), load_techniques())
+    text = PLAYBOOK.read_text(encoding="utf-8") if PLAYBOOK.exists() else ""
+    if PLAYBOOK_BEGIN in text and PLAYBOOK_END in text:
+        new = text[:text.index(PLAYBOOK_BEGIN)] + body.rstrip("\n") + text[text.index(PLAYBOOK_END) + len(PLAYBOOK_END):]
+    else:
+        new = (text.rstrip("\n") + "\n\n" if text else "# Reference playbook\n\n") + body
+    if args.check:
+        if new != text:
+            print(f"{rel(PLAYBOOK)} is stale: run python scripts/reference-corpus.py playbook")
+            return 1
+        print(f"{rel(PLAYBOOK)} is current.")
+        return 0
+    PLAYBOOK.write_text(new, encoding="utf-8")
+    print(f"wrote {rel(PLAYBOOK)}")
+    return 0
 
 
 def cmd_report(args) -> int:
@@ -1329,6 +1855,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     p.add_argument("--fps", type=float, default=12)
     p.add_argument("--width", type=int, default=200)
     common(p)
+    p = sub.add_parser("listen", help="narration pace, sound accents, loudness and caption sheets (after analyze)")
+    p.add_argument("ids", nargs="*")
+    p.add_argument("--all", action="store_true")
+    p.add_argument("--pending", action="store_true", help="only analysed records without a current listen block")
+    p.add_argument("--speech", choices=["auto", "hyperframes", "windows", "none"], default="auto",
+                   help="word-time recogniser: hyperframes transcribe, else Windows dictation (auto), or none")
+    p.add_argument("--earshot", choices=["auto", "off"], default="auto", help="earshot timeline + sheet when its models are cached")
+    common(p)
     sub.add_parser("status", help="corpus table")
     p = sub.add_parser("locate", help="resolve a record to its file")
     p.add_argument("id")
@@ -1339,19 +1873,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     p.add_argument("--text")
     p = sub.add_parser("report", help="technique frequency across the corpus; --backlog for unsupported work")
     p.add_argument("--backlog", action="store_true")
+    p = sub.add_parser("playbook", help="regenerate the grouped technique index in docs/reference-playbook.md")
+    p.add_argument("--check", action="store_true", help="exit 1 when the generated section is stale")
     args = ap.parse_args(argv)
     if not args.cmd:
         ap.print_help()
         return 0
-    if args.cmd in ("analyze", "strip") and (np is None or Image is None):
+    if args.cmd in ("analyze", "strip", "listen") and (np is None or Image is None):
         print("Error: analysis needs numpy and Pillow.")
         return 2
     if args.cmd == "analyze" and not (args.ids or args.all or args.pending):
         print("Give reference ids, --pending or --all.")
         return 2
+    if args.cmd == "listen" and not (args.ids or args.all or args.pending):
+        print("Give reference ids, --pending or --all.")
+        return 2
     handler = {"doctor": cmd_doctor, "ingest": cmd_ingest, "analyze": cmd_analyze, "strip": cmd_strip, "status": cmd_status,
-               "locate": cmd_locate, "check": cmd_check, "report": cmd_report}[args.cmd]
-    if args.cmd in ("doctor", "analyze", "strip"):  # these start a Chromium or ffmpeg decoder: one heavy job at a time on 8 GB
+               "locate": cmd_locate, "check": cmd_check, "report": cmd_report, "listen": cmd_listen, "playbook": cmd_playbook}[args.cmd]
+    if args.cmd in ("doctor", "analyze", "strip", "listen"):  # these start a Chromium or ffmpeg decoder (listen also ASR): one heavy job at a time on 8 GB
         sys.path.insert(0, str(REPO_ROOT / "src"))
         from pipeline.hostlock import heavy_lock
         with heavy_lock("analysis", slug="reference-corpus"):

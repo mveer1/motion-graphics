@@ -1,0 +1,30 @@
+{
+  "id": "gravity-letter-drop",
+  "name": "Gravity letter drop and topple",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-3, 2026-11-26): a pencil-on-paper launch film drops a headline's letters in from above and later topples them out of frame.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The letters of a headline fall into place one by one from above with a small bounce, and later lose their footing and topple out of frame with rotation. Gravity makes the words feel like physical objects, and the exit undoes the entrance.",
+  "purpose": "Make words feel like physical objects; the exit undoes the entrance, which suits undoing a claim.",
+  "visual_behaviour": "Letters fall into place one by one with a small bounce and seeded tilt; later each letter loses its footing, rotates and falls out of frame.",
+  "mechanics": "Entrance: each letter falls from y = -120% of the line height to 0 (power2.in), then a 6-10% bounce (back.out), with rotation from a seeded 10-20 degrees to 0; stagger about 0.03 s; a two-line headline lands in 0.3 s (ref-2860712d4e 6.78-7.06 s, 30 fps sheet). Exit: each letter takes a seeded rotation of 30-90 degrees and falls to y = +150% (power2.in), stagger 0.02 s, about 0.33 s (8.81-9.14 s).",
+  "decomposition": { "primitives": ["split-text", "styled-text"], "effects": ["char-cascade"], "timing": "In 0.3 s; out 0.33 s; held about 1.7 s between." },
+  "parameters": [
+    { "name": "stagger_in", "description": "Seconds between letters on entry", "default": 0.03 },
+    { "name": "stagger_out", "description": "Seconds between letters on exit", "default": 0.02 },
+    { "name": "bounce", "description": "Overshoot as a fraction of line height", "default": 0.08 }
+  ],
+  "use_cases": ["A playful headline in a launch or an explainer", "Undoing a claim (the letters collapse)", "Leaving a title card"],
+  "failure_modes": ["Unseeded rotations break determinism", "Letters colliding at landing look messy; keep fall paths vertical"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Entrance: the char-cascade-drop recipe (seeded character drop) with a 6-10% back.out bounce and about 0.03 s stagger. Exit (not built): per character a seeded 30-90 degree rotation and a fall to +150% of the line height (power2.in), stagger 0.02 s, about 0.33 s; seed every rotation.", "runtime_api": ["Studio.type.split", "Studio.type.cascade"] },
+  "capability": { "support": "native", "requirements": ["per-character transforms", "seeded rotation"], "compatible_components": ["char-cascade", "char-cascade-drop", "drop-bounce"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-2860712d4e", "timestamps": [6.78, 7.06, 8.81, 9.14], "observed": "A two-line headline's letters drop in from above in 0.3 s (6.78-7.06 s) and later topple out with rotation in 0.33 s (8.81-9.14 s)." }
+  ],
+  "related": { "techniques": ["squash-stretch-bounce", "letter-shatter"], "effects": ["char-cascade"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "letters", "gravity", "drop", "topple", "playful", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "verdict-stamp",
+  "name": "Verdict stamp",
+  "purpose": "A bordered, tilted verdict label (CONFIRMED, MYTH, -18 C) with an optional second line, centred on a point of its parent and slammed on with the stamp-impact effect; the label part the cloud, Korea and fridge films each built by hand.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["styled-text"],
+    "effects": ["stamp-impact"],
+    "recipes": ["stamp-slam"]
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "text", "type": "string", "description": "The verdict" },
+    { "name": "sub", "type": "string", "description": "Optional small second line" },
+    { "name": "tone", "type": "string", "default": "accent", "description": "accent | second | third | ink | muted | positive | negative, or a colour" },
+    { "name": "x, y", "type": "number | per-format map", "default": 0.5, "description": "Centre as fractions of the parent" },
+    { "name": "rotate", "type": "number", "default": -7, "description": "Settled tilt in degrees" },
+    { "name": "shake", "type": "element", "description": "Element shaken on impact (e.g. the card that was hit)" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-film.js",
+    "api": "Studio.comp.stamp(parent, {text, sub, tone, x, y, rotate}, {shake}) -> {el, enter(tl, at) -> settle time, exit(tl, at)}"
+  },
+  "layout_notes": "Positioned by fractions of its parent (per-format maps through Studio.pick); border, padding and type in --u.",
+  "styles_tested": ["sinew-lab"],
+  "examples": ["tests/studio-runtime/film-helpers.html"],
+  "validation_steps": ["python tests/test-studio-runtime.py (hidden before the slam, settles at its tilt, shaken element returns to rest)"],
+  "validation": {
+    "evidence": "Runtime self-test in Playwright Chromium on Windows, 2026-11-24. Not rendered through HyperFrames.",
+    "last_verified": "2026-11-24"
+  },
+  "related": ["annotation-callout"],
+  "tags": ["composition", "stamp", "verdict", "label"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-24", "updated_at": "2026-11-24" }
+}

@@ -477,6 +477,35 @@ offer to delete them.
 - A film whose sound is only SFX is denser than one with music: by the nine references 6.9–15.1 gestures per 10 s (median
   11.4, median pause between gestures 0.7 s), the longest hole a median of 2.5 s (`critique.py --style`). This is an
   example, not a law: a calm picture has its own silence.
+- From the studio's reference corpus (`docs/reference-playbook.md`, family "Sound design against the picture"; measured
+  with `reference-corpus.py listen`, signal only, 64 inspected references): the strongest accents sit on a grid (1.00 s
+  in at least 10 films, also 2.00, 0.93–0.95, 0.88–0.91, 0.755, 0.47–0.5, 0.28 and 0.25 s) and each one lands on an element
+  arriving (a word, a chip, a card, a grid cell, a cursor press, a shape morph), while cuts carry an accent at or near chance in 39 of
+  50 films with audio (`beat-grid-element-arrivals`). Cut on the beat only where the cut is the information (word-card
+  reels, flash or glitch cuts, object transformations, montages, a lyric video: 6 of 12 cuts accented, chance 0.14).
+  A film "synced to music" syncs its sections to the bar (every 2.40–2.55 s at 95.7 bpm, `ref-2a6c654bfe`), not every
+  element to a hit.
+  The biggest moment is made by contrast: a hit 0–250 ms after a flash cut, or 0.28–0.93 s of silence or a 19–28 dB
+  dip before the reveal hit or the end card, or right after an opening sting before the first section (`pre-hit-dropout`, 7
+  references). Loudness follows
+  importance (bounce < break < finish, `sonified-motion`). The per-reference numbers (LUFS, accents per minute, accents
+  on cuts against chance) are in the playbook's sound table.
+- Accent the action, not the cut: steps, keystrokes, a ball's contacts, a heartbeat, a hero object's change of shape
+  each get their sound on the contact frame, and the cuts stay dry (`action-synced-foley`, 11 references). When a film
+  cuts on the downbeat, the accent can land half a beat later on the card's proof (cut at x.97 s, accent at x.53 s,
+  `ref-b4e79aa0a4`; cut on whole seconds, accent 0.55 s later, `ref-32fea7dae3`).
+- One music dropout of 3–5 s right after the densest stretch can be a long film's strongest moment; keep the picture
+  moving (drift, a slow background change) through it (`quiet-after-overload`; `ref-58ff9f39df` 117.93–121.63 s and
+  140.29–145.57 s, loudness range 12.5 LU). Relief can also be thinning: after a portrait promo's win the arrangement
+  drops from 33 onsets per 4 s to 2 (`ref-a943607659`). In a narrated film put it in a narration pause.
+- Let the arrangement carry the turn and the close: a sparse intro under the problem with the full beat entering
+  about 7 dB louder as the product fills the frame (`beat-drop-product-reveal`, `ref-0b2552b64e` 13.42 s); and end the
+  music 0.7–1.7 s before the end card so the card builds in a 2.5–6 s decay where its keystrokes and button are
+  heard (`end-card-in-the-tail`, `ref-9459c8097f`, `ref-04d81a6a3e`).
+- Under a voice the bed steps aside: in the one narrated reference (`ref-31ce9d6332`) the bed sits about 25 dB under
+  the voice (pauses about -40 dBFS against voice blocks about -15 dBFS, short-term), deeper than our 15–20 dB gap
+  (one film, short-term levels: no change to the bed target), and its 11 headline swaps and 2 boundaries carry no hit.
+  Copy swaps in a narrated explainer need no sound.
 
 ## What is where
 

@@ -97,6 +97,7 @@ KIT_TO_MUSCLE = {"biceps": "biceps-brachii", "brach": "brachialis", "flexor": "f
                  "delt-rear": "deltoid", "pec": "pectoralis-major", "triceps": "triceps-brachii", "serratus": "serratus-anterior", "trap": "trapezius", "lat": "latissimus-dorsi",
                  "abs": "rectus-abdominis", "oblique": "external-oblique", "erector": "erector-spinae", "quad": "quadriceps", "glute": "gluteus-maximus", "glutemed": "gluteus-medius",
                  "hams": "hamstrings", "adductor": "adductors", "calf": "gastrocnemius", "soleus": "soleus", "tibant": "tibialis-anterior"}
+NOT_IN_3D = ("rotator-cuff", "rhomboids")
 
 
 def rig3d_exercises() -> Dict[str, Any]:
@@ -123,13 +124,14 @@ def rig3d_role_errors(exs: List[Dict[str, Any]]) -> List[str]:
         m = by_id[kid]["muscles"]
         prim, sec, stab = set(m["primary"]), set(m["secondary"]), set(m.get("stabilizer", []))
         for key, lv in r["acts"].items():
-            mid = KIT_TO_MUSCLE.get(key)
+            mid = KIT_TO_MUSCLE.get(key.split("@")[0])   # "biceps@R": one side only (a one-arm lift)
             ok = {3: prim, 2: prim | sec, 1: prim | sec | stab}[lv]
             if mid not in ok:
                 errs.append(f"3D exercise '{rid}' lights '{key}' ({mid}) at role {lv}, but exercises.json '{kid}' does not list it as "
                             f"{ {3: 'primary', 2: 'primary or secondary', 1: 'a muscle involved'}[lv] } (highlights must be defensible)")
         for mid in prim:
-            if mid not in {KIT_TO_MUSCLE.get(k) for k in r["acts"]} and mid not in ("rotator-cuff",):
+            # the 3D body has no region for these (rotator cuff and rhomboids lie deep, under the deltoid and trapezius)
+            if mid not in {KIT_TO_MUSCLE.get(k.split("@")[0]) for k in r["acts"]} and mid not in NOT_IN_3D:
                 errs.append(f"3D exercise '{rid}' never highlights the primary muscle {mid} named in exercises.json '{kid}'")
     return errs
 
@@ -333,7 +335,9 @@ def library_js() -> str:
         "muscles": {m["id"]: {k: m[k] for k in ("name", "group", "region", "views", "origin", "insertion", "actions")} for m in muscles["muscles"]},
         "exercises": {e["id"]: {"name": e["name"], "category": e["category"], "pillar": e["pillar"], "muscles": e["muscles"],
                                 "phases": [p["id"] for p in e["phases"]], "errors": [x["id"] for x in e["errors"]],
-                                "camera": e["camera"], "kinematics": e.get("kinematics", "conceptual")} for e in exercises["exercises"]},
+                                "camera": e["camera"], "kinematics": e.get("kinematics", "conceptual")} for e in exercises["exercises"]
+                      # knowledge-only records (3D rig not built yet) have no motion for the kit to play; they join once rig3d is set
+                      if e.get("rig3d_status") != "pending"},
     }
     body = json.dumps(payload, indent=1, ensure_ascii=False, sort_keys=True)
     return (LIB_HEADER + "(function (global) {\n  'use strict';\n  var Studio = global.Studio || (global.Studio = {});\n"

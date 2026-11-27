@@ -2,20 +2,25 @@
   "id": "tool-anatomy3d-bench",
   "name": "3D Tibi anatomy contact sheets (scripts/anatomy3d-bench.py)",
   "component_type": "tool",
-  "purpose": "Renders reusable anatomical test scenes (angles, poses, modes) as contact sheets for human review.",
+  "purpose": "Renders full-body region, camera, joint, exercise and mode contact sheets, with neutral-clay diagnosis, individual PNGs, hashes and reviewed side-by-side reports.",
   "capabilities": [
-    "anatomy3d-bench.py --set angles|poses|modes|all"
+    "anatomy3d-bench.py --set angles|poses|modes|all|orbit|joints|windows|phases|matrix|regions|review --gender m|f|both",
+    "--profile legacy|distance (distance default) --baseline <report.json> compares source-matched situations",
+    "--shade clay isolates surface geometry; cannot stand in for cutaway or activation review",
+    "--set regions: 29 views per body; --set review: 316 situations including the existing camera/joint/phase/window/mode sets",
+    "--report-only --review <json> records explicit per-case verdicts; changed PNGs, metadata replacement and mismatched camera/pose baselines fail",
+    "With --baseline the report shows each reference verdict beside its thumbnail and a pass/known-limit/fail tally for both states"
   ],
   "location": "scripts/anatomy3d-bench.py",
-  "version": "0.1.0",
+  "version": "0.5.1",
   "dependencies": [
     "shared-fitness-kit",
     "tool-session-guard"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "python3.12 or node; ffmpeg where noted",
-    "notes": "Heavy browser steps take the host render lock."
+    "notes": "One checked Chrome capture at a time under the host lock. Version 0.5.0 reads fig.defaultPose for the current neutral stance; authored-motion defaults and explicit legacy remain distinct. Historical snapshot renderers need their matching pose adapter. Mac rerun pending."
   },
   "documentation_urls": [
     ".claude/skills/fitness-anatomy/SKILL.md"
@@ -27,7 +32,7 @@
     "sensitive_data_exposure": false,
     "notes": "Writes only under qa/ or the named output directory."
   },
-  "approval_evidence": "Sheets in qa/anatomy3d/ reviewed 2026-11-13.",
+  "approval_evidence": "0.5.0, Windows 2026-11-20: the owner rejected the 1.10 shoulder verdict. Current-source captures separate original-pose geometry from the new neutral stance; normal/clay shoulder, rotation, wrist and authored exercise views examined. Capture/report guards pass in the 59-test suite. Historical 316-case evidence remains dated, not a current creative approval. No Mac or G3 approval.",
   "tags": [
     "fitness",
     "qa",
@@ -46,5 +51,5 @@
   "owner": "motion-graphics",
   "status": "experimental",
   "architecture_ref": "ARCHITECTURE.md",
-  "last_verified": "2026-11-13"
+  "last_verified": "2026-11-20"
 }

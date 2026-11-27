@@ -1,0 +1,64 @@
+{
+  "id": "section-turn-dip",
+  "name": "Dip at a section turn",
+  "effect_id": "stage-dip",
+  "status": "experimental",
+  "visual_intent": "Let the viewer feel a new section start: content leaves, the stage breathes for a quarter second, the next title lands on the first word of the next phrase.",
+  "parameters": [
+    {
+      "name": "exit",
+      "type": "number",
+      "default": 0.3,
+      "description": "Seconds for the outgoing group"
+    },
+    {
+      "name": "hold",
+      "type": "number",
+      "default": 0.25,
+      "description": "Seconds of empty stage (0.15-0.4; never over 0.5 under narration)"
+    },
+    {
+      "name": "entrance",
+      "type": "string",
+      "default": "rise",
+      "description": "rise, or none when the caller types the title in"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or word times (Studio.cues.fromWords); snap each move to the word it illustrates",
+    "prng_required": false,
+    "easing_standard": "power2.in (exit); power3.out (entrance)"
+  },
+  "code_snippet": {
+    "javascript": "// keep something moving through the hold (background drift, persistent kicker)\ntl.fromTo('#bg', {x: 0}, {x: -36, duration: f.duration, ease: 'none', immediateRender: true}, 0);\nStudio.fx.dip(tl, '#sceneA', '#sceneB', at('inside'));   // 'inside' = first word of the next phrase"
+  },
+  "fallbacks": "Studio.crossfade for an ordinary scene change; a dip belongs at section turns only.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 0.5,
+    "memory_impact": "None; opacity and transform only (estimate)"
+  },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python scripts/frame-review.py tests/reference-derived/explain-tour-progression/index.html --serve-root . --fonts google"
+  ],
+  "tags": [
+    "transition",
+    "section",
+    "pause",
+    "reference-derived"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-tour-progression/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html and frame review of tests/reference-derived/explain-tour-progression/index.html (0 errors, 0 warnings, contact sheet inspected) in Playwright Chromium on Windows, 2026-11-28. Not rendered through HyperFrames on the M2.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

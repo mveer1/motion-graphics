@@ -1,7 +1,7 @@
 {
   "spec": "specs/fitness-asset-spec.json",
   "brand": "sinew",
-  "updated": "2026-11-09",
+  "updated": "2026-11-23",
   "conventions": {
     "units": "Rig units (1 unit ~ 4.25 mm at Tibi's 1.75 m); origin at the pelvis joint; soles 190 units below it standing; +x = facing in side view; angles in anatomical degrees (flexion/abduction positive).",
     "views": "front, side (+x), back, top (prone, from above), above (supine, from above)",
@@ -2114,7 +2114,7 @@
       "name": "Tibi (Cobalt Sculpt) key poses",
       "kind": "pose-set",
       "category": "mascot",
-      "description": "The handover's poses as named rig poses per gender: side stand, squat, calf, pushup, plank, run-strike, run-mid, run-off, run-fly (lift 46); front and back relaxed, flex, lateral. Grounded by contact (planted foot or pelvis plus floor), so moves between them stay on the floor. Round 7 adds back-view squat and running, prone ('top') and supine ('above') poses seen from above, with per-joint foreshortening.",
+      "description": "The handover's poses as named rig poses per gender: side stand, squat, calf, pushup, plank, run-strike, run-mid, run-off, run-fly (lift 46); front and back relaxed, flex, lateral. Grounded by contact (planted foot or pelvis plus floor), so moves between them stay on the floor. Round 7 adds back-view squat and running, prone ('top') and supine ('above') poses seen from above, with per-joint foreshortening. Sculpt kit 2.2.0 adds the front-view squat ('front' view 'squat').",
       "files": [
         {
           "path": "src/studio/kits/fitness/sculpt-data.js",
@@ -2264,6 +2264,387 @@
         "mascot",
         "svg",
         "static"
+      ]
+    },
+    {
+      "id": "anatomy-vascular-tree",
+      "name": "Vascular tree (artery to vein)",
+      "kind": "anatomy-plate",
+      "category": "cardiovascular",
+      "description": "Artery branching into arterioles, a capillary bed, venules and a vein with a valve, plus cut-across insets (artery: thick wall, small lumen; vein: thin wall, wide lumen). flow(tl, from, to, period) sends blood cells through and turns them from rosewood to dusk in the capillaries (oxygen given off); labels(tl, at, stagger) reveals the names. Inside-the-body colours (rosewood, ivory, dusk), tagged ILLUSTRATIVE, not to scale.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (inside-the-body plates, 2026-11-23)",
+        "retrieved": "2026-11-23",
+        "references": [
+          "OpenStax Anatomy and Physiology 2e (Betts et al.), CC BY-NC-SA 4.0, used as a factual reference only, no figure copied: section 20.1 Structure and Function of Blood Vessels (https://openstax.org/books/anatomy-and-physiology-2e/pages/20-1-structure-and-function-of-blood-vessels)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.vascularTree",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills, inside palette (Studio.kit.fitness.anatomy.inside)",
+      "preview": "assets/fitness/previews/anatomy-inside.png",
+      "usage": "var v = A.vascularTree(g, {x, y, scale}); v.labels(tl, 0.5, 0.4); v.flow(tl, 0.5, 12, 3.2)",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": [
+        "inside",
+        "blood",
+        "illustrative"
+      ]
+    },
+    {
+      "id": "anatomy-alveolus",
+      "name": "Alveolus gas exchange",
+      "kind": "anatomy-plate",
+      "category": "respiratory",
+      "description": "One alveolus with its neighbours, the bronchiole and a capillary on its wall; type I cells, a type II cell (surfactant) and a macrophage. exchange(tl, from, to, period) moves oxygen in from the airway and across the respiratory membrane into the blood, carbon dioxide the other way; labels(tl, at, stagger) reveals the names (alveolus ~200 um, membrane ~0.5 um). Tagged ILLUSTRATIVE, not to scale.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (inside-the-body plates, 2026-11-23)",
+        "retrieved": "2026-11-23",
+        "references": [
+          "OpenStax Anatomy and Physiology 2e (Betts et al.), CC BY-NC-SA 4.0, used as a factual reference only, no figure copied: section 22.1 Organs and Structures of the Respiratory System, Alveoli (https://openstax.org/books/anatomy-and-physiology-2e/pages/22-1-organs-and-structures-of-the-respiratory-system)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.alveolus",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills, inside palette",
+      "preview": "assets/fitness/previews/anatomy-inside.png",
+      "usage": "var a = A.alveolus(g, {x, y, scale}); a.labels(tl, 0.5); a.exchange(tl, 0.5, 12, 3)",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": [
+        "inside",
+        "breathing",
+        "illustrative"
+      ]
+    },
+    {
+      "id": "anatomy-joint-sections",
+      "name": "Joint sections: knee, hip, shoulder",
+      "kind": "anatomy-plate",
+      "category": "skeletal",
+      "description": "Synovial joints cut open: knee from the side (femur, tibia, patella, quadriceps tendon, patellar ligament, menisci, cruciate ligaments, articular cartilage, synovial cavity), hip from the front (acetabulum, labrum, femoral head and neck, ligament of the head, capsule with the iliofemoral ligament), shoulder from the front (shallow glenoid, glenoid labrum, humeral head, acromion, rotator cuff tendon, subacromial bursa, loose capsule). labels(tl, at, stagger) reveals names; isolate(tl, part, at) dims everything but one part. Tagged ILLUSTRATIVE, schematic section.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (inside-the-body plates, 2026-11-23)",
+        "retrieved": "2026-11-23",
+        "references": [
+          "OpenStax Anatomy and Physiology 2e (Betts et al.), CC BY-NC-SA 4.0, used as a factual reference only, no figure copied: section 9.4 Synovial Joints (https://openstax.org/books/anatomy-and-physiology-2e/pages/9-4-synovial-joints)",
+          "OpenStax Anatomy and Physiology 2e (Betts et al.), CC BY-NC-SA 4.0, used as a factual reference only, no figure copied: section 9.6 Anatomy of Selected Synovial Joints: shoulder, hip, knee (https://openstax.org/books/anatomy-and-physiology-2e/pages/9-6-anatomy-of-selected-synovial-joints)"
+        ]
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/anatomy.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.anatomy.joint",
+      "rigging": "animated-procedural",
+      "materials": "Flat SVG fills, inside palette (bone, ivory cartilage and ligaments, rosewood capsule and muscle)",
+      "preview": "assets/fitness/previews/anatomy-inside.png",
+      "usage": "var k = A.joint(g, {joint: 'knee' | 'hip' | 'shoulder', x, y, scale}); k.labels(tl, 0.5); k.isolate(tl, 'menisci', 4)",
+      "accuracy": "schematic",
+      "status": "experimental",
+      "tags": [
+        "inside",
+        "joints",
+        "illustrative"
+      ]
+    },
+    {
+      "id": "exercise-back-squat-2d",
+      "name": "Barbell back squat (2D)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Barbell back squat (2D) on the Cobalt Sculpt Tibi (side view): bar on the upper back, rack upright. Conceptual kinematics; metadata in assets/fitness/data/exercises.json (shared with the 3D record).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'back-squat'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side",
+        "barbell"
+      ]
+    },
+    {
+      "id": "exercise-deadlift-2d",
+      "name": "Conventional deadlift (2D)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Conventional deadlift (2D) on the Cobalt Sculpt Tibi (side view): bottom depth solved so the 450 mm plates rest on the floor; arms vertical. Conceptual kinematics; metadata in assets/fitness/data/exercises.json (shared with the 3D record).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'deadlift'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side",
+        "barbell"
+      ]
+    },
+    {
+      "id": "exercise-barbell-bench-press-2d",
+      "name": "Barbell bench press (2D)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Barbell bench press (2D) on the Cobalt Sculpt Tibi (side view): bench, rack uprights, bar in the hands. Conceptual kinematics; metadata in assets/fitness/data/exercises.json (shared with the 3D record).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'barbell-bench-press'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side",
+        "barbell"
+      ]
+    },
+    {
+      "id": "exercise-leg-press-2d",
+      "name": "45-degree leg press (2D)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "45-degree leg press (2D) on the Cobalt Sculpt Tibi (side view): reclined seat, rails, sled that follows the soles along the rail. Conceptual kinematics; metadata in assets/fitness/data/exercises.json (shared with the 3D record).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'side', ...}), 'leg-press'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "side",
+        "machine"
+      ]
+    },
+    {
+      "id": "exercise-lat-pulldown-2d",
+      "name": "Lat pulldown (2D, cable)",
+      "kind": "exercise",
+      "category": "exercise",
+      "description": "Lat pulldown (2D, cable) on the Cobalt Sculpt Tibi (back view): seat, cable station, bar between the hands, cable to the top pulley. Conceptual kinematics; metadata in assets/fitness/data/exercises.json (shared with the 3D record).",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        },
+        {
+          "path": "assets/fitness/data/exercises.json",
+          "format": "json"
+        }
+      ],
+      "api": "Studio.kit.fitness.exercise",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "var ex = K.exercise(K.sculpt(g, {view: 'back', ...}), 'lat-pulldown'); ex.reps(tl, at, 3); t.activate(tl, ex.acts, at)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "exercise",
+        "back",
+        "machine"
+      ]
+    },
+    {
+      "id": "equipment-barbell-machines",
+      "name": "Barbell and machine equipment (2D)",
+      "kind": "equipment",
+      "category": "exercise",
+      "description": "Loaded barbell seen along the bar (450 mm plates at Tibi's scale; the near plate is ghosted so the body reads through it, the far plate solid), rack upright with J-hook, 45-degree leg press (frame, rails, reclined seat, sled with footplate and weight horn), cable pulldown station seen from behind (post, beam, pulley). Flat planes, no outlines, placed from Tibi's joints by the exercises.",
+      "source": {
+        "type": "original",
+        "origin": "Sinew kit, drawn in code for this workspace (2D barbell and machine lifts, 2026-11-23)"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original workspace asset; no third-party material."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/exercises.js",
+          "format": "js"
+        }
+      ],
+      "api": "Studio.kit.fitness.equipment",
+      "rigging": "follows-rig",
+      "preview": "assets/fitness/previews/exercises-barbell.png",
+      "usage": "F.equipment.barbellEnd(g, s, 'near'); exercises place them for you",
+      "accuracy": "stylised",
+      "status": "experimental",
+      "tags": [
+        "equipment",
+        "barbell",
+        "cable",
+        "machine"
+      ]
+    },
+    {
+      "id": "tibi-sculpt-arm-blend",
+      "name": "Tibi (Cobalt Sculpt) arm-art blend and front squat",
+      "kind": "pose-set",
+      "category": "mascot",
+      "description": "Sculpt kit 2.2.0: moves are continuous (one driver tween per move solves the exact pose each frame) and the front/back/top/above arm drawings blend across their thresholds (deltoid cap swells, lat wing grows from behind the torso, flexed arm and fist fade in over the opaque drawing) inside per-view angle windows chosen so every named pose and exercise end pose is byte-identical to kit 2.1. Adds the front-view squat (thighs foreshortened toward the camera).",
+      "source": {
+        "type": "original",
+        "origin": "Cobalt Sculpt runtime (sculpt.js) and generator (build2.py BACK3D front_squat), 2026-11-23"
+      },
+      "license": {
+        "spdx": "LicenseRef-Workspace",
+        "commercial_use": true,
+        "attribution_required": false,
+        "notes": "Original character design commissioned for this workspace; no third-party material, no logos."
+      },
+      "files": [
+        {
+          "path": "src/studio/kits/fitness/sculpt.js",
+          "format": "js"
+        },
+        {
+          "path": "src/fitness/tibi/build2.py",
+          "format": "py"
+        }
+      ],
+      "api": "Studio.kit.fitness.sculpt.solver",
+      "rigging": "rigged",
+      "preview": "assets/fitness/previews/tibi-sculpt-blend.png",
+      "usage": "t.set('relaxed'); t.to(tl, 'lateral', at, 1.1); t.to(tl, 'squat', at2, 1.3)",
+      "accuracy": "conceptual-kinematics",
+      "status": "experimental",
+      "tags": [
+        "mascot",
+        "poses",
+        "motion"
       ]
     }
   ]

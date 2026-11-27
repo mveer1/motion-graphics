@@ -1,0 +1,613 @@
+{
+  "id": "ref-c2addc76df",
+  "name": "Music-app film in a dark rounded window: two-tone headlines, card rows and a colour-flood play state",
+  "status": "experimental",
+  "source": {
+    "filename": "music-app-product-film-287dac1d.mp4",
+    "aliases": [],
+    "sha256": "c2addc76df347c5cfa9f7268d5d2b6d7889441d8ed5734050f4e9e92aecbd5d2",
+    "bytes": 1779491,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Music service's logo",
+        "timestamps": [
+          0.38,
+          15.38
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "Music service's wordmark",
+        "timestamps": [
+          1.12,
+          16.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "App screens: card grids, list, search, player bar",
+        "timestamps": [
+          1.88,
+          6.38,
+          13.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Creator handle watermark top-right",
+        "timestamps": [
+          0.38
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand ad or fan concept for a music service; reuse the window-as-stage, colour-flood state and beat-grid principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1779491,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 18.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 540,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 527,
+    "keyframes": 18,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 18.091,
+      "kbps": 254
+    },
+    "overall_kbps": 791
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (24 frames), transition strips at all 3 boundaries and the listen sheet (12 accent hits; no speech); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 18.0 s.",
+    "concept": {
+      "observed": "An ad (possibly a fan concept) for a music app: logo, 'Discover new music', made-for-you cards, a list of fresh finds, a scrolling row of mood cards, a search, one album that starts playing (the window floods green), 'Find your rhythm', a row of daily mixes that fan into a stack, then the logo and a tagline.",
+      "interpreted": "Discovery as a series of card arrangements inside one app window.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; two-line headlines with the second line in the accent green; a creator handle watermarked top-right."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black window on a deep-green gradient backdrop; the brand green as the only accent; colourful square album covers."
+      },
+      "typography": {
+        "observed": "Clean grotesque, small; two-line centred headlines (line 1 white, line 2 green)."
+      },
+      "composition": {
+        "observed": "A large rounded window (about 75% of the frame) centred on the backdrop; a player bar along its bottom edge throughout; content centred in the window."
+      },
+      "motion": {
+        "observed": "Cards enter in a row with a small stagger; a row scrolls sideways; search results drop in; the album card grows; the window background floods green and back; cards fan into a tilted stack (13.9-14.6 s)."
+      },
+      "transitions": {
+        "observed": "No cuts. 7.70 s soft: the window background floods from black to green in about 0.2 s (7.65-7.85 s) while the album stays (the playing state) and returns at 8.35-8.48 s. 9.83 s soft: the enlarged album art dims away (9.72-9.92 s) and 'Find your rhythm' fades in. Other changes are in-place swaps of the window's content, one through an empty window for about 0.1 s (3.16 s).",
+        "interpreted": "The window is one continuous stage; the app's playing state is the film's only colour event.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Content changes every 0.75-1.5 s, on the 0.755 s accent grid."
+      },
+      "sound_design": {
+        "observed": "-14.0 LUFS, LRA 1.6 LU, true peak -4.7 dBTP; tempo 78.3 bpm (medium); 14 accents (46.7/min) on a 0.755 s grid (about 79.5 bpm) in steps of one or two beats. No boundary carries an accent within 100 ms (0 of 3; chance 0.14), although the boundaries sit on onsets (0.67 within 67 ms, chance 0.39) and on the beat (0.67, chance 0.16). The strongest accents land on element arrivals: the green second headline line (0.88 s), card rows (2.41, 13.05 s), the empty window between sections (3.16 s), the list (3.92 s), a search row (5.43 s), the album (6.20 s), the Play button (6.97 s), the green flood (7.92 s), the return to dark (8.48 s), 'rhythm' (10.01 s) and the fan (14.56 s). Head +0.4 dB, tail -0.9 dB; no silences. Accents may be part of the music.",
+        "interpreted": "The batch-1 rule at a slower tempo: about 79 bpm instead of 120, one accent per arrival and none on the soft scene changes.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None (0 words recognised).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lane: a two-line headline centred in the window's upper half (line 1 white, line 2 in the accent green: 'Discover / new music', 'Find your rhythm'); small section labels above card rows."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.5,
+        "observed": "Logo, then 'Discover new music'."
+      },
+      {
+        "start": 1.5,
+        "end": 3.16,
+        "observed": "Made-for-you and new-for-you cards."
+      },
+      {
+        "start": 3.16,
+        "end": 3.9,
+        "observed": "A list of fresh finds."
+      },
+      {
+        "start": 3.9,
+        "end": 5.2,
+        "observed": "A row of mood cards scrolls."
+      },
+      {
+        "start": 5.2,
+        "end": 6.0,
+        "observed": "A search with one result."
+      },
+      {
+        "start": 6.0,
+        "end": 7.7,
+        "observed": "The album card and a Play button."
+      },
+      {
+        "start": 7.7,
+        "end": 8.33,
+        "observed": "The window floods green (playing)."
+      },
+      {
+        "start": 8.33,
+        "end": 9.83,
+        "observed": "The album art enlarges on dark."
+      },
+      {
+        "start": 9.83,
+        "end": 11.3,
+        "observed": "'Find your rhythm'."
+      },
+      {
+        "start": 11.3,
+        "end": 14.6,
+        "observed": "A row of daily mixes fans into a stack."
+      },
+      {
+        "start": 14.6,
+        "end": 18.0,
+        "observed": "Logo and tagline."
+      }
+    ],
+    "moments": [
+      {
+        "t": 7.65,
+        "observed": "As Play is pressed the whole window floods from black to green in about 0.2 s and returns 0.6 s later.",
+        "interpreted": "The state change is shown by the container, not by a new scene."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the film is official or a fan concept (a creator handle is watermarked)",
+      "Whether the accents are clicks in the music or effects"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        0.88,
+        2.41,
+        6.97,
+        10.01,
+        13.05
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        5.43,
+        6.97,
+        7.92
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        3.16,
+        9.92
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        1.12,
+        4.12,
+        10.12
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        0.88,
+        10.01
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "clip-path-reveal",
+      "crossfade-dissolve"
+    ],
+    "compositions": [
+      "tile-grid",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "music-sync",
+    "kinetic-typography"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "dark",
+    "green-accent",
+    "music-app",
+    "app-window",
+    "beat-grid",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 11.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 144,
+      "scan_size": "96x54",
+      "overview_frames": 24,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 7.7,
+        "kind": "soft",
+        "score": 0.296,
+        "isolation": 0.03
+      },
+      {
+        "t": 8.333,
+        "kind": "soft",
+        "score": 0.303,
+        "isolation": 0.04
+      },
+      {
+        "t": 9.833,
+        "kind": "soft",
+        "score": 0.177,
+        "isolation": 0.0
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 7.7,
+        "duration": 7.7,
+        "activity": 0.053,
+        "luma": 0.14
+      },
+      {
+        "index": 2,
+        "start": 7.7,
+        "end": 8.33,
+        "duration": 0.63,
+        "activity": 0.253,
+        "luma": 0.32
+      },
+      {
+        "index": 3,
+        "start": 8.33,
+        "end": 9.83,
+        "duration": 1.5,
+        "activity": 0.162,
+        "luma": 0.24
+      },
+      {
+        "index": 4,
+        "start": 9.83,
+        "end": 18.0,
+        "duration": 8.17,
+        "activity": 0.034,
+        "luma": 0.13
+      }
+    ],
+    "static_holds": [
+      [
+        10.06,
+        11.06
+      ],
+      [
+        15.44,
+        17.94
+      ]
+    ],
+    "mean_activity": 0.06,
+    "luma": {
+      "mean": 0.15,
+      "dark_share": 0.92,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.447
+      },
+      {
+        "hex": "#080808",
+        "share": 0.189
+      },
+      {
+        "hex": "#185838",
+        "share": 0.068
+      },
+      {
+        "hex": "#08a858",
+        "share": 0.025
+      },
+      {
+        "hex": "#182818",
+        "share": 0.025
+      },
+      {
+        "hex": "#488858",
+        "share": 0.023
+      },
+      {
+        "hex": "#082828",
+        "share": 0.022
+      },
+      {
+        "hex": "#085838",
+        "share": 0.018
+      },
+      {
+        "hex": "#081808",
+        "share": 0.015
+      },
+      {
+        "hex": "#183828",
+        "share": 0.014
+      }
+    ],
+    "representative_times": [
+      1.93,
+      3.85,
+      5.78,
+      8.02,
+      9.08,
+      11.87,
+      13.91,
+      15.96
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -5.2,
+      "mean_dbfs_voiced": -15.0,
+      "silence_ratio": 0.0,
+      "onsets": 68,
+      "onset_rate_per_sec": 3.76,
+      "onset_times": [
+        0.12,
+        0.51,
+        0.7,
+        0.88,
+        1.28,
+        1.46,
+        1.65,
+        2.02,
+        2.23,
+        2.41,
+        2.81,
+        2.97,
+        3.16,
+        3.55,
+        3.74,
+        3.92,
+        4.32,
+        4.5,
+        4.69,
+        5.06,
+        5.27,
+        5.43,
+        5.83,
+        6.01,
+        6.2,
+        6.59,
+        6.78,
+        6.97,
+        7.36,
+        7.52,
+        7.73,
+        7.92,
+        8.1,
+        8.48,
+        8.87,
+        9.06,
+        9.24,
+        9.61,
+        9.82,
+        10.01,
+        10.38,
+        10.59,
+        10.75,
+        11.52,
+        11.73,
+        11.91,
+        12.1,
+        12.28,
+        12.68,
+        12.86,
+        13.05,
+        13.42,
+        13.79,
+        14.19,
+        14.37,
+        14.56,
+        14.95,
+        15.14,
+        15.33,
+        15.7,
+        15.91,
+        16.07,
+        16.46,
+        16.65,
+        16.83,
+        17.21,
+        17.41,
+        17.6
+      ],
+      "tempo_estimate": {
+        "bpm": 78.3,
+        "autocorr": 0.65,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 438,
+      "band_share": {
+        "low_lt_250": 0.65,
+        "mid_250_2k": 0.24,
+        "high_gt_2k": 0.12
+      },
+      "syllabic_modulation_share": 0.26,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 67,
+        "near_onset": 0.67,
+        "chance_level": 0.39,
+        "median_offset_ms": 32,
+        "near_beat": 0.67,
+        "beat_chance_level": 0.16,
+        "beat_phase_sec": 0.639
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-c2addc76df",
+      "overview": "reference/analysis/ref-c2addc76df/overview.jpg",
+      "scenes": "reference/analysis/ref-c2addc76df/scenes.jpg",
+      "transitions": "reference/analysis/ref-c2addc76df/transitions.jpg",
+      "motion": "reference/analysis/ref-c2addc76df/motion.jpg",
+      "audio": "reference/analysis/ref-c2addc76df/audio.png",
+      "frames": "reference/analysis/ref-c2addc76df/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.0,
+        "lra_lu": 1.6,
+        "true_peak_dbtp": -4.7,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 18,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 68,
+        "accents": 14,
+        "accents_per_min": 46.7,
+        "accent_times": [
+          0.88,
+          2.41,
+          3.16,
+          3.92,
+          5.43,
+          6.2,
+          6.97,
+          7.92,
+          8.48,
+          10.01,
+          13.05,
+          14.56,
+          16.07,
+          17.6
+        ],
+        "accent_threshold": 0.49,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.14
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.78,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": 0.4,
+        "level_tail_vs_body_db": -0.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-c2addc76df/listen",
+        "sheet": "reference/analysis/ref-c2addc76df/listen/listen.jpg",
+        "words": "reference/analysis/ref-c2addc76df/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

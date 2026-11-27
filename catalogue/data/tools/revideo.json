@@ -1,0 +1,45 @@
+{
+  "id": "tool-revideo",
+  "name": "Revideo (Motion Canvas fork)",
+  "component_type": "tool",
+  "purpose": "Programmatic video framework (TSX generator functions, Vite build). Evaluated as a math/algorithm animation engine and not adopted.",
+  "location": "https://github.com/midrender/revideo",
+  "version": "0.10.x",
+  "installation": {
+    "required": false,
+    "instructions": "Not installed in the workspace. A global CLI (0.11.0) once existed on the Mac host, wired into nothing."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "node",
+    "notes": "Its own headless-Chrome renderer and bundler: a second copy of what HyperFrames does."
+  },
+  "documentation_urls": [
+    "specs/motion-graphics-evolution-report.md",
+    "docs/visual-engines.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "MIT",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "MIT licensed."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "npm install and bundler at build time."
+  },
+  "owner": "video-production",
+  "status": "blocked",
+  "approval_evidence": "Rejected in specs/motion-graphics-evolution-report.md section 5.2 and again 2026-11-24 (docs/visual-engines.md): duplicates HyperFrames + GSAP + SVG, adds a TSX/Vite toolchain, and upstream activity slowed after its lead contributor left in 2025 (github.com/midrender/revideo issue 356).",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "evaluated",
+    "blocked",
+    "revideo",
+    "motion-canvas"
+  ]
+}

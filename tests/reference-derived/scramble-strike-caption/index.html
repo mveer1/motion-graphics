@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: scramble-decode, strike and correct, subject caption lane</title>
+  <!--
+    Techniques under test: text-scramble-decode (Studio.type.scramble), strike-and-correct (Studio.type.strikeCorrect),
+    word-highlight-caption in the subject lane (Studio.comp.captions, cue.lane 'subject' with cue.anchor; one cue
+    below a part, one above it after the part has moved, then back to the lower lane).
+    Original layout and copy; no reference footage, marks or shot sequences.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #sceneA, #sceneB { background: var(--c-paper); }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    #code { position: absolute; left: var(--safe-left); top: 20%; font: 700 calc(var(--u) * 10) / 1 'JetBrains Mono', 'IBM Plex Mono', monospace; letter-spacing: 0.04em; }
+    #claim { position: absolute; left: var(--safe-left); top: 42%; margin: 0; font: 700 calc(var(--u) * 7) / 1.1 'Inter', sans-serif; display: inline-block; white-space: nowrap; }
+    #fix { position: absolute; left: var(--safe-left); top: 58%; margin: 0; font: 800 calc(var(--u) * 7.4) / 1.1 'Inter', sans-serif; color: var(--c-info); white-space: nowrap; }
+    #claim { --c-strike: var(--c-negative); }
+    #diagram { position: absolute; left: 0; top: 0; }
+    .part { fill: var(--c-paper-2); stroke: var(--c-ink); stroke-width: 3; }
+    #valve { fill: var(--c-accent-3); }
+    #pump { fill: var(--c-accent-2); }
+    #pipe { fill: none; stroke: var(--c-ink-2); stroke-width: 6; stroke-linecap: round; }
+  </style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="10">
+  <div class="st-scene" id="sceneA">
+    <div class="st-kicker kick">Type study</div>
+    <div id="code">DECODE</div>
+    <p id="claim">Not a week.</p>
+    <p id="fix">About 6 minutes.</p>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div class="st-kicker kick">Caption lanes</div>
+    <svg id="diagram" width="1280" height="720" viewBox="0 0 1280 720">
+      <path id="pipe" d="M200 380 L1080 380"></path>
+      <rect class="part" id="pump" x="250" y="300" width="200" height="160" rx="24"></rect>
+      <circle class="part" id="valve" cx="840" cy="380" r="70"></circle>
+    </svg>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  S.show(tl, '#sceneA', 0);
+  S.type.scramble(tl, '#code', 0.3, { seed: 3 });
+  S.type.strikeCorrect(tl, '#claim', '#fix', 1.4, { lift: 1 });
+
+  S.crossfade(tl, '#sceneA', '#sceneB', 5.2, 0.4);
+  tl.fromTo(['#pump', '#valve'], { scale: 0.7, autoAlpha: 0, transformOrigin: '50% 50%' }, { scale: 1, autoAlpha: 1, duration: 0.45, stagger: 0.15, ease: 'back.out(1.7)', immediateRender: true }, 5.4);
+  // The valve slides up before the second cue: the caption is placed where the valve is when that cue starts.
+  tl.fromTo('#valve', { y: 0 }, { y: -150, duration: 0.5, ease: 'power2.inOut', immediateRender: false }, 7.0);
+
+  var preset = { id: 'clean-plate', enter: 'rise', roles: { hook: { lane: 'lower', scale: 1 }, body: { lane: 'lower', scale: 1 }, outro: { lane: 'lower', scale: 1 } } };
+  var w = function (text, a, b) { var ws = text.split(' '), d = (b - a) / ws.length; return ws.map(function (t, i) { return { text: t, start: a + i * d, end: a + (i + 1) * d }; }); };
+  var cues = [
+    { start: 0.4, end: 2.0, text: 'Watch the word lock in', role: 'hook' },
+    { start: 5.7, end: 6.9, text: 'The pump pushes the water', role: 'body', lane: 'subject', anchor: '#pump' },
+    { start: 7.6, end: 8.6, text: 'The valve lets it through', role: 'body', lane: 'subject', anchor: '#valve', side: 'above' },
+    { start: 8.8, end: 9.8, text: 'Two parts, one loop', role: 'outro' }
+  ];
+  cues.forEach(function (c) { c.words = w(c.text, c.start, c.end - 0.1); });
+  S.comp.captions(document.getElementById('root'), cues, { preset: preset }).schedule(tl);
+});
+</script>
+</body>
+</html>

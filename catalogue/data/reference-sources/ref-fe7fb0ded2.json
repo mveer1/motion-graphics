@@ -1,0 +1,552 @@
+{
+  "id": "ref-fe7fb0ded2",
+  "name": "One-take 3D camera through a dark bookkeeping dashboard",
+  "status": "experimental",
+  "source": {
+    "filename": "bookkeeping-app-film-in-remotion-570fa369.mp4",
+    "aliases": [],
+    "sha256": "fe7fb0ded2de87fa0a80a5bf958d6229150aa749b0fcea1af48094ebce5e8cd9",
+    "bytes": 1899981,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "App icon and wordmark with tagline",
+        "timestamps": [
+          0.37,
+          13.66
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Bookkeeping dashboard, transaction list and score gauge",
+        "timestamps": [
+          2.58,
+          10.71
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App film; reuse the one-take camera, container transform and dropout principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1899981,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 14.033,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 841,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 938,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 14.08,
+      "kbps": 131
+    },
+    "overall_kbps": 1083
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (19 frames) and transition strips at both soft boundaries (camera moves); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 14 s.",
+    "concept": {
+      "observed": "A bookkeeping app: the icon opens into a dashboard, a receipt is matched to a transaction, a progress bar fills, a health score rises from 83 to 94, and the gauge resolves into the wordmark.",
+      "interpreted": "Order out of paperwork, shown as one smooth camera move.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Two short German taglines; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Dark navy with amber and teal accents; a white paper receipt as the only light object."
+      },
+      "typography": {
+        "observed": "Bold sans numerals for the balance; small UI labels; short white taglines."
+      },
+      "camera": {
+        "observed": "One continuous camera: dolly and tilt across perspective-tilted cards, a push into a row, a pull back to a gauge."
+      },
+      "transitions": {
+        "observed": "No cuts: the icon's tile grows into the dashboard (0.4-1.9 s); the gauge ring shrinks into the wordmark (11.4-12.2 s); the soft boundaries at 4.69 and 5.81 s are camera moves.",
+        "interpreted": "Container transforms bookend a one-take move.",
+        "confidence": "high"
+      },
+      "motion": {
+        "observed": "A chart draws, a receipt flies in and lands on its row, rows highlight, a bar fills, a gauge counts up."
+      },
+      "sound_design": {
+        "observed": "-17.1 LUFS, LRA 11.3 LU (the widest in batch 1), true peak -3.5 dBTP; accents on a 1.00 s grid from 0.56 to 3.55 s; the track falls below -50 dBFS from 5.50 to 6.01 s and an accent lands at 6.06 s as the receipt meets its row; the last 10% is 7.0 dB above the body (logo sting).",
+        "interpreted": "Silence before the key match and a loud closing sting give a clear dynamic arc.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None; two short taglines sit beside the UI."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.9,
+        "observed": "The app icon grows into a blank card that becomes the dashboard."
+      },
+      {
+        "start": 1.9,
+        "end": 4.7,
+        "observed": "Balance and chart; tagline."
+      },
+      {
+        "start": 4.7,
+        "end": 9.5,
+        "observed": "The camera tilts across cards; a receipt flies in and matches a row; a bar fills."
+      },
+      {
+        "start": 9.5,
+        "end": 11.4,
+        "observed": "Score gauge counts from 83 to 94 with a checklist; tagline."
+      },
+      {
+        "start": 11.4,
+        "end": 14.0,
+        "observed": "The gauge ring shrinks; wordmark and tagline."
+      }
+    ],
+    "moments": [
+      {
+        "t": 6.06,
+        "observed": "After 0.5 s of near silence the receipt lands on its matching row with an accent.",
+        "interpreted": "The film's one reveal is made by contrast."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the dropout is a music break or an edit",
+      "Whether the 3D look is CSS perspective or a 3D renderer (both read the same in the frames)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "container-transform",
+      "timestamps": [
+        0.37,
+        1.11,
+        1.85,
+        11.45,
+        12.19
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        4.06,
+        6.28,
+        8.49
+      ]
+    },
+    {
+      "id": "pre-hit-dropout",
+      "timestamps": [
+        5.5,
+        6.06
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        0.56,
+        1.56,
+        2.55,
+        3.55
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "parallax-camera"
+    ],
+    "compositions": [
+      "end-card",
+      "animated-chart"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "2.5d-depth",
+    "logo-reveal",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "dark-navy",
+    "amber",
+    "one-take",
+    "3d-ui",
+    "fintech",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 9.5
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 112,
+      "scan_size": "96x54",
+      "overview_frames": 19,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 2,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 4.688,
+        "kind": "soft",
+        "score": 0.191
+      },
+      {
+        "t": 5.812,
+        "kind": "soft",
+        "score": 0.19
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 4.69,
+        "duration": 4.69,
+        "activity": 0.088,
+        "luma": 0.11
+      },
+      {
+        "index": 2,
+        "start": 4.69,
+        "end": 5.81,
+        "duration": 1.12,
+        "activity": 0.06,
+        "luma": 0.15
+      },
+      {
+        "index": 3,
+        "start": 5.81,
+        "end": 14.03,
+        "duration": 8.22,
+        "activity": 0.042,
+        "luma": 0.08
+      }
+    ],
+    "static_holds": [
+      [
+        12.81,
+        13.94
+      ]
+    ],
+    "mean_activity": 0.059,
+    "luma": {
+      "mean": 0.09,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080818",
+        "share": 0.523
+      },
+      {
+        "hex": "#282838",
+        "share": 0.102
+      },
+      {
+        "hex": "#081818",
+        "share": 0.101
+      },
+      {
+        "hex": "#181828",
+        "share": 0.085
+      },
+      {
+        "hex": "#080808",
+        "share": 0.034
+      },
+      {
+        "hex": "#182838",
+        "share": 0.028
+      },
+      {
+        "hex": "#181818",
+        "share": 0.027
+      },
+      {
+        "hex": "#182828",
+        "share": 0.023
+      },
+      {
+        "hex": "#181838",
+        "share": 0.02
+      },
+      {
+        "hex": "#283848",
+        "share": 0.013
+      }
+    ],
+    "representative_times": [
+      1.17,
+      2.35,
+      3.52,
+      5.25,
+      7.86,
+      9.92,
+      11.97
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -3.7,
+      "mean_dbfs_voiced": -26.8,
+      "silence_ratio": 0.1,
+      "onsets": 40,
+      "onset_rate_per_sec": 2.84,
+      "onset_times": [
+        0.56,
+        1.37,
+        1.44,
+        1.56,
+        1.93,
+        2.04,
+        2.3,
+        2.55,
+        2.93,
+        3.04,
+        3.3,
+        3.55,
+        3.95,
+        4.06,
+        4.55,
+        4.85,
+        5.06,
+        5.34,
+        6.06,
+        6.55,
+        6.8,
+        6.92,
+        7.06,
+        7.17,
+        7.29,
+        7.55,
+        7.69,
+        7.92,
+        8.06,
+        8.31,
+        8.54,
+        8.94,
+        9.85,
+        10.05,
+        10.17,
+        10.36,
+        12.05,
+        12.56,
+        13.05,
+        13.56
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.23,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 894,
+      "band_share": {
+        "low_lt_250": 0.41,
+        "mid_250_2k": 0.43,
+        "high_gt_2k": 0.15
+      },
+      "syllabic_modulation_share": 0.31,
+      "boundary_onset_alignment": {
+        "boundaries": 2,
+        "tolerance_ms": 50,
+        "near_onset": 0.0,
+        "chance_level": 0.25,
+        "median_offset_ms": 193
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-fe7fb0ded2",
+      "overview": "reference/analysis/ref-fe7fb0ded2/overview.jpg",
+      "scenes": "reference/analysis/ref-fe7fb0ded2/scenes.jpg",
+      "transitions": "reference/analysis/ref-fe7fb0ded2/transitions.jpg",
+      "motion": "reference/analysis/ref-fe7fb0ded2/motion.jpg",
+      "audio": "reference/analysis/ref-fe7fb0ded2/audio.png",
+      "frames": "reference/analysis/ref-fe7fb0ded2/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -17.1,
+        "lra_lu": 11.3,
+        "true_peak_dbtp": -3.5,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 6,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 2,
+        "speech_start": 9.26,
+        "speech_end": 13.79,
+        "speech_coverage": 0.22,
+        "wps_while_speaking": 0.63,
+        "wpm_over_span": 26,
+        "pace_thirds_wps": [
+          0.66,
+          0.66,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.57,
+        "pauses": {
+          "count": 1,
+          "median_ms": 1380,
+          "max_ms": 1380,
+          "at": [
+            9.83
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 2,
+            "wps": 0.24
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 40,
+        "accents": 8,
+        "accents_per_min": 34.2,
+        "accent_times": [
+          0.56,
+          1.56,
+          2.55,
+          3.55,
+          6.06,
+          7.55,
+          12.05,
+          13.05
+        ],
+        "accent_threshold": 0.46,
+        "boundaries_with_accent": {
+          "boundaries": 2,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.11
+        },
+        "onset_rate_during_speech": 1.27,
+        "onset_rate_outside_speech": 3.31,
+        "level_speech_minus_gaps_db": 7.1,
+        "sustained_share": 0.86,
+        "silences": [
+          [
+            0.05,
+            0.53
+          ],
+          [
+            5.5,
+            6.01
+          ]
+        ],
+        "level_head_vs_body_db": -1.5,
+        "level_tail_vs_body_db": 7.0,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-fe7fb0ded2/listen",
+        "sheet": "reference/analysis/ref-fe7fb0ded2/listen/listen.jpg",
+        "words": "reference/analysis/ref-fe7fb0ded2/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

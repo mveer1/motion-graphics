@@ -1,0 +1,39 @@
+{
+  "id": "container-transform",
+  "name": "Container transform (shared element)",
+  "family": "transition-grow",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected product film (batch 1, 2026-11-26) grows an app icon's tile into the dashboard card and later shrinks a gauge ring into the wordmark; a UI motion convention (shared-element or container transform).", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "One container carries the viewer between two states: its position, size and corner radius tween from the source element's box to the target's box, the old content fades out early and the new content fades in late, so there is never a cut.",
+  "purpose": "Continuity between an object and its expanded view (icon -> app, chip -> detail card, gauge -> logo).",
+  "visual_behaviour": "A rounded tile scales up, loses its glyph and lands as a blank card that fills with the next screen; or a ring contracts into a small mark that becomes part of a logo.",
+  "mechanics": "Measure source and target rects (Studio.boxAt). Tween x, y, width, height and border-radius together over 0.5-0.8 s with power3.inOut; source content opacity 1 -> 0 in the first 30%; target content 0 -> 1 in the last 40% with a 4-8 px rise; shadow grows with size. No crossfade of two full frames.",
+  "decomposition": { "primitives": ["scene-container", "svg-shape"], "effects": ["element-bloom", "match-cut"], "timing": "0.5-0.8 s; content swap in the middle third." },
+  "parameters": [
+    { "name": "from", "description": "Source element" },
+    { "name": "to", "description": "Target box or element" },
+    { "name": "duration", "description": "Seconds", "default": 0.65 },
+    { "name": "radius", "description": "Corner radius from -> to", "default": "source -> target" }
+  ],
+  "use_cases": ["product demo openings (icon -> UI)", "explainer zoom from an item in a list to its detail", "data card -> chart", "gauge or badge -> end card"],
+  "failure_modes": ["Aspect ratio changes without corner-radius interpolation look like a stretch", "Fading both contents at the same time shows a muddy mid-state", "Source moving during the transform: measure at the cue"],
+  "implementation_state": "implemented",
+  "implemented_by": ["container-grow"],
+  "implementation": {"approach": "Studio.fx.containerTransform(tl, from, to, at, {duration, ease, color, shadow, outTarget, inTarget}) (runtime 1.17.0): a proxy box tweens left, top, width, height, corner radius, background and shadow from the source box at `at` to the target box at the hand-off; styled snapshots of both contents (computed style inlined, ids dropped) cross over inside it, the source copy out in the first 30 % and the target copy in, rising, in the last 40 %; then the proxy hands off to the real target and the scenes cut.", "runtime_api": ["Studio.fx.containerTransform"]},
+  "validation": {"state": "preview", "evidence": [{"kind": "runtime-test", "path": "tests/studio-runtime/backlog-techniques.html", "result": "pass", "date": "2026-11-28"}, {"kind": "frame-review", "path": "tests/reference-derived/flash-and-container/qa/report.json", "result": "pass", "date": "2026-11-28", "notes": "Contact sheet inspected: tile glyph fades in the first third (2.33 s), styled card content rises in (2.93 s), seamless hand-off to the real card (3.60 s). A first run showed unstyled copies (ids stripped took #id rules with them); fixed by inlining computed style before the move."}]},
+  "capability": { "support": "native", "requirements": ["CSS transform or width/height tween", "border-radius"], "compatible_components": ["element-bloom", "match-cut"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-fe7fb0ded2", "timestamps": [0.37, 1.11, 1.85, 11.45, 12.19], "observed": "The app icon's rounded tile scales up and loses its glyph, becoming a blank card that fills with the dashboard (0.4-1.9 s); later the score gauge ring shrinks to a small circle and the wordmark resolves in its place (11.4-12.2 s)." },
+    { "source_id": "ref-5a2816d4db", "timestamps": [31.27, 31.4], "observed": "Four comparison cards shrink into four pills in about 0.2 s (31.27-31.47 s) and stay in place through the next bloom into the end card." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [1.53, 1.57], "observed": "The blue full stop stretches sideways into a pill that becomes a UI card beside the word (1.53-1.60 s)." },
+    { "source_id": "ref-ee70618e88", "timestamps": [0.56], "observed": "A tilted prompt bar turns flat and settles as the input field of a phone that forms around it (0.24-0.92 s)." },
+    { "source_id": "ref-7a185cb08d", "timestamps": [1.17, 2.96, 5.79, 13.15], "observed": "One container carries the whole film: dot to pill (1.17-1.40 s), aperture circle to rounded tile (2.96-3.29 s), grid tile to full frame (5.79-5.92 s), full frame into a phone screen (13.15-13.32 s); each morph 0.13-0.33 s." },
+    { "source_id": "ref-e40080c790", "timestamps": [1.82, 3.82, 12.06], "observed": "One black container changes box and corner radius in 0.2-0.33 s between twelve UI states (pill to player card 1.73-1.99 s, card to slider 3.73-3.99 s, palette to toast 11.90-12.20 s); old content fades before the box lands, new content after." },
+    { "source_id": "ref-ad023ce9dc", "timestamps": [17.9, 18.66], "observed": "The generated image scales from the chat bubble into the email hero over 0.8 s while the camera follows: a shared element carries the viewer between two panels." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [9.72], "observed": "A product listing card shrinks into a small icon tile (9.69-9.89 s) that becomes the hub of the next diagram." }
+  ],
+  "related": { "techniques": ["element-bloom-transition", "film-match-cut", "ui-demo-micro-interactions"], "effects": ["element-bloom", "match-cut"], "templates": ["product-promo"] },
+  "licensing_notes": "Technique only (UI motion convention plus a user-supplied reference, inspiration-only, rights unknown).",
+  "tags": ["transition", "container", "shared-element", "flip", "ui", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-28" }
+}

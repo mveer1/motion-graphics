@@ -1,0 +1,54 @@
+{
+  "id": "tool-rig3d-seek",
+  "name": "Tibi seek-order acceptance (scripts/rig3d-seek.py)",
+  "component_type": "tool",
+  "purpose": "Reproduce history-dependent Tibi frames with named skin, feet, scene, split-camera and anatomy-mode presets. Compare fresh and revisited state/pixels and write labelled sheets, thumbnails and a pass/fail report.",
+  "capabilities": [
+    "scripts/rig3d-seek.py --out <folder> --set all|skin|feet|scenes|modes|joints --gender m|f|both --profile legacy|distance",
+    "--baseline <report.json> adds start-state verdicts to the current report",
+    "assets/fitness/lab3d/seek-bench.html drives named figures on a paused GSAP timeline with suppressed-callback seeks",
+    "One browser under the host lock; cold-build and warm-frame timing, exact pixel differences and projection-camera object counts; normal fingerprints join position and colour checks",
+    "Twenty cases per profile: original temporal cases plus shoulder twist, overhead reach, deep flexion and partially open cutaways; JS heap sample is not process peak RAM",
+    "--set locality separately checks both bodies for off-window anatomy pixels; --unclipped-control disables the clip in memory to prove the actual pixel gate detects the defect"
+  ],
+  "location": "scripts/rig3d-seek.py",
+  "version": "0.4.0",
+  "dependencies": [
+    "shared-fitness-kit",
+    "tool-session-guard",
+    "gsap",
+    "threejs"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "Python 3.12, existing Playwright and Pillow, Chrome with SwiftShader",
+    "notes": "Distance is the current development default; legacy remains explicit. Normal-buffer parity is included. Mac run pending; this is temporal evidence, not an anatomy or creative sign-off."
+  },
+  "documentation_urls": [
+    "docs/fitness-studio.md",
+    ".claude/skills/fitness/references/motion-3d.md"
+  ],
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Loads workspace-owned assets and writes only to the requested report directory. No install or external asset download."
+  },
+  "installation": {
+    "required": false,
+    "instructions": "Workspace tool; uses the existing browser-review environment and browser_stills Chrome discovery."
+  },
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Original workspace test code; no third-party code copied."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "0.4.0, Windows 2026-11-20: twenty cases per profile pass with zero history-dependent pixels; all twenty explicit-legacy fresh references remain identical to 1.9.2. Locality measured 279/228 off-window pixels before, zero after, and 279/228 again with only the clip uniform disabled. Inside-window changes prevent blank interiors passing. No Mac or human anatomy approval.",
+  "architecture_ref": "ARCHITECTURE.md#fitness",
+  "last_verified": "2026-11-20",
+  "tags": ["fitness", "qa", "determinism", "3d"]
+}

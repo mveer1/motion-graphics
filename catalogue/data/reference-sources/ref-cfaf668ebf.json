@@ -1,0 +1,562 @@
+{
+  "id": "ref-cfaf668ebf",
+  "name": "Silent milestone film: dips to black between sections, a headline over flashing backgrounds, a counter to one million",
+  "status": "experimental",
+  "source": {
+    "filename": "one-million-visitors-03cec9a1.mp4",
+    "aliases": [],
+    "sha256": "cfaf668ebfb50f13a86a29ce434523449d9cac7d0acfa03361c7e4e23e881314",
+    "bytes": 7070249,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark and mark",
+        "timestamps": [
+          13.15,
+          47.94
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Screenshots of third-party websites and their imagery",
+        "timestamps": [
+          0.42,
+          25.88,
+          30.12
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Product milestone film full of third-party website screenshots; reuse the dip rhythm, the held-headline montage and the counter-plus-chart only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 7070249,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 54.3,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1629,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 1039,
+    "keyframes": 55,
+    "audio": null,
+    "overall_kbps": 1042
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames) and the transitions sheet (all 11 boundaries, every 2nd frame); 30 fps strips 2.20-2.80, 16.50-18.40 and 38.55-39.15 s and a 15 fps strip 42.00-43.80 s. No audio track, so no audio panel or listen sheet (listen reports no audio track). Nothing was listened to.",
+    "coverage": "Full 54.3 s; every boundary on the sheet; the dips, the background montage, the word swap and the letter reveal at 15-30 fps.",
+    "concept": {
+      "observed": "A silent milestone announcement for a website-template product: a tilted wall of sites, a claim, a terminal command, the launch, a headline held while backgrounds flash, a counter rolling to one million over a rising chart, a grid of sites with a headline, a 'to every' line with a swapped role word, a thank-you and a starfield end card.",
+      "interpreted": "Gratitude built from proof (the sites) and one number; with no sound, pace and emphasis come only from holds, dips and type.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Short centred headlines in a light sans with pink-to-violet gradient key words; small pill kickers above headlines; no voice and no audio track."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Black (#080808, 80%) with pink-violet gradient type and full-colour site screenshots; mean luma 0.09."
+      },
+      "typography": {
+        "observed": "Thin and regular grotesk; key word in a gradient; tabular digits for the counter."
+      },
+      "composition": {
+        "observed": "Centred headline on black; headline top-left over a full-bleed grid of sites (30.1-33.5 s); small kicker above a large single word (35-41 s)."
+      },
+      "motion": {
+        "observed": "Terminal typing (6.4-10.6 s); odometer digits roll 18.30-22.48 s while an area chart draws; slow drift over the tilted site wall; floating cards at different depths with blur (35-41 s)."
+      },
+      "transitions": {
+        "observed": "11 boundaries, all soft. 0.58 and 29.25 s: camera drift over the site wall (continuous). 2.40, 5.67, 25.57, 34.23 and 40.92 s: dips to the black background; content fades out in 0.2-0.3 s, black holds 0.05-0.13 s (0.7 s before the closing section at 41.27-42.0 s), then the next kicker or headline types or fades in (continuous, dip). 16.92 and 17.92 s: inside a 1.5 s run (16.67-18.13 s) where the headline holds and the background image changes every 2-4 frames (0.07-0.13 s), a cut montage under persistent type. 37.25 and 38.67 s: in-place word swaps, the large word blurring out while the next blurs in over about 0.25 s (38.75-39.02 s; continuous). Not detected: 18.27-18.30 s the headline fades and the counter appears in place; 46.24-47.09 s the thank-you fades and the mark appears.",
+        "interpreted": "On a black canvas the dip is the section break; the only cut energy is the background montage, used once, right before the big number.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of 3-9 s; median scene 3.15 s; static holds 7.58-9.42, 13.92-14.92 and 44.75-45.75 s."
+      },
+      "depth_and_layering": {
+        "observed": "Tilted wall of site cards; floating cards with depth blur behind the swapped word."
+      },
+      "sound_design": {
+        "observed": "No audio track (listen: no audio track); nothing to measure. The film is built to work muted.",
+        "interpreted": "A muted-autoplay reference: rhythm is carried by holds and dips alone.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None (no audio track)."
+      },
+      "captions": {
+        "observed": "None; copy lives in centred one-line headlines of 2-5 words, a top-left headline that builds word by word over the site grid (30.1-31.8 s) and small pill kickers above section titles."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "observed": "A tilted wall of website screenshots drifts."
+      },
+      {
+        "start": 2.4,
+        "end": 5.6,
+        "observed": "Kicker pill, then a two-line claim over a strip of sites."
+      },
+      {
+        "start": 5.6,
+        "end": 11.0,
+        "observed": "A 'one command' headline beside a terminal that types a command."
+      },
+      {
+        "start": 11.0,
+        "end": 15.5,
+        "observed": "A 'we launched' kicker and the product wordmark."
+      },
+      {
+        "start": 15.5,
+        "end": 18.3,
+        "observed": "A two-word headline holds while backgrounds flash behind it."
+      },
+      {
+        "start": 18.3,
+        "end": 25.3,
+        "observed": "A counter rolls to one million over a rising area chart."
+      },
+      {
+        "start": 25.3,
+        "end": 34.2,
+        "observed": "A grid of sites rises; a headline builds top-left."
+      },
+      {
+        "start": 34.2,
+        "end": 41.3,
+        "observed": "'To every' with a swapped role word among floating cards."
+      },
+      {
+        "start": 41.3,
+        "end": 47.0,
+        "observed": "'Building with us' and a letter-by-letter blur reveal of a thank-you."
+      },
+      {
+        "start": 47.0,
+        "end": 54.3,
+        "observed": "Mark, wordmark and a starfield end card."
+      }
+    ],
+    "moments": [
+      {
+        "t": 16.67,
+        "observed": "The headline holds while 14 different site backgrounds flash behind it, each 2-4 frames (0.07-0.13 s), for 1.5 s; then the headline fades and the counter takes over.",
+        "interpreted": "The montage says 'many' without a number; then the counter says how many."
+      },
+      {
+        "t": 42.47,
+        "observed": "The thank-you line appears letter by letter, each letter going from blurred and transparent to sharp, about 0.07 s apart, in 1.1 s (42.47-43.53 s)."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the film was published silent or the audio was removed before it reached us",
+      "The odometer's exact easing (the scan samples at 6 fps)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        2.4,
+        5.67,
+        25.32,
+        34.32,
+        41.27
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        18.3,
+        22.48,
+        38.95
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        0.42,
+        36.06
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        7.21,
+        9.76
+      ]
+    },
+    {
+      "id": "palette-cycle-card",
+      "timestamps": [
+        16.67,
+        17.5,
+        18.13
+      ]
+    },
+    {
+      "id": "per-character-blur-reveal",
+      "timestamps": [
+        42.47,
+        43.0,
+        43.53
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "typewriter-reveal",
+      "slot-roll"
+    ],
+    "compositions": [
+      "odometer-counter",
+      "animated-chart",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "kinetic-typography",
+    "data-visualisation",
+    "scene-transitions",
+    "ui-product-demo"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "dark",
+    "silent",
+    "milestone",
+    "counter",
+    "dip-to-black",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 21.7
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 325,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 11,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.583,
+        "kind": "soft",
+        "score": 0.193
+      },
+      {
+        "t": 2.4,
+        "kind": "soft",
+        "score": 0.16,
+        "isolation": 0.0
+      },
+      {
+        "t": 5.667,
+        "kind": "soft",
+        "score": 0.089,
+        "isolation": 0.0
+      },
+      {
+        "t": 16.917,
+        "kind": "soft",
+        "score": 0.185
+      },
+      {
+        "t": 17.917,
+        "kind": "soft",
+        "score": 0.185
+      },
+      {
+        "t": 25.567,
+        "kind": "soft",
+        "score": 0.074,
+        "isolation": 0.03
+      },
+      {
+        "t": 29.25,
+        "kind": "soft",
+        "score": 0.296
+      },
+      {
+        "t": 34.233,
+        "kind": "soft",
+        "score": 0.082,
+        "isolation": 0.0
+      },
+      {
+        "t": 37.25,
+        "kind": "soft",
+        "score": 0.228
+      },
+      {
+        "t": 38.667,
+        "kind": "soft",
+        "score": 0.103,
+        "isolation": 0.0
+      },
+      {
+        "t": 40.917,
+        "kind": "soft",
+        "score": 0.172
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.58,
+        "duration": 0.58,
+        "activity": 0.32,
+        "luma": 0.42
+      },
+      {
+        "index": 2,
+        "start": 0.58,
+        "end": 2.4,
+        "duration": 1.82,
+        "activity": 0.435,
+        "luma": 0.41
+      },
+      {
+        "index": 3,
+        "start": 2.4,
+        "end": 5.67,
+        "duration": 3.27,
+        "activity": 0.181,
+        "luma": 0.15
+      },
+      {
+        "index": 4,
+        "start": 5.67,
+        "end": 16.92,
+        "duration": 11.25,
+        "activity": 0.052,
+        "luma": 0.03
+      },
+      {
+        "index": 5,
+        "start": 16.92,
+        "end": 17.92,
+        "duration": 1.0,
+        "activity": 0.481,
+        "luma": 0.12
+      },
+      {
+        "index": 6,
+        "start": 17.92,
+        "end": 25.57,
+        "duration": 7.65,
+        "activity": 0.095,
+        "luma": 0.06
+      },
+      {
+        "index": 7,
+        "start": 25.57,
+        "end": 29.25,
+        "duration": 3.68,
+        "activity": 0.27,
+        "luma": 0.22
+      },
+      {
+        "index": 8,
+        "start": 29.25,
+        "end": 34.23,
+        "duration": 4.98,
+        "activity": 0.275,
+        "luma": 0.2
+      },
+      {
+        "index": 9,
+        "start": 34.23,
+        "end": 37.25,
+        "duration": 3.02,
+        "activity": 0.137,
+        "luma": 0.05
+      },
+      {
+        "index": 10,
+        "start": 37.25,
+        "end": 38.67,
+        "duration": 1.42,
+        "activity": 0.106,
+        "luma": 0.14
+      },
+      {
+        "index": 11,
+        "start": 38.67,
+        "end": 40.92,
+        "duration": 2.25,
+        "activity": 0.126,
+        "luma": 0.07
+      },
+      {
+        "index": 12,
+        "start": 40.92,
+        "end": 54.3,
+        "duration": 13.38,
+        "activity": 0.031,
+        "luma": 0.02
+      }
+    ],
+    "static_holds": [
+      [
+        7.58,
+        9.42
+      ],
+      [
+        13.92,
+        14.92
+      ],
+      [
+        44.75,
+        45.75
+      ]
+    ],
+    "mean_activity": 0.129,
+    "luma": {
+      "mean": 0.09,
+      "dark_share": 0.96,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.805
+      },
+      {
+        "hex": "#382828",
+        "share": 0.015
+      },
+      {
+        "hex": "#282828",
+        "share": 0.014
+      },
+      {
+        "hex": "#181818",
+        "share": 0.013
+      },
+      {
+        "hex": "#989898",
+        "share": 0.011
+      },
+      {
+        "hex": "#b8b8b8",
+        "share": 0.01
+      },
+      {
+        "hex": "#180818",
+        "share": 0.01
+      },
+      {
+        "hex": "#888888",
+        "share": 0.009
+      },
+      {
+        "hex": "#484848",
+        "share": 0.009
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.008
+      }
+    ],
+    "representative_times": [
+      0.29,
+      1.49,
+      4.04,
+      8.48,
+      11.3,
+      14.11,
+      17.42,
+      19.83,
+      21.75,
+      23.66,
+      27.41,
+      30.49,
+      31.74,
+      32.98,
+      35.74,
+      37.96,
+      39.8,
+      44.27,
+      47.61,
+      50.95
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-cfaf668ebf",
+      "overview": "reference/analysis/ref-cfaf668ebf/overview.jpg",
+      "scenes": "reference/analysis/ref-cfaf668ebf/scenes.jpg",
+      "transitions": "reference/analysis/ref-cfaf668ebf/transitions.jpg",
+      "motion": "reference/analysis/ref-cfaf668ebf/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-cfaf668ebf/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

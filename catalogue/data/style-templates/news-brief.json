@@ -231,7 +231,7 @@
     }
   ],
   "open_questions": [
-    "motion-qa does not yet waive low-contrast and text-echo for a declared caption band (TODO.md).",
+    "motion-qa waives low-contrast and text-echo for runtime captions (class st-caption) and for scenes that declare caption-band (2026-11-23); a film that hand-draws its band should declare rules.caption_band once its geometry is measured on a render.",
     "No rule for how stale a 'latest' figure may be before it needs an 'as of' date on screen."
   ],
   "revisions": [

@@ -1,0 +1,381 @@
+{
+  "id": "ref-d386e5f0ae",
+  "name": "Silent light-canvas page launch: two-tone headlines, live counters and a bar race on one page",
+  "status": "experimental",
+  "source": {
+    "filename": "founder-page-launch-video-df7c1219.mp4",
+    "aliases": [],
+    "sha256": "d386e5f0ae26ac0c2c8391a7ee58edbe055ddc509f2e328eb4db1d4cf3c217ad",
+    "bytes": 1814659,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Product icon and wordmark on the opening and end cards",
+        "timestamps": [
+          0.37,
+          1.11,
+          18.89
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Profile with a named person, project list, revenue and visitor cards, map",
+        "timestamps": [
+          2.59,
+          4.07,
+          7.04,
+          15.19
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "A second product's name set in a headline",
+        "timestamps": [
+          10.0
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Product launch showing a named user's profile; reuse the single-page section rhythm and two-tone headline principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1814659,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 20.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1200,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 721,
+    "keyframes": 20,
+    "audio": null,
+    "overall_kbps": 726
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (27 frames), the motion sheet (4 windows at 10 fps) and a 30 fps strip at 4.50-5.10 s (a section change). No transitions sheet exists (the analyser found no boundaries) and no listen sheet (listen reports no audio track); nothing was listened to.",
+    "coverage": "Full 20.0 s; one section change at frame level, three more at 10 fps.",
+    "concept": {
+      "observed": "A launch for a one-page portfolio for founders: a logo build, then seven two-line claims each paired with a UI card (handle and profile, a project list, a revenue counter, a visitor counter with a line chart, a monthly revenue bar race, a world map of visitors, an embed widget), then the logo with a button that a cursor clicks.",
+      "interpreted": "A feature list as a steady drumbeat: one claim, one proof card, about every 2.3 s.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Silent; all copy on screen as two-line headlines (a statement, then a counterpoint in the accent colour)."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Pale grey-white canvas with a cool blue haze, white cards, black type; ultramarine blue for the second headline line, green for money and growth figures; small multicolour bars in the race."
+      },
+      "typography": {
+        "observed": "Bold geometric sans headlines of 2-5 words, line 1 black, line 2 in the accent; a tiny overline label above each headline; large tabular numerals for counters."
+      },
+      "composition": {
+        "observed": "Two columns throughout: headline block left of centre (about 30% of the width), card right (about 40%), both vertically centred; logo and end card centred."
+      },
+      "motion": {
+        "observed": "Headline words fade in one at a time about 0.07-0.1 s apart (4.67-4.93 s); card rows stagger in about one per 0.07 s; counters count up continuously (0 to 11,512 in about 1.2 s, 9.41-10.6 s) while a line chart draws; bars grow and reorder as the date label advances (11.4-13.7 s); map pins pop in."
+      },
+      "transitions": {
+        "observed": "No cuts (0 boundaries found). Each section change fades the old content to an empty card shell (4.53-4.60 s), holds the empty shell about 0.07 s, then builds the new headline words and card rows in place (4.67-5.10 s). Seven such changes about 2.3 s apart.",
+        "interpreted": "One continuous page: only the content changes, so the viewer never re-orients.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of about 2.3-2.6 s (starting 2.4, 4.6, 6.9, 9.3, 11.2, 13.9, 16.5, 18.0 s); each headline completes in about 0.3 s and each card finishes building in about 1-1.5 s."
+      },
+      "sound_design": {
+        "observed": "No audio track: the file has no audio stream and listen reports 'no audio track'.",
+        "interpreted": "The picture carries all the rhythm; any music would be added by the platform.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None (no audio track).",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lane: the left column, a two-line headline at mid-height with a small overline label above it; line 2 in the accent colour carries the payoff ('One link.', 'No screenshots.'). Copy changes only at section changes.",
+        "interpreted": "One stable copy lane beside its proof card keeps reading effortless.",
+        "confidence": "high"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "observed": "Logo icon, wordmark and tagline build."
+      },
+      {
+        "start": 2.4,
+        "end": 4.6,
+        "observed": "'Your handle. Your page.' with an input and a profile card."
+      },
+      {
+        "start": 4.6,
+        "end": 6.9,
+        "observed": "'Every project. One link.' with a project list."
+      },
+      {
+        "start": 6.9,
+        "end": 9.3,
+        "observed": "'Real revenue. No screenshots.' with a revenue counter and a heat grid."
+      },
+      {
+        "start": 9.3,
+        "end": 11.2,
+        "observed": "'Real visitors.' with a counter and a line chart."
+      },
+      {
+        "start": 11.2,
+        "end": 13.9,
+        "observed": "'The race is on' with a monthly revenue bar race."
+      },
+      {
+        "start": 13.9,
+        "end": 16.5,
+        "observed": "'Get found by the internet.' with a world map and pins."
+      },
+      {
+        "start": 16.5,
+        "end": 18.0,
+        "observed": "'Show it off anywhere.' with an embed widget."
+      },
+      {
+        "start": 18.0,
+        "end": 20.0,
+        "observed": "Logo, tagline and a button; a cursor clicks it."
+      }
+    ],
+    "moments": [
+      {
+        "t": 9.41,
+        "observed": "The visitor counter counts from 0 to 11,512 in about 1.2 s while a line chart draws beneath it, both finishing together.",
+        "interpreted": "The number and its shape arrive as one proof."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether a soundtrack is meant to be added on the platform",
+      "Word-fade easing (one section change at 30 fps)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        2.59,
+        4.67,
+        7.04,
+        9.41,
+        11.39,
+        14.01,
+        16.67
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        2.59,
+        4.07,
+        19.63
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        4.6,
+        9.41,
+        13.91
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        2.59,
+        4.87,
+        7.78,
+        10.74
+      ]
+    },
+    {
+      "id": "bar-chart-race",
+      "timestamps": [
+        11.39,
+        12.22,
+        13.7
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "text-mask-rise"
+    ],
+    "compositions": [
+      "animated-chart",
+      "split-stage",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light",
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "data-visualisation",
+    "kinetic-typography",
+    "editorial-layout"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "light-canvas",
+    "blue-accent",
+    "silent",
+    "single-page",
+    "counters",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 8.8
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 20.0,
+        "duration": 20.0,
+        "activity": 0.035,
+        "luma": 0.94
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.035,
+    "luma": {
+      "mean": 0.94,
+      "dark_share": 0.0,
+      "light_share": 1.0
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.835
+      },
+      {
+        "hex": "#e8f8f8",
+        "share": 0.093
+      },
+      {
+        "hex": "#b8c8d8",
+        "share": 0.018
+      },
+      {
+        "hex": "#c8c8d8",
+        "share": 0.012
+      },
+      {
+        "hex": "#b8c8c8",
+        "share": 0.009
+      },
+      {
+        "hex": "#b8b8c8",
+        "share": 0.008
+      },
+      {
+        "hex": "#d8d8e8",
+        "share": 0.005
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.005
+      },
+      {
+        "hex": "#c8d8e8",
+        "share": 0.004
+      },
+      {
+        "hex": "#c8b8c8",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      5.0,
+      10.0,
+      15.0
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-d386e5f0ae",
+      "overview": "reference/analysis/ref-d386e5f0ae/overview.jpg",
+      "scenes": "reference/analysis/ref-d386e5f0ae/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-d386e5f0ae/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-d386e5f0ae/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

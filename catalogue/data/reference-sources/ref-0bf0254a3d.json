@@ -57,7 +57,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed scene sheet (8 scenes) and transition strips around all 7 boundaries. Overview generated (20 frames) but the scene sheet covered the full duration. Audio from measurements only.",
+    "method": "Viewed scene sheet (8 scenes) and transition strips around all 7 boundaries. Overview generated (20 frames) but the scene sheet covered the full duration. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration via the scene sheet; all boundaries at frame level.",
     "concept": {
       "observed": "A 15 s motion reel: dot and 'eyes', Bauhaus shape grid, blue field, tilted panel and push into a 3D chrome sphere, then TYPE./SPACE./TIME. cards and a closing title with a swoosh.",
@@ -89,7 +89,9 @@
         "observed": "Measured median shot 2.48 s; word cards 0.33 s apart at 10.52-11.17 s."
       },
       "transitions": {
-        "observed": "Eye-to-disc bloom (2.48 s), shape grows to background (4.82 s), push through text (7.70 s), diagonal wipe with smear (10.52 s), hard cuts."
+        "observed": "Re-read 2026-11-27: 6 boundaries (2 cut, 3 grow, 1 cover, 0 continuous). 2.48 s grow: the right ring 'eye' fills cream and blooms past the frame edges in about 0.13 s (2.42-2.56 s); its cream is the next background and the grid shapes pop in at once. 4.82 s grow: a small blue rectangle scales up to fill the frame in about 0.3 s (4.66-4.96 s) and becomes the blue field. 7.70 s grow: zoom through the word: it scales up past the lens (7.54-7.67 s) and the chrome sphere is behind it. 10.52 s cover: an orange diagonal wipe crosses the 3D scene (edge at 10.36 s), solid orange holds about 0.13 s, then the first word card smears in from the side (10.53-10.62 s). 10.85 s cut: hard cut between one-word cards; the new word enters with a short horizontal smear. 11.17 s cut: hard cut to the third word card (cream to black). Earlier reading (2026-10-30): Eye-to-disc bloom (2.48 s), shape grows to background (4.82 s), push through text (7.70 s), diagonal wipe with smear (10.52 s), hard cuts.",
+        "interpreted": "Every section turn is made from an element of the outgoing frame (an eye, a rectangle, a word); plain cuts are kept for the word list.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "Flat until a perspective tilt and a 3D sphere section (about 6-10 s)."
@@ -104,6 +106,19 @@
       },
       "motifs": {
         "observed": "Dots and rings; full stops; the corner frame."
+      },
+      "sound_design": {
+        "observed": "Integrated -23.9 LUFS, LRA 3.9 LU, true peak -7.5 dBTP (a quiet master). Tempo estimate 123 bpm (medium). 25 accents (100 a minute) on a near-regular 0.48-0.49 s grid (0.53, 1.02, 1.51, 2.00, 2.48, 2.95 s). Accents on cuts 0.50 against chance 0.28 (6 boundaries); onsets near boundaries 0.83 against 0.52. One silence 14.61-15.02 s (the end); head -9.8 dB and tail -14.8 dB against the body. On the listen sheet every accent brings one event: the dot appears (0.53 s), the line draws (1.02 s), the word settles (1.51 s), its O fills (2.00 s), a circle blooms to cover the frame (2.48 s), grid tiles flip (2.95-4.41 s), a blue panel covers the frame (4.90 s).",
+        "interpreted": "A beat-grid reel: one visual event per beat, and the cuts sit on beats too (above chance). Much quieter than the -14 LUFS promos.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation found 0 words in 15 s.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None; copy is the picture: one centred heavy-caps word per card and an italic serif accent word on a tilted panel; no caption lane.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -144,7 +159,8 @@
       "Chrome sphere with reflections (needs 3D rendering or a pre-rendered asset)"
     ],
     "uncertainties": [
-      "Creator unknown; relation to the other dark reels inferred from style only"
+      "Creator unknown; relation to the other dark reels inferred from style only",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -234,6 +250,22 @@
         2.85,
         4.82
       ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        0.53,
+        1.02,
+        1.51,
+        2.0,
+        2.48
+      ]
+    },
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        10.45
+      ]
     }
   ],
   "related": {
@@ -271,21 +303,23 @@
     "reel",
     "bauhaus",
     "geometric",
-    "word-cards"
+    "word-cards",
+    "batch-0",
+    "batch-7"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 21.0
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 28.0
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -611,6 +645,92 @@
       "audio": "reference/analysis/ref-0bf0254a3d/audio.png",
       "frames": "reference/analysis/ref-0bf0254a3d/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -23.9,
+        "lra_lu": 3.9,
+        "true_peak_dbtp": -7.5,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 3,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 111,
+        "accents": 25,
+        "accents_per_min": 100.0,
+        "accent_times": [
+          0.53,
+          1.02,
+          1.51,
+          2.0,
+          2.48,
+          2.95,
+          3.44,
+          3.92,
+          4.41,
+          4.9,
+          5.39,
+          5.87,
+          6.34,
+          6.83,
+          7.31,
+          7.8,
+          8.29,
+          8.78,
+          9.24,
+          9.73,
+          10.22,
+          10.7,
+          11.19,
+          11.68,
+          12.63
+        ],
+        "accent_threshold": 0.57,
+        "boundaries_with_accent": {
+          "boundaries": 6,
+          "share": 0.5,
+          "tolerance_ms": 100,
+          "chance_level": 0.28
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 7.4,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.88,
+        "silences": [
+          [
+            14.61,
+            15.02
+          ]
+        ],
+        "level_head_vs_body_db": -9.8,
+        "level_tail_vs_body_db": -14.8,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-0bf0254a3d/listen",
+        "sheet": "reference/analysis/ref-0bf0254a3d/listen/listen.jpg",
+        "words": "reference/analysis/ref-0bf0254a3d/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

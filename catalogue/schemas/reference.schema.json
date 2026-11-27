@@ -22,6 +22,12 @@
   "properties": {
     "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
     "name": { "type": "string" },
+    "family": {
+      "type": "string",
+      "enum": ["transition-cut", "transition-grow", "transition-cover", "transition-continuous", "kinetic-typography", "motion-character",
+               "staging-depth", "explanation-device", "style-texture", "sound-design", "narration-captions"],
+      "description": "Group in docs/reference-playbook.md. transition-cut: the cut itself carries the change (beat, match, flash); transition-grow: an element grows into the next scene (bloom, zoom-through, container); transition-cover: something covers or wipes the frame (liquid, curtain, object, ripple); transition-continuous: no cut, the stage evolves (single stage, dip, line spine, morph); kinetic-typography; motion-character: how things move (squash, smear, stamp, particles); staging-depth: space and framing (3D, layers, HUD); explanation-device: diagrams, UI demos, trackers, callouts; style-texture: whole-look systems; sound-design: effects, music and silence against the picture; narration-captions: voice pace and on-screen words that carry speech."
+    },
     "status": { "type": "string", "enum": ["proposed", "experimental", "approved", "deprecated", "blocked"] },
     "source": {
       "type": "object",

@@ -1,0 +1,744 @@
+{
+  "id": "ref-85d3a83400",
+  "name": "French SaaS launch: serif word build, a UI that collapses to a dot, a bloom into the light, subtitle plates",
+  "status": "experimental",
+  "source": {
+    "filename": "frame-by-frame-saas-launch-945fc216.mp4",
+    "aliases": [],
+    "sha256": "85d3a834004937a1d0e21f33014a05a44a825b56ac3d988c476dd873ebdf1ff1",
+    "bytes": 3584319,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Product mark and wordmark on the end card",
+        "timestamps": [
+          25.12,
+          25.88,
+          29.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Contact table, prospect card and message composer",
+        "timestamps": [
+          4.12,
+          19.12,
+          21.38
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "A third-party professional network named in the subtitles",
+        "timestamps": [
+          4.12
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. SaaS launch; reuse the collapse-to-dot-then-bloom, word-build and two-layer copy principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3584319,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 30.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1800,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 695,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 30.08,
+      "kbps": 248
+    },
+    "overall_kbps": 956
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames), transition strips at all 3 boundaries (every 2nd frame), the listen sheet (6 dictation phrases, 13 accent hits), the audio panel (envelope and spectrogram) and a 30 fps strip at 9.60-10.30 s (a subtitle change); automated audio and listen metrics (signal features; Windows en-US dictation, which cannot transcribe French; nothing was listened to).",
+    "coverage": "Full 30.0 s; boundaries at frame level; subtitle changes every 0.74 s from the overview, one at 30 fps.",
+    "concept": {
+      "observed": "A prospecting tool for founders: a question builds on charcoal ('you are a founder and you are still the one prospecting?'), a contact table rises, the work shrinks into an orange dot, the dot gathers signals and blooms into a warm cream world, a radar sweep finds signals, then a prospect card, a drafted message, a reply notification and the logo.",
+      "interpreted": "Problem in the dark, solution in the light; one orange dot carries the viewer across.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "French copy; a serif headline builds word by word; a subtitle plate at the bottom carries a running sentence; a voice is likely (see narration)."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Charcoal first act, warm cream second act with a peach radial glow; one orange accent for the dot, key words and highlights."
+      },
+      "typography": {
+        "observed": "Transitional serif display in sentence case, the last word of each headline in orange ('prospectez?', 'signal,', 'prospect,', 'message,', 'moment.'); small sans for subtitles and UI."
+      },
+      "composition": {
+        "observed": "Act 1: centred serif headline, then a centred UI window. Act 2: radar centred, headline bottom-left at about 70% of the height, subtitle plate centred at about 90%."
+      },
+      "motion": {
+        "observed": "Words arrive one by one while the line re-centres (0.4-3.5 s); the UI window rises in perspective from below (3.66-3.92 s); rows highlight; the window blanks, blurs and shrinks into an orange dot (8.41-8.74 s); particles gather around the dot (9.9-10.9 s); a radar wedge sweeps and labelled points pop (12-17.6 s); cards build with a score; a message types."
+      },
+      "transitions": {
+        "observed": "3.75 s soft: the UI window rises over the headline (a cover from below with a slight 3D tilt, about 0.25 s). 8.57 s soft: the window turns blank, blurs, recolours orange and shrinks to a dot in about 0.33 s (8.41-8.74 s). 11.50 s soft: the dot grows into an orange disc that fills the frame and a cream disc opens inside it, so the film blooms from charcoal to cream in about 0.27 s (11.41-11.68 s). In act 2 headline words change in place over the radar.",
+        "interpreted": "Collapse to a dot, hold, bloom: the dot is the hinge between the problem act and the solution act.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Act 1 about 11.5 s, act 2 about 13.5 s, logo about 5 s; opening headline words every 0.2-0.9 s."
+      },
+      "sound_design": {
+        "observed": "-14.4 LUFS, LRA 2.9 LU, true peak -1.4 dBTP; tempo estimate 136 bpm (low confidence); 30 accents (60/min) with no regular grid. In the opening the strongest accents land on headline words as they appear (0.60, 0.79, 1.39, 2.30, 2.55, 3.04, 3.48 s, the last being the orange 'prospectez?') and on the window rising (3.69 s); 1 of 3 boundaries has an accent within 100 ms (chance 0.18); none is within 50 ms of an onset (chance 0.39). Head 1.1 dB above the body, tail 3.5 dB below; no silences. The spectrogram shows gliding harmonic contours (voice-like) from about 0.5 to 28 s over a steady bed. Accents may be speech syllables or music.",
+        "interpreted": "Words appear on strong onsets at irregular, speech-like spacing: the copy seems timed to a voice rather than to a beat.",
+        "confidence": "low"
+      },
+      "narration": {
+        "observed": "Likely a French voice-over, not measurable here: Windows en-US dictation returned 8 words in 6 phrases (it heard 'found and' at 1.04-2.25 s while 'founder' is on screen, and two English-sounding words while 'chaque prospect' is), speech level 0.9 dB above the gaps, and the spectrogram shows voice-like harmonics throughout. Words per second, pauses and pace cannot be measured with an English recogniser.",
+        "interpreted": "Treat as narrated with on-screen subtitles; re-measure on the Mac with a French-capable model.",
+        "confidence": "low"
+      },
+      "captions": {
+        "observed": "A subtitle plate in the bottom-centre lane (about 90% of the height): small white sans on a dark rounded plate (barely distinct on charcoal, a dark pill on cream), one line of about 6-12 words, one or two words in orange. Cues swap in one frame with no fade (9.67-9.70 s) and the plate width follows the text; about 10 cues in 25 s (roughly 2-3 s each). Separately, the serif headline (centred in act 1, bottom-left in act 2) shows the key phrase with its last word in orange.",
+        "interpreted": "Two copy layers: the headline states the beat, the subtitle carries the sentence, and the orange word ties them together.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.75,
+        "observed": "A two-line serif question builds word by word on charcoal."
+      },
+      {
+        "start": 3.75,
+        "end": 8.57,
+        "observed": "A contact table window rises; rows and a message panel."
+      },
+      {
+        "start": 8.57,
+        "end": 11.5,
+        "observed": "The window shrinks to an orange dot; particles gather."
+      },
+      {
+        "start": 11.5,
+        "end": 18.0,
+        "observed": "Bloom into cream; a radar sweep finds labelled signals ('Chaque signal,')."
+      },
+      {
+        "start": 18.0,
+        "end": 24.5,
+        "observed": "Prospect card with a score, a drafted message, a reply notification ('au bon moment.')."
+      },
+      {
+        "start": 24.5,
+        "end": 30.0,
+        "observed": "Logo mark, wordmark, tagline and a button."
+      }
+    ],
+    "moments": [
+      {
+        "t": 11.41,
+        "observed": "The orange dot grows into a full orange disc and a cream disc opens inside it within about 0.27 s, turning the charcoal act into the cream act.",
+        "interpreted": "The solution arrives as light from the same point the problem collapsed into."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether there is a voice-over (likely French; en-US dictation can neither confirm nor measure it)",
+      "Whether the subtitles match a voice word for word",
+      "Whether the accents are speech syllables, effects or music"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        8.57,
+        11.41
+      ]
+    },
+    {
+      "id": "centred-word-build",
+      "timestamps": [
+        0.38,
+        1.12,
+        2.62,
+        3.38
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        3.69,
+        3.79
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        5.71,
+        19.12,
+        20.62
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        8.57,
+        11.41
+      ]
+    },
+    {
+      "id": "radar-sweep-reveal",
+      "timestamps": [
+        12.38,
+        14.62,
+        16.12
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "typewriter-reveal",
+      "particle-drift"
+    ],
+    "compositions": [
+      "caption-plate",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light",
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "scene-transitions",
+    "narration-sync",
+    "kinetic-typography"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "french",
+    "charcoal-to-cream",
+    "orange-accent",
+    "subtitles",
+    "serif",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 18.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.75,
+        "kind": "soft",
+        "score": 0.059,
+        "isolation": 0.0
+      },
+      {
+        "t": 8.567,
+        "kind": "soft",
+        "score": 0.187,
+        "isolation": 0.0
+      },
+      {
+        "t": 11.5,
+        "kind": "soft",
+        "score": 0.384,
+        "isolation": 0.41
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.75,
+        "duration": 3.75,
+        "activity": 0.007,
+        "luma": 0.13
+      },
+      {
+        "index": 2,
+        "start": 3.75,
+        "end": 8.57,
+        "duration": 4.82,
+        "activity": 0.072,
+        "luma": 0.42
+      },
+      {
+        "index": 3,
+        "start": 8.57,
+        "end": 11.5,
+        "duration": 2.93,
+        "activity": 0.016,
+        "luma": 0.12
+      },
+      {
+        "index": 4,
+        "start": 11.5,
+        "end": 30.0,
+        "duration": 18.5,
+        "activity": 0.036,
+        "luma": 0.93
+      }
+    ],
+    "static_holds": [
+      [
+        1.44,
+        2.31
+      ],
+      [
+        8.69,
+        9.56
+      ],
+      [
+        9.69,
+        10.69
+      ]
+    ],
+    "mean_activity": 0.036,
+    "luma": {
+      "mean": 0.67,
+      "dark_share": 0.22,
+      "light_share": 0.61
+    },
+    "palette": [
+      {
+        "hex": "#f8f8e8",
+        "share": 0.326
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.278
+      },
+      {
+        "hex": "#281818",
+        "share": 0.177
+      },
+      {
+        "hex": "#181818",
+        "share": 0.135
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.031
+      },
+      {
+        "hex": "#d8c8c8",
+        "share": 0.011
+      },
+      {
+        "hex": "#e8d8d8",
+        "share": 0.009
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.007
+      },
+      {
+        "hex": "#d8c8b8",
+        "share": 0.005
+      },
+      {
+        "hex": "#e89858",
+        "share": 0.005
+      }
+    ],
+    "representative_times": [
+      1.88,
+      4.96,
+      6.16,
+      7.37,
+      10.04,
+      16.12,
+      20.75,
+      25.38
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.5,
+      "mean_dbfs_voiced": -20.6,
+      "silence_ratio": 0.0,
+      "onsets": 149,
+      "onset_rate_per_sec": 4.95,
+      "onset_times": [
+        0.33,
+        0.39,
+        0.6,
+        0.79,
+        1.02,
+        1.16,
+        1.39,
+        2.3,
+        2.37,
+        2.46,
+        2.55,
+        2.67,
+        3.04,
+        3.25,
+        3.34,
+        3.48,
+        3.69,
+        3.85,
+        4.09,
+        4.3,
+        4.5,
+        4.76,
+        4.92,
+        5.36,
+        5.48,
+        5.57,
+        5.71,
+        5.8,
+        5.94,
+        6.08,
+        6.2,
+        6.34,
+        6.83,
+        6.94,
+        7.22,
+        7.38,
+        7.45,
+        7.55,
+        7.71,
+        8.22,
+        8.34,
+        8.43,
+        8.82,
+        8.96,
+        9.08,
+        9.8,
+        9.91,
+        10.01,
+        10.17,
+        10.4,
+        10.54,
+        10.73,
+        10.84,
+        10.91,
+        11.03,
+        11.22,
+        11.45,
+        11.61,
+        11.68,
+        11.96,
+        12.07,
+        12.17,
+        12.28,
+        12.47,
+        12.7,
+        12.96,
+        13.1,
+        13.26,
+        13.35,
+        13.47,
+        13.96,
+        14.12,
+        14.21,
+        14.28,
+        14.56,
+        14.95,
+        15.39,
+        15.53,
+        15.77,
+        16.04,
+        16.46,
+        16.56,
+        16.7,
+        16.81,
+        16.93,
+        17.11,
+        17.18,
+        17.46,
+        17.55,
+        17.65,
+        17.79,
+        18.09,
+        18.16,
+        18.37,
+        18.51,
+        18.69,
+        18.85,
+        18.95,
+        19.11,
+        19.18,
+        19.3,
+        19.57,
+        19.83,
+        19.9,
+        20.11,
+        20.29,
+        20.41,
+        20.48,
+        20.6,
+        20.69,
+        21.01,
+        21.46,
+        21.76,
+        21.9,
+        22.15,
+        22.59,
+        22.76,
+        22.87,
+        22.94,
+        23.08,
+        23.31,
+        23.45,
+        23.78,
+        23.92,
+        23.99,
+        24.1,
+        24.17,
+        24.31,
+        24.4,
+        24.61,
+        24.75,
+        25.15,
+        25.24,
+        25.5,
+        26.08,
+        26.31,
+        26.4,
+        26.52,
+        26.73,
+        26.87,
+        27.0,
+        27.28,
+        27.47,
+        27.56,
+        27.77,
+        27.86,
+        27.98,
+        28.21,
+        28.31
+      ],
+      "tempo_estimate": {
+        "bpm": 136.0,
+        "autocorr": 0.05,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 962,
+      "band_share": {
+        "low_lt_250": 0.25,
+        "mid_250_2k": 0.54,
+        "high_gt_2k": 0.21
+      },
+      "syllabic_modulation_share": 0.42,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 50,
+        "near_onset": 0.0,
+        "chance_level": 0.39,
+        "median_offset_ms": 58
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-85d3a83400",
+      "overview": "reference/analysis/ref-85d3a83400/overview.jpg",
+      "scenes": "reference/analysis/ref-85d3a83400/scenes.jpg",
+      "transitions": "reference/analysis/ref-85d3a83400/transitions.jpg",
+      "motion": "reference/analysis/ref-85d3a83400/motion.jpg",
+      "audio": "reference/analysis/ref-85d3a83400/audio.png",
+      "frames": "reference/analysis/ref-85d3a83400/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.4,
+        "lra_lu": 2.9,
+        "true_peak_dbtp": -1.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 80,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 8,
+        "phrases": 6,
+        "speech_start": 1.04,
+        "speech_end": 27.0,
+        "speech_coverage": 0.11,
+        "wps_while_speaking": 2.49,
+        "wpm_over_span": 18,
+        "pace_thirds_wps": [
+          0.46,
+          0.12,
+          0.35
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.32,
+        "pauses": {
+          "count": 5,
+          "median_ms": 1910,
+          "max_ms": 12640,
+          "at": [
+            2.25,
+            4.54,
+            5.15,
+            18.06,
+            20.18
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 2,
+            "wps": 0.53
+          },
+          {
+            "index": 2,
+            "words": 2,
+            "wps": 0.41
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 4,
+            "wps": 0.22
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 3,
+          "in_pause_share": 1.0,
+          "chance_level": 0.88,
+          "next_phrase_after_ms_median": 6290
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 149,
+        "accents": 30,
+        "accents_per_min": 60.0,
+        "accent_times": [
+          0.6,
+          0.79,
+          1.39,
+          2.3,
+          2.55,
+          3.04,
+          3.48,
+          3.69,
+          4.3,
+          5.71,
+          6.83,
+          6.94,
+          8.22,
+          8.43,
+          10.4,
+          10.73,
+          12.07,
+          14.12,
+          15.39,
+          17.46,
+          17.79,
+          18.37,
+          21.76,
+          22.59,
+          23.99,
+          25.15,
+          26.31,
+          27.0,
+          27.28,
+          27.77
+        ],
+        "accent_threshold": 0.4,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.33,
+          "tolerance_ms": 100,
+          "chance_level": 0.18
+        },
+        "onset_rate_during_speech": 3.12,
+        "onset_rate_outside_speech": 5.19,
+        "level_speech_minus_gaps_db": 0.9,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": 1.1,
+        "level_tail_vs_body_db": -3.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-85d3a83400/listen",
+        "sheet": "reference/analysis/ref-85d3a83400/listen/listen.jpg",
+        "words": "reference/analysis/ref-85d3a83400/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "id": "word-highlight-caption",
+  "name": "Word-highlight caption anchored to the subject",
+  "family": "narration-captions",
+  "status": "experimental",
+  "source": { "type": "user-provided-reference", "description": "An inspected product film (batch 1, 2026-11-26) plays a narrated sample explainer whose two-line captions sit directly under the illustration and colour the word being spoken; the recogniser heard the same words as the caption.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Captions show a short phrase (one or two lines) and colour the word being spoken. Placed directly under the thing being explained rather than in a fixed lower third, they keep the eye on the subject while reading.",
+  "purpose": "Accessibility and sound-off viewing without pulling the eye away from the illustration; emphasis follows the voice.",
+  "visual_behaviour": "Two centred lines in small sans under the illustration card; one word at a time switches to an accent colour (and back) as it is spoken; the lines change at phrase ends.",
+  "mechanics": "Word-timed cues (studio.py captions --timing words) grouped into phrases of 3-7 words; highlight the current word (colour or weight) at its measured start; lane = below the subject's box (Studio.boxAt(subject).bottom + gap) instead of the frame's lower third, clamped inside the safe area; phrase swap on a 0.1-0.15 s fade.",
+  "decomposition": { "primitives": ["styled-text", "split-text"], "effects": ["marker-highlight"], "timing": "Highlight per word at its spoken start; phrases 1-3 s." },
+  "parameters": [
+    { "name": "lane", "description": "lower, mid, upper (caption presets) or under-subject (anchored to a box)", "default": "lower" },
+    { "name": "max_words", "description": "Words per caption phrase", "default": 5 },
+    { "name": "highlight", "description": "Colour or weight change for the spoken word", "default": "accent colour" }
+  ],
+  "use_cases": ["narrated explainers with one main illustration per scene", "diagram walk-throughs", "short-form films watched without sound"],
+  "failure_modes": ["Subject-anchored captions that jump with every scene's layout; keep the lane stable inside a scene", "Highlight lagging the voice by more than about 100 ms reads as broken; use measured word times", "Captions covering the part of the illustration being named"],
+  "implementation_state": "implemented",
+  "implemented_by": ["caption-band"],
+  "implementation": {"approach": "Studio.comp.captions(parent, cues).schedule(tl) highlights the spoken word from word-timed cues and places each cue in a preset lane (docs/caption-design.md). Since runtime 1.17.0 lane 'subject' sits the caption beside cue.anchor (storyboard caption_lane subject + caption_anchor, optional caption_side above), measured as the anchor renders at the cue's start and held for the cue, clamped to the safe area; no findable anchor falls back to lower.", "runtime_api": ["Studio.comp.captions"]},
+  "validation": {"state": "preview", "evidence": [{"kind": "runtime-test", "path": "tests/studio-runtime/backlog-techniques.html", "result": "pass", "date": "2026-11-28"}, {"kind": "frame-review", "path": "tests/reference-derived/scramble-strike-caption/qa/report.json", "result": "pass", "date": "2026-11-28", "notes": "Contact sheet inspected: a cue below the pump (5.8-6.5 s), a cue above the valve at its moved position (7.9-8.4 s), then back to the lower lane (9.2 s)."}]},
+  "capability": { "support": "native", "requirements": ["word-timed cues"], "compatible_components": ["caption-band", "caption-plate", "marker-highlight"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-a339360a56", "timestamps": [16.23, 18.49, 20.75], "observed": "Inside the product demo, a narrated plant explainer shows two caption lines directly under the illustration; the word being spoken is coloured (red, then blue). Desktop dictation recognised the same words as the caption between 16.7 and 21.2 s." },
+    { "source_id": "ref-31ce9d6332", "timestamps": [30.49, 33.3, 35.18], "observed": "In the read-aloud step a sentence darkens word by word as the app reads it, on the phone and in the left column (30.5-35.2 s). Note: Variant: an in-app reading highlight shown as a demo, not the film's own caption." }
+  ],
+  "related": { "techniques": ["ui-demo-micro-interactions", "annotation-callouts"], "compositions": [], "effects": ["marker-highlight"], "templates": ["illustrated-explainer"] },
+  "licensing_notes": "Technique only, learned from a user-supplied reference (inspiration-only, rights unknown). No caption text is copied.",
+  "tags": ["captions", "narration-sync", "highlight", "accessibility", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-28" }
+}

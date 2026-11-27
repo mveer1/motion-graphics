@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mythic figures: human build</title>
+  <link rel="stylesheet" href="/src/studio/studio-base.css">
+  <link rel="stylesheet" id="style" href="/src/studio/styles/mythic-paper.css">
+  <style>:root{--w:1800px;--h:4800px;--u:14px;--safe-top:40px;--safe-right:40px;--safe-bottom:40px;--safe-left:40px;}
+    body{margin:0}
+    .lab{position:absolute;text-align:center;font:600 18px 'EB Garamond',serif;color:var(--c-ink)}
+    .sub{display:block;font:400 13px 'EB Garamond',serif;color:var(--c-ink-2);margin-top:2px}
+    .zoom{position:absolute;overflow:hidden;border-radius:10px;background:var(--c-paper-2);box-shadow:inset 0 0 0 1px rgba(43,29,20,.18)}
+    .guide{position:absolute;left:0;right:0;height:0;border-top:1px dashed rgba(43,29,20,.16)}
+    .guide span{position:absolute;left:6px;top:-14px;font:11px monospace;color:rgba(43,29,20,.45)}</style>
+  <script src="/src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<!-- Review sheet for src/studio/kits/mythic/figures-human.js: each figure full length on the
+     proportion grid, then the head at three times the size. ?ids=a,b:opt=v&look=illustrated&grid=1&cols=4&H=860 -->
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1800" data-height="4800" data-fps="30" data-duration="1"></div>
+<script src="/src/studio/studio-core.js"></script>
+<script src="/src/studio/studio-draw.js"></script>
+<script src="/src/studio/studio-type.js"></script>
+<script src="/src/studio/studio-motion.js"></script>
+<script src="/src/studio/studio-compositions.js"></script>
+<script src="/src/studio/kits/mythic/mythic.js"></script>
+<script src="/src/studio/kits/mythic/figures.js"></script>
+<script src="/src/studio/kits/mythic/figures-human.js"></script>
+<script src="/src/studio/kits/mythic/armoury.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var M = S.kit.mythic, root = document.getElementById('root');
+  var q = function (k, d) { var m = new RegExp('[?&]' + k + '=([^&]+)').exec(window.location.search); return m ? decodeURIComponent(m[1]) : d; };
+  // An entry is id or id:key=value;key=value (figure options).
+  var entries = q('ids', M.human.ids.join(',')).split(',').map(function (e) {
+    var bits = e.split(':'), o = {};
+    (bits[1] || '').split(';').forEach(function (kv) { if (kv) { var p = kv.split('='); o[p[0]] = p[1]; } });
+    return { id: bits[0], opts: o, label: bits[1] ? bits[1].replace(/;/g, ' · ').replace(/=/g, ' ') : '' };
+  });
+  var look = q('look', 'illustrated'), grid = q('grid', '0') === '1';   // the 820-unit build grid; proportions.html overlays the canon per figure
+  var n = entries.length, cols = +q('cols', n), H = +q('H', 860), W = +q('W', 1760);
+  // pad: space above each row so auras and raised weapons (which may rise above the grid) are not clipped.
+  var pad = +q('pad', 20), colW = W / cols, z = Math.min(colW - 30, +q('Z', 300)), rowH = H + 60 + z + 40 + pad;
+  window.__figureMeta = {};
+  for (var r = 0; r * cols < n; r++) {
+    var top = pad + r * rowH;
+    if (grid) {
+      [['skull', 84], ['eyes', 131], ['chin', 180], ['shoulder', 212], ['nipple', 262], ['navel', 350], ['crotch', 440], ['knee', 596], ['ankle', 752], ['sole', 790]].forEach(function (g) {
+        var el = S.el('div', 'guide', null, root); el.style.top = (top + g[1] * H / 820) + 'px';
+        S.el('span', null, g[0], el);
+      });
+    }
+  }
+  entries.forEach(function (e, i) {
+    var row = Math.floor(i / cols), col = i % cols, top = pad + row * rowH;
+    var fig = M.figures[e.id](e.opts), vb = fig.viewBox, h = H * vb[1] / 820, w = h * vb[0] / vb[1];
+    var x0 = 20 + col * colW, x = x0 + (colW - w) / 2;
+    // Seated figures stand on the same ground line as the standing ones (their plinth base at 'sole').
+    var y = top + (vb[1] === 820 ? 0 : H * 790 / 820 - h * 634 / vb[1]);
+    var p = M.puppet(root, { figure: fig, look: look, h: h, x: x, y: y });
+    window.__figureMeta[p.meta.id + (e.label ? ' ' + e.label : '')] = p.meta;
+    var lab = S.el('div', 'lab', p.meta.name, root); lab.style.left = x0 + 'px'; lab.style.width = colW + 'px'; lab.style.top = (top + H + 4) + 'px';
+    if (e.label) S.el('span', 'sub', e.label, lab);
+    // Head close-up: the same drawing at 3x (Z=0 drops it, e.g. for the silhouette test).
+    if (z <= 0) return;
+    var zoom = S.el('div', 'zoom', null, root);
+    zoom.style.left = (x0 + (colW - z) / 2) + 'px'; zoom.style.top = (top + H + 52) + 'px';
+    zoom.style.width = z + 'px'; zoom.style.height = z + 'px';
+    var hz = 3 * 860 * (z / 300), sc = hz / 820, hc = fig.headCentre || [200, 128];
+    M.puppet(zoom, { figure: M.figures[e.id](e.opts), look: look, h: hz * vb[1] / 820, x: z / 2 - hc[0] * sc, y: z / 2 - hc[1] * sc });
+  });
+});
+</script>
+</body>
+</html>

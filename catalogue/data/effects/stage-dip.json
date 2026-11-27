@@ -1,0 +1,54 @@
+{
+  "id": "stage-dip",
+  "name": "Empty-stage dip",
+  "category": "transition",
+  "visual_intent": "A section turn the viewer feels: the content sinks away, the empty stage breathes for a beat, and the next title arrives on the first word of the next phrase.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "transition",
+    "section",
+    "pause",
+    "reference-derived"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "no new nodes",
+    "memory_profile": "Low (<5MB); transforms and opacity only (estimate, not measured on the M2)"
+  },
+  "recipes": [
+    "section-turn-dip"
+  ],
+  "implementation_summary": "Outgoing group fades and sinks over 0.3 s (power2.in) ending `hold` (0.25 s) before `at`; the incoming group rises in at `at` (or is just shown when the caller animates its title). Warns over 0.5 s of hold. The background must keep moving through the hold.",
+  "primitives": [
+    "scene-container"
+  ],
+  "runtime_api": "Studio.fx.dip(tl, outGroup, inGroup, at, {exit 0.3, hold 0.25, entrance: 'rise' | 'none'})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-tour-progression/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "related": [
+    "crossfade-dissolve",
+    "flash-cut"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-tour-progression/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

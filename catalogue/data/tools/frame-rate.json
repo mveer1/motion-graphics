@@ -1,0 +1,59 @@
+{
+  "id": "tool-frame-rate",
+  "name": "Frame Rate Lifter",
+  "component_type": "tool",
+  "purpose": "Convert a 30 fps film to 60 fps or higher. audit checks a studio project before a native re-render (30 fps video layers, moves that still strobe at the target rate from qa/motion/tweens.json, stepped motion, fps lookups, page motion blur) and --apply sets project.json fps. analyse and convert interpolate any finished film per frame pair (copy, blend or FFmpeg minterpolate) from a leave-one-out probe, then verify and sheet check the result.",
+  "capabilities": [
+    "doctor | audit [--apply] | analyse | convert | verify | sheet",
+    "leave-one-out probe: every other frame rebuilt with each method and scored against the real frame (mean + worst-block error)",
+    "cut, hold, stepped-cadence and dissolve detection; per-pair plan stored as compact strings in a JSON plan with segments and review moments",
+    "streaming stitcher on raw yuv420p pipes: integer-phase frames are source frames, audio copied, output written to .partial and renamed on success",
+    "verify: frame count, duration, audio, size and distinct frames per second (a duplicate-padded 60 fps film reads about 30)",
+    "src/pipeline/framerate.py holds the pure planning, stitching, GSAP ease-slope and tween-audit logic"
+  ],
+  "location": "scripts/frame-rate.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; needs ffmpeg/ffprobe with minterpolate and numpy (Pillow for sheet)."
+  },
+  "dependencies": [
+    "tool-ffmpeg",
+    "tool-session-guard",
+    "tool-studio-cli"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python .venv + ffmpeg",
+    "notes": "Tested on Windows with FFmpeg 9.0.2: a 24 s 720x1280 film converted to 60 fps in 408 s (minterpolate is single-threaded, about 3.6 output frames/s), probe 29.6 s. Memory stays at a few frames. Not yet run on the M2."
+  },
+  "documentation_urls": [
+    ".claude/skills/frame-rate/SKILL.md",
+    ".claude/skills/frame-rate/references/gap-filling.md",
+    "tests/test-frame-rate.py"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied. Calls the host FFmpeg."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs local ffmpeg/ffprobe; the probe takes the host analysis lock and conversion the render lock (src/pipeline/hostlock.py). Writes only to the output film, its plan and qa/frame-rate/; audit --apply edits project.json fps and runs studio.py formats."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "tests/test-frame-rate.py (23 tests, including a synthetic 60 fps ground-truth round trip where auto beat frame doubling 4.3x on a slide and 3.1x on a dissolve); sample-engine-mix lifted to 60 fps on 2026-11-25 (52.7 vs 28.3 distinct frames/s, full-resolution crops inspected). Experimental until it has run on the render host.",
+  "architecture_ref": "ARCHITECTURE.md#frame-rate",
+  "last_verified": "2026-11-25",
+  "tags": [
+    "frame-rate",
+    "interpolation",
+    "ffmpeg",
+    "qa"
+  ]
+}

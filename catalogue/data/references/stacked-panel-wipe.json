@@ -1,0 +1,30 @@
+{
+  "id": "stacked-panel-wipe",
+  "name": "Stacked colour-panel wipe",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-5, 2026-11-27): a flat brand-colour course launch changes section with two colour panels sliding in from the same side, the second becoming the next background.", "inspected": true, "inspected_on": "2026-11-27" },
+  "technique": "Two flat colour panels slide across from the same side one after the other: the first covers the outgoing scene, the second follows over it and stays as the next scene's background. The double pass reads as a deliberate brand gesture and hands over the next section's colour.",
+  "purpose": "Turn a section change into a brand gesture and hand over the next section's colour in the same move.",
+  "visual_behaviour": "An accent panel slides across and covers the frame, holds a beat, then a second panel in the next background colour slides over it from the same side and stays; the new content builds on it. A single-panel version crosses once.",
+  "mechanics": "Panel 1 (accent colour) enters from the left with a fast ease-out to full cover in about 0.13 s, holds about 0.15 s, panel 2 (the next background colour) enters from the same side in about 0.22 s; new content starts after panel 2 lands. Single-panel variant: one panel crosses in about 0.25 s.",
+  "decomposition": { "primitives": ["scene-container"], "effects": ["push-transition", "shape-cover-transition"], "timing": "Whole gesture about 0.5 s (8.95-9.47 s); single panel about 0.25 s (36.45-36.70 s); used twice in 40 s." },
+  "parameters": [
+    { "name": "panel_1_duration", "description": "first panel to full cover (s)", "default": 0.13 },
+    { "name": "hold", "description": "first panel hold (s)", "default": 0.15 },
+    { "name": "panel_2_duration", "description": "second panel to full cover (s)", "default": 0.22 }
+  ],
+  "use_cases": ["Section changes in flat brand-colour films", "Moving into a dark logo section", "End-card entrances"],
+  "failure_modes": ["Panel colours not used elsewhere read as a glitch", "Slower than about 0.6 s it feels like a curtain", "At every section it becomes a tic"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Two full-frame panels on an overlay layer: panel 1 x from -100% to 0 in about 0.13 s (power3.out), hold about 0.15 s, panel 2 from -100% to 0 in about 0.22 s, then Studio.cut to the incoming scene whose background is panel 2's colour and hide both panels. Studio.fx.push moves scenes, not panels, so this is a small custom overlay; Studio.fx.shapeCover with square: true is the nearest built cover. Not built as a preset.", "runtime_api": ["Studio.fx.shapeCover", "Studio.fx.push"] },
+  "capability": { "support": "native", "requirements": ["two overlay panels", "the incoming background in panel 2's colour"], "compatible_components": ["shape-cover-transition", "push-transition", "scene-push"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-05acc490f6", "timestamps": [9.03, 36.6], "observed": "A yellow panel covers from the left in 0.13 s, holds, a navy panel follows in 0.22 s and becomes the logo scene (8.95-9.47 s); a blue panel crosses the yellow scene (36.45-36.70 s)." }
+  ],
+  "related": { "techniques": ["section-push-slide", "diagonal-band-wipe", "random-bar-wipe", "curtain-bookends"], "effects": ["push-transition", "shape-cover-transition"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition-cover", "panel", "wipe", "brand-colour", "section-change", "flat", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-27", "updated_at": "2026-11-27" }
+}

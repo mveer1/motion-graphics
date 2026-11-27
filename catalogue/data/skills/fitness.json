@@ -12,10 +12,11 @@
     "Quality rubric with critical science/anatomy/biomechanics dimensions",
     "Brand sound (scripts/sinew_sound.py) and sheet renderer (scripts/render-sheets.mjs)",
     "Capability routing: loads anatomy, animation, QA and publish skills on demand",
-    "Exercise knowledge plans (fitness.py exercise)"
+    "Exercise knowledge plans (fitness.py exercise)",
+    "Yellow Dude reference study: source-linked design, content, review and packaging guidance; observation versus publisher report, rights exclusions and explicit adoption limits"
   ],
   "location": ".claude/skills/fitness",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "installation": {
     "required": false,
     "instructions": "Installed in workspace under .claude/skills/fitness."
@@ -33,15 +34,16 @@
     "tool-fitness-cli"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "agent-host",
-    "notes": "Exercised end to end on projects/how-muscles-grow (2026-11-08): research, story, Kokoro audio, captions, HyperFrames render, QA gates, review."
+    "notes": "Historical 2.0 workflow exercised on the M2 through how-muscles-grow. Version 2.1 adds source-linked editorial guidance and Body Lab v2 integration; no new runtime, dependency, voice or format. New guidance still needs a film pilot and human review."
   },
   "documentation_urls": [
     ".claude/skills/fitness/SKILL.md",
     ".claude/skills/fitness/references/brand-guidelines.md",
     ".claude/skills/fitness/references/research-protocol.md",
-    ".claude/skills/fitness/references/quality-rubric.md"
+    ".claude/skills/fitness/references/quality-rubric.md",
+    ".claude/skills/fitness/references/yellow-dude-study.md"
   ],
   "licensing": {
     "spdx_identifier": "MIT",
@@ -58,9 +60,9 @@
   },
   "owner": "motion-graphics",
   "status": "experimental",
-  "approval_evidence": "One film (how-muscles-grow) rendered and reviewed on the M2 render host, 2026-11-08. Promote after three films pass the fitness rubric.",
+  "approval_evidence": "Historical film evidence: how-muscles-grow on M2, 2026-11-08. Version 2.1 guidance draws on nine official pages and two inspected web layouts, with publisher reports and unmeasured video/audio explicitly separated. No new creative/performance approval; pilot in Sinew films before promotion.",
   "architecture_ref": "ARCHITECTURE.md#capability-model",
-  "last_verified": "2026-11-08",
+  "last_verified": "2026-11-20",
   "tags": [
     "fitness",
     "sinew",

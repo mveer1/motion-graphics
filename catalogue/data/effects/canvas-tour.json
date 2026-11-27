@@ -1,0 +1,54 @@
+{
+  "id": "canvas-tour",
+  "name": "Canvas camera tour",
+  "category": "spatial_transform",
+  "visual_intent": "A system laid out as a map larger than the frame: the camera frames each part on its spoken name, drifts in while it holds, and pulls back to show the whole.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "camera",
+    "pan",
+    "map",
+    "zoom",
+    "reference-derived"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "no new nodes",
+    "memory_profile": "Low (<5MB); transforms and opacity only (estimate, not measured on the M2)"
+  },
+  "recipes": [
+    "system-map-tour"
+  ],
+  "implementation_summary": "One transform (x, y, scale, origin 0 0) on a canvas element: per stop a 0.8 s power2.inOut move that frames the target with padding, then a sine.inOut drift to 1.025x about the target centre until the next stop; optional pull-back to the whole canvas. Marks the canvas data-layout-allow-overflow so frame review accepts panels crossing the frame edge mid-pan.",
+  "primitives": [
+    "scene-container"
+  ],
+  "runtime_api": "Studio.space.tour(tl, canvas, [{target, at, pad, maxScale}], {move, drift, start: 'overview' | 'first', pullBack, pullDuration})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-tour-progression/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "related": [
+    "parallax-camera"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-tour-progression/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

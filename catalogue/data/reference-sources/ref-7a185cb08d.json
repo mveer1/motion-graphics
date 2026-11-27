@@ -1,0 +1,847 @@
+{
+  "id": "ref-7a185cb08d",
+  "name": "Photo-print app film: one container morphs from wordmark to dot to pill to aperture to frame (square)",
+  "status": "experimental",
+  "source": {
+    "filename": "photo-print-app-launch-film-f16b8886.mp4",
+    "aliases": [],
+    "sha256": "7a185cb08d0be73ce08c3427993f763bfa27ffebfe0f52c737d5f4f7ccd5393a",
+    "bytes": 3324679,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark with a full stop and tagline",
+        "timestamps": [
+          0.37,
+          28.64
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "App screens, glass playback controls, lock screen and web shop",
+        "timestamps": [
+          7.81,
+          16.74,
+          18.23,
+          21.2
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Photographs and framed-print imagery (sources unknown)",
+        "timestamps": [
+          4.09,
+          6.32,
+          11.53
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Hands holding the frame (footage or render)",
+        "timestamps": [
+          23.44,
+          24.93
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App launch; reuse the container-morph chain, punctuation-to-button and bloom principles only, with original shapes, imagery and copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3324679,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 29.017,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1741,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 773,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 29.099,
+      "kbps": 131
+    },
+    "overall_kbps": 917
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (39 frames), transition strips at all 10 boundaries, the listen sheet (11 accent hits; no speech) and a 30 fps strip at 0.70-1.90 s (wordmark to dot to pill); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 29.0 s, 720x720.",
+    "concept": {
+      "observed": "An app that turns phone photos into framed prints: the wordmark collapses into its full stop, the dot becomes a 'Develop' button, a click opens an aperture onto a photo, a grid of images, one image fills the frame, glass playback controls and a 'golden hour' slider relight it, a lens bubble opens the next image, a phone lock screen, the image moves from the phone into a desktop shop, a print is ordered, framed on a wall, held in hands, and the film closes back into the wordmark.",
+      "interpreted": "Screen to wall as one unbroken object journey.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; almost no copy (wordmark, a tagline, one landing-page headline, UI labels)."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm off-white; black for the pill, aperture and frames; the photographs supply all colour (golden hour, sage green); a blue silk backdrop for the device section."
+      },
+      "typography": {
+        "observed": "Heavy rounded grotesque wordmark in lowercase with a full stop; tiny UI type; one landing-page headline in the same heavy face."
+      },
+      "composition": {
+        "observed": "Square; one object centred at a time; devices centred on the silk backdrop; the print centred on a wall."
+      },
+      "motion": {
+        "observed": "Directional smear as the wordmark collapses (0.70-0.87 s) and as the dot stretches into a pill (1.17-1.40 s); a button press (2.0-2.1 s); aperture blades (2.6 s); one tile splits into a grid (3.7-4.1 s); a slider drags and the light in the photo changes (9.1-9.5 s); a cursor picks frame, size and Order; a progress pill; the frame flips onto the wall."
+      },
+      "transitions": {
+        "observed": "No hard cuts (10 soft boundaries). Container morphs carry each change: the wordmark into its own full stop (0.70-0.87 s), dot to pill (1.17-1.40 s), aperture circle to rounded tile (2.96-3.29 s), grid tile to full frame (5.79-5.92 s), full frame into a phone screen (13.15-13.32 s), a black panel into a browser window (14.72-14.89 s). A glass lens bubble holding the next image grows to fill the frame (10.97-11.14 s); the checked Order button grows into a black frame (21.73-21.86 s); a push into the framed print until the picture fills the frame (25.46-25.69 s); a hexagonal iris closes to a point on black (26.46-26.56 s); a black pill opens back into the wordmark at the end (27.2-27.9 s).",
+        "interpreted": "One object never leaves: every scene is a new shape of the same container, so 29 s of product steps read as one gesture.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Changes every 1.6-2.7 s, with one longer device-and-shop section (14.8-21.8 s)."
+      },
+      "sound_design": {
+        "observed": "-14.1 LUFS, LRA 2.0 LU, true peak -0.3 dBTP; tempo 80.7 bpm (medium); 31 accents (64.1/min) at irregular spacing (0.11-1.0 s); 2 of 10 boundaries carry an accent within 100 ms (0.20, at chance 0.19); 50% within 50 ms of an onset (chance 0.41); near the beat 0.10 (chance 0.16). The strongest accents land on the container's shape changes: the wordmark collapsing into the dot (0.86 s), the dot stretching into the pill (1.60-1.74 s), the button press (2.00-2.11 s), the circle becoming a tile (3.11 s), the tiles splitting into a grid (3.85-4.11 s); later on the glass controls (7.62-9.61 s) and the move into the phone (12.61-13.61 s). Head 2.2 dB below the body, tail 0.5 dB above; no silences. Accents may be part of the music.",
+        "interpreted": "Sound marks each change of the object's shape; the soft boundaries are not hit.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None (0 words recognised).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy: the wordmark centred with a tiny tagline under it (0-0.6 s and 27.9-29 s), the label inside the pill, and one landing-page headline ('from screen to wall.') inside the browser card at 16.7 s; UI labels."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 0.7,
+        "observed": "Wordmark and tagline."
+      },
+      {
+        "start": 0.7,
+        "end": 2.5,
+        "observed": "The wordmark collapses into a dot; the dot becomes a 'Develop' pill; a click."
+      },
+      {
+        "start": 2.5,
+        "end": 3.3,
+        "observed": "An aperture opens onto a photo; the circle becomes a rounded tile."
+      },
+      {
+        "start": 3.3,
+        "end": 5.8,
+        "observed": "The tile splits into a grid of photographs."
+      },
+      {
+        "start": 5.8,
+        "end": 10.9,
+        "observed": "One photo fills the frame; glass controls and a 'golden hour' slider relight it."
+      },
+      {
+        "start": 10.9,
+        "end": 13.15,
+        "observed": "A lens bubble opens the next image; a lock screen."
+      },
+      {
+        "start": 13.15,
+        "end": 14.8,
+        "observed": "The frame shrinks into a phone on a silk backdrop."
+      },
+      {
+        "start": 14.8,
+        "end": 21.8,
+        "observed": "The image moves into a desktop shop; frame, size and Order; 'On its way'."
+      },
+      {
+        "start": 21.8,
+        "end": 25.5,
+        "observed": "Black, then the print framed on a wall and held in hands."
+      },
+      {
+        "start": 25.5,
+        "end": 27.1,
+        "observed": "A push into the print; an iris closes to black."
+      },
+      {
+        "start": 27.1,
+        "end": 29.0,
+        "observed": "A black pill opens back into the wordmark."
+      }
+    ],
+    "moments": [
+      {
+        "t": 0.77,
+        "observed": "The wordmark smears to the right and collapses into its own full stop in about 0.17 s; the dot holds 0.27 s, then stretches into the 'Develop' pill (1.17-1.40 s).",
+        "interpreted": "The brand's punctuation becomes the product's first button."
+      }
+    ],
+    "difficult": [
+      "Hands holding the framed print (23.4-25.5 s) look like footage or a photoreal render",
+      "The glass lens and liquid-glass controls need layered blur and refraction (backdrop-filter is costly at 720p)"
+    ],
+    "uncertainties": [
+      "Whether the frame-on-wall shots are footage, renders or composited stills",
+      "Easing of the morphs (one 30 fps strip; the rest at 2-frame steps)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "container-transform",
+      "timestamps": [
+        1.17,
+        2.96,
+        5.79,
+        13.15
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        10.97,
+        21.76
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        25.56
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        0.77,
+        27.16
+      ]
+    },
+    {
+      "id": "directional-smear",
+      "timestamps": [
+        0.77,
+        1.23
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        2.0,
+        9.3,
+        18.97,
+        20.46
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        0.86,
+        1.6,
+        2.0,
+        3.11,
+        3.85
+      ]
+    },
+    {
+      "id": "aperture-iris-transition",
+      "timestamps": [
+        2.6,
+        26.49
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "iris-transition",
+      "element-bloom",
+      "smear-motion",
+      "shape-morph"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo",
+      "brand-logo-resolve"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "shape-morphing",
+    "scene-transitions",
+    "logo-reveal"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "square",
+    "off-white",
+    "container-morph",
+    "aperture",
+    "photography",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 24.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 232,
+      "scan_size": "96x54",
+      "overview_frames": 39,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 10,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.117,
+        "kind": "soft",
+        "score": 0.103,
+        "isolation": 0.01
+      },
+      {
+        "t": 5.817,
+        "kind": "soft",
+        "score": 0.161,
+        "isolation": 0.05
+      },
+      {
+        "t": 7.45,
+        "kind": "soft",
+        "score": 0.042,
+        "isolation": 0.0
+      },
+      {
+        "t": 9.3,
+        "kind": "soft",
+        "score": 0.056,
+        "isolation": 0.0
+      },
+      {
+        "t": 11.1,
+        "kind": "soft",
+        "score": 0.11,
+        "isolation": 0.04
+      },
+      {
+        "t": 13.15,
+        "kind": "soft",
+        "score": 0.09,
+        "isolation": 0.0
+      },
+      {
+        "t": 14.783,
+        "kind": "soft",
+        "score": 0.045,
+        "isolation": 0.13
+      },
+      {
+        "t": 21.783,
+        "kind": "soft",
+        "score": 0.273,
+        "isolation": 0.0
+      },
+      {
+        "t": 25.617,
+        "kind": "soft",
+        "score": 0.134,
+        "isolation": 0.01
+      },
+      {
+        "t": 26.483,
+        "kind": "soft",
+        "score": 0.278,
+        "isolation": 0.26
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.12,
+        "duration": 3.12,
+        "activity": 0.018,
+        "luma": 0.89
+      },
+      {
+        "index": 2,
+        "start": 3.12,
+        "end": 5.82,
+        "duration": 2.7,
+        "activity": 0.146,
+        "luma": 0.7
+      },
+      {
+        "index": 3,
+        "start": 5.82,
+        "end": 7.45,
+        "duration": 1.63,
+        "activity": 0.173,
+        "luma": 0.5
+      },
+      {
+        "index": 4,
+        "start": 7.45,
+        "end": 9.3,
+        "duration": 1.85,
+        "activity": 0.356,
+        "luma": 0.41
+      },
+      {
+        "index": 5,
+        "start": 9.3,
+        "end": 11.1,
+        "duration": 1.8,
+        "activity": 0.283,
+        "luma": 0.49
+      },
+      {
+        "index": 6,
+        "start": 11.1,
+        "end": 13.15,
+        "duration": 2.05,
+        "activity": 0.119,
+        "luma": 0.41
+      },
+      {
+        "index": 7,
+        "start": 13.15,
+        "end": 14.78,
+        "duration": 1.63,
+        "activity": 0.189,
+        "luma": 0.73
+      },
+      {
+        "index": 8,
+        "start": 14.78,
+        "end": 21.78,
+        "duration": 7.0,
+        "activity": 0.158,
+        "luma": 0.82
+      },
+      {
+        "index": 9,
+        "start": 21.78,
+        "end": 25.62,
+        "duration": 3.83,
+        "activity": 0.214,
+        "luma": 0.6
+      },
+      {
+        "index": 10,
+        "start": 25.62,
+        "end": 26.48,
+        "duration": 0.87,
+        "activity": 0.251,
+        "luma": 0.4
+      },
+      {
+        "index": 11,
+        "start": 26.48,
+        "end": 29.02,
+        "duration": 2.53,
+        "activity": 0.111,
+        "luma": 0.81
+      }
+    ],
+    "static_holds": [
+      [
+        28.31,
+        28.94
+      ]
+    ],
+    "mean_activity": 0.168,
+    "luma": {
+      "mean": 0.68,
+      "dark_share": 0.03,
+      "light_share": 0.59
+    },
+    "palette": [
+      {
+        "hex": "#e8e8e8",
+        "share": 0.222
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.117
+      },
+      {
+        "hex": "#e8e8f8",
+        "share": 0.05
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.035
+      },
+      {
+        "hex": "#080808",
+        "share": 0.026
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.025
+      },
+      {
+        "hex": "#282818",
+        "share": 0.021
+      },
+      {
+        "hex": "#383818",
+        "share": 0.017
+      },
+      {
+        "hex": "#383828",
+        "share": 0.017
+      },
+      {
+        "hex": "#889868",
+        "share": 0.017
+      }
+    ],
+    "representative_times": [
+      1.56,
+      4.47,
+      6.63,
+      8.38,
+      10.2,
+      12.12,
+      13.96,
+      16.53,
+      18.28,
+      20.03,
+      23.7,
+      26.05,
+      27.75
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.3,
+      "mean_dbfs_voiced": -19.7,
+      "silence_ratio": 0.0,
+      "onsets": 155,
+      "onset_rate_per_sec": 5.33,
+      "onset_times": [
+        0.12,
+        0.37,
+        0.49,
+        0.6,
+        0.74,
+        0.86,
+        0.95,
+        1.11,
+        1.32,
+        1.6,
+        1.74,
+        1.88,
+        2.0,
+        2.11,
+        2.3,
+        2.51,
+        2.62,
+        2.88,
+        3.0,
+        3.11,
+        3.25,
+        3.37,
+        3.62,
+        3.74,
+        3.85,
+        3.99,
+        4.11,
+        4.37,
+        4.5,
+        4.62,
+        4.88,
+        4.99,
+        5.11,
+        5.36,
+        5.5,
+        5.64,
+        5.76,
+        5.87,
+        6.01,
+        6.13,
+        6.36,
+        6.5,
+        6.62,
+        6.87,
+        6.99,
+        7.13,
+        7.38,
+        7.62,
+        7.78,
+        7.87,
+        8.13,
+        8.27,
+        8.36,
+        8.5,
+        8.61,
+        8.87,
+        8.99,
+        9.13,
+        9.24,
+        9.36,
+        9.61,
+        9.75,
+        9.87,
+        10.12,
+        10.61,
+        10.87,
+        11.01,
+        11.12,
+        11.35,
+        11.61,
+        11.87,
+        12.12,
+        12.49,
+        12.61,
+        12.86,
+        13.0,
+        13.12,
+        13.37,
+        13.61,
+        13.75,
+        13.86,
+        14.0,
+        14.12,
+        14.33,
+        14.51,
+        14.63,
+        14.86,
+        15.0,
+        15.12,
+        15.26,
+        15.37,
+        15.6,
+        15.86,
+        16.0,
+        16.11,
+        16.21,
+        16.37,
+        16.46,
+        16.63,
+        16.74,
+        16.86,
+        17.0,
+        17.11,
+        17.25,
+        17.37,
+        17.51,
+        17.62,
+        17.76,
+        17.86,
+        18.0,
+        18.11,
+        18.37,
+        18.53,
+        18.62,
+        18.88,
+        18.99,
+        19.13,
+        19.25,
+        19.37,
+        19.57,
+        19.88,
+        19.99,
+        20.13,
+        20.36,
+        20.5,
+        20.62,
+        20.87,
+        20.99,
+        21.13,
+        21.36,
+        21.5,
+        21.64,
+        21.76,
+        21.87,
+        22.01,
+        22.62,
+        22.83,
+        23.38,
+        24.13,
+        24.2,
+        25.29,
+        25.52,
+        26.12,
+        26.45,
+        26.98,
+        27.12,
+        27.38,
+        27.63,
+        27.86,
+        28.14,
+        28.35,
+        28.51,
+        28.61,
+        28.75,
+        28.89
+      ],
+      "tempo_estimate": {
+        "bpm": 80.7,
+        "autocorr": 0.56,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1447,
+      "band_share": {
+        "low_lt_250": 0.25,
+        "mid_250_2k": 0.46,
+        "high_gt_2k": 0.3
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 10,
+        "tolerance_ms": 50,
+        "near_onset": 0.5,
+        "chance_level": 0.41,
+        "median_offset_ms": 47,
+        "near_beat": 0.1,
+        "beat_chance_level": 0.16,
+        "beat_phase_sec": 0.31
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-7a185cb08d",
+      "overview": "reference/analysis/ref-7a185cb08d/overview.jpg",
+      "scenes": "reference/analysis/ref-7a185cb08d/scenes.jpg",
+      "transitions": "reference/analysis/ref-7a185cb08d/transitions.jpg",
+      "motion": "reference/analysis/ref-7a185cb08d/motion.jpg",
+      "audio": "reference/analysis/ref-7a185cb08d/audio.png",
+      "frames": "reference/analysis/ref-7a185cb08d/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.1,
+        "lra_lu": 2.0,
+        "true_peak_dbtp": -0.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 17,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 155,
+        "accents": 31,
+        "accents_per_min": 64.1,
+        "accent_times": [
+          0.12,
+          0.49,
+          0.86,
+          1.6,
+          1.74,
+          2.0,
+          2.11,
+          3.11,
+          3.37,
+          3.62,
+          3.85,
+          4.11,
+          7.62,
+          7.87,
+          8.61,
+          8.87,
+          8.99,
+          9.36,
+          9.61,
+          12.61,
+          12.86,
+          13.37,
+          13.61,
+          15.0,
+          15.6,
+          16.63,
+          16.86,
+          17.0,
+          17.86,
+          18.99,
+          20.13
+        ],
+        "accent_threshold": 0.41,
+        "boundaries_with_accent": {
+          "boundaries": 10,
+          "share": 0.2,
+          "tolerance_ms": 100,
+          "chance_level": 0.19
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.34,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -2.2,
+        "level_tail_vs_body_db": 0.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-7a185cb08d/listen",
+        "sheet": "reference/analysis/ref-7a185cb08d/listen/listen.jpg",
+        "words": "reference/analysis/ref-7a185cb08d/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

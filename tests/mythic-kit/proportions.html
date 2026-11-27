@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mythic figures: proportions against the canon</title>
+  <link rel="stylesheet" href="/src/studio/studio-base.css">
+  <link rel="stylesheet" href="/src/studio/styles/mythic-paper.css">
+  <style>:root{--w:1800px;--h:1300px;--u:14px;--safe-top:40px;--safe-right:40px;--safe-bottom:40px;--safe-left:40px;}
+    body{margin:0}
+    .lab{position:absolute;font:600 16px 'EB Garamond',serif;color:var(--c-ink);text-align:center}
+    .tbl{position:absolute;font:12px/1.35 monospace;color:#2b1d14;white-space:pre}
+    .bad{color:#b8321f;font-weight:700}
+    .ov{position:absolute;pointer-events:none;overflow:visible}</style>
+  <script src="/src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<!-- Proportion review: each standing human figure with the canon's head-unit lines (from its own
+     skull and chin) and its measured landmarks. ?ids=rama-human,... (standing figures only). -->
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1800" data-height="1300" data-fps="30" data-duration="1"></div>
+<script src="/src/studio/studio-core.js"></script>
+<script src="/src/studio/studio-draw.js"></script>
+<script src="/src/studio/studio-type.js"></script>
+<script src="/src/studio/studio-motion.js"></script>
+<script src="/src/studio/studio-compositions.js"></script>
+<script src="/src/studio/kits/mythic/mythic.js"></script>
+<script src="/src/studio/kits/mythic/figures.js"></script>
+<script src="/src/studio/kits/mythic/figures-human.js"></script>
+<script src="/src/studio/kits/mythic/armoury.js"></script>
+<script src="/tests/mythic-kit/measure.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var M = S.kit.mythic, root = document.getElementById('root');
+  var q = function (k, d) { var m = new RegExp('[?&]' + k + '=([^&]+)').exec(window.location.search); return m ? decodeURIComponent(m[1]) : d; };
+  var TYPES = { 'hanuman-human': 'titan', 'athena-human': 'female' };
+  var ids = q('ids', 'rama-human,hanuman-human,shiva-human,athena-human,odin-human').split(',');
+  var colW = 1760 / ids.length, H = Math.min(1000, colW * 820 / 400 * 0.98), out = {};
+  ids.forEach(function (id, i) {
+    var fig = M.figures[id](), x0 = 20 + i * colW, h = H, w = h * 400 / 820, x = x0 + (colW - w) / 2, y = 60;
+    // Aura off for measuring clarity: drop the aura parts.
+    fig.parts = fig.parts.filter(function (p) { return p.id.indexOf('aura') !== 0; });
+    var p = M.puppet(root, { figure: fig, look: 'illustrated', h: h, x: x, y: y });
+    var m = FigureMeasure.measure(p, TYPES[id] || 'male'), k = h / 820;
+    out[id] = m;
+    var ov = Studio.svg('svg', { width: w, height: h, viewBox: '0 0 400 820' }, null);
+    ov.setAttribute('class', 'ov'); ov.style.left = x + 'px'; ov.style.top = y + 'px'; ov.style.width = w + 'px'; ov.style.height = h + 'px';
+    root.appendChild(ov);
+    var line = function (yy, col, dash, lab) {
+      Studio.svg('line', { x1: -40, x2: 440, y1: yy, y2: yy, stroke: col, 'stroke-width': 1.2, 'stroke-dasharray': dash || '' }, ov);
+      if (lab) { var t = Studio.svg('text', { x: -38, y: yy - 3, fill: col, 'font-size': 10, 'font-family': 'monospace' }, ov); t.textContent = lab; }
+    };
+    // Canon lines (Loomis), from the figure's own skull and head height.
+    [['top', 0], ['chin 1', 1], ['nipple 2', 2], ['navel 3', 3], ['crotch 4', 4], ['knee 6', 6], ['8', 8]].forEach(function (c) { line(m.top + c[1] * m.H, '#1D4ED8', '6 4', c[0]); });
+    // Measured: waist and knee rows, the soles.
+    if (m.waist) line(m.top + m.waist * m.H, '#E05A47', '', 'waist');
+    if (m.knee) line(m.top + m.knee * m.H, '#E05A47', '', 'knee');
+    line(m.sole, '#059669', '', 'sole');
+    var lab = S.el('div', 'lab', p.meta.name, root); lab.style.left = x0 + 'px'; lab.style.width = colW + 'px'; lab.style.top = '20px';
+    var tb = S.el('div', 'tbl', null, root); tb.style.left = (x0 + 6) + 'px'; tb.style.top = (y + h + 10) + 'px';
+    var f2 = function (v) { return v === null || v === undefined ? '-' : v.toFixed(2); };
+    tb.innerHTML = ['heads ' + f2(m.heads), 'waist ' + f2(m.waist) + 'H  w ' + f2(m.waistW), 'crotch ' + f2(m.crotch) + 'H', 'knee ' + f2(m.knee) + 'H',
+      'elbows ' + f2(m['elbow-r']) + ' / ' + f2(m['elbow-l']), 'wrists ' + f2(m['wrist-r']) + ' / ' + f2(m['wrist-l']),
+      'shoulders ' + f2(m.shoulderW) + 'H', 'hips ' + f2(m.hipW) + 'H'].join('\n') +
+      (m.issues.length ? '\n<span class="bad">' + m.issues.join('\n') + '</span>' : '\nall within canon');
+  });
+  window.__proportions = out;
+});
+</script>
+</body>
+</html>

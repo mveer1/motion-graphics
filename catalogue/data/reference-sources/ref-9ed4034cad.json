@@ -1,0 +1,619 @@
+{
+  "id": "ref-9ed4034cad",
+  "name": "Light referral promo: struck headline and sticker, a dot bloom with a hole, a slider-driven earnings counter",
+  "status": "experimental",
+  "source": {
+    "filename": "referral-programme-promo-f6ad00d7.mp4",
+    "aliases": [],
+    "sha256": "9ed4034cade9001d9f71fd59a529c35b0929afd389d379318e4dae8ba0fb5a71",
+    "bytes": 1650031,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product logo and wordmark",
+        "timestamps": [
+          0.38,
+          13.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "mascot",
+        "description": "3D mascot characters made by the product",
+        "timestamps": [
+          1.88,
+          4.88,
+          7.88,
+          9.38,
+          13.88
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Prompt field and calculator card",
+        "timestamps": [
+          4.12,
+          9.38
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Referral promo; reuse the strike-and-sticker, dot-bloom and slider-counter principles only, with original characters and interface."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1650031,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 450,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 613,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 256
+    },
+    "overall_kbps": 880
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions sheet (3 boundaries, every 2nd frame), listen sheet (16 accents) and a 30 fps strip at 2.85-3.30 s (ffmpeg backend). Boundary-accent offsets from measure_batch5.py. nothing was listened to.",
+    "coverage": "Full 15.0 s (1280x720, 30 fps); the bloom at 30 fps, other boundaries at 15 fps.",
+    "concept": {
+      "observed": "Promotes a referral programme for a mascot-making product: 'tell a friend' is struck and corrected to the whole group chat, the product is shown making a mascot from a prompt, the cut of each sale is stated, a slider shows what referrals could earn, and the end card offers the deal.",
+      "interpreted": "Each claim is shown as an action: strike, type, drag.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Text-led film: the copy is on screen, timed to the music. Bold grotesk headlines with the payoff words in orange."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "White and off-white (#f8f8f8, 79%), pastel pink discs, vibrant orange (button, stickers, payoff words), charcoal type, one black panel for the earnings figure."
+      },
+      "typography": {
+        "observed": "Heavy grotesk headlines (about 6-8% of the height) with the second half in orange; tilted sticker labels; large tabular dollar figures."
+      },
+      "composition": {
+        "observed": "Opening headline centred; later headlines left at about 35-45% of the height with a 3D mascot right on a pink disc; a calculator card left and a black result panel right (9.2-12.3 s)."
+      },
+      "motion": {
+        "observed": "The headline builds word by word (0.38-1.1 s); a strike crosses 'a friend' and a tilted sticker stamps below (1.62-1.82 s); a prompt types and a button is clicked (4.1-5.6 s); stickers stamp at 8.17-8.27 s and 11.18-11.28 s; a slider drags and the figure rolls $500 -> $5,000 (9.3-11.0 s); a cursor clicks the call to action (13.7-13.9 s)."
+      },
+      "transitions": {
+        "observed": "3 boundaries, 0 cuts. 3.03 s: grow, a small orange dot in the headline (2.85 s) blooms to cover the frame by 3.02 s (0.17 s), then a white hole opens in it and clears by 3.18 s (0.16 s). 9.07 s: continuous, a 0.15 s dissolve (8.95-9.10 s) with a thin orange frame. 12.30 s: cover, one white diagonal edge sweeps across in about 0.12 s. Not detected: at 6.1-6.5 s the mascot slides out left and the next headline fades in.",
+        "interpreted": "The bloom starts from a dot already in the headline, so the change feels caused.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of 3.0, 3.1, 3.0, 3.2 and 2.7 s; stamps and counter steps between them."
+      },
+      "sound_design": {
+        "observed": "-21.0 LUFS (quiet), LRA 2.2 LU, true peak -1.8 dBTP. Tempo 73.8 bpm (medium). 17 accents (68/min). Accents on boundaries 2/3 within 100 ms (chance 0.20); all 3 within 103 ms, the sound 60-103 ms before the picture (2.93 vs 3.03 s, 8.99 vs 9.07 s, 12.24 vs 12.30 s); onsets on boundaries 1.0 (chance 0.50), on a beat 0.67 (chance 0.15). Other accents: the sticker stamps (1.72, 8.27, 11.28 s), the counter steps (9.36, 10.45, 10.87, 11.01 s) and the call-to-action click (13.72 s). No silences. Accents may be part of the music.",
+        "interpreted": "Here the transitions are events (a bloom, a dissolve, a sweep) and get the hit, slightly early.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: 9 raw words, 0 confident. Engine Windows desktop dictation (System.Speech en-US), rough."
+      },
+      "captions": {
+        "observed": "No captions; copy is headlines (1-2 lines, 3-7 words, held about 3 s, payoff in orange) and sticker labels (3-5 words) stamped beside them."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.03,
+        "observed": "Headline builds; 'a friend' is struck; the sticker says the whole group chat."
+      },
+      {
+        "start": 3.03,
+        "end": 6.2,
+        "observed": "Mascots for their product: prompt, click, a 3D mascot appears."
+      },
+      {
+        "start": 6.2,
+        "end": 9.07,
+        "observed": "A cut of every credit: two mascots, the '20% for life' sticker."
+      },
+      {
+        "start": 9.07,
+        "end": 12.3,
+        "observed": "What could you earn: the slider drags and the figure rolls to $5,000."
+      },
+      {
+        "start": 12.3,
+        "end": 15.0,
+        "observed": "End card: the deal and a clicked call to action."
+      }
+    ],
+    "moments": [
+      {
+        "t": 2.85,
+        "observed": "A dot in the headline grows to a full orange cover by 3.02 s, then a white hole opens and clears it by 3.18 s; the accent at 2.93 s lands as the dot starts to grow."
+      }
+    ],
+    "difficult": [
+      "The 3D mascots are rendered characters (pre-rendered stills or plates)"
+    ],
+    "uncertainties": [
+      "Whether the boundary accents are effects or the music's own hits",
+      "The quiet -21 LUFS level may be the export, not a choice"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "centred-word-build",
+      "timestamps": [
+        0.38,
+        1.12
+      ]
+    },
+    {
+      "id": "strike-and-correct",
+      "timestamps": [
+        1.62,
+        1.72
+      ]
+    },
+    {
+      "id": "stamp-state-change",
+      "timestamps": [
+        1.72,
+        8.27,
+        11.28
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        2.93,
+        3.05
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        3.38,
+        7.12,
+        13.12
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        9.46,
+        10.45,
+        11.01
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        4.12,
+        5.62,
+        13.88
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        4.88,
+        7.88,
+        13.88
+      ]
+    },
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        12.3
+      ]
+    },
+    {
+      "id": "slider-driven-counter",
+      "timestamps": [
+        9.36,
+        10.45,
+        11.01
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "stamp-impact",
+      "counter-roll"
+    ],
+    "compositions": [
+      "verdict-stamp",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "kinetic-typography",
+    "ui-product-demo",
+    "3d-render",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "light",
+    "music-only",
+    "stickers",
+    "calculator",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 8.6
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.033,
+        "kind": "soft",
+        "score": 0.365,
+        "isolation": 0.01
+      },
+      {
+        "t": 9.067,
+        "kind": "soft",
+        "score": 0.177,
+        "isolation": 0.21
+      },
+      {
+        "t": 12.3,
+        "kind": "soft",
+        "score": 0.234,
+        "isolation": 0.45
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.03,
+        "duration": 3.03,
+        "activity": 0.038,
+        "luma": 0.91
+      },
+      {
+        "index": 2,
+        "start": 3.03,
+        "end": 9.07,
+        "duration": 6.03,
+        "activity": 0.09,
+        "luma": 0.93
+      },
+      {
+        "index": 3,
+        "start": 9.07,
+        "end": 12.3,
+        "duration": 3.23,
+        "activity": 0.056,
+        "luma": 0.74
+      },
+      {
+        "index": 4,
+        "start": 12.3,
+        "end": 15.0,
+        "duration": 2.7,
+        "activity": 0.056,
+        "luma": 0.91
+      }
+    ],
+    "static_holds": [
+      [
+        3.81,
+        4.56
+      ]
+    ],
+    "mean_activity": 0.066,
+    "luma": {
+      "mean": 0.88,
+      "dark_share": 0.0,
+      "light_share": 0.99
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.79
+      },
+      {
+        "hex": "#f8d8e8",
+        "share": 0.061
+      },
+      {
+        "hex": "#080808",
+        "share": 0.023
+      },
+      {
+        "hex": "#c87868",
+        "share": 0.016
+      },
+      {
+        "hex": "#685858",
+        "share": 0.014
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.014
+      },
+      {
+        "hex": "#585858",
+        "share": 0.013
+      },
+      {
+        "hex": "#b88878",
+        "share": 0.011
+      },
+      {
+        "hex": "#b89888",
+        "share": 0.009
+      },
+      {
+        "hex": "#a89888",
+        "share": 0.008
+      }
+    ],
+    "representative_times": [
+      1.51,
+      4.54,
+      6.05,
+      7.56,
+      10.69,
+      13.65
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.0,
+      "mean_dbfs_voiced": -26.0,
+      "silence_ratio": 0.04,
+      "onsets": 78,
+      "onset_rate_per_sec": 5.17,
+      "onset_times": [
+        0.09,
+        0.23,
+        0.35,
+        0.51,
+        0.65,
+        0.79,
+        0.91,
+        1.07,
+        1.16,
+        1.44,
+        1.72,
+        2.0,
+        2.16,
+        2.28,
+        2.44,
+        2.53,
+        2.81,
+        2.93,
+        3.09,
+        3.37,
+        3.65,
+        3.78,
+        3.9,
+        4.11,
+        4.18,
+        4.32,
+        4.46,
+        4.6,
+        4.71,
+        4.99,
+        5.11,
+        5.27,
+        5.5,
+        5.8,
+        6.08,
+        6.36,
+        6.52,
+        6.64,
+        6.78,
+        6.9,
+        7.17,
+        7.36,
+        7.45,
+        7.73,
+        7.99,
+        8.27,
+        8.54,
+        8.71,
+        8.82,
+        8.99,
+        9.08,
+        9.36,
+        9.52,
+        9.64,
+        9.78,
+        9.94,
+        10.45,
+        10.87,
+        11.01,
+        11.15,
+        11.28,
+        11.38,
+        11.54,
+        11.82,
+        12.1,
+        12.24,
+        12.61,
+        13.05,
+        13.17,
+        13.33,
+        13.47,
+        13.61,
+        13.72,
+        13.89,
+        14.0,
+        14.14,
+        14.26,
+        14.81
+      ],
+      "tempo_estimate": {
+        "bpm": 73.8,
+        "autocorr": 0.41,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 977,
+      "band_share": {
+        "low_lt_250": 0.44,
+        "mid_250_2k": 0.37,
+        "high_gt_2k": 0.19
+      },
+      "syllabic_modulation_share": 0.39,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 67,
+        "near_onset": 1.0,
+        "chance_level": 0.5,
+        "median_offset_ms": 55,
+        "near_beat": 0.67,
+        "beat_chance_level": 0.15,
+        "beat_phase_sec": 0.102
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-9ed4034cad",
+      "overview": "reference/analysis/ref-9ed4034cad/overview.jpg",
+      "scenes": "reference/analysis/ref-9ed4034cad/scenes.jpg",
+      "transitions": "reference/analysis/ref-9ed4034cad/transitions.jpg",
+      "motion": "reference/analysis/ref-9ed4034cad/motion.jpg",
+      "audio": "reference/analysis/ref-9ed4034cad/audio.png",
+      "frames": "reference/analysis/ref-9ed4034cad/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -21.0,
+        "lra_lu": 2.2,
+        "true_peak_dbtp": -1.8,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 9,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 78,
+        "accents": 17,
+        "accents_per_min": 68.0,
+        "accent_times": [
+          1.72,
+          2.93,
+          6.08,
+          7.17,
+          8.27,
+          8.99,
+          9.36,
+          10.45,
+          10.87,
+          11.01,
+          11.28,
+          11.54,
+          11.82,
+          12.24,
+          12.61,
+          13.05,
+          13.72
+        ],
+        "accent_threshold": 0.58,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.67,
+          "tolerance_ms": 100,
+          "chance_level": 0.2
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.2,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.94,
+        "silences": [],
+        "level_head_vs_body_db": 0.6,
+        "level_tail_vs_body_db": -4.6,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-9ed4034cad/listen",
+        "sheet": "reference/analysis/ref-9ed4034cad/listen/listen.jpg",
+        "words": "reference/analysis/ref-9ed4034cad/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

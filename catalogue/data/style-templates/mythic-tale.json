@@ -1,0 +1,314 @@
+{
+  "id": "mythic-tale",
+  "name": "Mythic Tale",
+  "version": 2,
+  "status": "experimental",
+  "summary": "A myth, legend or sacred story performed by a visible storyteller: lamp-lit paper diorama, the tradition's own art as duotoned museum plates, gods and heroes identified by their iconography, the text and version named. Reverent, handmade and never preaching or debunking.",
+  "visual_job": {
+    "kind": "myth",
+    "viewer_leaves_able_to": "Retell the episode as this tradition tells it, recognise its god or hero by their emblems, and say which text it comes from.",
+    "hero": "One god, hero or sage, identified by attributes, mount or emblem, framed by a halo, niche or arch inside a layered paper world."
+  },
+  "selection": {
+    "categories": [
+      "mythology"
+    ],
+    "use_when": [
+      "The film retells a myth, legend, epic episode, Jataka, Tirthankara life or origin story.",
+      "The tradition's own art (sculpture, manuscripts, vases, picture stones, folk painting) can carry the look.",
+      "The stance is storyteller: 'as told in', neither devotional nor debunking."
+    ],
+    "avoid_when": [
+      "The film argues whether events happened (use chronicle or news-brief with evidence).",
+      "The subject is a living religious practice or a current controversy (use news-brief).",
+      "No one on the team can check the iconography and the telling before release."
+    ],
+    "keywords": [
+      "myth",
+      "mythology",
+      "legend",
+      "god",
+      "goddess",
+      "deity",
+      "gods",
+      "epic",
+      "sacred",
+      "scripture",
+      "avatar",
+      "ramayana",
+      "mahabharata",
+      "purana",
+      "puranas",
+      "krishna",
+      "shiva",
+      "vishnu",
+      "rama",
+      "hanuman",
+      "ganesha",
+      "durga",
+      "jataka",
+      "buddha",
+      "tirthankara",
+      "mahavira",
+      "jain",
+      "zeus",
+      "athena",
+      "olympus",
+      "odyssey",
+      "iliad",
+      "ovid",
+      "odin",
+      "thor",
+      "loki",
+      "edda",
+      "ragnarok",
+      "valhalla",
+      "yggdrasil"
+    ]
+  },
+  "look": {
+    "style": "mythic-paper",
+    "alternates": [
+      {
+        "style": "shadow-lantern",
+        "when": "Action-led episodes (battles, journeys, chases) or a narrator-puppet frame; traditions with shadow theatre (Tholu Bommalata, Togalu Gombeyata, Karagiozis)."
+      },
+      {
+        "style": "painted-folio",
+        "when": "The tradition has a strong painted manuscript, scroll or frieze form to follow (Pattachitra, Kalpasutra, Phad, kaavad, black- and red-figure vases)."
+      },
+      {
+        "style": "carved-relief",
+        "when": "The story is best told through surviving artefacts: temple sculpture, Greek vases, Roman reliefs, Gotland picture stones."
+      },
+      {
+        "style": "cinematic-dark",
+        "when": "Only when the brief explicitly asks for night or dread (Ragnarok, Kali's battle); dark themes are opt-in."
+      }
+    ],
+    "design_profile": "mythic-storyteller"
+  },
+  "scene_grammar": [
+    {
+      "role": "invocation",
+      "formula": "The storyteller's frame: lamp, ornament border and the source cartouche ('As told in the Valmiki Ramayana'), with the first image of the story on screen inside the hook window.",
+      "capabilities": [
+        "lamp-flicker",
+        "border-draw",
+        "source-cartouche"
+      ]
+    },
+    {
+      "role": "world",
+      "formula": "The cosmos, kingdom or forest as a paper diorama: three or more planes placed by hand, a slow push with parallax.",
+      "capabilities": [
+        "mythic-stage",
+        "deckle-sheet",
+        "paper-place",
+        "parallax-camera",
+        "frieze-registers"
+      ]
+    },
+    {
+      "role": "revelation",
+      "formula": "The god or hero appears, identified by iconography (attributes, mount, emblem) and named once on screen with that emblem; slow rise, halo bloom (Indian, Jain and Buddhist figures; none for Greek, Roman or Norse gods), gold glint. High in the frame, never at foot level.",
+      "capabilities": [
+        "reverent-rise",
+        "halo-bloom",
+        "gold-glint",
+        "photo-plate",
+        "mythic-figures"
+      ]
+    },
+    {
+      "role": "trial",
+      "formula": "What is wanted, vowed or tested, made visible as objects (the bow, the churning rope, the golden apple); puppets act it in profile.",
+      "capabilities": [
+        "shadow-puppet",
+        "puppet-pose",
+        "paper-place"
+      ]
+    },
+    {
+      "role": "conflict",
+      "formula": "The threat or the cost: palette swap to vermilion and ink, embers, closer camera; violence implied by silhouette and cut, never gore.",
+      "capabilities": [
+        "puppet-pose",
+        "flower-shower",
+        "depth-camera-push"
+      ]
+    },
+    {
+      "role": "turn",
+      "formula": "Divine intervention, boon, curse or realisation, told with a reveal device: kaavad doors open, a scroll unrolls, the lamp is carried to the next scene.",
+      "capabilities": [
+        "kaavad-doors",
+        "scroll-unroll",
+        "lamp-flicker"
+      ]
+    },
+    {
+      "role": "aftermath",
+      "formula": "The world changed: the opening composition returns altered (new light, blossoms falling, a figure missing).",
+      "capabilities": [
+        "flower-shower",
+        "match-cut",
+        "crossfade-dissolve"
+      ]
+    },
+    {
+      "role": "teaching",
+      "formula": "What the tradition draws from the story, attributed ('the tradition reads this as ...'): one line, one image, a breath of stillness with the halo turning.",
+      "capabilities": [
+        "text-mask-rise",
+        "halo-bloom"
+      ]
+    },
+    {
+      "role": "closing",
+      "formula": "The lamp dims on the opening image; the source text and the image credits are on screen.",
+      "capabilities": [
+        "lamp-flicker",
+        "end-card"
+      ]
+    }
+  ],
+  "motion": {
+    "signature": "Paper placed by hand under a breathing lamp; the sacred figure rises slowly into its halo and is held, never bounced.",
+    "continuous_layer": "Lamp flicker on every scene, plus breathing and a turning halo on held sacred images and parallax drift between paper planes.",
+    "avoid": [
+      "Bounce, squash or overshoot on a god, hero or sage.",
+      "Whooshes, glitch and zoom-through transitions.",
+      "Shattering, exploding, wiping or scattering a deity image.",
+      "Generic fantasy lighting (lens flares, neon) instead of lamp and gold."
+    ],
+    "preferred_capabilities": [
+      "paper-place",
+      "reverent-rise",
+      "lamp-flicker",
+      "halo-bloom",
+      "parallax-camera",
+      "crossfade-dissolve"
+    ],
+    "discouraged_capabilities": [
+      "squash-bounce",
+      "drop-bounce",
+      "smear-motion",
+      "counter-roll"
+    ]
+  },
+  "rules": {
+    "hook_within_sec": 1.5,
+    "max_beat_gap_sec": 3.0,
+    "max_scene_sec": 16,
+    "words_per_10s_max": 24,
+    "ending": "Return to the opening lamp and composition, altered by the story; hold one image with breathing and flicker under a low drone; the source text and image credits are on screen.",
+    "short_form": {
+      "max_card_words": 6,
+      "closing": "The return to the opening lamp doubles as the loop; the last line echoes the figure or object named in the hook."
+    }
+  },
+  "anti_patterns": [
+    {
+      "pattern": "A deity image placed at foot level, on the ground plane, stepped over, dropped, shattered, glitched or wiped away.",
+      "why": "The Hindu American Foundation lists anything 'intended to be stepped upon' or 'likely to be destroyed' as offensive; the same holds for Buddha images in Buddhist practice. Keep sacred images high in the frame and remove them by dissolve or by lifting the paper away.",
+      "source": "research 2026-11-23: hinduamerican.org commercial-use guidelines; Buddha image etiquette (Tier 2, lankalens.com). .claude/skills/mythic-tales/references/traditions/"
+    },
+    {
+      "pattern": "An episode told without naming which telling it follows, or details mixed from two tellings.",
+      "why": "Valmiki, Kamban, Tulsidas and the Jain Ramayana differ in what Rama is and who kills Ravana (Ramanujan, 'Three Hundred Ramayanas'). The cartouche names the text and version; the research dossier holds the variants.",
+      "source": "research 2026-11-23: ruralindiaonline.org summary of A. K. Ramanujan"
+    },
+    {
+      "pattern": "Greek and Roman names mixed in one film, or a modern film or game portrayal used as the source (Marvel's Thor and Loki, winged Viking helmets, Disney's Hercules).",
+      "why": "Pick one naming tradition per film to match the source (Homer and Hesiod Greek, Ovid Roman). Loki is not Thor's brother in the Eddas; the winged helmet is an 1876 Wagner costume.",
+      "source": "research 2026-11-23: Prose Edda, Doepler costumes, Greek-Roman name charts"
+    },
+    {
+      "pattern": "Valknut, the Othala rune or the sonnenrad ('black sun') used as decoration or generic 'Norse' texture.",
+      "why": "All three are catalogued as appropriated hate symbols (ADL; The Conversation on the sonnenrad). Show them only when a historical artefact requires it, and say what it is.",
+      "source": "research 2026-11-23: ADL hate symbol database (valknot, othala-rune)"
+    },
+    {
+      "pattern": "A Tirthankara fighting, granting boons or protecting someone; a human Buddha in a scene set in the aniconic period; a Jataka told as the historical Buddha's biography.",
+      "why": "Jain tradition holds a Tirthankara is free of attachment and aversion; early Buddhist art shows the Buddha by throne, tree, wheel or footprints; Jatakas are previous-life teaching stories.",
+      "source": "research 2026-11-23: Smarthistory on mudras; aniconism in Buddhism; Jain lanchhana sources (Tier 2)"
+    },
+    {
+      "pattern": "'Myth' used to mean 'false', a debunking aside, or a sermon telling the viewer what to believe.",
+      "why": "The stance is storyteller. Attribute belief and meaning ('Hindus regard Krishna as an avatar of Vishnu', 'the tradition reads this as ...'); never assert or deny it.",
+      "source": "owner brief 2026-11-23 (narrative stance: storyteller)"
+    },
+    {
+      "pattern": "A generated still of a god with the wrong attributes (number of arms, weapon, mount, emblem, skin colour) or a Tirthankara without the right lanchhana.",
+      "why": "Image models hallucinate iconography. Every generated figure passes the tradition pack's checklist and is logged as generated in the asset record; prefer a public-domain museum image.",
+      "source": "design profile mythic-storyteller weaknesses; owner brief 2026-11-23 (AI stills allowed, flagged)"
+    },
+    {
+      "pattern": "Raw stock photographs, or plates from different museums left in their own colours.",
+      "why": "Mixed photographs read as a slideshow. Duotone every plate to ink and paper, mount it with a margin or cut it out, and credit it.",
+      "source": "Authored from the design profile; not yet render-tested."
+    },
+    {
+      "pattern": "Narration over a frame that does not change for more than max_beat_gap_sec, including on the sacred hold.",
+      "why": "Anti-laziness rule. A held deity keeps breathing, the halo turning and the lamp flickering, and a new detail (emblem label, glint, petal) lands every 2-3 s.",
+      "source": "CLAUDE.md anti-laziness rule; storybook anti-pattern evidence (review-top3-films-2026-11-03)"
+    },
+    {
+      "pattern": "Named or shown figures the viewer cannot identify (a god with no label, an emblem never explained).",
+      "why": "The viewer leaves able to recognise the figure by its emblems, so the first appearance names the figure and points at one emblem (Shiva's trident, the Mahavira lion, Odin's ravens).",
+      "source": "owner review of game-theory-trust 2026-11-07 (storybook anti-pattern), applied to iconography"
+    }
+  ],
+  "reference_projects": [
+    {
+      "project": "style-sample-mythic-paper",
+      "note": "22 s silent portrait sample, Hanuman's leap, mythic-paper (local, projects/ is untracked)."
+    },
+    {
+      "project": "style-sample-mythic-shadow",
+      "note": "Same storyboard, shadow-lantern: leather puppet on twos, lamp follows the leap."
+    },
+    {
+      "project": "style-sample-mythic-folio",
+      "note": "Same storyboard, painted-folio: Pattachitra border, three registers read top-down."
+    },
+    {
+      "project": "style-sample-mythic-relief",
+      "note": "Same storyboard, carved-relief: two CC0 Cleveland Museum of Art bronzes as plates, credited on screen."
+    }
+  ],
+  "open_questions": [
+    "No film has been made to this template; every rule value is a first guess.",
+    "Palettes are estimated from pigment names, several from blog sources; measure against museum photographs when a film is made.",
+    "Who signs off iconography and telling for Jain and Buddhist films (JAINA, a scholar, a practitioner) is not decided.",
+    "Devanagari, Greek and runic display text need an @font-face project font; none is bundled with HyperFrames.",
+    "The figure library (kits/mythic/figures.js) holds eight stylised figures drawn from the tradition packs; none has had a tradition reviewer's sign-off yet (quality-rubric.md gate 2), and Devi, Durga, Krishna, Thor and Loki are not drawn yet."
+  ],
+  "revisions": [
+    {
+      "version": 1,
+      "date": "2026-11-23",
+      "change": "Initial version: myth visual job, scene grammar from invocation to closing, mythic-paper default with three light alternates, sacred-image and tradition anti-patterns.",
+      "reason": "owner brief 2026-11-23 and web research (.claude/skills/mythic-tales/references/design-language.md, imagery-sourcing.md, traditions/)"
+    },
+    {
+      "version": 2,
+      "date": "2026-11-23",
+      "change": "Revelation uses the figure library (mythic-figures) and gives haloes only to traditions that use them; world can use friezes and registers (frieze-registers); four style samples listed as reference projects.",
+      "reason": "Figure library and tradition presets added to the mythic kit (0.2.0); four style samples frame-reviewed on 2026-11-23."
+    }
+  ],
+  "validation": {
+    "evidence": "Schema and semantic checks, tests/test-mythic.py, frame reviews of the mythic-film scaffold on all four looks and of the four style-sample-mythic-* projects (Hanuman's leap) in Playwright Chromium on Windows, 2026-11-23. No film rendered yet.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "myth",
+    "legend",
+    "sacred",
+    "storyteller",
+    "paper",
+    "collage"
+  ]
+}

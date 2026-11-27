@@ -1,0 +1,49 @@
+{
+  "id": "flower-shower",
+  "name": "Flower shower",
+  "category": "particle_system",
+  "visual_intent": "Blossoms fall when the gods approve (pushpa vrishti), or embers rise from a fire; every particle is a finite seeded tween.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "particles",
+    "petals",
+    "embers",
+    "celebration",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "medium",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "flower-shower-recipe"
+  ],
+  "implementation_summary": "Blossoms fall when the gods approve (pushpa vrishti), or embers rise from a fire; every particle is a finite seeded tween.",
+  "primitives": [],
+  "runtime_api": "Studio.kit.mythic.shower(tl, parent, from, to, {count, kind: 'petal'|'ember', colors})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

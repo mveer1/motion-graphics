@@ -1,0 +1,611 @@
+{
+  "id": "ref-04d81a6a3e",
+  "name": "Slow-build logo reveal: facets fly in on the beat, a silence, a ring hit, then the wordmark types in the decay",
+  "status": "experimental",
+  "source": {
+    "filename": "slow-build-logo-reveal-b7c43a7a.mp4",
+    "aliases": [],
+    "sha256": "04d81a6a3e6706dc0ca636b8be374a9eba13d5d633726b002d28fa1fe34a922f",
+    "bytes": 1495214,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "App logo mark (low-poly brain) and its icon tile",
+        "timestamps": [
+          13.12,
+          15.38
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "wordmark",
+        "description": "App wordmark and tagline",
+        "timestamps": [
+          18.38,
+          20.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App logo reveal; reuse the beat-paced assembly, pre-hit silence and type-in-the-decay principles only, with an original mark."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1495214,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 21.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1260,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 302,
+    "keyframes": 21,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 21.077,
+      "kbps": 254
+    },
+    "overall_kbps": 570
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (28 frames), transitions strips at both boundaries (every 2nd frame), the listen sheet (2 phrases, 12 accent hits) and a 30 fps strip at 13.60-14.80 s (the dip and the hit). The audio panel and the 15.9-18.3 s strip were generated but not viewed; levels come from the analysis envelope (signal.json). Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 21.0 s (1280x720, 60 fps); the hit at 30 fps; the build at the listen sheet's +/-0.1 s triplets.",
+    "concept": {
+      "observed": "A 21 s logo reveal for an app: a wireframe brain is filled facet by facet, the finished mark takes a light hit and an app-icon tile, then the wordmark types in.",
+      "interpreted": "Patience as the message: 13 s of assembly earn one hit.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; no copy until the wordmark and a one-line tagline."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black with a violet vignette (#080808, 63%; #080818, 29%); white, peach, coral and pale-yellow low-poly facets; a violet-to-blue gradient icon tile; a coral caret."
+      },
+      "shapes_and_materials": {
+        "observed": "Low-poly triangles with flat fills over a white wireframe of dots and lines; a soft glow and a thin ring at the hit."
+      },
+      "motion": {
+        "observed": "The wireframe draws in (0.4-2.6 s); single facets fly in from off-screen, some spinning, and land on the mesh, filling it from the bottom up (2.55-13.1 s), faster in the second half; after the hit an icon tile forms behind the mark (14.57-15.4 s), the icon shrinks left (15.7-16.1 s) and the wordmark types in with a caret (16.1-18.4 s); the tagline fades in under it."
+      },
+      "transitions": {
+        "observed": "14.38 s cut (as detected): a white glow blooms round the finished mark and a thin ring expands past the frame edge (14.38-14.80 s). 15.69 s soft: the icon tile settles. No other boundaries: one centred stage for 21 s.",
+        "interpreted": "The only big moment is the light hit; everything else is accumulation.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Build 0.4-13.1 s; hold 13.1-13.9 s; dip 13.89-14.35 s; hit 14.38-14.42 s; icon 14.6-16.1 s; type 16.1-18.4 s; hold to 20.6 s, fade out."
+      },
+      "sound_design": {
+        "observed": "-14.0 LUFS, LRA 4.6 LU, true peak -1.2 dBTP; tempo 95.7 bpm (autocorrelation 0.76, medium); 61 onsets; 22 accents (62.9/min). Accents on boundaries 0 of 2 (chance 0.19); onsets within 50 ms of boundaries 0.5 (chance 0.25). Accents run 0.63 s apart (2.55-4.44 s, one beat at 95.7 bpm), then 0.30-0.33 s (5.04-8.80 s); the listen sheet shows a facet arriving or landing at 4.44, 5.04, 5.36, 5.69, 6.29, 6.62, 6.92, 7.24 and 7.55 s. Onsets thicken to about 0.16 s (8.8-13.65 s) as the build speeds up, stop at 13.65 s, and the level falls to -37.7 dB (film median -17.6 dB) for 0.46 s (13.89-14.35 s); the hit onset lands at 14.42 s, 37 ms after the light burst. No onsets from 14.42 to 16.30 s while the level decays from -13 to -20 dB (14.4-19.8 s); keystroke accents 0.14-0.17 s apart (16.76-17.72 s) as letters appear; fade-out by 20.7 s. Head -17.4 dB (slow fade-in). Accents may be part of the music.",
+        "interpreted": "Accumulate on the beat, hold the breath, hit once, then let the wordmark arrive in the decay.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 2 confident words (9 raw) as two one-word phrases over the wireframe (0.86-4.47 s) and the facet build (10.24-11.49 s); no speaker.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy: the wordmark right of the icon, centred as a lockup, and a small tagline under it (18.4-20.6 s)."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.6,
+        "observed": "A wireframe brain draws in."
+      },
+      {
+        "start": 2.6,
+        "end": 13.1,
+        "observed": "Facets fly in on the beat and fill the mesh."
+      },
+      {
+        "start": 13.1,
+        "end": 14.38,
+        "observed": "The finished mark holds; the sound drops away."
+      },
+      {
+        "start": 14.38,
+        "end": 16.1,
+        "observed": "Light burst and ring; an icon tile forms; the icon moves left."
+      },
+      {
+        "start": 16.1,
+        "end": 21.0,
+        "observed": "The wordmark types in with a caret; tagline; fade."
+      }
+    ],
+    "moments": [
+      {
+        "t": 14.38,
+        "observed": "After 0.46 s near silence (13.89-14.35 s) a white glow blooms round the mark and a ring expands past the frame (14.38-14.80 s); the hit onset is at 14.42 s.",
+        "interpreted": "The silence makes a modest light burst feel like the payoff of 13 s of building."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the facets' arrival times were keyed to the music or the music was cut to them",
+      "Easing of the facet flights (sampled at 0.1 s steps)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        2.62,
+        7.12,
+        12.38
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        4.44,
+        5.04,
+        5.69,
+        6.29
+      ]
+    },
+    {
+      "id": "pre-hit-dropout",
+      "timestamps": [
+        13.89,
+        14.42
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        14.39
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        16.76,
+        17.09,
+        17.39,
+        17.72
+      ]
+    },
+    {
+      "id": "end-card-in-the-tail",
+      "timestamps": [
+        14.42,
+        16.12,
+        18.38
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "object-assembly",
+      "halo-bloom",
+      "typewriter-reveal",
+      "line-art-reveal"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "brand-logo-resolve"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "logo-reveal",
+    "object-assembly",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "dark",
+    "low-poly",
+    "logo-build",
+    "pre-hit-dip",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 10.8
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 168,
+      "scan_size": "96x54",
+      "overview_frames": 28,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 2,
+      "motion_strips": 3
+    },
+    "boundaries": [
+      {
+        "t": 14.383,
+        "kind": "cut",
+        "score": 0.198,
+        "isolation": 0.85,
+        "frame": 863
+      },
+      {
+        "t": 15.688,
+        "kind": "soft",
+        "score": 0.179
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 14.38,
+        "duration": 14.38,
+        "activity": 0.007,
+        "luma": 0.05
+      },
+      {
+        "index": 2,
+        "start": 14.38,
+        "end": 15.69,
+        "duration": 1.31,
+        "activity": 0.104,
+        "luma": 0.12
+      },
+      {
+        "index": 3,
+        "start": 15.69,
+        "end": 21.0,
+        "duration": 5.31,
+        "activity": 0.015,
+        "luma": 0.07
+      }
+    ],
+    "static_holds": [
+      [
+        0.06,
+        1.44
+      ],
+      [
+        1.69,
+        4.19
+      ],
+      [
+        13.69,
+        14.31
+      ],
+      [
+        14.81,
+        15.69
+      ],
+      [
+        18.81,
+        20.94
+      ]
+    ],
+    "mean_activity": 0.016,
+    "luma": {
+      "mean": 0.06,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.629
+      },
+      {
+        "hex": "#080818",
+        "share": 0.293
+      },
+      {
+        "hex": "#383838",
+        "share": 0.015
+      },
+      {
+        "hex": "#180818",
+        "share": 0.015
+      },
+      {
+        "hex": "#281828",
+        "share": 0.013
+      },
+      {
+        "hex": "#181818",
+        "share": 0.008
+      },
+      {
+        "hex": "#282828",
+        "share": 0.005
+      },
+      {
+        "hex": "#685858",
+        "share": 0.005
+      },
+      {
+        "hex": "#181828",
+        "share": 0.004
+      },
+      {
+        "hex": "#483848",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      3.6,
+      7.19,
+      10.79,
+      15.04,
+      17.02,
+      18.34,
+      19.67
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.9,
+      "mean_dbfs_voiced": -18.7,
+      "silence_ratio": 0.02,
+      "onsets": 61,
+      "onset_rate_per_sec": 2.89,
+      "onset_times": [
+        2.55,
+        3.18,
+        3.81,
+        4.44,
+        5.04,
+        5.36,
+        5.69,
+        5.99,
+        6.29,
+        6.62,
+        6.92,
+        7.24,
+        7.55,
+        7.87,
+        8.17,
+        8.5,
+        8.8,
+        8.96,
+        9.13,
+        9.26,
+        9.43,
+        9.59,
+        9.75,
+        9.89,
+        10.05,
+        10.22,
+        10.38,
+        10.52,
+        10.68,
+        10.84,
+        11.01,
+        11.15,
+        11.31,
+        11.47,
+        11.61,
+        11.77,
+        11.94,
+        12.1,
+        12.24,
+        12.4,
+        12.56,
+        12.7,
+        12.86,
+        13.03,
+        13.19,
+        13.35,
+        13.49,
+        13.65,
+        14.42,
+        16.3,
+        16.46,
+        16.63,
+        16.76,
+        16.93,
+        17.09,
+        17.23,
+        17.39,
+        17.55,
+        17.72,
+        18.02,
+        18.18
+      ],
+      "tempo_estimate": {
+        "bpm": 95.7,
+        "autocorr": 0.76,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 759,
+      "band_share": {
+        "low_lt_250": 0.37,
+        "mid_250_2k": 0.5,
+        "high_gt_2k": 0.13
+      },
+      "syllabic_modulation_share": 0.3,
+      "boundary_onset_alignment": {
+        "boundaries": 2,
+        "tolerance_ms": 50,
+        "near_onset": 0.5,
+        "chance_level": 0.25,
+        "median_offset_ms": 325,
+        "near_beat": 0.5,
+        "beat_chance_level": 0.19,
+        "beat_phase_sec": 0.026
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-04d81a6a3e",
+      "overview": "reference/analysis/ref-04d81a6a3e/overview.jpg",
+      "scenes": "reference/analysis/ref-04d81a6a3e/scenes.jpg",
+      "transitions": "reference/analysis/ref-04d81a6a3e/transitions.jpg",
+      "motion": "reference/analysis/ref-04d81a6a3e/motion.jpg",
+      "audio": "reference/analysis/ref-04d81a6a3e/audio.png",
+      "frames": "reference/analysis/ref-04d81a6a3e/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.0,
+        "lra_lu": 4.6,
+        "true_peak_dbtp": -1.2,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 9,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 2,
+        "speech_start": 0.86,
+        "speech_end": 11.49,
+        "speech_coverage": 0.23,
+        "wps_while_speaking": 0.41,
+        "wpm_over_span": 11,
+        "pace_thirds_wps": [
+          0.28,
+          0.0,
+          0.28
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 2.43,
+        "pauses": {
+          "count": 1,
+          "median_ms": 5770,
+          "max_ms": 5770,
+          "at": [
+            4.47
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 2,
+            "wps": 0.14
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 61,
+        "accents": 22,
+        "accents_per_min": 62.9,
+        "accent_times": [
+          2.55,
+          3.18,
+          3.81,
+          4.44,
+          5.04,
+          5.36,
+          5.69,
+          6.29,
+          6.62,
+          6.92,
+          7.24,
+          7.55,
+          7.87,
+          8.17,
+          8.8,
+          16.76,
+          16.93,
+          17.09,
+          17.23,
+          17.39,
+          17.55,
+          17.72
+        ],
+        "accent_threshold": 0.55,
+        "boundaries_with_accent": {
+          "boundaries": 2,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.19
+        },
+        "onset_rate_during_speech": 2.47,
+        "onset_rate_outside_speech": 3.04,
+        "level_speech_minus_gaps_db": -6.2,
+        "sustained_share": 0.97,
+        "silences": [],
+        "level_head_vs_body_db": -17.4,
+        "level_tail_vs_body_db": -5.7,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-04d81a6a3e/listen",
+        "sheet": "reference/analysis/ref-04d81a6a3e/listen/listen.jpg",
+        "words": "reference/analysis/ref-04d81a6a3e/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

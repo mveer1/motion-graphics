@@ -1,0 +1,271 @@
+{
+  "id": "empty-stage-dip",
+  "name": "Empty stage dip (a breath between sections)",
+  "family": "transition-continuous",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "Two inspected product films (batch 1, 2026-11-26) clear the content to the bare background for a fraction of a second before the next headline types in.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "Instead of crossfading scene into scene, the outgoing content leaves and the bare background holds for 0.15-0.4 s, then the next section's headline enters. The empty frame is a full stop: the viewer resets before the new idea.",
+  "purpose": "Separate sections or chapters; give the next claim a clean entrance; a visual breath that matches a pause in the narration or the music.",
+  "visual_behaviour": "Cards and text fade or sink 8-16 px over 0.25-0.4 s; the background (with its vignette, grid or slow drift) shows alone; the next headline types or rises in.",
+  "mechanics": "Outgoing group opacity 1 -> 0 and y +8..16 px over 0.3 s (power2.in); hold the empty stage 0.15-0.4 s while background drift and texture keep moving (never a frozen frame); next title enters (typewriter or line-mask rise). Snap the next title to the first word of the next narration phrase, so the dip sits inside the narration pause.",
+  "decomposition": {
+    "primitives": [
+      "scene-container"
+    ],
+    "effects": [
+      "crossfade-dissolve",
+      "typewriter-reveal"
+    ],
+    "timing": "Exit 0.25-0.4 s; empty hold 0.15-0.4 s; entrance 0.4-0.8 s."
+  },
+  "parameters": [
+    {
+      "name": "exit",
+      "description": "Seconds for the outgoing content",
+      "default": 0.3
+    },
+    {
+      "name": "hold",
+      "description": "Seconds of empty background",
+      "default": 0.25
+    },
+    {
+      "name": "entrance",
+      "description": "How the next title enters: typewriter, rise",
+      "default": "typewriter"
+    }
+  ],
+  "use_cases": [
+    "chapter change in an explainer",
+    "problem -> solution turn",
+    "before a big claim or stat"
+  ],
+  "failure_modes": [
+    "Holds longer than about 0.5 s with narration running break the no-static-frame rule",
+    "A dip to pure black on a light film reads as a glitch; dip to the film's own background",
+    "On every scene change it slows the film; use at section turns only"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "section-turn-dip",
+    "stage-dip"
+  ],
+  "implementation": {
+    "approach": "Studio.fx.dip(tl, out, in, at, {exit 0.3, hold 0.25}) (runtime 1.18.0): `at` is when the next title starts; the outgoing group sinks and fades to end `hold` before it; warns over 0.5 s of hold. The golden scene keeps a background drift and a persistent kicker through the hold.",
+    "runtime_api": [
+      "Studio.fx.dip"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "CSS opacity/transform"
+    ],
+    "compatible_components": [
+      "crossfade-dissolve",
+      "typewriter-reveal",
+      "zero-dip-scene-transition"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 1,
+      "note": "High value for narrated explainers: the dip lives in the pause between narration phrases."
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-6f68999b60",
+      "timestamps": [
+        17.68,
+        18.0,
+        18.44
+      ],
+      "observed": "The reply scene fades out over about 0.3 s to the bare dark vignette, which holds empty for about 0.25 s before the next headline types in at 18.3-18.4 s."
+    },
+    {
+      "source_id": "ref-a339360a56",
+      "timestamps": [
+        22.18,
+        22.28
+      ],
+      "observed": "The plant demo card drops away and the white canvas is briefly empty before 'Not a week.' types in."
+    },
+    {
+      "source_id": "ref-58ff9f39df",
+      "timestamps": [
+        4.02,
+        11.98,
+        27.95,
+        74.01
+      ],
+      "observed": "The line leaves and the empty black stage (header only) holds 0.05-0.2 s before the next line types in, at 4.02, 11.95-12.02, 27.95-28.10 and 73.94-74.14 s."
+    },
+    {
+      "source_id": "ref-5a2816d4db",
+      "timestamps": [
+        13.15,
+        19.16
+      ],
+      "observed": "The table and map leave and the empty textured page holds briefly (seen on one overview frame, so under 0.75 s) before the next headline enters (13.15 and 19.16 s)."
+    },
+    {
+      "source_id": "ref-c6d0aa55f6",
+      "timestamps": [
+        34.6,
+        35.0
+      ],
+      "observed": "Content fades out to the empty cream page (34.6-35.0 s) before the next headline types in."
+    },
+    {
+      "source_id": "ref-d386e5f0ae",
+      "timestamps": [
+        4.6,
+        9.41,
+        13.91
+      ],
+      "observed": "Each section fades to an empty card shell for about 0.07-0.1 s (4.53-4.67 s) before the next headline builds: shorter than the 0.15-0.4 s dips recorded so far."
+    },
+    {
+      "source_id": "ref-c2addc76df",
+      "timestamps": [
+        3.16,
+        9.92
+      ],
+      "observed": "The app window is empty for about 0.1 s between card sections (3.16 s) and after the album dims (9.92 s); an accent lands on the empty beat at 3.16 s."
+    },
+    {
+      "source_id": "ref-cfaf668ebf",
+      "timestamps": [
+        2.4,
+        5.67,
+        25.32,
+        34.32,
+        41.27
+      ],
+      "observed": "On a black film, five section breaks: content fades in 0.2-0.3 s, the black background holds 0.05-0.13 s (0.7 s before the closing section at 41.27 s), then the next kicker or headline types in."
+    },
+    {
+      "source_id": "ref-ad023ce9dc",
+      "timestamps": [
+        26.62
+      ],
+      "observed": "On a light film the UI fades to the empty ivory canvas, which holds about 0.4 s before the wordmark types on (26.6-27.4 s)."
+    },
+    {
+      "source_id": "ref-9459c8097f",
+      "timestamps": [
+        7.9,
+        10.3,
+        12.74
+      ],
+      "observed": "Each claim dissolves to the empty glowing background for about 0.1-0.3 s before the next headline builds (7.67-7.97 s; 10.16-10.36 s; 12.54-12.84 s)."
+    },
+    {
+      "source_id": "ref-0b2552b64e",
+      "timestamps": [
+        44.17
+      ],
+      "observed": "The page is empty at 44.17 s between the end line and the wordmark typing in (44.9 s)."
+    },
+    {
+      "source_id": "ref-31ce9d6332",
+      "timestamps": [
+        53.5
+      ],
+      "observed": "The price cards leave and the bare canvas holds 53.45-53.62 s before the end card's first line fades in."
+    },
+    {
+      "source_id": "ref-05acc490f6",
+      "timestamps": [
+        13.48,
+        20.65
+      ],
+      "observed": "Content dissolves out and the bare background holds about 0.13 s before the next headline (13.42-13.55 s); a pale-blue empty beat before the cover rises (20.62-20.75 s)."
+    },
+    {
+      "source_id": "ref-37644838b5",
+      "timestamps": [
+        22.35,
+        50.45,
+        72.55
+      ],
+      "observed": "Dips through the white page background between sections of a 3D explainer: out 72.33-72.53 s, empty about 0.05 s, up 72.57-72.83 s with the title typing (30 fps strip); the same at 22.21-22.39 s and 50.33-50.50 s."
+    },
+    {
+      "source_id": "ref-b97f9168c6",
+      "timestamps": [
+        15.9,
+        16.78
+      ],
+      "observed": "Fade to black (15.78-15.91 s) and the next title fades up (15.94-16.04 s); again 16.71-16.77 s with the next card in at 16.81 s."
+    },
+    {
+      "source_id": "ref-95c96d5c47",
+      "timestamps": [
+        12.25
+      ],
+      "observed": "The green section fades out to the cream page (12.12-12.32 s) and the next sticker builds on the empty page."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "single-stage-progression",
+      "strike-and-correct",
+      "centred-word-build"
+    ],
+    "effects": [
+      "crossfade-dissolve",
+      "typewriter-reveal"
+    ],
+    "templates": [
+      "illustrated-explainer",
+      "product-promo"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "transition",
+    "dip",
+    "breath",
+    "pacing",
+    "section-change",
+    "scene-transitions",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-tour-progression/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

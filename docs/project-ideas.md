@@ -34,6 +34,13 @@ Format: one `## <category id>` heading per category (ids are in `specs/categorie
 - **How a power grid blackout cascades** — Why one failure spreads and what grid operators do to stop it. Needs a recent, well-sourced event to anchor it. (also: technology) [mid]
 - **Undersea cables and the internet** — Most international traffic crosses the sea floor, so a cut changes what loads. Natural follow-up to the Korea, cloud and fridge films. (also: technology) [mid]
 
+## mythology
+- **The race to the end of a pillar of fire** — Brahma and Vishnu race up and down an endless column of fire; one lies, a ketaki flower backs him up, and Shiva steps out of the pillar. Why the ketaki is kept out of Shiva worship. Shiva Purana (Vidyeshvara Samhita) and Linga Purana; Mahagatha tale 11, index in docs/sources/mahagatha/. [short]
+- **Why the moon waxes and wanes** — Chandra favours Rohini over her twenty-six sisters, their father Daksha curses him to fade, and Shiva turns the curse into a monthly cycle at Somnath. Shiva Purana and Skanda Purana (Prabhasa Khanda); Mahagatha tale 19. [short]
+- **The day Vishnu lost his head** — The gods send termites to gnaw the bowstring of the sleeping Vishnu; it snaps and beheads him, and he returns as horse-headed Hayagriva. Devi Bhagavata Purana, Book 1; Mahagatha tale 53. [short]
+- **Why we blink** — King Nimi and sage Vashishtha curse each other out of their bodies; offered his body back, Nimi chooses to live in the eyelids of every creature. Bhagavata and Vishnu Puranas; Mahagatha tale 69. [short]
+- **The mountain that is still waiting** — The Vindhya grows until it blocks the sun; Agastya asks it to bow until he returns from the south, and never comes back. Devi Bhagavata Purana, Book 10; Mahagatha tale 76. [short]
+
 ## storytelling
 - **The Voyager Golden Record** — What was put on a record meant for someone else, and who chose it. (also: science) [long]
 - **One raindrop, one monsoon** — A narrative-first journey from sea to cloud to a street in July. Mood over explanation. [mid]

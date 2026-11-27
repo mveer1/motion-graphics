@@ -270,9 +270,47 @@
      "enum": [
       "lower",
       "mid",
-      "upper"
+      "upper",
+      "subject"
      ],
-     "description": "Where captions sit during this scene, when the default is wrong: upper when the key visual, a source line or a call to action occupies the lower third. Omit for the default (hook window mid in portrait, then lower). Portrait has all three lanes; landscape and square have lower and upper. See docs/caption-design.md."
+     "description": "Where captions sit during this scene, when the default is wrong: upper when the key visual, a source line or a call to action occupies the lower third; subject to sit beside the element the voice names (needs caption_anchor). Omit for the default (hook window mid in portrait, then lower). Portrait has all four lanes; landscape and square have lower, upper and subject. See docs/caption-design.md."
+    },
+    "caption_anchor": {
+     "type": "string",
+     "description": "CSS selector of the element a caption_lane subject caption sits beside (for example #heart-diagram). Measured as it renders when each cue starts."
+    },
+    "caption_side": {
+     "type": "string",
+     "enum": [
+      "below",
+      "above"
+     ],
+     "description": "Preferred side of the anchor for caption_lane subject (default below); it flips when that side leaves the safe area."
+    },
+    "device": {
+     "type": "object",
+     "required": [
+      "job",
+      "id"
+     ],
+     "additionalProperties": false,
+     "description": "The explanation device this scene uses, picked by the narrator's job (specs/explanation-devices.json, docs/explanation-devices.md). validate checks the id serves the job, the per-film caps, devices that must not run under narration, and that src/index.html calls the device's API.",
+     "properties": {
+      "job": {
+       "type": "string",
+       "pattern": "^[a-z0-9-]+$",
+       "description": "What the narration does here: a key of jobs in specs/explanation-devices.json (hook-headline, introduce-term, build-up, compare, trace-cause, process-step, change-over-time, rank-over-time, system-running, demo-interaction, correct-myth, change-chapter)."
+      },
+      "id": {
+       "type": "string",
+       "pattern": "^[a-z0-9-]+$",
+       "description": "A device id (devices[] or existing{} in specs/explanation-devices.json) listed for that job."
+      },
+      "why": {
+       "type": "string",
+       "description": "One line: why this device fits this beat better than the alternatives."
+      }
+     }
     }
    }
   }

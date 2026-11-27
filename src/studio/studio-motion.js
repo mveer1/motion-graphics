@@ -482,6 +482,146 @@
     return at + dur;
   };
 
+  /**
+   * Flash-frame cut (technique flash-frame-cut): the scenes swap under 1-2 frames of a full-frame flash, which then
+   * decays. shape 'flat' fills the frame with `color`; 'radial' is a light burst centred on options.center (an element
+   * of the incoming scene, measured at the cut) or options.x/y. On a light canvas a white flat flash is invisible: use
+   * the accent colour or the radial shape. Photosensitivity guard: a fourth flash within any one second of the same
+   * timeline throws (WCAG 2.3.1). options: {color '#ffffff', shape 'flat'|'radial', center, x, y, hold (frames, 1),
+   * decay (s, 0.25), preDim (s the outgoing scene darkens first, 0), dimTo (brightness, 0.6)}. Returns the end time.
+   */
+  FX.flash = function (tl, outTarget, inTarget, at, options) {
+    var o = options || {};
+    var f = Studio.format;
+    var log = tl.__stFlashes = tl.__stFlashes || [];
+    var near = log.filter(function (t) { return Math.abs(t - at) < 1; });
+    if (near.length >= 3) throw new Error('Studio.fx.flash: more than three flashes within one second at ' + at.toFixed(2) + ' s (WCAG 2.3.1)');
+    log.push(at);
+    var color = o.color || '#ffffff';
+    var hold = (o.hold === undefined ? 1 : o.hold) / (f.fps || 30);
+    var decay = o.decay === undefined ? 0.25 : o.decay;
+    var el = overlayElement('div', 'st-flash');
+    if (o.shape === 'radial') {
+      var c = (o.x !== undefined && o.y !== undefined) ? { cx: o.x, cy: o.y }
+        : (o.center ? Studio.boxAt(tl, o.center, at) : { cx: f.width / 2, cy: f.height / 2 });
+      var r = Math.max(f.width, f.height);
+      el.style.background = 'radial-gradient(circle ' + r + 'px at ' + c.cx.toFixed(1) + 'px ' + c.cy.toFixed(1) + 'px, '
+        + color + ' 0%, ' + color + ' 18%, transparent 72%)';
+    } else {
+      el.style.background = color;
+    }
+    if (o.preDim && outTarget) {
+      var dimTo = 'brightness(' + (o.dimTo === undefined ? 0.6 : o.dimTo) + ')';
+      tl.fromTo(outTarget, { filter: 'brightness(1)' }, { filter: dimTo, duration: o.preDim, ease: 'power1.in', immediateRender: false }, at - o.preDim);
+      tl.fromTo(outTarget, { filter: dimTo }, { filter: 'none', duration: 0.001, ease: 'none', immediateRender: false }, at + 0.002);
+    }
+    tl.fromTo(el, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.001, ease: 'none', immediateRender: false }, at);
+    if (outTarget || inTarget) Studio.cut(tl, outTarget, inTarget, at + 0.001);
+    tl.fromTo(el, { opacity: 1 }, { opacity: 0, duration: decay, ease: 'power2.out', immediateRender: false }, at + hold);
+    tl.fromTo(el, { visibility: 'inherit' }, { visibility: 'hidden', duration: 0.001, ease: 'none', immediateRender: false }, at + hold + decay);
+    return at + hold + decay;
+  };
+
+  function radiusOf(el) {
+    var cs = global.getComputedStyle(el);
+    return cs.borderTopLeftRadius || '0px';
+  }
+
+  function paintBg(el) {
+    var bg = global.getComputedStyle(el).backgroundColor;
+    return bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent' ? bg : null;
+  }
+
+  /**
+   * Container transform (technique container-transform): `fromEl` (a tile, chip, button) grows into `toEl` (a card,
+   * a panel, the next scene's frame). A proxy takes the source box at `at` and tweens position, size, corner radius,
+   * background and shadow to the target box (measured at the end); a copy of the source content fades out in the first
+   * 30 % and a copy of the target content fades in, rising, in the last 40 %, so the two contents never mix. At the end
+   * the proxy hands off to the real target. Both contents are styled snapshots (the source at `at`, the target at the
+   * hand-off), so do not start entrance tweens inside the target at the hand-off: the copy has already shown them.
+   * options: {duration 0.65, ease 'power3.inOut', color (proxy background;
+   * default: the source's, tweening to the target's), shadow (true), outTarget, inTarget (scenes to cut at the
+   * hand-off)}. Returns the end time.
+   */
+  FX.containerTransform = function (tl, fromEl, toEl, at, options) {
+    var o = options || {};
+    var src = first(fromEl), dst = first(toEl);
+    if (!src || !dst) throw new Error('Studio.fx.containerTransform: source or target not found');
+    var dur = o.duration || 0.65;
+    var ease = o.ease || 'power3.inOut';
+    var A = Studio.boxAt(tl, src, at), B = Studio.boxAt(tl, dst, at + dur);
+    var proxy = overlayElement('div', 'st-container');
+    var bgA = o.color || paintBg(src) || Studio.token('--c-paper', '#fbfbfa');
+    var bgB = o.color || paintBg(dst) || bgA;
+    var outer = Studio.el('div', 'st-container-content', null, proxy);
+    outer.appendChild(styledCopy(src, tl, at));
+    var inner = Studio.el('div', 'st-container-content', null, proxy);
+    inner.style.width = B.w + 'px';
+    inner.style.height = B.h + 'px';
+    var copy = styledCopy(dst, tl, at + dur);
+    copy.style.position = 'static';
+    copy.style.visibility = 'inherit';
+    copy.style.opacity = '1';
+    copy.style.transform = 'none';
+    copy.style.width = '100%';
+    copy.style.height = '100%';
+    copy.style.margin = '0';
+    copy.style.background = 'transparent';
+    copy.style.boxShadow = 'none';
+    inner.appendChild(copy);
+    var outerChild = outer.firstChild;
+    outerChild.style.position = 'static';
+    outerChild.style.margin = '0';
+    outerChild.style.transform = 'none';
+    outerChild.style.visibility = 'inherit';
+    outerChild.style.opacity = '1';
+    outerChild.style.background = 'transparent';
+    outerChild.style.boxShadow = 'none';
+    outer.style.width = A.w + 'px';
+    outer.style.height = A.h + 'px';
+    var shadow = o.shadow === false ? null : ['0 0 0 rgba(15,23,42,0)', '0 ' + Studio.u(1.6).toFixed(1) + 'px ' + Studio.u(4).toFixed(1) + 'px rgba(15,23,42,0.18)'];
+    var start = { left: A.x, top: A.y, width: A.w, height: A.h, borderRadius: radiusOf(src), backgroundColor: bgA };
+    var end = { left: B.x, top: B.y, width: B.w, height: B.h, borderRadius: radiusOf(dst), backgroundColor: bgB, duration: dur, ease: ease, immediateRender: false };
+    if (shadow) { start.boxShadow = shadow[0]; end.boxShadow = shadow[1]; }
+    Studio.show(tl, proxy, at);
+    Studio.hide(tl, src, at + 0.001);
+    tl.fromTo(proxy, start, end, at);
+    tl.fromTo(outer, { autoAlpha: 1 }, { autoAlpha: 0, duration: dur * 0.3, ease: 'power1.out', immediateRender: false }, at);
+    tl.fromTo(inner, { autoAlpha: 0, y: Studio.u(0.9) }, { autoAlpha: 1, y: 0, duration: dur * 0.4, ease: 'power2.out', immediateRender: true }, at + dur * 0.6);
+    var handoff = at + dur;
+    if (o.outTarget || o.inTarget) Studio.cut(tl, o.outTarget, o.inTarget, handoff);
+    Studio.show(tl, dst, handoff);
+    Studio.hide(tl, proxy, handoff + 0.002);
+    return handoff;
+  };
+
+  function stripIds(node) {
+    if (node.removeAttribute) node.removeAttribute('id');
+    if (node.querySelectorAll) Array.prototype.forEach.call(node.querySelectorAll('[id]'), function (n) { n.removeAttribute('id'); });
+    return node;
+  }
+
+  /**
+   * A copy of `el` that looks like it without depending on selectors: every node's computed style is written inline
+   * (so #id and descendant rules survive the move into the overlay), then ids are dropped so selectors keep matching
+   * only the original. It is a snapshot of `el` as it renders now.
+   */
+  function styledCopy(el, tl, t) {
+    var prev = tl.time();
+    tl.seek(t, true);
+    var copy = el.cloneNode(true);
+    var a = [el].concat(Array.prototype.slice.call(el.querySelectorAll('*')));
+    var b = [copy].concat(Array.prototype.slice.call(copy.querySelectorAll('*')));
+    a.forEach(function (n, i) {
+      var cs = global.getComputedStyle(n), dst = b[i].style;
+      for (var k = 0; k < cs.length; k++) {
+        if (cs[k] !== 'visibility') dst.setProperty(cs[k], cs.getPropertyValue(cs[k]));
+      }
+    });
+    tl.seek(prev, true);
+    return stripIds(copy);
+  }
+
   var smearSeq = 0;
   function letterId(n) {
     var s = '';

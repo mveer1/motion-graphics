@@ -1,0 +1,697 @@
+{
+  "id": "ref-1e22836116",
+  "name": "Wordless lighthouse short: silhouette layers in fog, act fades and a light-swell climax",
+  "status": "experimental",
+  "source": {
+    "filename": "lighthouse-keeper-silent-short-b53cdb83.mp4",
+    "aliases": [],
+    "sha256": "1e22836116127d23da2891082fed762967ff84e8069ccd1a5523385d04e7565f",
+    "bytes": 7092542,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "Rights unverified. No marks seen. Reuse the act structure and light-led staging only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 7092542,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 45.6,
+    "encoder": "Lavf62.12.102",
+    "width": 1694,
+    "height": 720,
+    "video_codec": "avc1.64002a",
+    "frame_count": 2736,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 978,
+    "keyframes": 46,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 45.675,
+      "kbps": 253
+    },
+    "overall_kbps": 1244
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session A) using the reference-analyst workflow",
+    "method": "Viewed overview (61 frames), transitions sheet (all 6 boundaries, every 2nd frame), listen sheet (3 dictation phrases and 12 accent hits), strips 23.2-26.0 s at 10 fps and 29.5-34.7 s at 5 fps; automated audio and listen metrics. Signal features and Windows desktop dictation only (no whisper or Parakeet on this host, earshot models not cached); nothing was listened to by a person.",
+    "coverage": "Full 45.6 s; act fades and the lamp climax at strip level.",
+    "concept": {
+      "observed": "A wordless story: a title card; a lighthouse in fog with its beam sweeping; inside, the keeper wakes in a chair, takes a lantern and leaves; he climbs a spiral stair; in the lantern room he lights the lamp, which swells to full brightness; outside, the lit lamp room with the keeper at the rail; the beam sweeps again; an end mark.",
+      "interpreted": "Duty done; the light is both the subject and the climax.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No words except the title and the end mark; the story is told by light and silhouette.",
+      "interpreted": "Quiet, cinematic, melancholy."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black blue-grey night (99% dark frames) with warm amber lamp and lantern light; fog."
+      },
+      "typography": {
+        "observed": "Widely tracked serif caps for the title; a small script end mark."
+      },
+      "composition": {
+        "observed": "Ultra-wide 2.35:1 (1694x720); small figures; the lighthouse off-centre; the lamp centred in the climax."
+      },
+      "depth_and_layering": {
+        "observed": "Silhouette layers at several depths with fog between them; a rotating beam with soft falloff; lantern light cones."
+      },
+      "motion": {
+        "observed": "The beam rotates; fog drifts; the keeper walks in a silhouette walk cycle; the lamp glow grows."
+      },
+      "transitions": {
+        "observed": "6 boundaries (2 cuts, 4 soft). Fade in from black at 3.4-3.9 s; a cut to the interior at 9.90 s; a dark dip at 17.5-18.3 s as the lantern leaves; fade to black at 23.6-24.4 s, black hold 24.4-25.2 s, fade up 25.3-25.9 s; the soft boundaries at 29.85 and 33.00 s are the lamp brightening, not transitions; a cut to the exterior at 34.60 s, 1.4 s after the brightness peak (33.1-33.3 s); fade to black at 43.2-43.7 s and the end mark.",
+        "interpreted": "Fades through black are the act breaks; the only two cuts change location.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Acts of 6-10 s; shots of 5-20 s; the climax swell lasts 3.4 s."
+      },
+      "sound_design": {
+        "observed": "-14.2 LUFS, LRA 6.4 LU, true peak -1.0 dBTP; tempo estimate 152 bpm (medium, unverified); only 14 accents (18.4/min), grouped where the keeper walks: 14.05-15.39 s across the room, 17.86-19.11 s every 0.42 s on the stair, 21.06-22.71 s and 26.87 s. No accent within 100 ms of any of the 6 boundaries (chance 6%). 0.6 s of silence at the end; head 3.4 dB below the body. Accents may be part of the music.",
+        "interpreted": "Consistent with footsteps timed to the walk cycle: the sound follows the character, not the edit.",
+        "confidence": "low"
+      },
+      "narration": {
+        "observed": "None: dictation returned 10 raw words, 3 above confidence 0.2, single words at 15.7, 28.3 and 34.6 s over walking and exterior frames with nobody speaking (recogniser noise).",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None; the title card and the end mark are the only text."
+      },
+      "motifs": {
+        "observed": "Light against dark: beam, lantern, lamp; the spiral stair."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.92,
+        "observed": "Title card fades in and out on black."
+      },
+      {
+        "start": 3.92,
+        "end": 9.9,
+        "observed": "Exterior: the lighthouse in fog, the beam sweeping."
+      },
+      {
+        "start": 9.9,
+        "end": 17.6,
+        "observed": "Interior: the keeper wakes and leaves with a lantern."
+      },
+      {
+        "start": 17.6,
+        "end": 23.6,
+        "observed": "Spiral stair climb."
+      },
+      {
+        "start": 23.6,
+        "end": 25.3,
+        "observed": "Black."
+      },
+      {
+        "start": 25.3,
+        "end": 34.6,
+        "observed": "Lantern room: the lamp is lit and swells."
+      },
+      {
+        "start": 34.6,
+        "end": 41.5,
+        "observed": "Exterior: the lit lamp room, the keeper at the rail."
+      },
+      {
+        "start": 41.5,
+        "end": 45.6,
+        "observed": "Wide exterior with the beam; fade to black; end mark."
+      }
+    ],
+    "moments": [
+      {
+        "t": 29.7,
+        "observed": "The lamp is lit; its glow and the whole frame brighten for 3.4 s to a flare at 33.1-33.3 s, settle, and the film cuts outside at 34.60 s.",
+        "interpreted": "The light swell is the climax; the cut releases it."
+      },
+      {
+        "t": 17.86,
+        "observed": "Accents every 0.42 s while the keeper climbs the stair, each on a step."
+      }
+    ],
+    "difficult": [
+      "Volumetric fog and the rotating beam would need a Blender plate or layered gradients",
+      "Silhouette walk cycles need hand animation or a rig"
+    ],
+    "uncertainties": [
+      "Whether the accents are footsteps or part of the score (nothing was listened to)",
+      "Whether the 152 bpm estimate reflects a pulse in the music"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "layered-silhouette-stage",
+      "timestamps": [
+        5.61,
+        13.08,
+        37.0
+      ]
+    },
+    {
+      "id": "light-swell-climax",
+      "timestamps": [
+        29.7,
+        33.2,
+        34.6
+      ]
+    },
+    {
+      "id": "act-break-fade-black",
+      "timestamps": [
+        23.6,
+        24.4,
+        25.3,
+        43.2
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        14.05,
+        17.86,
+        18.27,
+        18.69,
+        19.11
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "parallax-camera",
+      "lamp-flicker",
+      "halo-bloom",
+      "crossfade-dissolve"
+    ],
+    "compositions": [
+      "title-card"
+    ],
+    "templates": [
+      "illustrated-explainer"
+    ],
+    "styles": [
+      "cinematic-dark",
+      "shadow-lantern"
+    ]
+  },
+  "categories": [
+    "character-animation",
+    "2.5d-depth",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-2",
+    "silent-story",
+    "wordless",
+    "dark",
+    "amber",
+    "fog",
+    "silhouette",
+    "cinemascope",
+    "foley"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 30.9
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 273,
+      "scan_size": "96x54",
+      "overview_frames": 61,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 6,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.917,
+        "kind": "soft",
+        "score": 0.359
+      },
+      {
+        "t": 9.9,
+        "kind": "cut",
+        "score": 0.27,
+        "isolation": 0.99,
+        "frame": 594
+      },
+      {
+        "t": 29.85,
+        "kind": "soft",
+        "score": 0.053,
+        "isolation": 0.36
+      },
+      {
+        "t": 33.0,
+        "kind": "soft",
+        "score": 0.046,
+        "isolation": 0.29
+      },
+      {
+        "t": 34.6,
+        "kind": "cut",
+        "score": 0.173,
+        "isolation": 0.97,
+        "frame": 2076
+      },
+      {
+        "t": 43.25,
+        "kind": "soft",
+        "score": 0.38
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.92,
+        "duration": 3.92,
+        "activity": 0.027,
+        "luma": 0.01
+      },
+      {
+        "index": 2,
+        "start": 3.92,
+        "end": 9.9,
+        "duration": 5.98,
+        "activity": 0.037,
+        "luma": 0.17
+      },
+      {
+        "index": 3,
+        "start": 9.9,
+        "end": 29.85,
+        "duration": 19.95,
+        "activity": 0.041,
+        "luma": 0.06
+      },
+      {
+        "index": 4,
+        "start": 29.85,
+        "end": 33.0,
+        "duration": 3.15,
+        "activity": 0.127,
+        "luma": 0.21
+      },
+      {
+        "index": 5,
+        "start": 33.0,
+        "end": 34.6,
+        "duration": 1.6,
+        "activity": 0.316,
+        "luma": 0.26
+      },
+      {
+        "index": 6,
+        "start": 34.6,
+        "end": 43.25,
+        "duration": 8.65,
+        "activity": 0.039,
+        "luma": 0.19
+      },
+      {
+        "index": 7,
+        "start": 43.25,
+        "end": 45.6,
+        "duration": 2.35,
+        "activity": 0.084,
+        "luma": 0.01
+      }
+    ],
+    "static_holds": [
+      [
+        0.08,
+        0.92
+      ],
+      [
+        9.92,
+        13.25
+      ],
+      [
+        23.75,
+        25.58
+      ],
+      [
+        43.75,
+        45.42
+      ]
+    ],
+    "mean_activity": 0.057,
+    "luma": {
+      "mean": 0.11,
+      "dark_share": 0.99,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.381
+      },
+      {
+        "hex": "#181818",
+        "share": 0.086
+      },
+      {
+        "hex": "#080818",
+        "share": 0.08
+      },
+      {
+        "hex": "#283838",
+        "share": 0.066
+      },
+      {
+        "hex": "#180808",
+        "share": 0.059
+      },
+      {
+        "hex": "#182828",
+        "share": 0.055
+      },
+      {
+        "hex": "#384848",
+        "share": 0.029
+      },
+      {
+        "hex": "#281808",
+        "share": 0.027
+      },
+      {
+        "hex": "#081818",
+        "share": 0.024
+      },
+      {
+        "hex": "#484848",
+        "share": 0.019
+      }
+    ],
+    "representative_times": [
+      1.96,
+      5.42,
+      6.91,
+      8.41,
+      14.89,
+      19.88,
+      24.86,
+      31.43,
+      33.8,
+      36.76,
+      38.92,
+      41.09,
+      44.42
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.0,
+      "mean_dbfs_voiced": -20.2,
+      "silence_ratio": 0.02,
+      "onsets": 67,
+      "onset_rate_per_sec": 1.47,
+      "onset_times": [
+        1.67,
+        2.28,
+        3.11,
+        4.71,
+        8.31,
+        8.45,
+        8.66,
+        9.89,
+        10.75,
+        11.17,
+        11.33,
+        12.05,
+        12.63,
+        12.72,
+        13.03,
+        13.14,
+        13.47,
+        13.7,
+        14.05,
+        14.28,
+        14.51,
+        14.79,
+        14.95,
+        15.39,
+        15.56,
+        15.63,
+        15.81,
+        15.88,
+        16.32,
+        16.9,
+        17.35,
+        17.86,
+        18.27,
+        18.69,
+        19.11,
+        19.34,
+        19.5,
+        19.9,
+        20.29,
+        20.67,
+        21.06,
+        21.43,
+        22.36,
+        22.71,
+        22.99,
+        23.06,
+        23.71,
+        23.85,
+        24.43,
+        24.75,
+        25.17,
+        25.38,
+        25.75,
+        26.01,
+        26.4,
+        26.68,
+        26.87,
+        26.98,
+        28.89,
+        29.07,
+        32.46,
+        33.99,
+        34.67,
+        35.87,
+        36.41,
+        38.52,
+        41.68
+      ],
+      "tempo_estimate": {
+        "bpm": 152.0,
+        "autocorr": 0.52,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1217,
+      "band_share": {
+        "low_lt_250": 0.3,
+        "mid_250_2k": 0.45,
+        "high_gt_2k": 0.25
+      },
+      "syllabic_modulation_share": 0.38,
+      "boundary_onset_alignment": {
+        "boundaries": 6,
+        "tolerance_ms": 50,
+        "near_onset": 0.17,
+        "chance_level": 0.14,
+        "median_offset_ms": 659,
+        "near_beat": 0.0,
+        "beat_chance_level": 0.3,
+        "beat_phase_sec": 0.099
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-1e22836116",
+      "overview": "reference/analysis/ref-1e22836116/overview.jpg",
+      "scenes": "reference/analysis/ref-1e22836116/scenes.jpg",
+      "transitions": "reference/analysis/ref-1e22836116/transitions.jpg",
+      "motion": "reference/analysis/ref-1e22836116/motion.jpg",
+      "audio": "reference/analysis/ref-1e22836116/audio.png",
+      "frames": "reference/analysis/ref-1e22836116/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.2,
+        "lra_lu": 6.4,
+        "true_peak_dbtp": -1.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 10,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 3,
+        "phrases": 3,
+        "speech_start": 15.72,
+        "speech_end": 35.34,
+        "speech_coverage": 0.07,
+        "wps_while_speaking": 0.94,
+        "wpm_over_span": 9,
+        "pace_thirds_wps": [
+          0.15,
+          0.15,
+          0.15
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.74,
+        "pauses": {
+          "count": 2,
+          "median_ms": 8215,
+          "max_ms": 10840,
+          "at": [
+            17.5,
+            29.01
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 2,
+            "wps": 0.1
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 1,
+            "wps": 0.12
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 3,
+          "in_pause_share": 1.0,
+          "chance_level": 0.84,
+          "next_phrase_after_ms_median": 1600
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 67,
+        "accents": 14,
+        "accents_per_min": 18.4,
+        "accent_times": [
+          14.05,
+          14.51,
+          14.79,
+          14.95,
+          15.39,
+          17.86,
+          18.27,
+          18.69,
+          19.11,
+          21.06,
+          21.43,
+          22.36,
+          22.71,
+          26.87
+        ],
+        "accent_threshold": 0.45,
+        "boundaries_with_accent": {
+          "boundaries": 6,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.06
+        },
+        "onset_rate_during_speech": 2.19,
+        "onset_rate_outside_speech": 1.41,
+        "level_speech_minus_gaps_db": 3.8,
+        "sustained_share": 0.98,
+        "silences": [
+          [
+            45.02,
+            45.63
+          ]
+        ],
+        "level_head_vs_body_db": -3.4,
+        "level_tail_vs_body_db": -0.5,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-1e22836116/listen",
+        "sheet": "reference/analysis/ref-1e22836116/listen/listen.jpg",
+        "words": "reference/analysis/ref-1e22836116/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

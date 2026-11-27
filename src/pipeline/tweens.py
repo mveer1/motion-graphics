@@ -10,6 +10,9 @@ eye across 90 seconds of motion:
      than you exit, and do not start a scene on its cut.
   2. Conflicts. Two tweens that animate the same property of the same element at the same time overwrite each
      other, so one of them silently loses.
+  3. Gaps. Which narration stretches (audio/timeline.json) run longer than 2 s with no visual event in the
+     timeline? `narration_gaps` answers it before the render; `studio.py script` reports it from the cached
+     dump in qa/motion/tweens.json. Drift and pulse layers count as alive but not as events.
 
 All findings are MEASURED leads against stated thresholds, never verdicts (specs/qa-report-spec.json). The
 thresholds are starting values adopted from that source and calibrated here only against three films, so each
@@ -245,6 +248,70 @@ def analyse(tweens: List[Dict[str, Any]], scenes: List[Dict[str, Any]], waivers:
     for f in out:
         if waivers and f["id"] in waivers:
             f["waived"] = waivers[f["id"]]
+    return out
+
+
+# ---- film-time gap audit: narration stretches with no visual change, before any render
+GAP_WARN_SEC = 2.0               # anti-laziness rule: the picture changes every 2-3 s while narration speaks
+AMBIENT_MIN_SEC = 4.0            # a linear tween this long is a drift layer, not a visual event
+AMBIENT_REPEATS = 3              # a tween repeated this often (or forever) is a pulse layer, not a visual event
+CAPTION_LABEL = "st-caption"     # Studio.comp.captions cues change the caption band, not the picture
+
+
+def is_ambient(t: Dict[str, Any]) -> bool:
+    """A continuous secondary layer (camera drift, pulse, ticker): alive, but not a visual event."""
+    rep = t.get("repeat") or 0
+    return rep < 0 or rep >= AMBIENT_REPEATS or (t.get("ease") in LINEAR and t["dur"] >= AMBIENT_MIN_SEC)
+
+
+def change_intervals(tweens: List[Dict[str, Any]], film_end: float) -> Tuple[List[Tuple[float, float]], List[Tuple[float, float]]]:
+    """(event intervals, ambient intervals) in film seconds. A set() is an instant change (a zero-length interval).
+    Runtime caption cues are left out: a caption changing over a frozen picture is still a frozen picture."""
+    events: List[Tuple[float, float]] = []
+    ambient: List[Tuple[float, float]] = []
+    for t in tweens:
+        if CAPTION_LABEL in (t.get("label") or ""):
+            continue
+        rep = t.get("repeat") or 0
+        end = film_end if rep < 0 else t["t0"] + max(t["dur"], 0.0) * (1 + max(rep, 0))
+        (ambient if is_ambient(t) else events).append((t["t0"], max(t["t0"], end)))
+    return events, ambient
+
+
+def _covered(span: Tuple[float, float], intervals: List[Tuple[float, float]]) -> float:
+    a, b = span
+    cut = sorted((max(a, s), min(b, e)) for s, e in intervals if e > a and s < b)
+    total, cur_s, cur_e = 0.0, None, None
+    for s, e in cut:
+        if cur_e is None or s > cur_e:
+            if cur_e is not None:
+                total += cur_e - cur_s
+            cur_s, cur_e = s, e
+        else:
+            cur_e = max(cur_e, e)
+    if cur_e is not None:
+        total += cur_e - cur_s
+    return total
+
+
+def narration_gaps(tweens: List[Dict[str, Any]], spans: List[Tuple[float, float, str]], film_end: Optional[float] = None,
+                   max_gap: float = GAP_WARN_SEC) -> List[Dict[str, Any]]:
+    """Stretches longer than max_gap inside narration spans (start, end, scene id) where no visual event is running.
+
+    Each gap is {scene, start, end, sec, ambient_share}: ambient_share is how much of the gap a drift or pulse layer
+    covers (1.0: only secondary motion moves; 0.0: nothing in the timeline changes the picture). Pure function."""
+    end_all = film_end if film_end is not None else max([b for _, b, _ in spans] + [t["t0"] + t["dur"] for t in tweens] + [0.0])
+    events, ambient = change_intervals(tweens, end_all)
+    out: List[Dict[str, Any]] = []
+    for a, b, sid in spans:
+        inside = sorted((max(a, s), min(b, e)) for s, e in events if e >= a and s <= b)
+        cursor = a
+        for s, e in inside + [(b, b)]:
+            if s - cursor > max_gap + 1e-6:
+                share = _covered((cursor, s), ambient) / (s - cursor)
+                out.append({"scene": sid, "start": round(cursor, 2), "end": round(s, 2), "sec": round(s - cursor, 2),
+                            "ambient_share": round(share, 2)})
+            cursor = max(cursor, e)
     return out
 
 

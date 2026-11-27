@@ -1,0 +1,64 @@
+{
+  "id": "skill-mythic-tales",
+  "name": "Mythic Tales Skill",
+  "component_type": "skill",
+  "purpose": "Entry point for films that retell myths, legends and sacred stories (Hindu epics and Puranas, Jain and Buddhist tales, Greek and Roman, Norse) in the mythic-tale style template: routes to the tradition pack, storytelling, design-language, imagery-sourcing, scene-recipe and quality references, with a storyteller stance and an iconography gate on top of the studio pipeline.",
+  "capabilities": [
+    "Workflow from episode and telling to render: scaffold (mythic-film), research dossier contents, arcs and hooks, images, audio, kit composition, gates",
+    "Tradition packs with tellings, public-domain translations, iconography checklists, art forms and sensitivities (indian, jain-buddhist, greek-roman, norse)",
+    "Design language: style chooser across mythic-paper, shadow-lantern, painted-folio and carved-relief; signature moves mapped to Studio.kit.mythic; sourced research",
+    "Imagery: myth-sources.py search, collage fetcher, asset import, the generated-still protocol and credits",
+    "Quality rubric: telling, iconography, respect and sources gates plus creative-review additions"
+  ],
+  "location": ".claude/skills/mythic-tales",
+  "version": "1.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "skill-story-writer",
+    "skill-technical-researcher",
+    "skill-voice-director",
+    "skill-collage-design",
+    "tool-myth-sources",
+    "shared-mythic-kit"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Light commands only; renders go through studio.py build on the render host."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-tales/SKILL.md",
+    ".claude/skills/mythic-tales/references/design-language.md",
+    ".claude/skills/mythic-tales/references/scene-recipes.md",
+    "docs/style-templates.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Written for this workspace from web research (sources linked inline); no third-party text copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Network only through scripts/myth-sources.py and the collage fetcher (public APIs, no keys); generated stills go through scripts/assets.py with the key in the environment only."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "Created 2026-11-23; the mythic-film scaffold and four style samples (Hanuman's leap in every look) validated and frame-reviewed; figure library and motif sheets reviewed by eye; no film rendered yet.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-11-23",
+  "tags": [
+    "skill",
+    "myth",
+    "legend",
+    "sacred",
+    "storyteller",
+    "iconography"
+  ]
+}

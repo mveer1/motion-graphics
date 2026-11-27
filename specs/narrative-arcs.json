@@ -599,6 +599,60 @@
    ],
    "pitfall": "A long film is a short film stretched: the same hook repeated, chapters that restate, a middle that sags. Every chapter needs its own mechanism and a re-hook every 60-90 s; a chapter that could be cut without the viewer noticing is cut. Chapter titles become the YouTube chapter list, so they say what the chapter shows. Unmeasured: the stage timings are a first guess and have not been checked against a finished long-form film.",
    "origin": "original; the owner's long-form structure (2026-11-08)"
+  },
+  {
+   "id": "sacred-tale",
+   "name": "Invocation -> world -> trial -> divine turn -> aftermath -> teaching",
+   "best_for": [
+    "myths and epic episodes (mythic-tale template)",
+    "a single episode of the Ramayana, Mahabharata, Puranas, Iliad or Eddas",
+    "Jataka and Tirthankara life stories"
+   ],
+   "stages": [
+    { "id": "invocation", "function": "hook", "emotion": "wonder", "guidance": "Open on the story's strongest image with the storyteller's frame: name the text and version in the first breath ('In the Valmiki Ramayana...'). No greeting, no 'in this video'." },
+    { "id": "world", "function": "context", "emotion": "orientation", "guidance": "Who, where and what order holds: the kingdom, the cosmos, the vow. Introduce the god or hero by one emblem the viewer can spot again." },
+    { "id": "trial", "function": "complication", "emotion": "rising tension", "guidance": "A desire, a vow, a test or a threat, shown as an object. Stakes are cosmic or moral, not just physical." },
+    { "id": "divine-turn", "function": "turn", "emotion": "awe", "guidance": "The intervention, boon, curse or realisation. Spend the biggest visual move here (doors open, lamp carried, halo blooms)." },
+    { "id": "aftermath", "function": "consequence", "emotion": "release", "guidance": "The world changed. Return to the opening composition, altered." },
+    { "id": "teaching", "function": "reflection", "emotion": "insight", "guidance": "What the tradition draws from it, attributed ('the tradition reads this as...'). One line; never preach, never debunk." }
+   ],
+   "pitfall": "Telling the moral before the turn, or retelling the whole epic: one episode, one turn. A teaching stated as the narrator's own belief breaks the storyteller stance.",
+   "origin": "original; mythic-tale template (2026-11-23)"
+  },
+  {
+   "id": "boon-and-curse",
+   "name": "Desire -> boon -> overreach -> reckoning -> lesson",
+   "best_for": [
+    "boon stories (Ravana, Hiranyakashipu, Bhasmasura, Midas)",
+    "hubris myths (Icarus, Arachne, Phaethon)",
+    "cautionary legends"
+   ],
+   "stages": [
+    { "id": "desire", "function": "hook", "emotion": "intrigue", "guidance": "Open on what someone wants so badly they will do penance or bargain for it." },
+    { "id": "boon", "function": "context", "emotion": "anticipation", "guidance": "The gift and its exact wording. Put the wording on screen: the loophole lives in it." },
+    { "id": "overreach", "function": "complication", "emotion": "unease", "guidance": "The gift is used past its purpose; the world bends." },
+    { "id": "reckoning", "function": "turn", "emotion": "shock", "guidance": "The loophole closes: the condition the boon did not cover arrives (dusk, a threshold, a man-lion). Show the condition, then the consequence." },
+    { "id": "lesson", "function": "reflection", "emotion": "weight", "guidance": "The tradition's reading of it, attributed, in one line over the altered opening image." }
+   ],
+   "pitfall": "Hiding the boon's exact terms makes the reckoning feel arbitrary; state them early and let the viewer spot the gap.",
+   "origin": "original; mythic-tale template (2026-11-23)"
+  },
+  {
+   "id": "origin-myth",
+   "name": "Before -> first act -> making -> order -> why it is so",
+   "best_for": [
+    "creation and cosmogony (Nasadiya Sukta, Hesiod's Theogony, Ymir and Ginnungagap)",
+    "why-stories (why the Ganga falls from Shiva's hair, why the moon wanes)"
+   ],
+   "stages": [
+    { "id": "before", "function": "hook", "emotion": "wonder", "guidance": "What there was before: void, ocean, darkness. One image, almost empty, alive with lamp flicker or drift." },
+    { "id": "first-act", "function": "context", "emotion": "anticipation", "guidance": "The first being or act. Name it with its emblem." },
+    { "id": "making", "function": "mechanism", "emotion": "awe", "guidance": "How the world is made, step by step: each step adds a paper plane to the diorama." },
+    { "id": "order", "function": "resolution", "emotion": "stability", "guidance": "The world as it stands, with its rule or price." },
+    { "id": "why-it-is-so", "function": "reflection", "emotion": "insight", "guidance": "What the story explains for its tellers (a river, a season, a rite), attributed to the tradition." }
+   ],
+   "pitfall": "Listing generations of gods without one image per step; the making must be seen being made.",
+   "origin": "original; mythic-tale template (2026-11-23)"
   }
  ]
 }

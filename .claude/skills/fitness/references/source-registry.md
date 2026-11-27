@@ -32,6 +32,19 @@ Wackerhage 2019 (J Appl Physiol, review); Damas 2016 (J Physiol, 10 men, 10 week
 
 ## Adding a source
 
+### Communication reference: Yellow Dude (2026-11-20 UTC)
+
+[Source ledger and adoption guide](yellow-dude-study.md): nine official web
+pages, two inspected public layouts and the supplied character still.
+The current production article is accessible; its process descriptions are
+publisher-reported, not independently audited. Full videos/audio were not inspected.
+Use communication principles only. Licence for asset reuse is unestablished:
+exclude character, branding, art, voice, scripts, footage, product UI and exact
+compositions. No source artwork was imported. Article science still requires
+independent primary-source verification; expert involvement is not blanket validation.
+
+### Asset intake procedure
+
 1. Read the licence page yourself and record the URL and date.
 2. Commercial use, modification and redistribution must all be allowed (or the use must be facts only).
 3. Add a row here, then the asset with `source` and `license` fields in the manifest, and the upstream LICENSE file beside any downloaded file (`assets/fitness/sources/<name>/`).

@@ -1,6 +1,7 @@
 {
   "id": "glitch-type",
   "name": "Glitch type",
+  "family": "kinetic-typography",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected reel shows a technical word with RGB channel split and slice displacement.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A word flickers with colour-channel offsets and horizontal slice shifts for a few frames, signalling code, error or digital noise.",
@@ -13,9 +14,12 @@
   "implementation_state": "observed",
   "implemented_by": [],
   "capability": { "support": "approximation", "requirements": ["per-channel image offsets of video glitches"], "compatible_components": ["grain-boil", "clip-mask"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low-medium" }, "approximation": "Two tinted DOM copies plus stepped band clips; no real compression artefacts.", "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 2, "cost": 2 } },
-  "provenance": [ { "source_id": "ref-b97f9168c6", "timestamps": [3.9], "observed": "A short word card shows channel split and scanline offsets." } ],
+  "provenance": [ { "source_id": "ref-b97f9168c6", "timestamps": [3.9], "observed": "A short word card shows channel split and scanline offsets." },
+    { "source_id": "ref-aff23e662b", "timestamps": [11.97, 12.01], "observed": "An extruded letter on violet cuts to black through horizontal pixel blocks that resolve into the next character." },
+    { "source_id": "ref-58ff9f39df", "timestamps": [3.62, 34.52, 97.58, 112.7], "observed": "RGB-split and slice glitches on slammed words at 3.62-3.95 s, a pixel glitch on terracotta at 34.52-35.55 s, and on montage words at 97.58 and 112.7 s." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [12.16, 12.29], "observed": "A word with RGB channel offsets and slice shifts flickers for about 0.15 s after a cut (12.16-12.32 s)." } ],
   "related": { "techniques": ["word-per-beat-sequence"] },
   "licensing_notes": "Technique only.",
   "tags": ["kinetic-typography", "glitch", "digital", "backlog", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-26" }
 }

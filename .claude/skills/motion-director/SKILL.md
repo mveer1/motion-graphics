@@ -51,3 +51,7 @@ Static hold = low per-frame change AND low change over 0.5 s (a slow drift is al
 ## Motion vocabulary
 
 `specs/motion-vocabulary.json`: 28 entries with GSAP ease, duration range, when to use and avoid, and an evidence class (`convention`, `adopted-unverified`, `workspace-measured`). Use as starting points; do not apply every effect to every scene; do not turn a rule from a launch-film corpus (never fade, always cut on motion) into a law for an explainer.
+
+## Reference evidence for a critique
+
+`docs/reference-playbook.md` gives measured reference behaviour to critique against, with technique ids and precedent moments: big transitions rationed to the 2-4 turns of a film; changes started from an element already on screen; light canvases that keep one continuous page and hard-cut only into dark sections; sound accents on element arrivals rather than on cuts (cuts on the beat only in one-word reels); one biggest moment made by a flash plus a hit 0-250 ms later or by 0.3-0.6 s of silence before it. Cite the technique id and the reference moment when a critique leans on it, and measure our own render before claiming a sync problem (`earshot timeline --cues` where its models are cached, otherwise `motion-qa.py` and the QA gates).

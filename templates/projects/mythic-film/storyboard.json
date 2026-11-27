@@ -1,0 +1,112 @@
+{
+  "spec_version": 1,
+  "slug": "{{SLUG}}",
+  "direction": "direction-a",
+  "timing_source": "fixed",
+  "duration_sec": 45,
+  "styleframes": [],
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Invocation",
+      "start_sec": 0,
+      "end_sec": 6.5,
+      "purpose": "The storyteller's frame: name the tale and its source, then open the box.",
+      "why": "Invocation role: the viewer knows whose telling this is before the story starts.",
+      "on_screen_text": ["A tale retold", "{{TITLE}}", "As told in", "Name the text and version"],
+      "visual": "Lamp-lit paper, a lotus border draws, title words rise, the source cartouche slides in; kaavad doors open onto the world.",
+      "layout": { "portrait": "Cartouche top-left in the safe area, title below it, doors in the middle third", "landscape": "Title top, doors centred" },
+      "capabilities": ["lamp-flicker", "border-draw", "source-cartouche", "kaavad-doors"],
+      "beats": [
+        { "at_sec": 0.3, "action": "Border draws; lamp flickers" },
+        { "at_sec": 1.4, "action": "Title words rise" },
+        { "at_sec": 2.8, "action": "Source cartouche slides in" },
+        { "at_sec": 4.4, "action": "Kaavad doors swing open" },
+        { "at_sec": 6.0, "action": "Title and cartouche lift away" }
+      ],
+      "transition_out": { "type": "crossfade", "capability": "crossfade-dissolve", "duration_sec": 0.6, "continuity": "The lamp and border persist." }
+    },
+    {
+      "id": "s2",
+      "title": "World",
+      "start_sec": 6.5,
+      "end_sec": 15,
+      "purpose": "Lay out the world of the story in paper.",
+      "why": "World role: the order that the trial will disturb.",
+      "on_screen_text": ["The world", "Name the realm"],
+      "visual": "Sky disc and clouds, far peaks, hills and waves are placed by hand one plane at a time; slow parallax push.",
+      "capabilities": ["mythic-stage", "deckle-sheet", "paper-place", "parallax-camera"],
+      "beats": [
+        { "at_sec": 6.8, "action": "Sun disc and clouds placed" },
+        { "at_sec": 8.3, "action": "Far peaks placed" },
+        { "at_sec": 9.8, "action": "Hills placed; realm label" },
+        { "at_sec": 11.3, "action": "Waves placed" },
+        { "at_sec": 12.6, "action": "Camera pushes in with parallax" },
+        { "at_sec": 14.0, "action": "Gold glint on the sun" }
+      ],
+      "transition_out": { "type": "none", "continuity": "The diorama persists; the gateway is added to it." }
+    },
+    {
+      "id": "s3",
+      "title": "Revelation",
+      "start_sec": 15,
+      "end_sec": 25,
+      "purpose": "The god or hero appears and is identified by an emblem.",
+      "why": "Revelation role: the viewer can recognise the figure for the rest of the film.",
+      "on_screen_text": ["Identify by emblem", "Name, emblem"],
+      "visual": "A gateway arch is placed; the figure rises inside it; a prabhavali blooms behind it and gold glints; the hand lifts.",
+      "capabilities": ["deckle-sheet", "reverent-rise", "halo-bloom", "gold-glint", "shadow-puppet"],
+      "beats": [
+        { "at_sec": 15.3, "action": "Gateway arch placed" },
+        { "at_sec": 16.6, "action": "Figure rises" },
+        { "at_sec": 18.0, "action": "Halo blooms and starts turning" },
+        { "at_sec": 20.0, "action": "Name and emblem label" },
+        { "at_sec": 21.6, "action": "Gold glint on the halo" },
+        { "at_sec": 23.0, "action": "Hand lifts" },
+        { "at_sec": 24.4, "action": "Camera pushes in on the figure" }
+      ],
+      "transition_out": { "type": "none", "continuity": "Same diorama; the palette swaps." }
+    },
+    {
+      "id": "s4",
+      "title": "Trial and turn",
+      "start_sec": 25,
+      "end_sec": 35,
+      "purpose": "The test or threat, then the turn.",
+      "why": "Trial and turn roles: the stakes and the moment the story changes.",
+      "on_screen_text": ["The trial", "Name the test"],
+      "visual": "Palette swaps to vermilion and ink, embers rise, the figure raises its arm; the palette returns and the lamp is carried to the figure.",
+      "capabilities": ["puppet-pose", "flower-shower", "depth-camera-push", "lamp-flicker"],
+      "beats": [
+        { "at_sec": 25.2, "action": "Palette swap; embers rise" },
+        { "at_sec": 26.6, "action": "Arm raised" },
+        { "at_sec": 28.0, "action": "Camera pans" },
+        { "at_sec": 29.6, "action": "Trial label" },
+        { "at_sec": 31.0, "action": "Arm lowers" },
+        { "at_sec": 32.4, "action": "Palette returns" },
+        { "at_sec": 33.8, "action": "Lamp carried to the figure" }
+      ],
+      "transition_out": { "type": "none", "continuity": "Same diorama, changed." }
+    },
+    {
+      "id": "s5",
+      "title": "Aftermath, teaching, closing",
+      "start_sec": 35,
+      "end_sec": 45,
+      "purpose": "The world changed; the tradition's reading; close on the lamp.",
+      "why": "Aftermath, teaching and closing roles: the change, its meaning as the tradition reads it, and the source.",
+      "on_screen_text": ["The tradition reads it", "One line of meaning", "Credit every image"],
+      "visual": "A lotus is placed at the front, blossoms fall, the teaching line rises, credits appear, the lamp returns to the centre and dims.",
+      "capabilities": ["deckle-sheet", "flower-shower", "text-mask-rise", "lamp-flicker"],
+      "beats": [
+        { "at_sec": 35.2, "action": "Lotus placed" },
+        { "at_sec": 36.4, "action": "Blossoms begin to fall" },
+        { "at_sec": 38.0, "action": "Teaching line rises" },
+        { "at_sec": 40.4, "action": "Camera pulls back to the opening framing" },
+        { "at_sec": 41.6, "action": "Credits line" },
+        { "at_sec": 43.0, "action": "Lamp returns and dims" }
+      ],
+      "transition_out": { "type": "hold-end" }
+    }
+  ]
+}

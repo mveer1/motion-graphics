@@ -23,7 +23,7 @@ Creative judgment comes before tooling. This skill runs the planning half of the
 - **Measured, inferred, subjective, prescribed, unknown** are different things (`design-profile.schema.json`). Never fill an unmeasured value with a number. Extracted profiles keep qualitative facts `unknown` until an analyst has looked at frames.
 - **Right medium for the job.** Charts, counters, diagrams, exact typography and anything with numbers: code. Atmosphere, texture, environments: procedural or generated plates. Say which in each beat's `assets[].strategy`; a `generate` need must name a fallback.
 - **Stillness and darkness are legitimate** when declared (`intent: still|minimal|dark` on the beat). Declaring is not optional: it is what turns a QA finding into a visible waiver.
-- **Do not copy** references: learn techniques from `catalogue/data/references/`, never assets, brands or exact sequences. Registry profiles carry a `weaknesses` list; read it before choosing.
+- **Do not copy** references: learn techniques from `catalogue/data/references/`, never assets, brands or exact sequences. Registry profiles carry a `weaknesses` list; read it before choosing. For the transitions you add to the beat map (step 2), pick from `docs/reference-playbook.md` by what the change means (next step, go deeper, turn, contrast, chapter close) and write the technique id as the motivation.
 - **No credentials, no live generation** here: asset acquisition goes through `asset-engine`.
 
 ## Handoffs

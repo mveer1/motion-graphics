@@ -79,7 +79,7 @@ Checked before any render by `style check` and `validate` (storyboard, narration
 
 | Rule | Check |
 |---|---|
-| `words_per_10s_max` | Words per scene divided by the measured clip length, per scene. Falls back to the storyboard span when narration is not yet measured |
+| `words_per_10s_max` | Words per scene divided by the measured clip length, per scene, scaled by the scene's storyboard `pace`: slow at most 0.9x, normal 1.0x, fast up to 1.1x (story-writer pace map; `PACE_BUDGET` in `src/pipeline/style_templates.py`, uncalibrated). Falls back to the storyboard span when narration is not yet measured, or when a clip was made from other words than the current narration (audio is stale) |
 | `max_beat_gap_sec` | Longest stretch between storyboard beats in a scene, including the lead-in and the tail |
 | `hook_within_sec` | First beat of the first scene |
 | `max_scene_sec` | Scenes over the limit that carry no beats |
@@ -87,7 +87,9 @@ Checked before any render by `style check` and `validate` (storyboard, narration
 | style | Project style is the default or a listed alternate |
 | version | Pinned version behind the template |
 
-Not checked by this layer: `rules.ending` (reviewed by a person), label size and collisions (`motion-qa`, `frame-review`, then your eyes), and whether a scene's visual events really happen (only the storyboard's plan is read).
+Not checked by this layer: `rules.ending` (reviewed by a person), label size and collisions (`motion-qa`, `frame-review`, then your eyes), and whether a scene's visual events really happen (only the storyboard's plan is read; `studio.py script` runs the film-time gap audit on the composition's own tweens once `qa/motion/tweens.json` exists).
+
+Read by `motion-qa` from the pinned template (since 2026-11-23): the static-hold limit is `rules.static_hold_sec` (optional), else `max_beat_gap_sec`; the text floor is `rules.label_floor_fraction` (optional), else the preset floor; `rules.caption_band` (optional, per format, fractions of the frame height) declares where a film draws its own caption band, and `low-contrast` and `text-echoes-narration` are waived for text inside it (runtime captions, class `st-caption`, and scenes whose storyboard declares `caption-band` are waived without it). No template sets the optional rules yet: they wait for a rendered film to measure them on.
 
 Calibration: run against the three newest films, the check reproduces the numbers measured by hand on 2026-11-03: cloud s1 and s6 at 36 and 35 words per 10 s, fridge s2 at 33, and Korea inside budget. Every scene of all three also fails the 2.0 s beat gap, because their storyboards plan one event every 3 to 7 seconds. That matches what `motion-qa` found after rendering (41, 44 and 79 s of static or low-energy stretches).
 
@@ -114,3 +116,30 @@ The tests require every category in `specs/categories.json` to be served by at l
 ## body-lab (added 2026-11-08)
 
 Eighth template, visual job `body-mechanism`: character-led body science on the `sinew-lab` style for the `fitness` category. Tibi does the movement, the working muscles light up by role on Tibi's own body (Cobalt Sculpt; classic Tibi turned the body to glass), the mechanism plays from there, and every claim carries its evidence grade and source. Rules are first guesses; first film: `projects/how-muscles-grow`. Details: `catalogue/data/style-templates/body-lab.json`, `.claude/skills/fitness/`.
+
+## mythic-tale (added 2026-11-23)
+
+Ninth template, visual job `myth`, category `mythology`: myths, legends and sacred stories told by a visible storyteller (Hindu epics and Puranas, Jain and Buddhist tales, Greek and Roman, Norse). The stance is storyteller: the telling is named, belief and meaning are attributed, nothing is preached or debunked.
+
+- **Looks** (all light): `mythic-paper` (default: lamp-lit rag-paper diorama, deckle-edged sheets, duotoned museum plates, gold leaf), `shadow-lantern` (shadow-puppet screen, silhouettes or translucent dyed leather), `painted-folio` (manuscript and scroll: borders, registers, kaavad doors), `carved-relief` (museum objects cut out in 2.5D). `cinematic-dark` only when the brief asks. All four share one token contract, so a film can switch look without code changes.
+- **Profile** `mythic-storyteller`; **kit** `Studio.kit.mythic` (`src/studio/kits/mythic/mythic.js`); **scaffold** `templates/projects/mythic-film`; **arcs** `sacred-tale`, `boon-and-curse`, `origin-myth`; **hooks** `impossible-feat`, `boon-loophole`; **images** `scripts/myth-sources.py` (Cleveland, Met, Commons; public domain only).
+- **Rules:** hook by 1.5 s, beat gap 3 s, scenes 16 s, 24 words per 10 s (a slower storyteller pace). Anti-patterns cover sacred images at foot level or destroyed, unnamed or mixed tellings, Greek and Roman name mixing and pop-culture sources, hate-appropriated Norse symbols, Jain and Buddhist depiction rules, preaching or debunking, and unchecked generated iconography.
+- **Entry point:** the `mythic-tales` skill (`.claude/skills/mythic-tales/`), with tradition packs and an iconography gate.
+
+```bash
+python scripts/studio.py new <slug> --template mythic-film --style-template mythic-tale --type short --category mythology
+python tests/test-mythic.py
+```
+
+Rules are first guesses and no film has been made to it yet; palettes are estimated from pigment names.
+
+**Version 2 (2026-11-23):** the kit (0.2.0) gained a figure library (`kits/mythic/figures.js`: Rama, Hanuman, Shiva, Ganesha, Athena, Odin, a seated Tirthankara, the Buddha, in four looks), tradition border presets, friezes and registers, and stepped "on twos" motion. Four 22-second silent samples tell one storyboard, Hanuman's leap, in each look:
+
+| Sample | Look | Pinned |
+|---|---|---|
+| `style-sample-mythic-paper` | mythic-paper: paper diorama, cut-out Hanuman, falling blossoms | v2 |
+| `style-sample-mythic-shadow` | shadow-lantern: leather puppet on twos, the lamp follows the leap | v2 |
+| `style-sample-mythic-folio` | painted-folio: Pattachitra border, three registers read top-down | v2 |
+| `style-sample-mythic-relief` | carved-relief: two CC0 Cleveland Museum of Art bronzes as plates | v2 |
+
+They are frame-reviewed in Playwright, not rendered. `projects/` is untracked, so they exist only in the checkout that made them.

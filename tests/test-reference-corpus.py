@@ -305,6 +305,89 @@ class TestMeasurements(unittest.TestCase):
         self.assertTrue(silent.get("silent"))
 
 
+@unittest.skipUnless(np is not None, "numpy is not installed")
+class TestListen(unittest.TestCase):
+
+    def test_ebur128_summary_is_parsed(self):
+        text = ("[Parsed_ebur128_0 @ 0x1] Summary:\n\n  Integrated loudness:\n    I:         -16.2 LUFS\n"
+                "    Threshold: -26.6 LUFS\n\n  Loudness range:\n    LRA:         5.3 LU\n\n  True peak:\n    Peak:        -0.6 dBFS\n")
+        self.assertEqual(corpus.parse_ebur128(text), {"integrated_lufs": -16.2, "lra_lu": 5.3, "true_peak_dbtp": -0.6})
+        self.assertIsNone(corpus.parse_ebur128("no summary"))
+
+    def test_speech_pace_pauses_and_cuts_in_pauses(self):
+        # Two phrases of five words (0.3 s each) with a 1 s pause; the second phrase is spoken faster.
+        words = [{"text": "w", "start": 1.0 + 0.3 * i, "end": 1.25 + 0.3 * i} for i in range(5)]
+        words += [{"text": "w", "start": 3.5 + 0.2 * i, "end": 3.65 + 0.2 * i} for i in range(8)]
+        scenes = [{"index": 1, "start": 0.0, "end": 3.0}, {"index": 2, "start": 3.0, "end": 6.0}]
+        sp = corpus.speech_metrics(words, 6.0, scenes, [3.0, 4.0])
+        self.assertEqual((sp["phrases"], sp["words"]), (2, 13))
+        self.assertEqual(sp["pauses"]["count"], 1)
+        self.assertAlmostEqual(sp["pauses"]["max_ms"], 1050, delta=10)
+        self.assertEqual(sp["boundaries_vs_speech"]["in_pause_share"], 0.5)  # 3.0 s in the pause, 4.0 s mid-phrase
+        self.assertEqual(sp["boundaries_vs_speech"]["next_phrase_after_ms_median"], 500)
+        self.assertEqual(sp["pace_trend"], "accelerates")
+        self.assertEqual([s["words"] for s in sp["per_scene"]], [5, 8])
+        self.assertEqual(sp["narration"], "narrated")
+        self.assertEqual(corpus.speech_metrics([], 6.0, scenes, [])["narration"], "none")
+
+    def test_accents_on_cuts_and_silence_before_a_hit(self):
+        sr = 11025
+        x = (0.02 * np.sin(np.arange(sr * 6) * 0.05)).astype(np.float32)  # quiet bed
+        x[int(3.4 * sr):int(4.0 * sr)] = 0.0  # drop-out before the hit
+        hit = (np.hanning(200) * np.sin(np.arange(200) * 0.9)).astype(np.float32)
+        for t in (1.0, 2.0, 4.0, 5.0):
+            x[int(t * sr):int(t * sr) + 200] += hit
+        snd = corpus.sound_metrics(x, sr, 6.0, [2.0, 4.0], [])
+        self.assertTrue(snd["present"])
+        for t in (1.0, 2.0, 4.0, 5.0):
+            self.assertTrue(any(abs(a - t) < 0.05 for a in snd["accent_times"]), (t, snd["accent_times"]))
+        self.assertEqual(snd["boundaries_with_accent"]["share"], 1.0)
+        self.assertTrue(any(a <= 3.5 and b >= 3.9 for a, b in snd["silences"]), snd["silences"])
+        self.assertFalse(corpus.sound_metrics(np.zeros(sr, np.float32), sr, 1.0, [], [])["present"])
+
+    def test_analyze_keeps_the_listen_block(self):
+        tmp = Path(tempfile.mkdtemp(prefix="refcorpus-"))
+        rec = {"id": "ref-keeplisten", "source": {"sha256": "1" * 64, "filename": "x.mp4"}, "media": {"duration_sec": 1.0},
+               "automated": {"listen": {"version": corpus.LISTEN_VERSION, "run_on": "2026-11-26"}},
+               "analysis": {"state": "automated"}, "metadata": {"updated_at": "2026-11-26"}}
+        fresh = {"analyzer": {"version": corpus.ANALYZER_VERSION}, "boundaries": [], "scenes": [], "artifacts": {"overview": "o.jpg"}}
+        saved = {}
+        patches = {"load_sources": lambda: {rec["id"]: rec}, "reference_roots": lambda r: [], "locate": lambda r, roots: Path("x.mp4"),
+                   "make_decoder": lambda b, c: type("D", (), {"close": lambda self: None})(), "analyse": lambda r, p, d: dict(fresh),
+                   "validate_source": lambda r: [], "save_json": lambda p, d: saved.update(d), "CACHE_DIR": tmp}
+        old = {k: getattr(corpus, k) for k in patches}
+        try:
+            for k, v in patches.items():
+                setattr(corpus, k, v)
+            args = type("A", (), {"ids": [rec["id"]], "all": False, "pending": False, "force": True, "root": None,
+                                  "backend": "auto", "channel": None})()
+            self.assertEqual(corpus.cmd_analyze(args), 0)
+        finally:
+            for k, v in old.items():
+                setattr(corpus, k, v)
+            shutil.rmtree(tmp, ignore_errors=True)
+        self.assertEqual(saved["automated"]["listen"]["version"], corpus.LISTEN_VERSION)
+
+    def test_playbook_groups_by_family_and_tabulates_listen(self):
+        src = {"id": "ref-aaaaaaaaaa", "name": "Demo reel", "media": {"duration_sec": 12.0}, "tags": ["batch-1"],
+               "analysis": {"state": "inspected"}, "techniques": [{"id": "demo-cut", "timestamps": [2.5]}],
+               "automated": {"boundaries": [{"t": 2.5, "kind": "cut"}, {"t": 6.0, "kind": "soft"}],
+                             "listen": {"audio": True, "loudness": {"integrated_lufs": -14.0, "lra_lu": 4.0, "true_peak_dbtp": -1.0},
+                                        "sound": {"accents_per_min": 30.0, "boundaries_with_accent": {"share": 0.5, "chance_level": 0.1}},
+                                        "speech": {"narration": "narrated", "wps_while_speaking": 2.6}}}}
+        tech = {"id": "demo-cut", "name": "Demo cut", "family": "transition-cut", "technique": "A cut.", "mechanics": "Cut on the hit.",
+                "implementation_state": "documented", "capability": {"support": "native"}, "failure_modes": ["Too many"]}
+        md = corpus.playbook_markdown({src["id"]: src}, {"demo-cut": tech})
+        self.assertTrue(md.startswith(corpus.PLAYBOOK_BEGIN) and md.rstrip().endswith(corpus.PLAYBOOK_END))
+        self.assertIn("## Transitions: the cut carries the change", md)
+        self.assertIn("### `demo-cut`: Demo cut", md)
+        self.assertIn("`ref-aaaaaaaaaa` at 2.5 s", md)
+        self.assertIn("batch-1: 1", md)
+        self.assertIn("| -14.0 | 4.0 | -1.0 | 30.0 | 0.5 (0.1) | narrated | 2.6 |", md)
+        self.assertIn("| 1 | 1 | transition-cut |", md)
+        self.assertNotIn("## Sound design against the picture", md)  # empty families are skipped
+
+
 # ------------------------------------------------------------------ knowledge-base rules
 SRC_ID = "ref-0123456789"
 

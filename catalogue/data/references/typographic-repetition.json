@@ -1,6 +1,7 @@
 {
   "id": "typographic-repetition",
   "name": "Typographic repetition walls",
+  "family": "kinetic-typography",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "Two inspected references fill the frame with one repeated word: tiled copies and marquee rows moving in alternating directions.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A single word repeated into a pattern (tiled grid or rows scrolling in opposite directions) becomes texture and insistence: the word turns into wallpaper.",
@@ -16,10 +17,14 @@
   "capability": { "support": "native", "compatible_components": ["grid-wave", "word-beats"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
   "provenance": [
     { "source_id": "ref-b97f9168c6", "timestamps": [10.5, 27.0], "observed": "Rows of one word scroll in alternating directions; a word is stacked with outlined echoes." },
-    { "source_id": "ref-92c22222a2", "timestamps": [12.5], "observed": "A word multiplies into a tiled pattern before the next cut." }
+    { "source_id": "ref-92c22222a2", "timestamps": [12.5], "observed": "A word multiplies into a tiled pattern before the next cut." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [12.93, 13.06], "observed": "A three-word phrase repeated in rows scrolling in alternate directions fills the frame (12.9-13.08 s)." },
+    { "source_id": "ref-05c4222dae", "timestamps": [2.86], "observed": "Outline echoes of a heavy word stack above and below it (2.86-3.0 s), on an accent." },
+    { "source_id": "ref-05acc490f6", "timestamps": [28.3, 29.81], "observed": "Rows of topic tag pills scroll in opposite directions around a centred headline (27.5-31.6 s)." },
+    { "source_id": "ref-c324a3d516", "timestamps": [10.12, 10.88], "observed": "A wall of one repeated phrase scrolls in rows in opposite directions, one row in vermilion (9.3-11.0 s)." }
   ],
   "related": { "techniques": ["self-describing-kinetic-words", "grid-wave-propagation"] },
   "licensing_notes": "Technique only.",
   "tags": ["kinetic-typography", "repetition", "marquee", "pattern", "backlog", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

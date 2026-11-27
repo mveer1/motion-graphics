@@ -1,0 +1,54 @@
+{
+  "id": "flower-shower-recipe",
+  "name": "Flower shower (mythic kit)",
+  "effect_id": "flower-shower",
+  "status": "experimental",
+  "visual_intent": "Blossoms fall when the gods approve (pushpa vrishti), or embers rise from a fire; every particle is a finite seeded tween.",
+  "parameters": [
+    {
+      "name": "at",
+      "type": "seconds",
+      "description": "Film time, snapped to the spoken word (studio.py words)"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) from storyboard.json or measured narration (audio/timeline.json)",
+    "easing_standard": "none",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "html": "<script src=\"_studio/kits/mythic/mythic.js\"></script>",
+    "javascript": "var M = S.kit.mythic;\nM.shower(tl, root, at('s5'), at('end'), {count: 30});"
+  },
+  "fallbacks": "Fall back to Studio.space.pop / crossfade or a plain fromTo opacity tween if the effect reads badly in a format.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 3.0,
+    "memory_impact": "Low"
+  },
+  "validation_steps": [
+    "python tests/test-mythic.py",
+    "python scripts/frame-review.py <project> --fonts google (inspect the contact sheet)",
+    "npx hyperframes check on the render host; then hyperframes snapshot at the effect's start, middle and end"
+  ],
+  "tags": [
+    "particles",
+    "petals",
+    "embers",
+    "celebration",
+    "mythic-kit"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

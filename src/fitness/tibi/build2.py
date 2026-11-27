@@ -320,9 +320,21 @@ BACK3D.update({
                           f=dict(shoulderL=.92, shoulderR=.92, elbowL=.92, elbowR=.92, ankleL=.55, ankleR=.55)),
 })
 
+# bodyweight squat seen from the front (sculpt kit 2.2.0): thighs foreshortened toward the camera, shins tilted
+# forward, the trunk leaning in, arms reaching forward (fists toward the camera). The front view paints the legs
+# before the shorts, so the thighs sit behind the pelvis: read it as a parallel-ish squat, not a deep one.
+BACK3D.update({
+    'front_squat': dict(grip=True, j=dict(hipL=36, hipR=36, kneeL=30, kneeR=30, ankleL=-6, ankleR=-6, shoulderL=-16, shoulderR=-16,
+                                          elbowL=4, elbowR=4, wristL=0, wristR=0),
+                        f=dict(hipL=.18, hipR=.18, kneeL=.86, kneeR=.86, chest=.86, neck=.8, shoulderL=.2, shoulderR=.2, elbowL=.22, elbowR=.22)),
+})
+
+def back3d_view(name):
+    return 'F' if name.startswith(('above_', 'front_')) else 'B'
+
 def back3d_pose(g, name):
     spec = BACK3D[name]
-    segs, joints, W, A = rig_pose(g, spec, 'F' if name.startswith('above_') else 'B')
+    segs, joints, W, A = rig_pose(g, spec, back3d_view(name))
     if spec.get('order') == 'top':
         return segs, joints, dict(lift=0, top=True)
     settle(segs, joints, ('foot',), spec.get('lift', 0))
@@ -531,7 +543,7 @@ def figure(g, pose, act=None, face=None, tag='', hair='pony', bra=None):
         gk = 'F'
     elif pose in BACK3D:
         segs, joints, meta = back3d_pose(g, pose)
-        gk = 'F' if pose.startswith('above_') else 'B'
+        gk = back3d_view(pose)
     elif pose.startswith('back_'):
         segs, joints, meta = front_pose(g, pose[5:], 'B')
         gk = 'B'
@@ -618,6 +630,7 @@ ACTS = {
  'back_lateral': {'delt': 3, 'infra': 3, 'midtrap': 3, 'rhomb': 3, 'trap': 2, 'lowtrap': 2, 'teres': 2, 'triceps': 1, 'extensor': 1, 'erector': 1, 'glute': 1, 'hams': 1},
  'back_relaxed': {'glute': 3, 'hams': 3, 'erector': 3, 'trap': 2, 'midtrap': 2, 'lowtrap': 1, 'lat': 2, 'teres': 1, 'infra': 1, 'oblique': 1, 'gastro': 1, 'soleus': 1},
  'back_squat': {'glute': 3, 'hams': 2, 'adductor': 2, 'erector': 2, 'gastro': 1, 'soleus': 1, 'trap': 1, 'midtrap': 1, 'delt': 1},
+ 'front_squat': {'quad': 3, 'vastus': 3, 'vmo': 3, 'glute': 3, 'adductor': 2, 'abs': 1, 'oblique': 1, 'tibant': 1, 'delt': 1},
  'top_pushup': {'triceps': 3, 'delt': 2, 'serratus': 2, 'trap': 1, 'midtrap': 1, 'erector': 1, 'glute': 1},
  'top_plank': {'erector': 1, 'glute': 2, 'delt': 2, 'trap': 1, 'midtrap': 1, 'lowtrap': 1},
  'top_fly_high': {'delt': 3, 'infra': 3, 'midtrap': 3, 'rhomb': 3, 'teres': 2, 'lowtrap': 2, 'trap': 1, 'triceps': 1},

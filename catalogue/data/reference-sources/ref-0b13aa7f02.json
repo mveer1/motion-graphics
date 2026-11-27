@@ -1,0 +1,738 @@
+{
+  "id": "ref-0b13aa7f02",
+  "name": "Cream-and-green app launch with sound placed on every arrival",
+  "status": "experimental",
+  "source": {
+    "filename": "app-launch-with-sound-design-740c10df.mp4",
+    "aliases": [],
+    "sha256": "0b13aa7f027e49154159e62cb5735ff618a45369c449dac43d4516e0ad93e833",
+    "bytes": 4067900,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Arch-shaped app mark and the product name",
+        "timestamps": [
+          4.83,
+          28.6
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "App screens on a phone and UI chips",
+        "timestamps": [
+          12.26,
+          18.2
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App launch; reuse the beat-grid sound placement and circle transitions only, with original UI and copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4067900,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 29.717,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1782,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 828,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 29.781,
+      "kbps": 254
+    },
+    "overall_kbps": 1095
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames), transition strips at all 6 boundaries, a 30 fps strip at 13.55-14.15 s, and the listen sheet (12 accent hits at -0.1/0/+0.1 s); automated audio and listen metrics (signal features; nothing was listened to).",
+    "coverage": "Full 29.7 s; boundaries at frame level; every listed accent checked against its frame.",
+    "concept": {
+      "observed": "Launch of a personal-experiment health app: a supplement everyone swears by, a trial of one, rules set up front, one tap a day, an honest verdict, a measured change, then the app picks the next test; it closes on 'n = 1' and the mark.",
+      "interpreted": "A scientific method story told as a product: question, protocol, data, verdict, next step.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Short sentence-case headlines with one accent-coloured key word; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm cream canvas with a forest-green accent and charcoal type; black sections for the opening, the verdict and the close."
+      },
+      "typography": {
+        "observed": "Medium-weight grotesk in sentence case; the accent word in green with a hand-drawn underline."
+      },
+      "composition": {
+        "observed": "Headline left or top with the UI (phone, chips, chart) on the right; generous margins."
+      },
+      "motion": {
+        "observed": "Chips pop in one at a time, a lock seals them, a grid fills cell by cell, verdict pills roll, a number counts and a chart draws with a highlighted band, a decision tree draws."
+      },
+      "transitions": {
+        "observed": "Point-to-circle reveal from black to cream (2.13 s); zoom into the logo mark's stroke (6.98 s); hard cut to black, then a liquid-edged black surface (13.65-14.0 s); hard cut onto a phone close-up with a tap ripple (16.00 s); a black dot grows into a black frame (24.72 s).",
+        "interpreted": "Circles and the mark carry the turns; black sections are entered by hard cuts.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Arrivals every 1.0 s; sections of 2-6 s; the black verdict section lasts 2 s."
+      },
+      "sound_design": {
+        "observed": "-14.1 LUFS, LRA 3.7 LU, true peak -1.1 dBTP; 15 accents, 13 of them on a 1.00 s grid at x.55 s (4.55-23.06 s); each coincides with an element arriving (a word, an underline, a rule chip, a lock, a grid cell, a counter step, a chart highlight); 1 of 6 boundaries has an accent within 100 ms (chance 0.10); the first 10% is 2.8 dB above the body and the last 10% 6.4 dB below.",
+        "interpreted": "The sound design marks information, not edits; the beat grid is the film's timing system.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "No voice-over (2 stray dictation words over music).",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music."
+      },
+      "captions": {
+        "observed": "None."
+      },
+      "motifs": {
+        "observed": "Circles (pills, dots, iris, ripple, particles) and an arch-shaped mark."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.13,
+        "observed": "Black: pill confetti and the opening claim."
+      },
+      {
+        "start": 2.13,
+        "end": 6.98,
+        "observed": "A circle opens to cream; the question; the mark and 'a trial of one'."
+      },
+      {
+        "start": 6.98,
+        "end": 13.65,
+        "observed": "Rules as chips; a lock; 'One tap a day.' with a phone and a filling grid."
+      },
+      {
+        "start": 13.65,
+        "end": 16.0,
+        "observed": "Black: verdict pills roll to the positive one."
+      },
+      {
+        "start": 16.0,
+        "end": 24.72,
+        "observed": "Phone close-up; a heart-rate change counts up and a chart draws; a decision tree picks the next test."
+      },
+      {
+        "start": 24.72,
+        "end": 29.72,
+        "observed": "Particles converge into a letter, 'n = 1', the mark and the name."
+      }
+    ],
+    "moments": [
+      {
+        "t": 4.55,
+        "observed": "The accent word lands with an accent sound on the 1 s grid; its underline lands on the next beat (5.55 s).",
+        "interpreted": "One idea per beat, heard and seen."
+      },
+      {
+        "t": 24.72,
+        "observed": "A black dot grows from the centre of the particle field into the black closing frame."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the accents are in the music stem or separate effects",
+      "Whether the liquid edge at 13.9 s is intended or a fast wipe smeared by encoding"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        4.55,
+        5.55,
+        7.55,
+        8.54,
+        10.54,
+        12.05,
+        13.56
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        2.13,
+        24.72
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        6.98
+      ]
+    },
+    {
+      "id": "liquid-pour-transition",
+      "timestamps": [
+        13.65,
+        13.92
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        12.26,
+        13.0,
+        16.04
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        21.17,
+        22.66,
+        23.4
+      ]
+    },
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        14.49,
+        15.23,
+        15.97
+      ]
+    },
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        24.89,
+        25.63
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "iris-transition",
+      "counter-roll",
+      "connector-draw",
+      "hand-underline",
+      "slot-roll"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "music-sync",
+    "scene-transitions",
+    "data-visualisation"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "cream",
+    "forest-green",
+    "health",
+    "sound-design",
+    "beat-grid",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 22.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 237,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 6,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.133,
+        "kind": "soft",
+        "score": 0.427,
+        "isolation": 0.2
+      },
+      {
+        "t": 6.983,
+        "kind": "soft",
+        "score": 0.439,
+        "isolation": 0.14
+      },
+      {
+        "t": 13.65,
+        "kind": "cut",
+        "score": 1.316,
+        "isolation": 1.0,
+        "frame": 819
+      },
+      {
+        "t": 14.0,
+        "kind": "cut",
+        "score": 0.71,
+        "isolation": 0.83,
+        "frame": 840
+      },
+      {
+        "t": 16.0,
+        "kind": "cut",
+        "score": 1.208,
+        "isolation": 0.96,
+        "frame": 960
+      },
+      {
+        "t": 24.717,
+        "kind": "soft",
+        "score": 0.257,
+        "isolation": 0.12
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.13,
+        "duration": 2.13,
+        "activity": 0.192,
+        "luma": 0.14
+      },
+      {
+        "index": 2,
+        "start": 2.13,
+        "end": 6.98,
+        "duration": 4.85,
+        "activity": 0.054,
+        "luma": 0.9
+      },
+      {
+        "index": 3,
+        "start": 6.98,
+        "end": 13.65,
+        "duration": 6.67,
+        "activity": 0.027,
+        "luma": 0.9
+      },
+      {
+        "index": 4,
+        "start": 13.65,
+        "end": 14.0,
+        "duration": 0.35,
+        "activity": 0.413,
+        "luma": 0.11
+      },
+      {
+        "index": 5,
+        "start": 14.0,
+        "end": 16.0,
+        "duration": 2.0,
+        "activity": 0.094,
+        "luma": 0.09
+      },
+      {
+        "index": 6,
+        "start": 16.0,
+        "end": 24.72,
+        "duration": 8.72,
+        "activity": 0.05,
+        "luma": 0.89
+      },
+      {
+        "index": 7,
+        "start": 24.72,
+        "end": 29.72,
+        "duration": 5.0,
+        "activity": 0.042,
+        "luma": 0.05
+      }
+    ],
+    "static_holds": [
+      [
+        9.81,
+        10.56
+      ],
+      [
+        18.94,
+        20.06
+      ],
+      [
+        23.44,
+        24.31
+      ],
+      [
+        25.81,
+        26.69
+      ],
+      [
+        27.19,
+        27.94
+      ],
+      [
+        28.31,
+        29.56
+      ]
+    ],
+    "mean_activity": 0.062,
+    "luma": {
+      "mean": 0.64,
+      "dark_share": 0.31,
+      "light_share": 0.68
+    },
+    "palette": [
+      {
+        "hex": "#f8e8e8",
+        "share": 0.545
+      },
+      {
+        "hex": "#080808",
+        "share": 0.322
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.052
+      },
+      {
+        "hex": "#c8c8b8",
+        "share": 0.012
+      },
+      {
+        "hex": "#585858",
+        "share": 0.012
+      },
+      {
+        "hex": "#b8b8a8",
+        "share": 0.012
+      },
+      {
+        "hex": "#b8b8b8",
+        "share": 0.009
+      },
+      {
+        "hex": "#686858",
+        "share": 0.007
+      },
+      {
+        "hex": "#484848",
+        "share": 0.004
+      },
+      {
+        "hex": "#181818",
+        "share": 0.004
+      }
+    ],
+    "representative_times": [
+      1.06,
+      3.34,
+      4.55,
+      5.77,
+      8.65,
+      10.32,
+      11.98,
+      13.82,
+      15.0,
+      18.18,
+      20.36,
+      22.54,
+      25.97,
+      27.22,
+      28.47
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.2,
+      "mean_dbfs_voiced": -18.3,
+      "silence_ratio": 0.0,
+      "onsets": 72,
+      "onset_rate_per_sec": 2.42,
+      "onset_times": [
+        0.07,
+        0.39,
+        0.56,
+        0.81,
+        1.04,
+        1.56,
+        2.04,
+        2.81,
+        3.04,
+        3.3,
+        3.55,
+        4.04,
+        4.55,
+        5.06,
+        5.32,
+        5.55,
+        5.8,
+        6.06,
+        6.32,
+        6.55,
+        7.55,
+        8.06,
+        8.31,
+        8.54,
+        8.64,
+        9.06,
+        9.31,
+        9.57,
+        10.05,
+        10.31,
+        10.54,
+        11.05,
+        11.54,
+        12.05,
+        12.56,
+        12.79,
+        13.05,
+        13.31,
+        13.56,
+        14.35,
+        14.42,
+        14.65,
+        15.21,
+        16.04,
+        16.16,
+        16.56,
+        17.07,
+        17.32,
+        17.55,
+        18.07,
+        18.32,
+        18.55,
+        19.06,
+        19.32,
+        19.55,
+        20.06,
+        20.32,
+        20.55,
+        21.04,
+        21.27,
+        21.55,
+        22.06,
+        22.31,
+        22.55,
+        22.8,
+        23.06,
+        23.55,
+        24.06,
+        24.31,
+        24.54,
+        25.75,
+        25.84
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.33,
+        "confidence": "low"
+      },
+      "spectral_centroid_hz": 962,
+      "band_share": {
+        "low_lt_250": 0.42,
+        "mid_250_2k": 0.37,
+        "high_gt_2k": 0.22
+      },
+      "syllabic_modulation_share": 0.29,
+      "boundary_onset_alignment": {
+        "boundaries": 6,
+        "tolerance_ms": 50,
+        "near_onset": 0.17,
+        "chance_level": 0.21,
+        "median_offset_ms": 132
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-0b13aa7f02",
+      "overview": "reference/analysis/ref-0b13aa7f02/overview.jpg",
+      "scenes": "reference/analysis/ref-0b13aa7f02/scenes.jpg",
+      "transitions": "reference/analysis/ref-0b13aa7f02/transitions.jpg",
+      "motion": "reference/analysis/ref-0b13aa7f02/motion.jpg",
+      "audio": "reference/analysis/ref-0b13aa7f02/audio.png",
+      "frames": "reference/analysis/ref-0b13aa7f02/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.1,
+        "lra_lu": 3.7,
+        "true_peak_dbtp": -1.1,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 32,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 2,
+        "speech_start": 15.29,
+        "speech_end": 17.85,
+        "speech_coverage": 0.03,
+        "wps_while_speaking": 2.53,
+        "wpm_over_span": 47,
+        "pace_thirds_wps": [
+          1.17,
+          0.0,
+          1.17
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.4,
+        "pauses": {
+          "count": 1,
+          "median_ms": 1770,
+          "max_ms": 1770,
+          "at": [
+            15.8
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 1,
+            "wps": 0.5
+          },
+          {
+            "index": 6,
+            "words": 1,
+            "wps": 0.11
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 1,
+          "in_pause_share": 1.0,
+          "chance_level": 0.69,
+          "next_phrase_after_ms_median": 1570
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 72,
+        "accents": 15,
+        "accents_per_min": 30.3,
+        "accent_times": [
+          1.04,
+          4.55,
+          5.55,
+          6.55,
+          7.55,
+          8.54,
+          10.54,
+          12.05,
+          13.56,
+          17.55,
+          18.55,
+          19.55,
+          21.55,
+          22.55,
+          23.06
+        ],
+        "accent_threshold": 0.35,
+        "boundaries_with_accent": {
+          "boundaries": 6,
+          "share": 0.17,
+          "tolerance_ms": 100,
+          "chance_level": 0.1
+        },
+        "onset_rate_during_speech": 0.0,
+        "onset_rate_outside_speech": 2.49,
+        "level_speech_minus_gaps_db": -5.8,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": 2.8,
+        "level_tail_vs_body_db": -6.4,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-0b13aa7f02/listen",
+        "sheet": "reference/analysis/ref-0b13aa7f02/listen/listen.jpg",
+        "words": "reference/analysis/ref-0b13aa7f02/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "id": "slider-driven-counter",
+  "name": "Slider-driven counter (cause and effect)",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "1 inspected reference film (batch-5, 2026-11-27): a 15 s referral promo drags a slider and the earnings figure rolls with it, settling by a few units, then a caveat sticker lands.",
+    "inspected": true,
+    "inspected_on": "2026-11-27"
+  },
+  "technique": "An input control is dragged and the figure it drives rolls with it in real time, so the effect of one parameter is shown in one move. The viewer sees the rule (more of X, more of Y) without a chart.",
+  "purpose": "Show a cause and its effect in one move: one parameter changes and the figure it drives follows, so the rule is read without a chart.",
+  "visual_behaviour": "A handle slides along a track over about 1.7 s; the input readout steps and the output figure rolls with it in real time, then settles by a few units at the end; small accents mark some steps; a caveat lands just after the stop.",
+  "mechanics": "The handle travels with an ease-in-out over about 1.7 s; the input readout steps (50 -> 500) and the output rolls ($500 -> $5,000) with it, settling by a few units ($4,997 -> $4,999 -> $5,000); small accents on some steps; a caveat sticker lands after the stop.",
+  "decomposition": {
+    "primitives": [
+      "styled-text",
+      "svg-shape"
+    ],
+    "effects": [
+      "counter-roll"
+    ],
+    "timing": "Drag 9.3-11.0 s; caveat 0.2 s after the stop (11.18 s)."
+  },
+  "parameters": [
+    {
+      "name": "drag_duration",
+      "description": "handle travel (s)",
+      "default": 1.7
+    },
+    {
+      "name": "settle_steps",
+      "description": "final small steps on the output",
+      "default": 2
+    }
+  ],
+  "use_cases": [
+    "Calculators and pricing",
+    "Showing a dose-response or rate in an explainer",
+    "Any 'what if' parameter"
+  ],
+  "failure_modes": [
+    "Output not rounded to the readout's precision looks fake",
+    "Too fast to read the end value"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "slider-counter"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.slider(parent, data) (runtime 1.18.0): one proxy value drives the handle, fill, input readout (rounded to step) and output (map or scale); drag eases power2.inOut over 1.7 s; the output then reads 3 units short and steps onto the value (settle 2) and pops; caveat() stamps the assumption sticker.",
+    "runtime_api": [
+      "Studio.comp.slider"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "handle and output on one tween span"
+    ],
+    "compatible_components": [
+      "counter-roll",
+      "odometer-counter",
+      "monument-stat"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 1
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-9ed4034cad",
+      "timestamps": [
+        9.36,
+        10.45,
+        11.01
+      ],
+      "observed": "A slider drags right and the earnings figure rolls $500 -> $5,000 in step, settling $4,997 -> $4,999 -> $5,000, with accents on steps at 9.36, 10.45, 10.87 and 11.01 s."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "ui-demo-micro-interactions",
+      "word-slot-roll",
+      "linked-trace-projection"
+    ],
+    "effects": [
+      "counter-roll",
+      "slot-roll"
+    ],
+    "compositions": [
+      "odometer-counter",
+      "monument-stat"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "explanation-device",
+    "slider",
+    "counter",
+    "cause-effect",
+    "parameter",
+    "calculator",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-27",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-slider-ui/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

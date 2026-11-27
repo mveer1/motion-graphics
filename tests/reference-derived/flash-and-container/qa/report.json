@@ -1,0 +1,218 @@
+{
+  "target": "tests/reference-derived/flash-and-container/index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.5,
+    1.7,
+    2.35,
+    2.5,
+    2.7,
+    2.95,
+    3.6,
+    4.9,
+    5.0,
+    5.04,
+    5.12,
+    5.3,
+    6.2,
+    7.4,
+    7.45,
+    7.6,
+    8.6
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 9.0,
+      "fps": 30,
+      "timeline_duration": 8.6,
+      "frames": [
+        {
+          "time": 0.5,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f00-t000.50.png",
+          "visible_text": [
+            "Container study",
+            "One tile opens the whole tool."
+          ]
+        },
+        {
+          "time": 1.7,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f01-t001.70.png",
+          "visible_text": [
+            "Container study",
+            "One tile opens the whole tool.",
+            "Go"
+          ]
+        },
+        {
+          "time": 2.333,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f02-t002.33.png",
+          "visible_text": [
+            "Container study",
+            "One tile opens the whole tool."
+          ]
+        },
+        {
+          "time": 2.5,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f03-t002.50.png",
+          "visible_text": [
+            "Container study"
+          ]
+        },
+        {
+          "time": 2.7,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f04-t002.70.png",
+          "visible_text": [
+            "Container study"
+          ]
+        },
+        {
+          "time": 2.933,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f05-t002.93.png",
+          "visible_text": [
+            "Container study"
+          ]
+        },
+        {
+          "time": 3.6,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f06-t003.60.png",
+          "visible_text": [
+            "Inside the tool",
+            "Every step on one screen",
+            "Numbers that update as you type",
+            "Nothing to install"
+          ]
+        },
+        {
+          "time": 4.9,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f07-t004.90.png",
+          "visible_text": [
+            "Inside the tool",
+            "Every step on one screen",
+            "Numbers that update as you type",
+            "Nothing to install"
+          ]
+        },
+        {
+          "time": 5.0,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f08-t005.00.png",
+          "visible_text": [
+            "Inside the tool",
+            "Every step on one screen",
+            "Numbers that update as you type",
+            "Nothing to install"
+          ]
+        },
+        {
+          "time": 5.033,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f09-t005.03.png",
+          "visible_text": [
+            "Container study",
+            "Launch day."
+          ]
+        },
+        {
+          "time": 5.133,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f10-t005.13.png",
+          "visible_text": [
+            "Container study",
+            "Launch day."
+          ]
+        },
+        {
+          "time": 5.3,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f11-t005.30.png",
+          "visible_text": [
+            "Container study",
+            "Launch day."
+          ]
+        },
+        {
+          "time": 6.2,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f12-t006.20.png",
+          "visible_text": [
+            "Container study",
+            "Launch day.",
+            "The flash marks the turn, not every cut."
+          ]
+        },
+        {
+          "time": 7.4,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f13-t007.40.png",
+          "visible_text": [
+            "Container study",
+            "Launch day.",
+            "The flash marks the turn, not every cut."
+          ]
+        },
+        {
+          "time": 7.467,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f14-t007.47.png",
+          "visible_text": [
+            "Ready."
+          ]
+        },
+        {
+          "time": 7.6,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f15-t007.60.png",
+          "visible_text": [
+            "Ready."
+          ]
+        },
+        {
+          "time": 8.6,
+          "path": "tests/reference-derived/flash-and-container/qa/landscape/f16-t008.60.png",
+          "visible_text": [
+            "Ready."
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "code": "low_contrast",
+          "severity": "info",
+          "message": "estimated contrast 4.2:1 < 4.5:1",
+          "time": 5.033,
+          "text": "Container study",
+          "class": "st-kicker kick"
+        },
+        {
+          "code": "low_contrast",
+          "severity": "info",
+          "message": "estimated contrast 1.9:1 < 3.0:1",
+          "time": 7.467,
+          "text": "Ready.",
+          "class": "st-display"
+        },
+        {
+          "code": "line_unread",
+          "severity": "warning",
+          "message": "8-word text visible 1.8s (needs ~2.2s)",
+          "time": 5.8,
+          "text": "The flash marks the turn, not every cut.",
+          "class": "st-body"
+        },
+        {
+          "code": "line_unread",
+          "severity": "warning",
+          "message": "1-word text visible 1.6s (needs ~2.0s)",
+          "time": 7.6,
+          "text": "Ready.",
+          "class": "st-display"
+        }
+      ],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/flash-and-container/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 2,
+  "passed": true
+}

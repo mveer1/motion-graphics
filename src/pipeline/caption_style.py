@@ -108,11 +108,20 @@ def annotate(cues: List[Dict[str, Any]], *, fmt: str, scene_spans: Sequence[Dict
         else:
             c["role"] = "body"
         mid = (c["start"] + c["end"]) / 2
+        c.pop("anchor", None)
+        c.pop("side", None)
         for sc in storyboard_scenes or []:
             lane = sc.get("caption_lane")
             if lane and sc["start_sec"] <= mid < sc["end_sec"]:
                 if lane not in spec["lanes"][fmt]:
                     lane = "lower"  # a lane this format does not have (mid on landscape)
+                if lane == "subject":
+                    if not sc.get("caption_anchor"):
+                        lane = "lower"  # nothing to sit beside; validate warns
+                    else:
+                        c["anchor"] = sc["caption_anchor"]
+                        if sc.get("caption_side"):
+                            c["side"] = sc["caption_side"]
                 c["lane"] = lane
                 break
         for w in c.get("words", []):

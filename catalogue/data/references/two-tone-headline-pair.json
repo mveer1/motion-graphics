@@ -1,0 +1,218 @@
+{
+  "id": "two-tone-headline-pair",
+  "name": "Two-tone headline pair (statement, then counterpoint)",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "10 inspected reference films (batch-2, batch-4, batch-5, batch-6, batch-7, 2026-11-26): several product and brand films set a two-line headline in which line 2 answers line 1 in the accent colour (or grey), section after section.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "A two-line headline in which the first line states and the second answers or turns, set in the accent colour (or a lighter grey) and arriving a beat later. The colour split shows where the payoff is without a highlight effect, and repeated per section it becomes the film's headline grammar.",
+  "purpose": "Show where a headline's payoff is without a highlight effect; repeated per section it becomes the film's headline grammar.",
+  "visual_behaviour": "Line 1 states in the body colour; a beat later line 2 answers in the accent colour or a lighter grey, at the same size and weight.",
+  "mechanics": "Line 1 in the body colour, line 2 in the accent (or about 50% grey for a quieter contrast), same size and weight; words fade or rise in about 0.07-0.1 s apart; line 2 starts 0.15-0.5 s after line 1, or on the next accent. Left-aligned beside a proof card, or centred.",
+  "decomposition": {
+    "primitives": [
+      "styled-text",
+      "split-text"
+    ],
+    "effects": [
+      "text-mask-rise"
+    ],
+    "timing": "Headline complete in about 0.3-0.6 s; one pair per section of about 2-3 s."
+  },
+  "parameters": [
+    {
+      "name": "secondLineColour",
+      "description": "Accent or grey for line 2",
+      "default": "accent"
+    },
+    {
+      "name": "lineDelay",
+      "description": "Seconds between line 1 and line 2",
+      "default": 0.3
+    },
+    {
+      "name": "wordStagger",
+      "description": "Seconds between words",
+      "default": 0.08
+    }
+  ],
+  "use_cases": [
+    "Feature sections of product films",
+    "Claim and payoff in explainers",
+    "Section openers beside a proof card"
+  ],
+  "failure_modes": [
+    "Using the accent on every line 2 and elsewhere too dilutes it",
+    "A line 2 longer than line 1 loses the punch"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "headline-pair-build"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.headline(parent, {line1, line2}) (runtime 1.18.0, preset pair): line 2 in the accent (or muted), same size; words rise 0.08 s apart; line 2 starts lineDelay after line 1's stagger or at line2At (a spoken word); warns when line 2 is longer than line 1.",
+    "runtime_api": [
+      "Studio.comp.headline"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "two text lines with an accent class"
+    ],
+    "compatible_components": [
+      "text-mask-rise",
+      "line-mask-rise"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 3,
+      "cost": 1
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-d386e5f0ae",
+      "timestamps": [
+        2.59,
+        4.87,
+        7.78,
+        10.74
+      ],
+      "observed": "Seven sections each open with a black line and an ultramarine second line ('Every project. / One link.'), words about 0.07-0.1 s apart."
+    },
+    {
+      "source_id": "ref-c2addc76df",
+      "timestamps": [
+        0.88,
+        10.01
+      ],
+      "observed": "'Discover / new music' and 'Find your rhythm' with the second line in green, each landing on an accent."
+    },
+    {
+      "source_id": "ref-32fea7dae3",
+      "timestamps": [
+        3.35,
+        7.57
+      ],
+      "observed": "'Pay anyone. / Anywhere.' and 'In seconds. / Not days.' with the second line in grey, landing on the next accent."
+    },
+    {
+      "source_id": "ref-c6d0aa55f6",
+      "timestamps": [
+        1.27,
+        2.11,
+        29.95,
+        48.52
+      ],
+      "observed": "The opening serif headline sets line 1 first (1.27 s) and adds an italic terracotta line 2 (2.11 s); later headlines keep the grammar with an italic terracotta phrase (29.95, 48.52 s). Read from the overview sheet by the integrator."
+    },
+    {
+      "source_id": "ref-5a2816d4db",
+      "timestamps": [
+        1.13,
+        1.88,
+        33.43
+      ],
+      "observed": "A two-line headline whose line 2 is set in the accent blue and arrives after line 1 (1.13-1.88 s); the closing headline repeats the pattern (33.43 s). Read from the overview sheet by the integrator."
+    },
+    {
+      "source_id": "ref-9459c8097f",
+      "timestamps": [
+        1.12,
+        8.37
+      ],
+      "observed": "Variant with one accent word instead of a whole accent line: line 1 white, line 2 ends on an italic serif word in red (0.4-1.1 s; 8.27-8.50 s); words 0.1-0.2 s apart."
+    },
+    {
+      "source_id": "ref-0b2552b64e",
+      "timestamps": [
+        2.4,
+        18.8,
+        41.97
+      ],
+      "observed": "Light-canvas launch: every claim is two lines left of the interface, line 2 ending on the key word in an accent colour (red for the problem 2.40 s, blue for a feature 18.80 s, teal for the promise 41.97 s); words blur in a fixed 0.13 s apart, the accent word last."
+    },
+    {
+      "source_id": "ref-b8cf9a12b0",
+      "timestamps": [
+        3.38,
+        4.88,
+        6.38,
+        10.89,
+        12.39
+      ],
+      "observed": "Heavy caps pairs on dark navy: line 2 in red for the problem (3.38 s) and in blue for each promise (4.88, 6.38, 10.89, 12.39 s), 1-3 words per line, about 2 s each."
+    },
+    {
+      "source_id": "ref-dc626241e6",
+      "timestamps": [
+        3.37,
+        9.35,
+        11.35
+      ],
+      "observed": "Each feature headline is two lines, a white statement then a violet payoff arriving about 0.1 s later (3.27/3.37 s, 9.35 s, 11.35 s)."
+    },
+    {
+      "source_id": "ref-9ed4034cad",
+      "timestamps": [
+        3.38,
+        7.12,
+        13.12
+      ],
+      "observed": "Headlines put the payoff half in orange: 'their product' (3.4 s), 'they buy' (7.1 s), the second line of the end card (13.1 s)."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "centred-word-build",
+      "dim-previous-line-stack"
+    ],
+    "effects": [
+      "text-mask-rise"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "kinetic-typography",
+    "headline",
+    "two-tone",
+    "accent-colour",
+    "section-grammar",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-headline-copy/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

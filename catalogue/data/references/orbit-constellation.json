@@ -1,6 +1,7 @@
 {
   "id": "orbit-constellation",
   "name": "Orbit constellation",
+  "family": "motion-character",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "Two inspected references circle small elements (avatars, satellites) around a central object on elliptical orbits.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Satellites circling a centre express an ecosystem, a network or attraction, and keep a hold lively without new information.",

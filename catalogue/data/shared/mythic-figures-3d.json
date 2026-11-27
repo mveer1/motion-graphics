@@ -1,0 +1,60 @@
+{
+  "id": "shared-mythic-figures-3d",
+  "name": "3D mythic figure kit (Blender)",
+  "component_type": "shared_asset",
+  "purpose": "Builds the eight mythic figures (Rama, Hanuman, Shiva, Ganesha, Athena, Odin, a Tirthankara, the Buddha) in 3D inside Blender, procedurally and deterministically, from the identity blocks in .claude/skills/mythic-tales/references/figure-design.md section 4: one metaball skin per figure (bone capsules and muscle masses), displacement sculpt (muscle definition, faces in head space, kambu-griva), vertex paint (skin colour from the text, tilak, brows, kohl, painted cloth), and meshes fitted by ray casts for dress, ornament, hair, the armoury in 3D, auras, seats and creatures. Two looks: painted and bronze. Used for review renders and five-view turnaround references.",
+  "capabilities": [
+    "core: Blob (metaballs in visible half-extents), Sculpt, Paint, sweep, lathe, ribbon, extrude, Fit (ring, onto, nearest)",
+    "body: presets warrior, titan, ascetic, goddess, elder, calm, ganesha; two-bone IK arms and legs; extra arms; grip hands around a weapon axis; padmasana with a lap block",
+    "heads and face: human, vanara, elephant; almond eyes cut behind eyeballs; closed eye; tilak masks (vaishnava, tripundra, jina, urna)",
+    "dress: body-fitted skirts and falls, skin-hugging bands, cords, straps, beads, kirita, jata coils, locks, curls and ushnisha, Attic helmet, slouched hat, cloak",
+    "armoury: kodanda, shara, tuna, gada, trishula and damaru, ankusha, pasha, modaka, dory, aspis, gungnir",
+    "props: auras tejas, agni, cosmic, lotus, radiant, storm, rays, disc; lotus seat on a stepped plinth; chhatra; mouse; lion; ravens; cobra; crescent; Ganga",
+    "stage: paper cyclorama, storyteller's key lamp, aura rim light, turntable views (hero, front, q3, profile, q3back, back, head)",
+    "run.py: one figure per Blender process; renders PNG views or a build-only check report (object bounds, geometry digest)"
+  ],
+  "location": "src/blender/mythic3d",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Run through scripts/mythic3d.py (finds Blender like scripts/visual-director.py and takes the host render lock)."
+  },
+  "dependencies": [
+    "tool-blender",
+    "tool-mythic3d"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "Blender 5.2 bundled Python (bpy, mathutils, numpy)",
+    "notes": "Tested on Blender 5.2.4, EEVEE on Windows (Intel Iris Xe, 16 GB) on 2026-11-25. Not yet run on the M2 render host."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-tales/references/figure-design.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Original workspace code calling the Blender Python API at run time; no Blender code, MPFB2 or other third-party models, textures or HDRIs."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs inside Blender only; writes PNG and JSON files to the job's out_dir."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "2026-11-25 Windows: all eight figures built and rendered (painted and bronze), turnarounds looked at; tests/test-mythic3d.py checks hands, marks and determinism.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-25",
+  "tags": [
+    "blender",
+    "bpy",
+    "3d",
+    "figure",
+    "myth",
+    "iconography"
+  ]
+}

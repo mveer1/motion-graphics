@@ -52,3 +52,21 @@ Contacts stay planted (anchors and IK), the joint order is plausible (squat: hip
 ## 8. Calibration
 
 The thresholds are a first guess, set on one film (how-muscles-grow, 2026-11-08). Revisit them after three films; record changes in `specs/fitness-spec.json` and here.
+
+## 9. Reference-informed editorial checks
+
+Apply the [source-linked adoption guide](yellow-dude-study.md) within the
+existing dimensions; these are not new numerical thresholds or an automatic pass.
+
+- Before polish: the rough sequence communicates the promised distinction
+  without music/effects hiding a weak story or unclear picture.
+- Trace each material claim through spoken words, depicted action, source,
+  uncertainty and takeaway. Correct wording with a misleading drawing fails.
+- Check comparisons at matched camera/scale/phase; disclose any pose or
+  geometry change instead of presenting it as the effect of another variable.
+- Verify that a progression's easier option and readiness criteria are sourced
+  and that the rig can actually demonstrate it. Human G1/G3 remain required.
+- Check original title/cover at delivery/phone size. No promise stronger than
+  the film, no body-shaming, no third-party identity or unlicensed cameo.
+- Credits describe actual contributors/tools; synthetic narration is not
+  represented as a human performance. Reference-channel claims are not dossier evidence.

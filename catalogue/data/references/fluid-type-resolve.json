@@ -1,0 +1,29 @@
+{
+  "id": "fluid-type-resolve",
+  "name": "Fluid type dissolve and resolve",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-3, 2026-11-26): a transformation reel pulls a word apart into ink streaks and lets it settle back.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Turbulent ink pulls a word apart into streaks and then settles back into the word, so the type seems made of the same matter as the scene. A word's arrival or departure becomes a material event.",
+  "purpose": "Make a word's arrival or departure a material event: the type seems made of the same matter as the scene.",
+  "visual_behaviour": "Turbulent ink billows, pulls a word apart into streaks, then settles back into the clean word.",
+  "mechanics": "Pre-rendered fluid simulation (yellow and grey ink on black) with the word as a collider or initial density, about 2.5 s of billowing (ref-19cee08f9c 8.0-10.4 s); the clean word sharpens over the ink at 9.3-9.5 s, distorts into streaks 10.40-10.90 s and re-forms 10.96-11.29 s. Composite the plate under a clean HyperFrames word for the settled frames.",
+  "decomposition": { "primitives": ["photo-plate"], "effects": ["hybrid-video-underlay"], "timing": "Dissolve about 0.5 s; re-form about 0.35 s; ink section about 3 s." },
+  "parameters": [
+    { "name": "dissolve", "description": "Seconds from word to streaks", "default": 0.5 },
+    { "name": "reform", "description": "Seconds from streaks back to the word", "default": 0.35 }
+  ],
+  "use_cases": ["Title words in a brand or art piece", "Liquid, chemistry or flow subjects"],
+  "failure_modes": ["The word is unreadable for too long", "Simulations are heavy and not deterministic in a browser; use a plate"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "A pre-rendered fluid plate (Blender, through scripts/visual-director.py add-plate) with the word as collider or initial density, placed as a timed video layer; the clean word stays live text in HyperFrames for the settled frames (plates never carry text that must read). Simulation in the browser is heavy and not deterministic." },
+  "capability": { "support": "additional-dependencies", "requirements": ["fluid simulation plate", "timed video layer"], "compatible_components": ["hybrid-video-underlay"], "additional_dependencies": ["Blender 5.2.4 LTS fluid plate (visual-director, experimental)"], "complexity": "high", "resources": { "basis": "estimated", "cpu": "high" }, "additional_tooling": { "needed": "yes", "justification": "A fluid simulation needs a Blender plate; HyperFrames composites it under live text." }, "priority": { "creative_value": 3, "cost": 4 } },
+  "provenance": [
+    { "source_id": "ref-19cee08f9c", "timestamps": [8.4, 10.48, 11.12], "observed": "Ink billows after a burst (8.0-10.4 s), pulls a word apart into streaks (10.40-10.90 s) and settles back into it (10.96-11.29 s)." }
+  ],
+  "related": { "techniques": ["rendered-3d-objects", "particle-assemble-glyph"], "effects": ["hybrid-video-underlay"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "fluid", "ink", "blender-plate", "material", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

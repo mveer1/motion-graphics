@@ -4,10 +4,12 @@
   "component_type": "tool",
   "purpose": "Renders a contact sheet of the 3D Tibi from several named camera shots and moments with the HyperFrames headless Chrome, under the host render lock, so posture, contact, equipment and activation can be judged by eye before a composition is written.",
   "capabilities": [
-    "fitness.py rig3d stills <exercise> --shots front,three,side,back --times 0,1.0 [--gender m|f]"
+    "fitness.py rig3d stills <exercise> --shots front,three,side,back --times 0,1.0 [--gender m|f]",
+    "--extra \"profile=distance&id=audit&period=3.4\" captures the opt-in profile, named figures and an explicit repetition period",
+    "--fit <margin> fits each shot to the posed body and equipment over the whole set instead of the fixed exercise camera"
   ],
   "location": "scripts/rig3d-stills.py",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "installation": {
     "required": false,
     "instructions": "Workspace file; python3.12 (jsonschema) for schema checks."
@@ -17,9 +19,9 @@
     "threejs"
   ],
   "compatibility": {
-    "apple_silicon_tested": true,
+    "apple_silicon_tested": false,
     "runtime": "node for the check; headless Chrome from the HyperFrames install and Pillow for the stills",
-    "notes": "stills take the host render lock."
+    "notes": "Stills retain the host lock and checked capture helper. The current bench defaults to the corrected distance body; use profile=legacy explicitly for the old reference. Named IDs and explicit periods remain supported. Mac rerun pending."
   },
   "documentation_urls": [
     ".claude/skills/fitness/references/motion-3d.md"
@@ -39,9 +41,9 @@
   },
   "owner": "motion-graphics",
   "status": "experimental",
-  "approval_evidence": "tests/test-rig3d.py (2026-11-12): every exercise passes for both genders; the checker fails on an undeclared base, a teleporting joint and a 0.12 s activation fade.",
+  "approval_evidence": "Historical camera/time sheets: 0.1.0 on Mac, 0.2.0 on Windows. Version 0.3.0, Windows 2026-11-20: 28 candidate curl/raise stills (both bodies, seven consecutive 1/30 s samples each) produced through the owned bench and viewed as motion strips. Named IDs and explicit period/profile options exercised. Mac rerun pending.",
   "architecture_ref": "ARCHITECTURE.md",
-  "last_verified": "2026-11-12",
+  "last_verified": "2026-11-20",
   "tags": [
     "fitness",
     "3d",

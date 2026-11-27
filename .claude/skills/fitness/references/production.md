@@ -11,7 +11,7 @@
 | Whisper small.en (hyperframes transcribe) | installed | word-timed captions |
 | Earshot (`.venv/bin/earshot`) | installed | mix and sync listening (`timeline`, `measure`) |
 | Python Playwright | **absent** | `frame-review.py` cannot run; use `hyperframes snapshot` and the sheet renderer |
-| Blender | **absent** | see the 3D decision below |
+| Blender | 5.2.4 LTS on the Windows design host (2026-11-24); not yet on the M2 | plates only, through `scripts/visual-director.py`; see the 3D decision below |
 | Revideo / Motion Canvas | CLI installed globally, wired into nothing | not used: the workspace standard is HyperFrames (a prior report rejected Revideo) |
 
 ## 3D decision (revised 2026-11-12)
@@ -19,7 +19,7 @@
 The 2D rig cannot give smooth press, curl or raise motion (art swaps at joint thresholds pop; views are separate drawings) and cannot move the camera: `references/motion-3d.md` has the diagnosis and measurements.
 
 - **Chosen: Three.js r158 in HyperFrames' headless Chrome.** Verified on this host through `hyperframes snapshot` and `hyperframes render` (software WebGL, real pixels, labels tracked from 3D anchors). It keeps determinism (pose is a pure function of film time, see motion-3d.md), the render lock, captions, QA gates and HTML overlays. Library record: `catalogue/data/libraries/threejs.json`.
-- **Blender: still not installed.** It would give sculpted, subsurface-smooth anatomy, but it is a large dependency, a second toolchain with no determinism lint, no HTML overlay path, and the Cobalt Sculpt look is flat planes, which Three.js toon materials already produce. If Blender is wanted later (photoreal or sculpted anatomy plates): `brew install --cask blender`, register it in `catalogue/data/tools/`, consult `workspace-steward`, build the armature from the same joint names, export `T3.DEFAULT_POSE`-keyed tracks as JSON, render headless one job at a time under `session-guard run render --`, ingest with `scripts/ingest-asset.sh` and composite in HyperFrames. Anatomy meshes must come from cleared sources only (`source-registry.md`).
+- **Blender: adopted 2026-11-24 as an experimental plate engine for the whole studio** (`docs/visual-engines.md`, `visual-director` skill), not for Tibi. Tibi stays in Three.js: the reasons below still hold for the character (no HTML overlay path for tracked labels, and toon materials already give the Cobalt Sculpt look). Blender plates suit fitness films for environments, light and physics behind Tibi (a lit gym set, chalk dust, a falling plate stack), composited as timed `<video>` layers; anatomy meshes must still come from cleared sources only (`source-registry.md`). The armature route (export `T3.DEFAULT_POSE`-keyed tracks to a Blender rig) remains unbuilt and needs a decision before sculpted anatomy plates.
 
 ## Rig workflow (2D)
 
@@ -52,11 +52,11 @@ Measured on the demo: a 97.5 s 1280x720 film renders in about 2.5 minutes (low-m
 
 ## Known limitations
 
-- 2D rig: views are separate drawings (a turn is a cross-fade); no foreshortening, so front-view squats and lunges are not authored; muscle and bone shapes are schematic. Art variants swap at joint thresholds, which pops on curls, presses and raises: use the 3D kit for those (`motion-3d.md`).
-- 3D rig: three exercises so far; look is toon ellipsoids, not the 2D crescent art; no cloth or hair simulation. See `motion-3d.md`, Known limits.
+- 2D rig: views are separate drawings (a turn is a cross-fade); foreshortening by a per-joint factor (back and front squats, running from behind, views from above), so deep front-view squats and lunges are limited by the fixed paint order; muscle and bone shapes are schematic. Arm art variants blend across their thresholds since sculpt kit 2.2.0 (a short cap or flexed-arm fade remains on fast reps) and moves are continuous: still use the 3D kit when a curl, press or raise is the subject of the shot (`motion-3d.md`).
+- 3D rig: see `motion-3d.md`, Known limits (runtime 1.14.0): shoulder crush at cross-body and overhead reach, stylised hands, a band-style female top, toon shading that does not match the 2D crescent art (owner decision pending), a rigid ponytail tail; no cloth simulation.
 - Kinematics are conceptual (authored angles), not motion capture. Measured kinematics would need a cited dataset and a "measured" label.
-- The leg-press setup reads less clearly than the other movements (seat-back geometry); improve before featuring it.
-- Anatomy plates cover muscle tissue, energy (mitochondrion, ATP), heart, lungs and a satellite cell; no vascular tree, no alveolus gas-exchange plate, no joint cross-sections yet.
+- The 2D leg press was rebuilt in sculpt kit 2.2.0 (`K.exercise(t, 'leg-press')`: reclined seat, rails, a sled that follows the soles); the old composition-level drawing is superseded. Look at `assets/fitness/previews/exercises-barbell.png` before featuring it.
+- Anatomy plates cover muscle tissue, energy (mitochondrion, ATP), heart, lungs, a satellite cell and, since 2026-11-23, a vascular tree, an alveolus with gas exchange and knee, hip and shoulder joint sections (`A.vascularTree`, `A.alveolus`, `A.joint`; preview `assets/fitness/previews/anatomy-inside.png`).
 - No 3D anatomy library: every open 3D source examined is share-alike, per-model or non-commercial (`source-registry.md`).
 - Tibi lip-sync is word-level flaps, not phoneme visemes.
 - Calibration: the rubric thresholds, the body-lab template rules and the pillar keywords are first guesses from one film.

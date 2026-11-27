@@ -1,0 +1,653 @@
+{
+  "id": "ref-05c4222dae",
+  "name": "Type, form, space, time: a designer's index card opens four chapters and closes them, each born from an orange dot",
+  "status": "experimental",
+  "source": {
+    "filename": "type-form-space-8fff731a.mp4",
+    "aliases": [],
+    "sha256": "05c4222dae806f75c58ec54f840933880dcb4fb40b06b61c412490b6b96ccdfa",
+    "bytes": 3169620,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Designer's name with an orange full stop and role on the card",
+        "timestamps": [
+          1.13,
+          14.69
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Circular badge with small text",
+        "timestamps": [
+          4.14
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A personal reel; reuse the index-card structure and the orange-dot hinges only, with original type and pieces."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3169620,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.067,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 451,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 1544,
+    "keyframes": 16,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 130
+    },
+    "overall_kbps": 1683
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions strips at all 5 boundaries (every 2nd frame), the listen sheet (2 phrases, 10 accent hits) and a 30 fps strip at 4.40-4.90 s (the bloom into the second chapter). Strips at 1.7-2.1 and 10.1-10.8 s were generated but not viewed; a strip at 5.5-7.2 s hung and was stopped. Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 15.07 s (1280x720, 30 fps); all boundaries at 2-frame steps; the bloom at 30 fps.",
+    "concept": {
+      "observed": "A motion designer's reel organised as a table of contents: an index card lists four chapters (type, form, space, time); each chapter is one short style piece; the film returns to the card, now with an icon per chapter.",
+      "interpreted": "The structure itself is the claim of range.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; each chapter's word is the picture."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Cream paper (#f8e8e8, 37%), vermilion orange (#f85818, 17%), black, ultramarine and marigold in the shape grid and blocks; black frame around the card."
+      },
+      "typography": {
+        "observed": "Didone-like serif name with an orange full stop; heavy black grotesque chapter words; a script italic with a 3D extruded shadow; stencil-like geometric letters for the second chapter; small mono labels in the corners."
+      },
+      "motion": {
+        "observed": "The card flips up in perspective (0.10-0.45 s); black bars build the first word (1.88-2.08 s); outline echoes stack above and below it (2.86-3.0 s); it morphs into the script word (3.4-3.8 s); a badge rotates (4.2 s); Bauhaus tiles rotate and swap on the beat (5.6-7.2 s); an orange ball rolls through isometric blocks (7.9-10.1 s); particles form the fourth word over a clock dial and concentric arcs turn (10.9-13.1 s); the name's letters reassemble on the card (13.15-13.48 s)."
+      },
+      "transitions": {
+        "observed": "0.10 s soft: the card flips in. 1.87 s cut: an orange dot grows at the name's full stop (1.82 s), then a cut to orange as bars build the first word. 4.57 s soft: an orange disc with rings blooms from behind the script word and lands as the O of the next word (4.57-4.73 s, 0.16 s). 10.43 s soft: the camera blur-zooms into the orange ball until orange fills the frame (10.12-10.32 s), then a dark frame where an orange dot blooms into a particle ring (10.45-10.78 s). 13.13 s cut back to the card.",
+        "interpreted": "The orange dot is the hinge of every chapter change: full stop, O, ball, dot.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Card 1.9 s; chapters of about 2.7, 3.0, 4.6 and 2.7 s; card 1.9 s."
+      },
+      "sound_design": {
+        "observed": "-12.5 LUFS, LRA 0.8 LU, true peak +0.5 dBTP (above 0); tempo 129.2 bpm (medium); 47 onsets; 10 accents (39.8/min). Accents on boundaries 0 of 5 (chance 0.12); onsets within 67 ms of boundaries 0.6 (chance 0.34), median 62 ms; near the beat 0.4 (chance 0.26). Accents 0.46-0.49 s apart (one beat at 129 bpm) from 2.39 to 7.08 s, each on an arrival: the first word settles (2.39 s), its echoes (2.86 s), the script word (3.81 s), the badge (4.27 s), the O (4.74 s), tile swaps (5.67, 6.13, 6.62, 7.08 s); then one at 11.77 s (the particle word). No accents in the 3D block chapter (7.1-11.7 s) or after 11.77 s. No silences; head -11.4 dB, tail -1.9 dB. Accents may be part of the music.",
+        "interpreted": "Same split as the corpus: changes sit near onsets, strong accents go to arrivals.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 4 confident words (20 raw) as two phrases over the shape grid and blocks (7.14-8.46 s) and the particle word and card (9.88-14.09 s); no speaker.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy: the card (name top-left, role, a four-line index right) at both ends; one chapter word per chapter, centred or on the floor of the 3D scene; small corner labels."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 1.87,
+        "observed": "An index card flips in: name, role, four chapters."
+      },
+      {
+        "start": 1.87,
+        "end": 4.57,
+        "observed": "Chapter 1: a heavy word, echoes, a script morph, a badge."
+      },
+      {
+        "start": 4.57,
+        "end": 7.6,
+        "observed": "Chapter 2: the O blooms; a grid of Bauhaus shapes."
+      },
+      {
+        "start": 7.6,
+        "end": 10.43,
+        "observed": "Chapter 3: isometric blocks and a rolling ball."
+      },
+      {
+        "start": 10.43,
+        "end": 13.13,
+        "observed": "Chapter 4: a dot blooms into particles; a word and a clock."
+      },
+      {
+        "start": 13.13,
+        "end": 15.07,
+        "observed": "Back to the card, now with an icon per chapter."
+      }
+    ],
+    "moments": [
+      {
+        "t": 4.57,
+        "observed": "An orange disc with soft rings blooms from behind the script word and settles as the O of the next chapter word in 0.16 s (4.57-4.73 s).",
+        "interpreted": "The accent dot carries the viewer into the next chapter."
+      }
+    ],
+    "difficult": [
+      "The isometric block field with soft shadows and depth of field (7.9-10.1 s) reads as a 3D render",
+      "The particle word over a clock dial needs Canvas 2D or a plate"
+    ],
+    "uncertainties": [
+      "Whether the end-card name is a person's name or a brand",
+      "Exact timing of the 1.82-1.88 s dot growth (sheet only)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        0.25
+      ]
+    },
+    {
+      "id": "typographic-repetition",
+      "timestamps": [
+        2.86
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        4.57
+      ]
+    },
+    {
+      "id": "accent-punctuation-motif",
+      "timestamps": [
+        1.13,
+        4.74,
+        14.69
+      ]
+    },
+    {
+      "id": "morph-ready-shape-sequence",
+      "timestamps": [
+        5.67,
+        6.4
+      ]
+    },
+    {
+      "id": "rendered-3d-objects",
+      "timestamps": [
+        7.91,
+        9.42
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        10.2
+      ]
+    },
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        11.68
+      ]
+    },
+    {
+      "id": "hud-frame-overlay",
+      "timestamps": [
+        1.13,
+        14.69
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        2.39,
+        3.81,
+        4.74,
+        6.13
+      ]
+    },
+    {
+      "id": "index-card-bookend",
+      "timestamps": [
+        0.25,
+        1.13,
+        13.15,
+        14.69
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "shape-morph",
+      "parallax-camera",
+      "char-cascade"
+    ],
+    "compositions": [
+      "title-card",
+      "frame-hud"
+    ],
+    "templates": [
+      "title-sequence",
+      "kinetic-typography"
+    ],
+    "styles": [
+      "abstract-geometric",
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "kinetic-typography",
+    "shape-morphing",
+    "3d-render",
+    "title-sequence",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "cream",
+    "vermilion",
+    "bauhaus",
+    "chapters",
+    "bookend",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 8.6
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 5,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.1,
+        "kind": "soft",
+        "score": 0.201,
+        "isolation": 0.09
+      },
+      {
+        "t": 1.867,
+        "kind": "cut",
+        "score": 0.685,
+        "isolation": 0.68,
+        "frame": 56
+      },
+      {
+        "t": 4.567,
+        "kind": "soft",
+        "score": 0.493,
+        "isolation": 0.17
+      },
+      {
+        "t": 10.433,
+        "kind": "soft",
+        "score": 0.709,
+        "isolation": 0.37
+      },
+      {
+        "t": 13.133,
+        "kind": "cut",
+        "score": 1.205,
+        "isolation": 0.84,
+        "frame": 394
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.1,
+        "end": 1.87,
+        "duration": 1.77,
+        "activity": 0.097,
+        "luma": 0.59
+      },
+      {
+        "index": 2,
+        "start": 1.87,
+        "end": 4.57,
+        "duration": 2.7,
+        "activity": 0.116,
+        "luma": 0.48
+      },
+      {
+        "index": 3,
+        "start": 4.57,
+        "end": 10.43,
+        "duration": 5.87,
+        "activity": 0.188,
+        "luma": 0.76
+      },
+      {
+        "index": 4,
+        "start": 10.43,
+        "end": 13.13,
+        "duration": 2.7,
+        "activity": 0.182,
+        "luma": 0.1
+      },
+      {
+        "index": 5,
+        "start": 13.13,
+        "end": 15.07,
+        "duration": 1.93,
+        "activity": 0.163,
+        "luma": 0.62
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.158,
+    "luma": {
+      "mean": 0.54,
+      "dark_share": 0.19,
+      "light_share": 0.38
+    },
+    "palette": [
+      {
+        "hex": "#f8e8e8",
+        "share": 0.369
+      },
+      {
+        "hex": "#f85818",
+        "share": 0.172
+      },
+      {
+        "hex": "#181818",
+        "share": 0.085
+      },
+      {
+        "hex": "#783838",
+        "share": 0.036
+      },
+      {
+        "hex": "#180808",
+        "share": 0.033
+      },
+      {
+        "hex": "#080808",
+        "share": 0.027
+      },
+      {
+        "hex": "#884838",
+        "share": 0.023
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.018
+      },
+      {
+        "hex": "#080818",
+        "share": 0.017
+      },
+      {
+        "hex": "#383838",
+        "share": 0.017
+      }
+    ],
+    "representative_times": [
+      0.98,
+      3.22,
+      6.04,
+      7.5,
+      8.96,
+      11.78,
+      14.1
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.5,
+      "mean_dbfs_voiced": -15.2,
+      "silence_ratio": 0.0,
+      "onsets": 47,
+      "onset_rate_per_sec": 3.12,
+      "onset_times": [
+        0.72,
+        1.0,
+        1.9,
+        2.16,
+        2.39,
+        2.65,
+        2.86,
+        3.11,
+        3.23,
+        3.34,
+        3.58,
+        3.81,
+        4.04,
+        4.27,
+        4.5,
+        4.74,
+        4.99,
+        5.15,
+        5.46,
+        5.67,
+        5.92,
+        6.13,
+        6.39,
+        6.55,
+        6.62,
+        6.85,
+        7.08,
+        7.31,
+        8.5,
+        8.96,
+        9.43,
+        10.61,
+        11.31,
+        11.56,
+        11.77,
+        12.03,
+        12.24,
+        12.4,
+        12.52,
+        12.63,
+        12.72,
+        12.86,
+        12.93,
+        13.17,
+        14.12,
+        14.35,
+        14.58
+      ],
+      "tempo_estimate": {
+        "bpm": 129.2,
+        "autocorr": 0.6,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 913,
+      "band_share": {
+        "low_lt_250": 0.42,
+        "mid_250_2k": 0.4,
+        "high_gt_2k": 0.18
+      },
+      "syllabic_modulation_share": 0.3,
+      "boundary_onset_alignment": {
+        "boundaries": 5,
+        "tolerance_ms": 67,
+        "near_onset": 0.6,
+        "chance_level": 0.34,
+        "median_offset_ms": 62,
+        "near_beat": 0.4,
+        "beat_chance_level": 0.26,
+        "beat_phase_sec": 0.068
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-05c4222dae",
+      "overview": "reference/analysis/ref-05c4222dae/overview.jpg",
+      "scenes": "reference/analysis/ref-05c4222dae/scenes.jpg",
+      "transitions": "reference/analysis/ref-05c4222dae/transitions.jpg",
+      "motion": "reference/analysis/ref-05c4222dae/motion.jpg",
+      "audio": "reference/analysis/ref-05c4222dae/audio.png",
+      "frames": "reference/analysis/ref-05c4222dae/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -12.5,
+        "lra_lu": 0.8,
+        "true_peak_dbtp": 0.5,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 20,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 4,
+        "phrases": 2,
+        "speech_start": 7.14,
+        "speech_end": 14.09,
+        "speech_coverage": 0.37,
+        "wps_while_speaking": 0.72,
+        "wpm_over_span": 35,
+        "pace_thirds_wps": [
+          0.43,
+          0.86,
+          0.43
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 2.0,
+        "phrase_sec_median": 2.77,
+        "pauses": {
+          "count": 1,
+          "median_ms": 1420,
+          "max_ms": 1420,
+          "at": [
+            8.46
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 2,
+            "wps": 0.34
+          },
+          {
+            "index": 4,
+            "words": 2,
+            "wps": 0.74
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 2,
+          "in_pause_share": 0.0,
+          "chance_level": 0.2,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 47,
+        "accents": 10,
+        "accents_per_min": 39.8,
+        "accent_times": [
+          2.39,
+          2.86,
+          3.81,
+          4.27,
+          4.74,
+          5.67,
+          6.13,
+          6.62,
+          7.08,
+          11.77
+        ],
+        "accent_threshold": 0.51,
+        "boundaries_with_accent": {
+          "boundaries": 5,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.12
+        },
+        "onset_rate_during_speech": 2.53,
+        "onset_rate_outside_speech": 3.46,
+        "level_speech_minus_gaps_db": 1.1,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": -11.4,
+        "level_tail_vs_body_db": -1.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-05c4222dae/listen",
+        "sheet": "reference/analysis/ref-05c4222dae/listen/listen.jpg",
+        "words": "reference/analysis/ref-05c4222dae/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

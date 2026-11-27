@@ -1,0 +1,31 @@
+{
+  "id": "placeholder-image-resolve",
+  "name": "Placeholder image resolve",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-3, batch-7, 2026-11-26): a light AI image demo shows a grey placeholder with a sheen, then scattered patches of the final image spreading until it resolves.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A grey placeholder box appears where an image will be, a faint sheen passes over it, then scattered patches of the final image show through and spread until the image resolves. Generation or loading is shown as a process, so the result feels earned.",
+  "purpose": "Show generation or loading as a process, so the result feels earned.",
+  "visual_behaviour": "A grey rounded placeholder appears where the image will be and a faint sheen passes over it; patches of the final image show through at scattered points and spread until the whole image is there.",
+  "mechanics": "Placeholder: a rounded rectangle in the canvas tone with a diagonal sheen sweeping across over about 1.0 s (ref-ad023ce9dc 10.88-12.0 s). Resolve: mask the final image with a seeded set of blobs whose radii grow from 0 to full cover over 1.0-1.2 s (power1.in), starting at 12.0 s and complete at about 13.1 s. Blob centres from a seeded PRNG so every render matches.",
+  "decomposition": { "primitives": ["clip-mask", "seeded-particles", "photo-plate"], "effects": ["clip-path-reveal"], "timing": "Sheen about 1 s; resolve 1.0-1.2 s; about 2.2 s in all." },
+  "parameters": [
+    { "name": "sheen_duration", "description": "Seconds for the placeholder sheen", "default": 1.0 },
+    { "name": "resolve_duration", "description": "Seconds from first patch to full image", "default": 1.1 },
+    { "name": "blobs", "description": "Number of seeded mask blobs", "default": 14 }
+  ],
+  "use_cases": ["Explaining AI image generation or rendering", "A result that develops like a photograph", "Before and after reveals"],
+  "failure_modes": ["Unseeded random patches break deterministic renders", "Too fast and it reads as a glitch, not a process"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Placeholder: a rounded rectangle in the canvas tone with a diagonal gradient sheen swept across in about 1 s. Resolve: an SVG mask of seeded circles whose radii grow from 0 to full cover over 1.0-1.2 s (power1.in); centres from the Studio PRNG, never Math.random. Not built as a component." },
+  "capability": { "support": "native", "requirements": ["SVG mask", "seeded positions"], "compatible_components": ["clip-path-reveal", "element-mask-reveal"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-ad023ce9dc", "timestamps": [10.88, 12.4, 13.1], "observed": "A grey placeholder in a chat panel gets scattered warm patches (12.0-12.6 s) that spread until the photo resolves at 13.1 s." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [8.01, 8.96], "observed": "A grey listing card resolves into a full product listing as a vertical light bar sweeps across it (8.0-9.0 s), accents at 8.01 and 8.96 s." }
+  ],
+  "related": { "techniques": ["ui-demo-micro-interactions", "text-scramble-decode"], "effects": ["clip-path-reveal"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["explanation-device", "image", "generation", "loading", "mask", "ai-demo", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

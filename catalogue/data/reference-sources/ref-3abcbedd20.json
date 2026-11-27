@@ -1,0 +1,699 @@
+{
+  "id": "ref-3abcbedd20",
+  "name": "Cream-and-terracotta editor launch: raw text renders, an implode-burst logo and a band wipe",
+  "status": "experimental",
+  "source": {
+    "filename": "dev-tool-product-intro-4262ae83.mp4",
+    "aliases": [],
+    "sha256": "3abcbedd20646c82b1d983605080bca741710c66fc020b46ef27d1002b342c57",
+    "bytes": 4183417,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "File-icon mark and the product's domain-style name",
+        "timestamps": [
+          8.62,
+          28.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Editor window and settings UI",
+        "timestamps": [
+          11.62,
+          23.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Product launch; reuse the implode-burst, band-wipe and arrival-timed sound principles only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 4183417,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 30.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1800,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 842,
+    "keyframes": 30,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 30.08,
+      "kbps": 260
+    },
+    "overall_kbps": 1116
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session A) using the reference-analyst workflow",
+    "method": "Viewed overview (40 frames), transitions sheet (all 4 boundaries, every 2nd frame), listen sheet (12 accent hits; no phrases), strips 7.0-7.8 s and 20.45-20.85 s at 30 fps and 21.3-22.2 s at 15 fps; automated audio and listen metrics. Signal features and Windows desktop dictation only (no whisper or Parakeet on this host, earshot models not cached); nothing was listened to by a person.",
+    "coverage": "Full 30 s; every boundary and the theme switch at frame level.",
+    "concept": {
+      "observed": "Launch film for a markdown editor: a heading typed as raw markup that re-sets as a serif headline, formatting chips float in, the words scatter and implode into a point that bursts into the logo, then a feature tour (live preview, local storage, linting, a dark theme, export, themes, price) and a logo end card.",
+      "interpreted": "The product's own act (raw text becoming formatted) is the opening image.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Two-line headlines: a black serif word over an italic terracotta phrase; no voice.",
+      "interpreted": "Quiet, crafted, bookish."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Cream canvas with a warm vignette, terracotta accent; a near-black section 22.0-26.3 s."
+      },
+      "typography": {
+        "observed": "Serif display in roman with an italic accent line; monospace for typed raw text; small UI text."
+      },
+      "composition": {
+        "observed": "Centred headline in the first act; feature cards with the headline left and UI right."
+      },
+      "motion": {
+        "observed": "Monospace typing with a caret, then the word re-sets in the serif (0.4-1.9 s); chips drift; letters scatter and rotate (6.4 s); windows tilt in 3D; icon cards pop; the theme icon morphs from sun to moon (21.83-22.17 s)."
+      },
+      "transitions": {
+        "observed": "7.00-7.67 s: dashed rays converge on a terracotta point while the page dims (7.30-7.47 s), a bright frame, then a ring shockwave expands for about 0.27 s while the icon assembles from scattered characters. 20.52-20.75 s: a terracotta diagonal band with stepped lighter edges sweeps left to right, full cover at 20.62 s, about 0.23 s in all. 21.83-22.03 s: after a click on the theme toggle a dark circle grows from the toggle to fill the frame. 22.48-22.60 s: a grey exposure dip between two dark scenes. 26.09-26.43 s: particles converge to a point on dark, a grey frame, then the cream ring burst and the logo again.",
+        "interpreted": "Collapse-and-release for the brand moments; a band wipe for a section change; the product's own control causes the dark-mode transition.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "A feature every 0.93-1.9 s from 15 to 26 s."
+      },
+      "sound_design": {
+        "observed": "-14.1 LUFS, LRA 8.2 LU, true peak -0.9 dBTP; tempo estimate 129.2 bpm (medium); 24 accents (48/min). Accents at 0.07, 0.39, 0.77 and 2.04 s coincide with typed characters, 4.04 and 4.50 s with chips landing, 7.55 s with the first ring frame of the burst, 8.96 s with the tagline and 12.72 s with a drawn line; 15.53-21.15 s they fall every 0.93 s (two beats at 129 bpm) with feature arrivals. 25% of 4 boundaries carry an accent within 100 ms (chance 15%); all 4 boundaries are within 50 ms of an onset (chance 33%) and 75% near the beat (chance 26%). Head and tail 7.8-7.9 dB below the body; 0.3 s of silence at the end. Accents may be part of the music.",
+        "interpreted": "Typing is sonified per character; the burst hit lands on the first frame of the ring.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation returned 18 raw words, none above confidence 0.2.",
+        "interpreted": "Text-led film.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None; headlines carry the copy."
+      },
+      "motifs": {
+        "observed": "Markup symbols as particles; rings; the file icon."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 7.0,
+        "observed": "Raw heading typed, re-set in serif; formatting chips; words scatter."
+      },
+      {
+        "start": 7.0,
+        "end": 9.4,
+        "observed": "Implode to a point, ring burst, logo and tagline."
+      },
+      {
+        "start": 9.4,
+        "end": 15.0,
+        "observed": "Editor window: notes typed with a live preview."
+      },
+      {
+        "start": 15.0,
+        "end": 20.62,
+        "observed": "Feature cards: live preview, stays on your device, lint as you write."
+      },
+      {
+        "start": 20.62,
+        "end": 22.5,
+        "observed": "Band wipe; the theme toggle is clicked and the film turns dark."
+      },
+      {
+        "start": 22.5,
+        "end": 26.25,
+        "observed": "Dark: export, themes, price."
+      },
+      {
+        "start": 26.25,
+        "end": 30.0,
+        "observed": "Particles to a point, ring burst, logo end card."
+      }
+    ],
+    "moments": [
+      {
+        "t": 7.3,
+        "observed": "The page dims for about 0.17 s while rays converge on a point, then a bright frame and a ring expands; the accent lands at 7.55 s on the first ring frame.",
+        "interpreted": "A held breath before the logo, like a pre-dim before a flash."
+      },
+      {
+        "t": 21.63,
+        "observed": "The cursor clicks a sun icon; a ring ripples from it and a dark circle grows from the toggle to cover the frame by 22.03 s.",
+        "interpreted": "The transition is caused by the thing it demonstrates."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "How the raw-to-serif swap is built (the 1.12 s overview frame shows a scrambled mix; no 30 fps strip of 0.8-1.9 s was made)",
+      "Whether the accents are separate effects or part of the music"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        7.6,
+        26.36
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        7.51,
+        26.26
+      ]
+    },
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        21.9,
+        22.0
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        11.62,
+        16.12,
+        21.63
+      ]
+    },
+    {
+      "id": "css-3d-staging",
+      "timestamps": [
+        14.62
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        15.53,
+        16.46,
+        17.41,
+        18.34,
+        19.27
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        7.0,
+        7.55,
+        26.09,
+        26.32
+      ]
+    },
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        20.52,
+        20.62,
+        20.75
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        0.07,
+        0.39,
+        0.77,
+        2.04
+      ]
+    },
+    {
+      "id": "markup-renders-to-type",
+      "timestamps": [
+        0.39,
+        0.87,
+        1.12,
+        1.94
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "element-bloom",
+      "particle-drift",
+      "shape-cover-transition"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "scene-transitions",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-2",
+    "cream",
+    "terracotta",
+    "serif",
+    "launch",
+    "implode-burst",
+    "band-wipe",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 20.2
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 40,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 4,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 7.5,
+        "kind": "soft",
+        "score": 0.628,
+        "isolation": 0.04
+      },
+      {
+        "t": 20.65,
+        "kind": "soft",
+        "score": 0.288,
+        "isolation": 0.05
+      },
+      {
+        "t": 22.5,
+        "kind": "soft",
+        "score": 0.685,
+        "isolation": 0.2
+      },
+      {
+        "t": 26.25,
+        "kind": "soft",
+        "score": 0.921,
+        "isolation": 0.01
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 7.5,
+        "duration": 7.5,
+        "activity": 0.054,
+        "luma": 0.9
+      },
+      {
+        "index": 2,
+        "start": 7.5,
+        "end": 20.65,
+        "duration": 13.15,
+        "activity": 0.063,
+        "luma": 0.92
+      },
+      {
+        "index": 3,
+        "start": 20.65,
+        "end": 22.5,
+        "duration": 1.85,
+        "activity": 0.142,
+        "luma": 0.67
+      },
+      {
+        "index": 4,
+        "start": 22.5,
+        "end": 26.25,
+        "duration": 3.75,
+        "activity": 0.128,
+        "luma": 0.15
+      },
+      {
+        "index": 5,
+        "start": 26.25,
+        "end": 30.0,
+        "duration": 3.75,
+        "activity": 0.057,
+        "luma": 0.9
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.073,
+    "luma": {
+      "mean": 0.8,
+      "dark_share": 0.14,
+      "light_share": 0.85
+    },
+    "palette": [
+      {
+        "hex": "#f8f8e8",
+        "share": 0.299
+      },
+      {
+        "hex": "#f8e8e8",
+        "share": 0.182
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.11
+      },
+      {
+        "hex": "#f8e8d8",
+        "share": 0.108
+      },
+      {
+        "hex": "#281818",
+        "share": 0.067
+      },
+      {
+        "hex": "#282818",
+        "share": 0.043
+      },
+      {
+        "hex": "#181818",
+        "share": 0.029
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.027
+      },
+      {
+        "hex": "#d8d8c8",
+        "share": 0.025
+      },
+      {
+        "hex": "#d8c8b8",
+        "share": 0.022
+      }
+    ],
+    "representative_times": [
+      1.88,
+      3.75,
+      5.62,
+      10.79,
+      14.07,
+      17.36,
+      21.57,
+      24.38,
+      28.12
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.7,
+      "mean_dbfs_voiced": -18.4,
+      "silence_ratio": 0.01,
+      "onsets": 119,
+      "onset_rate_per_sec": 3.96,
+      "onset_times": [
+        0.07,
+        0.16,
+        0.28,
+        0.39,
+        0.53,
+        0.63,
+        0.77,
+        0.88,
+        1.46,
+        1.93,
+        2.04,
+        2.11,
+        2.23,
+        2.35,
+        2.46,
+        2.53,
+        2.76,
+        3.34,
+        3.81,
+        3.92,
+        4.04,
+        4.16,
+        4.27,
+        4.39,
+        4.5,
+        4.62,
+        4.74,
+        4.85,
+        4.97,
+        5.11,
+        5.2,
+        5.46,
+        5.69,
+        5.92,
+        6.15,
+        6.27,
+        6.39,
+        6.5,
+        7.55,
+        7.64,
+        8.03,
+        8.5,
+        8.73,
+        8.96,
+        9.2,
+        9.43,
+        9.66,
+        9.91,
+        10.15,
+        10.38,
+        10.61,
+        10.84,
+        11.08,
+        11.28,
+        11.42,
+        11.49,
+        11.77,
+        12.24,
+        12.38,
+        12.49,
+        12.72,
+        12.96,
+        13.17,
+        13.31,
+        13.37,
+        13.65,
+        13.89,
+        14.12,
+        14.23,
+        14.35,
+        14.58,
+        14.81,
+        15.07,
+        15.53,
+        15.77,
+        15.88,
+        16.0,
+        16.11,
+        16.23,
+        16.46,
+        16.7,
+        16.93,
+        17.41,
+        17.86,
+        18.11,
+        18.34,
+        18.58,
+        18.81,
+        19.27,
+        19.74,
+        19.97,
+        20.2,
+        20.46,
+        20.57,
+        20.69,
+        20.92,
+        21.15,
+        21.39,
+        21.59,
+        22.55,
+        23.01,
+        23.27,
+        23.48,
+        23.73,
+        23.94,
+        24.2,
+        24.43,
+        24.66,
+        24.89,
+        25.03,
+        25.15,
+        25.26,
+        25.38,
+        25.5,
+        25.61,
+        25.73,
+        25.84,
+        25.91,
+        26.26
+      ],
+      "tempo_estimate": {
+        "bpm": 129.2,
+        "autocorr": 0.47,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 991,
+      "band_share": {
+        "low_lt_250": 0.4,
+        "mid_250_2k": 0.39,
+        "high_gt_2k": 0.22
+      },
+      "syllabic_modulation_share": 0.29,
+      "boundary_onset_alignment": {
+        "boundaries": 4,
+        "tolerance_ms": 50,
+        "near_onset": 1.0,
+        "chance_level": 0.33,
+        "median_offset_ms": 43,
+        "near_beat": 0.75,
+        "beat_chance_level": 0.26,
+        "beat_phase_sec": 0.203
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-3abcbedd20",
+      "overview": "reference/analysis/ref-3abcbedd20/overview.jpg",
+      "scenes": "reference/analysis/ref-3abcbedd20/scenes.jpg",
+      "transitions": "reference/analysis/ref-3abcbedd20/transitions.jpg",
+      "motion": "reference/analysis/ref-3abcbedd20/motion.jpg",
+      "audio": "reference/analysis/ref-3abcbedd20/audio.png",
+      "frames": "reference/analysis/ref-3abcbedd20/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.1,
+        "lra_lu": 8.2,
+        "true_peak_dbtp": -0.9,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 18,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 119,
+        "accents": 24,
+        "accents_per_min": 48.0,
+        "accent_times": [
+          0.07,
+          0.39,
+          0.77,
+          2.04,
+          4.04,
+          4.5,
+          7.55,
+          8.96,
+          9.91,
+          10.84,
+          12.72,
+          14.58,
+          15.53,
+          16.46,
+          17.41,
+          17.86,
+          18.34,
+          19.27,
+          20.2,
+          21.15,
+          21.59,
+          23.01,
+          23.48,
+          23.94
+        ],
+        "accent_threshold": 0.42,
+        "boundaries_with_accent": {
+          "boundaries": 4,
+          "share": 0.25,
+          "tolerance_ms": 100,
+          "chance_level": 0.15
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 3.97,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [
+          [
+            29.7,
+            30.02
+          ]
+        ],
+        "level_head_vs_body_db": -7.8,
+        "level_tail_vs_body_db": -7.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-3abcbedd20/listen",
+        "sheet": "reference/analysis/ref-3abcbedd20/listen/listen.jpg",
+        "words": "reference/analysis/ref-3abcbedd20/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

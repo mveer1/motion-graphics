@@ -26,6 +26,7 @@ ARCS_PATH = ROOT / "specs" / "narrative-arcs.json"
 SPEC_PATH = ROOT / "specs" / "beatmap-spec.json"
 PROJECTS = ROOT / "projects"
 MEDIA_NEEDING_PROVIDER = {"generated-image", "generated-video"}
+PAUSE_SEC = 0.5  # build-audio.py's pause between scene clips
 
 
 def load_json(p: Path) -> Any:
@@ -226,8 +227,17 @@ def cmd_status(a: argparse.Namespace) -> int:
 
 
 def beat_times(pdir: Path, beats: List[Dict[str, Any]], target: Optional[float] = None) -> Tuple[List[Tuple[float, float]], str]:
+    """(start, end) per beat. Measured from audio/timeline.json when it is current; otherwise each beat lasts its
+    target_duration_sec, stretched to the narration it carries spoken at its scene's `speed` (src/narration.json)
+    plus the scene pause. A timeline made from other words is not used: the basis then says the audio is stale."""
+    sys.path.insert(0, str(ROOT / "src" / "pipeline"))
+    import hooks
+    import scriptlint
+
+    inputs = scriptlint.load_inputs(pdir)
+    stale = scriptlint.stale_scenes(inputs)
     tl = pdir / "audio" / "timeline.json"
-    if tl.exists():
+    if tl.exists() and not stale:
         try:
             t = load_json(tl)
             segs = t.get("scenes") or t.get("segments") or t.get("clips")
@@ -239,12 +249,24 @@ def beat_times(pdir: Path, beats: List[Dict[str, Any]], target: Optional[float] 
                 return [(starts[i], starts[i + 1] if i + 1 < len(starts) else total) for i in range(len(starts))], "audio/timeline.json"
         except (ValueError, OSError, TypeError):
             pass
-    out, t0 = [], 0.0
+    spoken = {s["id"]: s for s in (inputs.get("narration") or {}).get("scenes", [])}
+    out, t0, stretched = [], 0.0, []
     for b in beats:
         d = float(b.get("target_duration_sec", 4.0))
+        sc = spoken.get(b["id"]) or {"text": b.get("narration", "")}
+        if sc.get("text"):
+            need = hooks.spoken_seconds(sc["text"], scriptlint.scene_wps(sc, inputs)) + PAUSE_SEC
+            if need > d + 1e-6:
+                d = need
+                stretched.append(b["id"])
         out.append((round(t0, 3), round(t0 + d, 3)))
         t0 += d
-    return out, "beat target durations (not measured)"
+    basis = "beat target durations (not measured)"
+    if stretched:
+        basis = f"beat target durations, stretched for narration at each scene's speed in {', '.join(stretched)} (estimated, not measured)"
+    if stale:
+        basis = f"{basis}; audio is stale (narration text changed in {', '.join(stale)} since audio/timeline.json was made)"
+    return out, basis
 
 
 def cmd_storyboard(a: argparse.Namespace) -> int:

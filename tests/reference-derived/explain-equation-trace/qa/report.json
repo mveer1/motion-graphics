@@ -1,0 +1,166 @@
+{
+  "target": "tests\\reference-derived\\explain-equation-trace\\index.html",
+  "fonts": "google",
+  "renderer": "playwright-chromium (preview-grade; not the HyperFrames render path)",
+  "sample_times": [
+    0.0,
+    1.179,
+    2.358,
+    3.536,
+    4.715,
+    5.894,
+    7.073,
+    8.252,
+    9.43,
+    10.609,
+    11.788,
+    12.967
+  ],
+  "formats": [
+    {
+      "format": "landscape",
+      "file": "index.html",
+      "width": 1280,
+      "height": 720,
+      "duration": 13.0,
+      "fps": 30,
+      "timeline_duration": 13,
+      "frames": [
+        {
+          "time": 0.0,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f00-t000.00.png",
+          "visible_text": [
+            "Waves, part 2"
+          ]
+        },
+        {
+          "time": 1.167,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f01-t001.17.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from"
+          ]
+        },
+        {
+          "time": 2.367,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f02-t002.37.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from"
+          ]
+        },
+        {
+          "time": 3.533,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f03-t003.53.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height"
+          ]
+        },
+        {
+          "time": 4.7,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f04-t004.70.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height"
+          ]
+        },
+        {
+          "time": 5.9,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f05-t005.90.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192"
+          ]
+        },
+        {
+          "time": 7.067,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f06-t007.07.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192"
+          ]
+        },
+        {
+          "time": 8.267,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f07-t008.27.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192"
+          ]
+        },
+        {
+          "time": 9.433,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f08-t009.43.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192",
+            "y",
+            "="
+          ]
+        },
+        {
+          "time": 10.6,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f09-t010.60.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192",
+            "y",
+            "=",
+            "sin",
+            "(\u03b8)"
+          ]
+        },
+        {
+          "time": 11.8,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f10-t011.80.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192",
+            "y",
+            "=",
+            "sin",
+            "(\u03b8)"
+          ]
+        },
+        {
+          "time": 12.967,
+          "path": "tests/reference-derived/explain-equation-trace/qa/landscape/f11-t012.97.png",
+          "visible_text": [
+            "Waves, part 2",
+            "Where a sine wave comes from",
+            "height",
+            "time \u2192",
+            "y",
+            "=",
+            "sin",
+            "(\u03b8)"
+          ]
+        }
+      ],
+      "findings": [],
+      "console": [],
+      "failed_requests": [],
+      "dead_stretches": [],
+      "contact_sheet": "tests/reference-derived/explain-equation-trace/qa/contact-landscape.png"
+    }
+  ],
+  "matrix": null,
+  "errors": 0,
+  "warnings": 0,
+  "passed": true
+}

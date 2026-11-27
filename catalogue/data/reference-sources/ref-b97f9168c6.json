@@ -75,7 +75,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed scene sheet (19 scenes, start/middle/end) covering the full 31.8 s. Overview and strips generated, not viewed. Audio from measurements only.",
+    "method": "Viewed scene sheet (19 scenes, start/middle/end) covering the full 31.8 s. Overview and strips generated, not viewed. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened (16 boundaries, all on the sheet); every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at scene level.",
     "concept": {
       "observed": "Two motion reels back to back, each labelled with an AI model name: the first in a black/orange/blue/cream system (word cards, selection box, glitch, cube field, marquee, particle vortex, name lockup), the second in black and lime with chrome 3D objects and declarative lines (LOUD, TYPE IN MOTION, FORM, HIT THE BEAT, BOLD., PRECISE., ALIVE.).",
@@ -106,7 +106,9 @@
         "observed": "Measured 7 cuts and 9 soft transitions at analyzer 1.2 (1.1 reported 18 cuts, counting the fast horizontal wipes at 19.25-29.25 s); median shot 1.85 s at 1.1; 0.4-0.5 s cuts at 2.73-4.57 s; 2.5 s statements at 16.8-26.75 s; 0.8 s adjectives after 26.75 s."
       },
       "transitions": {
-        "observed": "Hard cuts throughout."
+        "observed": "Re-read 2026-11-27: 16 boundaries (6 cut, 0 grow, 8 cover, 2 continuous). 3.25 s cut: one-word card, orange to black. 3.72 s cut: one-word card, black to cream. 4.57 s cover: the card collapses into a horizontal line and a dot like a screen switching off (4.54-4.64 s), then a ring opens on grey (4.67-4.74 s). 8.40 s cover: strips of repeated type slide in horizontally at offset times over the blurred 3D grid (8.38-8.54 s). 10.25 s cover: the strips slide out and leave one word on black (10.19-10.29 s). 12.15 s cut: a particle swirl explodes into a white flash frame (12.12-12.16 s), then type strips slide in from the right. 13.80 s cut: glitched word to a light 3D frame to a dark one in three frames. 15.90 s continuous: fade to black (15.78-15.91 s) and the next title fades up (15.94-16.04 s). 16.80 s continuous: fade to black (16.71-16.77 s), then the next card is in at 16.81 s. 19.25 s cover: a lime panel pushes the card off to the left in about 0.1 s (19.19-19.32 s) and stays as the next card's background. 21.75 s cover: the same push with a black panel. 24.25 s cover: the same push with a white panel. 26.75 s cover: the same push with a black panel. 27.63 s cut: one-word card, black to cream. 28.48 s cut: one-word card, cream to lime. 29.25 s cover: the same push with a black panel. Earlier reading (2026-10-30): Hard cuts throughout.",
+        "interpreted": "Two halves, two grammars: the first covers with screen effects (line collapse, type strips, a flash); the second runs a metronome of panel pushes every 2.50 s with word cuts between them.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "3D render sections (cubes, chrome objects)."
@@ -117,6 +119,19 @@
       },
       "motifs": {
         "observed": "Corner meta labels; full stops on adjectives; an audio waveform bar."
+      },
+      "sound_design": {
+        "observed": "Integrated -14.3 LUFS, LRA 3.4 LU, true peak -0.0 dBTP (at full scale). Tempo estimate 72 bpm (medium, may be half tempo). 30 accents (56.5 a minute). Accents on cuts 0.12 against chance 0.17 (16 boundaries); onsets near boundaries 0.38 against 0.37. Silences 0.05-1.00 s (head) and 15.88-16.86 s, about 1 s between the two halves. Listen sheet: accents on the first word-card change (3.30 s), a ring appearing (4.69 s), tile-grid changes (6.11 s), a particle sphere (10.80 s), a glitch on a word (13.61, 13.72 s), then a regular run 0.42 s apart (17.28-18.95 s, about 143 bpm) under the rotating chrome knot of the second half.",
+        "interpreted": "The 1 s silence between the halves works as a chapter mark; inside each half accents mark arrivals, not cuts.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "6 words in 4 one-to-two-word phrases (1.93-2.81, 5.74-6.59, 10.01-11.29, 13.29-13.69 s) over a dot, a tile grid, a particle cloud and a glitch; no speaker on any phrase frame; 1-2 word 'phrases' are dictation noise over the music. Verdict: none.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "None; copy is left-aligned large statements and full-frame word cards (outline echoes, a word in a selection box, glitch-split type); the model-name labels are brand assets (excluded).",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -152,7 +167,8 @@
     ],
     "uncertainties": [
       "How the reels were produced (the labels suggest AI generation; not verified)",
-      "Tempo may be half the true value"
+      "Tempo may be half the true value",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
@@ -216,6 +232,42 @@
       "timestamps": [
         3.9
       ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        15.9,
+        16.78
+      ]
+    },
+    {
+      "id": "section-push-slide",
+      "timestamps": [
+        19.25,
+        21.75,
+        24.25,
+        26.75,
+        29.25
+      ]
+    },
+    {
+      "id": "strip-slice-offset",
+      "timestamps": [
+        8.4,
+        10.25
+      ]
+    },
+    {
+      "id": "crt-collapse-to-line",
+      "timestamps": [
+        4.57
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        12.15
+      ]
     }
   ],
   "related": {
@@ -250,21 +302,23 @@
     "comparison",
     "lime",
     "chrome",
-    "brand-marks-present"
+    "brand-marks-present",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 33.4
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 45.7
     },
     "sampling": {
       "scan_fps": 6.0,
@@ -777,6 +831,218 @@
       "audio": "reference/analysis/ref-b97f9168c6/audio.png",
       "frames": "reference/analysis/ref-b97f9168c6/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.3,
+        "lra_lu": 3.4,
+        "true_peak_dbtp": -0.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 24,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 6,
+        "phrases": 4,
+        "speech_start": 1.93,
+        "speech_end": 13.69,
+        "speech_coverage": 0.11,
+        "wps_while_speaking": 1.76,
+        "wpm_over_span": 31,
+        "pace_thirds_wps": [
+          0.51,
+          0.26,
+          0.77
+        ],
+        "pace_trend": "accelerates",
+        "phrase_words_median": 1.5,
+        "phrase_sec_median": 0.86,
+        "pauses": {
+          "count": 3,
+          "median_ms": 2930,
+          "max_ms": 3420,
+          "at": [
+            2.81,
+            6.59,
+            11.29
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 1,
+            "wps": 0.31
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 2,
+            "wps": 0.52
+          },
+          {
+            "index": 5,
+            "words": 1,
+            "wps": 0.54
+          },
+          {
+            "index": 6,
+            "words": 1,
+            "wps": 0.53
+          },
+          {
+            "index": 7,
+            "words": 1,
+            "wps": 0.61
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 10,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 11,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 12,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 13,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 14,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 15,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 16,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 17,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 6,
+          "in_pause_share": 0.83,
+          "chance_level": 0.71,
+          "next_phrase_after_ms_median": 1610
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 149,
+        "accents": 30,
+        "accents_per_min": 56.5,
+        "accent_times": [
+          3.3,
+          4.69,
+          6.11,
+          10.8,
+          13.61,
+          13.72,
+          17.28,
+          17.69,
+          18.11,
+          18.53,
+          18.95,
+          19.78,
+          20.2,
+          20.62,
+          21.04,
+          21.46,
+          22.29,
+          22.71,
+          23.13,
+          23.96,
+          24.78,
+          25.19,
+          25.61,
+          26.03,
+          26.45,
+          27.28,
+          28.12,
+          28.96,
+          29.79,
+          30.63
+        ],
+        "accent_threshold": 0.38,
+        "boundaries_with_accent": {
+          "boundaries": 16,
+          "share": 0.12,
+          "tolerance_ms": 100,
+          "chance_level": 0.17
+        },
+        "onset_rate_during_speech": 5.28,
+        "onset_rate_outside_speech": 4.61,
+        "level_speech_minus_gaps_db": -0.5,
+        "sustained_share": 0.93,
+        "silences": [
+          [
+            0.05,
+            1.0
+          ],
+          [
+            15.88,
+            16.86
+          ]
+        ],
+        "level_head_vs_body_db": -11.8,
+        "level_tail_vs_body_db": -2.7,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-b97f9168c6/listen",
+        "sheet": "reference/analysis/ref-b97f9168c6/listen/listen.jpg",
+        "words": "reference/analysis/ref-b97f9168c6/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

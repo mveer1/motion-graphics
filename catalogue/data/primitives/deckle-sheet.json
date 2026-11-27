@@ -1,0 +1,58 @@
+{
+  "id": "deckle-sheet",
+  "name": "Deckle-edged cut-paper sheet",
+  "kind": "shape",
+  "status": "experimental",
+  "description": "Seeded cut-paper silhouette (hills, peaks, waves, clouds, disc, niche, arch, flames, lotus or rect) with a geometric deckle edge, paper fibre, a light cut-edge line and a soft lifted shadow.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "shape",
+      "type": "string",
+      "description": "hills|peaks|waves|clouds|disc|niche|arch|flames|lotus|rect"
+    },
+    {
+      "name": "x,y,w,h",
+      "type": "px",
+      "description": "Box in the parent"
+    },
+    {
+      "name": "fill",
+      "type": "token|colour",
+      "description": "Paper colour"
+    },
+    {
+      "name": "deckle",
+      "type": "u",
+      "description": "Edge roughness (0 = clean scissor cut)"
+    },
+    {
+      "name": "seed",
+      "type": "integer",
+      "description": "Shape and edge seed"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "Studio.kit.mythic.sheet(parent, {shape, x, y, w, h, fill, deckle, seed, shadow, stroke}) -> piece {el, art, body, path, shadow}"
+  },
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "paper",
+    "cut-paper",
+    "deckle",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

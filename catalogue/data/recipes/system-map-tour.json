@@ -1,0 +1,69 @@
+{
+  "id": "system-map-tour",
+  "name": "Tour a system map",
+  "effect_id": "canvas-tour",
+  "status": "experimental",
+  "visual_intent": "Explain a system part by part on one map: the camera frames each part on its spoken name, follows anything that travels between parts, and pulls back to the whole at the end.",
+  "parameters": [
+    {
+      "name": "move",
+      "type": "number",
+      "default": 0.8,
+      "description": "Seconds per camera move"
+    },
+    {
+      "name": "drift",
+      "type": "number",
+      "default": 1.025,
+      "description": "Scale reached while holding a stop"
+    },
+    {
+      "name": "start",
+      "type": "string",
+      "default": "overview",
+      "description": "overview or first (start framed on the first stop)"
+    },
+    {
+      "name": "pullBack",
+      "type": "number",
+      "description": "Time of the closing pull-back to the whole canvas"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or word times (Studio.cues.fromWords); snap each move to the word it illustrates",
+    "prng_required": false,
+    "easing_standard": "power2.inOut (moves); sine.inOut (hold drift)"
+  },
+  "code_snippet": {
+    "javascript": "// #canvas: position absolute at the frame's top left, 2-3x the frame, panels laid out inside it\nStudio.space.tour(tl, '#canvas', [\n  { target: '#pClient', at: at('client', -0.4) },\n  { target: '#pQueue', at: at('queue', -0.4) },\n  { target: '#pWorker', at: at('worker', -0.4) }\n], { pullBack: at('whole'), start: 'first' });"
+  },
+  "fallbacks": "Studio.comp.progression when the parts fit on one stage; SP.camera for a single push-in.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.0,
+    "memory_impact": "Low; one transformed layer (estimate)"
+  },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python scripts/frame-review.py tests/reference-derived/explain-tour-progression/index.html --serve-root . --fonts google"
+  ],
+  "tags": [
+    "camera",
+    "pan",
+    "map",
+    "reference-derived"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-tour-progression/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html and frame review of tests/reference-derived/explain-tour-progression/index.html (0 errors, 0 warnings, contact sheet inspected) in Playwright Chromium on Windows, 2026-11-28. Not rendered through HyperFrames on the M2.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

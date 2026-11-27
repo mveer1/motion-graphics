@@ -1,0 +1,59 @@
+{
+  "id": "skill-visual-director",
+  "name": "Visual Director Skill",
+  "component_type": "skill",
+  "purpose": "Rulebook for choosing a render engine per scene (HyperFrames compositor, Three.js in the page, Blender plates), authoring and previewing Blender plates, and compositing them in HyperFrames.",
+  "capabilities": [
+    "Engine decision procedure with treatment vs subject signals and worked examples",
+    "Plate authoring with the lab API and four templates (hero-orbit, particle-field, rigid-collapse, light-shafts)",
+    "Compositing contract: per-format plates, timed <video>, paint order, alpha, legibility, timing to words"
+  ],
+  "location": ".claude/skills/visual-director",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; run by the visual-director subagent (.claude/agents/visual-director.md) or any session."
+  },
+  "dependencies": [
+    "tool-visual-director",
+    "skill-motion-graphics-designer",
+    "skill-workspace-steward"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "agent-host",
+    "notes": "Heavy steps go through visual-director.py render and studio.py build (host lock)."
+  },
+  "documentation_urls": [
+    ".claude/skills/visual-director/SKILL.md",
+    ".claude/skills/visual-director/references/engine-matrix.md",
+    ".claude/skills/visual-director/references/blender-plates.md",
+    ".claude/skills/visual-director/references/compositing.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Writes project visual plans, plate scripts and plate markup."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "New on 2026-11-24; exercised on projects/lab-blender-hybrid (Windows host).",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "skill",
+    "engines",
+    "blender",
+    "3d",
+    "compositing",
+    "phase-3"
+  ]
+}

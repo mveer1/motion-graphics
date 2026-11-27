@@ -1,0 +1,43 @@
+{
+  "id": "source-cartouche",
+  "name": "Storyteller source cartouche",
+  "kind": "text",
+  "status": "experimental",
+  "description": "'As told in' label naming the source text and version (e.g. the Valmiki Ramayana, Ovid's Metamorphoses, the Prose Edda) with an accent rule; the mythic-tale template's sourcing rule made visible.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "kicker",
+      "type": "string",
+      "description": "Default 'As told in'"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "Text and version"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "Studio.kit.mythic.cartouche(parent, {x, y, kicker, title}) -> {el, kicker, title, rule}"
+  },
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "text",
+    "source",
+    "attribution",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

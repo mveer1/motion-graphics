@@ -1,11 +1,13 @@
 {
   "id": "liquid-pour-transition",
   "name": "Liquid pour transition",
+  "family": "transition-cover",
   "status": "experimental",
   "source": {
     "type": "genre-convention",
-    "description": "Genre convention: food and beverage advertising where a pour or splash fills the frame and becomes the next shot.",
-    "inspected": false
+    "description": "Genre convention: food and beverage advertising where a pour or splash fills the frame and becomes the next shot. Since 2026-11-26 also informed by one inspected user-supplied reference (a black liquid-edged surface around a cut to a dark section).",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
   },
   "technique": "A wavy liquid surface rises to cover the frame, then either drains away or becomes the next scene's background.",
   "decomposition": {
@@ -21,6 +23,9 @@
   "implemented_by": [
     "liquid-transition"
   ],
+  "provenance": [
+    { "source_id": "ref-0b13aa7f02", "timestamps": [13.65, 13.92], "observed": "A hard cut to black holds 0.22 s, then the black retreats upward with a wavy liquid edge for about 0.1 s before the black verdict section cuts in (read from a 30 fps strip; medium confidence)." }
+  ],
   "licensing_notes": "Technique only. No specific artwork, footage, characters or compositions from any source are copied.",
   "tags": [
     "reference",
@@ -31,6 +36,6 @@
   "metadata": {
     "author": "MotionLab",
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-26"
   }
 }

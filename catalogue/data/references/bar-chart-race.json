@@ -1,0 +1,144 @@
+{
+  "id": "bar-chart-race",
+  "name": "Bar chart race",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "2 inspected reference films (batch-3, batch-4, 2026-11-26): a founder landing-page film runs a monthly revenue bar race with a date label advancing.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "Horizontal bars grow and swap places by value as a date label advances, so a ranking over time is felt as a race; the change of leader is the story.",
+  "purpose": "Make a ranking over time felt as a race; the change of leader is the story.",
+  "visual_behaviour": "Horizontal bars grow and swap places by value while a large faint date label advances in a corner.",
+  "mechanics": "Per data step: bar width tween to value / max (linear, 0.08-0.3 s per step); rank by value and tween each bar's y to rank x row height (power2.inOut, same duration); value labels count with the bar; a large faint date label in a corner advances each step.",
+  "decomposition": {
+    "primitives": [
+      "svg-shape",
+      "styled-text"
+    ],
+    "effects": [
+      "counter-roll"
+    ],
+    "timing": "About 30 steps in 2.5 s in the reference (Sep 1 to Sep 30, 11.4-13.7 s)."
+  },
+  "parameters": [
+    {
+      "name": "stepDuration",
+      "description": "Seconds per data step",
+      "default": 0.08
+    },
+    {
+      "name": "rows",
+      "description": "Bars shown",
+      "default": 7
+    }
+  ],
+  "use_cases": [
+    "Market share or revenue over time",
+    "Rankings in news and data films",
+    "Competition stories"
+  ],
+  "failure_modes": [
+    "Too many fast steps become noise: keep rank swaps readable",
+    "Bars without labels are unreadable at 720p"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "bar-race"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.barRace(parent, {names, frames}) (runtime 1.18.0): one proxy frame position; values interpolate linearly within a step, ranks with an in-out ease, rows fade beyond `rows`, value labels ride the bar end, a large faint date label shows the nearest frame.",
+    "runtime_api": [
+      "Studio.comp.barRace"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "per-step width and rank tweens"
+    ],
+    "compatible_components": [
+      "counter-roll",
+      "integer-count-up",
+      "animated-chart"
+    ],
+    "complexity": "medium",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 3,
+      "cost": 2
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-d386e5f0ae",
+      "timestamps": [
+        11.39,
+        12.22,
+        13.7
+      ],
+      "observed": "A monthly revenue bar race: seven coloured bars grow and reorder while a faint date label advances from Sep 1 to Sep 30 (11.4-13.7 s)."
+    },
+    {
+      "source_id": "ref-a943607659",
+      "timestamps": [
+        10.81,
+        15.29,
+        19.76
+      ],
+      "observed": "Vertical variant: five avatar columns rise under a countdown clock (04:12 to 00:00 over 9.8 s), and a bottom pill names the gap to the leader, updated about every 0.75 s; the leader changes at the end."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "step-progress-tracker"
+    ],
+    "effects": [
+      "counter-roll"
+    ],
+    "compositions": [
+      "animated-chart"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "explanation-device",
+    "data",
+    "chart",
+    "ranking",
+    "race",
+    "data-journalism",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-simulation-race/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

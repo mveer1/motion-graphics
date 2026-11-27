@@ -1,0 +1,48 @@
+{
+  "id": "shadow-puppet",
+  "name": "Jointed shadow puppet",
+  "kind": "group",
+  "status": "experimental",
+  "description": "Hierarchical jointed figure (parts with pivots) in silhouette (Reiniger) or translucent dyed leather with punched holes (Tholu Bommalata); rods optional. Default part set M.figures.hero is a placeholder to replace with traced silhouettes.",
+  "rendering_engine": "svg_dom",
+  "library_dependencies": [
+    "gsap",
+    "svg-native"
+  ],
+  "inputs": [
+    {
+      "name": "parts",
+      "type": "array",
+      "description": "[{id, d, pivot, parent, fill}] in viewBox units"
+    },
+    {
+      "name": "look",
+      "type": "string",
+      "description": "silhouette|leather"
+    },
+    {
+      "name": "h",
+      "type": "px",
+      "description": "Figure height"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "Studio.kit.mythic.puppet(parent, {x, y, h, parts, look}) -> piece with .part(id)"
+  },
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "puppet",
+    "silhouette",
+    "shadow-theatre",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

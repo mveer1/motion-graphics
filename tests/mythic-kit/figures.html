@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Mythic figure library</title>
+  <link rel="stylesheet" href="/src/studio/studio-base.css">
+  <link rel="stylesheet" id="style" href="/src/studio/styles/mythic-paper.css">
+  <style>:root{--w:1680px;--h:1260px;--u:12.6px;--safe-top:40px;--safe-right:40px;--safe-bottom:40px;--safe-left:40px;}
+    .row-label{position:absolute;left:12px;font:600 16px 'EB Garamond',serif;color:var(--c-ink-2);letter-spacing:.12em;text-transform:uppercase}
+    .fig-label{position:absolute;width:200px;text-align:center;font:600 15px 'EB Garamond',serif;color:var(--c-ink)}
+    .screen{position:absolute;left:0;width:1680px;height:400px;background:radial-gradient(ellipse at 50% 50%,#fff1cf,#ebcb8f)}</style>
+  <script src="/src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<!-- Review sheet for src/studio/kits/mythic/figures.js: every figure in silhouette, leather and paper.
+     tests/test-mythic.py loads it; tests/mythic-kit/render-figures.py screenshots it for review. -->
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1680" data-height="1260" data-fps="30" data-duration="1"></div>
+<script src="/src/studio/studio-core.js"></script>
+<script src="/src/studio/studio-draw.js"></script>
+<script src="/src/studio/studio-type.js"></script>
+<script src="/src/studio/studio-motion.js"></script>
+<script src="/src/studio/studio-compositions.js"></script>
+<script src="/src/studio/kits/mythic/mythic.js"></script>
+<script src="/src/studio/kits/mythic/figures.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var M = S.kit.mythic, root = document.getElementById('root');
+  // ?build=heroic shows the heroic build; ?build=compare shows classic paper, heroic paper, heroic leather.
+  var q = /[?&]build=([a-z]+)/.exec(window.location.search), mode = q ? q[1] : 'classic';
+  var rows = mode === 'compare'
+    ? [['classic', 'paper'], ['heroic', 'paper'], ['heroic', 'leather']]
+    : [[mode, 'silhouette'], [mode, 'leather'], [mode, 'paper']];
+  var ids = M.figureIds;
+  window.__figureMeta = {};
+  rows.forEach(function (rowSpec, row) {
+    var build = rowSpec[0], look = rowSpec[1], y0 = row * 420;
+    if (look === 'silhouette') { var scr = S.el('div', 'screen', null, root); scr.style.top = y0 + 'px'; }
+    var lab = S.el('div', 'row-label', build + ' · ' + look, root); lab.style.top = (y0 + 6) + 'px';
+    ids.forEach(function (id, col) {
+      var fig = M.figures[id]({ build: build });
+      var seated = fig.viewBox[0] / fig.viewBox[1] > 0.6;
+      var h = seated ? 250 : 360, w = h * fig.viewBox[0] / fig.viewBox[1];
+      var x = 30 + col * 205 + (200 - w) / 2, y = y0 + 30 + (360 - h);
+      var p = M.puppet(root, { figure: id, figureOptions: { build: build }, look: look, h: h, x: x, y: y, seed: 3 + col });
+      window.__figureMeta[p.meta.id] = p.meta;
+      if (row === rows.length - 1) { var fl = S.el('div', 'fig-label', p.meta.name, root); fl.style.left = (30 + col * 205) + 'px'; fl.style.top = (y0 + 396) + 'px'; }
+    });
+  });
+});
+</script>
+</body>
+</html>

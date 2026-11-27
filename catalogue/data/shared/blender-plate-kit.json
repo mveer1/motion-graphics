@@ -1,0 +1,52 @@
+{
+  "id": "shared-blender-plate-kit",
+  "name": "Blender Plate Kit",
+  "component_type": "shared_asset",
+  "purpose": "Canonical bpy helper (mlab.py) and runner (run_plate.py) that every Blender plate uses: seconds and GSAP easing instead of frames, palette roles from the style sheet, short-side camera framing per format, seeded randomness, studio sets, lights, simulations; plus the plate templates in templates/blender/plates/.",
+  "capabilities": [
+    "lab.f / cue / pick / rng / color / material / primitive / cyclorama / camera(subject_y) / key / orbit / on_frame / particles / rigid",
+    "run_plate.py: factory-startup scene, render settings from the job, simulation bake, PNG frames, done.json",
+    "templates: hero-orbit, particle-field, rigid-collapse, light-shafts"
+  ],
+  "location": "src/blender",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Used in place by scripts/visual-director.py; projects copy templates, never the kit."
+  },
+  "dependencies": [
+    "tool-blender"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "Blender 5.2 bundled Python",
+    "notes": "Version-tolerant socket and action helpers; tested on Blender 5.2.4."
+  },
+  "documentation_urls": [
+    ".claude/skills/visual-director/references/blender-plates.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Original workspace code calling the Blender Python API at run time; no Blender code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": false,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Runs inside Blender only; writes the job's frames folder."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "2026-11-24 Windows: hero-orbit rendered and composited end to end; all four templates rendered in tests/test-visual-director.py.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "blender",
+    "bpy",
+    "plates",
+    "kit"
+  ]
+}

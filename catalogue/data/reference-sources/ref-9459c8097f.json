@@ -1,0 +1,578 @@
+{
+  "id": "ref-9459c8097f",
+  "name": "Dark red-glow transcript product ad: headline pairs with one italic accent word, a scan reveal, the end card in the music's tail",
+  "status": "experimental",
+  "source": {
+    "filename": "youtube-transcript-product-ad-5ef64af6.mp4",
+    "aliases": [],
+    "sha256": "9459c8097fd78e0e0f5e28dc0f987d8949b98b6e81327b89f03d4ddde997d05a",
+    "bytes": 1607172,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product logo and wordmark on the end card",
+        "timestamps": [
+          12.84,
+          13.88
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "logo",
+        "description": "A video platform's play-button mark",
+        "timestamps": [
+          0.38,
+          1.12
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Link input, transcript panel, waveform and code panels",
+        "timestamps": [
+          3.38,
+          9.38,
+          11.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Transcript product ad; reuse the headline-beside-proof layout, scan reveal and end-card-in-the-tail principles only, with original copy and interface."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1607172,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 450,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 599,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 247
+    },
+    "overall_kbps": 857
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session F) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), the motion sheet (4 windows at 10 fps: 3.81-4.91, 7.69-8.79, 10.06-11.16, 12.44-13.54 s), the audio panel and the listen sheet (one phrase, 12 accent hits); a 30 fps strip at 7.60-8.80 s (4 headline-word arrivals measured against onsets). No transitions sheet (no detected boundaries). Strips at 0-1.3, 3.9-4.6, 10.2-11.0 and 12.6-13.6 s were generated but not viewed and are not cited. Signal features and Windows en-US dictation; nothing was listened to.",
+    "coverage": "Full 15.0 s (1280x720, 30 fps); the second headline section at 30 fps; the rest at 10 fps or 0.74 s sampling.",
+    "concept": {
+      "observed": "An ad for a tool that turns a video link into a transcript: paste a link, the transcript appears; it works on channels and playlists; it works when the video has no captions; the output is clean for AI workflows; then the user count and a start button.",
+      "interpreted": "Four claims, each a headline beside the interface that proves it.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Music only; all copy is on screen as short headlines with one italic serif accent word each."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black with a warm maroon glow (#181818, #180818, #281818); one red accent (button, italic accent words, scan line); a green glow on the code panel."
+      },
+      "typography": {
+        "observed": "Bold grotesque headlines with one word per headline set in an italic serif in the accent red (the last word of the claim, or the key qualifier); monospace in the code panel; tiny corner labels."
+      },
+      "composition": {
+        "observed": "Act 1 and the end card centred; claims 2-4 put the headline in the left column at about 35-45% of the height with the interface panel on the right."
+      },
+      "motion": {
+        "observed": "Headline words fade in 0.10-0.20 s apart (median 0.10 s, 7.97-8.37 s); the earlier headline dims out 7.67-7.87 s; a URL types into an input (2.6-3.4 s); a red glowing horizontal line sweeps down the transcript panel and the rows appear as it passes (about 4.0-4.5 s, 10 fps); a waveform panel with a running playhead (8.5-10 s); a JSON panel lights green (11.0-12.4 s); three stat counters (12.4 s)."
+      },
+      "transitions": {
+        "observed": "No cuts and no detected boundaries. Sections change by dissolving to the empty dark background for about 0.1-0.3 s (7.67-7.97 s; 10.16-10.36 s; 12.54-12.84 s) before the next headline builds.",
+        "interpreted": "The glowing background is the one stage; empty dips are the breaths between claims.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Four claims of about 2.6, 2.6, 2.3 and 2.2 s, then a 2.2 s end card."
+      },
+      "sound_design": {
+        "observed": "-11.7 LUFS integrated (the loudest in batch 6), LRA 4.1 LU, true peak -1.0 dBTP; tempo 161.5 bpm (autocorrelation 0.9, medium); 73 onsets; 17 accents (68/min), all between 6.94 and 9.57 s at 0.11-0.14 s spacing. No boundaries, so no accents-on-cuts measure (chance would be 0.20). The strongest accents land on the dissolve of the second claim (7.69 s), the first word of the third (7.94 s), the words of its second line (8.31, 8.45 s) and the waveform panel (8.57 s). Headline words against onsets: 3 of 4 within 50 ms, but chance is 0.81 with onsets every 0.12 s, so no lock can be claimed. The music stops at about 12.1 s (last onset 12.12 s); the level holds at -15 to -18 dB to 12.9 s and then decays to -26 dB (13.2 s), -35 dB (14.3 s) and -65 dB (15.0 s) while the end card builds. Head silence 0.05-0.42 s; head -14.7 dB, tail -17.9 dB against the body. Accents may be part of the music.",
+        "interpreted": "The end card is built inside the music's decay, so the call to action lands calm instead of shouted.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: Windows en-US dictation kept 2 confident words (5 raw) as one phrase over 8.30-12.38 s; the phrase frames show the third headline, an empty dip and the JSON panel, with no speaker. The syllabic-modulation share is 0.51, the highest of 47 listened references (median 0.34), yet the spectrogram shows a dense rhythmic music texture without speech formants.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music. A high syllabic share alone does not mean speech.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions: the transcript rows on screen are the product's interface, not subtitles of the film. Copy lanes: a centred two-line headline (0.4-2.6 s; end card), then the left column beside the interface (5.6-12.5 s); 2-4 words per line; held about 1.5-2.5 s complete; one italic red accent word per headline; words fade in about 0.1 s apart.",
+        "interpreted": "Headlines carry the claims; the interface carries the proof.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.6,
+        "observed": "Centred two-line headline over a play icon."
+      },
+      {
+        "start": 2.6,
+        "end": 5.5,
+        "observed": "A link pastes into an input; a scan line reveals the transcript."
+      },
+      {
+        "start": 5.5,
+        "end": 7.9,
+        "observed": "Headline and three source cards."
+      },
+      {
+        "start": 7.9,
+        "end": 10.3,
+        "observed": "Headline left; a waveform panel with a playhead and transcript lines."
+      },
+      {
+        "start": 10.3,
+        "end": 12.6,
+        "observed": "Headline left; a JSON panel and three stats."
+      },
+      {
+        "start": 12.6,
+        "end": 15.0,
+        "observed": "End card: logo, user count, start button, built in the music's decay."
+      }
+    ],
+    "moments": [
+      {
+        "t": 4.11,
+        "observed": "A red glowing horizontal line sweeps down the transcript panel and each timestamped row appears as the line passes it (about 4.0-4.5 s).",
+        "interpreted": "The result is shown being produced, not just appearing."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Exact scan-line timing (10 fps only)",
+      "Whether the 0.12 s accents are drums in the music or added effects",
+      "Whether the decay after 12.1 s is a reverb tail or a fade written into the mix"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "centred-word-build",
+      "timestamps": [
+        0.38,
+        1.12
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        7.9,
+        10.3,
+        12.74
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        2.62,
+        3.38,
+        9.38,
+        11.62
+      ]
+    },
+    {
+      "id": "radar-sweep-reveal",
+      "timestamps": [
+        4.11,
+        4.41
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        1.12,
+        8.37
+      ]
+    },
+    {
+      "id": "end-card-in-the-tail",
+      "timestamps": [
+        12.12,
+        12.84,
+        13.24
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "typewriter-reveal",
+      "crossfade-dissolve",
+      "glow-pulse"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "cinematic-dark",
+      "dark-tech"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "kinetic-typography",
+    "music-sync"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-6",
+    "dark",
+    "red-accent",
+    "transcript-product",
+    "end-card-in-tail",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 6.0
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 0,
+      "motion_strips": 4
+    },
+    "boundaries": [],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 15.0,
+        "duration": 15.0,
+        "activity": 0.02,
+        "luma": 0.09
+      }
+    ],
+    "static_holds": [
+      [
+        1.44,
+        2.06
+      ],
+      [
+        14.06,
+        14.94
+      ]
+    ],
+    "mean_activity": 0.02,
+    "luma": {
+      "mean": 0.09,
+      "dark_share": 1.0,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#181818",
+        "share": 0.386
+      },
+      {
+        "hex": "#180818",
+        "share": 0.194
+      },
+      {
+        "hex": "#080808",
+        "share": 0.172
+      },
+      {
+        "hex": "#281818",
+        "share": 0.114
+      },
+      {
+        "hex": "#080818",
+        "share": 0.072
+      },
+      {
+        "hex": "#382828",
+        "share": 0.013
+      },
+      {
+        "hex": "#383838",
+        "share": 0.011
+      },
+      {
+        "hex": "#381818",
+        "share": 0.01
+      },
+      {
+        "hex": "#684848",
+        "share": 0.008
+      },
+      {
+        "hex": "#382838",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      3.75,
+      7.5,
+      11.25
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.6,
+      "mean_dbfs_voiced": -18.3,
+      "silence_ratio": 0.04,
+      "onsets": 73,
+      "onset_rate_per_sec": 4.84,
+      "onset_times": [
+        0.44,
+        1.18,
+        1.44,
+        1.95,
+        2.18,
+        2.44,
+        2.69,
+        2.95,
+        3.2,
+        3.44,
+        3.69,
+        3.95,
+        4.2,
+        4.32,
+        4.44,
+        4.57,
+        4.69,
+        4.83,
+        4.95,
+        5.06,
+        5.2,
+        5.32,
+        5.43,
+        5.57,
+        5.69,
+        5.83,
+        5.94,
+        6.06,
+        6.2,
+        6.32,
+        6.43,
+        6.57,
+        6.69,
+        6.83,
+        6.94,
+        7.08,
+        7.2,
+        7.31,
+        7.45,
+        7.57,
+        7.69,
+        7.83,
+        7.94,
+        8.06,
+        8.2,
+        8.31,
+        8.45,
+        8.57,
+        8.68,
+        8.82,
+        8.94,
+        9.08,
+        9.2,
+        9.31,
+        9.45,
+        9.57,
+        9.71,
+        9.82,
+        9.94,
+        10.08,
+        10.19,
+        10.31,
+        10.45,
+        10.57,
+        10.7,
+        10.82,
+        10.94,
+        11.19,
+        11.31,
+        11.45,
+        11.56,
+        11.7,
+        12.12
+      ],
+      "tempo_estimate": {
+        "bpm": 161.5,
+        "autocorr": 0.9,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 568,
+      "band_share": {
+        "low_lt_250": 0.35,
+        "mid_250_2k": 0.51,
+        "high_gt_2k": 0.14
+      },
+      "syllabic_modulation_share": 0.51,
+      "boundary_onset_alignment": null,
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-9459c8097f",
+      "overview": "reference/analysis/ref-9459c8097f/overview.jpg",
+      "scenes": "reference/analysis/ref-9459c8097f/scenes.jpg",
+      "transitions": null,
+      "motion": "reference/analysis/ref-9459c8097f/motion.jpg",
+      "audio": "reference/analysis/ref-9459c8097f/audio.png",
+      "frames": "reference/analysis/ref-9459c8097f/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -11.7,
+        "lra_lu": 4.1,
+        "true_peak_dbtp": -1.0,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 5,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 2,
+        "phrases": 1,
+        "speech_start": 8.3,
+        "speech_end": 12.38,
+        "speech_coverage": 0.27,
+        "wps_while_speaking": 0.49,
+        "wpm_over_span": 29,
+        "pace_thirds_wps": [
+          1.47,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 2.0,
+        "phrase_sec_median": 4.08,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 2,
+            "wps": 0.13
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 73,
+        "accents": 17,
+        "accents_per_min": 68.0,
+        "accent_times": [
+          6.94,
+          7.2,
+          7.31,
+          7.57,
+          7.69,
+          7.83,
+          7.94,
+          8.2,
+          8.31,
+          8.45,
+          8.57,
+          8.68,
+          8.82,
+          8.94,
+          9.08,
+          9.45,
+          9.57
+        ],
+        "accent_threshold": 0.5,
+        "boundaries_with_accent": {
+          "boundaries": 0,
+          "share": null,
+          "tolerance_ms": 100,
+          "chance_level": 0.2
+        },
+        "onset_rate_during_speech": 6.86,
+        "onset_rate_outside_speech": 4.12,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.95,
+        "silences": [
+          [
+            0.05,
+            0.42
+          ]
+        ],
+        "level_head_vs_body_db": -14.7,
+        "level_tail_vs_body_db": -17.9,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-9459c8097f/listen",
+        "sheet": "reference/analysis/ref-9459c8097f/listen/listen.jpg",
+        "words": "reference/analysis/ref-9459c8097f/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

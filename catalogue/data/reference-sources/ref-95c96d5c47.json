@@ -67,7 +67,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed overview (64 frames over 53 s) and scene sheet (10 scenes). Strips generated, not viewed. Audio track decoded as digital silence.",
+    "method": "Viewed overview (64 frames over 53 s) and scene sheet (10 scenes). Strips generated, not viewed. Audio track decoded as digital silence. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at scene level.",
     "concept": {
       "observed": "Explains running a scheduled job reliably: one machine with a timer fails (stamp), two machines fire twice (green warning), then a shared referee grants ownership, leases must be renewed, ownership moves on expiry, a woken machine stops itself; ends with a comparison table and tagline.",
@@ -99,7 +99,9 @@
         "interpreted": "Reading-paced, one idea per section."
       },
       "transitions": {
-        "observed": "Push to a green field for the 'two machines' idea (6.27 s); crossfades and reframes between steps."
+        "observed": "Re-read 2026-11-27: 9 boundaries (0 cut, 0 grow, 2 cover, 7 continuous). 0.58 s continuous: the opening sticker scales up from small while the headline types in (0.27-0.93 s). 6.27 s cover: a green panel pushes in from the right and moves the page off to the left in about 0.25 s (6.15-6.42 s). 12.23 s continuous: the green scene fades out to the cream page (12.12-12.32 s) and the next sticker builds on it. 17.75 s continuous: in-place build on the held diagram. 18.75 s continuous: in-place build on the held diagram. 25.20 s continuous: crossfade of about 0.2 s (25.15-25.35 s) to the next diagram state. 31.42 s continuous: the headline retypes on the held layout. 40.27 s continuous: crossfade (40.15-40.35 s). 46.23 s cover: the composition slides off to the left and the closing card enters (46.18-46.32 s). Earlier reading (2026-10-30): Push to a green field for the 'two machines' idea (6.27 s); crossfades and reframes between steps.",
+        "interpreted": "A diagram explainer that builds in place; two pushes mark the two big turns (the second machine, the close).",
+        "confidence": "high"
       },
       "audio_and_sync": {
         "observed": "Audio track present but silent (peak below -80 dBFS).",
@@ -107,6 +109,19 @@
       },
       "motifs": {
         "observed": "Stamps for state, hatching for failure, pills for steps."
+      },
+      "sound_design": {
+        "observed": "The audio stream is digital silence: integrated -70 LUFS (the meter floor), no onsets and no accents, so listen made no sheet. Agrees with the earlier note (peak below -80 dBFS).",
+        "interpreted": "A silent explainer: everything is on screen; nothing to learn about sound from it.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None (silent track).",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No caption lane; copy is heavy condensed uppercase headers with monospace labels and values on sticker cards.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -186,6 +201,19 @@
         14.99,
         49.63
       ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        12.25
+      ]
+    },
+    {
+      "id": "section-push-slide",
+      "timestamps": [
+        6.27,
+        46.23
+      ]
     }
   ],
   "related": {
@@ -219,21 +247,23 @@
     "neo-brutalist",
     "sticker",
     "distributed-systems",
-    "silent"
+    "silent",
+    "batch-0",
+    "batch-8"
   ],
   "confidence": "high",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 16.2
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 23.2
     },
     "sampling": {
       "scan_fps": 6.0,
@@ -479,6 +509,42 @@
       "audio": "reference/analysis/ref-95c96d5c47/audio.png",
       "frames": "reference/analysis/ref-95c96d5c47/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -70.0,
+        "lra_lu": 0.0,
+        "true_peak_dbtp": null,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 0,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": false
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-95c96d5c47/listen",
+        "sheet": null,
+        "words": "reference/analysis/ref-95c96d5c47/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

@@ -1,32 +1,297 @@
 {
   "id": "single-stage-progression",
   "name": "Single-stage progression",
+  "family": "transition-continuous",
   "status": "experimental",
-  "source": { "type": "user-provided-reference", "description": "Four inspected references keep one stage or diagram on screen and change its state step by step instead of cutting between scenes.", "inspected": true, "inspected_on": "2026-10-30" },
+  "source": {
+    "type": "user-provided-reference",
+    "description": "Four inspected references keep one stage or diagram on screen and change its state step by step instead of cutting between scenes.",
+    "inspected": true,
+    "inspected_on": "2026-10-30"
+  },
   "technique": "One persistent layout (a diagram, a recipe stage, a theatre set, a 3D scene) evolves: elements are added, re-labelled, stamped, connected or lit, while a caption or step header names the change. The viewer never re-orients, so attention goes to what changed.",
   "purpose": "Explain processes and state machines; reduce cognitive load in how-tos and technical explainers.",
   "visual_behaviour": "The same stage throughout; small local changes per beat (a value updates, a card greys out, a stamp lands, a connector draws, a light comes on).",
   "mechanics": "Persistent DOM; per-step tweens on existing elements; state changes chained from the previous state for seek safety; optional progress tracker and changing caption.",
-  "decomposition": { "primitives": ["scene-container", "styled-text"], "effects": ["connector-draw", "stamp-impact", "paper-pop"], "timing": "A state change every 2-8 s (ref-95c96d5c47 sections of about 6 s; ref-c3bc609841 about 5 s per step); no hard cuts in two references." },
-  "parameters": [ { "name": "states", "description": "Ordered list of stage states with their cue times" } ],
-  "use_cases": ["technical explainer", "how-to or recipe", "process or state machine", "storybook narration"],
-  "failure_modes": ["Too many simultaneous changes per step", "No caption naming the change", "Stage too dense to see small changes in portrait"],
-  "implementation_state": "prototyped",
-  "implemented_by": [],
-  "implementation": { "approach": "Compose existing components on one scene: Studio.comp.stepper for position, Studio.draw.connect for relations, Studio.fx.stamp for state labels, Studio.comp.callout for attention, chained colour/text swaps. Prototype: tests/reference-derived/explainer-annotations; used in projects/paper-plane-field-notes. A dedicated composition is not justified yet.", "runtime_api": ["Studio.comp.stepper", "Studio.draw.connect", "Studio.fx.stamp", "Studio.comp.callout"] },
-  "capability": { "support": "native", "compatible_components": ["progress-stepper", "connector-draw", "stamp-impact", "annotation-callout"], "complexity": "medium", "resources": { "basis": "measured", "cpu": "low", "measurements": [ { "what": "every-frame preview capture of tests/reference-derived/explainer-annotations", "value": "50.8 ms/frame median, peak 255 MB", "where": "Windows dev host (tests/reference-derived/benchmark.json)", "date": "2026-10-30" } ] }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 5, "cost": 2, "note": "Directly serves the workspace's explainer pipeline." } },
-  "provenance": [
-    { "source_id": "ref-95c96d5c47", "timestamps": [12.31, 18.83, 28.31, 35.84], "observed": "One diagram of machines and a shared element changes owner, lease bars and states across numbered steps." },
-    { "source_id": "ref-c3bc609841", "timestamps": [5.0, 20.0], "observed": "A recipe stays on one stage for 30 s with no cuts; ingredients, a step card and a stepper update." },
-    { "source_id": "ref-910d9fc567", "timestamps": [10.0, 30.0], "observed": "A theatre stage persists while a hanging caption sign and the set change." },
-    { "source_id": "ref-37644838b5", "timestamps": [10.0, 50.0, 90.0], "observed": "One 3D scene is explored chapter by chapter with a persistent caption card." }
+  "decomposition": {
+    "primitives": [
+      "scene-container",
+      "styled-text"
+    ],
+    "effects": [
+      "connector-draw",
+      "stamp-impact",
+      "paper-pop"
+    ],
+    "timing": "A state change every 2-8 s (ref-95c96d5c47 sections of about 6 s; ref-c3bc609841 about 5 s per step); no hard cuts in two references."
+  },
+  "parameters": [
+    {
+      "name": "states",
+      "description": "Ordered list of stage states with their cue times"
+    }
   ],
-  "validation": { "state": "preview", "evidence": [
-    { "kind": "frame-review", "path": "tests/reference-derived/explainer-annotations/qa/report.json", "result": "pass", "date": "2026-10-30", "notes": "One relay stage changes state through connectors, callout, fall and stamp." },
-    { "kind": "demo", "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json", "result": "pass", "date": "2026-10-30", "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)." }
-  ] },
-  "related": { "techniques": ["step-progress-tracker", "diagram-connectors", "stamp-state-change", "annotation-callouts"], "compositions": ["progress-stepper", "annotation-callout"], "templates": ["technical-explainer", "illustrated-explainer"] },
+  "use_cases": [
+    "technical explainer",
+    "how-to or recipe",
+    "process or state machine",
+    "storybook narration"
+  ],
+  "failure_modes": [
+    "Too many simultaneous changes per step",
+    "No caption naming the change",
+    "Stage too dense to see small changes in portrait"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "stage-progression"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.progression(parent, {items, steps}) (runtime 1.18.0): persistent items; one proxy step value blends focus (opacity and scale) between steps, cross-swaps the caption in place and advances the tracker dots.",
+    "runtime_api": [
+      "Studio.comp.progression"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "compatible_components": [
+      "progress-stepper",
+      "connector-draw",
+      "stamp-impact",
+      "annotation-callout"
+    ],
+    "complexity": "medium",
+    "resources": {
+      "basis": "measured",
+      "cpu": "low",
+      "measurements": [
+        {
+          "what": "every-frame preview capture of tests/reference-derived/explainer-annotations",
+          "value": "50.8 ms/frame median, peak 255 MB",
+          "where": "Windows dev host (tests/reference-derived/benchmark.json)",
+          "date": "2026-10-30"
+        }
+      ]
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 5,
+      "cost": 2,
+      "note": "Directly serves the workspace's explainer pipeline."
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-95c96d5c47",
+      "timestamps": [
+        12.31,
+        18.83,
+        28.31,
+        35.84
+      ],
+      "observed": "One diagram of machines and a shared element changes owner, lease bars and states across numbered steps."
+    },
+    {
+      "source_id": "ref-c3bc609841",
+      "timestamps": [
+        5.0,
+        20.0
+      ],
+      "observed": "A recipe stays on one stage for 30 s with no cuts; ingredients, a step card and a stepper update."
+    },
+    {
+      "source_id": "ref-910d9fc567",
+      "timestamps": [
+        10.0,
+        30.0
+      ],
+      "observed": "A theatre stage persists while a hanging caption sign and the set change."
+    },
+    {
+      "source_id": "ref-37644838b5",
+      "timestamps": [
+        10.0,
+        50.0,
+        90.0
+      ],
+      "observed": "One 3D scene is explored chapter by chapter with a persistent caption card."
+    },
+    {
+      "source_id": "ref-a3031376e7",
+      "timestamps": [
+        0.38,
+        13.22,
+        25.31
+      ],
+      "observed": "The whole simulation runs on one stage for 27 s; a countdown label and a palette stepping from pink to cyan mark progress instead of cuts."
+    },
+    {
+      "source_id": "ref-a2496929ca",
+      "timestamps": [
+        0.37,
+        11.48,
+        17.41
+      ],
+      "observed": "One structure is built on one stage with in-place pushes and zooms; 3 soft boundaries in 20 s."
+    },
+    {
+      "source_id": "ref-216f4eaeef",
+      "timestamps": [
+        3.0,
+        20.39,
+        32.17
+      ],
+      "observed": "One paper page is cleared and redrawn for each of 10 scenes; the caption cue changes on the same frame (3.0, 8.0, 14.0 ... 52.0 s)."
+    },
+    {
+      "source_id": "ref-d386e5f0ae",
+      "timestamps": [
+        2.59,
+        4.67,
+        7.04,
+        9.41,
+        11.39,
+        14.01,
+        16.67
+      ],
+      "observed": "Silent 20 s film on one light page with no detected boundary: seven sections swap headline and proof card in place about every 2.3 s."
+    },
+    {
+      "source_id": "ref-c2addc76df",
+      "timestamps": [
+        1.12,
+        4.12,
+        10.12
+      ],
+      "observed": "A rounded app window on a green backdrop is the only stage for 18 s; its content swaps in place (3 soft boundaries, no cuts)."
+    },
+    {
+      "source_id": "ref-99713f6e72",
+      "timestamps": [
+        2.62,
+        7.88
+      ],
+      "observed": "A 15 s teaser with no cut: statement, strike, shatter, card wall and particles all happen in place on one dark stage (0 boundaries detected)."
+    },
+    {
+      "source_id": "ref-e40080c790",
+      "timestamps": [
+        0.37,
+        13.63
+      ],
+      "observed": "One centred element for 14 s with no cut; it loops back to its first state (hold 13.19-13.94 s)."
+    },
+    {
+      "source_id": "ref-ad023ce9dc",
+      "timestamps": [
+        2.62,
+        25.19
+      ],
+      "observed": "The whole demo is one canvas of panels; steps are framed by camera moves, never cuts (four soft boundaries, 0 cuts)."
+    },
+    {
+      "source_id": "ref-b34f751c59",
+      "timestamps": [
+        0.38,
+        2.62,
+        3.38,
+        7.12,
+        12.38
+      ],
+      "observed": "Silent 18 s square terminal with no detected boundary: a token-bucket simulation runs on one stage while a one-line regime caption swaps in place four times (about 2.5, 3.3, 7.1, 12.1 s); the final state holds 5.9 s."
+    },
+    {
+      "source_id": "ref-0b2552b64e",
+      "timestamps": [
+        0.38,
+        11.7,
+        24.54,
+        34.35
+      ],
+      "observed": "A 47.6 s light-canvas launch with no detected boundary: headlines and interfaces dissolve in and out on one off-white page (sections of 5.3-10 s)."
+    },
+    {
+      "source_id": "ref-31ce9d6332",
+      "timestamps": [
+        15.57,
+        22.37,
+        36.8
+      ],
+      "observed": "One layout for the whole film (serif headline left, phone right); each step swaps the headline in place and the phone demonstrates it (15.57, 22.37, 36.80 s)."
+    },
+    {
+      "source_id": "ref-debf607232",
+      "timestamps": [
+        0.37,
+        3.35,
+        8.55,
+        15.24
+      ],
+      "observed": "One fixed stage (sun disc, braziers, ember field) for 18.6 s; each named move adds its own trail, ring or burst while the title names it."
+    }
+  ],
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explainer-annotations/qa/report.json",
+        "result": "pass",
+        "date": "2026-10-30",
+        "notes": "One relay stage changes state through connectors, callout, fall and stamp."
+      },
+      {
+        "kind": "demo",
+        "path": "projects/paper-plane-field-notes/v1/qa/frame-review/report.json",
+        "result": "pass",
+        "date": "2026-10-30",
+        "notes": "One sheet stays on one stage through four folds while the copy and tracker change beside it. Frame review 0 errors, 0 warnings (preview grade)."
+      },
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-tour-progression/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  },
+  "related": {
+    "techniques": [
+      "step-progress-tracker",
+      "diagram-connectors",
+      "stamp-state-change",
+      "annotation-callouts"
+    ],
+    "compositions": [
+      "progress-stepper",
+      "annotation-callout"
+    ],
+    "templates": [
+      "technical-explainer",
+      "illustrated-explainer"
+    ]
+  },
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Subjects, diagrams and copy in the prototype are original.",
-  "tags": ["explainer", "diagram", "state", "how-to", "structure", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "tags": [
+    "explainer",
+    "diagram",
+    "state",
+    "how-to",
+    "structure",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-10-30",
+    "updated_at": "2026-11-28"
+  }
 }

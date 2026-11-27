@@ -1,0 +1,29 @@
+{
+  "id": "reaction-shot-cutting",
+  "name": "Reaction-shot cutting at the emotional peak",
+  "family": "transition-cut",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-5, 2026-11-27): a wordless portrait 3D character story keeps its setup and ending as long takes and cuts fast between the hero and the others only at the emotional middle.", "inspected": true, "inspected_on": "2026-11-27" },
+  "technique": "In a wordless character story the setup and the resolution are long takes and the emotional middle is cut fast between the character's close-up and the others' reactions (shot-reverse-shot). The cutting speed shows the feeling rising; the long final take lets it settle.",
+  "purpose": "Let the edit rate carry the feeling: long takes for setup and resolution, fast shot-reverse-shot where the emotion peaks.",
+  "visual_behaviour": "Two long establishing shots; then five quick shots alternate between the hero's close-up and the others' reactions, each cut on a look or a hop; then one long take rises over the result and holds into the end card. Fades only at the very start and end.",
+  "mechanics": "Two long setup shots (8.4 and 10.4 s), then five shots of 0.7-2.6 s (median 2.0 s), each cut on a look or a hop, then one 14.2 s take that rises over the result and holds into the end card. No transition effects; fades from and to black only at the ends.",
+  "decomposition": { "primitives": ["scene-container"], "effects": [], "timing": "Middle act 8.6 s in 5 shots; outer shots 8.4-14.2 s." },
+  "parameters": [
+    { "name": "peak_shot_length", "description": "median shot at the peak (s)", "default": 2.0 },
+    { "name": "resolution_take", "description": "final take length (s)", "default": 12.0 }
+  ],
+  "use_cases": ["Character-led promos", "Story beats in explainers with a mascot", "Any wordless story with a turn"],
+  "failure_modes": ["Fast cutting everywhere removes the peak", "Cutting away during an action instead of on a look loses the thread"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Group the middle act into 4-6 hard cuts (Studio.cut) of 0.7-2.6 s, median about 2 s, each on a look or a small action; keep the setup shots 8-10 s and the resolution one 10-14 s take. The characters themselves are rendered 3D: plates from the visual-director, with the cuts made in HyperFrames.", "runtime_api": ["Studio.cut"] },
+  "capability": { "support": "native", "requirements": ["a character with readable reactions", "shots that can be cut on a look"], "compatible_components": ["scene-container"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-0a270a1575", "timestamps": [18.97, 21.0, 22.27, 23.0, 25.6, 27.57], "observed": "Shots of 8.4 and 10.4 s, then cuts at 18.97, 21.00, 22.27, 23.00 and 25.60 s between the left-out tile's close-ups and the others, then one 14.2 s take from 27.57 s to the end." }
+  ],
+  "related": { "techniques": ["film-match-cut", "cut-on-beat", "rendered-3d-objects"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition-cut", "shot-reverse-shot", "character", "story", "edit-rhythm", "emotional-peak", "portrait", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-27", "updated_at": "2026-11-27" }
+}

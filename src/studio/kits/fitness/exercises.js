@@ -123,6 +123,90 @@
     return g;
   };
 
+  // barbell and machine equipment (2026-11-23), same flat planes. Sizes are true to a standard
+  // Olympic bar and 450 mm plates at Tibi's scale (1 m = 237 rig units, Tibi ~1.78 m), so a loaded
+  // bar on the floor sits where a real one would; R_PLATE is the plate radius in rig units.
+  var R_PLATE = 53;
+  /**
+   * One end of a loaded barbell seen along the bar (side view), centred on the bar; part 'near' or 'far'.
+   * The near plate sits between the camera and Tibi, so by default it is a ghosted disc: a faint plate
+   * tone, a denser rim band and an opaque sleeve hub, with the body readable through it (a teaching
+   * picture must show the body; tones only, no outline). opts.solid draws the opaque plate instead.
+   */
+  EQ.barbellEnd = function (parent, s, part, opts) {
+    var k = s || 1, o = opts || {}, R = R_PLATE * k, g = svg('g', { 'class': 'eq-barbell eq-barbell-' + (part || 'near') }, parent);
+    if (part === 'far') {
+      svg('circle', { cx: num(6 * k), cy: num(-5 * k), r: num(R), fill: P.padShade }, g);
+      return g;
+    }
+    if (o.solid) {
+      svg('circle', { r: num(R), fill: P.plate }, g);
+      svg('circle', { r: num(R * 0.8), fill: P.plateFace }, g);
+    } else {
+      svg('circle', { r: num(R), fill: P.plate, opacity: 0.16 }, g);
+      svg('path', { d: 'M' + num(-R) + ' 0 A' + num(R) + ' ' + num(R) + ' 0 1 0 ' + num(R) + ' 0 A' + num(R) + ' ' + num(R) + ' 0 1 0 ' + num(-R) + ' 0 Z' +
+        'M' + num(-R * 0.84) + ' 0 A' + num(R * 0.84) + ' ' + num(R * 0.84) + ' 0 1 1 ' + num(R * 0.84) + ' 0 A' + num(R * 0.84) + ' ' + num(R * 0.84) + ' 0 1 1 ' + num(-R * 0.84) + ' 0 Z',
+      fill: P.plate, 'fill-rule': 'evenodd', opacity: 0.62 }, g);
+    }
+    var hr = o.solid ? 0.76 : 0.92;     // ghosted: the highlight rides the rim band, never across the body
+    svg('path', { d: 'M' + num(-R * hr * 0.9) + ' ' + num(-R * hr * 0.45) + ' A' + num(R * hr) + ' ' + num(R * hr) + ' 0 0 1 ' + num(R * hr * 0.4) + ' ' + num(-R * hr * 0.92), fill: 'none', stroke: P.plateRim, 'stroke-width': num((o.solid ? 4 : R * 0.07 / k) * k), 'stroke-linecap': 'round' }, g);
+    svg('circle', { r: num(11 * k), fill: P.steelShade }, g);
+    svg('circle', { r: num(6.5 * k), fill: P.steel }, g);
+    return g;
+  };
+  /** A squat or bench rack upright in side view with a J-hook at hook (y). o = {x, hook, floor, w}. */
+  EQ.rackSide = function (parent, o) {
+    var g = svg('g', { 'class': 'eq-rack' }, parent), w = o.w || 12;
+    svg('rect', { x: num(o.x - w / 2), y: num(o.top === undefined ? o.hook - 60 : o.top), width: w, height: num(o.floor - (o.top === undefined ? o.hook - 60 : o.top)), fill: P.steelShade }, g);
+    svg('rect', { x: num(o.x - 30), y: num(o.floor - 6), width: 60, height: 6, rx: 3, fill: P.steelShade }, g);
+    svg('path', { d: 'M' + num(o.x) + ' ' + num(o.hook + 8) + ' l' + num(-(o.dir || 1) * 18) + ' 0 l0 -14', fill: 'none', stroke: P.steel, 'stroke-width': 6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, g);
+    return g;
+  };
+  /**
+   * A 45-degree leg press in side view: frame and rails, the reclined seat, and a sled with the
+   * footplate (sled: its own group, moved by follow()). o = {seat:[x,y] pelvis, angle (rail, deg up from
+   * the floor), floor, len (rail), s (scale)}.
+   */
+  EQ.legPress = function (parent, o) {
+    var s = o.s || 1, a = (o.angle || 45) * Math.PI / 180, ux = Math.cos(a), uy = -Math.sin(a);
+    var g = svg('g', { 'class': 'eq-legpress' }, parent);
+    var r0 = o.rail0, r1 = [r0[0] + ux * o.len, r0[1] + uy * o.len];
+    // frame: base, rear post under the rail end, rails
+    svg('rect', { x: num(o.seat[0] - 120 * s), y: num(o.floor - 10 * s), width: num(r1[0] - o.seat[0] + 170 * s), height: num(10 * s), rx: num(4 * s), fill: P.steelShade }, g);
+    svg('rect', { x: num(r1[0] - 6 * s), y: num(r1[1]), width: num(12 * s), height: num(o.floor - r1[1]), fill: P.steelShade }, g);
+    svg('path', { d: 'M' + num(r0[0]) + ' ' + num(r0[1]) + ' L' + num(r1[0]) + ' ' + num(r1[1]), stroke: P.steelShade, 'stroke-width': num(14 * s), 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M' + num(r0[0]) + ' ' + num(r0[1] - 7 * s) + ' L' + num(r1[0]) + ' ' + num(r1[1] - 7 * s), stroke: P.steel, 'stroke-width': num(4 * s), 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M' + num(r0[0]) + ' ' + num(r0[1]) + ' L' + num(r0[0]) + ' ' + num(o.floor), stroke: P.steelShade, 'stroke-width': num(12 * s) }, g);
+    // seat: a pad under the pelvis and a back pad reclined to o.back degrees
+    var b = (o.back || 40) * Math.PI / 180, bx = -Math.cos(b), by = -Math.sin(b), L = 230 * s;
+    var seat = o.seat, base = [seat[0] + 4 * s, seat[1] + 34 * s];
+    svg('path', { d: 'M' + num(base[0] - 30 * s) + ' ' + num(base[1]) + ' L' + num(base[0] + 60 * s) + ' ' + num(base[1] - 10 * s), stroke: P.pad, 'stroke-width': num(22 * s), 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M' + num(base[0] - 20 * s) + ' ' + num(base[1] - 4 * s) + ' L' + num(base[0] - 20 * s + bx * L) + ' ' + num(base[1] - 4 * s + by * L), stroke: P.pad, 'stroke-width': num(24 * s), 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M' + num(base[0] - 14 * s) + ' ' + num(base[1] - 14 * s) + ' L' + num(base[0] - 14 * s + bx * L * 0.94) + ' ' + num(base[1] - 14 * s + by * L * 0.94), stroke: P.padTop, 'stroke-width': num(5 * s), 'stroke-linecap': 'round' }, g);
+    svg('path', { d: 'M' + num(base[0]) + ' ' + num(base[1] + 8 * s) + ' L' + num(base[0]) + ' ' + num(o.floor), stroke: P.steelShade, 'stroke-width': num(12 * s) }, g);
+    // sled: carriage on the rail with the footplate facing the seat and two weight horns
+    var sled = svg('g', { 'class': 'eq-sled' }, parent);
+    var rot = svg('g', { transform: 'rotate(' + num(-(o.angle || 45)) + ')' }, sled);
+    svg('rect', { x: num(-10 * s), y: num(-78 * s), width: num(16 * s), height: num(150 * s), rx: num(5 * s), fill: P.plate }, rot);       // footplate
+    svg('rect', { x: num(-8 * s), y: num(-74 * s), width: num(5 * s), height: num(142 * s), rx: num(2.5 * s), fill: P.plateRim }, rot);
+    svg('rect', { x: num(6 * s), y: num(30 * s), width: num(70 * s), height: num(18 * s), rx: num(5 * s), fill: P.steelShade }, rot);       // carriage on the rail
+    svg('rect', { x: num(36 * s), y: num(-14 * s), width: num(8 * s), height: num(48 * s), fill: P.steel }, rot);                         // horn
+    svg('circle', { cx: num(40 * s), cy: num(-30 * s), r: num(34 * s), fill: P.plate }, rot);
+    svg('circle', { cx: num(40 * s), cy: num(-30 * s), r: num(26 * s), fill: P.plateFace }, rot);
+    svg('circle', { cx: num(40 * s), cy: num(-30 * s), r: num(7 * s), fill: P.steel }, rot);
+    return { g: g, sled: sled, rail: [r0, r1], dir: [ux, uy] };
+  };
+  /** A cable pulldown station seen from behind: post, top beam and pulley; returns the pulley point. o = {x, top, floor, seatTop, s}. */
+  EQ.pulldownBack = function (parent, o) {
+    var s = o.s || 1, g = svg('g', { 'class': 'eq-pulldown' }, parent);
+    svg('rect', { x: num(o.x - 9 * s), y: num(o.top), width: num(18 * s), height: num(o.floor - o.top), fill: P.steelShade }, g);
+    svg('rect', { x: num(o.x - 150 * s), y: num(o.top - 14 * s), width: num(300 * s), height: num(16 * s), rx: num(5 * s), fill: P.steelShade }, g);
+    svg('rect', { x: num(o.x - 90 * s), y: num(o.floor - 8 * s), width: num(180 * s), height: num(8 * s), rx: num(4 * s), fill: P.steelShade }, g);
+    svg('circle', { cx: num(o.x), cy: num(o.top + 10 * s), r: num(14 * s), fill: P.plate }, g);
+    svg('circle', { cx: num(o.x), cy: num(o.top + 10 * s), r: num(5 * s), fill: P.steel }, g);
+    return { g: g, pulley: [o.x, o.top + 10 * s] };
+  };
+
   // ------------------------------------------------------------------ helpers
   var SIDE_IDS = ['pelvis', 'spine', 'chest', 'neck', 'head', 'shoulderL', 'elbowL', 'wristL', 'hipL', 'kneeL', 'ankleL', 'toeL',
     'shoulderR', 'elbowR', 'wristR', 'hipR', 'kneeR', 'ankleR', 'toeR'];
@@ -415,6 +499,162 @@
     rep: rep([{ pose: 'squat', dur: 1.3, ease: 'sine.inOut' }, { pose: 'stand', dur: 1.0, ease: 'power1.inOut' }]) };
   EX['calf-raise'] = { view: 'side', phases: ['stand', 'calf'], acts: 'calf', start: 'stand', poseGrip: 0,
     rep: rep([{ pose: 'calf', dur: 0.9, ease: 'power2.out' }, { pose: 'stand', dur: 1.2, ease: 'sine.inOut' }]) };
+
+  // ------------------------------------------------------------------ barbell and machine lifts (2D, 2026-11-23)
+  // Kinematics are conceptual (authored from typical ranges, not measured), like the rest of the library.
+  // A loaded bar seen along its length: the far plate behind Tibi, the near plate in front, both on one point.
+  function barbellOn(t, st, joint, local) {
+    var far = svg('g', { 'class': 'eq-held' }, st.back), near = svg('g', { 'class': 'eq-held' }, st.front);
+    EQ.barbellEnd(far, t.scale, 'far'); EQ.barbellEnd(near, t.scale, 'near');
+    t.fig.follow([far, near], joint, local, function (p) { return { transform: 'translate(' + num(p[0]) + ' ' + num(p[1]) + ')' }; });
+    return { near: near, far: far };
+  }
+  function withArms(pose, arms) {
+    var p = JSON.parse(JSON.stringify(pose));
+    for (var k in arms) if (own(arms, k)) p.j[k] = arms[k];
+    p.ch = { grip: 1 };
+    return p;
+  }
+  function gk(t) { return t.gender === 'female' ? 'f' : 'm'; }
+
+  // back squat (side): the bar rests on the upper back; the arms keep their angles to the chest, so the hands stay on it
+  EX['back-squat'] = {
+    view: 'side', phases: ['squat-top', 'squat-bottom'], acts: 'squat', start: 'squat-top',
+    setup: function (t, st) {
+      var Uu = U(), s = t.scale, sk = F.sculptData.skeleton[gk(t)].side, hs = F.sculptData.skeleton[gk(t)].handScale;
+      var bar = [num((sk.shoulder[0] - 34) * Uu), num((sk.shoulder[1] + 10) * Uu)];         // chest-local: on the upper back, at shoulder height
+      var top = RIG.lookup(t.fig, 'stand'), deep = RIG.lookup(t.fig, 'squat');
+      t.set(top);
+      var wb = t.point('chest', bar), grip = F.sculptData.contacts[gk(t)].gripSide[1] * Uu * hs * s;
+      var solved = RIG.solveIK(t.fig, t.fig.state, [{ chain: ['shoulderR', 'elbowR', 'wristR'], to: [wb[0] + 6 * s, wb[1] + grip], bend: 1 },
+        { chain: ['shoulderL', 'elbowL', 'wristL'], to: [wb[0] + 2 * s, wb[1] + grip], bend: 1 }]);
+      var arms = { shoulderR: solved.j.shoulderR, elbowR: solved.j.elbowR, wristR: 0, shoulderL: solved.j.shoulderL, elbowL: solved.j.elbowL, wristL: 0 };
+      this.poses = { 'squat-top': withArms(top, arms), 'squat-bottom': withArms(deep, arms) };
+      t.set(this.poses['squat-top']);
+      EQ.rackSide(st.back, { x: wb[0] - 70 * s, hook: wb[1] - 8 * s, floor: t.floor, dir: -1 });
+      barbellOn(t, st, 'chest', bar);
+    },
+    rep: rep([{ pose: 'squat-bottom', dur: 1.6, ease: 'sine.inOut' }, { pose: 'squat-top', dur: 1.2, ease: 'power1.inOut' }])
+  };
+
+  // conventional deadlift (side): arms hang vertical (flat shoulders and elbows), the bar rides the grip; the
+  // bottom depth is solved so the loaded plates rest on the floor for either body and any scale
+  EX['deadlift'] = {
+    view: 'side', phases: ['deadlift-bottom', 'deadlift-top'], acts: { glute: 3, hams: 3, quad: 2, vastus: 2, vmo: 2, erector: 2, adductor: 2, trap: 1, flexor: 1, gastro: 1, abs: 1, oblique: 1 },
+    start: 'deadlift-bottom',
+    setup: function (t, st) {
+      var s = t.scale, Uu = U(), gp = t.grip('R');
+      function body(d) {
+        return { pelvis: 46 * d, spine: 4 * d, chest: 0, neck: -18 * d, head: -12 * d, hipR: 110 * d, hipL: 110 * d, kneeR: 84 * d, kneeL: 84 * d, ankleR: 20 * d, ankleL: 20 * d,
+          toeR: 0, toeL: 0, shoulderR: 0, shoulderL: 0, elbowR: 0, elbowL: 0, wristR: 0, wristL: 0 };
+      }
+      var anc = floorAnchor(t, 'x');
+      var self = this;
+      function pose(d) { return P_(body(d), { anchor: anc, flat: ['shoulderR', 'shoulderL'] }); }
+      t.set(pose(0));
+      var want = t.floor - R_PLATE * s, lo = 0.3, hi = 1.25;
+      for (var i = 0; i < 30; i++) {
+        var mid = (lo + hi) / 2;
+        t.set(pose(0)); t.set(pose(mid));
+        if (t.point(gp.joint, gp.point)[1] < want) lo = mid; else hi = mid;
+      }
+      self.depth = (lo + hi) / 2;
+      this.poses = { 'deadlift-top': pose(0), 'deadlift-bottom': pose(self.depth) };
+      t.set(pose(0)); t.set(this.poses['deadlift-bottom']);
+      barbellOn(t, st, gp.joint, gp.point);
+    },
+    rep: rep([{ pose: 'deadlift-top', dur: 1.3, ease: 'power1.inOut' }, { pose: 'deadlift-bottom', dur: 1.6, ease: 'sine.inOut' }])
+  };
+
+  // barbell bench press (side, lying on the back, head to the left): the dumbbell bench kinematics with a
+  // bar in the hands and the rack uprights behind the head
+  EX['barbell-bench-press'] = {
+    view: 'side', phases: ['bench-top', 'bench-bottom'], acts: { pec: 3, triceps: 3, delt: 2, serratus: 1, biceps: 1, abs: 1 },
+    setup: function (t, st) {
+      this.poses = {
+        'bench-top': benchPose(t, { shoulderR: 90, elbowR: 0, wristR: 0 }),
+        'bench-bottom': benchPose(t, { shoulderR: -6, elbowR: 92, wristR: 2, fs: 0.8 })
+      };
+      t.set(this.poses['bench-top']);
+      benchUnder(t, st);
+      var gp = t.grip('R'), w = t.point(gp.joint, gp.point), s = t.scale;
+      EQ.rackSide(st.back, { x: w[0] - 46 * s, hook: w[1] + 16 * s, top: w[1] - 30 * s, floor: t.floor, dir: -1 });
+      barbellOn(t, st, gp.joint, gp.point);
+    },
+    start: 'bench-top',
+    rep: rep([{ pose: 'bench-bottom', dur: 1.6, ease: 'sine.inOut' }, { pose: 'bench-top', dur: 1.1, ease: 'power1.inOut' }])
+  };
+
+  // 45-degree leg press (side): pelvis on the seat, back on the reclined pad, feet on the sled's footplate;
+  // the feet travel straight along the rail (IK targets) and the sled follows the soles along it
+  EX['leg-press'] = {
+    view: 'side', phases: ['press-bottom', 'press-top'], acts: { quad: 3, vastus: 3, vmo: 3, glute: 3, adductor: 2, hams: 1, gastro: 1, soleus: 1 },
+    start: 'press-bottom',
+    setup: function (t, st) {
+      var s = t.scale, Uu = U(), ang = 45, back = 42;
+      var body = { pelvis: 0, spine: 0, chest: 0, neck: 10, head: 14, toeR: 0, toeL: 0,
+        shoulderR: -4, shoulderL: 2, elbowR: 12, elbowL: 14, wristR: 0, wristL: 0, hipR: 80, hipL: 80, kneeR: 60, kneeL: 60, ankleR: 0, ankleL: 0 };
+      t.set(P_(body, { rot: -back }));
+      var p0 = t.point('pelvis'), seat = [p0[0], t.floor - 150 * s];
+      var anchor = { joint: 'pelvis', point: [0, 0], to: seat };
+      t.set(P_(body, { rot: -back, anchor: anchor }));
+      var hip = t.point('hipR'), dir = [Math.cos(ang * Math.PI / 180), -Math.sin(ang * Math.PI / 180)];
+      var far = 1.0, nearTo = function (k) { return [hip[0] + dir[0] * k * s, hip[1] + dir[1] * k * s]; };
+      var lb = 118, lt = 172;
+      function legs(k) {
+        return [{ chain: ['hipR', 'kneeR', 'ankleR'], to: nearTo(k), bend: 1, flat: true, flatAngle: -135 },
+          { chain: ['hipL', 'kneeL', 'ankleL'], to: nearTo(k * far), bend: 1, flat: true, flatAngle: -135 }];
+      }
+      this.poses = {
+        'press-bottom': P_(body, { rot: -back, anchor: anchor, ik: legs(lb), grip: false }),
+        'press-top': P_(body, { rot: -back, anchor: anchor, ik: legs(lt), grip: false })
+      };
+      t.set(this.poses['press-bottom']);
+      var so = t.sole('R'), sb = t.point(so.joint, so.point);
+      var perp = [Math.sin(ang * Math.PI / 180), Math.cos(ang * Math.PI / 180)];
+      var r0 = [sb[0] + perp[0] * 39 * s - dir[0] * 40 * s, sb[1] + perp[1] * 39 * s - dir[1] * 40 * s];
+      var lp = EQ.legPress(st.back, { seat: seat, floor: t.floor, angle: ang, back: back, rail0: r0, len: (lt - lb) * s + 150 * s, s: s });
+      var base = sb;
+      t.fig.follow(lp.sled, so.joint, so.point, function (p) {
+        var k = (p[0] - base[0]) * dir[0] + (p[1] - base[1]) * dir[1];
+        return { transform: 'translate(' + num(base[0] + dir[0] * k) + ' ' + num(base[1] + dir[1] * k) + ')' };
+      });
+      st.back.appendChild(lp.sled);
+    },
+    rep: rep([{ pose: 'press-top', dur: 1.2, ease: 'power1.inOut' }, { pose: 'press-bottom', dur: 1.6, ease: 'sine.inOut' }])
+  };
+
+  // lat pulldown (back view, seated, wide overhand grip): the hands travel straight down (IK targets) and pull
+  // the bar; the cable runs from the bar's centre to the top pulley
+  EX['lat-pulldown'] = {
+    view: 'back', phases: ['pulldown-top', 'pulldown-bottom'], acts: { lat: 3, teres: 2, midtrap: 2, lowtrap: 2, rhomb: 2, delt: 2, biceps: 2, brach: 2, infra: 1, flexor: 1, triceps: 1 },
+    start: 'pulldown-top',
+    setup: function (t, st) {
+      var s = t.scale, Uu = U();
+      var legs = both({ hipR: 10, kneeR: 10, ankleR: 0 }), fl = { hipR: 0.24, hipL: 0.24 };
+      var top = Object.assign({ pelvis: 0, spine: 0, chest: 0, neck: 0, head: 0 }, legs, both({ shoulderR: 154, elbowR: 6, wristR: 4 }));
+      var anc = floorAnchor(t, 'y', 'pelvis');
+      t.set(P_(top, { f: fl, anchor: anc }));
+      var wr = t.point('wristR'), wl = t.point('wristL'), sh = t.point('shoulderR');
+      var drop = wr[1] - (sh[1] - 34 * s) > 0 ? 0 : (sh[1] - 34 * s) - wr[1];
+      var arms = function (dy) {
+        return [{ chain: ['shoulderR', 'elbowR', 'wristR'], to: [wr[0], wr[1] + dy], bend: 1 }, { chain: ['shoulderL', 'elbowL', 'wristL'], to: [wl[0], wl[1] + dy], bend: 1 }];
+      };
+      this.poses = { 'pulldown-top': P_(top, { f: fl, anchor: anc, ik: arms(0) }), 'pulldown-bottom': P_(top, { f: fl, anchor: anc, ik: arms(drop) }) };
+      t.set(this.poses['pulldown-top']);
+      var p = t.point('pelvis', [0, 58 * Uu]);
+      EQ.seatFront(st.back, { x: p[0], top: p[1], floor: t.floor, w: 150 * Uu * s * 1.6 });
+      var gr = t.grip('R'), gl = t.grip('L'), hr = t.point(gr.joint, gr.point), hl = t.point(gl.joint, gl.point), cx = (hr[0] + hl[0]) / 2;
+      var station = EQ.pulldownBack(st.back, { x: cx, top: hr[1] - 120 * s, floor: t.floor, s: s });
+      var cable = svg('line', { x1: num(cx), y1: num(station.pulley[1]), x2: num(cx), y2: num(hr[1]), stroke: P.ink2, 'stroke-width': num(2.4 * s) }, st.back);
+      var bar = svg('line', { x1: 0, y1: 0, x2: 0, y2: 0, stroke: P.steel, 'stroke-width': num(8 * s), 'stroke-linecap': 'round' }, st.back);
+      var ext = 40 * s, sr = hr[0] > cx ? 1 : -1;
+      t.fig.follow(bar, gr.joint, gr.point, function (q) { return { x1: num(q[0] + sr * ext), y1: num(q[1] + 6 * s) }; });
+      t.fig.follow(bar, gl.joint, gl.point, function (q) { return { x2: num(q[0] - sr * ext), y2: num(q[1] + 6 * s) }; });
+      t.fig.follow(cable, gr.joint, gr.point, function (q) { return { y2: num(q[1] + 6 * s) }; });
+    },
+    rep: rep([{ pose: 'pulldown-bottom', dur: 1.1, ease: 'power1.inOut' }, { pose: 'pulldown-top', dur: 1.6, ease: 'sine.inOut' }])
+  };
 
   // ------------------------------------------------------------------ gait (side view)
   // Joint keys of one cycle: 8 evenly spaced keys starting at right heel strike; the left leg is half a

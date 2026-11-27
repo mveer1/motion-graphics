@@ -17,6 +17,8 @@ This folder is **gitignored** (owner rule: prompt files stay out of git), so it 
 | `06-pending-studio-tooling.md` | either | the studio lint and runtime backlog from `TODO.md` |
 | `07-ai-skills-for-repetitive-work.md` | either | find recurring procedures from evidence and turn the worthwhile ones into registered, trialled skills |
 | `08-mac-render-host-handoff.md` | **Mac** | take in Windows branches, verify macOS behaviour, upgrade, drain the render queue, run audio work, report back |
+| `09-reference-corpus-batches.md` | either | learn transitions, motion, sound placement, narration pace and caption placement from the owner's 64 reference videos, 8 per batch, into the reference knowledge base and the skills (`docs/reference-playbook.md`) |
+| `10-reference-parallel-protocol.md` | either | rules for running `09` as 3 + 3 parallel sessions: lanes, file ownership, `staging.json`, writing templates, worker and integrator acceptance, handoff format |
 
 ## How to start a session
 

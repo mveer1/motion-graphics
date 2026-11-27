@@ -1,0 +1,70 @@
+{
+  "id": "scramble-decode-word",
+  "name": "A technical word decodes itself",
+  "effect_id": "scramble-decode",
+  "status": "experimental",
+  "visual_intent": "Introduce a short term (an algorithm, a key, a code word) as something being computed.",
+  "parameters": [
+    {
+      "name": "charset",
+      "type": "string",
+      "default": "A-Z 0-9 < > / [ ] #",
+      "description": "Glyph pool"
+    },
+    {
+      "name": "lead",
+      "type": "number",
+      "default": 0.25,
+      "description": "Seconds of pure scramble before the first lock"
+    },
+    {
+      "name": "stagger",
+      "type": "number",
+      "default": 0.04,
+      "description": "Seconds between slot locks"
+    },
+    {
+      "name": "seed",
+      "type": "number",
+      "default": 1,
+      "description": "PRNG seed (never Math.random)"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or word times (Studio.cues.fromWords); place it on the word or beat it illustrates",
+    "easing_standard": "none (stepped glyphs); power1.out (colour settle)",
+    "prng_required": true
+  },
+  "code_snippet": {
+    "javascript": "// a monospace face keeps the width steady; keep the word short\nStudio.type.scramble(tl, '#term', cue('term'), { seed: 3 });"
+  },
+  "fallbacks": "Studio.type.typewriter at 24-30 cps.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.0,
+    "memory_impact": "Low; estimate, not measured on the M2"
+  },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/scramble-strike-caption/index.html --serve-root . --fonts google --at <cue, mid-lock, settled>",
+    "On the render host: two renders of the same frame range must be identical"
+  ],
+  "tags": [
+    "typography",
+    "scramble",
+    "reference-derived"
+  ],
+  "examples": [
+    "tests/reference-derived/scramble-strike-caption/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/backlog-techniques.html in Playwright Chromium on Windows, 2026-11-28.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

@@ -1,0 +1,517 @@
+{
+  "id": "ref-c6d0aa55f6",
+  "name": "Silent textile brand explainer: serif headlines, photo grids and side-push sections",
+  "status": "experimental",
+  "source": {
+    "filename": "handwoven-textiles-brand-explainer-995d8672.mp4",
+    "aliases": [],
+    "sha256": "c6d0aa55f620aa5801f8641d91e7589e42c354445c303339c433aee6cfd7bd73",
+    "bytes": 5196784,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Monogram mark and the brand name",
+        "timestamps": [
+          0.42,
+          48.52
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Website address on the end card",
+        "timestamps": [
+          50.2
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Photographs of weavers, fabrics and products",
+        "timestamps": [
+          5.48,
+          13.92,
+          23.2
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Brand explainer built on photographs; reuse the section grammar (push pages, word-fade headlines) only."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5196784,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 54.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1620,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 767,
+    "keyframes": 54,
+    "audio": null,
+    "overall_kbps": 770
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session A) using the reference-analyst workflow",
+    "method": "Viewed overview (64 frames), transitions sheet (all 8 boundaries, every 2nd frame), strips 11.95-12.45 s at 30 fps and 20.9-22.0 s at 10 fps; confirmed with ffprobe that the file has a video stream only, so there is no listen sheet.",
+    "coverage": "Full 54 s; all boundaries at frame level.",
+    "concept": {
+      "observed": "Brand explainer for a handloom textile supplier: what it sells and where from, the weavers it works with (a counter), three values, the collection, who it is for, a three-step ordering process and a call to order a swatch.",
+      "interpreted": "A catalogue page brought to life: each section is one claim with photographic proof.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Serif headlines with an italic terracotta phrase, small tracked kicker labels, photo cards; no sound.",
+      "interpreted": "Warm, artisanal, premium."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Dark chocolate-brown sections alternating with cream and beige; terracotta accent; photo colour."
+      },
+      "typography": {
+        "observed": "High-contrast serif headlines (roman with an italic accent phrase), small tracked caps kickers, small sans body."
+      },
+      "composition": {
+        "observed": "Headline left with a photo grid right; three value cards; a row of four product photos; three numbered steps; a centred end card with a pill button."
+      },
+      "motion": {
+        "observed": "Headline words fade in left to right about 0.1 s apart (6 words at 21.0-21.6 s); photo cards fade and rise one by one; a counter rolls up (7.2-8.0 s); numbered step cards appear in turn."
+      },
+      "transitions": {
+        "observed": "8 soft boundaries, 0 cuts. Dissolves from dark to cream (4.45-5.05 s) and dark to beige (20.68-21.02 s). Side pushes: a dark section enters from the right and pushes the cream page off to the left (12.05-12.45 s and 47.05-47.40 s); a cream page pushes left at 28.05-28.45 s. A fade to the empty page at 34.6-35.0 s before the next headline types in.",
+        "interpreted": "Pushes read as turning a page of the catalogue; dissolves for the gentler changes.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of 6-13 s with long holds of 2-4.5 s (static holds 2.75-4.42 and 42.42-46.92 s)."
+      },
+      "sound_design": {
+        "observed": "No audio track: the container holds one H.264 video stream and nothing else (ffprobe).",
+        "interpreted": "Probably made to autoplay muted; nothing to measure."
+      },
+      "narration": {
+        "observed": "None: no audio track."
+      },
+      "captions": {
+        "observed": "None; the copy is in headlines (top-left, 1-2 lines) and card labels."
+      },
+      "motifs": {
+        "observed": "Woven texture, hands at looms, numbered badges."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 4.77,
+        "observed": "Title on a dark woven background."
+      },
+      {
+        "start": 4.77,
+        "end": 12.03,
+        "observed": "Weavers: a counter and a photo grid."
+      },
+      {
+        "start": 12.03,
+        "end": 21.0,
+        "observed": "Dark: three values with photos."
+      },
+      {
+        "start": 21.0,
+        "end": 28.1,
+        "observed": "The collection: fabrics by the metre."
+      },
+      {
+        "start": 28.1,
+        "end": 34.6,
+        "observed": "Made for designers and brands."
+      },
+      {
+        "start": 34.6,
+        "end": 47.03,
+        "observed": "Three steps to order."
+      },
+      {
+        "start": 47.03,
+        "end": 54.0,
+        "observed": "Dark end card with the mark and a call to action."
+      }
+    ],
+    "moments": [
+      {
+        "t": 12.05,
+        "observed": "A dark section slides in from the right and pushes the cream page left over about 0.4 s; its content fades in after."
+      },
+      {
+        "t": 21.0,
+        "observed": "On an empty beige page the headline fades in word by word in 0.6 s; the subtitle and the first photo follow."
+      }
+    ],
+    "difficult": [
+      "Photography of people and products: original imagery would be needed"
+    ],
+    "uncertainties": [
+      "Whether the film was ever meant to have sound (the file has no audio stream)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        34.6,
+        35.0
+      ]
+    },
+    {
+      "id": "section-push-slide",
+      "timestamps": [
+        12.05,
+        28.05,
+        47.05
+      ]
+    },
+    {
+      "id": "two-tone-headline-pair",
+      "timestamps": [
+        1.27,
+        2.11,
+        29.95,
+        48.52
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "push-transition",
+      "crossfade-dissolve",
+      "counter-roll",
+      "text-mask-rise"
+    ],
+    "compositions": [
+      "end-card",
+      "progress-stepper"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "explainer",
+    "product-promo",
+    "editorial-layout",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-2",
+    "silent",
+    "no-audio",
+    "brown",
+    "cream",
+    "terracotta",
+    "serif",
+    "photo-grid",
+    "push-transition",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 21.0
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 324,
+      "scan_size": "96x54",
+      "overview_frames": 64,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 8,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.583,
+        "kind": "soft",
+        "score": 0.145
+      },
+      {
+        "t": 4.767,
+        "kind": "soft",
+        "score": 0.523,
+        "isolation": 0.0
+      },
+      {
+        "t": 12.033,
+        "kind": "soft",
+        "score": 0.163,
+        "isolation": 0.0
+      },
+      {
+        "t": 21.0,
+        "kind": "soft",
+        "score": 0.483,
+        "isolation": 0.04
+      },
+      {
+        "t": 22.417,
+        "kind": "soft",
+        "score": 0.226
+      },
+      {
+        "t": 28.1,
+        "kind": "soft",
+        "score": 0.079,
+        "isolation": 0.0
+      },
+      {
+        "t": 34.583,
+        "kind": "soft",
+        "score": 0.163
+      },
+      {
+        "t": 47.033,
+        "kind": "soft",
+        "score": 0.155,
+        "isolation": 0.0
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.58,
+        "duration": 0.58,
+        "activity": 0.001,
+        "luma": 0.15
+      },
+      {
+        "index": 2,
+        "start": 0.58,
+        "end": 4.77,
+        "duration": 4.18,
+        "activity": 0.082,
+        "luma": 0.19
+      },
+      {
+        "index": 3,
+        "start": 4.77,
+        "end": 12.03,
+        "duration": 7.27,
+        "activity": 0.071,
+        "luma": 0.8
+      },
+      {
+        "index": 4,
+        "start": 12.03,
+        "end": 21.0,
+        "duration": 8.97,
+        "activity": 0.1,
+        "luma": 0.28
+      },
+      {
+        "index": 5,
+        "start": 21.0,
+        "end": 22.42,
+        "duration": 1.42,
+        "activity": 0.143,
+        "luma": 0.85
+      },
+      {
+        "index": 6,
+        "start": 22.42,
+        "end": 28.1,
+        "duration": 5.68,
+        "activity": 0.038,
+        "luma": 0.75
+      },
+      {
+        "index": 7,
+        "start": 28.1,
+        "end": 34.58,
+        "duration": 6.48,
+        "activity": 0.046,
+        "luma": 0.87
+      },
+      {
+        "index": 8,
+        "start": 34.58,
+        "end": 47.03,
+        "duration": 12.45,
+        "activity": 0.021,
+        "luma": 0.85
+      },
+      {
+        "index": 9,
+        "start": 47.03,
+        "end": 54.0,
+        "duration": 6.97,
+        "activity": 0.042,
+        "luma": 0.19
+      }
+    ],
+    "static_holds": [
+      [
+        0.08,
+        0.75
+      ],
+      [
+        2.75,
+        4.42
+      ],
+      [
+        18.58,
+        20.42
+      ],
+      [
+        27.25,
+        27.92
+      ],
+      [
+        33.08,
+        34.42
+      ],
+      [
+        36.08,
+        38.08
+      ],
+      [
+        42.42,
+        46.92
+      ],
+      [
+        51.25,
+        52.08
+      ]
+    ],
+    "mean_activity": 0.057,
+    "luma": {
+      "mean": 0.59,
+      "dark_share": 0.23,
+      "light_share": 0.62
+    },
+    "palette": [
+      {
+        "hex": "#f8e8e8",
+        "share": 0.357
+      },
+      {
+        "hex": "#382818",
+        "share": 0.16
+      },
+      {
+        "hex": "#282818",
+        "share": 0.129
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.087
+      },
+      {
+        "hex": "#b8a898",
+        "share": 0.046
+      },
+      {
+        "hex": "#786858",
+        "share": 0.029
+      },
+      {
+        "hex": "#d8b8a8",
+        "share": 0.025
+      },
+      {
+        "hex": "#685848",
+        "share": 0.021
+      },
+      {
+        "hex": "#a86858",
+        "share": 0.019
+      },
+      {
+        "hex": "#d8c8b8",
+        "share": 0.017
+      }
+    ],
+    "representative_times": [
+      0.29,
+      1.63,
+      2.67,
+      3.72,
+      6.58,
+      8.4,
+      10.21,
+      14.27,
+      16.52,
+      18.76,
+      21.71,
+      23.84,
+      25.26,
+      26.68,
+      29.72,
+      31.34,
+      32.96,
+      37.69,
+      40.8,
+      43.92,
+      48.77,
+      50.52,
+      52.26
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-c6d0aa55f6",
+      "overview": "reference/analysis/ref-c6d0aa55f6/overview.jpg",
+      "scenes": "reference/analysis/ref-c6d0aa55f6/scenes.jpg",
+      "transitions": "reference/analysis/ref-c6d0aa55f6/transitions.jpg",
+      "motion": "reference/analysis/ref-c6d0aa55f6/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-c6d0aa55f6/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

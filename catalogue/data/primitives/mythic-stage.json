@@ -1,0 +1,43 @@
+{
+  "id": "mythic-stage",
+  "name": "Mythic diorama stage",
+  "kind": "group",
+  "status": "experimental",
+  "description": "Full-frame paper ground with rag-paper fibre and depth layers (data-depth 0-5) for lamp-lit dioramas; pieces go into stage.layer(depth) and Studio.space.camera gives parallax.",
+  "rendering_engine": "css_dom",
+  "library_dependencies": [
+    "gsap",
+    "html-css-native"
+  ],
+  "inputs": [
+    {
+      "name": "ground",
+      "type": "token|colour",
+      "description": "Ground paint (default --c-paper)"
+    },
+    {
+      "name": "fibre",
+      "type": "boolean",
+      "description": "Rag-paper fibre filter on the ground (default true)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/mythic/mythic.js",
+    "api": "Studio.kit.mythic.stage(scene, {ground, fibre}) -> {el, ground, layer(depth)}"
+  },
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": [
+    "paper",
+    "diorama",
+    "2.5d",
+    "myth"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

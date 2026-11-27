@@ -1,6 +1,7 @@
 {
   "id": "element-bloom-transition",
   "name": "Element bloom transition",
+  "family": "transition-grow",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Five inspected references start a scene change from an element already on screen (a full stop, a dot, an eye, a heartbeat, a logo) that grows to become the next scene.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Instead of cutting or wiping, a small element of the current frame expands until its colour fills the frame, and that colour is the background of the next scene. The viewer's eye is already on the element, so the change feels caused rather than imposed.",
@@ -37,8 +38,27 @@
     { "source_id": "ref-92c22222a2", "timestamps": [1.88], "observed": "A starburst contracts to a point, then a cream disc with an orange core grows from that point to fill the frame." },
     { "source_id": "ref-49459ad8c1", "timestamps": [7.82], "observed": "The full stop of a sentence grows into a circle with a soft edge that fills the frame with the next scene's blue." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [2.48], "observed": "One of two ring 'eyes' fills and expands into the cream background of the next scene." },
-    { "source_id": "ref-5924215625", "timestamps": [1.57], "observed": "A heartbeat spike becomes a red circle that opens onto the first life scene." },
-    { "source_id": "ref-1cbe55c987", "timestamps": [12.5], "observed": "The product mark scales up into the white end card (approx., from overview spacing)." }
+    { "source_id": "ref-5924215625", "timestamps": [1.57, 11.73], "observed": "A heartbeat spike becomes a red circle that opens onto the first life scene. Later a small heart above the couple, already holding the next scene's sky, grows past the frame edge in about 0.27 s (11.50-11.77 s): reveal mode with a story shape instead of a circle." },
+    { "source_id": "ref-1cbe55c987", "timestamps": [12.5], "observed": "The product mark scales up into the white end card (approx., from overview spacing)." },
+    { "source_id": "ref-0b13aa7f02", "timestamps": [2.13, 24.72], "observed": "A dot appears in the centre of a black frame and grows as a cream circle to reveal the next card (2.0-2.2 s); later a black dot grows from the centre of a cream particle field into a full black frame (24.6-24.8 s)." },
+    { "source_id": "ref-aff23e662b", "timestamps": [1.85, 9.38], "observed": "The pupil of a macro eye dilates until black fills the frame and the next word decodes on it (1.7-1.9 s); a red dot blooms into a full red field carrying a waveform (9.38 s)." },
+    { "source_id": "ref-81650adf49", "timestamps": [13.0], "observed": "After a grey-white flash a point of light grows into the Earth (13.0-13.4 s)." },
+    { "source_id": "ref-5a2816d4db", "timestamps": [4.0, 24.88, 32.2], "observed": "Blue circle from a title letter's counter 3.97-4.17 s (0.2 s, accelerating); forest green from a centre dot 24.82-25.08 s; white from between pills 32.13-32.40 s, with the pills persisting into the next scene." },
+    { "source_id": "ref-3abcbedd20", "timestamps": [21.9, 22.0], "observed": "After a click on the theme toggle, a dark circle grows from the toggle and covers the frame (21.83-22.03 s, 0.2 s): the control causes the transition." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [2.77, 9.29], "observed": "A cream circle blooms from the middle of a word (2.75-2.86 s); a black circle grows from the centre over 9.19-9.36 s before particles burst." },
+    { "source_id": "ref-ee70618e88", "timestamps": [6.06], "observed": "The lime loading dot grows into a full lime frame in about 0.15 s (6.01-6.15 s) with a small dish card already at its centre; the lime is the next scene's background." },
+    { "source_id": "ref-85d3a83400", "timestamps": [8.57, 11.41], "observed": "Variant with a collapse first: a UI window shrinks into an orange dot (8.41-8.74 s), the dot holds about 2.7 s, then blooms into a full orange disc with a cream disc opening inside it (11.41-11.68 s), turning the charcoal act into a cream one." },
+    { "source_id": "ref-e8125c24ca", "timestamps": [20.5], "observed": "A cream circle blooms across a dark frame in about 0.17 s (20.50-20.67 s) and reveals a lyric line as it passes (reveal mode)." },
+    { "source_id": "ref-7a185cb08d", "timestamps": [10.97, 21.76], "observed": "A glass lens bubble holding the next image grows to fill the frame (10.97-11.14 s); the checked Order button grows into a black frame (21.73-21.86 s)." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [1.94], "observed": "The orange O of a name grows to fill the frame in 0.23 s (1.78-2.01 s), right after a 0.9 s dip in the sound; the orange is the next scene's background." },
+    { "source_id": "ref-fd749e7ebc", "timestamps": [1.82, 9.32], "observed": "Two blooms of 0.10 s: the ball rises and grows into a full orange frame (1.76-1.86 s); a blue circle grows from the centre of converging particles (9.26-9.36 s)." },
+    { "source_id": "ref-05c4222dae", "timestamps": [4.57], "observed": "An orange disc with soft rings blooms from behind a script word and lands as the O of the next chapter's word in 0.16 s (4.57-4.73 s)." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [2.84], "observed": "The blue full stop grows into a full-frame disc in 0.10 s (2.81-2.91 s) and a dark hole opens inside it onto the next scene (2.91-3.01 s)." },
+    { "source_id": "ref-9ed4034cad", "timestamps": [2.93, 3.05], "observed": "A small orange dot in the headline (2.85 s) blooms to a full cover by 3.02 s (0.17 s), then a white hole opens and clears by 3.18 s (0.16 s); the accent at 2.93 s leads the picture." },
+    { "source_id": "ref-c324a3d516", "timestamps": [1.8, 13.1], "observed": "The ball grows to an orange frame in about 0.17 s (1.70-1.87 s), blurring on the last frame; the progress bar fills to white (13.04-13.11 s) before the name." },
+    { "source_id": "ref-736d4ef2c2", "timestamps": [18.7], "observed": "Concentric organic rings swap colours, then the inner blue ring grows to fill the frame (18.66-18.73 s) and a grid draws on it." },
+    { "source_id": "ref-ce769bc33e", "timestamps": [4.19], "observed": "The clicked button becomes a circle that opens onto a grid of photo cards and grows past the frame in about 0.14 s (4.12-4.26 s)." },
+    { "source_id": "ref-392ee4d0f9", "timestamps": [13.17], "observed": "The ball shrinks to a sliver (13.05-13.12 s), then a white disc with echo rings blooms from it (13.15 s) and passes the frame edge by about 13.21 s; the white becomes the next page and the ball stays as the full stop of the closing name." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Disc growth, cut under cover, cleanup, reveal clip centre, seek-order independence." },
@@ -54,5 +74,5 @@
   ],
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). No footage, frames, logos or shot sequences are copied; implementations are original.",
   "tags": ["transition", "bloom", "iris", "dot", "continuity", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }

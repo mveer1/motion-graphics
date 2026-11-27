@@ -1,0 +1,31 @@
+{
+  "id": "act-break-fade-black",
+  "name": "Act break through black",
+  "family": "transition-continuous",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "2 inspected reference films (batch-2, batch-3, 2026-11-26): a wordless story short separates its acts with a fade through black and cuts plainly inside each act.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "In a wordless story, acts are separated by a fade to black, a short black hold and a fade up on the next location; the black reads as time passing. Location changes inside an act are plain cuts.",
+  "purpose": "Signal time passing between acts of a story; keep the plain cut for location changes inside an act.",
+  "visual_behaviour": "The act ends in a 0.8 s fade to black, black holds 0.8 s, and the next location fades up in 0.6 s; the film opens and closes with 0.5 s fades.",
+  "mechanics": "Fade out 0.8 s (ref-1e22836116 23.6-24.4 s), black hold 0.8 s (24.4-25.2 s), fade up 0.6 s (25.3-25.9 s); opening fade in 0.5 s (3.4-3.9 s); closing fade 0.5 s (43.2-43.7 s); cuts inside acts at 9.90 and 34.60 s.",
+  "decomposition": { "primitives": ["scene-container"], "effects": ["crossfade-dissolve"], "timing": "About 2.2 s per act break." },
+  "parameters": [
+    { "name": "fade_out", "description": "to black", "default": 0.8 },
+    { "name": "hold", "description": "black hold", "default": 0.8 },
+    { "name": "fade_in", "description": "from black", "default": 0.6 }
+  ],
+  "use_cases": ["Long-form chapter breaks", "Story films and time skips"],
+  "failure_modes": ["On a light-canvas film fade to the film's own background (see empty-stage-dip)", "With narration running, a 0.8 s black hold breaks the no-static-frame rule unless it sits in a narration pause"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.transition crossfade through a black layer: outgoing opacity to 0 over 0.8 s, hold 0.8 s, incoming from 0 over 0.6 s. In a light-canvas film fade to the film's own background instead (empty-stage-dip).", "runtime_api": ["Studio.transition"] },
+  "capability": { "support": "native", "requirements": ["CSS opacity"], "compatible_components": ["crossfade-dissolve"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 2, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-1e22836116", "timestamps": [23.6, 24.4, 25.3, 43.2], "observed": "Fade to black 0.8 s, hold 0.8 s, fade up 0.6 s between the stair and the lantern room; the film opens and closes with 0.5 s fades." },
+    { "source_id": "ref-a943607659", "timestamps": [22.25, 26.92, 37.87], "observed": "Fade to black 0.5 s, black 0.7-0.9 s, fade up 0.7 s between acts (22.0-26.9 s and 37.7-39.2 s); inside each act the stage never cuts." }
+  ],
+  "related": { "techniques": ["empty-stage-dip", "curtain-bookends", "layered-silhouette-stage"], "effects": ["crossfade-dissolve"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "continuous", "fade", "black", "act-break", "story", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

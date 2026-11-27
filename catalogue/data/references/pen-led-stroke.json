@@ -1,6 +1,7 @@
 {
   "id": "pen-led-stroke",
   "name": "Pen-led stroke",
+  "family": "motion-character",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Five inspected references draw lines with a visible moving point at the tip (a dot, a heartbeat blip, an accent full stop).", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "A line is drawn by a visible point that travels ahead of it, so the line reads as the trace of an action (a pen, a pulse, a flight) rather than as a mask reveal. The point usually survives the stroke and becomes the next focal element.",
@@ -37,7 +38,11 @@
     { "source_id": "ref-49459ad8c1", "timestamps": [0.5, 1.5, 8.5], "observed": "An orange dot draws a question-mark line that tangles into a scribble; later a line runs from the dot to underline the closing sentence." },
     { "source_id": "ref-5924215625", "timestamps": [0.5, 19.5], "observed": "A heartbeat trace is drawn by a moving blip at the start and returns flat at the end." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [13.1, 14.9], "observed": "An orange swoosh draws under the closing title and retracts to a dot." },
-    { "source_id": "ref-c93524ef20", "timestamps": [5.0], "observed": "A spiral construction line is traced with an accent dot at its tip over an archival image (approx., from overview spacing)." }
+    { "source_id": "ref-c93524ef20", "timestamps": [5.0], "observed": "A spiral construction line is traced with an accent dot at its tip over an archival image (approx., from overview spacing)." },
+    { "source_id": "ref-0fe1abc90a", "timestamps": [4.55, 6.06, 7.06], "observed": "A pen point at the tip of rotating circles (epicycles) draws the letter pi (4.1-7.5 s), then the shape fills (7.45-7.65 s)." },
+    { "source_id": "ref-2860712d4e", "timestamps": [10.05, 10.88], "observed": "The ball draws an S-curve from a flat ceiling line up to a check in 0.8 s (10.05-10.88 s)." },
+    { "source_id": "ref-a943607659", "timestamps": [27.97, 32.44], "observed": "A glowing route draws up the mountain behind the moving group of avatars (27.2-35.4 s)." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [0.3, 0.73], "observed": "A glowing yellow dot rolls right and the horizon line draws in dashes just ahead of it (0.30-0.73 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30" },
@@ -49,5 +54,5 @@
   "combines_with": [ { "id": "element-bloom-transition", "why": "The surviving dot becomes the seed of the next scene." }, { "id": "continuous-line-spine", "why": "One pen line can run through several scenes." } ],
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Paths and copy in the tests are original.",
   "tags": ["line-art", "pen", "stroke", "dot", "path", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-26" }
 }

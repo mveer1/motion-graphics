@@ -115,6 +115,10 @@
     "archival": "serif-quiet",
     "cinematic-dark": "serif-quiet",
     "paper-cut": "paper-label",
+    "mythic-paper": "serif-quiet",
+    "shadow-lantern": "serif-quiet",
+    "painted-folio": "serif-quiet",
+    "carved-relief": "serif-quiet",
     "dark-tech": "mono-type"
   },
   "fallback_preset": "clean-plate",
@@ -129,15 +133,18 @@
     "portrait": {
       "lower": { "bottom_edge": 0.766, "use": "Default for body text. Sits just above the platform caption and action bar." },
       "mid": { "bottom_edge": 0.64, "use": "Hook window. Above the lower interface band and clear of the top bar." },
-      "upper": { "top_edge": 0.14, "use": "A scene whose key visual or source line occupies the lower third." }
+      "upper": { "top_edge": 0.14, "use": "A scene whose key visual or source line occupies the lower third." },
+      "subject": { "anchored": true, "use": "A scene that names one thing on screen: the caption sits beside that element (storyboard caption_anchor), below it unless caption_side is above, inside the safe area. Keep the right 12 percent clear below 52 percent of the height." }
     },
     "landscape": {
       "lower": { "bottom_edge": 0.92, "use": "Always. Standard subtitle position." },
-      "upper": { "top_edge": 0.08, "use": "Only when the lower band holds a lower third or source line." }
+      "upper": { "top_edge": 0.08, "use": "Only when the lower band holds a lower third or source line." },
+      "subject": { "anchored": true, "use": "A diagram or illustrated scene where the voice names the part being drawn: the caption sits next to it (caption_anchor)." }
     },
     "square": {
       "lower": { "bottom_edge": 0.91, "use": "Always." },
-      "upper": { "top_edge": 0.1, "use": "Only when the lower band is occupied." }
+      "upper": { "top_edge": 0.1, "use": "Only when the lower band is occupied." },
+      "subject": { "anchored": true, "use": "As landscape." }
     }
   },
   "roles": {

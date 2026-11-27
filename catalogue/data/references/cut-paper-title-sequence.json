@@ -1,6 +1,7 @@
 {
   "id": "cut-paper-title-sequence",
   "name": "Mid-century cut-paper title sequence",
+  "family": "style-texture",
   "status": "experimental",
   "source": {
     "type": "genre-convention",

@@ -1,0 +1,31 @@
+{
+  "id": "caption-voice-strip",
+  "name": "Typed caption as the voice of a silent film",
+  "family": "narration-captions",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-2, 2026-11-26): a silent hand-drawn explainer carries its whole first-person script in a typed lower-third caption strip.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "In a film without sound, a caption strip in the lower third is the narrator: each cue types in word by word at about twice speaking speed, then holds complete so the viewer can finish reading, and cues change only when the picture is redrawn. Reading replaces listening, so the film works muted.",
+  "purpose": "Carry the whole script on screen so a film works muted; the reading pace is set by the holds, not by the reveal speed.",
+  "visual_behaviour": "A paper-like strip sits in the lower third over a dark bar. On each scene redraw a new cue types in word by word in about 1-4 s, then stays complete for 1.5-5 s until the next redraw replaces it.",
+  "mechanics": "Plate: a paper-like strip across about 83% of the width at 82-96% of the height over a dark bar; centred text, 1-3 lines. Reveal word by word at 6.3-8.3 words/s (median 7.8, about 0.13 s per word, linear, no highlight). Hold complete 1.4-4.9 s (median 3.5 s). The new cue starts on the frame of the scene redraw, at a whole second. 8-32 words per cue (median 17.5); 192 words in 58 s (199 words a minute on screen). Measured by counting word blobs in the caption band at the source 12 fps (calibrated: 19 of 19 words on one frame).",
+  "decomposition": { "primitives": ["styled-text", "split-text"], "effects": ["typewriter-reveal"], "timing": "Cue = scene, 3-9 s; reveal 1.0-4.9 s; hold at least 1.4 s, median 3.5 s." },
+  "parameters": [
+    { "name": "reveal_words_per_sec", "description": "type-on rate", "default": 7.8 },
+    { "name": "hold_sec", "description": "time the complete cue stays before the next scene", "default": 3.5 },
+    { "name": "words_per_cue_max", "description": "longest cue seen", "default": 32 },
+    { "name": "lines_max", "description": "lines per cue", "default": 3 }
+  ],
+  "use_cases": ["Films designed to autoplay muted on social platforms", "A product or character speaking in the first person", "Explainers with a notebook or paper look"],
+  "failure_modes": ["Holds under about 1.5 s for 20 or more words: the reader cannot finish", "A type-on slower than reading speed makes the viewer wait", "Caption plate over a busy lower third"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Studio.comp.captions with the caption-plate look; each cue starts on its scene's redraw at a whole second; words revealed with Studio.type.typewriter at about 7.8 words/s; the hold after the cue completes comes from a reading rule (median 3.5 s, at least 1.5 s for 20 or more words) instead of measured speech. Today cue times come only from narration words (studio.py captions --timing words): a reading-rule timing mode is not built.", "runtime_api": ["Studio.comp.captions", "Studio.type.typewriter"] },
+  "capability": { "support": "native", "requirements": ["per-word text reveal", "caption plate in the lower third"], "compatible_components": ["caption-plate", "caption-band", "typewriter-reveal"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2, "note": "Useful for films meant to autoplay muted; a reading-pace caption preset would need a runtime/spec change (handed to development, see decisions-needed)." } },
+  "provenance": [
+    { "source_id": "ref-216f4eaeef", "timestamps": [3.0, 20.0, 46.0], "observed": "10 caption cues in a silent 58 s film; each types in at 6.3-8.3 words/s and holds 1.4-4.9 s; each cue starts with a page redraw at a whole second." }
+  ],
+  "related": { "techniques": ["word-highlight-caption"], "effects": ["typewriter-reveal"], "compositions": ["caption-plate", "caption-band"], "templates": ["illustrated-explainer"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["captions", "narration-captions", "muted-autoplay", "reading-pace", "lower-third", "typewriter", "silent-film", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

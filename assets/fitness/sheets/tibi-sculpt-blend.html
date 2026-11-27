@@ -1,0 +1,39 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F5F3EF} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1220" data-fps="30" data-duration="3" data-still="2"><svg id="stage" width="1600" height="1220" viewBox="0 0 1600 1220"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script>
+<script>
+// Arm-art blend and front squat (sculpt kit 2.2.0). Each figure is one linear move frozen at a later phase,
+// so a row reads as the in-betweens a film would show: the deltoid cap swells and the lat wing grows from
+// behind the torso while the arm rises (front 25-75 deg, back 24-58 deg); the flexed arm fades in over the
+// raised one (elbow 35-85 deg). Outside those windows the art is exactly the old drawing.
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, STILL=2;
+  S.svg('rect',{width:1600,height:1220,fill:'#F5F3EF'},st);
+  function text(s,x,y,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||'#1B1D29','text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text('Tibi \u00B7 arm-art blend and front squat',60,56,32,800);
+  text('One move per row, frozen at later phases. Static poses are byte-identical to kit 2.1; only the in-betweens changed.',60,86,16,500,'#4A4E60','start','Inter');
+  function row(y,g,view,from,to,phases,label,scale,dx){
+    phases.forEach(function(p,i){
+      var x=110+i*(dx||205), t=K.sculpt(st,{gender:g,view:view,x:x,floor:y,scale:scale||0.62});
+      t.set(from); t.to(tl,to,STILL-p,1.0,{ease:'none'});
+      text(Math.round(p*100)+' %',x,y+26,14,600,'#4A4E60','middle','Inter');
+    });
+    text(label,60,y-305,18,800,'#1B1D29','start','Outfit');
+  }
+  var ph=[0,0.2,0.3,0.4,0.5,0.6,0.7,1];
+  row(425,'m','front','relaxed','lateral',ph,'front \u00B7 relaxed \u2192 lateral (abduction 8 \u2192 80 deg)');
+  row(800,'f','back','relaxed','flex',ph,'back \u00B7 relaxed \u2192 double biceps (abduction 8 \u2192 86, elbow 2 \u2192 104)');
+  row(1170,'m','front','relaxed','squat',[0,0.25,0.5,0.75,1],'front \u00B7 relaxed \u2192 squat (new pose: thighs foreshortened toward the camera)',0.62,210);
+  [['f','front'],['m','side']].forEach(function(d,i){
+    var x=1220+i*210, t=K.sculpt(st,{gender:d[0],view:d[1],x:x,floor:1170,scale:0.62});
+    t.set('squat'); t.activate(tl,d[1]==='front'?'front-squat':'squat',0,0.01);
+    text((d[1]==='front'?'front squat':'side squat')+' \u00B7 '+d[0],x,1196,14,600,'#4A4E60','middle','Inter');
+  });
+  tl.to({},{duration:3},0);
+});
+</script></body></html>

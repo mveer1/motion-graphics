@@ -1,0 +1,62 @@
+{
+  "id": "shared-mythic-kit",
+  "name": "Mythic kit (runtime)",
+  "component_type": "shared_asset",
+  "purpose": "Reusable building blocks for myths, legends and sacred stories (mythic-tale style template): lamp-lit paper dioramas, deckle-edged cut sheets, public-domain photo plates with paper margins and duotone, haloes (nimbus, prabhavali, mandorla, sun), ornamental borders (meander, lotus, knot, beads, zigzag), kaavad doors, phad scrolls, jointed shadow puppets (silhouette or dyed leather), gold-leaf glint, flower showers and embers, storyteller source cartouches and invocation titles. Guide: .claude/skills/mythic-tales/references/scene-recipes.md.",
+  "capabilities": [
+    "kits/mythic/mythic.js: Studio.kit.mythic (0.5.0): stage, lamp/lampTo/flicker, tint, sheet (shapes or custom d), plate, halo, border, doors, scroll, frieze, registers, puppet/cutout (looks silhouette, leather, paper, painted, illustrated; parts may carry painted layers clipped to their shape, gradient fills, SVG transforms (tf) and parts kept in every look), pose, title, cartouche, credit, shower, motion helpers",
+    "kits/mythic/figures.js: figure library on one skeleton in two builds (classic, heroic) (rama, hanuman, shiva, ganesha, athena, odin, tirthankara with lanchhana options, buddha) in silhouette, leather, paper and painted looks; geometry helpers M.geom, glyphs and props",
+    "kits/mythic/figures-human.js: human build of the same eight (rama-human ... buddha-human): front views on one 8-head proportion grid with faces, hair, dress, ornament and lamp-side cel shading, each from an identity block in references/figure-design.md; options for Rama (tone, attire), Hanuman (veera, dasa), Ganesha (red, gold), the Tirthankara (emblem, sect); builders in M.human.parts, geometry in M.human.geom",
+    "kits/mythic/armoury.js: 20 weapons and held attributes drawn at the grip and placed into hands (M.weapons, place), 7 auras with rotatable rays and rings (M.auras.make); heroic build of the human figures (HERO presets, heroTorso, heroArms, heroLeg, heroHead)",
+    "Tradition presets M.traditions (indian, jain, buddhist, greek, roman, norse) with 11 border motifs (lotus, meander, knot, beads, zigzag, chevron, egg-dart, wave, pattachitra, ruled, urnes)",
+    "Stepped 'on twos' motion: steps option on pose, sway and place; M.stepped(ease, duration, fps)",
+    "primitives: mythic-stage, deckle-sheet, photo-plate, shadow-puppet, source-cartouche, mythic-figures, frieze-registers",
+    "effects: paper-place, reverent-rise, lamp-flicker, halo-bloom, gold-glint, kaavad-doors, scroll-unroll, flower-shower, border-draw, puppet-pose",
+    "Style systems it reads: mythic-paper (default), shadow-lantern, painted-folio, carved-relief (shared token contract)"
+  ],
+  "location": "src/studio/kits/mythic",
+  "version": "0.5.0",
+  "installation": {
+    "required": false,
+    "instructions": "Synced into projects with the runtime (studio.py sync/upgrade); load _studio/kits/mythic/mythic.js, figures.js, figures-human.js, then armoury.js after studio-compositions.js, as templates/projects/mythic-film does."
+  },
+  "dependencies": [
+    "shared-studio-runtime"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "browser (HyperFrames headless Chrome)",
+    "notes": "Verified in Playwright Chromium on Windows (tests/test-mythic.py and frame review of the mythic-film scaffold). Not yet rendered through HyperFrames on the M2 host. Uses SVG filters (feTurbulence, feMorphology, feGaussianBlur), CSS clip-path and CSS 3D rotateY."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-tales/SKILL.md",
+    ".claude/skills/mythic-tales/references/scene-recipes.md",
+    ".claude/skills/mythic-tales/references/figure-design.md",
+    ".claude/skills/mythic-figure-designer/SKILL.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Written for this workspace; no third-party code. Depends on vendored GSAP 3.12.5 through the studio runtime."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Runs inside the composition page only; loads images only from paths the composition passes in."
+  },
+  "owner": "motion-graphics",
+  "status": "experimental",
+  "approval_evidence": "tests/test-mythic.py (every human figure in five looks, joints, layers, clips, posing, options; every armoury weapon placed with its transform; auras kept in every look), the figure, human, silhouette, armoury and motif review sheets (tests/mythic-kit/render-figures.py) and frame reviews of the four style-sample-mythic-* projects in Playwright Chromium on Windows, 2026-11-23 and 2026-11-24. Approval needs a HyperFrames render on the M2 host.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "kit",
+    "myth",
+    "paper",
+    "shadow-puppet",
+    "collage"
+  ]
+}

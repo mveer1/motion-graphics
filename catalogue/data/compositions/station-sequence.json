@@ -1,0 +1,33 @@
+{
+  "id": "station-sequence",
+  "name": "Station sequence (one layer per station, cross-faded)",
+  "purpose": "A film told as consecutive stations (exercises, steps, chapters): each station gets its own layer, is visible only in its own window and cross-fades into the next at the boundary, so a builder per station adds tweens inside a known window instead of hand-coding show/hide for every scene.",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["scene-container"],
+    "effects": ["crossfade-dissolve"],
+    "recipes": []
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "parent", "type": "element | element[]", "description": "One or more hosts; each station gets a layer in every host (a <g> in an SVG host, a div otherwise), so a picture and its copy fade together" },
+    { "name": "stations", "type": "array", "description": "[{id, start, end, build(layers, win, tl)}]; win = {index, start, end, in, out}, in/out being when the station is fully visible" },
+    { "name": "fade", "type": "number", "default": 0.5, "description": "Cross-fade length where one station ends as the next starts; a gap between stations is a hard hide/show" },
+    { "name": "hold", "type": "boolean", "default": true, "description": "Keep the last station to the end of the film" }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-film.js",
+    "api": "Studio.comp.stations(parent, stations, {fade, hold, className}) -> {layers, windows, schedule(tl) -> end time}"
+  },
+  "layout_notes": "Layers fill their host (.st-station, inset 0); layout inside a layer is the builder's. Format-neutral.",
+  "styles_tested": ["sinew-lab"],
+  "examples": ["tests/studio-runtime/film-helpers.html", "src/studio/kits/fitness/stations.js"],
+  "validation_steps": ["python tests/test-studio-runtime.py (windows, zero-dip cross-fade, gap, hold:false)"],
+  "validation": {
+    "evidence": "Runtime self-test in Playwright Chromium on Windows, 2026-11-24. Not rendered through HyperFrames.",
+    "last_verified": "2026-11-24"
+  },
+  "related": ["exercise-stations"],
+  "tags": ["composition", "structure", "stations", "crossfade"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-24", "updated_at": "2026-11-24" }
+}

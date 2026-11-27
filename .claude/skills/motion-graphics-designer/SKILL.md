@@ -124,6 +124,30 @@ Source: the owner's review of `game-theory-trust` ("lets at least add proper inf
 - **Plan it in the storyboard.** The story-writer lists, per scene, the information the visuals carry that narration does not (`storyboard.json` beats and `on_screen_text`); the composition builds exactly that and nothing is left "to be added later".
 - **Check before render.** On each contact sheet ask of every object: what is it called, and where does the viewer learn that? Anything unanswered goes back to the story-writer or gets a label.
 
+### H. Transitions and sound placement learned from reference videos (2026-11-26)
+
+Source: `docs/reference-playbook.md` (64 inspected reference videos as of 2026-11-27; generated technique index plus the analyst's synthesis). Read it before choreographing scene changes; every technique there lists its runtime API, numbers and precedent moments.
+
+- **Choose the transition by what the change means.** Next step: no cut (`single-stage-progression`, `empty-stage-dip`). Go deeper: grow an on-screen element into the next scene (`element-bloom-transition` via `Studio.fx.bloom`, `zoom-through-transition` via `Studio.fx.zoomThrough`, `container-transform`). A turn: `flash-frame-cut` (1-2 frames, decay 0.15-0.35 s, hit 0-250 ms after). Contrast: `film-match-cut` on a held element, `strike-and-correct`. Chapter close: a cover that belongs to the scene (`diegetic-object-wipe`).
+- **Start changes from what is already on screen** (a full stop, a dot, a letter's counter, an icon, a clicked control). It is the most-used pattern in the corpus (`element-bloom-transition`, 21 references).
+- **Blooms are fast:** 0.10-0.33 s from first pixel to full cover in 19 measured blooms (batches 2, 4, 5 and 6), 0.10-0.27 s in product films and showreels, usually from an accent-coloured full stop, a letter O, a dot or a ball (0.17 s in batch-5); keep 0.5-0.8 s for calm pieces only. Collapsing the outgoing element into a dot first (0.17-0.5 s), holding it, then blooming marks an act hinge (`implode-burst-reveal`); one container morphing through its shapes (0.13-0.33 s each) can carry a whole product film with no cut (`container-transform`, 8 references).
+- **Ration the big transitions** to the 2-4 real turns of a film; the rest are quiet builds, dips and plain cuts. A repeated small wipe can instead be the film's metronome: one diagonal band every 2.00 s, solid cover centred on the whole second, opening each feature (`diagonal-band-wipe`, `ref-dc626241e6`); in a showreel, morph one shape per beat (0.46-0.47 s at 129 bpm, `ref-c324a3d516`).
+- **On the light canvas, avoid hard cuts between light scenes.** 0 cuts in 123 s across three light batch-2 films; batch-4's light founder page, photo print and app window, both light batch-3 films and batch-5's narrated 60 s explainer and referral promo have none either. Stay continuous: blooms from a counter, dot or clicked control, a camera touring one canvas (`canvas-camera-tour`, 0.6-1.0 s moves), empty breaths of 0.05-0.4 s that dip to the film's own background (ivory), never black, and 0.4 s side pushes between light and dark chapters (`section-push-slide`). Keep hard cuts for entering a dark section (verdict, open, close) and for dark word-card sections (20 cuts in 24 s in `ref-b4e79aa0a4`).
+- **Headlines:** two-line headlines put the payoff word last, in the accent colour (`two-tone-headline-pair`, 10 references); words arrive on a fixed per-word stagger of 0.10-0.20 s and need not lock to the music (only the payoff word sat on an onset in 2 of 3 lines; `ref-0b2552b64e`).
+- **Photosensitivity:** never swap large dark and light areas faster than about every 0.2 s (`palette-cycle-card`: at most 3 flashes a second, WCAG 2.3.1).
+- **Schedule arrivals on a grid, then let sound mark them.** In music-led films every element arrival takes a beat (about 1.0 s at 120 bpm) and its own soft accent; cuts carry no hit. In narrated films the grid is the spoken noun (`studio.py words`), not the music, and copy changes wait for the pause before their phrase, readable 0.2-0.6 s early (`pause-locked-copy-swap`; 11 of 11 headline swaps in pauses in `ref-31ce9d6332`).
+
+### I. Explanation devices (runtime 1.18.0, 2026-11-28)
+
+Handbook: `docs/explanation-devices.md` (table `specs/explanation-devices.json`, runtime `src/studio/studio-explain.js`). The story-writer names a device per scene in `storyboard.json` (`device: {job, id, why}`); your job is to code that device, not to pick another one. If the device cannot carry the beat, send it back to the story-writer.
+
+- **Load it:** `<script src="_studio/studio-explain.js"></script>` after `studio-compositions.js` (and after `studio-film.js` when present). The three project templates already do.
+- **Copy the golden scene** named in the handbook card (`tests/reference-derived/explain-*`). Each passes frame review with 0 errors and 0 warnings, so its sizes, holds and pacing are known-good: hooks at 13u, step text at 4.4u, panel text of 6 words or fewer with holds of at least 2 s, a copy line held at least 1.7 s.
+- **Snap every device call to a spoken word** (`Studio.cues.fromWords`, `studio.py words`). Call the state-changing methods (`drag`, `run`, `play`, `to`, `swap`, `type`, `flip`, `moveTo`) in time order.
+- **Keep something moving under every device:** a scene drift, a slower extra turn of a trace, a background drift through a dip.
+- **Device text never goes under 2.6u.** On the light canvas, coloured text below 4.5:1 contrast goes back to ink with a coloured marker.
+- After coding, `studio.py validate <slug>` must show no "devices:" warning (it also checks that `src/index.html` really calls each declared device).
+
 ## 2. Animation Rules & The Anti-Laziness Mandate
 
 1. **Paused Root Timeline:** Always construct with `{ paused: true }` and mount to `window.__timelines['root']`.

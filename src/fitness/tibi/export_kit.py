@@ -25,7 +25,7 @@ import rig_f as RF  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 DEFAULT_OUT = os.path.join(ROOT, 'src', 'studio', 'kits', 'fitness', 'sculpt-data.js')
-VERSION = '2.1.0'
+VERSION = '2.2.0'   # 2.2.0: front-view squat (front_squat); runtime moves are continuous and arm art blends (sculpt.js)
 # rig units per Cobalt Sculpt unit: a standing figure (782 units, sole to crown) becomes about
 # 422 rig units, the classic Tibi's height, so scale guidance and exercise anchors carry over.
 U = 0.54
@@ -201,7 +201,10 @@ def export_poses():
                 _, _, meta = B.back3d_pose(g, name)
                 pel = [P for P in B.back3d_pose(g, name)[0] if P.key == 'pelvis'][0].W
                 rec['root'] = [r1(pel[0] - B.CX), r1(pel[1] - B.FLOOR)]
-                back[name[5:].replace('_', '-')] = rec
+                if name.startswith('front_'):
+                    front[name[6:].replace('_', '-')] = rec
+                else:
+                    back[name[5:].replace('_', '-')] = rec
         out[g] = {'side': side, 'front': front, 'back': back, 'top': top, 'above': above}
     return out
 

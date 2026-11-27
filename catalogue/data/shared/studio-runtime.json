@@ -18,10 +18,22 @@
     "kits/fitness/exercises.js (1.6.0): 12 upper-body exercises on Tibi with flat-plane equipment; classic tibi.js retired",
     "kits/fitness/tibi3d.js + exercises3d.js + vendor/three.min.js (1.7.0): Tibi in real 3D (skinned figure, muscles that never pop, free camera, pure-function-of-time motion tracks) with curl, bench press and lateral raise; QA by scripts/rig3d-check.js, rig3d-stills.py, motion-continuity.py",
     "1.8.0: 3D lower body (squat and knees-blocked squat, hip thrust, standing and seated calf raise; glute, adductor, soleus; heel lift; chest-frame arm IK; stage.views split screens; muscles under clothing warm through a deep role colour) and kits/fitness/film3d.js (overlays, pins, camera shots, bar panels for narrated 3D films)",
-    "1.9.0: anatomy 1.0 (one skin: surface activation, cutaways, isolation, skeleton), phase machine per 3D exercise, scene library, instructional overlays, frame-0 title cards; the dumbbell-press figure-id fix"
+    "1.9.0: anatomy 1.0 (one skin: surface activation, cutaways, isolation, skeleton), phase machine per 3D exercise, scene library, instructional overlays, frame-0 title cards; the dumbbell-press figure-id fix",
+    "1.9.1: seek-stable fitness skin, toe and anatomy-mode state; scene visibility set before drawing; bounded split-view projection cameras",
+    "1.9.2: optional distance-based Tibi profile sampling, with separate caches",
+    "1.10.0: integrated 3D anatomy by default, figure-local morph normals, bounded activation mixing, finer joint detail and torso-owned garment; explicit legacy preserved",
+    "1.11.0: sloping shoulder envelope, rounded deltoid fans and a separated neutral arm stance",
+    "1.12.0: flank and hip contours without ledges (thin serratus sheet, rounded pec ends, deep glute medius, rounded leg-tube tops); legacy unchanged",
+    "1.13.0: stage.fit, T3.framePoints, T3.fitScene and T3.scene({fit}) solve a 3D camera from the posed body and equipment over a whole set",
+    "1.14.0: 3D known-limit fixes (anatomy 1.4.0, Tibi 0.6.0): glute, effort/cloth tint, glute cutaway, female deltoid, shoulder ridge, fold correctives, ponytail follow-through, bench arch, bending sole; legacy unchanged",
+    "1.15.0: anatomy 1.6.0 and Tibi 0.8.0 (shoulder girdle), 3D exercise families 1-2, sculpt 2.2.0, studio-film.js helpers, kits/fitness/stations.js",
+    "1.15.1: exercise-card fit (stations.js): reading text never below 2.6% of the short side, chips drop before text shrinks (prime movers kept), fit measures content not the flex slot; audit reports card-below-floor",
+    "1.16.0: Tibi 0.9.0 (garS hand-roll branch), 3D exercise family 3 on the shoulder girdle (overhead press, lat pulldown, pull-up, seated cable row, one-arm row and their mistake variants); anatomy 1.6.0 and sculpt 2.2.0 unchanged",
+    "1.17.0: reference-backlog techniques: Studio.fx.flash, Studio.fx.containerTransform, Studio.type.scramble, Studio.type.strike / strikeCorrect, caption lane 'subject' (cue.anchor; storyboard caption_anchor); checks in tests/studio-runtime/backlog-techniques.html, frame review in tests/reference-derived/flash-and-container and scramble-strike-caption; fitness kit unchanged",
+    "1.18.0: explanation devices in studio-explain.js, one per narrator job (specs/explanation-devices.json): comp.equation, comp.slider, comp.tracePair, comp.simulation (+ simulationScript), comp.barRace, comp.progression, comp.copySlot, comp.ui widgets, comp.headline pair/build, space.tour, fx.dip; each keeps its state in one seek-safe proxy value; checks in tests/studio-runtime/explain-devices.html, golden scenes with frame review in tests/reference-derived/explain-*; fitness kit unchanged"
   ],
   "location": "src/studio",
-  "version": "1.0.0",
+  "version": "1.18.0",
   "installation": {
     "required": false,
     "instructions": "python3 scripts/studio.py sync <slug> copies it into projects/<slug>/src/_studio/ with studio.lock.json."
@@ -32,7 +44,7 @@
   "compatibility": {
     "apple_silicon_tested": false,
     "runtime": "browser (HyperFrames headless Chrome)",
-    "notes": "Self-test (tests/test-studio-runtime.py) passes in Playwright Chromium on Windows: determinism, backward seeking and seek-order independence. Not yet rendered through HyperFrames. Runtime 1.4.0 (2026-11-08) adds the rig engine and the fitness kit; rendered with HyperFrames on the M2 host in projects/how-muscles-grow. Runtime 1.5.0 (2026-11-09) adds the Cobalt Sculpt Tibi and the rig's derive hook; verified in headless Chrome, not yet in a HyperFrames film render."
+    "notes": "Current 1.12.0 flank/hip and 1.11.0 shoulder/arm geometry are checked on Windows. Historical Mac renders do not approve this version. Runtime synchronization is required; Mac production and human fitness accuracy review remain pending."
   },
   "documentation_urls": [
     "ARCHITECTURE.md"
@@ -52,9 +64,9 @@
   },
   "owner": "video-production",
   "status": "experimental",
-  "approval_evidence": "tests/test-studio-runtime.py PASS; masala-chai-recipe frame review PASS in three formats (2026-10-30). Promote after HyperFrames renders on the M2 host.",
+  "approval_evidence": "1.12.0, Windows 2026-11-21: 59 anatomy/rig/fitness tests and 40 temporal cases pass; the new flank/hip gate rejects the old serratus slab, glute-medius shelf and flat leg top in the actual checker; all 81 explicit-legacy seek images are byte-identical to the 1.11 run. 1.11.0, Windows 2026-11-20: 59 tests, 40 temporal cases and both locality cases pass. All 20 legacy images match 1.10, whose legacy references match 1.9.2. Eighty authored exercise/phase pose, bone and prop states remain exact. Current neutral stance intentionally changes; authored tracks, timing and 2D art do not. Mac/human approval pending.",
   "architecture_ref": "ARCHITECTURE.md#runtime",
-  "last_verified": "2026-10-30",
+  "last_verified": "2026-11-28",
   "tags": [
     "runtime",
     "gsap",

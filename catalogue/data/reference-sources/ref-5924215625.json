@@ -4,7 +4,9 @@
   "status": "experimental",
   "source": {
     "filename": "play_720p (12).mp4",
-    "aliases": [],
+    "aliases": [
+      "the-cycle-of-life-df282dcf.mp4"
+    ],
     "sha256": "592421562515d9108bbcf967c2d668c9fce257bf32e6a5fbbd9d4f97f29d7b27",
     "bytes": 4867822,
     "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
@@ -68,7 +70,7 @@
     "state": "inspected",
     "inspected_on": "2026-10-30",
     "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
-    "method": "Viewed scene sheet (8 scenes) covering the full 20 s. Overview and strips generated, not viewed. Audio from measurements only.",
+    "method": "Viewed scene sheet (8 scenes) covering the full 20 s. Overview and strips generated, not viewed. Audio from measurements only. Backfill 2026-11-26 (integrator, session D): reference-corpus.py listen run on this host; listen/listen.jpg opened; loudness, accents, accents on cuts against chance, silences and dictation phrases read from automated.listen and checked on the sheet. Signal features and Windows desktop dictation only; nobody listened; accents may be part of the music. Transition re-read 2026-11-27 (integrator): transitions.jpg opened; every boundary given a time and a family (cut, grow, cover, continuous).",
     "coverage": "Full duration at scene level.",
     "concept": {
       "observed": "A life from birth to death told along one horizontal line: a heartbeat spike opens on a baby, then childhood, teenage sunset, adult city routine, love, family, old age at night, and the line goes flat.",
@@ -94,7 +96,9 @@
         "observed": "Measured boundaries 1.57 c, 3.92 c, then soft changes at 5.33, 10.10, 11.73, 14.05, 16.80 s; median shot 2.35 s."
       },
       "transitions": {
-        "observed": "Heartbeat-to-circle bloom (1.57 s); soft walking transitions; a ragged organic edge wipe late in the piece."
+        "observed": "Re-read 2026-11-27: 7 boundaries (0 cut, 2 grow, 3 cover, 2 continuous). 1.57 s grow: concentric red and yellow rings bloom from the character in about 0.27 s (1.44-1.71 s) and the next landscape is seen through the inner ring. 3.92 s cover: a rainbow diagonal band sweeps right to left in about 0.2 s (3.83-4.03 s); day becomes a neon night behind it. 5.33 s continuous: the character rides on; nothing changes. 10.10 s cover: grey shelving panels slide away to the left (9.94-10.21 s) and reveal a beige room with the couple inside a ring. 11.73 s grow: a small heart above the couple already holds the next scene's sky and grows past the frame edge in about 0.27 s (11.50-11.77 s); the street scene shows through it (30 fps strip 11.50-11.84 s). 14.05 s cover: a ragged organic edge wipes from right to left in about 0.3 s (13.93-14.22 s), day to dusk. 16.80 s continuous: night holds while the moon rises and the couple age. Earlier reading (2026-10-30): Heartbeat-to-circle bloom (1.57 s); soft walking transitions; a ragged organic edge wipe late in the piece.",
+        "interpreted": "Every life stage turns through a shape from the story (rings, a heart, a torn edge); no hard cut in 20 s.",
+        "confidence": "high"
       },
       "depth_and_layering": {
         "observed": "Flat layers with mild parallax in landscapes."
@@ -105,6 +109,19 @@
       },
       "motifs": {
         "observed": "The line; the age and BPM counters."
+      },
+      "sound_design": {
+        "observed": "Integrated -14.2 LUFS, LRA 3.3 LU, true peak -0.6 dBTP. 18 accents (54 a minute). Accents on cuts 0.14 against chance 0.16 (7 boundaries); onsets near boundaries 0.57 against 0.36. No silences; head -0.2 dB, tail -3.4 dB. Listen sheet: the first accents are the heartbeat blips on the line (0.30, 0.81 s), then the baby appearing (1.25 s), the child's ball bouncing (2.81, 3.30, 3.58 s), skateboard landings (4.32, 4.83, 5.32 s) and the clock jumping hours (7.31, 7.83, 8.82 s).",
+        "interpreted": "Sound follows the life events (heartbeats, bounces, clock jumps), not the scene changes.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "1 word in 1 phrase (7.10-7.35 s) over the commuter scene; no speaker on any phrase frame; 1-2 word 'phrases' are dictation noise over the music. Verdict: none.",
+        "confidence": "medium"
+      },
+      "captions": {
+        "observed": "None; copy is a top-centre clock and weekday counter and small corner counters; no caption lane.",
+        "confidence": "high"
       }
     },
     "scenes": [
@@ -139,14 +156,16 @@
     ],
     "uncertainties": [
       "Exact wipe shape at the late transition",
-      "Whether there is music or SFX only"
+      "Whether there is music or SFX only",
+      "Speech verdict from Windows desktop dictation only; a Mac re-run with whisper or Parakeet would confirm it."
     ]
   },
   "techniques": [
     {
       "id": "element-bloom-transition",
       "timestamps": [
-        1.57
+        1.57,
+        11.73
       ]
     },
     {
@@ -176,6 +195,22 @@
       "timestamps": [
         5.5,
         16.8
+      ]
+    },
+    {
+      "id": "action-synced-foley",
+      "timestamps": [
+        0.3,
+        0.81,
+        2.81,
+        3.3,
+        3.58
+      ]
+    },
+    {
+      "id": "diagonal-band-wipe",
+      "timestamps": [
+        3.92
       ]
     }
   ],
@@ -207,21 +242,23 @@
     "story",
     "heartbeat",
     "counters",
-    "palette-progression"
+    "palette-progression",
+    "batch-0",
+    "batch-7"
   ],
   "confidence": "medium",
   "metadata": {
     "created_at": "2026-10-30",
-    "updated_at": "2026-10-30"
+    "updated_at": "2026-11-27"
   },
   "automated": {
     "analyzer": {
       "version": "1.2",
       "decoder": "browser",
       "browser_channel": "msedge",
-      "decoder_version": "156.0.4314.50",
-      "run_on": "2026-10-30",
-      "elapsed_sec": 16.2
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-25",
+      "elapsed_sec": 29.2
     },
     "sampling": {
       "scan_fps": 8.0,
@@ -531,6 +568,148 @@
       "audio": "reference/analysis/ref-5924215625/audio.png",
       "frames": "reference/analysis/ref-5924215625/frames",
       "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.2,
+        "lra_lu": 3.3,
+        "true_peak_dbtp": -0.6,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 12,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 7.1,
+        "speech_end": 7.35,
+        "speech_coverage": 0.01,
+        "wps_while_speaking": 4.0,
+        "wpm_over_span": 240,
+        "pace_thirds_wps": [
+          12.0,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 0.25,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 1,
+            "wps": 0.21
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 89,
+        "accents": 18,
+        "accents_per_min": 54.0,
+        "accent_times": [
+          0.3,
+          0.81,
+          1.25,
+          2.81,
+          3.3,
+          3.58,
+          4.32,
+          4.83,
+          5.32,
+          7.31,
+          7.83,
+          8.82,
+          9.4,
+          9.82,
+          10.45,
+          11.31,
+          12.1,
+          18.62
+        ],
+        "accent_threshold": 0.35,
+        "boundaries_with_accent": {
+          "boundaries": 7,
+          "share": 0.14,
+          "tolerance_ms": 100,
+          "chance_level": 0.16
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 4.41,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.99,
+        "silences": [],
+        "level_head_vs_body_db": -0.2,
+        "level_tail_vs_body_db": -3.4,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-5924215625/listen",
+        "sheet": "reference/analysis/ref-5924215625/listen/listen.jpg",
+        "words": "reference/analysis/ref-5924215625/listen/words.json",
+        "tracked": false
+      }
     }
   }
 }

@@ -1,0 +1,35 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F5F3EF} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1100" data-fps="30" data-duration="4" data-still="3"><svg id="stage" width="1600" height="1100" viewBox="0 0 1600 1100"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/sculpt-data.js"></script><script src="../../../src/studio/kits/fitness/sculpt.js"></script><script src="../../../src/studio/kits/fitness/exercises.js"></script><script src="../../../src/studio/kits/fitness/library.js"></script>
+<script>
+// Barbell and machine lifts in 2D (sculpt kit 2.2.0): each exercise at its two phases, both bodies.
+// Equipment is drawn from Tibi's joints; plates are 450 mm at Tibi's scale. Kinematics conceptual.
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, P=K.palette, STILL=3;
+  S.svg('rect',{width:1600,height:1100,fill:'#F5F3EF'},st);
+  function text(s,x,y,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||'#1B1D29','text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text('Tibi \u00B7 barbell and machine lifts (2D)',60,56,32,800);
+  text('Each lift at its two phases; plates 450 mm at Tibi\u2019s scale; kinematics conceptual, label any angle illustrative',60,86,16,500,'#4A4E60','start','Inter');
+  var rows=[['back-squat','side',['squat-top','squat-bottom']],['deadlift','side',['deadlift-bottom','deadlift-top']],['barbell-bench-press','side',['bench-top','bench-bottom']],['leg-press','side',['press-bottom','press-top']],['lat-pulldown','back',['pulldown-top','pulldown-bottom']]];
+  // two rows of figures: lifts 1-3 top, 4-5 bottom; each lift: male phase A, female phase B
+  rows.forEach(function(r,i){
+    var col=i<3?i:(r[0]==='leg-press'?0:2), row=i<3?0:1, cx0=60+col*520, floor=row?1000:500;   // the leg press gets two columns: each machine is ~300 px wide
+    r[2].forEach(function(ph,k){
+      var x=cx0+130+k*(r[0]==='leg-press'?440:240)+(r[0]==='leg-press'?-20:0)+(r[0]==='barbell-bench-press'?30:0);
+      var g=S.svg('g',{},st);
+      var t=K.sculpt(g,{gender:k?'female':'male',view:r[1],x:x,floor:floor,scale:r[1]==='back'?0.62:0.7});
+      var ex=K.exercise(t,r[0]);
+      ex.phase(tl,ph,0.5,0.8);
+      t.activate(tl,ex.acts,0.5,0.6);
+      text(ph+' \u00B7 '+(k?'f':'m'),x,floor+34,15,600,'#4A4E60','middle','Inter');
+    });
+    text(r[0],cx0+20,row?620:120,20,800,'#1B1D29','start','Outfit');
+  });
+  tl.to({},{duration:4},0);
+});
+</script></body></html>

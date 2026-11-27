@@ -1,0 +1,69 @@
+{
+  "id": "strike-correct-claim",
+  "name": "Strike the myth, type the fact",
+  "effect_id": "strike-correct",
+  "status": "experimental",
+  "visual_intent": "Open an explainer on a misconception and correct it on screen.",
+  "parameters": [
+    {
+      "name": "cps",
+      "type": "number",
+      "default": 30,
+      "description": "Typing speed of both lines"
+    },
+    {
+      "name": "read",
+      "type": "number",
+      "default": 0.6,
+      "description": "Seconds the struck claim stays full size so it can be read"
+    },
+    {
+      "name": "demote",
+      "type": "string",
+      "default": "shrink-up",
+      "description": "shrink-up, fade or fall"
+    },
+    {
+      "name": "strike",
+      "type": "object",
+      "description": "Options for Studio.type.strike (style line or scribble, color via --c-strike)"
+    }
+  ],
+  "timeline_requirements": {
+    "gsap_instance": "Timeline passed to Studio.build(builder) (registered as window.__timelines['root'])",
+    "timing_anchors": "Cue map (Studio.cues) or word times (Studio.cues.fromWords); place it on the word or beat it illustrates",
+    "easing_standard": "power2.out (strike); power2.inOut (demotion)",
+    "prng_required": false
+  },
+  "code_snippet": {
+    "javascript": "// lay the correction out below the claim; give it the film's 'right' colour and at least the claim's size\nvar s = Studio.type.strikeCorrect(tl, '#claim', '#fix', cue('myth'), { read: 0.6 });"
+  },
+  "fallbacks": "Studio.type.typewriter for both lines with a Studio.fx.stamp 'WRONG' on the claim.",
+  "performance_characteristics": {
+    "tested_fps": 30,
+    "frame_budget_ms": 1.0,
+    "memory_impact": "Low; estimate, not measured on the M2"
+  },
+  "validation_steps": [
+    "python tests/test-studio-runtime.py",
+    "python scripts/frame-review.py tests/reference-derived/scramble-strike-caption/index.html --serve-root . --fonts google --at <typed, struck, demoted, corrected>",
+    "On the render host: hyperframes snapshot at the strike and after the correction"
+  ],
+  "tags": [
+    "typography",
+    "strike",
+    "reference-derived"
+  ],
+  "examples": [
+    "tests/reference-derived/scramble-strike-caption/index.html"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/backlog-techniques.html in Playwright Chromium on Windows, 2026-11-28.",
+    "last_verified": "2026-11-28"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

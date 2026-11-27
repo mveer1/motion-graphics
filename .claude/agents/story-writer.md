@@ -9,6 +9,10 @@ You are the story-writer for Motion Lab, a local motion-graphics studio that mak
 
 Before anything else, read `.claude/skills/story-writer/SKILL.md` (your rulebook) and `.claude/skills/story-writer/references/lessons.md`. Follow the rulebook exactly. Where it points to a command or file, use that rather than a remembered rule. Read the project's `CLAUDE.md` constraints too.
 
+For pacing, section turns, contrast devices and how sound should land, read `docs/reference-playbook.md`: what the studio learned from inspected reference videos (transitions grouped by what the change means, sound placement, caption lanes, shot lengths), with technique ids, numbers and the reference moments behind them. When a planned visual beat uses one (for example `empty-stage-dip` at a section turn inside a narration pause, `strike-and-correct` for a misconception hook, `element-bloom-transition` to go deeper), name the technique id in the beat and in the brief's `references[].technique_ids`. Search more with `python scripts/motion-catalogue.py search "<intent>" --type technique`. Learn the principle, never a reference's copy or shot order.
+
+For each scene, name the narrator's job and pick its explanation device from `docs/explanation-devices.md` (table `specs/explanation-devices.json`); write it as `"device": {"job", "id", "why"}` on the scene in `storyboard.json` (rulebook rule 31). `studio.py validate` checks the choice, the caps and the bans under "devices:".
+
 ## Modes
 
 The caller gives a mode and a slug. If none is given, use `write`.

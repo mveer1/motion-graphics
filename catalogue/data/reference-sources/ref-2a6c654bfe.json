@@ -1,0 +1,619 @@
+{
+  "id": "ref-2a6c654bfe",
+  "name": "Particle-built newsletter-reader intro: dot sphere, particle icons, a dithered dark-to-light wipe and an e-ink ring burst",
+  "status": "experimental",
+  "source": {
+    "filename": "product-intro-synced-to-music-cdca9724.mp4",
+    "aliases": [],
+    "sha256": "2a6c654bfe90d7cdec8845a1c82126b756e019ea97ee7f3d4935d8a625e59e77",
+    "bytes": 3633264,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product wordmark, tagline and address on the end card",
+        "timestamps": [
+          13.12,
+          14.62
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Newsletter issue and reader interface",
+        "timestamps": [
+          7.88,
+          11.62
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Product intro; reuse the particle-built icons, the dithered wipe and the screen-refresh release only, with original type and content."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3633264,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 15.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 900,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 1662,
+    "keyframes": 15,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 15.083,
+      "kbps": 261
+    },
+    "overall_kbps": 1938
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (20 frames), transitions sheet (3 boundaries, every 2nd frame of 60 fps), listen sheet (4 phrases and 12 accents) and 30 fps strips at 7.45-7.80 s and 12.45-12.80 s (ffmpeg backend). Music-sync test with measure_frames_batch5.py at 60 fps (frame-difference rising edges, full frame, the headline region and the inbox-list region, against audio onsets and accents within 50 ms, chance = share of the film within 50 ms of an onset); dips and grids from measure_batch5.py. nothing was listened to.",
+    "coverage": "Full 15.0 s (1280x720, 60 fps); the wipe and the ring burst at 30 fps.",
+    "concept": {
+      "observed": "Introduces a reader that collects newsletters: a sphere of dots breaks into a grid, particle icons show forwarding and saving, a dithered wipe turns dark to light for the collected issue, the issue becomes an e-reader page and an e-ink refresh releases the end card.",
+      "interpreted": "Dust becomes content becomes a calm page: the medium's texture is the story.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Text-led film: the copy is on screen, timed to the music. A numbered kicker and a two-line serif headline with one italic word per section."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Warm near-black (#181818, #282818) for the first half, ivory paper (#f8f8f8, 38%) for the second; white dots; black e-reader bezel."
+      },
+      "typography": {
+        "observed": "Light serif headlines with one italic word ('newsletters', 'anywhere', 'quiet', 'e-reader'); tiny mono kicker numbers; serif wordmark on the end card."
+      },
+      "composition": {
+        "observed": "Headline left at about 30-45% of the height, 1.5-25% of the width; an inbox list or the issue at right; particle icons drift lower right."
+      },
+      "motion": {
+        "observed": "Dots orbit inside a glass sphere (0-1.6 s) and burst into a grid (1.68-1.80 s); a bright band scans the grid (2.0-2.6 s); particles assemble an envelope, a share icon, a link and a signal icon (3.2-6.4 s) while list rows add at right; pages fan behind the issue (8.6-9.4 s); the issue dithers into a device page (9.9-10.4 s)."
+      },
+      "transitions": {
+        "observed": "3 boundaries, 0 edits. 2.06 s: continuous (the scan band crosses the grid and it dims to the headline scene). 7.55 s: cover, a grain-edged dither wipe from left, dark to light, about 0.35 s (7.50-7.85 s). 12.50 s: grow, the e-reader screen flashes black (12.50-12.58 s), a particle ring bursts from its centre at 12.62 s and grows past the frame by 12.82 s into the white end card. Also a headline swap in place at 5.10 s and the page-to-device change at 10.10 s.",
+        "interpreted": "Every change is made of the same dots, so the film never cuts.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections change every 2.40-2.55 s after the opening (2.06, 5.10, 7.55, 10.10, 12.50 s), about four beats at the measured 95.7 bpm (2.51 s)."
+      },
+      "sound_design": {
+        "observed": "-14.5 LUFS, LRA 5.0 LU, true peak -1.3 dBTP. Tempo 95.7 bpm (medium, autocorr 0.75). 20 accents (80/min), 17 of them on a 0.30-0.33 s grid (2.55-6.62 s and 8.50-9.75 s). Accents on boundaries 0/3 (chance 0.23); onsets on boundaries 0.67 (chance 0.30, median 42 ms), on a beat 0.33 (chance 0.19). Sync test at 60 fps: headline-region changes within 50 ms of an onset 6/10 (chance 0.35), inbox rows 0/5 (chance 0.35), full-frame change starts 6/12 (0.35). Level dips 1.44-2.28 s (-41.9 dB, film median -19.3) before the scan band and 12.68-12.96 s (-47.2 dB) during the ring burst before the end card. Head silence 0.05-0.35 s. Accents may be part of the music.",
+        "interpreted": "Synced at the phrase level (a section per bar, headlines near onsets), not at the hit level (no accent on a transition, list rows off the onsets).",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: 18 raw words, 8 confident in 4 phrases, all one repeated letter, over headlines with no speaker. Engine Windows desktop dictation (System.Speech en-US), rough."
+      },
+      "captions": {
+        "observed": "No captions; copy is the two-line headline at left (2-4 words per line, held 2.4-2.5 s) with one italic word, swapped in place."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.06,
+        "observed": "A glass sphere of dots bursts into a grid."
+      },
+      {
+        "start": 2.06,
+        "end": 5.1,
+        "observed": "Forward: an envelope of particles."
+      },
+      {
+        "start": 5.1,
+        "end": 7.55,
+        "observed": "Save from anywhere: share, link and signal icons."
+      },
+      {
+        "start": 7.55,
+        "end": 10.1,
+        "observed": "Dithered wipe to light: the collected issue and its pages."
+      },
+      {
+        "start": 10.1,
+        "end": 12.5,
+        "observed": "The issue arrives on an e-reader."
+      },
+      {
+        "start": 12.5,
+        "end": 15.0,
+        "observed": "E-ink flash, ring burst, end card."
+      }
+    ],
+    "moments": [
+      {
+        "t": 12.5,
+        "observed": "The e-reader screen goes black for 0.08 s, a ring of particles bursts from its centre (12.62 s) and grows past the frame (12.82 s) while the level drops 28 dB under the median (12.68-12.96 s).",
+        "interpreted": "An e-ink refresh used as the release into the end card."
+      }
+    ],
+    "difficult": [
+      "Thousands of dots assembling icons need a particle system with sampled targets (Canvas 2D is enough)",
+      "The glass sphere looks rendered (refraction and a soft shadow)"
+    ],
+    "uncertainties": [
+      "Whether the title's 'synced to music' means a hand edit to bars; frame-difference events under-detect arrivals in continuous particle motion",
+      "Whether the opening sphere is a 3D render or a 2D treatment"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "particle-assemble-glyph",
+      "timestamps": [
+        3.43,
+        5.36,
+        6.38
+      ]
+    },
+    {
+      "id": "implode-burst-reveal",
+      "timestamps": [
+        12.5,
+        12.68
+      ]
+    },
+    {
+      "id": "pre-hit-dropout",
+      "timestamps": [
+        1.8,
+        12.8
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        5.69,
+        6.38
+      ]
+    },
+    {
+      "id": "dither-edge-wipe",
+      "timestamps": [
+        7.55,
+        7.65
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "particle-drift",
+      "object-assembly"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light",
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "music-sync",
+    "object-assembly",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "60fps",
+    "particles",
+    "dark-to-light",
+    "music-only",
+    "serif"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 13.9
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 120,
+      "scan_size": "96x54",
+      "overview_frames": 20,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 2.062,
+        "kind": "soft",
+        "score": 0.147
+      },
+      {
+        "t": 7.55,
+        "kind": "soft",
+        "score": 0.118,
+        "isolation": 0.01
+      },
+      {
+        "t": 12.5,
+        "kind": "cut",
+        "score": 0.165,
+        "isolation": 1.0,
+        "frame": 750
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 2.06,
+        "duration": 2.06,
+        "activity": 0.183,
+        "luma": 0.11
+      },
+      {
+        "index": 2,
+        "start": 2.06,
+        "end": 7.55,
+        "duration": 5.49,
+        "activity": 0.055,
+        "luma": 0.13
+      },
+      {
+        "index": 3,
+        "start": 7.55,
+        "end": 12.5,
+        "duration": 4.95,
+        "activity": 0.053,
+        "luma": 0.91
+      },
+      {
+        "index": 4,
+        "start": 12.5,
+        "end": 15.0,
+        "duration": 2.5,
+        "activity": 0.04,
+        "luma": 0.95
+      }
+    ],
+    "static_holds": [
+      [
+        6.69,
+        7.44
+      ],
+      [
+        8.69,
+        9.69
+      ],
+      [
+        14.19,
+        14.94
+      ]
+    ],
+    "mean_activity": 0.069,
+    "luma": {
+      "mean": 0.52,
+      "dark_share": 0.51,
+      "light_share": 0.48
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.378
+      },
+      {
+        "hex": "#181818",
+        "share": 0.189
+      },
+      {
+        "hex": "#282818",
+        "share": 0.125
+      },
+      {
+        "hex": "#281818",
+        "share": 0.102
+      },
+      {
+        "hex": "#f8f8e8",
+        "share": 0.059
+      },
+      {
+        "hex": "#e8e8d8",
+        "share": 0.026
+      },
+      {
+        "hex": "#080808",
+        "share": 0.025
+      },
+      {
+        "hex": "#e8e8e8",
+        "share": 0.011
+      },
+      {
+        "hex": "#181808",
+        "share": 0.011
+      },
+      {
+        "hex": "#484838",
+        "share": 0.01
+      }
+    ],
+    "representative_times": [
+      1.03,
+      3.43,
+      4.8,
+      6.18,
+      8.79,
+      10.03,
+      11.26,
+      13.75
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.6,
+      "mean_dbfs_voiced": -20.6,
+      "silence_ratio": 0.03,
+      "onsets": 54,
+      "onset_rate_per_sec": 3.58,
+      "onset_times": [
+        0.37,
+        0.6,
+        0.67,
+        0.79,
+        0.88,
+        0.98,
+        1.18,
+        1.42,
+        1.51,
+        1.83,
+        1.9,
+        2.02,
+        2.14,
+        2.55,
+        2.81,
+        2.88,
+        3.18,
+        3.48,
+        3.81,
+        4.11,
+        4.44,
+        4.74,
+        4.9,
+        5.06,
+        5.36,
+        5.69,
+        5.99,
+        6.32,
+        6.62,
+        6.94,
+        7.13,
+        7.24,
+        7.55,
+        7.87,
+        8.2,
+        8.5,
+        8.8,
+        9.13,
+        9.43,
+        9.75,
+        10.05,
+        10.22,
+        10.38,
+        10.68,
+        11.01,
+        11.31,
+        11.63,
+        11.94,
+        12.24,
+        12.56,
+        12.86,
+        13.49,
+        13.82,
+        14.42
+      ],
+      "tempo_estimate": {
+        "bpm": 95.7,
+        "autocorr": 0.75,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 985,
+      "band_share": {
+        "low_lt_250": 0.37,
+        "mid_250_2k": 0.44,
+        "high_gt_2k": 0.2
+      },
+      "syllabic_modulation_share": 0.33,
+      "boundary_onset_alignment": {
+        "boundaries": 3,
+        "tolerance_ms": 50,
+        "near_onset": 0.67,
+        "chance_level": 0.3,
+        "median_offset_ms": 42,
+        "near_beat": 0.33,
+        "beat_chance_level": 0.19,
+        "beat_phase_sec": 0.17
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-2a6c654bfe",
+      "overview": "reference/analysis/ref-2a6c654bfe/overview.jpg",
+      "scenes": "reference/analysis/ref-2a6c654bfe/scenes.jpg",
+      "transitions": "reference/analysis/ref-2a6c654bfe/transitions.jpg",
+      "motion": "reference/analysis/ref-2a6c654bfe/motion.jpg",
+      "audio": "reference/analysis/ref-2a6c654bfe/audio.png",
+      "frames": "reference/analysis/ref-2a6c654bfe/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -14.5,
+        "lra_lu": 5.0,
+        "true_peak_dbtp": -1.3,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 18,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "sparse",
+        "words": 8,
+        "phrases": 4,
+        "speech_start": 3.38,
+        "speech_end": 9.55,
+        "speech_coverage": 0.25,
+        "wps_while_speaking": 2.12,
+        "wpm_over_span": 78,
+        "pace_thirds_wps": [
+          1.46,
+          0.97,
+          1.46
+        ],
+        "pace_trend": "steady",
+        "phrase_words_median": 1.5,
+        "phrase_sec_median": 0.55,
+        "pauses": {
+          "count": 3,
+          "median_ms": 620,
+          "max_ms": 1240,
+          "at": [
+            3.93,
+            6.82,
+            8.61
+          ]
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 5,
+            "wps": 0.91
+          },
+          {
+            "index": 3,
+            "words": 3,
+            "wps": 0.61
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 1,
+          "in_pause_share": 1.0,
+          "chance_level": 0.39,
+          "next_phrase_after_ms_median": 510
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 54,
+        "accents": 20,
+        "accents_per_min": 80.0,
+        "accent_times": [
+          2.55,
+          2.88,
+          3.18,
+          3.48,
+          3.81,
+          4.11,
+          4.44,
+          4.74,
+          5.06,
+          5.36,
+          5.69,
+          5.99,
+          6.62,
+          8.5,
+          8.8,
+          9.13,
+          9.43,
+          9.75,
+          10.38,
+          11.94
+        ],
+        "accent_threshold": 0.55,
+        "boundaries_with_accent": {
+          "boundaries": 3,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.23
+        },
+        "onset_rate_during_speech": 3.45,
+        "onset_rate_outside_speech": 3.65,
+        "level_speech_minus_gaps_db": 0.5,
+        "sustained_share": 0.96,
+        "silences": [
+          [
+            0.05,
+            0.35
+          ]
+        ],
+        "level_head_vs_body_db": -6.5,
+        "level_tail_vs_body_db": -11.7,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-2a6c654bfe/listen",
+        "sheet": "reference/analysis/ref-2a6c654bfe/listen/listen.jpg",
+        "words": "reference/analysis/ref-2a6c654bfe/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

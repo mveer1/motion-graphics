@@ -1,0 +1,78 @@
+{
+  "id": "bar-race",
+  "name": "Bar chart race",
+  "purpose": "Bars re-rank over time: values move linearly within a step, ranks with power2.inOut, value labels follow each bar and a large faint date label advances.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "names",
+      "type": "string[]",
+      "description": "one per bar"
+    },
+    {
+      "name": "frames",
+      "type": "array",
+      "description": "[{label, values[]}]"
+    },
+    {
+      "name": "scale",
+      "type": "string",
+      "description": "frame | global maximum",
+      "default": "frame"
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "description": "bars shown",
+      "default": 7
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.barRace(parent, {names, frames, colors, scale, format}, {rows}) -> {enter, play(tl, at, {from, to, step 0.3}), exit}"
+  },
+  "layout_notes": "Rows share the parent's height; names right-aligned in the first 22%; the date sits bottom right.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-simulation-race/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-simulation-race/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "animated-chart"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "data",
+    "ranking",
+    "time"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

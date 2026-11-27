@@ -41,6 +41,39 @@
       "performance"
      ]
     },
+    "barbell-bench-press": {
+     "camera": "side view for the bar path and forearm angle; three-quarter from the foot end for elbow angle",
+     "category": "gym",
+     "errors": [
+      "flare",
+      "bounce",
+      "hips-lift",
+      "wrists-bent"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "pectoralis-major",
+       "triceps-brachii"
+      ],
+      "secondary": [
+       "deltoid"
+      ],
+      "stabilizer": [
+       "biceps-brachii",
+       "rotator-cuff"
+      ]
+     },
+     "name": "Barbell bench press",
+     "phases": [
+      "lowering",
+      "pressing"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "performance"
+     ]
+    },
     "bodyweight-squat": {
      "camera": "Side view.",
      "category": "bodyweight",
@@ -92,6 +125,44 @@
      ],
      "pillar": [
       "strength-for-running"
+     ]
+    },
+    "deadlift": {
+     "camera": "side view for the bar path and back angle; front for stance and grip width",
+     "category": "gym",
+     "errors": [
+      "back-rounds",
+      "bar-drifts",
+      "hips-shoot-up",
+      "lean-back"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "gluteus-maximus",
+       "hamstrings",
+       "quadriceps"
+      ],
+      "secondary": [
+       "erector-spinae",
+       "adductors"
+      ],
+      "stabilizer": [
+       "trapezius",
+       "forearm-flexors",
+       "gastrocnemius",
+       "rectus-abdominis",
+       "external-oblique"
+      ]
+     },
+     "name": "Conventional barbell deadlift",
+     "phases": [
+      "pull",
+      "lower"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "performance"
      ]
     },
     "dip": {
@@ -213,6 +284,41 @@
       "gym-bodybuilding"
      ]
     },
+    "forward-lunge": {
+     "camera": "side view for the step length and both knee angles; front for front-knee tracking",
+     "category": "gym",
+     "errors": [
+      "knee-caves",
+      "heel-lifts",
+      "tightrope",
+      "trunk-collapse"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "quadriceps",
+       "gluteus-maximus"
+      ],
+      "secondary": [
+       "hamstrings"
+      ],
+      "stabilizer": [
+       "gluteus-medius",
+       "adductors",
+       "erector-spinae",
+       "forearm-flexors"
+      ]
+     },
+     "name": "Forward lunge (dumbbells)",
+     "phases": [
+      "step-down",
+      "push-back"
+     ],
+     "pillar": [
+      "strength-for-running",
+      "gym-bodybuilding"
+     ]
+    },
     "hip-thrust": {
      "camera": "side view",
      "category": "gym",
@@ -306,6 +412,43 @@
       "performance"
      ]
     },
+    "lat-pulldown": {
+     "camera": "back view for the shoulder blades and lats; side for the bar path and trunk angle",
+     "category": "gym",
+     "errors": [
+      "swing-back",
+      "behind-neck",
+      "shrug",
+      "short-range"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "latissimus-dorsi"
+      ],
+      "secondary": [
+       "teres-major",
+       "biceps-brachii",
+       "brachialis",
+       "rhomboids",
+       "trapezius",
+       "deltoid"
+      ],
+      "stabilizer": [
+       "infraspinatus",
+       "triceps-brachii",
+       "forearm-flexors"
+      ]
+     },
+     "name": "Lat pulldown (cable)",
+     "phases": [
+      "pulling",
+      "returning"
+     ],
+     "pillar": [
+      "gym-bodybuilding"
+     ]
+    },
     "lateral-raise": {
      "camera": "front view (the motion stays in the picture plane)",
      "category": "gym",
@@ -335,26 +478,117 @@
       "gym-bodybuilding"
      ]
     },
-    "one-arm-row": {
-     "camera": "side view (the motion stays in the picture plane)",
+    "leg-curl": {
+     "camera": "side view (the motion is a single arc around the knee)",
      "category": "gym",
      "errors": [
-      "common-error"
+      "hips-lift",
+      "short-range",
+      "pivot-misaligned"
      ],
      "kinematics": "conceptual",
      "muscles": {
-      "fibres": "latissimus-dorsi; rhomboids; trapezius (middle fibres); deltoid (posterior fibres) / biceps-brachii; brachialis; forearm-flexors (grip); erector-spinae (trunk position)",
+      "primary": [
+       "hamstrings"
+      ],
+      "secondary": [
+       "gastrocnemius"
+      ],
+      "stabilizer": []
+     },
+     "name": "Seated leg curl (machine)",
+     "phases": [
+      "curling",
+      "returning"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "strength-for-running"
+     ]
+    },
+    "leg-extension": {
+     "camera": "side view (the motion is a single arc around the knee)",
+     "category": "gym",
+     "errors": [
+      "kick-and-drop",
+      "hips-lift",
+      "pivot-misaligned"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "quadriceps"
+      ],
+      "secondary": [],
+      "stabilizer": []
+     },
+     "name": "Leg extension (machine)",
+     "phases": [
+      "extending",
+      "lowering"
+     ],
+     "pillar": [
+      "gym-bodybuilding"
+     ]
+    },
+    "leg-press": {
+     "camera": "side view for depth and the pelvis on the pad; front for knee tracking",
+     "category": "gym",
+     "errors": [
+      "pelvis-lifts",
+      "knee-snap",
+      "knees-cave",
+      "heels-lift"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "quadriceps",
+       "gluteus-maximus"
+      ],
+      "secondary": [
+       "adductors"
+      ],
+      "stabilizer": [
+       "hamstrings",
+       "gastrocnemius"
+      ]
+     },
+     "name": "Leg press (45-degree sled)",
+     "phases": [
+      "lowering",
+      "pressing"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "strength-for-running"
+     ]
+    },
+    "one-arm-row": {
+     "camera": "side view for the elbow path and back angle; above or front view to catch torso twist",
+     "category": "gym",
+     "errors": [
+      "torso-twist",
+      "elbow-out",
+      "round-back",
+      "short-range"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "fibres": "latissimus-dorsi; rhomboids; trapezius (middle and lower fibres) / deltoid (posterior fibres); biceps-brachii; brachialis / erector-spinae (trunk position); forearm-flexors (grip)",
       "primary": [
        "latissimus-dorsi",
        "rhomboids",
-       "trapezius",
-       "deltoid"
+       "trapezius"
       ],
       "secondary": [
+       "deltoid",
        "biceps-brachii",
-       "brachialis",
-       "forearm-flexors",
-       "erector-spinae"
+       "brachialis"
+      ],
+      "stabilizer": [
+       "erector-spinae",
+       "forearm-flexors"
       ]
      },
      "name": "One-arm dumbbell row",
@@ -367,14 +601,16 @@
      ]
     },
     "overhead-press": {
-     "camera": "front view (the motion stays in the picture plane)",
+     "camera": "front view for the symmetry of the two arms; side view for the dumbbell path and the lower-back arch",
      "category": "gym",
      "errors": [
-      "common-error"
+      "lower-back-arch",
+      "partial-range",
+      "uneven-press"
      ],
      "kinematics": "conceptual",
      "muscles": {
-      "fibres": "deltoid (anterior and lateral fibres); triceps-brachii / trapezius (upper fibres); serratus anterior; pectoralis-major (clavicular fibres)",
+      "fibres": "deltoid (anterior and lateral fibres); triceps-brachii / trapezius (upper and lower fibres); serratus anterior; pectoralis-major (clavicular fibres) / erector-spinae (trunk position)",
       "primary": [
        "deltoid",
        "triceps-brachii"
@@ -383,6 +619,9 @@
        "trapezius",
        "serratus-anterior",
        "pectoralis-major"
+      ],
+      "stabilizer": [
+       "erector-spinae"
       ]
      },
      "name": "Seated dumbbell overhead press",
@@ -421,6 +660,38 @@
       "gym-bodybuilding"
      ]
     },
+    "plank": {
+     "camera": "side view (the body line is the whole lesson)",
+     "category": "bodyweight",
+     "errors": [
+      "hips-sag",
+      "hips-pike",
+      "breath-hold"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "rectus-abdominis",
+       "external-oblique"
+      ],
+      "secondary": [],
+      "stabilizer": [
+       "erector-spinae",
+       "gluteus-maximus",
+       "quadriceps"
+      ]
+     },
+     "name": "Forearm plank",
+     "phases": [
+      "set",
+      "hold",
+      "lower"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "strength-for-running"
+     ]
+    },
     "prone-y-raise": {
      "camera": "top view (the motion stays in the picture plane)",
      "category": "gym",
@@ -450,14 +721,16 @@
      ]
     },
     "pull-up": {
-     "camera": "back view (the motion stays in the picture plane)",
+     "camera": "back view for the shoulder blades and elbow path; side view for the trunk swing and the chin-over-bar line",
      "category": "gym",
      "errors": [
-      "common-error"
+      "kipping-swing",
+      "short-range",
+      "shrug"
      ],
      "kinematics": "conceptual",
      "muscles": {
-      "fibres": "latissimus-dorsi; biceps-brachii; brachialis / trapezius (lower and middle fibres); rhomboids; deltoid (posterior fibres); forearm-flexors (grip)",
+      "fibres": "latissimus-dorsi; biceps-brachii; brachialis / trapezius (lower and middle fibres); rhomboids; deltoid (posterior fibres); pectoralis-major; brachioradialis / infraspinatus; forearm-flexors (grip); erector-spinae and external-oblique (trunk position)",
       "primary": [
        "latissimus-dorsi",
        "biceps-brachii",
@@ -467,7 +740,14 @@
        "trapezius",
        "rhomboids",
        "deltoid",
-       "forearm-flexors"
+       "pectoralis-major",
+       "brachioradialis"
+      ],
+      "stabilizer": [
+       "infraspinatus",
+       "forearm-flexors",
+       "erector-spinae",
+       "external-oblique"
       ]
      },
      "name": "Pull-up",
@@ -483,7 +763,10 @@
      "camera": "side view (the motion stays in the picture plane)",
      "category": "bodyweight",
      "errors": [
-      "common-error"
+      "common-error",
+      "hips-sag",
+      "elbows-flare",
+      "half-rep"
      ],
      "kinematics": "conceptual",
      "muscles": {
@@ -536,6 +819,77 @@
       "gym-bodybuilding"
      ]
     },
+    "romanian-deadlift": {
+     "camera": "side view for the hip hinge, the knee angle and the bar path",
+     "category": "gym",
+     "errors": [
+      "back-rounds",
+      "squats-down",
+      "bar-drifts"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "hamstrings",
+       "gluteus-maximus"
+      ],
+      "secondary": [
+       "erector-spinae",
+       "adductors"
+      ],
+      "stabilizer": [
+       "quadriceps",
+       "trapezius",
+       "forearm-flexors",
+       "gluteus-medius"
+      ]
+     },
+     "name": "Romanian deadlift (barbell)",
+     "phases": [
+      "lower",
+      "rise"
+     ],
+     "pillar": [
+      "gym-bodybuilding",
+      "performance",
+      "strength-for-running"
+     ]
+    },
+    "seated-cable-row": {
+     "camera": "side view for the handle path, elbow path and trunk angle; back for the shoulder blades",
+     "category": "gym",
+     "errors": [
+      "trunk-rock",
+      "shrug",
+      "round-forward"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "latissimus-dorsi",
+       "rhomboids",
+       "trapezius"
+      ],
+      "secondary": [
+       "deltoid",
+       "teres-major",
+       "biceps-brachii",
+       "brachialis"
+      ],
+      "stabilizer": [
+       "erector-spinae",
+       "forearm-flexors"
+      ]
+     },
+     "name": "Seated cable row",
+     "phases": [
+      "pulling",
+      "returning"
+     ],
+     "pillar": [
+      "gym-bodybuilding"
+     ]
+    },
     "seated-calf-raise": {
      "camera": "side view",
      "category": "gym",
@@ -562,6 +916,41 @@
      "pillar": [
       "gym-bodybuilding",
       "performance"
+     ]
+    },
+    "split-squat": {
+     "camera": "side view for the stance length and the front shin; front for knee tracking",
+     "category": "gym",
+     "errors": [
+      "knee-caves",
+      "heel-lifts",
+      "tightrope",
+      "bounce"
+     ],
+     "kinematics": "conceptual",
+     "muscles": {
+      "primary": [
+       "quadriceps",
+       "gluteus-maximus"
+      ],
+      "secondary": [
+       "hamstrings"
+      ],
+      "stabilizer": [
+       "gluteus-medius",
+       "adductors",
+       "erector-spinae",
+       "forearm-flexors"
+      ]
+     },
+     "name": "Split squat (dumbbells)",
+     "phases": [
+      "descent",
+      "ascent"
+     ],
+     "pillar": [
+      "strength-for-running",
+      "gym-bodybuilding"
      ]
     },
     "sprint": {

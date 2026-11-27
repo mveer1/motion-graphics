@@ -1,0 +1,870 @@
+{
+  "id": "ref-a943607659",
+  "name": "Portrait step-race promo: rolling counters, a countdown race board, a win flash, then a climb told by palette",
+  "status": "experimental",
+  "source": {
+    "filename": "an-emotional-app-promo-94bb9ae2.mp4",
+    "aliases": [],
+    "sha256": "a9436076595f72fa3ccb0917310b5f8e68c1c214608d872c1cb68e36b74af977",
+    "bytes": 7262833,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "App name and figure logo in the end card",
+        "timestamps": [
+          39.15,
+          42.14
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Race board and app screens with named avatar tiles",
+        "timestamps": [
+          10.81,
+          15.29,
+          27.97
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. App promo with its name and logo; reuse the act structure, the counters, the race-board idea and the palette-clock climb with original design."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 7262833,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 44.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1024,
+    "height": 1280,
+    "video_codec": "avc1.640020",
+    "frame_count": 1320,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 1058,
+    "keyframes": 44,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 44.075,
+      "kbps": 253
+    },
+    "overall_kbps": 1321
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, session B) using the reference-analyst workflow",
+    "method": "Viewed overview (59 frames), the transitions sheet (all 8 boundaries, every 2nd frame = 15 fps for this 30 fps file), the audio panel and the listen sheet (1 phrase, 20 accent hits); automated audio and listen metrics (signal features; Windows desktop dictation for speech; nothing was listened to).",
+    "coverage": "Full 44.0 s (1024x1280); every boundary on the sheet; accents checked against their frames; the arrangement read from the envelope and spectrogram.",
+    "concept": {
+      "observed": "A portrait promo for a social step-counting app on a dark canvas, in two acts: early morning, a step counter, a five-person race board counting down four minutes to a win; then a reflective line and a team climb up a layered mountain while a team counter rolls to 100,000 and the sky turns from night to dawn; an end card closes.",
+      "interpreted": "Competition, then cooperation. The music arrangement changes with the act, and the win is marked by light and a change of texture rather than a louder edit.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Short sentence-case lines under large glowing numbers; no voice."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Near-black (#080808, 49%) with neon lime-yellow numbers and glow, coloured avatar tiles; the mountain act in navy, slate and dawn pink-orange; mean luma 0.14."
+      },
+      "typography": {
+        "observed": "Wide extended display face for numbers and the end headline; small sans for lines and labels."
+      },
+      "composition": {
+        "observed": "Portrait: number top-centre, subject in the middle, a line or status pill near the bottom."
+      },
+      "motion": {
+        "observed": "Counters roll continuously (5.6-10.1 s, 27.2-35.4 s); footprints walk up from the bottom; race columns rise under a countdown; a glowing route draws up the mountain; the sky palette shifts."
+      },
+      "transitions": {
+        "observed": "Eight boundaries. 10.58 s: the counter fades while the race board builds in place over 0.6 s (continuous). 20.20 s: hard cut through an accent-colour flood; the frame turns lime for about 0.3 s while '1ST' bursts with particles (cut, flash). 22.25 s: fade to black over 0.5 s, black holds 0.9 s before the next line (continuous, act break). 26.92 s: fade up from black onto the mountain over 0.7 s (continuous). 30.92 and 32.58 s: stage-label changes during the continuous climb (continuous). 37.87 s: fade to black over 0.5 s, black about 0.7 s, end card up by 39.15 s (continuous, act break). 43.42 s: final fade out. Not detected: 0.6-1.9 s the time fades up; 23.5-25.7 s the two-line statement builds.",
+        "interpreted": "Two act breaks through black and one flash at the climax; inside each act the stage never cuts.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Static holds 0.08-0.92, 1.92-2.58 and 2.75-4.58 s (the opening waits on one line) and 24.58-25.75 s (the reflection)."
+      },
+      "sound_design": {
+        "observed": "-15.9 LUFS, LRA 7.9 LU, true peak -0.2 dBTP; tempo estimate 123 bpm (medium, autocorrelation 0.84); 30 accents (41/min), all inside the race (10.70-18.30 s) at 0.23-0.26 s spacing (eighth notes at about 123 bpm). Onsets per 4 s window rise from 8 (0-4 s) to 33 (12-16 s) and drop to 2 (20-24 s) after the win; the envelope peaks with a broadband swell at 20.2 s; sparse chords follow (20-30 s); the pulse returns for the climb (30.5-35 s) with a second swell at the summit (35.4 s). 0 of 8 boundaries carry an accent (chance 0.13); onsets on boundaries 0.38 (chance 0.36); silence 0.05-0.63 s; head 5.7 dB below the body, tail level. Accents may be part of the music.",
+        "interpreted": "The arrangement is the pacing: a dense pulse builds tension under the countdown and stops on the win; relief comes from the texture thinning, not from silence.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: dictation kept 1 word (34.97-36.51 s) and its phrase frame shows the summit image under music, so it is recogniser noise; no speaker on screen.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "None as captions. Copy lanes: one short line centred about 60-65% down under the hero counter (5.6-10.1 s); a status pill at the bottom of the race board naming the gap to the leader, updated about every 0.75 s (12.3-20.5 s); a bottom-band line on the mountain (27-35 s); a centred two-line statement on black with the second line bold (23.5-25.7 s); a centred end card."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 5.5,
+        "observed": "Dark: the time and one line; a small dot pulses."
+      },
+      {
+        "start": 5.5,
+        "end": 10.4,
+        "observed": "Step counter rolls with footprints; two lines."
+      },
+      {
+        "start": 10.4,
+        "end": 20.2,
+        "observed": "Race board countdown with five avatars and a gap pill."
+      },
+      {
+        "start": 20.2,
+        "end": 22.3,
+        "observed": "Win flash; '1st' and the winning margin."
+      },
+      {
+        "start": 22.3,
+        "end": 26.6,
+        "observed": "Black, then a two-line reflection."
+      },
+      {
+        "start": 26.6,
+        "end": 37.9,
+        "observed": "Team climb: counter to 100,000, named camps, dawn, 'summit together'."
+      },
+      {
+        "start": 37.9,
+        "end": 44.0,
+        "observed": "End card with tagline and a download button."
+      }
+    ],
+    "moments": [
+      {
+        "t": 20.2,
+        "observed": "At zero the frame floods lime for about 0.3 s and '1ST' bursts with particles; the pulse that ran from 10.4 s stops and a broadband swell peaks.",
+        "interpreted": "The climax is light plus the end of a pulse, not a louder hit."
+      },
+      {
+        "t": 27.22,
+        "observed": "Over 8 s the team counter rolls from 0 to 100,000 while the sky warms from night blue to dawn and a glowing route draws up the mountain."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether the 0.245 s pulse is a clock-tick effect or the music's hi-hat",
+      "Exact fade curves (sheet sampled at 15 fps)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "word-slot-roll",
+      "timestamps": [
+        5.59,
+        10.07,
+        27.22,
+        35.42
+      ]
+    },
+    {
+      "id": "flash-frame-cut",
+      "timestamps": [
+        20.2
+      ]
+    },
+    {
+      "id": "layered-silhouette-stage",
+      "timestamps": [
+        27.22,
+        33.19,
+        35.42
+      ]
+    },
+    {
+      "id": "pen-led-stroke",
+      "timestamps": [
+        27.97,
+        32.44
+      ]
+    },
+    {
+      "id": "step-progress-tracker",
+      "timestamps": [
+        27.22,
+        30.92,
+        32.58,
+        35.42
+      ]
+    },
+    {
+      "id": "bar-chart-race",
+      "timestamps": [
+        10.81,
+        15.29,
+        19.76
+      ]
+    },
+    {
+      "id": "quiet-after-overload",
+      "timestamps": [
+        20.2,
+        23.49
+      ]
+    },
+    {
+      "id": "act-break-fade-black",
+      "timestamps": [
+        22.25,
+        26.92,
+        37.87
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "counter-roll",
+      "glow-pulse",
+      "particle-drift",
+      "pen-stroke"
+    ],
+    "compositions": [
+      "odometer-counter",
+      "progress-stepper",
+      "monument-stat",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "data-visualisation",
+    "ui-product-demo",
+    "music-sync",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-3",
+    "portrait",
+    "dark",
+    "neon",
+    "counter",
+    "race",
+    "two-acts",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 19.9
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 264,
+      "scan_size": "96x54",
+      "overview_frames": 59,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 8,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 10.583,
+        "kind": "soft",
+        "score": 0.141
+      },
+      {
+        "t": 20.2,
+        "kind": "cut",
+        "score": 0.806,
+        "isolation": 0.83,
+        "frame": 606
+      },
+      {
+        "t": 22.25,
+        "kind": "soft",
+        "score": 0.162
+      },
+      {
+        "t": 26.917,
+        "kind": "soft",
+        "score": 0.219
+      },
+      {
+        "t": 30.917,
+        "kind": "soft",
+        "score": 0.214
+      },
+      {
+        "t": 32.583,
+        "kind": "soft",
+        "score": 0.153
+      },
+      {
+        "t": 37.867,
+        "kind": "soft",
+        "score": 0.11,
+        "isolation": 0.08
+      },
+      {
+        "t": 43.417,
+        "kind": "soft",
+        "score": 0.194
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 10.58,
+        "duration": 10.58,
+        "activity": 0.045,
+        "luma": 0.07
+      },
+      {
+        "index": 2,
+        "start": 10.58,
+        "end": 20.2,
+        "duration": 9.62,
+        "activity": 0.061,
+        "luma": 0.11
+      },
+      {
+        "index": 3,
+        "start": 20.2,
+        "end": 22.25,
+        "duration": 2.05,
+        "activity": 0.278,
+        "luma": 0.16
+      },
+      {
+        "index": 4,
+        "start": 22.25,
+        "end": 26.92,
+        "duration": 4.67,
+        "activity": 0.025,
+        "luma": 0.03
+      },
+      {
+        "index": 5,
+        "start": 26.92,
+        "end": 30.92,
+        "duration": 4.0,
+        "activity": 0.031,
+        "luma": 0.16
+      },
+      {
+        "index": 6,
+        "start": 30.92,
+        "end": 32.58,
+        "duration": 1.67,
+        "activity": 0.055,
+        "luma": 0.27
+      },
+      {
+        "index": 7,
+        "start": 32.58,
+        "end": 37.87,
+        "duration": 5.28,
+        "activity": 0.06,
+        "luma": 0.39
+      },
+      {
+        "index": 8,
+        "start": 37.87,
+        "end": 43.42,
+        "duration": 5.55,
+        "activity": 0.091,
+        "luma": 0.11
+      },
+      {
+        "index": 9,
+        "start": 43.42,
+        "end": 44.0,
+        "duration": 0.58,
+        "activity": 0.147,
+        "luma": 0.05
+      }
+    ],
+    "static_holds": [
+      [
+        0.08,
+        0.92
+      ],
+      [
+        1.92,
+        2.58
+      ],
+      [
+        2.75,
+        4.58
+      ],
+      [
+        24.58,
+        25.75
+      ]
+    ],
+    "mean_activity": 0.065,
+    "luma": {
+      "mean": 0.14,
+      "dark_share": 0.84,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#080808",
+        "share": 0.487
+      },
+      {
+        "hex": "#181818",
+        "share": 0.115
+      },
+      {
+        "hex": "#181808",
+        "share": 0.03
+      },
+      {
+        "hex": "#080818",
+        "share": 0.029
+      },
+      {
+        "hex": "#282838",
+        "share": 0.027
+      },
+      {
+        "hex": "#180818",
+        "share": 0.02
+      },
+      {
+        "hex": "#182838",
+        "share": 0.018
+      },
+      {
+        "hex": "#283848",
+        "share": 0.013
+      },
+      {
+        "hex": "#081828",
+        "share": 0.012
+      },
+      {
+        "hex": "#686868",
+        "share": 0.011
+      }
+    ],
+    "representative_times": [
+      2.65,
+      5.29,
+      7.94,
+      12.98,
+      15.39,
+      17.8,
+      21.23,
+      23.42,
+      24.59,
+      25.75,
+      27.92,
+      28.92,
+      29.92,
+      31.75,
+      33.9,
+      35.22,
+      36.55,
+      39.26,
+      40.64,
+      42.03,
+      43.71
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -1.2,
+      "mean_dbfs_voiced": -20.2,
+      "silence_ratio": 0.02,
+      "onsets": 150,
+      "onset_rate_per_sec": 3.4,
+      "onset_times": [
+        0.65,
+        0.81,
+        1.7,
+        1.86,
+        2.76,
+        2.93,
+        3.81,
+        3.97,
+        4.85,
+        5.02,
+        5.25,
+        5.67,
+        5.9,
+        6.08,
+        6.52,
+        6.76,
+        6.94,
+        7.36,
+        7.62,
+        7.78,
+        8.2,
+        8.45,
+        8.61,
+        9.03,
+        9.31,
+        9.45,
+        9.87,
+        10.15,
+        10.29,
+        10.47,
+        10.59,
+        10.7,
+        10.82,
+        10.96,
+        11.08,
+        11.19,
+        11.33,
+        11.45,
+        11.56,
+        11.68,
+        11.82,
+        11.94,
+        12.05,
+        12.17,
+        12.31,
+        12.42,
+        12.54,
+        12.65,
+        12.79,
+        12.91,
+        13.03,
+        13.14,
+        13.28,
+        13.4,
+        13.54,
+        13.65,
+        13.77,
+        13.89,
+        14.02,
+        14.14,
+        14.26,
+        14.37,
+        14.51,
+        14.63,
+        14.74,
+        14.86,
+        15.0,
+        15.12,
+        15.23,
+        15.35,
+        15.49,
+        15.6,
+        15.72,
+        15.86,
+        15.98,
+        16.09,
+        16.23,
+        16.35,
+        16.46,
+        16.58,
+        16.72,
+        16.83,
+        16.95,
+        17.07,
+        17.21,
+        17.32,
+        17.44,
+        17.55,
+        17.69,
+        17.81,
+        17.93,
+        18.07,
+        18.18,
+        18.3,
+        18.44,
+        18.55,
+        18.67,
+        18.78,
+        18.92,
+        19.04,
+        19.16,
+        19.27,
+        19.53,
+        19.76,
+        19.9,
+        19.97,
+        20.27,
+        23.01,
+        24.01,
+        24.96,
+        25.75,
+        26.45,
+        26.7,
+        26.96,
+        27.21,
+        27.45,
+        27.7,
+        27.96,
+        28.21,
+        28.96,
+        29.21,
+        29.47,
+        29.7,
+        30.21,
+        30.46,
+        30.95,
+        31.21,
+        31.46,
+        31.7,
+        31.95,
+        32.21,
+        32.46,
+        32.95,
+        33.2,
+        33.46,
+        33.72,
+        33.95,
+        34.2,
+        34.46,
+        34.71,
+        34.95,
+        35.48,
+        36.76,
+        37.45,
+        38.06,
+        39.06,
+        39.66,
+        40.45,
+        41.45,
+        42.26
+      ],
+      "tempo_estimate": {
+        "bpm": 123.0,
+        "autocorr": 0.84,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 465,
+      "band_share": {
+        "low_lt_250": 0.48,
+        "mid_250_2k": 0.44,
+        "high_gt_2k": 0.09
+      },
+      "syllabic_modulation_share": 0.35,
+      "boundary_onset_alignment": {
+        "boundaries": 8,
+        "tolerance_ms": 67,
+        "near_onset": 0.38,
+        "chance_level": 0.36,
+        "median_offset_ms": 96,
+        "near_beat": 0.12,
+        "beat_chance_level": 0.25,
+        "beat_phase_sec": 0.407
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-a943607659",
+      "overview": "reference/analysis/ref-a943607659/overview.jpg",
+      "scenes": "reference/analysis/ref-a943607659/scenes.jpg",
+      "transitions": "reference/analysis/ref-a943607659/transitions.jpg",
+      "motion": "reference/analysis/ref-a943607659/motion.jpg",
+      "audio": "reference/analysis/ref-a943607659/audio.png",
+      "frames": "reference/analysis/ref-a943607659/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -15.9,
+        "lra_lu": 7.9,
+        "true_peak_dbtp": -0.2,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 15,
+      "audio": true,
+      "speech": {
+        "present": true,
+        "narration": "none",
+        "words": 1,
+        "phrases": 1,
+        "speech_start": 34.97,
+        "speech_end": 36.51,
+        "speech_coverage": 0.03,
+        "wps_while_speaking": 0.65,
+        "wpm_over_span": 39,
+        "pace_thirds_wps": [
+          1.95,
+          0.0,
+          0.0
+        ],
+        "pace_trend": "slows",
+        "phrase_words_median": 1.0,
+        "phrase_sec_median": 1.54,
+        "pauses": {
+          "count": 0,
+          "median_ms": null,
+          "max_ms": null,
+          "at": []
+        },
+        "per_scene": [
+          {
+            "index": 1,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 2,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 3,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 4,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 5,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 6,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 7,
+            "words": 1,
+            "wps": 0.19
+          },
+          {
+            "index": 8,
+            "words": 0,
+            "wps": 0.0
+          },
+          {
+            "index": 9,
+            "words": 0,
+            "wps": 0.0
+          }
+        ],
+        "boundaries_vs_speech": {
+          "in_speech_span": 0,
+          "in_pause_share": null,
+          "chance_level": null,
+          "next_phrase_after_ms_median": null
+        },
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 150,
+        "accents": 30,
+        "accents_per_min": 40.9,
+        "accent_times": [
+          10.7,
+          11.19,
+          11.68,
+          11.94,
+          12.17,
+          12.42,
+          12.91,
+          13.4,
+          13.65,
+          13.89,
+          14.14,
+          14.37,
+          14.63,
+          14.74,
+          14.86,
+          15.12,
+          15.35,
+          15.6,
+          15.86,
+          16.09,
+          16.35,
+          16.58,
+          16.83,
+          17.07,
+          17.32,
+          17.55,
+          17.69,
+          17.81,
+          18.07,
+          18.3
+        ],
+        "accent_threshold": 0.47,
+        "boundaries_with_accent": {
+          "boundaries": 8,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.13
+        },
+        "onset_rate_during_speech": 0.65,
+        "onset_rate_outside_speech": 3.51,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 0.98,
+        "silences": [
+          [
+            0.05,
+            0.63
+          ]
+        ],
+        "level_head_vs_body_db": -5.7,
+        "level_tail_vs_body_db": -0.0,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-a943607659/listen",
+        "sheet": "reference/analysis/ref-a943607659/listen/listen.jpg",
+        "words": "reference/analysis/ref-a943607659/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "halo-bloom",
+  "name": "Halo bloom",
+  "category": "lighting_atmosphere",
+  "visual_intent": "A nimbus, prabhavali (flame arch), mandorla or sun disc blooms behind a sacred figure, then its rays turn slowly while the figure is held.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "svg_dom",
+  "tags": [
+    "halo",
+    "sacred",
+    "gold",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "medium",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "halo-bloom-recipe"
+  ],
+  "implementation_summary": "A nimbus, prabhavali (flame arch), mandorla or sun disc blooms behind a sacred figure, then its rays turn slowly while the figure is held.",
+  "primitives": [
+    "deckle-sheet"
+  ],
+  "runtime_api": "Studio.kit.mythic.halo(parent, {x, y, r, kind}) + haloIn(tl, halo, at) + turn(tl, halo, from, to, {degrees})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

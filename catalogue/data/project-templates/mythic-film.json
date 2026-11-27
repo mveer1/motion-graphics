@@ -1,0 +1,32 @@
+{
+  "id": "mythic-film",
+  "name": "Mythic tale (storyteller's paper theatre)",
+  "deliverable_type": "illustrated_explainer",
+  "status": "experimental",
+  "description": "Myth, legend and sacred-story film on the mythic-tale style template: a persistent lamp-lit paper diorama (Studio.kit.mythic), kaavad doors as the opening device, the source cartouche, a figure that rises into a prabhavali, a palette swap for the trial, blossoms and the teaching line at the close. Cue times scale with data-duration. Entry point: the mythic-tales skill.",
+  "location": "templates/projects/mythic-film",
+  "stages": {
+    "research": "required",
+    "storyboard": "required",
+    "narration": "required",
+    "music": "required",
+    "captions": "optional"
+  },
+  "default_style": "mythic-paper",
+  "default_formats": ["portrait"],
+  "default_duration_sec": 45,
+  "compositions": ["caption-band"],
+  "effects": ["paper-place", "reverent-rise", "lamp-flicker", "halo-bloom", "gold-glint", "kaavad-doors", "border-draw", "puppet-pose", "flower-shower"],
+  "suitable_for": ["myths and legends", "epic episodes", "Jataka and Tirthankara stories", "Greek, Roman and Norse myths", "origin stories"],
+  "validation_steps": [
+    "python scripts/studio.py new <slug> --template mythic-film --style-template mythic-tale --type short --category mythology",
+    "python scripts/studio.py validate <slug>",
+    "python scripts/frame-review.py <slug> --fonts google"
+  ],
+  "validation": {
+    "evidence": "Scaffolded, validated and frame-reviewed (portrait and landscape) in Playwright Chromium on Windows, 2026-11-23. No film rendered through HyperFrames yet.",
+    "last_verified": "2026-11-23"
+  },
+  "tags": ["template", "myth", "legend", "paper", "storyteller"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-23", "updated_at": "2026-11-23" }
+}

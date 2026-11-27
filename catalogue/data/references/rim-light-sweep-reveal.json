@@ -1,0 +1,30 @@
+{
+  "id": "rim-light-sweep-reveal",
+  "name": "Rim-light sweep reveal",
+  "family": "staging-depth",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-3, 2026-11-26): a dark teaser reveals a large letter mark only through glints travelling along its edges.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "In darkness, a thin highlight travels along the edges of a large shape, so its silhouette is read from the rim light before the shape is ever fully lit. The viewer assembles the shape from glints, which builds suspense.",
+  "purpose": "Build suspense by letting the viewer assemble a shape from glints before it is lit.",
+  "visual_behaviour": "In near darkness a thin warm highlight travels along the edges of a large shape, a second glint starts on another edge, and only then does the whole shape fade up.",
+  "mechanics": "Dark shape a few percent brighter than the background; a narrow gradient (accent to transparent) masked to the shape's edge stroke travels along it at about 300-500 px/s with a soft glow, 2.0-2.6 s for a frame-filling shape (ref-99713f6e72 0-2.6 s, 10 fps strip); a second glint starts on another edge at about 1.4 s; the full shape fades up only after the sweep (2.4-2.7 s).",
+  "decomposition": { "primitives": ["svg-path"], "effects": ["stroke-draw", "glow-pulse"], "timing": "Sweep 2-2.6 s; reveal fade about 0.3 s." },
+  "parameters": [
+    { "name": "sweep_duration", "description": "Seconds for the highlight to travel", "default": 2.2 },
+    { "name": "glints", "description": "Number of travelling highlights", "default": 2 },
+    { "name": "glow_px", "description": "Glow radius in px", "default": 12 }
+  ],
+  "use_cases": ["A teaser or reveal of a symbol", "A mysterious opening on a dark section", "Introducing a shape before naming it"],
+  "failure_modes": ["On a light canvas it disappears; dark sections only", "A fast sweep loses the suspense"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "The dark shape a few percent brighter than the background; a short gradient dash (accent to transparent) on the shape's edge path, moved by stroke-dashoffset at about 300-500 px/s with a soft glow filter, 2.0-2.6 s for a frame-filling shape; a second dash starts at about 1.4 s; fade the full shape up over about 0.3 s after the sweep. Approximates rim light: real surface falloff needs a Blender plate." },
+  "capability": { "support": "approximation", "requirements": ["SVG stroke dash animation", "glow filter"], "compatible_components": ["stroke-draw", "marching-dashed-stroke", "glow-pulse"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "approximation": "A travelling gradient stroke with glow reproduces the glint; the falloff of light across a real surface is lost.", "advanced_path": "A Blender plate (visual-director) with a moving rim light when the shape must read as a lit 3D object.", "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-99713f6e72", "timestamps": [0.5, 1.5, 2.4], "observed": "An ember-orange highlight travels along the edges of a large dark letter mark (0-2.6 s); a second glint starts on another edge at about 1.4 s; the mark reads only from these glints until 2.6 s." }
+  ],
+  "related": { "techniques": ["pen-led-stroke", "light-swell-climax"], "effects": ["stroke-draw", "glow-pulse"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["staging-depth", "rim-light", "glint", "reveal", "dark", "teaser", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

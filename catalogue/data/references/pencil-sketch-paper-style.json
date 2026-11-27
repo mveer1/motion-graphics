@@ -1,0 +1,29 @@
+{
+  "id": "pencil-sketch-paper-style",
+  "name": "Pencil sketch on paper with one coloured protagonist",
+  "family": "style-texture",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-3, 2026-11-26): a launch film draws a business story in pencil on warm paper around one teal protagonist, with a chalkboard negative for its payoff.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Pencil line drawings with visible hatching on warm paper, hand-written notes with arrows and one saturated object as the protagonist. The sketchbook feel makes a business subject feel considered and human, and the single colour leads the eye. Not the same as cut-paper-title-sequence (flat cut shapes popping on beats).",
+  "purpose": "Make a business or planning subject feel considered and human; one saturated colour leads the eye.",
+  "visual_behaviour": "Graphite line drawings with hatching on warm paper, hand-written notes with curved arrows and slightly rotated paper cards; one saturated object is the protagonist; the payoff inverts to light lines on a dark chalkboard.",
+  "mechanics": "Off-white paper texture with a soft vignette; line art in 1-1.5 px graphite grey with hatching; annotations in a hand-written script with curved arrows; one accent colour reserved for the protagonist (teal in ref-2860712d4e); documents as slightly rotated paper cards with soft shadows that settle in 0.3-0.5 s; a negative variant (dark chalkboard, light lines) for the payoff section (5.0-11.4 s).",
+  "decomposition": { "primitives": ["hand-drawn-line", "paper-edge-filter", "grain-texture"], "effects": ["line-art-reveal", "hand-underline"], "timing": "A style system; card entrances 0.3-0.5 s." },
+  "parameters": [
+    { "name": "line_px", "description": "Graphite line width at 720p", "default": 1.25 },
+    { "name": "accent", "description": "The one saturated protagonist colour (project token)", "default": "accent" }
+  ],
+  "use_cases": ["Explainers about planning, design or estimating", "A warm alternative to flat UI promos", "Light-canvas films that need texture"],
+  "failure_modes": ["Tracing a reference's drawings instead of drawing original art", "More than one saturated colour breaks the single-protagonist read"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Off-white paper texture with a soft vignette; SVG line art at 1-1.5 px in graphite grey with hatching; hand-written annotations with arrows; one accent colour reserved for the protagonist; cards settle with soft shadows in 0.3-0.5 s; a negative variant for the payoff. Draw original art: never trace the reference. Not built as a registered style." },
+  "capability": { "support": "native", "requirements": ["SVG line art", "paper texture"], "compatible_components": ["hand-drawn-line", "paper-edge-filter", "grain-texture", "line-art-reveal"], "complexity": "medium", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 4, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-2860712d4e", "timestamps": [1.12, 3.38, 5.0, 13.88], "observed": "Pencil-sketched stairs, documents and notes on warm paper around a single teal ball (0-5.0 s), inverted to a chalkboard negative for the payoff (5.0-11.4 s), back to paper for the end card." }
+  ],
+  "related": { "techniques": ["hand-drawn-line-boil", "annotation-callouts", "cut-paper-title-sequence"], "effects": ["line-art-reveal", "hand-underline"], "styles": ["mixed-media", "paper-cut"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["style-texture", "pencil", "sketch", "paper", "hand-drawn", "single-accent", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

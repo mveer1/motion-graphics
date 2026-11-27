@@ -1,0 +1,531 @@
+{
+  "id": "ref-05acc490f6",
+  "name": "Silent blue-and-yellow course launch: stacked colour-panel wipes, colour dissolves, a diagram that builds, tag rows",
+  "status": "experimental",
+  "source": {
+    "filename": "saas-launch-twitter-style-095364db.mp4",
+    "aliases": [],
+    "sha256": "05acc490f6b8bd096cece43e07ba4c978f12b81517bc9b22d248ed6198dcab5b",
+    "bytes": 3458452,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "logo",
+        "description": "Brand rings mark and wordmark",
+        "timestamps": [
+          9.43,
+          10.94,
+          37.36
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product",
+        "description": "Guide covers and product page",
+        "timestamps": [
+          13.96,
+          21.51,
+          32.83
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Third-party technology names on words and tags",
+        "timestamps": [
+          0.38,
+          1.13,
+          28.3
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. Course launch; reuse the panel wipe, colour-dissolve and tag-row principles only, with original copy and covers."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 3458452,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 40.0,
+    "encoder": "Lavf62.12.102",
+    "width": 1280,
+    "height": 720,
+    "video_codec": "avc1.64001f",
+    "frame_count": 1200,
+    "variable_frame_rate": false,
+    "fps": 30,
+    "fps_exact": "90000/3000",
+    "video_kbps": 689,
+    "keyframes": 40,
+    "audio": null,
+    "overall_kbps": 692
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (53 frames), transitions sheet (8 boundaries, every 2nd frame) and a 30 fps strip at 8.90-9.50 s (ffmpeg backend). No listen sheet or audio panel (no audio track). nothing was listened to.",
+    "coverage": "Full 40.0 s (1280x720, 30 fps); every boundary at 15 fps, the first panel wipe at 30 fps.",
+    "concept": {
+      "observed": "Launches a library of visual guides for cloud and AI engineering: topics flash up, 'reading takes weeks' turns into 'seeing takes minutes' with a diagram, the brand appears, the covers scroll past, one guide is opened, the topics scroll as tags, a pay-what-you-want card is clicked and the end card asks you to start.",
+      "interpreted": "A problem-solution launch told in flat colour fields and big type.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Silent; every scene is a headline plus one proof (a diagram, covers, a checklist, a price card)."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Electric blue (#1848e8, 27%), pale ice (#e8f8f8, 25%), navy (#081828, 8%), marigold yellow (#f8c838, 5%); white and charcoal type."
+      },
+      "typography": {
+        "observed": "Heavy grotesk: giant single words for the opening topics (about 10% of the height), two-line statements, small bold headlines top-left in the blue scenes; the wordmark completes by typing."
+      },
+      "composition": {
+        "observed": "Opening words centred; blue scenes put the headline top-left (about 5-9% of the height) over a grid with the diagram centred; product scene splits cover left and checklist right; tag rows fill the frame around a centred headline."
+      },
+      "motion": {
+        "observed": "Topic words swap in place every 0.75 s (0.38, 1.13, 1.89 s); a headline types (4.45-4.8 s); diagram nodes and connectors build left to right (4.9-8.7 s); logo rings draw and the wordmark types two extra letters (9.4-10.9 s); covers scroll left in a marquee (13.7-20.5 s); a checklist adds four lines and a terminal types (22.3-26.8 s); tag rows scroll in opposite directions (27.5-31.6 s); a cursor clicks the price card (34.3 s)."
+      },
+      "transitions": {
+        "observed": "8 detected boundaries, 0 cuts. Cover: 9.03 s, a yellow panel slides in from the left (8.95-9.07 s), holds to 9.23 s, a navy panel follows (9.25-9.47 s) and becomes the next background; 36.60 s, a blue panel crosses the yellow scene from the left (36.45-36.70 s). Continuous: 4.43 s dissolve through pale blue to blue (4.32-4.58 s); 13.33 s dissolve via grey to the light canvas with an empty beat (13.42-13.55 s); 20.67 s fade to pale blue, empty, the cover rises (20.55-21.0 s); 27.33 s fade through white to yellow; 31.77 s fade through pale (31.72-31.92 s). 18.08 s is inside the cover marquee (no change). Plus three in-place word swaps (0.38-1.89 s).",
+        "interpreted": "Colour fields do the cutting: each section owns a background colour and arrives through it.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Sections of about 4.4, 4.6, 4.3, 7.3, 6.6, 4.4, 4.8 and 3.4 s; holds of 1.0-2.0 s on the logo, the price card and the end card."
+      },
+      "sound_design": {
+        "observed": "No audio track (ffprobe: video stream only; listen reports no audio track).",
+        "interpreted": "A silent film: rhythm is carried by motion and holds alone.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None: silent film.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions; copy is headlines (2-5 words, 1-2 lines) top-left in the blue scenes or centred, held for the whole section, and tag pills.",
+        "interpreted": "Headlines narrate a silent film.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 2.4,
+        "observed": "Topic words swap in place."
+      },
+      {
+        "start": 2.4,
+        "end": 4.43,
+        "observed": "Reading about it takes weeks."
+      },
+      {
+        "start": 4.43,
+        "end": 9.03,
+        "observed": "Seeing it takes minutes: a diagram builds on a blue grid."
+      },
+      {
+        "start": 9.03,
+        "end": 13.33,
+        "observed": "Panel wipe to navy: logo rings and wordmark."
+      },
+      {
+        "start": 13.33,
+        "end": 20.67,
+        "observed": "Every guide, one library: covers scroll."
+      },
+      {
+        "start": 20.67,
+        "end": 27.33,
+        "observed": "One guide: cover, checklist, terminal."
+      },
+      {
+        "start": 27.33,
+        "end": 31.77,
+        "observed": "Explained visually: tag rows."
+      },
+      {
+        "start": 31.77,
+        "end": 36.6,
+        "observed": "Pay what you want: a price card is clicked."
+      },
+      {
+        "start": 36.6,
+        "end": 40.0,
+        "observed": "Panel wipe to blue: end card."
+      }
+    ],
+    "moments": [
+      {
+        "t": 8.95,
+        "observed": "A yellow panel covers the frame from the left in 0.13 s, holds 0.16 s, and a navy panel follows in 0.22 s; the navy is the next scene's background.",
+        "interpreted": "Two panels make one wipe read as a deliberate gesture rather than a slide."
+      }
+    ],
+    "difficult": [
+      "Nothing hard; the cover marquee and tag rows need many duplicated cards."
+    ],
+    "uncertainties": [
+      "Whether the film was published silent or the audio was removed before it reached us",
+      "Easing of the panels (15-30 fps only)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "word-per-beat-sequence",
+      "timestamps": [
+        0.38,
+        1.13,
+        1.89
+      ]
+    },
+    {
+      "id": "diagram-connectors",
+      "timestamps": [
+        5.66,
+        6.42,
+        7.17
+      ]
+    },
+    {
+      "id": "empty-stage-dip",
+      "timestamps": [
+        13.48,
+        20.65
+      ]
+    },
+    {
+      "id": "typographic-repetition",
+      "timestamps": [
+        28.3,
+        29.81
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        33.59,
+        34.34
+      ]
+    },
+    {
+      "id": "stacked-panel-wipe",
+      "timestamps": [
+        9.03,
+        36.6
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "push-transition",
+      "typewriter-reveal",
+      "connector-draw"
+    ],
+    "compositions": [
+      "title-card",
+      "item-list",
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "swiss-minimal"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "kinetic-typography",
+    "diagram",
+    "scene-transitions",
+    "explainer"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "silent",
+    "light",
+    "colour-fields",
+    "panel-wipe",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 17.2
+    },
+    "sampling": {
+      "scan_fps": 6.0,
+      "scan_frames": 240,
+      "scan_size": "96x54",
+      "overview_frames": 53,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 8,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 4.433,
+        "kind": "soft",
+        "score": 0.587,
+        "isolation": 0.01
+      },
+      {
+        "t": 9.033,
+        "kind": "soft",
+        "score": 0.32,
+        "isolation": 0.29
+      },
+      {
+        "t": 13.333,
+        "kind": "soft",
+        "score": 0.566,
+        "isolation": 0.02
+      },
+      {
+        "t": 18.083,
+        "kind": "soft",
+        "score": 0.268
+      },
+      {
+        "t": 20.667,
+        "kind": "soft",
+        "score": 0.577,
+        "isolation": 0.07
+      },
+      {
+        "t": 27.333,
+        "kind": "soft",
+        "score": 0.543,
+        "isolation": 0.0
+      },
+      {
+        "t": 31.767,
+        "kind": "soft",
+        "score": 0.467,
+        "isolation": 0.0
+      },
+      {
+        "t": 36.6,
+        "kind": "soft",
+        "score": 0.261,
+        "isolation": 0.18
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 4.43,
+        "duration": 4.43,
+        "activity": 0.097,
+        "luma": 0.89
+      },
+      {
+        "index": 2,
+        "start": 4.43,
+        "end": 9.03,
+        "duration": 4.6,
+        "activity": 0.051,
+        "luma": 0.31
+      },
+      {
+        "index": 3,
+        "start": 9.03,
+        "end": 13.33,
+        "duration": 4.3,
+        "activity": 0.129,
+        "luma": 0.18
+      },
+      {
+        "index": 4,
+        "start": 13.33,
+        "end": 18.08,
+        "duration": 4.75,
+        "activity": 0.235,
+        "luma": 0.77
+      },
+      {
+        "index": 5,
+        "start": 18.08,
+        "end": 20.67,
+        "duration": 2.58,
+        "activity": 0.159,
+        "luma": 0.78
+      },
+      {
+        "index": 6,
+        "start": 20.67,
+        "end": 27.33,
+        "duration": 6.67,
+        "activity": 0.102,
+        "luma": 0.37
+      },
+      {
+        "index": 7,
+        "start": 27.33,
+        "end": 31.77,
+        "duration": 4.43,
+        "activity": 0.261,
+        "luma": 0.72
+      },
+      {
+        "index": 8,
+        "start": 31.77,
+        "end": 36.6,
+        "duration": 4.83,
+        "activity": 0.076,
+        "luma": 0.87
+      },
+      {
+        "index": 9,
+        "start": 36.6,
+        "end": 40.0,
+        "duration": 3.4,
+        "activity": 0.041,
+        "luma": 0.33
+      }
+    ],
+    "static_holds": [
+      [
+        11.42,
+        12.92
+      ],
+      [
+        33.08,
+        34.08
+      ],
+      [
+        34.75,
+        36.08
+      ],
+      [
+        37.92,
+        39.92
+      ]
+    ],
+    "mean_activity": 0.128,
+    "luma": {
+      "mean": 0.57,
+      "dark_share": 0.09,
+      "light_share": 0.52
+    },
+    "palette": [
+      {
+        "hex": "#1848e8",
+        "share": 0.273
+      },
+      {
+        "hex": "#e8f8f8",
+        "share": 0.246
+      },
+      {
+        "hex": "#081828",
+        "share": 0.082
+      },
+      {
+        "hex": "#f8c838",
+        "share": 0.049
+      },
+      {
+        "hex": "#e8e8f8",
+        "share": 0.035
+      },
+      {
+        "hex": "#f8f8f8",
+        "share": 0.018
+      },
+      {
+        "hex": "#f8d878",
+        "share": 0.017
+      },
+      {
+        "hex": "#585878",
+        "share": 0.017
+      },
+      {
+        "hex": "#88a8f8",
+        "share": 0.016
+      },
+      {
+        "hex": "#081838",
+        "share": 0.015
+      }
+    ],
+    "representative_times": [
+      1.11,
+      2.21,
+      3.32,
+      5.58,
+      6.73,
+      7.88,
+      10.11,
+      11.18,
+      12.25,
+      14.52,
+      15.7,
+      16.89,
+      19.38,
+      22.34,
+      24.0,
+      25.66,
+      28.44,
+      29.55,
+      30.66,
+      32.98,
+      34.19,
+      35.39,
+      38.3
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-05acc490f6",
+      "overview": "reference/analysis/ref-05acc490f6/overview.jpg",
+      "scenes": "reference/analysis/ref-05acc490f6/scenes.jpg",
+      "transitions": "reference/analysis/ref-05acc490f6/transitions.jpg",
+      "motion": "reference/analysis/ref-05acc490f6/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-05acc490f6/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

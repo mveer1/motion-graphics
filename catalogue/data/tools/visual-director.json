@@ -1,0 +1,63 @@
+{
+  "id": "tool-visual-director",
+  "name": "Visual director CLI",
+  "component_type": "tool",
+  "purpose": "Engine routing and Blender plates: drafts per-scene engine decisions from storyboard.json, checks visual-plan.json, plate scripts and plate renders, renders plates under the host lock with stamped fingerprints, and installs the pinned Blender.",
+  "capabilities": [
+    "engines | doctor | templates",
+    "plan <slug> [--write]",
+    "add-plate <slug> <id> --template ... [--scene] [--alpha]",
+    "check <slug> (also run by studio.py validate)",
+    "render <slug> [--plate] [--format] [--preview] [--force] [--dry-run] (run by studio.py build, stage plates)",
+    "install-blender [--dry-run]"
+  ],
+  "location": "scripts/visual-director.py",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Workspace file; no separate installation."
+  },
+  "dependencies": [
+    "tool-blender",
+    "tool-ffmpeg",
+    "tool-studio-cli",
+    "tool-session-guard",
+    "shared-blender-plate-kit",
+    "shared-visual-engines",
+    "shared-visual-plan-spec"
+  ],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3.12",
+    "notes": "Pure Python plus Blender and FFmpeg for rendering; plan and check run anywhere."
+  },
+  "documentation_urls": [
+    ".claude/skills/visual-director/SKILL.md",
+    "docs/visual-engines.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace component; no third-party code copied."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": true,
+    "sensitive_data_exposure": false,
+    "notes": "Network only for install-blender (download.blender.org, pinned hash). Writes projects/<slug>/visual-plan.json, blender/, src/plates/ and renders/plates/."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "tests/test-visual-director.py; end-to-end plate render and HyperFrames composite on the Windows host 2026-11-24.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "engines",
+    "routing",
+    "blender",
+    "plates",
+    "cli"
+  ]
+}

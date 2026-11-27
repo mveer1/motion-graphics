@@ -1,0 +1,360 @@
+{
+  "id": "ref-a2496929ca",
+  "name": "A sentence built as a structure (square, silent)",
+  "status": "experimental",
+  "source": {
+    "filename": "a-speech-built-as-architecture-4eee63d8.mp4",
+    "aliases": [],
+    "sha256": "a2496929caba498d46605e2499f0e6b215ce6d91f7925bd28a027731007f1c0d",
+    "bytes": 755353,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [],
+    "notes": "Rights unverified. No marks seen. Reuse the structural-typography principle only; never the copy or layout."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 755353,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 20.0,
+    "encoder": "Lavf62.12.102",
+    "width": 720,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 1200,
+    "variable_frame_rate": false,
+    "fps": 60,
+    "fps_exact": "90000/1500",
+    "video_kbps": 296,
+    "keyframes": 20,
+    "audio": null,
+    "overall_kbps": 302
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot) using the reference-analyst workflow",
+    "method": "Viewed overview (27 frames) and transition strips at all 3 soft boundaries (every 2nd frame); the file has no audio track.",
+    "coverage": "Full 20 s.",
+    "concept": {
+      "observed": "A short manifesto about waiting and finding a voice, set as words that build a structure: a beam, words hanging from it, two pillars and a floor.",
+      "interpreted": "The sentence's argument (pressure, support, making room) is shown as load and structure.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "Small serif connecting phrases between giant heavy sans words; calm and rhetorical."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Deep forest-green field, cream type and one gold hairline used as the beam."
+      },
+      "typography": {
+        "observed": "Heavy wide grotesk caps for key words; light serif for connecting phrases; caps rotated 90 degrees as pillars."
+      },
+      "composition": {
+        "observed": "Square frame; the structure grows symmetrically until it fills the frame; small header ticks at the top."
+      },
+      "motion": {
+        "observed": "Words drop into place, the beam bows under a word, hangers draw down, words rotate into pillars."
+      },
+      "transitions": {
+        "observed": "Push up off the opening word (3.67 s); zoom through the counter of an 'O' into the next layout (9.97 s); zoom into a letter's stroke until cream fills the frame, which loops back to the opening word (18.92 s).",
+        "interpreted": "Transitions stay inside the type: the camera travels through letters.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "3 soft boundaries in 20 s; a new member every 1.5-3 s."
+      },
+      "sound_design": {
+        "observed": "No audio track in the file."
+      },
+      "captions": {
+        "observed": "None; the text is the picture."
+      },
+      "motifs": {
+        "observed": "Load and support: a beam, hangers, pillars, a floor."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.67,
+        "observed": "A heavy word on a bowing gold beam; a serif line appears beneath."
+      },
+      {
+        "start": 3.67,
+        "end": 9.97,
+        "observed": "Push up; a word hangs from the beam; a word rotates into a left pillar; 'made ROOM'."
+      },
+      {
+        "start": 9.97,
+        "end": 18.92,
+        "observed": "Through the 'O'; a second pillar; a top line completes a portal."
+      },
+      {
+        "start": 18.92,
+        "end": 20.0,
+        "observed": "Zoom into a stroke to cream; back to the opening word (loop)."
+      }
+    ],
+    "moments": [
+      {
+        "t": 9.97,
+        "observed": "The camera passes through the counter of an 'O' and the next layout is inside it.",
+        "interpreted": "Letters are doors."
+      }
+    ],
+    "difficult": [],
+    "uncertainties": [
+      "Whether a voice track was intended (no audio in the file)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "typographic-architecture",
+      "timestamps": [
+        0.37,
+        4.82,
+        8.52,
+        11.48,
+        15.19
+      ]
+    },
+    {
+      "id": "zoom-through-transition",
+      "timestamps": [
+        9.97,
+        18.92
+      ]
+    },
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.37,
+        11.48,
+        17.41
+      ]
+    },
+    {
+      "id": "self-describing-kinetic-words",
+      "timestamps": [
+        0.37,
+        2.59
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "parallax-camera",
+      "typewriter-reveal"
+    ],
+    "compositions": [],
+    "templates": [
+      "kinetic-typography",
+      "title-sequence"
+    ],
+    "styles": []
+  },
+  "categories": [
+    "kinetic-typography",
+    "editorial-layout",
+    "loop",
+    "scene-transitions"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-1",
+    "square",
+    "silent",
+    "manifesto",
+    "loop",
+    "green-cream-gold"
+  ],
+  "confidence": "high",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 12.8
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 160,
+      "scan_size": "96x54",
+      "overview_frames": 27,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 3,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 3.667,
+        "kind": "soft",
+        "score": 0.066,
+        "isolation": 0.0
+      },
+      {
+        "t": 9.967,
+        "kind": "soft",
+        "score": 0.265,
+        "isolation": 0.12
+      },
+      {
+        "t": 18.917,
+        "kind": "soft",
+        "score": 0.197,
+        "isolation": 0.26
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 3.67,
+        "duration": 3.67,
+        "activity": 0.025,
+        "luma": 0.21
+      },
+      {
+        "index": 2,
+        "start": 3.67,
+        "end": 9.97,
+        "duration": 6.3,
+        "activity": 0.048,
+        "luma": 0.15
+      },
+      {
+        "index": 3,
+        "start": 9.97,
+        "end": 18.92,
+        "duration": 8.95,
+        "activity": 0.033,
+        "luma": 0.21
+      },
+      {
+        "index": 4,
+        "start": 18.92,
+        "end": 20.0,
+        "duration": 1.08,
+        "activity": 0.321,
+        "luma": 0.46
+      }
+    ],
+    "static_holds": [
+      [
+        11.69,
+        12.44
+      ],
+      [
+        15.44,
+        16.56
+      ],
+      [
+        17.19,
+        17.94
+      ]
+    ],
+    "mean_activity": 0.052,
+    "luma": {
+      "mean": 0.2,
+      "dark_share": 0.93,
+      "light_share": 0.01
+    },
+    "palette": [
+      {
+        "hex": "#082818",
+        "share": 0.814
+      },
+      {
+        "hex": "#182818",
+        "share": 0.047
+      },
+      {
+        "hex": "#989888",
+        "share": 0.036
+      },
+      {
+        "hex": "#082828",
+        "share": 0.022
+      },
+      {
+        "hex": "#a8a898",
+        "share": 0.019
+      },
+      {
+        "hex": "#e8d8c8",
+        "share": 0.013
+      },
+      {
+        "hex": "#888878",
+        "share": 0.012
+      },
+      {
+        "hex": "#a8a888",
+        "share": 0.009
+      },
+      {
+        "hex": "#787868",
+        "share": 0.009
+      },
+      {
+        "hex": "#b8b8a8",
+        "share": 0.007
+      }
+    ],
+    "representative_times": [
+      1.83,
+      5.25,
+      6.82,
+      8.39,
+      12.21,
+      14.45,
+      16.68,
+      19.46
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-a2496929ca",
+      "overview": "reference/analysis/ref-a2496929ca/overview.jpg",
+      "scenes": "reference/analysis/ref-a2496929ca/scenes.jpg",
+      "transitions": "reference/analysis/ref-a2496929ca/transitions.jpg",
+      "motion": "reference/analysis/ref-a2496929ca/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-a2496929ca/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

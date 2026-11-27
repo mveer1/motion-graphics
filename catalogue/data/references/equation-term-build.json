@@ -1,0 +1,137 @@
+{
+  "id": "equation-term-build",
+  "name": "Equation built term by term beside its figure",
+  "family": "explanation-device",
+  "status": "proposed",
+  "source": {
+    "type": "user-provided-reference",
+    "description": "1 inspected reference film (batch-4, 2026-11-26): a maths reel builds an identity term by term beside a circle whose radius turns through the angle, and rings the last term.",
+    "inspected": true,
+    "inspected_on": "2026-11-26"
+  },
+  "technique": "An equation appears one term at a time next to the figure it describes, each term arriving when the figure shows it, and the closing term is ringed. The equation is read against the geometry instead of before it, the core move of a proof-led explainer.",
+  "purpose": "Read a formula against its geometry: each term appears when the figure shows it; the core move of a proof-led explainer.",
+  "visual_behaviour": "Beside a moving figure the equation appears one term at a time, each term rising in as the figure shows that part; the closing term is ringed in the accent.",
+  "mechanics": "Lay out the full equation first, then reveal term spans: opacity 0 -> 1 with a 4-8 px rise over 0.2-0.3 s at the moment the figure shows that part (a radius turning through pi, a point landing on -1); the final term gets a stroke-drawn ring (0.3-0.5 s) in an accent; the figure keeps moving under it.",
+  "decomposition": {
+    "primitives": [
+      "styled-text",
+      "hand-drawn-line"
+    ],
+    "effects": [
+      "stroke-draw"
+    ],
+    "timing": "About 0.5-0.8 s between terms; whole statement in 1.5-2.5 s (reference 16.7-18.1 s)."
+  },
+  "parameters": [
+    {
+      "name": "termGap",
+      "description": "Seconds between terms",
+      "default": 0.6
+    },
+    {
+      "name": "ringDraw",
+      "description": "Seconds to draw the ring round the final term",
+      "default": 0.4
+    }
+  ],
+  "use_cases": [
+    "proof-canvas maths films",
+    "Physics formulas beside their diagram",
+    "Finance formulas beside a chart"
+  ],
+  "failure_modes": [
+    "Terms arriving before the figure shows them read as a caption, not a proof",
+    "Typesetting that reflows as terms are added: lay out the whole equation, then reveal spans"
+  ],
+  "implementation_state": "implemented",
+  "implemented_by": [
+    "equation-build"
+  ],
+  "implementation": {
+    "approach": "Studio.comp.equation(parent, {terms}) (runtime 1.18.0): the whole equation is laid out first (inline-flex spans, so nothing reflows); reveal(tl, i, at) fades and rises a term 0.25 s; ring(tl, i, at) strokes a seeded Studio.draw.loop round the term in 0.4 s.",
+    "runtime_api": [
+      "Studio.comp.equation"
+    ]
+  },
+  "capability": {
+    "support": "native",
+    "requirements": [
+      "span-level text reveal",
+      "SVG stroke ring"
+    ],
+    "compatible_components": [
+      "annotation-callout",
+      "stroke-draw",
+      "hand-underline"
+    ],
+    "complexity": "low",
+    "resources": {
+      "basis": "estimated",
+      "cpu": "low"
+    },
+    "additional_tooling": {
+      "needed": "no"
+    },
+    "priority": {
+      "creative_value": 4,
+      "cost": 2
+    }
+  },
+  "provenance": [
+    {
+      "source_id": "ref-0fe1abc90a",
+      "timestamps": [
+        16.67,
+        17.41,
+        18.15
+      ],
+      "observed": "e^(i pi), then + 1, then = 0 appear beside a circle whose radius turns through pi; the 0 is ringed in pink (16.7-18.1 s)."
+    }
+  ],
+  "related": {
+    "techniques": [
+      "linked-trace-projection",
+      "annotation-callouts"
+    ],
+    "effects": [
+      "stroke-draw",
+      "hand-underline"
+    ],
+    "compositions": [
+      "annotation-callout"
+    ]
+  },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": [
+    "explanation-device",
+    "maths",
+    "proof-canvas",
+    "equation",
+    "formula",
+    "reference-derived"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-28"
+  },
+  "validation": {
+    "state": "preview",
+    "evidence": [
+      {
+        "kind": "runtime-test",
+        "path": "tests/studio-runtime/explain-devices.html",
+        "result": "pass",
+        "date": "2026-11-28"
+      },
+      {
+        "kind": "frame-review",
+        "path": "tests/reference-derived/explain-equation-trace/qa/report.json",
+        "result": "pass",
+        "date": "2026-11-28",
+        "notes": "0 errors, 0 warnings; contact sheet inspected on Windows (Playwright preview, not a HyperFrames render)."
+      }
+    ]
+  }
+}

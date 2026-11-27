@@ -1,0 +1,49 @@
+{
+  "id": "kaavad-doors",
+  "name": "Kaavad doors",
+  "category": "mask_reveal",
+  "visual_intent": "Painted folding doors swing open on their hinges to reveal the next panel, after the Rajasthani kaavad storytelling shrine.",
+  "status": "experimental",
+  "library_dependencies": [
+    "gsap",
+    "svg-native",
+    "html-css-native"
+  ],
+  "rendering_engine": "css_dom",
+  "tags": [
+    "reveal",
+    "doors",
+    "kaavad",
+    "3d",
+    "mythic-kit"
+  ],
+  "performance_characteristics": {
+    "cpu_intensity": "low",
+    "gpu_intensity": "low",
+    "dom_node_count": "scales with pieces",
+    "memory_profile": "Low (<40MB)"
+  },
+  "recipes": [
+    "kaavad-doors-recipe"
+  ],
+  "implementation_summary": "Painted folding doors swing open on their hinges to reveal the next panel, after the Rajasthani kaavad storytelling shrine.",
+  "primitives": [],
+  "runtime_api": "Studio.kit.mythic.doors(parent, {x, y, w, h}) + Studio.kit.mythic.open(tl, doors, at, {duration, angle})",
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "examples": [
+    "templates/projects/mythic-film/src/index.html"
+  ],
+  "validation": {
+    "evidence": "Kit self-test tests/test-mythic.py (Playwright Chromium: build, seek determinism) and frame review of the mythic-film scaffold (portrait) on Windows, 2026-11-23. Not yet rendered through HyperFrames on the Apple M2 host, so not approved.",
+    "last_verified": "2026-11-23"
+  },
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-23",
+    "updated_at": "2026-11-23"
+  }
+}

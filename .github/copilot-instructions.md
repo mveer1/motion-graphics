@@ -97,6 +97,7 @@ Consult these specialized skills when crafting animations, audio, or research:
 | Skill | Path | Description & Use Case |
 | :--- | :--- | :--- |
 | `motion-graphics-designer` | `.claude/skills/motion-graphics-designer` | Layout rules, palettes, kinetic typography, dynamic stage occupancy. |
+| `visual-director` | `.claude/skills/visual-director` | Per-scene engine choice (HyperFrames compositor, Three.js, Blender plates via `scripts/visual-director.py`), plate authoring and compositing. |
 | `gsap-core` / `gsap-timeline` | `.claude/skills/gsap-core` / `gsap-timeline` | Official GreenSock animation choreography and timeline sequencing. |
 | `gsap-plugins` / `gsap-utils` | `.claude/skills/gsap-plugins` / `gsap-utils` | Flip, SplitText, SVG drawing, clamp, mapRange, Mulberry32 PRNG. |
 | `kinetic-typography` | `.claude/skills/kinetic-typography` | Overflow masks, variable-font weight shifts, SplitText accessibility. |
@@ -107,6 +108,7 @@ Consult these specialized skills when crafting animations, audio, or research:
 | `voice-director` | `.claude/skills/voice-director` | Kokoro TTS voice persona tuning, speech pacing, phonetic respellings. |
 | `technical-researcher` | `.claude/skills/technical-researcher` | Stage 0 research dossiers, formula verification, visual metaphor archetypes. |
 | `video-assembler` | `.claude/skills/video-assembler` | FFmpeg multiplexing, low-memory render configs, automated QA gates. |
+| `frame-rate` | `.claude/skills/frame-rate` | 30 → 60 fps or higher: native re-render for studio projects (`scripts/frame-rate.py audit`), measured per-gap interpolation for any other film (`analyse`/`convert`/`verify`/`sheet`). |
 | `workspace-steward` | `.claude/skills/workspace-steward` | 7-Domain component placement, schema audits, drift verification. |
 
 ---

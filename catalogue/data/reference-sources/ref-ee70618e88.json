@@ -1,0 +1,660 @@
+{
+  "id": "ref-ee70618e88",
+  "name": "Light-canvas AI food-ordering film: a typed craving, a lime bloom from a loading dot, beat-grid arrivals",
+  "status": "experimental",
+  "source": {
+    "filename": "food-ordering-launch-film-ab22ff05.mp4",
+    "aliases": [],
+    "sha256": "ee70618e880f1a600854ea95f527258c740299576fc80263c0475f83574711c7",
+    "bytes": 1660474,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "wordmark",
+        "description": "Product name on the end card",
+        "timestamps": [
+          13.71,
+          15.93
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "product-ui",
+        "description": "Prompt bar, phone chat interface and dish cards",
+        "timestamps": [
+          0.37,
+          8.52,
+          9.26
+        ],
+        "policy": "exclude"
+      },
+      {
+        "kind": "other",
+        "description": "Food photography on the cards (source unknown)",
+        "timestamps": [
+          6.3,
+          7.78
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. AI food-ordering launch; reuse the bloom-from-a-loading-dot and beat-grid principles only, with original UI, imagery and copy."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 1660474,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 16.301,
+    "encoder": "Lavf62.12.102",
+    "width": 1282,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 484,
+    "variable_frame_rate": true,
+    "fps": 29.692,
+    "fps_exact": "average of 94 timing runs",
+    "video_kbps": 676,
+    "keyframes": 17,
+    "audio": {
+      "codec": "mp4a",
+      "sample_rate": 48000,
+      "channels": 2,
+      "duration_sec": 16.277,
+      "kbps": 130
+    },
+    "overall_kbps": 815
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-26",
+    "inspected_by": "agent (GitHub Copilot, Session C) using the reference-analyst workflow",
+    "method": "Viewed overview (22 frames), transition strips at all 7 boundaries (every 2nd frame) and the listen sheet (13 accent hits at -0.1/0/+0.1 s; no speech phrases); automated audio and listen metrics (signal features; Windows en-US dictation found no speech; nothing was listened to).",
+    "coverage": "Full 16.3 s (1282x720, 29.69 fps); every boundary at 2-frame steps.",
+    "concept": {
+      "observed": "A launch film for an AI food-ordering assistant: a typed craving ('really hungry ... spicy, crispy and filling') becomes a loading state with a bouncing dot, a carousel of dish cards, one chosen dish, a chat confirmation with a cursor click, then three short end lines on white and the product name.",
+      "interpreted": "Intent, suggestion, done: told as one chain of interface states, then restated in three quiet lines.",
+      "confidence": "high"
+    },
+    "communication_style": {
+      "observed": "No voice; the copy is the user's typed request inside the UI, a macro push across the typed words, and three small centred end lines.",
+      "interpreted": "The product speaks through its interface; the end lines are a whisper, not a slogan."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "White canvas (81% of pixels), one acid-lime field (#C8F868, 7%), an orange half-disc, dark food cards; iridescent pink-green-blue gradient edges on the prompt bar and the phone."
+      },
+      "typography": {
+        "observed": "Plain grotesque sans; the typed craving is shown huge in a macro push (2.12-3.15 s) behind a blurred blue gradient caret block; the end lines are small (about 2% of the height), centred, regular weight."
+      },
+      "motion": {
+        "observed": "The tilted prompt bar turns flat and becomes the phone's input (0.24-0.92 s); typing with a caret; a macro push with motion blur across the typed words (2.12-2.79 s) that tilts away in 3D (2.88-3.15 s); a semicircle bowl rotates in; a lime dot bounces beside 'Finding something for you...'; a dish carousel slides left; the chosen card rises; a chat scrolls; a cursor presses Order (9.26-9.75 s); the end words fade in one by one (10.0-14.5 s)."
+      },
+      "transitions": {
+        "observed": "0.56 s soft: the prompt bar settles into the phone's input field (container move). 2.44 s soft: cut-in to the macro push. 3.20 s soft: the macro words tilt back in 3D and leave as the bowl card swings in. 6.06 s soft: the lime dot grows into a full lime frame in about 0.15 s (6.01-6.15 s) with a small dish card at its centre. 7.31 s hard cut from the lime carousel to white with the chosen card rising. 8.81 s soft: chat scroll. 9.87 s cut: the phone slides up out of frame onto white and the end lines begin.",
+        "interpreted": "The film's one colour change is caused by an element already on screen (the loading dot); the end section is entered by clearing the stage, not by an effect.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "Shots of 0.6-2.9 s for the first 10 s (median about 1.4 s), then a 6.4 s end section of three lines held about 1.5 s each."
+      },
+      "sound_design": {
+        "observed": "-16.6 LUFS integrated, LRA 2.2 LU, true peak -0.4 dBTP; tempo estimate 117.5 bpm (medium); 17 accents (62.6/min), 12 of them on a 1.00 s grid at x.65-x.70 s from 1.65 to 12.70 s. No boundary has an accent within 100 ms (0 of 7; chance 0.19); 57% of boundaries are within 67 ms of an onset, at chance (0.51); near the beat 0.14 (chance 0.24). The strongest accents land on actions: typing (1.65, 2.65 s), the loading dot's bounces (3.67, 4.67, 5.67 s), the carousel step (6.66 s), the chosen card settling (7.69 s), the cursor press on Order (9.68 s) and the end words starting (11.70 s). Head 1.9 dB above the body, tail level with it; no silences. Accents may be part of the music.",
+        "interpreted": "Same rule as batch 1: sound marks the action, not the edit; both hard cuts (7.31, 9.87 s) fall between accents.",
+        "confidence": "medium"
+      },
+      "narration": {
+        "observed": "None: Windows en-US dictation recognised 0 confident words (2 raw) over music.",
+        "interpreted": "Text-led film: the copy is on screen, timed to the music.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions. Copy lanes: the user's request inside the UI (the input field near the top of the phone); the macro words filling the frame; three end lines small and centred at mid-height (10.0-14.5 s), each fading in word by word about 0.2-0.3 s apart and held about 1.5 s; no highlight colour.",
+        "interpreted": "The end lines behave like captions without a voice: one short line at a time, centred, held long enough to read twice.",
+        "confidence": "medium"
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 0.56,
+        "observed": "A tilted, glowing prompt bar types 'I'm really hungry'."
+      },
+      {
+        "start": 0.56,
+        "end": 2.44,
+        "observed": "The bar becomes the input of a phone; the request types in full."
+      },
+      {
+        "start": 2.44,
+        "end": 3.2,
+        "observed": "Macro push across the typed words behind a gradient caret."
+      },
+      {
+        "start": 3.2,
+        "end": 6.06,
+        "observed": "A bowl card with a bouncing lime dot and 'Finding something for you...'."
+      },
+      {
+        "start": 6.06,
+        "end": 7.31,
+        "observed": "The lime dot fills the frame; a carousel of dish cards slides."
+      },
+      {
+        "start": 7.31,
+        "end": 9.87,
+        "observed": "The chosen dish card; a chat confirmation; a cursor presses Order."
+      },
+      {
+        "start": 9.87,
+        "end": 16.3,
+        "observed": "Three end lines on white, word by word, then the product name."
+      }
+    ],
+    "moments": [
+      {
+        "t": 6.06,
+        "observed": "The lime dot beside the loading line grows into a full lime frame in about 0.15 s with a small dish card already at its centre.",
+        "interpreted": "The suggestion arrives out of the thing that was 'thinking'."
+      }
+    ],
+    "difficult": [
+      "Food photography on the dish cards (stock or generated imagery)"
+    ],
+    "uncertainties": [
+      "Whether the 1 s accents are a click in the music or separate effects",
+      "Whether the end words re-centre the line as they arrive (sampled every 0.74 s)",
+      "Easing of the lime bloom (2-frame steps only)"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "element-bloom-transition",
+      "timestamps": [
+        6.06
+      ]
+    },
+    {
+      "id": "beat-grid-element-arrivals",
+      "timestamps": [
+        1.65,
+        3.67,
+        4.67,
+        7.69,
+        9.68
+      ]
+    },
+    {
+      "id": "ui-demo-micro-interactions",
+      "timestamps": [
+        1.11,
+        8.52,
+        9.68
+      ]
+    },
+    {
+      "id": "container-transform",
+      "timestamps": [
+        0.56
+      ]
+    },
+    {
+      "id": "macro-typing-push",
+      "timestamps": [
+        2.12,
+        2.44,
+        2.79
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "element-bloom",
+      "typewriter-reveal",
+      "smear-motion"
+    ],
+    "compositions": [
+      "end-card"
+    ],
+    "templates": [
+      "product-promo"
+    ],
+    "styles": [
+      "editorial-light"
+    ]
+  },
+  "categories": [
+    "product-promo",
+    "ui-product-demo",
+    "scene-transitions",
+    "music-sync",
+    "kinetic-typography"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-4",
+    "light-canvas",
+    "white",
+    "lime-accent",
+    "ai-assistant",
+    "beat-grid",
+    "brand-marks-present"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-26"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.33",
+      "run_on": "2026-11-26",
+      "elapsed_sec": 15.2
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 130,
+      "scan_size": "96x54",
+      "overview_frames": 22,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 7,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.562,
+        "kind": "soft",
+        "score": 0.172
+      },
+      {
+        "t": 2.438,
+        "kind": "soft",
+        "score": 0.175
+      },
+      {
+        "t": 3.2,
+        "kind": "soft",
+        "score": 0.182,
+        "isolation": 0.4
+      },
+      {
+        "t": 6.062,
+        "kind": "soft",
+        "score": 0.318,
+        "isolation": 0.11
+      },
+      {
+        "t": 7.308,
+        "kind": "cut",
+        "score": 0.912,
+        "isolation": 0.87,
+        "frame": 217
+      },
+      {
+        "t": 8.812,
+        "kind": "soft",
+        "score": 0.243
+      },
+      {
+        "t": 9.868,
+        "kind": "cut",
+        "score": 0.164,
+        "isolation": 0.63,
+        "frame": 293
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.56,
+        "duration": 0.56,
+        "activity": 0.164,
+        "luma": 0.95
+      },
+      {
+        "index": 2,
+        "start": 0.56,
+        "end": 2.44,
+        "duration": 1.88,
+        "activity": 0.123,
+        "luma": 0.96
+      },
+      {
+        "index": 3,
+        "start": 2.44,
+        "end": 3.2,
+        "duration": 0.76,
+        "activity": 0.242,
+        "luma": 0.9
+      },
+      {
+        "index": 4,
+        "start": 3.2,
+        "end": 6.06,
+        "duration": 2.86,
+        "activity": 0.056,
+        "luma": 0.95
+      },
+      {
+        "index": 5,
+        "start": 6.06,
+        "end": 7.31,
+        "duration": 1.25,
+        "activity": 0.345,
+        "luma": 0.68
+      },
+      {
+        "index": 6,
+        "start": 7.31,
+        "end": 8.81,
+        "duration": 1.5,
+        "activity": 0.198,
+        "luma": 0.86
+      },
+      {
+        "index": 7,
+        "start": 8.81,
+        "end": 9.87,
+        "duration": 1.06,
+        "activity": 0.172,
+        "luma": 0.83
+      },
+      {
+        "index": 8,
+        "start": 9.87,
+        "end": 16.3,
+        "duration": 6.43,
+        "activity": 0.013,
+        "luma": 1.0
+      }
+    ],
+    "static_holds": [
+      [
+        14.44,
+        16.19
+      ]
+    ],
+    "mean_activity": 0.102,
+    "luma": {
+      "mean": 0.93,
+      "dark_share": 0.0,
+      "light_share": 0.95
+    },
+    "palette": [
+      {
+        "hex": "#f8f8f8",
+        "share": 0.813
+      },
+      {
+        "hex": "#c8f868",
+        "share": 0.067
+      },
+      {
+        "hex": "#e89878",
+        "share": 0.015
+      },
+      {
+        "hex": "#080808",
+        "share": 0.012
+      },
+      {
+        "hex": "#d8d8d8",
+        "share": 0.01
+      },
+      {
+        "hex": "#382828",
+        "share": 0.008
+      },
+      {
+        "hex": "#e8f8d8",
+        "share": 0.007
+      },
+      {
+        "hex": "#180808",
+        "share": 0.007
+      },
+      {
+        "hex": "#886838",
+        "share": 0.006
+      },
+      {
+        "hex": "#8888b8",
+        "share": 0.006
+      }
+    ],
+    "representative_times": [
+      0.28,
+      1.5,
+      2.82,
+      4.63,
+      6.68,
+      8.06,
+      9.34,
+      11.48,
+      13.09,
+      14.69
+    ],
+    "audio": {
+      "present": true,
+      "peak_dbfs": -2.7,
+      "mean_dbfs_voiced": -20.4,
+      "silence_ratio": 0.0,
+      "onsets": 85,
+      "onset_rate_per_sec": 5.22,
+      "onset_times": [
+        0.14,
+        0.35,
+        0.63,
+        0.88,
+        1.04,
+        1.14,
+        1.3,
+        1.42,
+        1.49,
+        1.65,
+        1.88,
+        2.02,
+        2.16,
+        2.28,
+        2.44,
+        2.65,
+        2.81,
+        2.9,
+        3.02,
+        3.16,
+        3.25,
+        3.41,
+        3.67,
+        3.92,
+        4.16,
+        4.41,
+        4.67,
+        4.92,
+        5.06,
+        5.18,
+        5.32,
+        5.43,
+        5.67,
+        5.92,
+        6.13,
+        6.43,
+        6.66,
+        7.17,
+        7.31,
+        7.43,
+        7.69,
+        7.94,
+        8.17,
+        8.45,
+        8.68,
+        8.94,
+        9.03,
+        9.2,
+        9.45,
+        9.61,
+        9.68,
+        9.96,
+        10.19,
+        10.45,
+        10.68,
+        10.96,
+        11.19,
+        11.35,
+        11.47,
+        11.61,
+        11.7,
+        11.96,
+        12.21,
+        12.47,
+        12.7,
+        12.98,
+        13.12,
+        13.21,
+        13.35,
+        13.47,
+        13.65,
+        13.72,
+        13.98,
+        14.21,
+        14.47,
+        14.7,
+        14.98,
+        15.09,
+        15.21,
+        15.35,
+        15.49,
+        15.72,
+        15.86,
+        15.98,
+        16.11
+      ],
+      "tempo_estimate": {
+        "bpm": 117.5,
+        "autocorr": 0.5,
+        "confidence": "medium"
+      },
+      "spectral_centroid_hz": 1231,
+      "band_share": {
+        "low_lt_250": 0.38,
+        "mid_250_2k": 0.39,
+        "high_gt_2k": 0.23
+      },
+      "syllabic_modulation_share": 0.38,
+      "boundary_onset_alignment": {
+        "boundaries": 7,
+        "tolerance_ms": 67,
+        "near_onset": 0.57,
+        "chance_level": 0.51,
+        "median_offset_ms": 65,
+        "near_beat": 0.14,
+        "beat_chance_level": 0.24,
+        "beat_phase_sec": 0.383
+      },
+      "method": "signal features only (envelope, spectral flux onsets, autocorrelation tempo); not listened to, no transcription"
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-ee70618e88",
+      "overview": "reference/analysis/ref-ee70618e88/overview.jpg",
+      "scenes": "reference/analysis/ref-ee70618e88/scenes.jpg",
+      "transitions": "reference/analysis/ref-ee70618e88/transitions.jpg",
+      "motion": "reference/analysis/ref-ee70618e88/motion.jpg",
+      "audio": "reference/analysis/ref-ee70618e88/audio.png",
+      "frames": "reference/analysis/ref-ee70618e88/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-26",
+      "boundaries_from_analyzer": "1.2",
+      "loudness": {
+        "integrated_lufs": -16.6,
+        "lra_lu": 2.2,
+        "true_peak_dbtp": -0.4,
+        "method": "ffmpeg ebur128 (BS.1770); true peak from 4x oversampling"
+      },
+      "speech_raw_words": 2,
+      "audio": true,
+      "speech": {
+        "present": false,
+        "words": 0,
+        "narration": "none",
+        "engine": "windows-system-speech (en-US desktop dictation)",
+        "notes": [
+          "hyperframes transcribe unavailable: {\"ok\":false,\"skipped\":true,\"reason\":\"whisper_unavailable\",\"install\":\"hyperframes models install parakeet\"}"
+        ]
+      },
+      "sound": {
+        "present": true,
+        "onsets": 85,
+        "accents": 17,
+        "accents_per_min": 62.6,
+        "accent_times": [
+          0.14,
+          1.65,
+          2.65,
+          3.67,
+          4.67,
+          5.67,
+          6.66,
+          7.69,
+          8.68,
+          9.68,
+          10.68,
+          11.7,
+          12.7,
+          14.7,
+          15.21,
+          15.35,
+          15.72
+        ],
+        "accent_threshold": 0.48,
+        "boundaries_with_accent": {
+          "boundaries": 7,
+          "share": 0.0,
+          "tolerance_ms": 100,
+          "chance_level": 0.19
+        },
+        "onset_rate_during_speech": null,
+        "onset_rate_outside_speech": 5.21,
+        "level_speech_minus_gaps_db": null,
+        "sustained_share": 1.0,
+        "silences": [],
+        "level_head_vs_body_db": 1.9,
+        "level_tail_vs_body_db": 0.2,
+        "method": "spectral-flux onsets; accents = onsets in the top quintile of strength (capped at 60% of the strongest, floor 0.2 of peak flux); dB from 23 ms RMS frames"
+      },
+      "earshot": {
+        "state": "not-run",
+        "reason": "CLAP/AST models not cached on this host (earshot doctor --fetch, needs huggingface.co)"
+      },
+      "method": "loudness via ffmpeg ebur128; speech word times via windows-system-speech (en-US desktop dictation); accents and levels from signal features; nothing was listened to by a person",
+      "artifacts": {
+        "cache_dir": "reference/analysis/ref-ee70618e88/listen",
+        "sheet": "reference/analysis/ref-ee70618e88/listen/listen.jpg",
+        "words": "reference/analysis/ref-ee70618e88/listen/words.json",
+        "tracked": false
+      }
+    }
+  }
+}

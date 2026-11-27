@@ -62,9 +62,71 @@ PREAMBLE_PATTERNS = [
 
 _TOKEN = re.compile(r"[A-Za-z0-9$%][A-Za-z0-9$%'’.,-]*")
 
+# Hook clarity (a note, never a score change): a viewer who swipes in on the hook has only this line.
+PLURAL_PRONOUNS = {"they", "them", "both", "these", "those", "their"}
+SINGULAR_PRONOUNS = {"it", "this"}
+DETERMINERS = {"both", "these", "those", "this"}
+FUNCTION_WORDS = {
+    "is", "was", "are", "were", "be", "been", "has", "have", "had", "do", "did", "does", "will", "would", "can", "could",
+    "not", "never", "just", "only", "still", "also", "all", "of", "in", "on", "at", "to", "for", "and", "but", "or", "the",
+    "a", "an", "that", "what", "why", "how", "who", "when", "where", "so", "then", "than", "with", "by", "from", "as",
+}
+BARE_UNITS = {"second", "seconds", "minute", "minutes", "hour", "hours", "day", "days", "week", "weeks", "month",
+              "months", "year", "years", "decade", "decades", "percent", "times"}
+QUANTIFIERS = NUMBER_WORDS | {"another", "extra"}
+
 
 def words(text: str) -> List[str]:
     return _TOKEN.findall(text)
+
+
+DURATION_FRAMES = {"took", "take", "takes", "for", "after", "in", "within", "every", "lasted", "lasts", "per", "over"}
+
+
+def _plural_like(w: str) -> bool:
+    return len(w) > 3 and w.endswith("s") and not w.endswith("ss") and w not in FUNCTION_WORDS | PLURAL_PRONOUNS
+
+
+def clarity_notes(text: str) -> List[str]:
+    """Leads, not score changes: a bare pronoun whose noun is not in the line, and a number with a bare unit.
+
+    "Nobody made a mistake. Both lost one year." scores 100 but a viewer who swipes in on it cannot tell who
+    'both' are or one year of what. Heuristic, no parser: a plural pronoun needs a plural-looking word, a
+    counted noun or 'X and Y' earlier in the line; 'it' or 'this' needs any content word earlier; 'both',
+    'these', 'those' and 'this' are fine as determiners ('both prisoners'). A number word or figure followed
+    by a time unit, percent or times that ends its clause needs a qualifier, unless a duration word frames it
+    ('took 22 days'). Uncalibrated: it is a note until the first reel-loop films say how often it is right."""
+    items = [(m.group(1), m.group(2)) for m in re.finditer(r"([A-Za-z0-9$%'’-]+)([.,;:!?]*)", " ".join(text.split()))]
+    notes: List[str] = []
+    seen_plural = seen_noun = False
+    flagged: set = set()
+    for i, (w, punct) in enumerate(items):
+        lw = w.lower()
+        nxt = items[i + 1][0].lower() if i + 1 < len(items) and not punct else None
+        if lw in PLURAL_PRONOUNS | SINGULAR_PRONOUNS:
+            plural = lw in PLURAL_PRONOUNS
+            if plural:
+                determiner = lw in DETERMINERS and nxt is not None and (_plural_like(nxt) or nxt in NUMBER_WORDS)
+            else:
+                determiner = lw == "this" and nxt is not None and nxt not in FUNCTION_WORDS | PLURAL_PRONOUNS | SINGULAR_PRONOUNS
+            if not determiner and not (seen_plural if plural else seen_noun) and lw not in flagged:
+                flagged.add(lw)
+                notes.append(f"leans on '{w}' but the line never names who or what that is; a viewer who swipes in here cannot "
+                             "tell. Name it in the line, unless the missing noun is the film's open question.")
+            continue
+        if _plural_like(lw) or (i and (items[i - 1][0].lower() in NUMBER_WORDS or items[i - 1][0][:1].isdigit())):
+            seen_plural = True
+        if lw == "and" and i and i + 1 < len(items) and items[i - 1][0][:1].isupper() and items[i + 1][0][:1].isupper():
+            seen_plural = True
+        if len(lw) >= 4 and lw not in FUNCTION_WORDS and lw not in NUMBER_WORDS:
+            seen_noun = True
+        if lw in BARE_UNITS and i and not items[i - 1][1] and (punct or i == len(items) - 1):
+            qty = items[i - 1][0]
+            framed = i >= 2 and not items[i - 2][1] and items[i - 2][0].lower() in DURATION_FRAMES
+            if (qty.lower() in QUANTIFIERS or qty[:1].isdigit()) and not framed:
+                notes.append(f"'{qty} {w}' ends without a qualifier (of what, in what, compared with what?); "
+                             "say it, or keep it bare only if it is the question the film answers.")
+    return notes
 
 
 def spoken_seconds(text: str, wps: float = DEFAULT_WPS) -> float:
@@ -145,7 +207,7 @@ def score_hook(text: str, wps: float = DEFAULT_WPS) -> Dict[str, Any]:
     return {
         "text": line, "score": total, "verdict": verdict, "spoken_sec": round(sec, 1), "words": len(tokens),
         "points": {k: round(WEIGHTS[k] * v, 1) for k, v in props.items()}, "capped_by": capped, "notes": notes,
-        "formula": classify(line),
+        "clarity": clarity_notes(line), "formula": classify(line),
     }
 
 

@@ -1,0 +1,29 @@
+{
+  "id": "light-swell-climax",
+  "name": "Light swell climax, released by a cut",
+  "family": "transition-cut",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-2, 2026-11-26): a wordless lighthouse short builds its climax as a lamp's glow swelling until the dark frame flares, released by a cut outside.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The climax is a light source growing until the whole dark frame flares, then a cut to a wide shot releases it. Brightness, not motion or sound, carries the peak.",
+  "purpose": "Carry a story's peak with brightness rather than motion or sound.",
+  "visual_behaviour": "A light source grows steadily in radius and intensity for about 3.4 s until the whole dark frame flares; it settles over half a second and a hard cut to a wide shot releases it.",
+  "mechanics": "Lamp lit at 29.7 s; its glow radius and intensity rise steadily for 3.4 s; a frame-wide exposure lift peaks at 33.1-33.3 s; it settles over about 0.5 s; hard cut to the exterior at 34.60 s, 1.4 s after the peak (ref-1e22836116). No accent at the cut.",
+  "decomposition": { "primitives": ["depth-layer"], "effects": ["halo-bloom"], "timing": "Swell 3-3.5 s; settle 0.5 s; cut 1-1.5 s after the peak." },
+  "parameters": [
+    { "name": "swell_sec", "description": "rise to the peak", "default": 3.4 },
+    { "name": "cut_after_peak_sec", "description": "delay from peak to cut", "default": 1.4 }
+  ],
+  "use_cases": ["Story climax", "A device or idea switching on", "The reveal of a result in a dark section"],
+  "failure_modes": ["On a light canvas there is no headroom: use a dark section", "Cutting before the peak deflates the climax"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Radial gradient on the light source plus a full-frame additive overlay whose opacity rises over 3-3.5 s to a peak, settles 0.5 s, then a hard cut 1-1.5 s after the peak. This approximates the impression; real light transport (volumetric glow, light falling on the set) needs a Blender plate." },
+  "capability": { "support": "approximation", "requirements": ["radial gradient", "full-frame overlay"], "compatible_components": ["halo-bloom", "lamp-flicker"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "approximation": "Radial gradient and overlay opacity give the brightness ramp; volumetric scattering and light falling on the surrounding shapes are lost.", "advanced_path": "A Blender plate (visual-director, light-shafts template) when the climax must show real light on the set.", "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 2 } },
+  "provenance": [
+    { "source_id": "ref-1e22836116", "timestamps": [29.7, 33.2, 34.6], "observed": "The lamp brightens for 3.4 s until the frame flares at 33.1-33.3 s; the film cuts outside 1.4 s later." }
+  ],
+  "related": { "techniques": ["layered-silhouette-stage", "flash-frame-cut"], "effects": ["halo-bloom", "lamp-flicker"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "cut", "climax", "light", "flare", "dark", "story", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

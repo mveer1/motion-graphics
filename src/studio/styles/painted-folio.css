@@ -1,0 +1,62 @@
+/*
+ * Style system: painted-folio. A painted manuscript or scroll: ivory folio, flat mineral colour,
+ * ornamental border bands and register strips that sequence the story (Pattachitra, Kalpasutra
+ * folios, Phad scrolls, black- and red-figure friezes). Alternate look of the mythic-tale
+ * template. Gold (--c-accent-3) is for borders, leaf and display type only (4.0:1).
+ */
+:root {
+  --c-paper: #f6eedb;
+  --c-paper-2: #ecddbc;
+  --c-ink: #231a12;
+  --c-ink-2: #5a4632;
+  --c-rule: #b99a62;
+  --c-accent: #a3271c;
+  --c-accent-2: #233e8b;
+  --c-accent-3: #94700f;
+  --c-gold: #c4932a;
+  --c-gold-light: #e6c472;
+  --c-folio-red: #9e2a1e;
+  --c-leaf-green: #3e6b3a;
+  --c-ochre: #c98a2b;
+  --c-lotus: #c25578;
+  --c-sky: #9fb8cf;
+  --c-night: #1f2747;
+  --c-malachite: #3e6b3a;
+  --c-saffron: #d9822b;
+  --c-peacock: #1f5f66;
+  --c-leather-red: #b8402a;
+  --c-leather-ochre: #c98a2b;
+  --c-leather-green: #3e6b3a;
+  --c-leather-blue: #2d4f94;
+  --c-lamp: rgba(255, 176, 80, 0.16);
+  --c-highlight: rgba(196, 147, 42, 0.32);
+  --c-positive: #3e6b3a;
+  --c-negative: #a3271c;
+  --c-info: #233e8b;
+  --c-shadow: rgba(35, 26, 18, 0.22);
+  --c-caption-ink: #fbf5e8;
+  --c-caption-bg: rgba(35, 26, 18, 0.88);
+  --c-caption-hl: #e6c472;
+
+  --font-display: 'Playfair Display', serif;
+  --font-text: 'EB Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 700;
+  --fw-heading: 600;
+  --track-display: 0.005em;
+  --track-kicker: 0.24em;
+
+  --ease-out: power2.out;
+  --ease-in: power2.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 0.8;
+  --dur-exit: 0.55;
+  --stagger: 0.08;
+
+  --grain-blend: multiply;
+}
+
+.st-paper {
+  background: var(--c-paper-2);
+  box-shadow: 0 calc(var(--u) * 0.2) calc(var(--u) * 0.5) var(--c-shadow);
+}

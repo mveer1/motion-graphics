@@ -1,0 +1,37 @@
+{
+  "id": "diagonal-band-wipe",
+  "name": "Diagonal colour band wipe with echo edges",
+  "family": "transition-cover",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "5 inspected reference films (batch-2, batch-5, batch-6, batch-7, 2026-11-26): a light editor launch changes section under a tilted accent-colour band with stepped echo stripes on both edges.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A solid band in the accent colour, tilted slightly, sweeps across the frame and the scene changes while it covers everything. Stepped lighter stripes on both edges suggest speed without motion blur.",
+  "purpose": "A fast, energetic section change on a light canvas that hides the swap without a cut or motion blur.",
+  "visual_behaviour": "A solid accent-colour band tilted about 15 degrees sweeps left to right in about a quarter second, its edges trailed by lighter stepped stripes; for one or two frames it covers everything, and the next section is underneath when it leaves.",
+  "mechanics": "Band rotated about 15 degrees from vertical, wide enough to cover the frame at mid-travel; 3-4 echo stripes of decreasing opacity (about 80, 60, 40%) on the leading and trailing edges; travels from off-left to off-right in 0.23 s (7 frames at 30 fps), near-linear; full cover for 1-2 frames at the midpoint (ref-3abcbedd20 20.62 s); scene swap under full cover; the next headline starts typing 0.1 s after the band leaves (20.72 s).",
+  "decomposition": { "primitives": ["svg-shape", "clip-mask"], "effects": ["shape-cover-transition"], "timing": "0.2-0.3 s total; 1-2 frames of full cover." },
+  "parameters": [
+    { "name": "angle_deg", "description": "tilt from vertical", "default": 15 },
+    { "name": "duration", "description": "edge to edge", "default": 0.23 },
+    { "name": "echo_stripes", "description": "lighter stripes per edge", "default": 3 }
+  ],
+  "use_cases": ["Section change in a product tour", "A turn between feature groups on a light canvas"],
+  "failure_modes": ["A band colour outside the palette reads as a glitch", "Slower than about 0.5 s it reads as a slide, not a wipe", "More than two per film"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "A rotated rectangle wider than the frame diagonal, with 3 child stripes per edge at about 80, 60 and 40% opacity, translated from off-left to off-right in 0.23 s (near-linear); swap the scenes with a set() on the full-cover frame; start the next headline about 0.1 s after the band leaves. Studio.fx.shapeCover draws a straight band; the echo stripes are not built.", "runtime_api": ["Studio.fx.shapeCover"] },
+  "capability": { "support": "native", "requirements": ["rotated full-frame shape", "frame-exact scene swap"], "compatible_components": ["shape-cover-transition", "mask-wipe"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-3abcbedd20", "timestamps": [20.52, 20.62, 20.75], "observed": "A terracotta band with stepped lighter edges crosses left to right in about 0.23 s; the frame is fully covered at 20.62 s and the next section is underneath." },
+    { "source_id": "ref-fb375e07e2", "timestamps": [5.41, 6.41, 7.41], "observed": "Single-edge variant without echo stripes: one hard diagonal edge sweeps across in about 0.07 s (5.38-5.45 s), swapping stat cards on a 1.00 s grid, each 45-47 ms after a beat onset." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [7.47], "observed": "On dark navy a diagonal light-blue band sweeps across (7.44-7.54 s) and leaves the next section's listing card behind it." },
+    { "source_id": "ref-dc626241e6", "timestamps": [3.0, 5.0, 7.0, 9.0, 11.0], "observed": "Five violet band wipes exactly 2.00 s apart: stripes enter at x.87, solid violet covers about 0.1 s centred on the whole second (2.97-3.03 s), stripes exit by x.13 (about 0.27 s in all). Note: Used as a metronome: the same wipe opens every feature panel." },
+    { "source_id": "ref-9ed4034cad", "timestamps": [12.3], "observed": "A single white diagonal edge sweeps across the calculator scene in about 0.12 s (12.25-12.38 s). Note: Single-edge variant (as batch-6 saw): one light edge, no stripes." },
+    { "source_id": "ref-0bf0254a3d", "timestamps": [10.45], "observed": "An orange diagonal edge crosses the 3D scene (10.36 s), solid orange holds about 0.13 s, then the first word card smears in (10.53 s)." },
+    { "source_id": "ref-5924215625", "timestamps": [3.92], "observed": "A rainbow diagonal band sweeps right to left in about 0.2 s (3.83-4.03 s); day becomes night behind it." },
+    { "source_id": "ref-92c22222a2", "timestamps": [3.5], "observed": "The name's letters collapse to dots and a cream diagonal edge wipes from the lower left in about 0.05 s (3.48-3.51 s)." }
+  ],
+  "related": { "techniques": ["liquid-pour-transition", "curtain-bookends"], "effects": ["shape-cover-transition", "mask-wipe"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["transition", "cover", "wipe", "diagonal", "band", "scene-transitions", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

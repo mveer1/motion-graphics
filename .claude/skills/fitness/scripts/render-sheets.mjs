@@ -18,8 +18,11 @@ const [root, outDir, ...pages] = process.argv.slice(2);
 const npmRoot = execSync('npm root -g', { encoding: 'utf8' }).trim();
 const puppeteer = createRequire(import.meta.url)(path.join(npmRoot, 'hyperframes', 'node_modules', 'puppeteer-core'));
 function findChrome() {
+  if (process.env.CHROME) return process.env.CHROME;
   const base = path.join(os.homedir(), '.cache', 'puppeteer');
-  for (const [dir, rel] of [['chrome-headless-shell', ['chrome-headless-shell-mac-arm64', 'chrome-headless-shell']], ['chrome', ['chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing']]]) {
+  // macOS (the render host) first, then the Windows cache layout of the same Puppeteer downloads
+  for (const [dir, rel] of [['chrome-headless-shell', ['chrome-headless-shell-mac-arm64', 'chrome-headless-shell']], ['chrome', ['chrome-mac-arm64', 'Google Chrome for Testing.app', 'Contents', 'MacOS', 'Google Chrome for Testing']],
+    ['chrome-headless-shell', ['chrome-headless-shell-win64', 'chrome-headless-shell.exe']], ['chrome', ['chrome-win64', 'chrome.exe']]]) {
     const d = path.join(base, dir);
     if (!fs.existsSync(d)) continue;
     for (const v of fs.readdirSync(d).sort().reverse()) { const exe = path.join(d, v, ...rel); if (fs.existsSync(exe)) return exe; }

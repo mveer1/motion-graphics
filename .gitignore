@@ -166,3 +166,6 @@ assets/audio/
 .claude/settings.local.json
 CLAUDE.local.md
 .ruff_cache/
+
+# 2D Tibi PNG exports (export_assets.py, ~20 MB): regenerated, never tracked
+assets/fitness/tibi/png/

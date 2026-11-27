@@ -7,6 +7,10 @@
   "properties": {
     "rig3d": {"type": "string", "description": "id in T3.exercises (src/studio/kits/fitness/exercises3d.js); `fitness.py check` audits its activation roles against `muscles`."},
     "engine": {"enum": ["3d"], "description": "Set on exercises that exist only in the 3D kit (no 2D kinematics in exercises.js)."},
+    "rig3d_status": {"enum": ["pending"], "description": "Knowledge written before the 3D rig: no rig3d yet, left out of library.js. Delete it when rig3d is set."},
+    "sources": {"type": "array", "items": {"type": "object", "required": ["id", "citation", "design", "url", "verified_via", "supports"]}, "description": "Verified sources (field names as in fitness-dossier-spec sources) plus what each supports."},
+    "role_basis": {"type": "object", "additionalProperties": {"type": "string"}, "description": "muscle id -> why it has its role (study, anatomy or coaching)."},
+    "cue_checks": {"type": "array", "items": {"type": "object", "required": ["cue", "rig_check"], "properties": {"cue": {"type": "string"}, "rig_check": {"type": ["string", "null"]}, "note": {"type": "string"}}}, "description": "How a rig can check each cue numerically; null when it cannot."},
     "classification": {"type": "object", "required": ["pattern", "kind", "chain", "plane", "joints"], "properties": {
       "pattern": {"type": "string"}, "kind": {"enum": ["isolation", "compound"]}, "chain": {"enum": ["open", "closed"]}, "plane": {"enum": ["sagittal", "frontal", "transverse"]}, "joints": {"type": "array", "items": {"type": "string"}, "minItems": 1}}},
     "variations": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "name", "note"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}, "note": {"type": "string"}}}},

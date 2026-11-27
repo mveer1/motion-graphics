@@ -28,7 +28,7 @@
     "spdx_identifier": "MIT",
     "status": "verified",
     "commercial_use": true,
-    "notes": "Skill wrapper is MIT licensed. Remotion core requires Remotion Company License for commercial use above 3 employees."
+    "notes": "Skill wrapper is MIT licensed. Remotion itself is source-available (not OSI): free for individuals, non-profits and for-profit organisations of up to 3 employees; a company licence is required above that."
   },
   "security": {
     "requires_filesystem_write": true,
@@ -39,9 +39,9 @@
   },
   "owner": "motion-graphics",
   "status": "blocked",
-  "approval_evidence": "Workspace Steward evaluation: Blocked as a production rendering dependency. HyperFrames + GSAP + Chromium provides superior rendering performance (<200 MB RAM vs >2 GB RAM in Remotion) and sub-second deterministic frame capture on Apple Silicon M2 8 GB. Reusable UI design patterns (UIFrame, StatReveal, TerminalAnimation) are documented for native GSAP adaptation.",
+  "approval_evidence": "Workspace Steward evaluation: Blocked as a production rendering dependency. HyperFrames + GSAP + Chromium provides superior rendering performance (<200 MB RAM vs >2 GB RAM in Remotion) and sub-second deterministic frame capture on Apple Silicon M2 8 GB. Reusable UI design patterns (UIFrame, StatReveal, TerminalAnimation) are documented for native GSAP adaptation. Re-evaluated 2026-11-24 for math and algorithm animation (docs/visual-engines.md): still blocked. It duplicates the HyperFrames frame renderer rather than adding a capability; its licence (remotion-dev/remotion LICENSE.md) is source-available, free for individuals and for-profit organisations of up to 3 employees, a paid company licence above that.",
   "architecture_ref": "ARCHITECTURE.md#s4",
-  "last_verified": "2026-10-30",
+  "last_verified": "2026-11-24",
   "tags": [
     "remotion",
     "react",
@@ -50,4 +50,3 @@
     "evaluated"
   ]
 }
-

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reference-derived test: container transform and flash-frame cut</title>
+  <!--
+    Techniques under test: container-transform (Studio.fx.containerTransform), flash-frame-cut (Studio.fx.flash:
+    radial accent burst on the light canvas with a pre-dim, then a flat white flash onto a dark card).
+    Original layout and copy; no reference footage, marks or shot sequences.
+  -->
+  <link rel="stylesheet" href="../../../src/studio/studio-base.css">
+  <link rel="stylesheet" href="../../../src/studio/styles/editorial-light.css">
+  <style id="studio-format">:root{--w:1280px;--h:720px;--u:7.2px;--safe-top:43px;--safe-right:64px;--safe-bottom:58px;--safe-left:64px;}</style>
+  <style>
+    #sceneA, #sceneB, #sceneC { background: var(--c-paper); }
+    #sceneD { background: var(--c-ink); color: var(--c-paper); }
+    .kick { position: absolute; left: var(--safe-left); top: var(--safe-top); }
+    #titleA { position: absolute; left: var(--safe-left); top: 22%; width: 52%; }
+    #tile {
+      position: absolute; left: 68%; top: 34%; width: calc(var(--u) * 18); height: calc(var(--u) * 18);
+      border-radius: calc(var(--u) * 4); background: var(--c-accent-2); color: var(--c-paper);
+      display: flex; align-items: center; justify-content: center; font: 700 calc(var(--u) * 4) / 1 'Inter', sans-serif;
+    }
+    #card {
+      position: absolute; left: var(--safe-left); right: var(--safe-right); top: 16%; bottom: 14%;
+      border-radius: calc(var(--u) * 1.6); background: var(--c-accent-2); color: var(--c-paper);
+      padding: calc(var(--u) * 5) calc(var(--u) * 6); box-sizing: border-box;
+    }
+    #card h2 { margin: 0 0 calc(var(--u) * 3); font: 700 calc(var(--u) * 7) / 1.05 'Inter', sans-serif; }
+    #card li { font: 500 calc(var(--u) * 3.4) / 1.6 'Inter', sans-serif; }
+    #word { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 34%; text-align: center; }
+    #word .dot { color: var(--c-accent); }
+    #sub { position: absolute; left: 0; right: 0; top: 58%; max-width: none; text-align: center; color: var(--c-ink-2); }
+    #card h2 { display: inline-block; }
+    #finale { position: absolute; left: var(--safe-left); right: var(--safe-right); top: 38%; text-align: center; color: var(--c-paper); }
+  </style>
+  <script src="../../../src/studio/vendor/gsap.min.js"></script>
+</head>
+<body>
+<div id="root" data-composition-id="root" data-format="landscape" data-width="1280" data-height="720" data-fps="30" data-duration="9">
+  <div class="st-scene" id="sceneA">
+    <div class="st-kicker kick">Container study</div>
+    <h1 class="st-display" id="titleA">One tile opens the whole tool.</h1>
+    <div id="tile">Go</div>
+  </div>
+  <div class="st-scene" id="sceneB">
+    <div id="card">
+      <h2>Inside the tool</h2>
+      <ul><li>Every step on one screen</li><li>Numbers that update as you type</li><li>Nothing to install</li></ul>
+    </div>
+  </div>
+  <div class="st-scene" id="sceneC">
+    <div class="st-kicker kick">Container study</div>
+    <h1 class="st-display" id="word">Launch day.</h1>
+    <p class="st-body" id="sub">The flash marks the turn, not every cut.</p>
+  </div>
+  <div class="st-scene" id="sceneD">
+    <h1 class="st-display" id="finale">Ready.</h1>
+  </div>
+</div>
+<script src="../../../src/studio/studio-core.js"></script>
+<script src="../../../src/studio/studio-draw.js"></script>
+<script src="../../../src/studio/studio-type.js"></script>
+<script src="../../../src/studio/studio-motion.js"></script>
+<script src="../../../src/studio/studio-compositions.js"></script>
+<script>
+Studio.build(function (tl, f, S) {
+  var title = S.type.split('#titleA', { type: 'lines,words', mask: 'lines' });
+  S.show(tl, '#sceneA', 0);
+  S.type.rise(tl, title.lines, 0.2, { stagger: 0.08 });
+  tl.fromTo('#tile', { scale: 0.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: true }, 0.7);
+  S.fx.pulse(tl, '#tile', 1.6, { scale: 1.06, duration: 0.3 });
+  // The tile becomes the card of the next scene: one object, no crossfade of two frames. The headline steps aside first.
+  S.type.exit(tl, title.lines, 2.15, { duration: 0.3 });
+  var opened = S.fx.containerTransform(tl, '#tile', '#card', 2.3, { duration: 0.7, outTarget: '#sceneA', inTarget: '#sceneB' });
+  S.type.highlight(tl, '#card h2', opened + 0.5, { duration: 0.5, color: 'rgba(217, 164, 65, 0.45)' });
+  // Light canvas: a white flash would vanish, so the turn uses a radial accent burst centred on the next word.
+  var flashed = S.fx.flash(tl, '#sceneB', '#sceneC', 5.0, { shape: 'radial', color: S.token('--c-accent-3'), center: '#word', preDim: 0.2, decay: 0.3 });
+  tl.fromTo('#sub', { autoAlpha: 0, y: S.u(1) }, { autoAlpha: 1, y: 0, duration: 0.4, ease: 'power2.out', immediateRender: true }, flashed + 0.3);
+  // Onto a dark card a flat white flash reads as exposure.
+  S.fx.flash(tl, '#sceneC', '#sceneD', 7.4, { decay: 0.25 });
+  tl.fromTo('#finale', { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power2.out', immediateRender: false }, 7.4);
+});
+</script>
+</body>
+</html>

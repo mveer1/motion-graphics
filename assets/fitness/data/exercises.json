@@ -67,7 +67,23 @@
       "errors": [
         {
           "id": "common-error",
-          "description": "Hips sag or pike and reps stop halfway."
+          "description": "Hips sag or pike and reps stop halfway.",
+          "correction": "Brace the trunk and squeeze the glutes so the body moves as one line, and lower until the chest is close to the floor."
+        },
+        {
+          "id": "hips-sag",
+          "description": "The hips sag toward the floor and the lower back arches.",
+          "correction": "Ribs down, glutes tight: shoulder, hip and ankle stay on one straight line."
+        },
+        {
+          "id": "elbows-flare",
+          "description": "The elbows flare straight out to the sides.",
+          "correction": "Angle the elbows back, roughly 45 degrees from the body (a coaching convention)."
+        },
+        {
+          "id": "half-rep",
+          "description": "The reps stop halfway down.",
+          "correction": "Lower until the chest is close to the floor, then press back to straight arms."
         }
       ],
       "cues": [
@@ -76,7 +92,242 @@
         "Push the floor away and finish with the shoulder blades spread around the ribcage."
       ],
       "source_claim": "c15",
-      "kinematics": "conceptual"
+      "kinematics": "conceptual",
+      "rig3d": "push-up",
+      "classification": {
+        "pattern": "horizontal push",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "transverse",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "knee",
+          "name": "Knee push-up",
+          "note": "Ebben 2011: lower peak ground reaction force than the regular push-up; an easier version"
+        },
+        {
+          "id": "hands-elevated",
+          "name": "Hands-elevated (incline) push-up",
+          "note": "Ebben 2011: lower peak ground reaction force with the hands on a 30 or 60 cm box"
+        },
+        {
+          "id": "feet-elevated",
+          "name": "Feet-elevated (decline) push-up",
+          "note": "Ebben 2011: higher peak ground reaction force with the feet on a box; a harder version"
+        },
+        {
+          "id": "narrow-base",
+          "name": "Narrow-hand push-up",
+          "note": "Cogley 2005: more pectoralis major and triceps EMG than a wide hand base"
+        },
+        {
+          "id": "push-up-plus",
+          "name": "Push-up plus",
+          "note": "Ludewig 2004: an extra shoulder-blade protraction at the top; highest serratus anterior activity of the push-up variants tested"
+        }
+      ],
+      "execution": [
+        "Place the hands on the floor just outside shoulder width, under the shoulders.",
+        "Step the feet back so the body is one straight line from head to heels; ribs down, glutes tight.",
+        "Lower the chest toward the floor with the elbows angled back, not flared straight out.",
+        "Push the floor away to straight arms, keeping the body line.",
+        "Finish with the shoulder blades spread around the ribcage."
+      ],
+      "joint_actions": [
+        {
+          "joint": "elbow",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            10,
+            140
+          ],
+          "note": "illustrative: the 3D rig goes from soft elbows to 140 deg at the bottom"
+        },
+        {
+          "joint": "shoulder",
+          "concentric": "horizontal adduction and flexion",
+          "eccentric": "horizontal abduction and extension",
+          "rom_deg": [
+            0,
+            80
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapulothoracic",
+          "concentric": "protraction at the top",
+          "eccentric": "retraction on the way down",
+          "rom_deg": [
+            0,
+            15
+          ],
+          "note": "illustrative; the 3D rig has no scapula, so this is not animated"
+        },
+        {
+          "joint": "trunk and hip",
+          "concentric": "held straight (isometric)",
+          "eccentric": "held straight (isometric)",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "coaching: no sag, no pike"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.3,
+        "bottom_s": 0.2,
+        "concentric_s": 1.0,
+        "top_s": 0.5,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in on the way down and out as you push up, keeping the trunk braced (coaching convention).",
+      "camera_angles": [
+        "side",
+        "low side",
+        "three-quarter front",
+        "above"
+      ],
+      "visual_requirements": [
+        "hands under the shoulders at the top, just outside shoulder width",
+        "shoulder, hip and ankle on one straight line in every frame",
+        "elbows angled back (about 45 deg from the trunk), not flared",
+        "chest close to the floor at the bottom",
+        "pectoralis major, triceps and deltoid highlighted as prime movers; serratus anterior and rectus abdominis as helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "hands elevated on a bench or box",
+          "knee push-up"
+        ],
+        "harder": [
+          "feet elevated on a box",
+          "slower lowering",
+          "added load"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "sources": [
+        {
+          "id": "cogley-2005",
+          "citation": "Cogley RM, Archambault TA, Fibeger JF, Koverman MM, Youdas JW, Hollman JH. Comparison of muscle activation using various hand positions during the push-up exercise. J Strength Cond Res. 2005;19(3):628-633.",
+          "year": 2005,
+          "design": "acute-mechanistic",
+          "n": "40 adults (11 men, 29 women)",
+          "pmid": "16095413",
+          "doi": "10.1519/15094.1",
+          "url": "https://europepmc.org/article/MED/16095413",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "Pectoralis major and triceps brachii EMG recorded during push-ups from shoulder-width, wide and narrow hand bases; both higher with the narrow base than the wide base."
+        },
+        {
+          "id": "ludewig-2004",
+          "citation": "Ludewig PM, Hoff MS, Osowski EE, Meschke SA, Rundquist PJ. Relative balance of serratus anterior and upper trapezius muscle activity during push-up exercises. Am J Sports Med. 2004;32(2):484-493.",
+          "year": 2004,
+          "design": "acute-mechanistic",
+          "n": "30 adults (healthy or with mild shoulder dysfunction)",
+          "pmid": "14977678",
+          "doi": "10.1177/0363546503258911",
+          "url": "https://europepmc.org/article/MED/14977678",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "Serratus anterior and upper trapezius EMG during push-up plus variants; the standard push-up plus showed the highest serratus anterior activation and the lowest upper trapezius to serratus ratios."
+        },
+        {
+          "id": "freeman-2006",
+          "citation": "Freeman S, Karpowicz A, Gray J, McGill S. Quantifying muscle patterns and spine load during various forms of the push-up. Med Sci Sports Exerc. 2006;38(3):570-577.",
+          "year": 2006,
+          "design": "acute-mechanistic",
+          "n": "10 adults (9 men, 1 woman)",
+          "pmid": "16540847",
+          "doi": "10.1249/01.mss.0000189317.08635.1b",
+          "url": "https://europepmc.org/article/MED/16540847",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "EMG of rectus abdominis, external and internal oblique, latissimus dorsi, erector spinae, pectoralis major, triceps brachii, biceps brachii and anterior deltoid across 12 push-up styles, with L4-5 spine load; more dynamic push-ups needed more activation."
+        },
+        {
+          "id": "calatayud-2015",
+          "citation": "Calatayud J, Borreani S, Colado JC, Martin F, Tella V, Andersen LL. Bench press and push-up at comparable levels of muscle activity results in similar strength gains. J Strength Cond Res. 2015;29(1):246-253.",
+          "year": 2015,
+          "design": "controlled-trial",
+          "n": "30 university students with advanced resistance-training experience",
+          "pmid": "24983847",
+          "doi": "10.1519/jsc.0000000000000589",
+          "url": "https://europepmc.org/article/MED/24983847",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "6RM bench press and elastic-band push-up showed no significant EMG amplitude difference, and 5 weeks of either gave similar 1RM and 6RM gains."
+        },
+        {
+          "id": "kikuchi-2017",
+          "citation": "Kikuchi N, Nakazato K. Low-load bench press and push-up induce similar muscle hypertrophy and strength gain. J Exerc Sci Fit. 2017;15(1):37-42.",
+          "year": 2017,
+          "design": "controlled-trial",
+          "n": "18 men",
+          "pmid": "29541130",
+          "doi": "10.1016/j.jesf.2017.06.003",
+          "url": "https://europepmc.org/article/MED/29541130",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "8 weeks of push-ups, load-matched to a low-load bench press group, increased bench press 1RM and triceps and pectoralis major thickness, as the bench press training did."
+        },
+        {
+          "id": "ebben-2011",
+          "citation": "Ebben WP, Wurm B, VanderZanden TL, Spadavecchia ML, Durocher JJ, Bickham CT, Petushek EJ. Kinetic analysis of several variations of push-ups. J Strength Cond Res. 2011;25(10):2891-2894.",
+          "year": 2011,
+          "design": "acute-mechanistic",
+          "n": "23 recreationally fit adults (14 men, 9 women)",
+          "pmid": "21873902",
+          "doi": "10.1519/jsc.0b013e31820c8587",
+          "url": "https://europepmc.org/article/MED/21873902",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read; DOI resolved via doi.org handle API",
+          "supports": "Peak vertical ground reaction force: feet-elevated push-ups higher, hands-elevated and flexed-knee push-ups lower than the regular push-up (progressions)."
+        }
+      ],
+      "role_basis": {
+        "pectoralis-major": "EMG measured in Cogley 2005 and Freeman 2006; thickness increased with push-up training in Kikuchi 2017.",
+        "triceps-brachii": "EMG measured in Cogley 2005 and Freeman 2006; thickness increased with push-up training in Kikuchi 2017.",
+        "deltoid": "Anterior deltoid EMG measured in Freeman 2006; shoulder flexion and horizontal adduction (anterior fibres).",
+        "serratus-anterior": "Ludewig 2004: serratus anterior active in push-ups, highest with the push-up plus; protracts the shoulder blade at the top.",
+        "rectus-abdominis": "Measured in Freeman 2006 during push-up styles; holds the trunk line against sagging.",
+        "external-oblique": "Measured in Freeman 2006 during push-up styles; trunk hold."
+      },
+      "roles_not_listed": [
+        {
+          "muscle": "latissimus-dorsi / erector-spinae",
+          "why": "measured in Freeman 2006 but not part of the original record's roles; add only with a stated role"
+        }
+      ],
+      "cue_checks": [
+        {
+          "cue": "Hands under the shoulders, just outside shoulder width",
+          "rig_check": "at the top the wrist is within 12 units of under the shoulder and 5-45 units outside it"
+        },
+        {
+          "cue": "One straight line from head to heels",
+          "rig_check": "hip within 8 units of the shoulder-ankle line every frame (sag < 0, pike > 0)"
+        },
+        {
+          "cue": "Elbows angled back, not flared",
+          "rig_check": "upper arm at most 60 deg from the trunk's long axis seen from above at the bottom",
+          "note": "45 deg is a coaching convention, not a finding"
+        },
+        {
+          "cue": "Lower the chest to the floor",
+          "rig_check": "elbow flexion at least 90 deg at the bottom (the rig reaches 140)"
+        },
+        {
+          "cue": "Shoulder blades spread at the top",
+          "rig_check": null,
+          "note": "the 3D rig has no scapula; show it with a cue card only"
+        }
+      ]
     },
     {
       "id": "dumbbell-bench-press",
@@ -318,7 +569,8 @@
         "pull-up bar"
       ],
       "view": "back",
-      "start": "Start from a hang with the shoulder blades gently pulled down, not shrugged.",
+      "engine": "3d",
+      "start": "Dead hang from the bar with an overhand (pronated) grip a little wider than the shoulders, arms straight, shoulder blades gently pulled down, not shrugged.",
       "phases": [
         {
           "id": "pulling",
@@ -327,7 +579,7 @@
         },
         {
           "id": "lowering",
-          "description": "Lower under control to a full hang.",
+          "description": "Lower under control to a full dead hang.",
           "pose": "pullup-hang"
         }
       ],
@@ -346,9 +598,16 @@
           "trapezius",
           "rhomboids",
           "deltoid",
-          "forearm-flexors"
+          "pectoralis-major",
+          "brachioradialis"
         ],
-        "fibres": "latissimus-dorsi; biceps-brachii; brachialis / trapezius (lower and middle fibres); rhomboids; deltoid (posterior fibres); forearm-flexors (grip)"
+        "stabilizer": [
+          "infraspinatus",
+          "forearm-flexors",
+          "erector-spinae",
+          "external-oblique"
+        ],
+        "fibres": "latissimus-dorsi; biceps-brachii; brachialis / trapezius (lower and middle fibres); rhomboids; deltoid (posterior fibres); pectoralis-major; brachioradialis / infraspinatus; forearm-flexors (grip); erector-spinae and external-oblique (trunk position)"
       },
       "landmarks": [
         "shoulder",
@@ -356,13 +615,24 @@
         "wrist",
         "hip"
       ],
-      "direction": "Lower under control to a full hang.",
-      "camera": "back view (the motion stays in the picture plane)",
+      "direction": "The body rises on a near-vertical line under the bar while the elbows travel down toward the ribs; the trunk stays still with no swing.",
+      "camera": "back view for the shoulder blades and elbow path; side view for the trunk swing and the chin-over-bar line",
       "alternatives": "Easier: Band-assisted pull-up; slow lowering only (negatives); inverted row. Harder: Slower tempo; pause at the top; added weight.",
       "errors": [
         {
-          "id": "common-error",
-          "description": "Swinging or kicking for momentum and cutting the range short."
+          "id": "kipping-swing",
+          "description": "Swinging or kicking the body for momentum.",
+          "correction": "Hang still, brace the trunk, and pull from a dead hang each rep; use a band or negatives until you can."
+        },
+        {
+          "id": "short-range",
+          "description": "Starting from a bent-arm hang or stopping with the chin below the bar.",
+          "correction": "Start every rep from straight arms and pull until the chin clears the bar (Urbanczyk 2020: different phases emphasise different muscles, so the full range matters)."
+        },
+        {
+          "id": "shrug",
+          "description": "The shoulders shrug up toward the ears in the hang or at the start of the pull.",
+          "correction": "Draw the shoulder blades gently down first, then pull the elbows toward the ribs."
         }
       ],
       "cues": [
@@ -370,8 +640,217 @@
         "Pull the elbows down toward the ribs until the chin clears the bar.",
         "Lower under control to a full hang."
       ],
-      "source_claim": "c18",
-      "kinematics": "conceptual"
+      "source_claim": "Latissimus dorsi and the elbow flexors as the movers with the scapular and trunk muscles assisting: Youdas 2010 (25 adults; a conventional pull-up recorded latissimus, biceps, infraspinatus, lower trapezius, pectoralis major, erector spinae and external oblique; latissimus activity was the highest of those muscles; the lower trapezius and pectoralis major led the pull and the biceps and latissimus completed it), Dickie 2017 (19 strength-trained men; similar shoulder-arm-forearm activity across grips; biceps, brachioradialis and pectoralis major were higher in the pulling phase than in the lowering phase), Urbanczyk 2020 (11 men; model-estimated muscle forces; the front pronated pull-up favoured biceps brachii and brachialis; full range matters), Prinold 2016 (11 participants; scapular kinematics differ between pull-up grips). Cues, including the kipping error, are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "vertical pull",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "frontal",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "chin-up",
+          "name": "Chin-up (supinated grip)",
+          "note": "Youdas 2010 (25 adults): higher biceps and pectoralis major activity than the pull-up; lower trapezius higher in the pull-up"
+        },
+        {
+          "id": "neutral-grip",
+          "name": "Neutral-grip pull-up",
+          "note": "Dickie 2017 (19 men): lower middle trapezius activity than the pronated grip; overall similar activity across grips"
+        },
+        {
+          "id": "wide-grip",
+          "name": "Wide-grip pull-up",
+          "note": "Urbanczyk 2020 (11 men): relatively more latissimus activity (model-estimated); Prinold 2016: wide and reverse grips showed kinematics linked with higher impingement risk"
+        }
+      ],
+      "execution": [
+        "Take an overhand grip a little wider than the shoulders and hang with straight arms.",
+        "Draw the shoulder blades gently down, without shrugging.",
+        "Pull the elbows toward the ribs until the chin clears the bar.",
+        "Pause briefly at the top.",
+        "Lower under control to a full dead hang."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "adduction and extension",
+          "eccentric": "abduction and flexion",
+          "rom_deg": [
+            30,
+            170
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            110
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapula",
+          "concentric": "depression and downward rotation",
+          "eccentric": "elevation and upward rotation",
+          "rom_deg": [
+            0,
+            30
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 2.0,
+        "bottom_s": 0.3,
+        "concentric_s": 1.2,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the dead hang"
+      },
+      "breathing": "Exhale as you pull up, inhale as you lower (a common convention).",
+      "camera_angles": [
+        "back",
+        "side",
+        "back three-quarter",
+        "front"
+      ],
+      "visual_requirements": [
+        "bar fixed; the body rises under it",
+        "pronated grip: palms face away, hands a little wider than the shoulders",
+        "starts from a full dead hang with straight arms",
+        "chin clears the bar at the top",
+        "trunk still, no swing or kick",
+        "latissimus dorsi, biceps and brachialis highlighted as movers; scapular and trunk muscles as helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "band-assisted pull-up",
+          "slow lowering only (negatives)",
+          "inverted row"
+        ],
+        "harder": [
+          "slower tempo",
+          "pause at the top",
+          "added weight"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "some pulling strength, or use band assistance",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "latissimus-dorsi": "Measured in Youdas 2010 (highest of the muscles recorded); modelled in Urbanczyk 2020; extends and adducts the arm (OpenStax 11.5).",
+        "biceps-brachii": "Measured in Youdas 2010 and Dickie 2017; modelled in Urbanczyk 2020; elbow flexor (OpenStax 11.5).",
+        "brachialis": "Model-estimated (not measured EMG) in Urbanczyk 2020; elbow flexor (OpenStax 11.5). Deep.",
+        "trapezius": "Lower trapezius measured in Youdas 2010; middle trapezius measured in Dickie 2017.",
+        "rhomboids": "Retract the scapula (OpenStax 11.5). Anatomy, not measured in the pull-up sources.",
+        "deltoid": "Posterior fibres extend the arm (OpenStax 11.5). Anatomy, not measured in the pull-up sources.",
+        "pectoralis-major": "Measured in Youdas 2010 and Dickie 2017.",
+        "brachioradialis": "Measured in Dickie 2017; elbow flexor.",
+        "infraspinatus": "Measured in Youdas 2010; rotator-cuff stabiliser of the shoulder.",
+        "forearm-flexors": "Grip on the bar. Anatomy.",
+        "erector-spinae": "Measured in Youdas 2010 (lower activity than the movers); holds the hanging trunk.",
+        "external-oblique": "Measured in Youdas 2010 (lower activity than the movers); anatomy and the study support a trunk-holding role, not more."
+      },
+      "cue_checks": [
+        {
+          "cue": "Shoulder blades down, not shrugged",
+          "rig_check": "scapular elevation under N units at the dead hang and at the start of the pull",
+          "note": "only checkable if the rig models scapular motion; otherwise not checkable"
+        },
+        {
+          "cue": "Elbows down toward the ribs",
+          "rig_check": "elbow path within N degrees of the trunk line; elbow lateral distance from the ribs under N units at the top"
+        },
+        {
+          "cue": "Chin clears the bar",
+          "rig_check": "chin rises above the bar plane at the top of each rep"
+        },
+        {
+          "cue": "Lower to a full dead hang",
+          "rig_check": "elbow extension reaches N degrees at the bottom of each rep"
+        },
+        {
+          "cue": "No swing or kick",
+          "rig_check": "trunk angle changes by less than N degrees and hip horizontal travel stays under N units through the rep"
+        }
+      ],
+      "sources": [
+        {
+          "id": "youdas-2010",
+          "citation": "Youdas JW, Amundson CL, Cicero KS, Hahn JJ, Harezlak DT, Hollman JH. Surface electromyographic activation patterns and elbow joint motion during a pull-up, chin-up, or Perfect-Pullup rotational exercise. J Strength Cond Res. 2010;24(12):3404-3414.",
+          "year": 2010,
+          "design": "acute-mechanistic",
+          "n": "25 healthy adults (21 men, 4 women)",
+          "pmid": "21068680",
+          "doi": "10.1519/jsc.0b013e3181f1598c",
+          "url": "https://europepmc.org/article/MED/21068680",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Conventional pull-up, chin-up and rotational pull-up: latissimus, biceps, infraspinatus, lower trapezius, pectoralis major, erector spinae and external oblique measured; latissimus activity was the highest of those muscles; the chin-up gave higher biceps and pectoralis major activity and the pull-up higher lower-trapezius activity; the lower trapezius and pectoralis major led the pull and the biceps and latissimus completed it."
+        },
+        {
+          "id": "dickie-2017",
+          "citation": "Dickie JA, Faulkner JA, Barnes MJ, Lark SD. Electromyographic analysis of muscle activation during pull-up variations. J Electromyogr Kinesiol. 2017;32:30-36.",
+          "year": 2017,
+          "design": "acute-mechanistic",
+          "n": "19 strength-trained men",
+          "pmid": "28011412",
+          "doi": "10.1016/j.jelekin.2016.11.004",
+          "url": "https://europepmc.org/article/MED/28011412",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Supinated, pronated, neutral-grip and rope pull-ups: middle trapezius activity was higher with the pronated than the neutral grip; brachioradialis, biceps and pectoralis major activity was higher in the pulling phase than in the lowering phase; overall activity was similar across hand orientations."
+        },
+        {
+          "id": "urbanczyk-2020",
+          "citation": "Urbanczyk CA, Prinold JAI, Reilly P, Bull AMJ. Avoiding high-risk rotator cuff loading: muscle force during three pull-up techniques. Scand J Med Sci Sports. 2020;30(11):2205-2214.",
+          "year": 2020,
+          "design": "acute-mechanistic",
+          "n": "11 men",
+          "pmid": "32715526",
+          "doi": "10.1111/sms.13780",
+          "url": "https://europepmc.org/article/MED/32715526",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Motion capture plus a shoulder model for front pronated, wide pronated and supinated pull-ups: model-estimated forces (not EMG); front pull-ups favoured biceps brachii and brachialis; wide pull-ups favoured latissimus; different techniques and phases emphasise different muscles, so full range matters."
+        },
+        {
+          "id": "prinold-2016",
+          "citation": "Prinold JA, Bull AM. Scapula kinematics of pull-up techniques: avoiding impingement risk with training changes. J Sci Med Sport. 2016;19(8):629-635.",
+          "year": 2016,
+          "design": "acute-mechanistic",
+          "n": "11 participants who regularly perform pull-ups",
+          "pmid": "26383875",
+          "doi": "10.1016/j.jsams.2015.08.002",
+          "url": "https://europepmc.org/article/MED/26383875",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Scapular kinematics differ between palms-anterior, palms-posterior and wide-grip pull-ups; wide and reverse techniques showed patterns linked with higher sub-acromial impingement risk; observational."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Teres major extends and adducts the arm; rhomboids retract the scapula; brachialis and biceps flex the elbow; deltoid extends the arm."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ],
+      "rig3d": "pull-up"
     },
     {
       "id": "one-arm-row",
@@ -385,7 +864,8 @@
         "flat bench"
       ],
       "view": "side",
-      "start": "Support one hand and knee on the bench, back flat and hips level.",
+      "engine": "3d",
+      "start": "One hand and the same-side knee on the flat bench, the other foot on the floor, back flat and hips level, the dumbbell hanging at arm's length.",
       "phases": [
         {
           "id": "pulling",
@@ -401,22 +881,25 @@
       "joints": [
         "shoulder extension",
         "elbow flexion",
-        "scapular retraction"
+        "scapular retraction then protraction",
+        "trunk held still"
       ],
       "muscles": {
         "primary": [
           "latissimus-dorsi",
           "rhomboids",
-          "trapezius",
-          "deltoid"
+          "trapezius"
         ],
         "secondary": [
+          "deltoid",
           "biceps-brachii",
-          "brachialis",
-          "forearm-flexors",
-          "erector-spinae"
+          "brachialis"
         ],
-        "fibres": "latissimus-dorsi; rhomboids; trapezius (middle fibres); deltoid (posterior fibres) / biceps-brachii; brachialis; forearm-flexors (grip); erector-spinae (trunk position)"
+        "stabilizer": [
+          "erector-spinae",
+          "forearm-flexors"
+        ],
+        "fibres": "latissimus-dorsi; rhomboids; trapezius (middle and lower fibres) / deltoid (posterior fibres); biceps-brachii; brachialis / erector-spinae (trunk position); forearm-flexors (grip)"
       },
       "landmarks": [
         "shoulder",
@@ -424,13 +907,29 @@
         "wrist",
         "hip"
       ],
-      "direction": "Lower to a full stretch without twisting the torso.",
-      "camera": "side view (the motion stays in the picture plane)",
-      "alternatives": "Easier: Chest-supported row on an incline bench; resistance-band row. Harder: Pause at the top; slower lowering; heavier dumbbell.",
+      "direction": "The dumbbell travels in a near-vertical arc from beside the knee to the hip; the elbow passes close to the ribs and the trunk stays still.",
+      "camera": "side view for the elbow path and back angle; above or front view to catch torso twist",
+      "alternatives": "Easier: Chest-supported row on an incline bench; resistance-band row; lighter dumbbell. Harder: Pause at the top; slower lowering; heavier dumbbell.",
       "errors": [
         {
-          "id": "common-error",
-          "description": "Twisting and heaving the torso to swing the weight, with a shortened range."
+          "id": "torso-twist",
+          "description": "Twisting and heaving the torso to swing the weight, with a shortened range.",
+          "correction": "Keep the shoulders and hips square to the floor; lighten the dumbbell until only the arm and shoulder blade move."
+        },
+        {
+          "id": "elbow-out",
+          "description": "The elbow flares out and the dumbbell is pulled straight up toward the chest.",
+          "correction": "Pull the elbow toward the hip, close to the ribs."
+        },
+        {
+          "id": "round-back",
+          "description": "The back rounds or the trunk drops at the bottom of the rep.",
+          "correction": "Keep the back flat and the head in line with the spine; stop the stretch where the back stays flat."
+        },
+        {
+          "id": "short-range",
+          "description": "Stopping the lowering well short of a full stretch.",
+          "correction": "Let the arm straighten and the shoulder blade reach forward each rep, with the trunk still."
         }
       ],
       "cues": [
@@ -438,8 +937,190 @@
         "Pull the elbow toward the hip rather than straight up, shoulder blade moving with the arm.",
         "Lower to a full stretch without twisting the torso."
       ],
-      "source_claim": "c19",
-      "kinematics": "conceptual"
+      "source_claim": "Back and scapular muscles as movers with the elbow flexors helping: Andersen 2012 (17 women; a one-arm row activated the middle trapezius over the upper trapezius and, at both effort levels, the lower trapezius over the upper trapezius; the abstract does not describe the row set-up), Fenwick 2009 (7 men; the standing one-armed cable row challenged the torsional capability of the trunk muscles; the inverted row gave the highest latissimus activity and the bent-over row the largest lumbar load; no dumbbell bench row was studied). Latissimus dorsi, rhomboid, posterior deltoid and brachialis roles are anatomy (OpenStax A&P 2e 11.5), not measured in this set-up. Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "horizontal pull (unilateral, trunk inclined)",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "sagittal",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "chest-supported",
+          "name": "Chest-supported one-arm row",
+          "note": "pad or incline bench removes the trunk demand"
+        },
+        {
+          "id": "standing-cable",
+          "name": "Standing one-arm cable row",
+          "note": "Fenwick 2009 (7 men): challenged the torsional capability of the trunk muscles"
+        },
+        {
+          "id": "bent-over-two-arm",
+          "name": "Bent-over two-arm row",
+          "note": "Fenwick 2009 (7 men): large symmetric back activity but the largest lumbar spine load of the rows studied"
+        }
+      ],
+      "execution": [
+        "Place one hand and the same-side knee on a flat bench, the other foot on the floor.",
+        "Set a flat back with the hips level and take the dumbbell at arm's length.",
+        "Pull the elbow toward the hip, the shoulder blade moving back with the arm.",
+        "Pause briefly with the dumbbell by the ribs.",
+        "Lower to a full stretch without twisting the torso."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            70
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            100
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapula",
+          "concentric": "retraction",
+          "eccentric": "protraction",
+          "rom_deg": [
+            0,
+            25
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.8,
+        "bottom_s": 0.3,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the arm hanging straight"
+      },
+      "breathing": "Exhale as you row, inhale as you lower (a common convention).",
+      "camera_angles": [
+        "side",
+        "front three-quarter",
+        "above",
+        "back three-quarter"
+      ],
+      "visual_requirements": [
+        "supporting hand and same-side knee stay planted on the bench",
+        "back flat and hips level at every frame",
+        "elbow travels toward the hip, close to the ribs",
+        "shoulders stay square to the floor; no torso twist",
+        "latissimus dorsi, rhomboids and trapezius highlighted as movers; elbow flexors as helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "chest-supported row",
+          "lighter dumbbell"
+        ],
+        "harder": [
+          "pause at the top",
+          "heavier dumbbell"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "preliminary",
+      "role_basis": {
+        "latissimus-dorsi": "Extends the arm (OpenStax 11.5). Anatomy, not measured in a bench dumbbell row; Fenwick 2009 measured it in the inverted and bent-over rows.",
+        "rhomboids": "Retract the scapula (OpenStax 11.5). Anatomy, not measured in the sources.",
+        "trapezius": "Middle and lower trapezius measured in a one-arm row in Andersen 2012.",
+        "deltoid": "Posterior fibres extend the arm (OpenStax 11.5). Anatomy, not measured in the sources.",
+        "biceps-brachii": "Elbow flexor. Anatomy, not measured in the sources.",
+        "brachialis": "Elbow flexor (OpenStax 11.5). Deep; anatomy, not measured.",
+        "erector-spinae": "Holds the trunk position against the pull. Anatomy and coaching; Fenwick 2009 studied trunk muscles in other rows, not this one.",
+        "forearm-flexors": "Grip on the dumbbell. Anatomy."
+      },
+      "cue_checks": [
+        {
+          "cue": "Back flat",
+          "rig_check": "trunk angle changes by less than N degrees and spine curvature stays under N through the rep"
+        },
+        {
+          "cue": "Hips level",
+          "rig_check": "pelvis tilt about the front-back axis stays within N degrees of level"
+        },
+        {
+          "cue": "Elbow toward the hip, not straight up",
+          "rig_check": "elbow path within N degrees of the line to the hip; elbow lateral distance from the ribs under N units"
+        },
+        {
+          "cue": "No torso twist",
+          "rig_check": "shoulder-line rotation relative to the pelvis changes by less than N degrees through the rep"
+        },
+        {
+          "cue": "Shoulder blade moves with the arm",
+          "rig_check": "scapula retraction of at least N units at the top and protraction at the bottom",
+          "note": "only checkable if the rig models scapular motion; otherwise not checkable"
+        },
+        {
+          "cue": "Lower to a full stretch",
+          "rig_check": "elbow extension reaches N degrees at the bottom of each rep"
+        }
+      ],
+      "sources": [
+        {
+          "id": "andersen-2012",
+          "citation": "Andersen CH, Zebis MK, Saervoll C, Sundstrup E, Jakobsen MD, Sjogaard G, Andersen LL. Scapular muscle activity from selected strengthening exercises performed at low and high intensities. J Strength Cond Res. 2012;26(9):2408-2416.",
+          "year": 2012,
+          "design": "acute-mechanistic",
+          "n": "17 women",
+          "pmid": "22076101",
+          "doi": "10.1519/jsc.0b013e31823f8d24",
+          "url": "https://europepmc.org/article/MED/22076101",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "A one-arm row activated the middle trapezius over the upper trapezius and, at both effort levels, the lower trapezius over the upper trapezius; the row set-up is not described in the abstract."
+        },
+        {
+          "id": "fenwick-2009",
+          "citation": "Fenwick CM, Brown SH, McGill SM. Comparison of different rowing exercises: trunk muscle activation and lumbar spine motion, load, and stiffness. J Strength Cond Res. 2009;23(2):350-358.",
+          "year": 2009,
+          "design": "acute-mechanistic",
+          "n": "7 healthy men",
+          "pmid": "19197209",
+          "doi": "10.1519/jsc.0b013e3181942019",
+          "url": "https://europepmc.org/article/MED/19197209",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Inverted, bent-over and standing one-armed cable rows: the one-armed cable row challenged the torsional capability of the trunk muscles; the bent-over row had the largest lumbar load. Not a dumbbell bench row."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Teres major extends and adducts the arm; rhomboids retract the scapula; brachialis and biceps flex the elbow; deltoid extends the arm."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ],
+      "rig3d": "one-arm-row"
     },
     {
       "id": "rear-delt-fly",
@@ -514,10 +1195,11 @@
       ],
       "equipment": [
         "dumbbells",
-        "bench"
+        "adjustable bench with an upright back pad"
       ],
       "view": "front",
-      "start": "Sit upright with the dumbbells at shoulder height and forearms vertical.",
+      "engine": "3d",
+      "start": "Sit upright against the back pad with the dumbbells at shoulder height, forearms vertical, wrists stacked over the elbows, feet flat.",
       "phases": [
         {
           "id": "pressing",
@@ -545,7 +1227,10 @@
           "serratus-anterior",
           "pectoralis-major"
         ],
-        "fibres": "deltoid (anterior and lateral fibres); triceps-brachii / trapezius (upper fibres); serratus anterior; pectoralis-major (clavicular fibres)"
+        "stabilizer": [
+          "erector-spinae"
+        ],
+        "fibres": "deltoid (anterior and lateral fibres); triceps-brachii / trapezius (upper and lower fibres); serratus anterior; pectoralis-major (clavicular fibres) / erector-spinae (trunk position)"
       },
       "landmarks": [
         "shoulder",
@@ -553,13 +1238,24 @@
         "wrist",
         "hip"
       ],
-      "direction": "Lower under control to shoulder height.",
-      "camera": "front view (the motion stays in the picture plane)",
-      "alternatives": "Easier: One arm at a time; pike push-up (no equipment). Harder: Standing; slower lowering; heavier dumbbells.",
+      "direction": "Each dumbbell travels up a near-vertical line over its shoulder; the trunk stays upright against the back pad.",
+      "camera": "front view for the symmetry of the two arms; side view for the dumbbell path and the lower-back arch",
+      "alternatives": "Easier: One arm at a time; lighter dumbbells; pike push-up (no equipment). Harder: Standing; slower lowering; heavier dumbbells.",
       "errors": [
         {
-          "id": "common-error",
-          "description": "Arching the lower back and pressing forward instead of overhead."
+          "id": "lower-back-arch",
+          "description": "Arching the lower back and pressing forward instead of overhead.",
+          "correction": "Keep the ribs down and the back against the pad; lighten the dumbbells until the press goes straight up."
+        },
+        {
+          "id": "partial-range",
+          "description": "Stopping the lowering well above shoulder height.",
+          "correction": "Lower until the dumbbells are about shoulder height with the forearms vertical, then press."
+        },
+        {
+          "id": "uneven-press",
+          "description": "One dumbbell races ahead or drifts forward of the other.",
+          "correction": "Press both together along vertical lines; use a lighter pair."
         }
       ],
       "cues": [
@@ -567,8 +1263,199 @@
         "Press up until the arms are nearly straight overhead, ribs down so the lower back does not arch.",
         "Lower under control to shoulder height."
       ],
-      "source_claim": "c21",
-      "kinematics": "conceptual"
+      "source_claim": "Deltoid and triceps as the movers with the scapular and chest muscles assisting: Saeterbakken 2013 (15 men; anterior, medial and posterior deltoid, biceps and triceps measured in seated and standing, dumbbell and barbell presses; the standing dumbbell press, the most stability-demanding, gave the highest deltoid activity and the lowest maximal load), Dicus 2018 (21 subjects; anterior deltoid higher with a dumbbell than a kettlebell; pectoralis major also measured), Blazkiewicz 2022 (20 subjects; seated dumbbell and kettlebell press; deltoid, trapezius, serratus anterior and spinal erectors measured), Andersen 2012 (17 women; a shoulder press favoured serratus anterior over the upper and lower trapezius). The lower-back-arch cue is coaching, not a finding (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "vertical push",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "frontal",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "standing",
+          "name": "Standing dumbbell press",
+          "note": "Saeterbakken 2013 (15 men): the standing dumbbell press gave the highest deltoid activity but the lowest maximal load of the four conditions"
+        },
+        {
+          "id": "barbell",
+          "name": "Seated barbell press",
+          "note": "Saeterbakken 2013 (15 men): anterior deltoid and biceps activity differed from the dumbbell press; triceps differed in the standing barbell press"
+        },
+        {
+          "id": "kettlebell",
+          "name": "Seated kettlebell press",
+          "note": "Dicus 2018 (21 subjects): lower anterior deltoid activity than a dumbbell; Blazkiewicz 2022 (20 subjects) found no significant difference at the same load"
+        }
+      ],
+      "execution": [
+        "Set the bench back upright and sit with the back against the pad and the feet flat.",
+        "Bring the dumbbells to shoulder height, forearms vertical.",
+        "Brace the trunk and keep the ribs down.",
+        "Press both dumbbells up until the arms are nearly straight overhead.",
+        "Lower under control to shoulder height."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "abduction and flexion",
+          "eccentric": "adduction and extension",
+          "rom_deg": [
+            40,
+            170
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            5,
+            95
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapula",
+          "concentric": "upward rotation",
+          "eccentric": "downward rotation",
+          "rom_deg": [
+            0,
+            40
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.8,
+        "bottom_s": 0.3,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the dumbbells at shoulder height"
+      },
+      "breathing": "Exhale as you press, inhale as you lower (a common convention).",
+      "camera_angles": [
+        "front",
+        "side",
+        "front three-quarter",
+        "back"
+      ],
+      "visual_requirements": [
+        "dumbbells travel up near-vertical lines over the shoulders",
+        "forearms vertical at shoulder height",
+        "trunk upright against the back pad; no lower-back arch at any frame",
+        "arms nearly straight at the top, not locked hard",
+        "deltoid and triceps highlighted as movers; scapular muscles and trunk muscles as helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "one arm at a time",
+          "lighter dumbbells"
+        ],
+        "harder": [
+          "standing press",
+          "slower lowering"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "deltoid": "Anterior, medial and posterior deltoid measured in Saeterbakken 2013; anterior deltoid in Dicus 2018; anterior and posterior deltoid in Blazkiewicz 2022.",
+        "triceps-brachii": "Measured in Saeterbakken 2013; elbow extensor.",
+        "trapezius": "Upper and lower trapezius measured in Blazkiewicz 2022 and Andersen 2012.",
+        "serratus-anterior": "Measured in Blazkiewicz 2022; in Andersen 2012 a shoulder press favoured it over the upper and lower trapezius.",
+        "pectoralis-major": "Measured in Dicus 2018 during the dumbbell and kettlebell press.",
+        "erector-spinae": "Spinal erectors measured in Blazkiewicz 2022 (seated press); the stabilising role against arching is coaching and anatomy, not a finding of that study."
+      },
+      "cue_checks": [
+        {
+          "cue": "Forearms vertical",
+          "rig_check": "forearm within N degrees of vertical at the bottom of each rep"
+        },
+        {
+          "cue": "Ribs down, no lower-back arch",
+          "rig_check": "trunk extension angle (pelvis to rib cage) changes by less than N degrees through the rep"
+        },
+        {
+          "cue": "Press straight overhead, not forward",
+          "rig_check": "dumbbell path stays within N units of the vertical line through the shoulder"
+        },
+        {
+          "cue": "Nearly straight arms at the top",
+          "rig_check": "elbow extension reaches N degrees at the top of each rep"
+        },
+        {
+          "cue": "Lower to shoulder height",
+          "rig_check": "dumbbell height at the bottom within N units of the shoulder"
+        }
+      ],
+      "sources": [
+        {
+          "id": "saeterbakken-2013",
+          "citation": "Saeterbakken AH, Fimland MS. Effects of body position and loading modality on muscle activity and strength in shoulder presses. J Strength Cond Res. 2013;27(7):1824-1831.",
+          "year": 2013,
+          "design": "acute-mechanistic",
+          "n": "15 healthy men",
+          "pmid": "23096062",
+          "doi": "10.1519/jsc.0b013e318276b873",
+          "url": "https://europepmc.org/article/MED/23096062",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Seated and standing, dumbbell and barbell shoulder presses: anterior, medial and posterior deltoid, biceps and triceps were measured; the standing dumbbell press had the highest deltoid activity and the lowest maximal load; seated dumbbell posterior and medial deltoid activity was lower than standing."
+        },
+        {
+          "id": "dicus-2018",
+          "citation": "Dicus JR, Holmstrup ME, Shuler KT, Rice TT, Raybuck SD, Siddons CA. Stability of resistance training implement alters EMG activity during the overhead press. Int J Exerc Sci. 2018;11(1):708-716.",
+          "year": 2018,
+          "design": "acute-mechanistic",
+          "n": "21 subjects",
+          "pmid": "29997723",
+          "doi": "10.70252/cudk5288",
+          "url": "https://europepmc.org/article/MED/29997723",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Anterior deltoid and pectoralis major measured in the overhead press; anterior deltoid activity was higher with the more stable dumbbell than with a kettlebell."
+        },
+        {
+          "id": "blazkiewicz-2022",
+          "citation": "Blazkiewicz M, Hadamus A. The effect of the weight and type of equipment on shoulder and back muscle activity in surface electromyography during the overhead press - preliminary report. Sensors (Basel). 2022;22(24):9762.",
+          "year": 2022,
+          "design": "acute-mechanistic",
+          "n": "20 subjects",
+          "pmid": "36560129",
+          "doi": "10.3390/s22249762",
+          "url": "https://europepmc.org/article/MED/36560129",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Seated dumbbell and kettlebell press: anterior and posterior deltoid, upper and lower trapezius, serratus anterior and spinal erectors measured; no significant difference between dumbbell and kettlebell at the same load. Preliminary report."
+        },
+        {
+          "id": "andersen-2012",
+          "citation": "Andersen CH, Zebis MK, Saervoll C, Sundstrup E, Jakobsen MD, Sjogaard G, Andersen LL. Scapular muscle activity from selected strengthening exercises performed at low and high intensities. J Strength Cond Res. 2012;26(9):2408-2416.",
+          "year": 2012,
+          "design": "acute-mechanistic",
+          "n": "17 women",
+          "pmid": "22076101",
+          "doi": "10.1519/jsc.0b013e31823f8d24",
+          "url": "https://europepmc.org/article/MED/22076101",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-25: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "A shoulder press activated serratus anterior over the upper trapezius, and more than the lower trapezius, at low and high effort; the abstract does not describe the press set-up."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ],
+      "rig3d": "overhead-press"
     },
     {
       "id": "lateral-raise",
@@ -1958,6 +2845,2943 @@
       "difficulty": "intermediate",
       "experience": "beginner to intermediate",
       "evidence_grade": "preliminary"
+    },
+    {
+      "id": "deadlift",
+      "name": "Conventional barbell deadlift",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance"
+      ],
+      "equipment": [
+        "barbell",
+        "plates"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "deadlift",
+      "start": "Feet about hip-width, the bar over the midfoot, hands just outside the knees, hips above the knees, shoulders slightly in front of the bar, back flat and braced.",
+      "phases": [
+        {
+          "id": "pull",
+          "description": "Push the floor away: the bar rises close to the shins and thighs while the hips and shoulders rise together, then the hips come through to standing tall."
+        },
+        {
+          "id": "lower",
+          "description": "Hinge the hips back with the back flat, the bar sliding down the thighs, then bend the knees once it passes them and set the plates on the floor."
+        }
+      ],
+      "joints": [
+        "hip extension then flexion",
+        "knee extension then flexion",
+        "ankle plantar flexion from a dorsiflexed start",
+        "spine held neutral (braced)"
+      ],
+      "muscles": {
+        "primary": [
+          "gluteus-maximus",
+          "hamstrings",
+          "quadriceps"
+        ],
+        "secondary": [
+          "erector-spinae",
+          "adductors"
+        ],
+        "stabilizer": [
+          "trapezius",
+          "forearm-flexors",
+          "gastrocnemius",
+          "rectus-abdominis",
+          "external-oblique"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "hip",
+        "knee",
+        "ankle",
+        "bar"
+      ],
+      "direction": "The bar travels in a near-vertical line over the midfoot and stays close to the legs; off the floor the hips and shoulders rise at the same rate.",
+      "camera": "side view for the bar path and back angle; front for stance and grip width",
+      "alternatives": "Easier: Romanian deadlift; trap-bar deadlift; pulling from blocks (a raised start). Harder: Pause just below the knee; deficit deadlift (standing on a low platform); heavier load.",
+      "errors": [
+        {
+          "id": "back-rounds",
+          "description": "The lower back rounds as the bar leaves the floor.",
+          "correction": "Brace and set the back flat before the pull, take the slack out of the bar first, and lighten the load until the position holds."
+        },
+        {
+          "id": "bar-drifts",
+          "description": "The bar drifts forward, away from the legs.",
+          "correction": "Start with the bar over the midfoot and keep it brushing the legs all the way up."
+        },
+        {
+          "id": "hips-shoot-up",
+          "description": "The hips rise first and the chest stays down, so the pull turns into a stiff-legged lift.",
+          "correction": "Push the floor away so the hips and shoulders rise together until the bar passes the knees."
+        },
+        {
+          "id": "lean-back",
+          "description": "Leaning back and over-arching the lower back at lockout.",
+          "correction": "Finish standing tall: hips through, glutes tight, ribs down."
+        }
+      ],
+      "cues": [
+        "Bar over the midfoot, hands just outside the knees, back flat and braced.",
+        "Push the floor away; hips and shoulders rise together.",
+        "Keep the bar brushing the legs all the way up.",
+        "Stand tall at the top; do not lean back."
+      ],
+      "source_claim": "Muscle roles from EMG: Escamilla 2002 (13 athletes), Lee 2018 (21 men), Martín-Fuentes 2020 (systematic review), Neto 2020 (systematic review, gluteus maximus); joint moments from Escamilla 2000 (24 competition lifters); adductor magnus as a hip extensor from OpenStax A&P 2e 11.6. Set-up and cues are coaching (NSCA Essentials 4e). No activation numbers are claimed.",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "hip hinge",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee",
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "sumo",
+          "name": "Sumo deadlift",
+          "note": "wide stance, feet turned out, hands inside the knees, a more upright trunk (Escamilla 2000 measured these differences)"
+        },
+        {
+          "id": "trap-bar",
+          "name": "Trap-bar (hex-bar) deadlift",
+          "note": "handles at the sides; a more upright start"
+        },
+        {
+          "id": "romanian",
+          "name": "Romanian deadlift",
+          "note": "starts from standing and stays a hinge with soft knees; see romanian-deadlift"
+        },
+        {
+          "id": "deficit",
+          "name": "Deficit deadlift",
+          "note": "stand on a low platform for a longer pull"
+        }
+      ],
+      "execution": [
+        "Stand with the midfoot under the bar, feet about hip-width.",
+        "Hinge and bend the knees to grip the bar just outside the knees.",
+        "Set the back flat, brace, and take the slack out of the bar.",
+        "Push the floor away; hips and shoulders rise together while the bar stays close to the legs.",
+        "Once the bar passes the knees, drive the hips through and stand tall.",
+        "Hinge back down the same path and set the plates on the floor."
+      ],
+      "joint_actions": [
+        {
+          "joint": "hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            85
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            70
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            20
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "lumbar spine",
+          "concentric": "held neutral (isometric)",
+          "eccentric": "held neutral (isometric)",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "coaching: the back angle changes, the spine shape should not"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.6,
+        "bottom_s": 0.4,
+        "concentric_s": 1.4,
+        "top_s": 0.4,
+        "note": "illustrative; each rep starts from the floor (dead stop)"
+      },
+      "breathing": "Breathe in and brace before the bar leaves the floor, exhale near or after lockout (a common convention); avoid holding the breath for long.",
+      "camera_angles": [
+        "side (about az 72 so the plates do not hide the head)",
+        "three-quarter front",
+        "front",
+        "back"
+      ],
+      "visual_requirements": [
+        "bar stays over the midfoot and close to the legs at every frame",
+        "back stays flat from the floor to lockout (the back angle changes, the spine shape does not)",
+        "hips and shoulders rise together until the bar passes the knees",
+        "full lockout standing tall with no lean back",
+        "plates return to the floor each rep",
+        "gluteus maximus, hamstrings and quadriceps highlighted as prime movers; erector spinae as a helper"
+      ],
+      "progressions": {
+        "easier": [
+          "Romanian deadlift",
+          "trap-bar deadlift",
+          "pull from blocks"
+        ],
+        "harder": [
+          "pause below the knee",
+          "deficit deadlift"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "some coaching advised",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "gluteus-maximus": "EMG measured in Escamilla 2002 and Lee 2018; Neto 2020 lists the conventional deadlift among exercises with very high gluteus maximus activity; hip extensor moment in Escamilla 2000.",
+        "hamstrings": "EMG in Escamilla 2002 (greater near lockout, with less knee flexion); hip extensor and knee flexor moments in Escamilla 2000; reviewed in Martín-Fuentes 2020.",
+        "quadriceps": "Martín-Fuentes 2020: quadriceps activity higher than gluteus maximus and hamstrings during the deadlift; knee extensor moment off the floor in Escamilla 2000.",
+        "erector-spinae": "Martín-Fuentes 2020: erector spinae among the highest activity in deadlifts; paraspinal EMG in Escamilla 2002. Shown as a helper because it holds the spine still rather than moving a joint through range.",
+        "adductors": "Hip adductor EMG in Escamilla 2002 (greater with more knee flexion); adductor magnus extends the thigh (OpenStax 11.6).",
+        "trapezius": "Middle and upper trapezius EMG in Escamilla 2002; holds the shoulder girdle under the hanging bar.",
+        "forearm-flexors": "Grip on the bar (finger flexors, OpenStax 11.5). Anatomy, not measured in these studies.",
+        "gastrocnemius": "Medial gastrocnemius EMG in Escamilla 2002 (greater in conventional than sumo); ankle plantar flexor moment in Escamilla 2000.",
+        "rectus-abdominis": "Measured in Escamilla 2002 (a lifting belt changed its activity); trunk brace.",
+        "external-oblique": "Measured in Escamilla 2002 (a lifting belt changed its activity); trunk brace."
+      },
+      "roles_not_listed": [
+        {
+          "muscle": "latissimus-dorsi",
+          "why": "commonly cued ('keep the bar close') but not measured in the sources read; do not highlight it"
+        }
+      ],
+      "cue_checks": [
+        {
+          "cue": "Bar over the midfoot, close to the legs",
+          "rig_check": "bar x stays within N units of the midfoot x through the pull; bar-to-shin and bar-to-thigh gap under N units"
+        },
+        {
+          "cue": "Back flat",
+          "rig_check": "pelvis-to-chest segment angle stays within N degrees of its start value through the pull (neutral spine)"
+        },
+        {
+          "cue": "Hips and shoulders rise together",
+          "rig_check": "trunk angle to the floor changes by less than N degrees until the bar passes the knee"
+        },
+        {
+          "cue": "Stand tall, no lean back",
+          "rig_check": "trunk ends vertical within N degrees at lockout, never past vertical"
+        },
+        {
+          "cue": "Brace before the pull",
+          "rig_check": null,
+          "note": "internal (breath and trunk pressure); not checkable by a rig, show it with a cue card only"
+        }
+      ],
+      "sources": [
+        {
+          "id": "escamilla-2002",
+          "citation": "Escamilla RF, Francisco AC, Kayes AV, Speer KP, Moorman CT. An electromyographic analysis of sumo and conventional style deadlifts. Med Sci Sports Exerc. 2002;34(4):682-688.",
+          "year": 2002,
+          "design": "acute-mechanistic",
+          "n": "13 collegiate football players",
+          "pmid": "11932579",
+          "doi": "10.1097/00005768-200204000-00019",
+          "url": "https://europepmc.org/article/MED/11932579",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Muscle roles: quadriceps, hamstrings, gluteus maximus, adductors, paraspinals, trapezius, gastrocnemius, rectus abdominis and external oblique were all measured; co-contraction of quadriceps, hamstrings and gastrocnemius."
+        },
+        {
+          "id": "escamilla-2000",
+          "citation": "Escamilla RF, Francisco AC, Fleisig GS, Barrentine SW, Welch CM, Kayes AV, Speer KP, Andrews JR. A three-dimensional biomechanical analysis of sumo and conventional style deadlifts. Med Sci Sports Exerc. 2000;32(7):1265-1275.",
+          "year": 2000,
+          "design": "observational",
+          "n": "24 competition lifters (12 sumo, 12 conventional)",
+          "pmid": "10912892",
+          "doi": "10.1097/00005768-200007000-00013",
+          "url": "https://europepmc.org/article/MED/10912892",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Conventional style: hip extensor, knee extensor, knee flexor and ankle plantar flexor moments; stance, grip and trunk differences used for the sumo variation note."
+        },
+        {
+          "id": "martin-fuentes-2020",
+          "citation": "Martín-Fuentes I, Oliva-Lozano JM, Muyor JM. Electromyographic activity in deadlift exercise and its variants. A systematic review. PLoS One. 2020;15(2):e0229507.",
+          "year": 2020,
+          "design": "systematic-review",
+          "pmid": "32107499",
+          "doi": "10.1371/journal.pone.0229507",
+          "url": "https://europepmc.org/article/MED/32107499",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Erector spinae and quadriceps showed greater activity than gluteus maximus and hamstrings in deadlifts (role of erector spinae and quadriceps)."
+        },
+        {
+          "id": "lee-2018",
+          "citation": "Lee S, Schultz J, Timgren J, Staelgraeve K, Miller M, Liu Y. An electromyographic and kinetic comparison of conventional and Romanian deadlifts. J Exerc Sci Fit. 2018;16(3):87-93.",
+          "year": 2018,
+          "design": "acute-mechanistic",
+          "n": "21 men",
+          "pmid": "30662500",
+          "doi": "10.1016/j.jesf.2018.08.001",
+          "url": "https://europepmc.org/article/MED/30662500",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Conventional deadlift showed greater rectus femoris and gluteus maximus EMG and greater knee and ankle moments than the Romanian deadlift."
+        },
+        {
+          "id": "neto-2020",
+          "citation": "Neto WK, Soares EG, Vieira TL, Aguiar R, Chola TA, Sampaio VL, Gama EF. Gluteus maximus activation during common strength and hypertrophy exercises: a systematic review. J Sports Sci Med. 2020;19(1):195-203.",
+          "year": 2020,
+          "design": "systematic-review",
+          "n": "16 studies",
+          "pmid": "32132843",
+          "url": "https://europepmc.org/article/MED/32132843",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "The conventional deadlift is among the exercises with very high gluteus maximus activity."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Adductor magnus extends the thigh; hamstrings flex the knee and extend the thigh; quadriceps extend the knee."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Finger flexors (grip); trapezius elevates and retracts the scapula."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "romanian-deadlift",
+      "name": "Romanian deadlift (barbell)",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance",
+        "strength-for-running"
+      ],
+      "equipment": [
+        "barbell",
+        "plates"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "romanian-deadlift",
+      "start": "Stand tall holding the bar at the hips with straight arms, feet about hip-width, knees slightly bent, back flat.",
+      "phases": [
+        {
+          "id": "lower",
+          "description": "Push the hips back; the bar slides down the thighs to about the knees or just below, as far as the back stays flat, knees staying softly bent."
+        },
+        {
+          "id": "rise",
+          "description": "Drive the hips forward to stand tall, the bar staying close to the legs."
+        }
+      ],
+      "joints": [
+        "hip flexion then extension",
+        "knees held slightly bent",
+        "spine held neutral (braced)"
+      ],
+      "muscles": {
+        "primary": [
+          "hamstrings",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "erector-spinae",
+          "adductors"
+        ],
+        "stabilizer": [
+          "quadriceps",
+          "trapezius",
+          "forearm-flexors",
+          "gluteus-medius"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "hip",
+        "knee",
+        "ankle",
+        "bar"
+      ],
+      "direction": "The hips travel back and forward; the bar moves almost straight down and up over the midfoot, close to the legs, while the knee angle barely changes.",
+      "camera": "side view for the hip hinge, the knee angle and the bar path",
+      "alternatives": "Easier: Dumbbell Romanian deadlift; hip hinge with a dowel along the back; shorter range. Harder: Single-leg Romanian deadlift; slower lowering; pause at the bottom.",
+      "errors": [
+        {
+          "id": "back-rounds",
+          "description": "The back rounds to reach the bar lower.",
+          "correction": "Stop the descent where the back stops being flat; the range comes from the hips, not the spine."
+        },
+        {
+          "id": "squats-down",
+          "description": "The knees bend more and more until the lift becomes a squat or a conventional deadlift.",
+          "correction": "Keep the knees softly bent and almost still; push the hips back instead of down."
+        },
+        {
+          "id": "bar-drifts",
+          "description": "The bar swings forward away from the thighs.",
+          "correction": "Keep the bar sliding down the thighs, over the midfoot."
+        }
+      ],
+      "cues": [
+        "Soft knees, then push the hips back.",
+        "Bar slides down the thighs; stop when the back would round.",
+        "Drive the hips forward to stand tall."
+      ],
+      "source_claim": "Hamstrings and gluteus maximus as prime movers: McAllister 2014 (12 men; hamstring activity was highest in the Romanian deadlift and glute-ham raise among four exercises), Lee 2018 (21 men; Romanian vs conventional), Martín-Fuentes 2020 (systematic review: lower erector spinae than hamstring activity in the Romanian deadlift). Adductor magnus as a hip extensor: OpenStax A&P 2e 11.6. Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "hip hinge",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee"
+        ]
+      },
+      "variations": [
+        {
+          "id": "dumbbell",
+          "name": "Dumbbell Romanian deadlift",
+          "note": "same hinge, a dumbbell in each hand"
+        },
+        {
+          "id": "single-leg",
+          "name": "Single-leg Romanian deadlift",
+          "note": "one leg at a time; a narrow base adds balance demand"
+        },
+        {
+          "id": "stiff-leg",
+          "name": "Stiff-leg deadlift",
+          "note": "starts from the floor with straighter knees each rep"
+        }
+      ],
+      "execution": [
+        "Take the bar from a rack or deadlift it to standing.",
+        "Soften the knees and set the back flat.",
+        "Push the hips back; let the bar slide down the thighs.",
+        "Stop where the back would start to round, about knee height or just below.",
+        "Drive the hips forward to stand tall without leaning back."
+      ],
+      "joint_actions": [
+        {
+          "joint": "hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "knee",
+          "concentric": "held slightly bent",
+          "eccentric": "held slightly bent",
+          "rom_deg": [
+            10,
+            25
+          ],
+          "note": "illustrative: the knee angle barely changes"
+        },
+        {
+          "joint": "lumbar spine",
+          "concentric": "held neutral (isometric)",
+          "eccentric": "held neutral (isometric)",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "coaching: range comes from the hips"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 2.0,
+        "bottom_s": 0.3,
+        "concentric_s": 1.2,
+        "top_s": 0.4,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in and brace at the top, exhale as you stand (a common convention).",
+      "camera_angles": [
+        "side (about az 72 so the plates do not hide the head)",
+        "three-quarter front",
+        "back three-quarter"
+      ],
+      "visual_requirements": [
+        "hips move back and forward while the knee angle barely changes",
+        "back flat at every frame; the descent stops before it rounds",
+        "bar close to the legs over the midfoot",
+        "hamstrings and gluteus maximus highlighted as prime movers"
+      ],
+      "progressions": {
+        "easier": [
+          "dumbbell Romanian deadlift",
+          "shorter range"
+        ],
+        "harder": [
+          "single-leg Romanian deadlift",
+          "slower lowering"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "beginner to intermediate, with coaching",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "hamstrings": "McAllister 2014: hamstring activity was highest in the Romanian deadlift and glute-ham raise; Martín-Fuentes 2020: hamstring activity exceeds erector spinae activity in the Romanian deadlift.",
+        "gluteus-maximus": "EMG measured in Lee 2018 (somewhat lower than in the conventional deadlift); hip extensor.",
+        "erector-spinae": "Measured in McAllister 2014; Martín-Fuentes 2020 reports lower erector spinae than hamstring activity in this variant. Holds the spine still.",
+        "adductors": "Adductor magnus extends the thigh (OpenStax 11.6). Anatomy, not measured in these studies.",
+        "quadriceps": "Lee 2018: rectus femoris activity was much lower than in the conventional deadlift; the knees are held nearly still.",
+        "trapezius": "Holds the shoulder girdle under the hanging bar. Anatomy (OpenStax 11.5), not measured here.",
+        "forearm-flexors": "Grip on the bar. Anatomy (OpenStax 11.5).",
+        "gluteus-medius": "Measured in McAllister 2014; pelvis control."
+      },
+      "cue_checks": [
+        {
+          "cue": "Soft knees that barely move",
+          "rig_check": "knee flexion stays within N degrees of its start value through the rep"
+        },
+        {
+          "cue": "Back flat",
+          "rig_check": "pelvis-to-chest segment angle within N degrees of its start value"
+        },
+        {
+          "cue": "Bar close over the midfoot",
+          "rig_check": "bar x within N units of the midfoot x; bar-to-thigh gap under N units"
+        },
+        {
+          "cue": "Stop when the back would round",
+          "rig_check": null,
+          "note": "depends on the person's hamstring length; the rig can only enforce a fixed depth, not judge it"
+        }
+      ],
+      "sources": [
+        {
+          "id": "mcallister-2014",
+          "citation": "McAllister MJ, Hammond KG, Schilling BK, Ferreria LC, Reed JP, Weiss LW. Muscle activation during various hamstring exercises. J Strength Cond Res. 2014;28(6):1573-1580.",
+          "year": 2014,
+          "design": "acute-mechanistic",
+          "n": "12 weight-trained men",
+          "pmid": "24149748",
+          "doi": "10.1519/JSC.0000000000000302",
+          "url": "https://europepmc.org/article/MED/24149748",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Hamstring activity was maximized in the Romanian deadlift and glute-ham raise among four exercises; erector spinae, gluteus medius and medial gastrocnemius were also measured."
+        },
+        {
+          "id": "lee-2018",
+          "citation": "Lee S, Schultz J, Timgren J, Staelgraeve K, Miller M, Liu Y. An electromyographic and kinetic comparison of conventional and Romanian deadlifts. J Exerc Sci Fit. 2018;16(3):87-93.",
+          "year": 2018,
+          "design": "acute-mechanistic",
+          "n": "21 men",
+          "pmid": "30662500",
+          "doi": "10.1016/j.jesf.2018.08.001",
+          "url": "https://europepmc.org/article/MED/30662500",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Romanian deadlift showed lower rectus femoris and gluteus maximus EMG than the conventional deadlift (supports quadriceps as stabiliser only)."
+        },
+        {
+          "id": "martin-fuentes-2020",
+          "citation": "Martín-Fuentes I, Oliva-Lozano JM, Muyor JM. Electromyographic activity in deadlift exercise and its variants. A systematic review. PLoS One. 2020;15(2):e0229507.",
+          "year": 2020,
+          "design": "systematic-review",
+          "pmid": "32107499",
+          "doi": "10.1371/journal.pone.0229507",
+          "url": "https://europepmc.org/article/MED/32107499",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Romanian deadlift: lower erector spinae than biceps femoris and semitendinosus activity."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Adductor magnus extends the thigh; hamstrings extend the thigh."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Finger flexors (grip); trapezius stabilises the scapula."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "forward-lunge",
+      "name": "Forward lunge (dumbbells)",
+      "category": "gym",
+      "pillar": [
+        "strength-for-running",
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "forward-lunge",
+      "start": "Stand tall, feet hip-width, a dumbbell in each hand at the sides.",
+      "phases": [
+        {
+          "id": "step-down",
+          "description": "Step forward and lower straight down until the back knee is just above the floor, front foot flat."
+        },
+        {
+          "id": "push-back",
+          "description": "Push through the whole front foot to step back to standing."
+        }
+      ],
+      "joints": [
+        "front hip and knee flexion then extension",
+        "back knee flexion then extension",
+        "front ankle dorsiflexion",
+        "trunk held upright"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "hamstrings"
+        ],
+        "stabilizer": [
+          "gluteus-medius",
+          "adductors",
+          "erector-spinae",
+          "forearm-flexors"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle",
+        "foot"
+      ],
+      "direction": "The body drops straight down between the feet; the front knee travels over the front foot and in line with the toes.",
+      "camera": "side view for the step length and both knee angles; front for front-knee tracking",
+      "alternatives": "Easier: Bodyweight lunge; reverse lunge (step back); split squat (feet stay put); hold a support. Harder: Walking lunge; heavier dumbbells; front foot on a low step.",
+      "errors": [
+        {
+          "id": "knee-caves",
+          "description": "The front knee collapses inward.",
+          "correction": "Keep the front knee in line with the second and third toes."
+        },
+        {
+          "id": "heel-lifts",
+          "description": "The step is too short, the front heel lifts and the weight rolls onto the toes.",
+          "correction": "Step long enough that the whole front foot stays planted."
+        },
+        {
+          "id": "tightrope",
+          "description": "The feet land on one line, so the body wobbles.",
+          "correction": "Keep the feet about hip-width apart side to side, like train tracks."
+        },
+        {
+          "id": "trunk-collapse",
+          "description": "The trunk pitches forward uncontrolled at the bottom.",
+          "correction": "Stay tall. A deliberate, controlled forward lean is a variation that shifts work toward the hip extensors (Farrokhi 2008), not a collapse."
+        }
+      ],
+      "cues": [
+        "Step forward and drop straight down between the feet.",
+        "Front knee in line with the toes, whole front foot planted.",
+        "Push through the front foot to step back."
+      ],
+      "source_claim": "Quadriceps and gluteus maximus as prime movers: Muyor 2020 (20 adults; vasti showed the highest activity in the forward lunge, then gluteus medius and gluteus maximus), Neto 2020 (systematic review: lunges among very high gluteus maximus exercises), Farrokhi 2008 (10 adults; a forward trunk lean raised gluteus maximus and biceps femoris activity). Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "lunge",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee",
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "reverse",
+          "name": "Reverse lunge",
+          "note": "step back instead of forward"
+        },
+        {
+          "id": "walking",
+          "name": "Walking lunge",
+          "note": "step through into the next rep"
+        },
+        {
+          "id": "trunk-forward",
+          "name": "Lunge with a forward trunk lean",
+          "note": "Farrokhi 2008 (10 adults): more hip extensor impulse and gluteus maximus and biceps femoris activity than an upright trunk"
+        },
+        {
+          "id": "bodyweight",
+          "name": "Bodyweight lunge",
+          "note": "no load"
+        }
+      ],
+      "execution": [
+        "Stand tall with the dumbbells at the sides.",
+        "Take a long step forward, feet hip-width apart side to side.",
+        "Lower straight down until the back knee is just above the floor.",
+        "Push through the whole front foot to return to standing.",
+        "Alternate legs or finish one side."
+      ],
+      "joint_actions": [
+        {
+          "joint": "front hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "front knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            95
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "back knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            95
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "front ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            25
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.2,
+        "bottom_s": 0.2,
+        "concentric_s": 1.0,
+        "top_s": 0.4,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in on the way down, exhale as you push back (a common convention).",
+      "camera_angles": [
+        "side",
+        "front",
+        "three-quarter front",
+        "back"
+      ],
+      "visual_requirements": [
+        "a full step: stand, step, lower, push back, stand",
+        "front foot flat through the bottom",
+        "front knee tracks over the toes (front view)",
+        "feet stay hip-width apart side to side",
+        "quadriceps and gluteus maximus of the front leg highlighted as prime movers"
+      ],
+      "progressions": {
+        "easier": [
+          "split squat",
+          "bodyweight reverse lunge"
+        ],
+        "harder": [
+          "walking lunge",
+          "heavier dumbbells"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "beginner to intermediate",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "quadriceps": "Muyor 2020: vastus lateralis and vastus medialis showed the highest activity in the forward lunge.",
+        "gluteus-maximus": "Muyor 2020 (measured); Neto 2020 lists the traditional lunge among very high gluteus maximus exercises; Farrokhi 2008 (rises with a forward lean).",
+        "hamstrings": "Biceps femoris measured in Muyor 2020 and Farrokhi 2008 (rises with a forward trunk lean).",
+        "gluteus-medius": "Muyor 2020: gluteus medius activity followed the vasti; holds the pelvis level on a narrow base.",
+        "adductors": "Adductor magnus extends the thigh (OpenStax 11.6). Anatomy, not measured in these studies.",
+        "erector-spinae": "Holds the trunk upright. Anatomy, not measured in these studies.",
+        "forearm-flexors": "Grip on the dumbbells. Anatomy."
+      },
+      "cue_checks": [
+        {
+          "cue": "Front knee in line with the toes",
+          "rig_check": "front view: knee x within N units of the line from hip to second toe"
+        },
+        {
+          "cue": "Whole front foot planted",
+          "rig_check": "front heel height stays 0 through the bottom (planted-sole check)"
+        },
+        {
+          "cue": "Feet hip-width apart side to side",
+          "rig_check": "lateral distance between the feet at least N units"
+        },
+        {
+          "cue": "Drop straight down",
+          "rig_check": "hip path at the bottom within N units of vertical"
+        },
+        {
+          "cue": "Stay tall",
+          "rig_check": "trunk within N degrees of vertical (only for the upright variant)"
+        }
+      ],
+      "sources": [
+        {
+          "id": "muyor-2020",
+          "citation": "Muyor JM, Martín-Fuentes I, Rodríguez-Ridao D, Antequera-Vique JA. Electromyographic activity in the gluteus medius, gluteus maximus, biceps femoris, vastus lateralis, vastus medialis and rectus femoris during the Monopodal Squat, Forward Lunge and Lateral Step-Up exercises. PLoS One. 2020;15(4):e0230841.",
+          "year": 2020,
+          "design": "acute-mechanistic",
+          "n": "20 active adults (10 men, 10 women)",
+          "pmid": "32236133",
+          "doi": "10.1371/journal.pone.0230841",
+          "url": "https://europepmc.org/article/MED/32236133",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Forward lunge: vastus lateralis and medialis showed the highest activity, followed by gluteus medius and gluteus maximus; biceps femoris measured."
+        },
+        {
+          "id": "neto-2020",
+          "citation": "Neto WK, Soares EG, Vieira TL, Aguiar R, Chola TA, Sampaio VL, Gama EF. Gluteus maximus activation during common strength and hypertrophy exercises: a systematic review. J Sports Sci Med. 2020;19(1):195-203.",
+          "year": 2020,
+          "design": "systematic-review",
+          "n": "16 studies",
+          "pmid": "32132843",
+          "url": "https://europepmc.org/article/MED/32132843",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "The traditional and in-line lunge are among the exercises with very high gluteus maximus activity."
+        },
+        {
+          "id": "farrokhi-2008",
+          "citation": "Farrokhi S, Pollard CD, Souza RB, Chen YJ, Reischl S, Powers CM. Trunk position influences the kinematics, kinetics, and muscle activity of the lead lower extremity during the forward lunge exercise. J Orthop Sports Phys Ther. 2008;38(7):403-409.",
+          "year": 2008,
+          "design": "acute-mechanistic",
+          "n": "10 healthy adults",
+          "pmid": "18591759",
+          "doi": "10.2519/jospt.2008.2634",
+          "url": "https://europepmc.org/article/MED/18591759",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "A forward trunk lean increased hip extensor impulse and gluteus maximus and biceps femoris activity versus an upright trunk."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Adductor magnus extends the thigh; quadriceps extend the knee."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "split-squat",
+      "name": "Split squat (dumbbells)",
+      "category": "gym",
+      "pillar": [
+        "strength-for-running",
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "dumbbells"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "split-squat",
+      "start": "Staggered stance, one foot forward and one back, about hip-width apart side to side, back heel up, a dumbbell in each hand, trunk tall.",
+      "phases": [
+        {
+          "id": "descent",
+          "description": "Lower straight down until the back knee is just above the floor; the front foot stays flat."
+        },
+        {
+          "id": "ascent",
+          "description": "Drive up through the whole front foot; the feet do not move."
+        }
+      ],
+      "joints": [
+        "front hip and knee flexion then extension",
+        "back knee flexion then extension",
+        "front ankle dorsiflexion",
+        "trunk held upright"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "hamstrings"
+        ],
+        "stabilizer": [
+          "gluteus-medius",
+          "adductors",
+          "erector-spinae",
+          "forearm-flexors"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle",
+        "foot"
+      ],
+      "direction": "The hips move straight down and up between the fixed feet; the back knee points at the floor.",
+      "camera": "side view for the stance length and the front shin; front for knee tracking",
+      "alternatives": "Easier: Bodyweight split squat holding a support; shorter range. Harder: Rear-foot-elevated (Bulgarian) split squat; front foot on a low step; heavier dumbbells.",
+      "errors": [
+        {
+          "id": "knee-caves",
+          "description": "The front knee collapses inward.",
+          "correction": "Keep the front knee in line with the toes."
+        },
+        {
+          "id": "heel-lifts",
+          "description": "The front heel lifts because the stance is too short.",
+          "correction": "Lengthen the stance until the front foot stays flat at the bottom."
+        },
+        {
+          "id": "tightrope",
+          "description": "The feet sit on one line, so the body wobbles.",
+          "correction": "Keep the feet about hip-width apart side to side."
+        },
+        {
+          "id": "bounce",
+          "description": "The back knee bounces off the floor.",
+          "correction": "Stop just above the floor under control."
+        }
+      ],
+      "cues": [
+        "Feet hip-width apart side to side, like train tracks.",
+        "Drop the back knee straight toward the floor.",
+        "Front foot flat; drive up through the whole foot."
+      ],
+      "source_claim": "Quadriceps and gluteus maximus as prime movers and hamstrings as helpers: DeForest 2014 (9 men; split squat, rear-leg-elevated split squat and back squat had similar activity in most measured muscles; biceps femoris higher in the rear-leg-elevated version), Neto 2020 (systematic review: the split squat is among very high gluteus maximus exercises), Mackey 2021 (20 men; the Bulgarian split squat is hip dominant). Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "split squat",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee",
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "rear-foot-elevated",
+          "name": "Rear-foot-elevated (Bulgarian) split squat",
+          "note": "back foot on a bench; Mackey 2021 (20 men) found it hip dominant with less knee joint demand than the back squat; DeForest 2014 found more biceps femoris activity than the floor split squat"
+        },
+        {
+          "id": "front-foot-elevated",
+          "name": "Front-foot-elevated split squat",
+          "note": "front foot on a low step for more range"
+        },
+        {
+          "id": "bodyweight",
+          "name": "Bodyweight split squat",
+          "note": "no load; can hold a support"
+        }
+      ],
+      "execution": [
+        "Take a long staggered stance, feet hip-width apart side to side.",
+        "Lift the back heel and stand tall.",
+        "Lower straight down until the back knee is just above the floor.",
+        "Drive up through the whole front foot.",
+        "Finish all reps on one side, then switch."
+      ],
+      "joint_actions": [
+        {
+          "joint": "front hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            85
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "front knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            95
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "back knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            95
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "front ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            20
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.4,
+        "bottom_s": 0.2,
+        "concentric_s": 1.0,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in on the way down, exhale on the way up (a common convention).",
+      "camera_angles": [
+        "side",
+        "front",
+        "three-quarter front",
+        "back"
+      ],
+      "visual_requirements": [
+        "feet stay fixed through the set",
+        "front shin near vertical to slightly forward at the bottom, front heel down",
+        "back knee points down and stops just above the floor",
+        "quadriceps and gluteus maximus of the front leg highlighted as prime movers"
+      ],
+      "progressions": {
+        "easier": [
+          "bodyweight split squat",
+          "shorter range"
+        ],
+        "harder": [
+          "rear-foot-elevated split squat",
+          "heavier dumbbells"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "beginner to intermediate",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "quadriceps": "Rectus femoris, vastus lateralis and vastus medialis measured in DeForest 2014 with activity similar to the back squat.",
+        "gluteus-maximus": "Neto 2020 lists the split squat among very high gluteus maximus exercises; measured in DeForest 2014; hip dominant per Mackey 2021 (Bulgarian).",
+        "hamstrings": "Biceps femoris and semitendinosus measured in DeForest 2014 (biceps femoris higher in the rear-leg-elevated version).",
+        "gluteus-medius": "Holds the pelvis level on a narrow base. Anatomy and coaching, not measured in these studies.",
+        "adductors": "Adductor magnus extends the thigh (OpenStax 11.6). Anatomy, not measured here.",
+        "erector-spinae": "Holds the trunk upright. Anatomy, not measured here.",
+        "forearm-flexors": "Grip on the dumbbells. Anatomy."
+      },
+      "cue_checks": [
+        {
+          "cue": "Front foot flat",
+          "rig_check": "front heel height stays 0 at the bottom (planted-sole check)"
+        },
+        {
+          "cue": "Front shin near vertical to slightly forward",
+          "rig_check": "front shin angle from vertical at the bottom within [0, N] degrees",
+          "note": "coaching range, not a finding; pick N with the solver and state it"
+        },
+        {
+          "cue": "Back knee straight down",
+          "rig_check": "back knee path within N units of vertical; stops N units above the floor"
+        },
+        {
+          "cue": "Feet hip-width side to side",
+          "rig_check": "lateral foot distance at least N units; feet do not move between frames"
+        },
+        {
+          "cue": "Front knee in line with the toes",
+          "rig_check": "front view: knee x within N units of the hip-to-second-toe line"
+        }
+      ],
+      "sources": [
+        {
+          "id": "deforest-2014",
+          "citation": "DeForest BA, Cantrell GS, Schilling BK. Muscle activity in single- vs. double-leg squats. Int J Exerc Sci. 2014;7(4):302-310.",
+          "year": 2014,
+          "design": "acute-mechanistic",
+          "n": "9 resistance-trained men",
+          "pmid": "27182408",
+          "doi": "10.70252/MXVZ7653",
+          "url": "https://europepmc.org/article/MED/27182408",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Split squat, rear-leg-elevated split squat and back squat: similar activity in most measured muscles (gluteus maximus, hamstrings, quadriceps, tibialis anterior, gastrocnemius); biceps femoris higher in the rear-leg-elevated version."
+        },
+        {
+          "id": "mackey-2021",
+          "citation": "Mackey ER, Riemann BL. Biomechanical differences between the Bulgarian split-squat and back squat. Int J Exerc Sci. 2021;14(1):533-543.",
+          "year": 2021,
+          "design": "acute-mechanistic",
+          "n": "20 resistance-trained men",
+          "pmid": "34055144",
+          "doi": "10.70252/CIYT8956",
+          "url": "https://europepmc.org/article/MED/34055144",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Bulgarian split squat and back squat are both hip dominant; the Bulgarian split squat showed less knee joint displacement than the back squat (variation note)."
+        },
+        {
+          "id": "neto-2020",
+          "citation": "Neto WK, Soares EG, Vieira TL, Aguiar R, Chola TA, Sampaio VL, Gama EF. Gluteus maximus activation during common strength and hypertrophy exercises: a systematic review. J Sports Sci Med. 2020;19(1):195-203.",
+          "year": 2020,
+          "design": "systematic-review",
+          "n": "16 studies",
+          "pmid": "32132843",
+          "url": "https://europepmc.org/article/MED/32132843",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "The split squat is among the exercises with very high gluteus maximus activity."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Adductor magnus extends the thigh; quadriceps extend the knee."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "plank",
+      "name": "Forearm plank",
+      "category": "bodyweight",
+      "pillar": [
+        "gym-bodybuilding",
+        "strength-for-running"
+      ],
+      "equipment": [
+        "mat"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "plank",
+      "start": "Forearms on the mat with the elbows under the shoulders, legs straight, toes on the floor, knees down.",
+      "phases": [
+        {
+          "id": "set",
+          "description": "Lift the knees and hips until the body is one straight line from head to heels."
+        },
+        {
+          "id": "hold",
+          "description": "Hold the line: ribs down, glutes tight, breathing steadily."
+        },
+        {
+          "id": "lower",
+          "description": "Lower the knees to the mat to rest."
+        }
+      ],
+      "joints": [
+        "trunk held neutral against gravity (isometric)",
+        "hips held extended",
+        "shoulders held over the elbows"
+      ],
+      "muscles": {
+        "primary": [
+          "rectus-abdominis",
+          "external-oblique"
+        ],
+        "secondary": [],
+        "stabilizer": [
+          "erector-spinae",
+          "gluteus-maximus",
+          "quadriceps"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "Nothing moves during the hold; the line from shoulder to hip to ankle stays straight.",
+      "camera": "side view (the body line is the whole lesson)",
+      "alternatives": "Easier: Plank from the knees; hands on a bench (incline plank); shorter holds. Harder: Long-lever plank (elbows further forward); plank with a posterior pelvic tilt; plank on a suspension trainer or ball; longer holds.",
+      "errors": [
+        {
+          "id": "hips-sag",
+          "description": "The hips sag toward the floor and the lower back arches.",
+          "correction": "Squeeze the glutes, draw the ribs down, and push the floor away through the forearms."
+        },
+        {
+          "id": "hips-pike",
+          "description": "The hips pike up above the line.",
+          "correction": "Lower the hips until shoulder, hip and ankle line up."
+        },
+        {
+          "id": "breath-hold",
+          "description": "Holding the breath through the hold.",
+          "correction": "Keep breathing steadily; shorten the hold if needed."
+        }
+      ],
+      "cues": [
+        "Elbows under the shoulders.",
+        "One straight line from head to heels: ribs down, glutes tight.",
+        "Breathe steadily; stop when the line breaks."
+      ],
+      "source_claim": "Rectus abdominis and external oblique as the main measured trunk muscles, erector spinae, gluteus maximus and thigh muscles as stabilisers: Ekstrom 2007 (30 adults, prone bridge on elbows and toes), Snarr 2014 (12 adults), Schoenfeld 2014 (19 participants; long-lever and posterior-tilt variations raised abdominal activity), Calatayud 2017 (20 students; plank progressions). Transversus abdominis is not listed because surface EMG in these studies did not measure it. Cues are coaching.",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "anti-extension trunk hold",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "spine",
+          "hip",
+          "shoulder"
+        ]
+      },
+      "variations": [
+        {
+          "id": "long-lever",
+          "name": "Long-lever plank",
+          "note": "elbows placed further forward; Schoenfeld 2014 measured more upper rectus abdominis and lower abdominal activity than the traditional plank"
+        },
+        {
+          "id": "posterior-tilt",
+          "name": "Plank with a posterior pelvic tilt",
+          "note": "Schoenfeld 2014 measured more external oblique activity than the traditional plank"
+        },
+        {
+          "id": "suspended",
+          "name": "Suspended or unstable-surface plank",
+          "note": "Snarr 2014 and Calatayud 2017: instability raised superficial trunk activity; an advanced variation"
+        },
+        {
+          "id": "side",
+          "name": "Side plank",
+          "note": "frontal-plane hold"
+        }
+      ],
+      "execution": [
+        "Kneel and place the forearms on the mat, elbows under the shoulders.",
+        "Step the feet back so the legs are straight.",
+        "Lift the knees and set one straight line from head to heels.",
+        "Hold with the ribs down and glutes tight, breathing steadily.",
+        "Lower the knees to rest when the line starts to break."
+      ],
+      "joint_actions": [
+        {
+          "joint": "lumbar spine",
+          "concentric": "held neutral (isometric)",
+          "eccentric": "held neutral (isometric)",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "illustrative: an isometric hold"
+        },
+        {
+          "joint": "hip",
+          "concentric": "held extended (isometric)",
+          "eccentric": "held extended (isometric)",
+          "rom_deg": [
+            0,
+            5
+          ],
+          "note": "illustrative: no sag, no pike"
+        },
+        {
+          "joint": "shoulder",
+          "concentric": "held flexed about 90 over the elbows",
+          "eccentric": "held flexed about 90 over the elbows",
+          "rom_deg": [
+            85,
+            95
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.0,
+        "bottom_s": 0.5,
+        "concentric_s": 1.0,
+        "top_s": 20.0,
+        "note": "illustrative: concentric = lift into the line, top = the hold, eccentric = knees down; a hold, not repetitions"
+      },
+      "breathing": "Breathe steadily through the hold; do not hold the breath.",
+      "camera_angles": [
+        "side",
+        "low side",
+        "three-quarter front",
+        "above"
+      ],
+      "visual_requirements": [
+        "shoulder, hip and ankle on one straight line during the hold",
+        "elbows directly under the shoulders",
+        "secondary vitality during the hold (breathing, a hold timer) since the body is still",
+        "abdominals highlighted as prime; erector spinae, gluteus maximus and quadriceps as stabilisers"
+      ],
+      "progressions": {
+        "easier": [
+          "plank from the knees",
+          "incline plank (hands on a bench)"
+        ],
+        "harder": [
+          "long-lever plank",
+          "suspended plank"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "rectus-abdominis": "Measured in Ekstrom 2007, Snarr 2014, Schoenfeld 2014 and Calatayud 2017 during prone planks.",
+        "external-oblique": "Measured in Ekstrom 2007, Snarr 2014, Schoenfeld 2014 and Calatayud 2017 during prone planks.",
+        "erector-spinae": "Measured in Snarr 2014 and Calatayud 2017 (lumbar erector spinae) and Ekstrom 2007 (longissimus, multifidus); higher in side planks than prone planks (Calatayud 2017).",
+        "gluteus-maximus": "Measured in Ekstrom 2007 (prone bridge produced moderate rather than strengthening-level activity overall); holds the hips extended.",
+        "quadriceps": "Vastus medialis obliquus measured in Ekstrom 2007; keeps the knees straight."
+      },
+      "roles_not_listed": [
+        {
+          "muscle": "transversus-abdominis",
+          "why": "deep; surface EMG in these studies did not measure it"
+        },
+        {
+          "muscle": "deltoid / serratus-anterior",
+          "why": "they hold the shoulders over the elbows, but none of the sources read measured them in a plank; add only with a source"
+        }
+      ],
+      "cue_checks": [
+        {
+          "cue": "Elbows under the shoulders",
+          "rig_check": "elbow x within N units of the shoulder x during the hold"
+        },
+        {
+          "cue": "One straight line, head to heels",
+          "rig_check": "hip deviation from the shoulder-ankle line under N units (sag is negative, pike positive) every frame of the hold"
+        },
+        {
+          "cue": "Ribs down, glutes tight",
+          "rig_check": null,
+          "note": "internal effort; not checkable by a rig (the hip-line check is its visible result)"
+        },
+        {
+          "cue": "Breathe steadily",
+          "rig_check": null,
+          "note": "not checkable by a rig; a subtle rib-cage breathing motion can be authored for vitality"
+        }
+      ],
+      "sources": [
+        {
+          "id": "ekstrom-2007",
+          "citation": "Ekstrom RA, Donatelli RA, Carp KC. Electromyographic analysis of core trunk, hip, and thigh muscles during 9 rehabilitation exercises. J Orthop Sports Phys Ther. 2007;37(12):754-762.",
+          "year": 2007,
+          "design": "acute-mechanistic",
+          "n": "30 adults (19 men, 11 women)",
+          "pmid": "18560185",
+          "doi": "10.2519/jospt.2007.2471",
+          "url": "https://europepmc.org/article/MED/18560185",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Prone bridge on elbows and toes: rectus abdominis, external oblique, longissimus, multifidus, gluteus maximus, gluteus medius, vastus medialis obliquus and hamstrings measured; activity below the strengthening threshold the authors used, so better suited to endurance or stabilisation."
+        },
+        {
+          "id": "snarr-2014",
+          "citation": "Snarr RL, Esco MR. Electromyographical comparison of plank variations performed with and without instability devices. J Strength Cond Res. 2014;28(11):3298-3305.",
+          "year": 2014,
+          "design": "acute-mechanistic",
+          "n": "12 adults (6 men, 6 women)",
+          "pmid": "25264667",
+          "doi": "10.1519/JSC.0000000000000521",
+          "url": "https://europepmc.org/article/MED/25264667",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Rectus abdominis, external oblique and erector spinae measured in planks; instability devices increased activity."
+        },
+        {
+          "id": "schoenfeld-2014",
+          "citation": "Schoenfeld BJ, Contreras B, Tiryaki-Sonmez G, Willardson JM, Fontana F. An electromyographic comparison of a modified version of the plank with a long lever and posterior tilt versus the traditional plank exercise. Sports Biomech. 2014;13(3):296-306.",
+          "year": 2014,
+          "design": "acute-mechanistic",
+          "n": "19 participants",
+          "pmid": "25325773",
+          "doi": "10.1080/14763141.2014.942355",
+          "url": "https://europepmc.org/article/MED/25325773",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Long-lever posterior-tilt plank increased upper rectus abdominis, lower abdominal and external oblique activity versus the traditional plank (variation notes)."
+        },
+        {
+          "id": "calatayud-2017",
+          "citation": "Calatayud J, Casaña J, Martín F, Jakobsen MD, Colado JC, Andersen LL. Progression of core stability exercises based on the extent of muscle activity. Am J Phys Med Rehabil. 2017;96(10):694-699.",
+          "year": 2017,
+          "design": "acute-mechanistic",
+          "n": "20 university students",
+          "pmid": "28157133",
+          "doi": "10.1097/PHM.0000000000000713",
+          "url": "https://europepmc.org/article/MED/28157133",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Upper and lower rectus abdominis, external oblique and lumbar erector spinae across eight plank variants; suspended and roll-out planks highest for the abdominals (progressions)."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg press (45-degree sled)",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "strength-for-running"
+      ],
+      "equipment": [
+        "45-degree leg press"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "leg-press",
+      "start": "Back and hips flat against the pad, feet about shoulder-width in the middle of the platform, knees in line with the toes; release the safety stops.",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Let the platform come down by bending the knees toward the chest, as far as the hips stay on the pad."
+        },
+        {
+          "id": "pressing",
+          "description": "Press the platform away through the whole foot to straight legs, without snapping the knees into a hard lock."
+        }
+      ],
+      "joints": [
+        "hip flexion then extension",
+        "knee flexion then extension",
+        "ankle dorsiflexion then plantar flexion",
+        "pelvis and back stay on the pad"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps",
+          "gluteus-maximus"
+        ],
+        "secondary": [
+          "adductors"
+        ],
+        "stabilizer": [
+          "hamstrings",
+          "gastrocnemius"
+        ]
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "The platform slides along its rail; the feet stay fixed on it and the hips stay on the seat, so the knees travel toward the chest and back.",
+      "camera": "side view for depth and the pelvis on the pad; front for knee tracking",
+      "alternatives": "Easier: Lighter load; shorter range; single sets with long rest. Harder: Single-leg leg press; slower lowering; pause at the bottom.",
+      "errors": [
+        {
+          "id": "pelvis-lifts",
+          "description": "Going so deep that the hips roll off the pad and the lower back rounds.",
+          "correction": "Stop the descent while the hips stay flat on the pad."
+        },
+        {
+          "id": "knee-snap",
+          "description": "Snapping the knees into a hard lock at the top.",
+          "correction": "Press to straight legs under control (a coaching convention)."
+        },
+        {
+          "id": "knees-cave",
+          "description": "The knees collapse inward as the platform comes down.",
+          "correction": "Keep the knees in line with the toes."
+        },
+        {
+          "id": "heels-lift",
+          "description": "The heels lift off the platform at the bottom.",
+          "correction": "Keep the whole foot on the platform; move the feet a little higher if needed."
+        }
+      ],
+      "cues": [
+        "Hips and back stay on the pad.",
+        "Knees in line with the toes, whole foot on the platform.",
+        "Press away smoothly to straight legs; no hard snap at the top."
+      ],
+      "source_claim": "Quadriceps as prime movers with gluteus maximus, and hamstrings and gastrocnemius as smaller contributors: Escamilla 1998 (10 men; the squat produced about twice the hamstring activity of the leg press; closed-chain exercises produced more vasti activity), Da Silva 2008 (14 women; foot position and load changed rectus femoris, vastus lateralis, gastrocnemius and gluteus maximus activity). Adductor magnus as a hip extensor: OpenStax A&P 2e 11.6. Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "squat (machine)",
+        "kind": "compound",
+        "chain": "closed",
+        "plane": "sagittal",
+        "joints": [
+          "hip",
+          "knee",
+          "ankle"
+        ]
+      },
+      "variations": [
+        {
+          "id": "feet-high",
+          "name": "Feet high on the platform",
+          "note": "Da Silva 2008 (14 women): more gluteus maximus activity than feet low"
+        },
+        {
+          "id": "feet-low",
+          "name": "Feet low on the platform",
+          "note": "Da Silva 2008 (14 women): more quadriceps activity than feet high at a high effort"
+        },
+        {
+          "id": "single-leg",
+          "name": "Single-leg leg press",
+          "note": "one leg at a time"
+        },
+        {
+          "id": "horizontal",
+          "name": "Horizontal (seated) leg press",
+          "note": "the seat moves instead of a sled"
+        }
+      ],
+      "execution": [
+        "Sit with the back and hips flat on the pad.",
+        "Place the feet about shoulder-width in the middle of the platform.",
+        "Press the platform up slightly and release the safety stops.",
+        "Lower under control as far as the hips stay on the pad.",
+        "Press back to straight legs, then reset the stops at the end of the set."
+      ],
+      "joint_actions": [
+        {
+          "joint": "hip",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            45,
+            115
+          ],
+          "note": "illustrative: the seat keeps the hip flexed even at the top"
+        },
+        {
+          "joint": "knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            100
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "ankle",
+          "concentric": "plantar flexion",
+          "eccentric": "dorsiflexion",
+          "rom_deg": [
+            0,
+            25
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.6,
+        "bottom_s": 0.2,
+        "concentric_s": 1.2,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in on the way down, exhale as you press (a common convention); avoid long breath holds.",
+      "camera_angles": [
+        "side",
+        "three-quarter front",
+        "front"
+      ],
+      "visual_requirements": [
+        "sled moves only along its rail, feet fixed on the platform",
+        "pelvis stays on the pad at the bottom",
+        "knees track over the toes (front view)",
+        "quadriceps highlighted as prime, gluteus maximus prime, adductors helper"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter load",
+          "shorter range"
+        ],
+        "harder": [
+          "single-leg leg press",
+          "pause at the bottom"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "quadriceps": "Escamilla 1998: closed-chain exercises (squat, leg press) produced more vasti activity; Da Silva 2008 measured rectus femoris and vastus lateralis.",
+        "gluteus-maximus": "Da Silva 2008 measured gluteus maximus (more with the feet high).",
+        "adductors": "Adductor magnus extends the thigh (OpenStax 11.6). Anatomy, not measured in these studies.",
+        "hamstrings": "Escamilla 1998: the squat produced about twice the hamstring activity of the leg press; biceps femoris measured in Da Silva 2008.",
+        "gastrocnemius": "Da Silva 2008: more active with the 45-degree and feet-low positions than feet high."
+      },
+      "cue_checks": [
+        {
+          "cue": "Hips stay on the pad",
+          "rig_check": "pelvis-to-seat contact maintained every frame; posterior pelvic tilt under N degrees at the bottom"
+        },
+        {
+          "cue": "Knees in line with the toes",
+          "rig_check": "front view: knee x within N units of the hip-to-second-toe line"
+        },
+        {
+          "cue": "Whole foot on the platform",
+          "rig_check": "heel and ball both in contact with the platform plane"
+        },
+        {
+          "cue": "No hard snap at the top",
+          "rig_check": "knee extension stops at N degrees or less of full extension; concentric ease decelerates"
+        }
+      ],
+      "sources": [
+        {
+          "id": "escamilla-1998",
+          "citation": "Escamilla RF, Fleisig GS, Zheng N, Barrentine SW, Wilk KE, Andrews JR. Biomechanics of the knee during closed kinetic chain and open kinetic chain exercises. Med Sci Sports Exerc. 1998;30(4):556-569.",
+          "year": 1998,
+          "design": "acute-mechanistic",
+          "n": "10 men",
+          "pmid": "9565938",
+          "doi": "10.1097/00005768-199804000-00014",
+          "url": "https://europepmc.org/article/MED/9565938",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Squat and leg press (closed chain) vs knee extension (open chain): the squat produced about twice the hamstring activity of the leg press and knee extension; closed-chain exercises produced more vasti activity."
+        },
+        {
+          "id": "da-silva-2008",
+          "citation": "Da Silva EM, Brentano MA, Cadore EL, De Almeida AP, Kruel LF. Analysis of muscle activation during different leg press exercises at submaximum effort levels. J Strength Cond Res. 2008;22(4):1059-1065.",
+          "year": 2008,
+          "design": "acute-mechanistic",
+          "n": "14 women",
+          "pmid": "18545207",
+          "doi": "10.1519/JSC.0b013e3181739445",
+          "url": "https://europepmc.org/article/MED/18545207",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Leg press variations: foot position and load changed rectus femoris, vastus lateralis, gastrocnemius and gluteus maximus activity; feet high raised gluteus maximus, feet low raised quadriceps at a high effort."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Adductor magnus extends the thigh; quadriceps extend the knee."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "leg-curl",
+      "name": "Seated leg curl (machine)",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "strength-for-running"
+      ],
+      "equipment": [
+        "seated leg-curl machine"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "leg-curl",
+      "start": "Seated, back against the pad, knees lined up with the machine's pivot, the lower-leg pad just above the heels, the thigh pad snug.",
+      "phases": [
+        {
+          "id": "curling",
+          "description": "Bend the knees, pulling the pad down and back under the seat."
+        },
+        {
+          "id": "returning",
+          "description": "Let the knees straighten under control to a full stretch."
+        }
+      ],
+      "joints": [
+        "knee flexion then extension",
+        "hip held flexed about 90 (seated)"
+      ],
+      "muscles": {
+        "primary": [
+          "hamstrings"
+        ],
+        "secondary": [
+          "gastrocnemius"
+        ],
+        "stabilizer": []
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "The lower leg rotates around the knee, which stays on the machine's pivot; the thigh does not move.",
+      "camera": "side view (the motion is a single arc around the knee)",
+      "alternatives": "Easier: Lighter load; one leg at a time with help from the other on the way up. Harder: Slower lowering; pause at the bottom of the curl; Nordic hamstring curl (bodyweight, advanced).",
+      "errors": [
+        {
+          "id": "hips-lift",
+          "description": "The hips slide or lift off the seat to swing the weight.",
+          "correction": "Lock the thigh pad snug and move only at the knee."
+        },
+        {
+          "id": "short-range",
+          "description": "Stopping short of a full stretch on the way back.",
+          "correction": "Let the knees straighten fully under control before the next rep."
+        },
+        {
+          "id": "pivot-misaligned",
+          "description": "The knee sits ahead of or behind the machine's pivot.",
+          "correction": "Adjust the seat back so the knee joint lines up with the pivot."
+        }
+      ],
+      "cues": [
+        "Knee lined up with the pivot, thigh pad snug.",
+        "Curl the heels down and back under the seat.",
+        "Return slowly to a full stretch."
+      ],
+      "source_claim": "Hamstrings as the prime mover and gastrocnemius as a helper: Maeo 2021 (20 adults, 12 weeks, MRI; seated leg curl training grew the hamstrings), Li 2002 (17 participants; gastrocnemius produces a knee flexion moment, largest with the knee near straight and small near 90 degrees), OpenStax A&P 2e 11.6 (hamstrings flex the knee). Seated version chosen because the hip is flexed, so the hamstrings work at longer lengths (Maeo 2021). Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "knee flexion",
+        "kind": "isolation",
+        "chain": "open",
+        "plane": "sagittal",
+        "joints": [
+          "knee"
+        ]
+      },
+      "variations": [
+        {
+          "id": "lying",
+          "name": "Lying (prone) leg curl",
+          "note": "hip straight; Maeo 2021 (20 adults, 12 weeks): the leg trained seated grew more whole-hamstring volume than the leg trained lying, a single study"
+        },
+        {
+          "id": "single-leg",
+          "name": "Single-leg seated curl",
+          "note": "one leg at a time"
+        },
+        {
+          "id": "nordic",
+          "name": "Nordic hamstring curl",
+          "note": "bodyweight, lowering-focused; advanced"
+        }
+      ],
+      "execution": [
+        "Set the seat back so the knees line up with the pivot.",
+        "Set the lower-leg pad just above the heels and lock the thigh pad.",
+        "Curl the heels down and back as far as the machine allows.",
+        "Pause briefly.",
+        "Return slowly until the knees are straight."
+      ],
+      "joint_actions": [
+        {
+          "joint": "knee",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            110
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "hip",
+          "concentric": "held flexed about 90",
+          "eccentric": "held flexed about 90",
+          "rom_deg": [
+            80,
+            100
+          ],
+          "note": "study: Maeo 2021 attributes the seated advantage to the hamstrings working at longer lengths with the hip flexed"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 2.0,
+        "bottom_s": 0.2,
+        "concentric_s": 1.0,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the fully curled position"
+      },
+      "breathing": "Exhale as you curl, inhale as you return (a common convention).",
+      "camera_angles": [
+        "side",
+        "three-quarter front",
+        "back three-quarter"
+      ],
+      "visual_requirements": [
+        "knee stays on the machine's pivot every frame",
+        "thigh and hips do not move",
+        "full stretch at the end of each return",
+        "hamstrings highlighted as prime, gastrocnemius as helper"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter load"
+        ],
+        "harder": [
+          "slower lowering",
+          "Nordic hamstring curl"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "hamstrings": "Knee flexors (OpenStax 11.6); Maeo 2021 measured hamstring growth with seated and lying curls.",
+        "gastrocnemius": "Li 2002: produces a knee flexion moment, largest with the knee near straight and small near 90 degrees of flexion; so its share is largest early in the curl."
+      },
+      "cue_checks": [
+        {
+          "cue": "Knee lined up with the pivot",
+          "rig_check": "knee joint centre within N units of the machine pivot every frame"
+        },
+        {
+          "cue": "Thigh does not move",
+          "rig_check": "hip and thigh segment angles constant within N degrees"
+        },
+        {
+          "cue": "Full stretch on the return",
+          "rig_check": "knee reaches at least N degrees of extension each rep"
+        }
+      ],
+      "sources": [
+        {
+          "id": "maeo-2021",
+          "citation": "Maeo S, Huang M, Wu Y, Sakurai H, Kusagawa Y, Sugiyama T, Kanehisa H, Isaka T. Greater hamstrings muscle hypertrophy but similar damage protection after training at long versus short muscle lengths. Med Sci Sports Exerc. 2021;53(4):825-837.",
+          "year": 2021,
+          "design": "controlled-trial",
+          "n": "20 healthy adults, one leg seated and the other prone, 12 weeks (MRI)",
+          "pmid": "33009197",
+          "doi": "10.1249/MSS.0000000000002523",
+          "url": "https://europepmc.org/article/MED/33009197",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Seated vs prone leg curl, one leg each, 12 weeks: greater whole-hamstring and biarticular hamstring growth with seated; similar protection against damage. Supports the hamstrings as prime mover and the seated choice."
+        },
+        {
+          "id": "li-2002",
+          "citation": "Li L, Landin D, Grodesky J, Myers J. The function of gastrocnemius as a knee flexor at selected knee and ankle angles. J Electromyogr Kinesiol. 2002;12(5):385-390.",
+          "year": 2002,
+          "design": "acute-mechanistic",
+          "n": "17 participants",
+          "pmid": "12223171",
+          "doi": "10.1016/S1050-6411(02)00049-4",
+          "url": "https://europepmc.org/article/MED/12223171",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Gastrocnemius produces a knee flexion moment, greatest with the knee straight and little near 90 degrees of flexion."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Hamstrings flex the knee and extend the thigh."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "leg-extension",
+      "name": "Leg extension (machine)",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "leg-extension machine"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "leg-extension",
+      "start": "Seated, back against the pad, knees lined up with the machine's pivot, the shin pad just above the ankles, hands on the handles.",
+      "phases": [
+        {
+          "id": "extending",
+          "description": "Straighten the knees, lifting the pad until the legs are nearly straight."
+        },
+        {
+          "id": "lowering",
+          "description": "Bend the knees back to about 90 degrees under control."
+        }
+      ],
+      "joints": [
+        "knee extension then flexion",
+        "hip held flexed (seated)"
+      ],
+      "muscles": {
+        "primary": [
+          "quadriceps"
+        ],
+        "secondary": [],
+        "stabilizer": []
+      },
+      "landmarks": [
+        "hip",
+        "knee",
+        "ankle"
+      ],
+      "direction": "The lower leg rotates up and down around the knee, which stays on the pivot; the thigh stays on the seat.",
+      "camera": "side view (the motion is a single arc around the knee)",
+      "alternatives": "Easier: Lighter load; shorter range. Harder: Single-leg extension; pause at the top; slower lowering.",
+      "errors": [
+        {
+          "id": "kick-and-drop",
+          "description": "Kicking the weight up and letting it drop.",
+          "correction": "Lift smoothly, pause at the top, and lower under control."
+        },
+        {
+          "id": "hips-lift",
+          "description": "The hips lift off the seat near the top.",
+          "correction": "Hold the handles and keep the thighs on the seat."
+        },
+        {
+          "id": "pivot-misaligned",
+          "description": "The knee sits ahead of or behind the machine's pivot.",
+          "correction": "Adjust the seat back so the knee joint lines up with the pivot."
+        }
+      ],
+      "cues": [
+        "Knee lined up with the pivot.",
+        "Straighten the legs smoothly and pause at the top.",
+        "Lower under control to about 90 degrees."
+      ],
+      "source_claim": "Quadriceps as the prime mover: Escamilla 1998 (10 men; knee extension produced more rectus femoris activity than the squat and leg press, quadriceps activity greatest near full extension), Ema 2013 (11 men, 12 weeks of knee-extensor training; the rectus femoris grew relatively more than the vasti, a single uncontrolled study), OpenStax A&P 2e 11.6 (quadriceps extend the knee). Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "knee extension",
+        "kind": "isolation",
+        "chain": "open",
+        "plane": "sagittal",
+        "joints": [
+          "knee"
+        ]
+      },
+      "variations": [
+        {
+          "id": "single-leg",
+          "name": "Single-leg extension",
+          "note": "one leg at a time"
+        },
+        {
+          "id": "partial",
+          "name": "Partial-range extension",
+          "note": "a shorter arc set on the machine's range stops"
+        }
+      ],
+      "execution": [
+        "Set the seat back so the knees line up with the pivot.",
+        "Set the shin pad just above the ankles and hold the handles.",
+        "Straighten the knees until the legs are nearly straight.",
+        "Pause briefly at the top.",
+        "Lower under control to about 90 degrees."
+      ],
+      "joint_actions": [
+        {
+          "joint": "knee",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "hip",
+          "concentric": "held flexed (seated)",
+          "eccentric": "held flexed (seated)",
+          "rom_deg": [
+            80,
+            100
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.8,
+        "bottom_s": 0.2,
+        "concentric_s": 1.0,
+        "top_s": 0.4,
+        "note": "illustrative"
+      },
+      "breathing": "Exhale as you straighten, inhale as you lower (a common convention).",
+      "camera_angles": [
+        "side",
+        "three-quarter front",
+        "front"
+      ],
+      "visual_requirements": [
+        "knee stays on the machine's pivot every frame",
+        "thighs stay on the seat",
+        "a pause at the top and a controlled lowering",
+        "quadriceps highlighted as prime mover"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter load"
+        ],
+        "harder": [
+          "single-leg extension",
+          "pause at the top"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "quadriceps": "Quadriceps extend the knee (OpenStax 11.6); Escamilla 1998 measured quadriceps activity in knee extension (more rectus femoris than closed-chain exercises; greatest near full extension); Ema 2013 measured quadriceps growth after knee-extensor training."
+      },
+      "cue_checks": [
+        {
+          "cue": "Knee lined up with the pivot",
+          "rig_check": "knee joint centre within N units of the machine pivot every frame"
+        },
+        {
+          "cue": "Thighs stay on the seat",
+          "rig_check": "hip and thigh segment angles constant within N degrees"
+        },
+        {
+          "cue": "Pause at the top, lower under control",
+          "rig_check": "a top hold of at least N s in the phaseMap; eccentric longer than concentric"
+        }
+      ],
+      "sources": [
+        {
+          "id": "escamilla-1998",
+          "citation": "Escamilla RF, Fleisig GS, Zheng N, Barrentine SW, Wilk KE, Andrews JR. Biomechanics of the knee during closed kinetic chain and open kinetic chain exercises. Med Sci Sports Exerc. 1998;30(4):556-569.",
+          "year": 1998,
+          "design": "acute-mechanistic",
+          "n": "10 men",
+          "pmid": "9565938",
+          "doi": "10.1097/00005768-199804000-00014",
+          "url": "https://europepmc.org/article/MED/9565938",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Knee extension (open chain): more rectus femoris activity than squat and leg press; quadriceps activity greatest near full extension in open-chain exercise."
+        },
+        {
+          "id": "ema-2013",
+          "citation": "Ema R, Wakahara T, Miyamoto N, Kanehisa H, Kawakami Y. Inhomogeneous architectural changes of the quadriceps femoris induced by resistance training. Eur J Appl Physiol. 2013;113(11):2691-2703.",
+          "year": 2013,
+          "design": "other",
+          "n": "11 men, 12-week knee-extensor training, single group (no control)",
+          "pmid": "23949789",
+          "doi": "10.1007/s00421-013-2700-1",
+          "url": "https://europepmc.org/article/MED/23949789",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Twelve weeks of knee-extensor training: relative increases in rectus femoris size were greater than in the vasti (single group, no control)."
+        },
+        {
+          "id": "openstax-ap2e-11-6",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.6 'Appendicular Muscles of the Pelvic Girdle and Lower Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "The quadriceps femoris group extends the knee; the rectus femoris also flexes the thigh."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat pulldown (cable)",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "cable stack",
+        "lat-pulldown bar",
+        "thigh pad"
+      ],
+      "view": "back",
+      "engine": "3d",
+      "rig3d": "lat-pulldown",
+      "start": "Seated with the thighs under the pad, an overhand grip a little wider than the shoulders, arms straight overhead, chest up.",
+      "phases": [
+        {
+          "id": "pulling",
+          "description": "Pull the bar down in front of the face to the upper chest, elbows driving down toward the ribs."
+        },
+        {
+          "id": "returning",
+          "description": "Let the bar rise under control until the arms are straight and the shoulder blades lift."
+        }
+      ],
+      "joints": [
+        "shoulder adduction and extension",
+        "elbow flexion",
+        "scapular depression and downward rotation"
+      ],
+      "muscles": {
+        "primary": [
+          "latissimus-dorsi"
+        ],
+        "secondary": [
+          "teres-major",
+          "biceps-brachii",
+          "brachialis",
+          "rhomboids",
+          "trapezius",
+          "deltoid"
+        ],
+        "stabilizer": [
+          "infraspinatus",
+          "triceps-brachii",
+          "forearm-flexors"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "The bar travels down a near-vertical line in front of the face; the trunk stays still with only a slight lean back.",
+      "camera": "back view for the shoulder blades and lats; side for the bar path and trunk angle",
+      "alternatives": "Easier: Lighter stack; band-assisted pulldown; half-kneeling single-arm pulldown. Harder: Pull-up; slower lowering; pause at the chest.",
+      "errors": [
+        {
+          "id": "swing-back",
+          "description": "Leaning far back and swinging the trunk to move the bar.",
+          "correction": "Keep the trunk still with only a slight lean back; lighten the stack."
+        },
+        {
+          "id": "behind-neck",
+          "description": "Pulling the bar down behind the neck.",
+          "correction": "Pull to the front, to the upper chest (Signorile 2002 measured less latissimus activity behind the neck than in front)."
+        },
+        {
+          "id": "shrug",
+          "description": "The shoulders shrug toward the ears as the bar comes down.",
+          "correction": "Start the pull by drawing the shoulder blades down, then bend the elbows."
+        },
+        {
+          "id": "short-range",
+          "description": "Stopping halfway up on the return.",
+          "correction": "Let the arms straighten fully overhead each rep."
+        }
+      ],
+      "cues": [
+        "Thighs locked under the pad, chest up.",
+        "Shoulder blades down first, then drive the elbows toward the ribs.",
+        "Bar to the upper chest, in front of the face; return to straight arms."
+      ],
+      "source_claim": "Latissimus dorsi as the prime mover with elbow flexors, teres major, upper-back and shoulder muscles as helpers: Signorile 2002 (10 men; front wide grip produced the most latissimus activity; posterior deltoid, teres major, pectoralis major and triceps long head also measured), Lusk 2010 (12 men; a pronated grip produced more latissimus activity than a supinated one), Andersen 2014 (15 men; similar latissimus, trapezius and infraspinatus activity from 1 to 2 times shoulder width), Lehman 2004 (latissimus, biceps and middle trapezius/rhomboids measured), Snyder 2009 (8 women; instruction raised latissimus activity, biceps activity did not drop). Anatomy of teres major, rhomboids and brachialis: OpenStax A&P 2e 11.5. Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "vertical pull",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "frontal",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "close-neutral",
+          "name": "Close neutral-grip pulldown",
+          "note": "V-handle; a more sagittal path"
+        },
+        {
+          "id": "supinated",
+          "name": "Underhand (supinated) pulldown",
+          "note": "Lusk 2010 (12 men): less latissimus activity than an overhand grip"
+        },
+        {
+          "id": "grip-width",
+          "name": "Grip width from 1 to 2 times shoulder width",
+          "note": "Andersen 2014 (15 men): similar latissimus activity; narrow and medium grips allowed a slightly heavier load"
+        }
+      ],
+      "execution": [
+        "Set the thigh pad so the thighs are locked under it.",
+        "Grip the bar overhand, a little wider than the shoulders, and sit down with straight arms.",
+        "Lift the chest and draw the shoulder blades down.",
+        "Pull the bar to the upper chest, elbows down toward the ribs.",
+        "Return slowly to straight arms."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "adduction and extension",
+          "eccentric": "abduction and flexion",
+          "rom_deg": [
+            20,
+            170
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            120
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapula",
+          "concentric": "depression and downward rotation",
+          "eccentric": "elevation and upward rotation",
+          "rom_deg": [
+            0,
+            30
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.8,
+        "bottom_s": 0.3,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the bar at the chest"
+      },
+      "breathing": "Exhale as you pull, inhale as the bar returns (a common convention).",
+      "camera_angles": [
+        "back",
+        "back three-quarter",
+        "side",
+        "front"
+      ],
+      "visual_requirements": [
+        "cable stays taut; the weight stack rises as the bar comes down",
+        "bar passes in front of the face to the upper chest",
+        "shoulder blades visibly depress at the start of the pull (back view)",
+        "trunk nearly still; only a slight lean back",
+        "latissimus dorsi highlighted as prime; teres major, biceps and upper back as helpers"
+      ],
+      "progressions": {
+        "easier": [
+          "lighter stack",
+          "band-assisted pulldown"
+        ],
+        "harder": [
+          "pull-up",
+          "slower lowering"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "latissimus-dorsi": "Measured in Signorile 2002, Lusk 2010, Andersen 2014, Lehman 2004 and Snyder 2009.",
+        "teres-major": "Measured in Signorile 2002 and Snyder 2009; extends and adducts the arm (OpenStax 11.5).",
+        "biceps-brachii": "Measured in Lusk 2010, Andersen 2014, Lehman 2004 and Snyder 2009; elbow flexor.",
+        "brachialis": "Elbow flexor (OpenStax 11.5). Deep; anatomy, not measured.",
+        "rhomboids": "Middle trapezius/rhomboid EMG measured in Lehman 2004 (higher in the seated row); retract the scapula (OpenStax 11.5).",
+        "trapezius": "Measured in Andersen 2014 and (middle) Lusk 2010.",
+        "deltoid": "Posterior deltoid measured in Signorile 2002; deltoid extends the arm (OpenStax 11.5).",
+        "infraspinatus": "Measured in Andersen 2014 (more with a wide grip in the lowering).",
+        "triceps-brachii": "Long head measured in Signorile 2002; assists shoulder extension.",
+        "forearm-flexors": "Grip on the bar. Anatomy."
+      },
+      "cue_checks": [
+        {
+          "cue": "Bar in front of the face to the upper chest",
+          "rig_check": "bar path stays in front of the head plane; lowest bar point within N units of the sternum"
+        },
+        {
+          "cue": "Trunk nearly still",
+          "rig_check": "trunk angle changes by less than N degrees through the rep"
+        },
+        {
+          "cue": "Shoulder blades down first",
+          "rig_check": "scapula depression starts at least N s before elbow flexion begins",
+          "note": "only checkable if the rig models scapular motion; otherwise not checkable"
+        },
+        {
+          "cue": "Return to straight arms",
+          "rig_check": "elbow extension reaches N degrees at the top of each rep"
+        }
+      ],
+      "sources": [
+        {
+          "id": "signorile-2002",
+          "citation": "Signorile JF, Zink AJ, Szwed SP. A comparative electromyographical investigation of muscle utilization patterns using various hand positions during the lat pull-down. J Strength Cond Res. 2002;16(4):539-546.",
+          "year": 2002,
+          "design": "acute-mechanistic",
+          "n": "10 healthy men",
+          "pmid": "12423182",
+          "doi": "10.1519/1533-4287(2002)016<0539:ACEIOM>2.0.CO;2",
+          "url": "https://europepmc.org/article/MED/12423182",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Front wide-grip pulldown produced more latissimus activity than behind-the-neck, supinated and close grips; posterior deltoid, pectoralis major, teres major and triceps long head measured."
+        },
+        {
+          "id": "lusk-2010",
+          "citation": "Lusk SJ, Hale BD, Russell DM. Grip width and forearm orientation effects on muscle activity during the lat pull-down. J Strength Cond Res. 2010;24(7):1895-1900.",
+          "year": 2010,
+          "design": "acute-mechanistic",
+          "n": "12 healthy men",
+          "pmid": "20543740",
+          "doi": "10.1519/JSC.0b013e3181ddb0ab",
+          "url": "https://europepmc.org/article/MED/20543740",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "A pronated grip produced more latissimus activity than a supinated grip regardless of width; middle trapezius and biceps unaffected."
+        },
+        {
+          "id": "andersen-2014",
+          "citation": "Andersen V, Fimland MS, Wiik E, Skoglund A, Saeterbakken AH. Effects of grip width on muscle strength and activation in the lat pull-down. J Strength Cond Res. 2014;28(4):1135-1142.",
+          "year": 2014,
+          "design": "acute-mechanistic",
+          "n": "15 men",
+          "pmid": "24662157",
+          "doi": "10.1097/JSC.0000000000000232",
+          "url": "https://europepmc.org/article/MED/24662157",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Similar latissimus, trapezius and infraspinatus activity across grip widths of 1 to 2 times the shoulder width; narrow and medium grips allowed a slightly heavier 6RM."
+        },
+        {
+          "id": "lehman-2004",
+          "citation": "Lehman GJ, Buchan DD, Lundy A, Myers N, Nalborczyk A. Variations in muscle activation levels during traditional latissimus dorsi weight training exercises: an experimental study. Dyn Med. 2004;3(1):4.",
+          "year": 2004,
+          "design": "acute-mechanistic",
+          "pmid": "15228624",
+          "doi": "10.1186/1476-5918-3-4",
+          "url": "https://europepmc.org/article/MED/15228624",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Wide-grip pulldown and seated row: latissimus, biceps and middle trapezius/rhomboid activity; biceps unchanged by exercise type."
+        },
+        {
+          "id": "snyder-2009",
+          "citation": "Snyder BJ, Leech JR. Voluntary increase in latissimus dorsi muscle activity during the lat pull-down following expert instruction. J Strength Cond Res. 2009;23(8):2204-2209.",
+          "year": 2009,
+          "design": "acute-mechanistic",
+          "n": "8 untrained women",
+          "pmid": "19826307",
+          "doi": "10.1519/JSC.0b013e3181bb7213",
+          "url": "https://europepmc.org/article/MED/19826307",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Technique instruction raised latissimus activity in novices; biceps and teres major activity did not change."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Teres major extends and adducts the arm; rhomboids retract the scapula; brachialis and biceps flex the elbow; deltoid extends the arm."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "seated-cable-row",
+      "name": "Seated cable row",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding"
+      ],
+      "equipment": [
+        "cable stack",
+        "V-handle",
+        "row bench with foot plate"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "seated-cable-row",
+      "start": "Sit tall with the feet on the plate, knees slightly bent, a neutral-grip handle at arm's length, trunk upright.",
+      "phases": [
+        {
+          "id": "pulling",
+          "description": "Row the handle to the lower ribs, elbows close and back, shoulder blades drawing together."
+        },
+        {
+          "id": "returning",
+          "description": "Let the arms straighten and the shoulder blades move forward under control, the trunk staying upright."
+        }
+      ],
+      "joints": [
+        "shoulder extension",
+        "elbow flexion",
+        "scapular retraction then protraction",
+        "trunk held upright"
+      ],
+      "muscles": {
+        "primary": [
+          "latissimus-dorsi",
+          "rhomboids",
+          "trapezius"
+        ],
+        "secondary": [
+          "deltoid",
+          "teres-major",
+          "biceps-brachii",
+          "brachialis"
+        ],
+        "stabilizer": [
+          "erector-spinae",
+          "forearm-flexors"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "hip"
+      ],
+      "direction": "The handle travels in a straight horizontal line toward the lower ribs; the trunk stays upright and still.",
+      "camera": "side view for the handle path, elbow path and trunk angle; back for the shoulder blades",
+      "alternatives": "Easier: Lighter stack; chest-supported row; resistance-band row. Harder: Single-arm cable row; slower lowering; pause with the shoulder blades together.",
+      "errors": [
+        {
+          "id": "trunk-rock",
+          "description": "Rocking the trunk back and forth to move the weight.",
+          "correction": "Keep the trunk upright and still; only the arms and shoulder blades move."
+        },
+        {
+          "id": "shrug",
+          "description": "The shoulders shrug toward the ears at the end of the pull.",
+          "correction": "Draw the shoulder blades back and down, not up."
+        },
+        {
+          "id": "round-forward",
+          "description": "The back rounds forward at the stretch.",
+          "correction": "Let the shoulder blades reach forward, but keep the trunk tall."
+        }
+      ],
+      "cues": [
+        "Sit tall, knees soft, trunk still.",
+        "Row the handle to the lower ribs, elbows close.",
+        "Shoulder blades together at the end, then reach forward under control."
+      ],
+      "source_claim": "Latissimus dorsi and the middle trapezius/rhomboid group as prime movers with elbow flexors as helpers: Lehman 2004 (the seated row produced the highest middle trapezius/rhomboid activity of the four tasks and a high latissimus-to-biceps ratio; actively retracting the scapula did not change middle trapezius/rhomboid activity). Posterior deltoid and teres major anatomy: OpenStax A&P 2e 11.5. Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "horizontal pull",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "sagittal",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "wide-bar",
+          "name": "Wide-grip bar row",
+          "note": "elbows out; more upper back"
+        },
+        {
+          "id": "single-arm",
+          "name": "Single-arm cable row",
+          "note": "one side at a time; the trunk resists rotation"
+        },
+        {
+          "id": "chest-supported",
+          "name": "Chest-supported row",
+          "note": "pad on the chest removes the trunk demand"
+        }
+      ],
+      "execution": [
+        "Sit with the feet on the plate and knees slightly bent.",
+        "Take the handle and sit tall with straight arms.",
+        "Row the handle to the lower ribs, elbows close to the body.",
+        "Squeeze the shoulder blades together briefly.",
+        "Return slowly to straight arms without rocking the trunk."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            90
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "flexion",
+          "eccentric": "extension",
+          "rom_deg": [
+            0,
+            110
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "scapula",
+          "concentric": "retraction",
+          "eccentric": "protraction",
+          "rom_deg": [
+            0,
+            25
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.8,
+        "bottom_s": 0.3,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative; 'bottom' here is the handle at the ribs"
+      },
+      "breathing": "Exhale as you row, inhale as you return (a common convention).",
+      "camera_angles": [
+        "side",
+        "back three-quarter",
+        "back",
+        "above"
+      ],
+      "visual_requirements": [
+        "cable stays taut; the weight stack rises as the handle comes in",
+        "handle path horizontal to the lower ribs",
+        "trunk upright and still at every frame",
+        "shoulder blades visibly retract at the end of the pull (back view)",
+        "latissimus dorsi, rhomboids and trapezius highlighted as prime movers"
+      ],
+      "progressions": {
+        "easier": [
+          "chest-supported row",
+          "lighter stack"
+        ],
+        "harder": [
+          "single-arm cable row",
+          "pause at the ribs"
+        ]
+      },
+      "difficulty": "beginner",
+      "experience": "any",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "latissimus-dorsi": "Measured in Lehman 2004 (high latissimus-to-biceps ratio in the seated row); extends the arm (OpenStax 11.5).",
+        "rhomboids": "Lehman 2004: middle trapezius/rhomboid activity was highest in the seated row; retract the scapula (OpenStax 11.5).",
+        "trapezius": "Lehman 2004 (middle trapezius/rhomboid group); retracts the scapula (OpenStax 11.5).",
+        "deltoid": "Posterior fibres extend the arm (OpenStax 11.5). Anatomy, not measured in the row source.",
+        "teres-major": "Extends the arm (OpenStax 11.5). Anatomy, not measured in the row source.",
+        "biceps-brachii": "Measured in Lehman 2004; elbow flexor.",
+        "brachialis": "Elbow flexor (OpenStax 11.5). Deep; anatomy.",
+        "erector-spinae": "Holds the trunk upright against the pull. Anatomy and coaching, not measured in the row source.",
+        "forearm-flexors": "Grip on the handle. Anatomy."
+      },
+      "cue_checks": [
+        {
+          "cue": "Trunk still",
+          "rig_check": "trunk angle changes by less than N degrees through the rep"
+        },
+        {
+          "cue": "Handle to the lower ribs, elbows close",
+          "rig_check": "handle path within N degrees of horizontal; elbow lateral distance from the trunk under N units"
+        },
+        {
+          "cue": "Shoulder blades together, not up",
+          "rig_check": "scapula retraction of at least N units at the end of the pull, elevation under N units",
+          "note": "only checkable if the rig models scapular motion; otherwise not checkable"
+        }
+      ],
+      "sources": [
+        {
+          "id": "lehman-2004",
+          "citation": "Lehman GJ, Buchan DD, Lundy A, Myers N, Nalborczyk A. Variations in muscle activation levels during traditional latissimus dorsi weight training exercises: an experimental study. Dyn Med. 2004;3(1):4.",
+          "year": 2004,
+          "design": "acute-mechanistic",
+          "pmid": "15228624",
+          "doi": "10.1186/1476-5918-3-4",
+          "url": "https://europepmc.org/article/MED/15228624",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Seated row (with and without scapular retraction) and pulldowns: the seated row produced the highest middle trapezius/rhomboid activity and a high latissimus-to-biceps ratio; actively retracting did not change middle trapezius/rhomboid activity."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "Latissimus dorsi, teres major and the deltoid extend the arm; rhomboids and trapezius retract the scapula; biceps and brachialis flex the elbow."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
+    },
+    {
+      "id": "barbell-bench-press",
+      "name": "Barbell bench press",
+      "category": "gym",
+      "pillar": [
+        "gym-bodybuilding",
+        "performance"
+      ],
+      "equipment": [
+        "barbell",
+        "plates",
+        "flat bench with uprights"
+      ],
+      "view": "side",
+      "engine": "3d",
+      "rig3d": "barbell-bench-press",
+      "start": "Lie with the eyes under the bar, feet planted, shoulder blades pulled back and down, an overhand grip a little wider than the shoulders, wrists stacked over the forearms.",
+      "phases": [
+        {
+          "id": "lowering",
+          "description": "Lower the bar to the lower chest with the forearms about vertical under it."
+        },
+        {
+          "id": "pressing",
+          "description": "Press the bar up and slightly back to straight arms over the shoulders."
+        }
+      ],
+      "joints": [
+        "shoulder horizontal adduction and flexion",
+        "elbow extension",
+        "scapulae held back and down"
+      ],
+      "muscles": {
+        "primary": [
+          "pectoralis-major",
+          "triceps-brachii"
+        ],
+        "secondary": [
+          "deltoid"
+        ],
+        "stabilizer": [
+          "biceps-brachii",
+          "rotator-cuff"
+        ]
+      },
+      "landmarks": [
+        "shoulder",
+        "elbow",
+        "wrist",
+        "bar"
+      ],
+      "direction": "The bar moves in a shallow curve between the lower chest and a point over the shoulders; the forearms stay about vertical under it.",
+      "camera": "side view for the bar path and forearm angle; three-quarter from the foot end for elbow angle",
+      "alternatives": "Easier: Push-up; dumbbell bench press; floor press (shorter range). Harder: Pause at the chest; close-grip bench press; heavier load.",
+      "errors": [
+        {
+          "id": "flare",
+          "description": "Elbows flared straight out to the sides.",
+          "correction": "Tuck the elbows to a moderate angle from the torso so the forearms stay vertical under the bar."
+        },
+        {
+          "id": "bounce",
+          "description": "Bouncing the bar off the chest.",
+          "correction": "Lower under control and touch the chest lightly, or pause."
+        },
+        {
+          "id": "hips-lift",
+          "description": "The hips lift off the bench to press.",
+          "correction": "Keep the hips and shoulders on the bench and drive through the feet."
+        },
+        {
+          "id": "wrists-bent",
+          "description": "The wrists bend back under the bar.",
+          "correction": "Stack the bar over the wrists and forearms."
+        }
+      ],
+      "cues": [
+        "Shoulder blades back and down, feet planted.",
+        "Lower the bar to the lower chest, forearms vertical.",
+        "Press up and slightly back to straight arms over the shoulders."
+      ],
+      "source_claim": "Pectoralis major and triceps brachii as prime movers with the anterior deltoid as a helper: Stastny 2017 (systematic review of 14 studies: pectoralis major and triceps activity similar and greater than anterior deltoid). Biceps as a stabiliser: Saeterbakken 2011 (12 men; biceps activity rose with stability demands). Grip-width notes: Lehman 2005 (12 men). Cues are coaching (NSCA Essentials 4e).",
+      "kinematics": "conceptual",
+      "classification": {
+        "pattern": "horizontal push",
+        "kind": "compound",
+        "chain": "open",
+        "plane": "transverse",
+        "joints": [
+          "shoulder",
+          "elbow",
+          "scapulothoracic"
+        ]
+      },
+      "variations": [
+        {
+          "id": "close-grip",
+          "name": "Close-grip bench press",
+          "note": "Lehman 2005 (12 men): narrower grips increased triceps activity and decreased sternocostal pectoralis activity"
+        },
+        {
+          "id": "incline",
+          "name": "Incline bench press",
+          "note": "bench raised"
+        },
+        {
+          "id": "smith",
+          "name": "Smith-machine bench press",
+          "note": "Saeterbakken 2011 (12 men): pectoralis major and anterior deltoid activity similar to the barbell; less biceps activity"
+        },
+        {
+          "id": "dumbbell",
+          "name": "Dumbbell bench press",
+          "note": "see dumbbell-bench-press"
+        }
+      ],
+      "execution": [
+        "Lie on the bench with the eyes under the bar and the feet planted.",
+        "Grip a little wider than the shoulders and set the shoulder blades back and down.",
+        "Unrack the bar to straight arms over the shoulders.",
+        "Lower under control to the lower chest, forearms vertical.",
+        "Press up and slightly back to straight arms; rack the bar at the end of the set."
+      ],
+      "joint_actions": [
+        {
+          "joint": "shoulder",
+          "concentric": "horizontal adduction and flexion",
+          "eccentric": "horizontal abduction and extension",
+          "rom_deg": [
+            0,
+            80
+          ],
+          "note": "illustrative"
+        },
+        {
+          "joint": "elbow",
+          "concentric": "extension",
+          "eccentric": "flexion",
+          "rom_deg": [
+            0,
+            100
+          ],
+          "note": "illustrative"
+        }
+      ],
+      "tempo": {
+        "eccentric_s": 1.4,
+        "bottom_s": 0.2,
+        "concentric_s": 1.1,
+        "top_s": 0.3,
+        "note": "illustrative"
+      },
+      "breathing": "Breathe in and brace as the bar comes down, exhale as you press (a common convention); avoid long breath holds.",
+      "camera_angles": [
+        "side (about az 72 so the plates do not hide the head)",
+        "three-quarter from the foot end",
+        "above"
+      ],
+      "visual_requirements": [
+        "a FULL repetition: unrack, lower, touch, press, lockout",
+        "forearms about vertical under the bar at every frame",
+        "bar touches the lower chest and finishes over the shoulders",
+        "hips and shoulder blades stay on the bench",
+        "pectoralis major and triceps highlighted as prime; front deltoid as helper"
+      ],
+      "progressions": {
+        "easier": [
+          "push-up",
+          "dumbbell bench press",
+          "floor press"
+        ],
+        "harder": [
+          "pause at the chest",
+          "close-grip bench press"
+        ]
+      },
+      "difficulty": "intermediate",
+      "experience": "some coaching advised; use a spotter or safety arms",
+      "evidence_grade": "moderate",
+      "role_basis": {
+        "pectoralis-major": "Stastny 2017 (systematic review): among the most active muscles in the flat bench press; Lehman 2005 and Saeterbakken 2011 measured it.",
+        "triceps-brachii": "Stastny 2017: activity similar to pectoralis major; Lehman 2005 (more with narrower grips).",
+        "deltoid": "Stastny 2017: anterior deltoid activity lower than pectoralis major and triceps, so a helper here.",
+        "biceps-brachii": "Saeterbakken 2011: activity rises with stability demands (Smith machine < barbell < dumbbells); a stabiliser.",
+        "rotator-cuff": "Surrounds and steadies the shoulder joint (OpenStax 11.5). Deep; anatomy, not measured."
+      },
+      "cue_checks": [
+        {
+          "cue": "Forearms vertical under the bar",
+          "rig_check": "forearm angle from vertical under N degrees every frame (side view)"
+        },
+        {
+          "cue": "Bar to the lower chest, finish over the shoulders",
+          "rig_check": "bar touch point within N units of the lower sternum; lockout bar x within N units of the shoulder x"
+        },
+        {
+          "cue": "Shoulder blades back and down, hips on the bench",
+          "rig_check": "pelvis and upper-back contact with the bench maintained every frame"
+        },
+        {
+          "cue": "Brace and breathe",
+          "rig_check": null,
+          "note": "internal; not checkable by a rig"
+        }
+      ],
+      "sources": [
+        {
+          "id": "stastny-2017",
+          "citation": "Stastny P, Gołaś A, Blazek D, Maszczyk A, Wilk M, Pietraszewski P, Petr M, Uhlir P, Zając A. A systematic review of surface electromyography analyses of the bench press movement task. PLoS One. 2017;12(2):e0171632.",
+          "year": 2017,
+          "design": "systematic-review",
+          "n": "14 studies",
+          "pmid": "28170449",
+          "doi": "10.1371/journal.pone.0171632",
+          "url": "https://europepmc.org/article/MED/28170449",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Pectoralis major and triceps brachii activity similar and higher than anterior deltoid in the flat barbell bench press; intensity is the main factor changing activity."
+        },
+        {
+          "id": "saeterbakken-2011",
+          "citation": "Saeterbakken AH, van den Tillaar R, Fimland MS. A comparison of muscle activity and 1-RM strength of three chest-press exercises with different stability requirements. J Sports Sci. 2011;29(5):533-538.",
+          "year": 2011,
+          "design": "acute-mechanistic",
+          "n": "12 resistance-trained men",
+          "pmid": "21225489",
+          "doi": "10.1080/02640414.2010.543916",
+          "url": "https://europepmc.org/article/MED/21225489",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Barbell, Smith machine and dumbbells: similar pectoralis major and anterior deltoid activity; biceps activity rose with stability demands."
+        },
+        {
+          "id": "lehman-2005",
+          "citation": "Lehman GJ. The influence of grip width and forearm pronation/supination on upper-body myoelectric activity during the flat bench press. J Strength Cond Res. 2005;19(3):587-591.",
+          "year": 2005,
+          "design": "acute-mechanistic",
+          "n": "12 healthy men",
+          "pmid": "16095407",
+          "doi": "10.1519/R-15024.1",
+          "url": "https://europepmc.org/article/MED/16095407",
+          "verified_via": "Europe PMC REST search (title query) 2026-11-23: authors, journal, year, volume, pages, PMID, DOI and abstract read",
+          "supports": "Narrower grips increased triceps and decreased sternocostal pectoralis activity; supinated grip raised biceps and clavicular pectoralis activity (variation note)."
+        },
+        {
+          "id": "openstax-ap2e-11-5",
+          "citation": "Betts JG, Young KA, Wise JA, et al. Anatomy and Physiology 2e, section 11.5 'Muscles of the Pectoral Girdle and Upper Limbs'. Houston, TX: OpenStax.",
+          "design": "textbook",
+          "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+          "verified_via": "Section page read 2026-11-23. Licence CC BY-NC-SA 4.0: used for facts only, no text or figures copied.",
+          "supports": "The rotator cuff tendons surround the shoulder joint; biceps crosses the shoulder and elbow."
+        },
+        {
+          "id": "nsca-essentials-4e",
+          "citation": "Haff GG, Triplett NT, editors. Essentials of Strength Training and Conditioning. 4th ed. National Strength and Conditioning Association. Champaign, IL: Human Kinetics; 2016. ISBN 9781492501626.",
+          "year": 2016,
+          "design": "textbook",
+          "url": "https://www.ncbi.nlm.nih.gov/nlmcatalog/101647597",
+          "verified_via": "NLM Catalog record 101647597 fetched 2026-11-23: editors, edition, publisher, ISBN and the chapter list (including 'Free-weight and machine exercise technique') confirmed. Bibliographic check only: the chapter text was not re-read.",
+          "supports": "General technique reference for the set-up and coaching cues, as in the existing records. Cues are graded coaching, not findings; nothing is quoted from it."
+        }
+      ]
     }
   ]
 }

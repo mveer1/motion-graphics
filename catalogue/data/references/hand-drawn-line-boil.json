@@ -1,6 +1,7 @@
 {
   "id": "hand-drawn-line-boil",
   "name": "Hand-drawn line boil",
+  "family": "style-texture",
   "status": "proposed",
   "source": {
     "type": "genre-convention",

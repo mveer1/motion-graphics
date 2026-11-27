@@ -8,13 +8,35 @@
 <script src="../../../src/studio/kits/fitness/exercises3d.js"></script>
 </head><body><div id="h"></div>
 <script>
-/* Still-frame bench for the 3D rig: ?ex=curl&t=1.2&shot=three&az=..&el=..&g=m&w=480&h=640  (the Chrome headless screenshot is the product) */
+/* Still-frame bench: ?ex=curl&t=1.2&shot=three&g=m&w=480&h=640&profile=legacy|distance&id=audit&period=3.4&fit=0.05 (fit the whole set, margin)
+   Lab-only sequences (not exercises): ex=_hair (female; a 45 deg head turn at 0.5-0.8 s, a nod at 2.2-2.5 s, both back at 3.6-3.9 s:
+   the ponytail's follow-through, as rig3d-check's ponytail-follow-through measures it) and ex=_foot&hl=36&tf=0 (a static foot roll).
+   &shade=crescent gives the figure the opt-in crescent planes (T3.anatomy.shade); &shade=clay a neutral grey surface (geometry only,
+   no activation colour); absent or toon = the default look. */
 var q = new URLSearchParams(location.search), W = +(q.get('w') || 480), H = +(q.get('h') || 640);
 var T3 = Studio.kit.fitness.t3d;
 var st = T3.stage(document.getElementById('h'), { width: W, height: H });
-var sc = T3.scene(st, q.get('ex') || 'curl', { gender: q.get('g') || 'm', shot: q.get('shot') || null, reps: 2 });
+var ex = q.get('ex') || 'curl', sc;
+if (ex === '_hair' || ex === '_foot') {
+  var fig = st.tibi({ gender: ex === '_hair' ? 'f' : (q.get('g') || 'm'), id: 'z', profileSampling: q.get('profile') || 'distance' }), m = T3.motion();
+  if (ex === '_hair') {
+    m.base({ 'z.headY': 0, 'z.neckF': 0 });
+    m.to(0.5, 0.3, { 'z.headY': 45 }, 'power2.inOut'); m.to(2.2, 0.3, { 'z.neckF': 30 }, 'power2.inOut'); m.to(3.6, 0.3, { 'z.neckF': 0, 'z.headY': 0 }, 'power2.inOut');
+  } else {
+    var hl = +(q.get('hl') || 0), tf = +(q.get('tf') || 0), r = T3.footRoll(hl, tf);
+    m.base({ 'z.hlL': hl, 'z.tfL': tf, 'z.hlR': hl, 'z.tfR': tf, 'z.fyawL': 0, 'z.fyawR': 0, 'z.y': 372 + r.up, 'z.z': r.fwd });
+  }
+  sc = { fig: fig, motion: m };
+} else {
+  sc = T3.scene(st, ex, { gender: q.get('g') || 'm', shot: q.get('shot') || null, reps: 2,
+    figId: q.get('id') || '', profileSampling: q.get('profile') || 'distance',
+    period: q.has('period') ? +q.get('period') : undefined, fit: q.has('fit') ? { margin: +q.get('fit') } : null,
+    arch: q.has('arch') ? +q.get('arch') : undefined });
+}
 var c = st.cam;
 ['az', 'el', 'dist', 'fov', 'tx', 'ty', 'tz'].forEach(function (k) { if (q.get(k) !== null) c[k] = +q.get(k); });
+if (q.get('shade') === 'clay') sc.fig.body.skin.material = new THREE.MeshPhongMaterial({ color: '#8D9CAD', specular: '#26354A', shininess: 18, side: THREE.DoubleSide });   // neutral surface diagnostic (as anatomy-bench.html)
+else if (q.get('shade') && q.get('shade') !== 'toon') T3.anatomy.shade(sc.fig, q.get('shade'));   // &shade=crescent: opt-in look prototype
 var v = sc.motion.at(+(q.get('t') || 0));
 sc.fig.apply(v); st.render();
 document.title = 'ready';

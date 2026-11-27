@@ -1,0 +1,78 @@
+{
+  "id": "headline-pair-build",
+  "name": "Two-tone headline and centred word build",
+  "purpose": "preset pair: two short lines, line 2 in the accent, words rising 0.08 s apart (warns when line 2 is longer). preset build: one centred line that grows word by word on spoken words, the visible words staying centred.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "line1/line2",
+      "type": "string",
+      "description": "pair preset"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "build preset"
+    },
+    {
+      "name": "preset",
+      "type": "string",
+      "description": "pair | build",
+      "default": "pair"
+    },
+    {
+      "name": "line2At",
+      "type": "number",
+      "description": "time line 2 starts (pair)"
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.headline(parent, data, {preset, tone, lineDelay, line2At}) -> {enter(tl, at, {times[], stagger}), word(tl, k, at) (build), warnings, exit}"
+  },
+  "layout_notes": "Display face at 6.4u by default; set the size on the parent's .st-hl for a hook.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-headline-copy/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-headline-copy/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "title-card",
+    "typed-kicker"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "typography",
+    "hook",
+    "headline"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

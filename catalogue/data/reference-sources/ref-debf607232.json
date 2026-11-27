@@ -1,0 +1,403 @@
+{
+  "id": "ref-debf607232",
+  "name": "Silent samurai kata on one fixed stage: a sun disc, ember field, blade arc trails and a move-name title per move",
+  "status": "experimental",
+  "source": {
+    "filename": "samurai-kata-in-pure-javascript-398b524e.mp4",
+    "aliases": [],
+    "sha256": "debf607232990a0fef487f33d50a30fa791e9ee38ac79b5b379d111190994a6a",
+    "bytes": 5556276,
+    "location": "external: user reference folder (resolve with --root or MOTION_REFERENCE_ROOTS); never copied into the repository",
+    "supplied_by": "user",
+    "supplied_on": "2026-11-26",
+    "url": null,
+    "creator": "unknown",
+    "publisher": "unknown"
+  },
+  "rights": {
+    "licence": "unknown",
+    "usage": "inspiration-only",
+    "attribution": "Unknown creator; supplied by the user as a private study reference.",
+    "brand_assets": [
+      {
+        "kind": "other",
+        "description": "Small creator credit lines in the corners",
+        "timestamps": [
+          0.37,
+          18.21
+        ],
+        "policy": "exclude"
+      }
+    ],
+    "notes": "Rights unverified. A code-art performance; reuse the one-stage kata structure, arc trails and move-title principle only, with an original figure and scene."
+  },
+  "media": {
+    "container": "mp4",
+    "bytes": 5556276,
+    "probe": "mp4-box-parser/1",
+    "brand": "mp42",
+    "compatible_brands": [
+      "mp42",
+      "iso2",
+      "avc1",
+      "mp41"
+    ],
+    "faststart": true,
+    "duration_sec": 18.585,
+    "encoder": "Lavf62.12.102",
+    "width": 1070,
+    "height": 720,
+    "video_codec": "avc1.640020",
+    "frame_count": 997,
+    "variable_frame_rate": true,
+    "fps": 53.644,
+    "fps_exact": "average of 81 timing runs",
+    "video_kbps": 2386,
+    "keyframes": 19,
+    "audio": null,
+    "overall_kbps": 2392
+  },
+  "analysis": {
+    "state": "inspected",
+    "inspected_on": "2026-11-27",
+    "inspected_by": "agent (GitHub Copilot, Session E) using the reference-analyst workflow",
+    "method": "Viewed overview (25 frames) and transitions sheet (6 boundaries, every 2nd frame of 53.6 fps, about 27 fps sampling). No listen sheet or audio panel (no audio track). nothing was listened to.",
+    "coverage": "Full 18.6 s (1070x720, 53.6 fps); every boundary at about 27 fps sampling.",
+    "concept": {
+      "observed": "A sword kata performed by one silhouetted figure in front of a huge setting sun: about a dozen named moves, each with its own slash trail, ground ring or burst, ending on a fire burst with the last move's name as a giant ghost in the sun and a return to the opening pose.",
+      "interpreted": "A performance piece: the motion is the content, a title names each move.",
+      "confidence": "medium"
+    },
+    "communication_style": {
+      "observed": "Silent; one vertical move title at top right swaps with each move."
+    },
+    "aspects": {
+      "palette": {
+        "observed": "Black and deep reds (#280808, 22%; #080808, 15%), an orange-red sun disc, flame orange and yellow, warm white for the brightest bursts."
+      },
+      "typography": {
+        "observed": "A vertical title of two to four large CJK characters with a small romanised line, top right; tiny credit lines in two corners."
+      },
+      "composition": {
+        "observed": "Fixed wide frame: sun centred above the horizon, braziers left and right, the figure centred on an ember field; the title at about 85-95% of the width, 10-30% of the height."
+      },
+      "motion": {
+        "observed": "Moves every 0.7-2.2 s (title changes at about 0.4, 1.9, 3.4, 4.8, 6.3, 7.1, 8.6, 9.3, 11.5, 12.3 and 14.5 s); slashes leave arcs of several parallel lines (3.35, 7.81, 13.2-13.4 s); ground rings expand (5.58, 8.55, 10.04, 13.75, 15.24 s); impacts flash at the blade or the ground (4.08-4.28, 8.03-8.23 s); the finale burst grows (14.99-15.2 s), a column of fire rises and the last title appears huge inside the sun (15.2-17.5 s)."
+      },
+      "transitions": {
+        "observed": "No edits: one stage and a fixed camera for 18.6 s. The 6 detected boundaries are inside the action: 0.56 s the stance change, 4.08, 8.03 and 14.99 s impact flashes (marked as cuts), 11.81 s a thrust, 13.19 s a circular slash (continuous).",
+        "interpreted": "A kata needs continuity; the moves are the structure and the title marks each one.",
+        "confidence": "high"
+      },
+      "timing_and_rhythm": {
+        "observed": "About 1.5 s per move (0.7-2.2 s), with the finale stretched to about 3 s."
+      },
+      "sound_design": {
+        "observed": "No audio track (ffprobe: video stream only; listen reports no audio track).",
+        "interpreted": "A silent film: rhythm is carried by motion and holds alone.",
+        "confidence": "high"
+      },
+      "narration": {
+        "observed": "None: silent film.",
+        "confidence": "high"
+      },
+      "captions": {
+        "observed": "No captions; the move title is the only copy and swaps in place per move."
+      }
+    },
+    "scenes": [
+      {
+        "start": 0,
+        "end": 3.35,
+        "observed": "Stance, draw and the first cut."
+      },
+      {
+        "start": 3.35,
+        "end": 8.55,
+        "observed": "Downward, rising and spinning cuts; ground rings."
+      },
+      {
+        "start": 8.55,
+        "end": 14.5,
+        "observed": "Guard, thrust and a flurry of circular slashes."
+      },
+      {
+        "start": 14.5,
+        "end": 18.59,
+        "observed": "Fire dance finale: burst, fire column, giant title in the sun, return to the stance."
+      }
+    ],
+    "moments": [
+      {
+        "t": 15.0,
+        "observed": "A bright burst at the figure grows for 0.2 s, then the last move's title fills the sun as a ghost while a column of fire rises (15.2-17.5 s).",
+        "interpreted": "The title moves from label to scenery for the climax."
+      }
+    ],
+    "difficult": [
+      "Ember, flame and glow need many additive particles; heavy as DOM layers, fine in Canvas 2D or WebGL",
+      "The silhouette figure is animated character work (keyframed poses)"
+    ],
+    "uncertainties": [
+      "Whether it is a screen capture of a live canvas (53.6 fps suggests so) or an export",
+      "Whether the last frame loops to the first (the poses match)",
+      "The corner credit lines are too small to read at sheet resolution"
+    ]
+  },
+  "techniques": [
+    {
+      "id": "single-stage-progression",
+      "timestamps": [
+        0.37,
+        3.35,
+        8.55,
+        15.24
+      ]
+    },
+    {
+      "id": "onion-skin-trail",
+      "timestamps": [
+        3.35,
+        7.81,
+        13.27
+      ]
+    },
+    {
+      "id": "step-caption-pill",
+      "timestamps": [
+        1.86,
+        4.83,
+        9.29
+      ]
+    }
+  ],
+  "related": {
+    "effects": [
+      "particle-drift",
+      "onion-trail",
+      "glow-pulse"
+    ],
+    "compositions": [
+      "hero-stage"
+    ],
+    "templates": [
+      "title-sequence"
+    ],
+    "styles": [
+      "cinematic-dark"
+    ]
+  },
+  "categories": [
+    "character-animation",
+    "generative",
+    "loop"
+  ],
+  "tags": [
+    "reference-video",
+    "batch-5",
+    "silent",
+    "dark",
+    "one-stage",
+    "particles",
+    "code-art",
+    "53fps"
+  ],
+  "confidence": "medium",
+  "metadata": {
+    "created_at": "2026-11-26",
+    "updated_at": "2026-11-27"
+  },
+  "automated": {
+    "analyzer": {
+      "version": "1.2",
+      "decoder": "browser",
+      "browser_channel": "msedge",
+      "decoder_version": "158.0.4370.45",
+      "run_on": "2026-11-27",
+      "elapsed_sec": 10.1
+    },
+    "sampling": {
+      "scan_fps": 8.0,
+      "scan_frames": 148,
+      "scan_size": "96x54",
+      "overview_frames": 25,
+      "cut_refinement": "every frame inside the coarse step",
+      "transition_strips": 6,
+      "motion_strips": 4
+    },
+    "boundaries": [
+      {
+        "t": 0.562,
+        "kind": "soft",
+        "score": 0.151
+      },
+      {
+        "t": 4.082,
+        "kind": "cut",
+        "score": 0.265,
+        "isolation": 0.81,
+        "frame": 219
+      },
+      {
+        "t": 8.034,
+        "kind": "cut",
+        "score": 0.439,
+        "isolation": 0.81,
+        "frame": 431
+      },
+      {
+        "t": 11.812,
+        "kind": "soft",
+        "score": 0.16
+      },
+      {
+        "t": 13.188,
+        "kind": "soft",
+        "score": 0.23
+      },
+      {
+        "t": 14.988,
+        "kind": "cut",
+        "score": 0.481,
+        "isolation": 0.91,
+        "frame": 804
+      }
+    ],
+    "scenes": [
+      {
+        "index": 1,
+        "start": 0.0,
+        "end": 0.56,
+        "duration": 0.56,
+        "activity": 0.08,
+        "luma": 0.13
+      },
+      {
+        "index": 2,
+        "start": 0.56,
+        "end": 4.08,
+        "duration": 3.52,
+        "activity": 0.096,
+        "luma": 0.15
+      },
+      {
+        "index": 3,
+        "start": 4.08,
+        "end": 8.03,
+        "duration": 3.95,
+        "activity": 0.184,
+        "luma": 0.16
+      },
+      {
+        "index": 4,
+        "start": 8.03,
+        "end": 11.81,
+        "duration": 3.78,
+        "activity": 0.214,
+        "luma": 0.17
+      },
+      {
+        "index": 5,
+        "start": 11.81,
+        "end": 13.19,
+        "duration": 1.38,
+        "activity": 0.125,
+        "luma": 0.14
+      },
+      {
+        "index": 6,
+        "start": 13.19,
+        "end": 14.99,
+        "duration": 1.8,
+        "activity": 0.163,
+        "luma": 0.17
+      },
+      {
+        "index": 7,
+        "start": 14.99,
+        "end": 18.59,
+        "duration": 3.6,
+        "activity": 0.21,
+        "luma": 0.19
+      }
+    ],
+    "static_holds": [],
+    "mean_activity": 0.168,
+    "luma": {
+      "mean": 0.16,
+      "dark_share": 0.95,
+      "light_share": 0.0
+    },
+    "palette": [
+      {
+        "hex": "#280808",
+        "share": 0.215
+      },
+      {
+        "hex": "#080808",
+        "share": 0.151
+      },
+      {
+        "hex": "#180808",
+        "share": 0.121
+      },
+      {
+        "hex": "#481808",
+        "share": 0.1
+      },
+      {
+        "hex": "#381808",
+        "share": 0.091
+      },
+      {
+        "hex": "#882818",
+        "share": 0.035
+      },
+      {
+        "hex": "#982818",
+        "share": 0.031
+      },
+      {
+        "hex": "#c86828",
+        "share": 0.029
+      },
+      {
+        "hex": "#782818",
+        "share": 0.025
+      },
+      {
+        "hex": "#d87838",
+        "share": 0.023
+      }
+    ],
+    "representative_times": [
+      0.28,
+      2.32,
+      6.05,
+      9.92,
+      12.5,
+      14.09,
+      16.79
+    ],
+    "audio": {
+      "present": false
+    },
+    "artifacts": {
+      "cache_dir": "reference/analysis/ref-debf607232",
+      "overview": "reference/analysis/ref-debf607232/overview.jpg",
+      "scenes": "reference/analysis/ref-debf607232/scenes.jpg",
+      "transitions": "reference/analysis/ref-debf607232/transitions.jpg",
+      "motion": "reference/analysis/ref-debf607232/motion.jpg",
+      "audio": null,
+      "frames": "reference/analysis/ref-debf607232/frames",
+      "tracked": false
+    },
+    "listen": {
+      "version": "1.0",
+      "run_on": "2026-11-27",
+      "boundaries_from_analyzer": "1.2",
+      "audio": false,
+      "method": "no audio track"
+    }
+  }
+}

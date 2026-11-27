@@ -1,0 +1,63 @@
+/*
+ * Style system: carved-relief. Museum light on stone, bronze and terracotta: public-domain
+ * photographs of sculpture and picture stones cut out and layered in 2.5D, inscriptional
+ * letter-spaced capitals. Alternate look of the mythic-tale template for Greek, Roman, Norse and
+ * temple-sculpture stories. Bronze (--c-accent-3) is for rules and display type only (4.1:1).
+ */
+:root {
+  --c-paper: #f0eae0;
+  --c-paper-2: #dfd6c7;
+  --c-ink: #221f1c;
+  --c-ink-2: #57504a;
+  --c-rule: #bfb4a3;
+  --c-accent: #9c4527;
+  --c-accent-2: #2b5a69;
+  --c-accent-3: #8c6b2c;
+  --c-gold: #b98f3e;
+  --c-gold-light: #dcc08a;
+  --c-terracotta: #c06a3e;
+  --c-verdigris: #4f8a80;
+  --c-marble: #faf7f1;
+  --c-basalt: #3a3632;
+  --c-night: #23272e;
+  --c-malachite: #4f7a5a;
+  --c-sky: #cfd8dc;
+  --c-lotus: #b0606e;
+  --c-saffron: #c98a3a;
+  --c-peacock: #2b5a69;
+  --c-leather-red: #a8482c;
+  --c-leather-ochre: #b98f3e;
+  --c-leather-green: #4f7a5a;
+  --c-leather-blue: #2b5a69;
+  --c-lamp: rgba(255, 214, 150, 0.16);
+  --c-highlight: rgba(185, 143, 62, 0.3);
+  --c-positive: #3e6b3a;
+  --c-negative: #9c4527;
+  --c-info: #2b5a69;
+  --c-shadow: rgba(34, 31, 28, 0.3);
+  --c-caption-ink: #faf7f1;
+  --c-caption-bg: rgba(34, 31, 28, 0.88);
+  --c-caption-hl: #dcc08a;
+
+  --font-display: 'EB Garamond', serif;
+  --font-text: 'EB Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --fw-display: 600;
+  --fw-heading: 600;
+  --track-display: 0.08em;
+  --track-kicker: 0.3em;
+
+  --ease-out: power2.out;
+  --ease-in: power1.in;
+  --ease-in-out: power2.inOut;
+  --dur-enter: 1.1;
+  --dur-exit: 0.8;
+  --stagger: 0.12;
+
+  --grain-blend: multiply;
+}
+
+.st-paper {
+  background: var(--c-paper-2);
+  box-shadow: calc(var(--u) * 0.6) calc(var(--u) * 0.9) calc(var(--u) * 1.6) var(--c-shadow);
+}

@@ -1,0 +1,29 @@
+{
+  "id": "beat-drop-product-reveal",
+  "name": "Beat drop on the product reveal",
+  "family": "sound-design",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "1 inspected reference film (batch-7, 2026-11-26): a 47.6 s light SaaS launch tells its problem over a sparse bed and brings in the full beat, 7.3 dB louder, as the product fills the frame.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "The problem is told over a sparse, quiet intro; the full beat enters, louder and denser, at the moment the product's main interface fills the frame. The arrangement marks the turn from problem to solution without a cut or an added sound effect.",
+  "purpose": "Mark the turn from problem to solution with the arrangement alone, without a cut or an added effect.",
+  "visual_behaviour": "The problem plays over a sparse, quiet intro; at the moment the product's main window fills the frame the full beat enters and the film runs at full energy to the end.",
+  "mechanics": "Intro bed about 7 dB below the body (median -24.6 dB against -17.3 dB) with onsets 0.2-1.0 s apart; at the turn the level steps up 7.3 dB within about 0.2 s (13.33 -> 13.51 s) and onsets go to every 0.11-0.23 s; the picture grows the main window to fill the frame across the step (11.0-13.97 s).",
+  "decomposition": { "primitives": ["scene-container"], "effects": [], "timing": "Intro about 13 s of a 47.6 s film (28%); one step, no return." },
+  "parameters": [
+    { "name": "introLevel", "description": "Intro bed level relative to the body, dB", "default": -7 },
+    { "name": "stepAt", "description": "The moment the product fills the frame", "default": "product reveal" }
+  ],
+  "use_cases": ["Product launches", "Problem and solution explainers", "Before and after"],
+  "failure_modes": ["A step on a non-event reads as a mix error", "Under narration the step must be ducked so the voice stays on top"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "Choose or edit a bed with a sparse intro section, or automate its level in the mix: intro about 7 dB under the body, a step up within about 0.2 s on the frame the product fills the screen (snap it with studio.py words in a narrated film), no return. Under narration duck the body so the voice stays on top. Not built as a preset." },
+  "capability": { "support": "native", "requirements": ["bed with an intro section or level automation"], "compatible_components": [], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-0b2552b64e", "timestamps": [13.42], "observed": "Sparse intro under the problem and first feature (0-13.4 s, median -24.6 dB); at 13.42 s the full beat enters, +7.3 dB, as the calendar window fills the frame; the body stays at about -17.3 dB to the end." }
+  ],
+  "related": { "techniques": ["quiet-after-overload", "pre-hit-dropout", "beat-grid-element-arrivals"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["sound-design", "arrangement", "beat-drop", "reveal", "problem-solution", "mix", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-26" }
+}

@@ -1,0 +1,55 @@
+{
+  "id": "tool-myth-sources",
+  "name": "Myth sources (public-domain artwork search)",
+  "component_type": "tool",
+  "purpose": "Searches museum open-access APIs that need no key (Cleveland Museum of Art, The Met v1.1, Wikimedia Commons) for artworks of myths, gods and heroes and keeps only public-domain or CC0 images. Writes records (url, id, title, creator, date, culture, license, source, institution, attribution) that the collage-design fetcher downloads, validates and credits, for photo plates in mythic-tale films.",
+  "capabilities": [
+    "search <query> --source cma,met,commons --limit N --culture <regex> --out records.json",
+    "Licence filtering: CMA share_license_status == CC0; Met isPublicDomain with an image; Commons LicenseShortName public domain or CC0 only",
+    "Attribution string per record for on-screen credits and the end card",
+    "Output feeds .claude/skills/collage-design/scripts/fetch.py --json, then scripts/assets.py import"
+  ],
+  "location": "scripts/myth-sources.py",
+  "version": "0.1.0",
+  "installation": {
+    "required": false,
+    "instructions": "Standard library only; python scripts/myth-sources.py search \"<query>\". Set MOTIONLAB_CONTACT to an e-mail or URL for the User-Agent."
+  },
+  "dependencies": [],
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "python3 (stdlib)",
+    "notes": "Verified live on Windows on 2026-11-23 against all three sources. The Met v1 search was retired on 2026-10-01; the tool uses v1.1 and falls back on 404/410. AIC (Cloudflare), Smithsonian (key) and Openverse (200 requests a day) are not wired."
+  },
+  "documentation_urls": [
+    ".claude/skills/mythic-tales/references/imagery-sourcing.md",
+    "https://openaccess-api.clevelandart.org/",
+    "https://metmuseum.github.io/",
+    "https://commons.wikimedia.org/w/api.php"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace tool. Images it finds are public domain or CC0 as stated by the source; a person checks each one before use and the attribution is kept."
+  },
+  "security": {
+    "requires_filesystem_write": true,
+    "requires_network": true,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "HTTPS GET to three public APIs, one request at a time with a pause; no credentials. Writes only the --out file."
+  },
+  "owner": "workspace-governance",
+  "status": "experimental",
+  "approval_evidence": "Live searches for Krishna, Shiva and Odin on 2026-11-23 returned CC0/public-domain records from all three sources; parsers covered offline by tests/test-mythic.py.",
+  "architecture_ref": "ARCHITECTURE.md#s0",
+  "last_verified": "2026-11-23",
+  "tags": [
+    "assets",
+    "public-domain",
+    "museum",
+    "myth",
+    "sourcing"
+  ]
+}

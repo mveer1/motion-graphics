@@ -1,6 +1,7 @@
 {
   "id": "archival-mono-collage",
   "name": "Monochrome archive collage with one accent",
+  "family": "style-texture",
   "status": "proposed",
   "source": { "type": "user-provided-reference", "description": "An inspected brand film cuts between black-and-white archival imagery (engravings, photographs, sculpture) with thin construction lines, serif words and a single accent colour.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Public-domain monochrome imagery on white, overlaid with analytic line drawings and one accent mark, gives a thoughtful, museum-like tone; fast cuts between images on the beat keep it lively.",

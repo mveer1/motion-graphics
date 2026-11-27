@@ -1,0 +1,28 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../src/studio/styles/sinew-lab.css">
+<!-- Preview only: HyperFrames bundles these fonts at render; plain Chrome needs the web copies. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=block">
+<style>body{font-family:"Inter",sans-serif;margin:0;background:#F6F3EC} #root{position:relative;overflow:hidden;font-family:"Outfit","Inter",sans-serif}</style>
+<script src="../../../src/studio/vendor/gsap.min.js"></script></head><body>
+<div id="root" data-composition-id="root" data-width="1600" data-height="1080" data-fps="30" data-duration="8" data-still="7"><svg id="stage" width="1600" height="1080" viewBox="0 0 1600 1080"></svg></div>
+<script src="../../../src/studio/studio-core.js"></script><script src="../../../src/studio/studio-rig.js"></script><script src="../../../src/studio/kits/fitness/brand.js"></script><script src="../../../src/studio/kits/fitness/anatomy.js"></script>
+<script>
+// Inside-the-body plates (2026-11-23): vascular tree, alveolus gas exchange, knee / hip / shoulder sections.
+// Rosewood and ivory only (STYLE.md: inside the body), every plate tagged illustrative; labels revealed in sequence.
+Studio.build(function(tl,f,S){
+  var st=document.getElementById('stage'), K=S.kit.fitness, A=K.anatomy, P=K.palette;
+  S.svg('rect',{width:1600,height:1080,fill:P.paper},st);
+  function text(s,x,y,size,w,fill,anchor,font){var t=S.svg('text',{x:x,y:y,'font-family':font||'Outfit','font-weight':w||700,'font-size':size,fill:fill||P.ink,'text-anchor':anchor||'start'},st);t.textContent=s;return t;}
+  text('Inside the body \u00B7 vessels, gas exchange, joints',60,60,34,800);
+  text('Rosewood and ivory = inside (never the effort colours). Structure after OpenStax A&P 2e 9.4, 9.6, 20.1, 22.1; schematic, not to scale.',60,90,16,500,P.ink2,'start','Inter');
+  var v=A.vascularTree(st,{x:60,y:130,scale:1.0}); v.labels(tl,0.2,0.3); v.flow(tl,0.2,8,3.2);
+  text('Vascular tree: A.vascularTree',60,545,15,700,P.ink2,'start','Inter');
+  var a=A.alveolus(st,{x:900,y:120,scale:1.0}); a.labels(tl,0.4,0.3); a.exchange(tl,0.3,8,3.0);
+  text('Alveolus gas exchange: A.alveolus',900,520,15,700,P.ink2,'start','Inter');
+  ['knee','hip','shoulder'].forEach(function(j,i){
+    var x=40+i*530, h=A.joint(st,{joint:j,x:x,y:590,scale:0.92}); h.labels(tl,0.6+i*0.2,0.25);
+    text('A.joint {joint: \''+j+'\'}',x,1060,15,700,P.ink2,'start','Inter');
+  });
+  tl.to({},{duration:8},0);
+});
+</script></body></html>

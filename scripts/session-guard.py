@@ -30,7 +30,11 @@ Environment:
 import argparse
 import collections
 import contextlib
-import fcntl
+
+try:
+    import fcntl
+except ImportError:  # Windows: _MsvcrtFlock below stands in
+    fcntl = None
 import filecmp
 import json
 import os
@@ -110,10 +114,69 @@ SESSION_OWNED_PREFIXES = ("projects/", "series/", "out/")
 TOOLING_PREFIXES = ("scripts/", "specs/", "src/", "catalogue/", "templates/", ".claude/", "tests/", "CLAUDE.md", "AGENTS.md")
 
 
+class _MsvcrtFlock:
+    """Windows stand-in for the fcntl.flock calls in this file: a one-byte msvcrt lock on the same fd.
+
+    Like flock it belongs to the open file and is dropped when the fd closes or the process dies.
+    LOCK_SH is taken exclusively; only lock_is_held's momentary probe asks for it.
+    """
+    LOCK_SH, LOCK_EX, LOCK_NB, LOCK_UN = 1, 2, 4, 8
+
+    @staticmethod
+    def flock(fd: int, op: int) -> None:
+        import msvcrt
+        os.lseek(fd, 0, os.SEEK_SET)
+        if op & _MsvcrtFlock.LOCK_UN:
+            msvcrt.locking(fd, msvcrt.LK_UNLCK, 1)
+            return
+        while True:
+            try:
+                msvcrt.locking(fd, msvcrt.LK_NBLCK, 1)
+                return
+            except OSError:
+                if op & _MsvcrtFlock.LOCK_NB:
+                    raise
+                time.sleep(0.05)
+
+
+if fcntl is None:
+    fcntl = _MsvcrtFlock
+
+if os.name == "nt":  # a redirected cp1252 console cannot encode the status emoji; a message must never fail a lock
+    for _stream in (sys.stdout, sys.stderr):
+        if hasattr(_stream, "reconfigure"):
+            _stream.reconfigure(errors="backslashreplace")
+
+# Windows has no SIGHUP/SIGKILL; os.kill with any signal there is TerminateProcess.
+SIGKILL = getattr(signal, "SIGKILL", signal.SIGTERM)
+TEARDOWN_SIGNALS = tuple(getattr(signal, n) for n in ("SIGTERM", "SIGHUP", "SIGINT") if hasattr(signal, n))
+
+
+def _windows_pid_alive(pid: int) -> bool:
+    """os.kill(pid, 0) on Windows sends a console Ctrl+C instead of probing, so ask the kernel instead."""
+    import ctypes
+    from ctypes import wintypes
+    k32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    k32.OpenProcess.restype = wintypes.HANDLE
+    k32.OpenProcess.argtypes = (wintypes.DWORD, wintypes.BOOL, wintypes.DWORD)
+    k32.GetExitCodeProcess.argtypes = (wintypes.HANDLE, ctypes.POINTER(wintypes.DWORD))
+    k32.CloseHandle.argtypes = (wintypes.HANDLE,)
+    handle = k32.OpenProcess(0x1000, False, pid)  # PROCESS_QUERY_LIMITED_INFORMATION
+    if not handle:
+        return ctypes.get_last_error() == 5  # ERROR_ACCESS_DENIED: exists, owned by someone else
+    try:
+        code = wintypes.DWORD()
+        return not k32.GetExitCodeProcess(handle, ctypes.byref(code)) or code.value == 259  # STILL_ACTIVE
+    finally:
+        k32.CloseHandle(handle)
+
+
 def is_pid_alive(pid: int) -> bool:
     """Check if process with PID is currently running."""
     if pid <= 0:
         return False
+    if os.name == "nt":
+        return _windows_pid_alive(pid)
     try:
         os.kill(pid, 0)
         return True
@@ -211,7 +274,7 @@ def terminate_descendants(grace_sec: float = 8.0) -> int:
         victims = [p for p in victims if p in alive]
     for pid in victims:
         with contextlib.suppress(OSError):
-            os.kill(pid, signal.SIGKILL)
+            os.kill(pid, SIGKILL)
     return len(victims)
 
 
@@ -232,7 +295,7 @@ def _install_signal_handlers():
         raise SystemExit(128 + signum)
 
     previous = {}
-    for sig in (signal.SIGTERM, signal.SIGHUP, signal.SIGINT):
+    for sig in TEARDOWN_SIGNALS:
         try:
             old = signal.getsignal(sig)
             if old in (signal.SIG_DFL, signal.default_int_handler):
@@ -388,7 +451,7 @@ def acquire_lock(
     poll_interval: Optional[float] = None,
 ) -> Generator[Path, None, None]:
     """
-    Acquire the cross-process lock for a resource with fcntl.flock, waiting in a first-come-first-served queue.
+    Acquire the cross-process lock for a resource with fcntl.flock (msvcrt on Windows), waiting in a first-come-first-served queue.
 
     render, tts and analysis all map to the single "heavy" lock, so two heavy jobs never overlap. The lock
     is re-entrant for child processes through MOTION_LAB_LOCKS_HELD: `session-guard build` -> `studio.py
@@ -522,7 +585,7 @@ def cmd_unlock(args: argparse.Namespace) -> int:
         if lock_is_held(HEAVY_LOCK):
             print("Holder ignored SIGTERM; sending SIGKILL. Check `ps` for orphaned Chrome/ffmpeg.")
             with contextlib.suppress(OSError):
-                os.kill(pid, signal.SIGKILL)
+                os.kill(pid, SIGKILL)
         cleared += 1
     elif held:
         print(f"Lock is held by a live process (PID {meta.get('pid') if meta else '?'}); not touching it. Use --force to stop it.")

@@ -45,7 +45,13 @@ TOOL = {"name": "motion-qa", "version": "1.0"}
 PRESETS = json.loads((ROOT / "specs" / "format-presets.json").read_text())
 SAME_STRUCTURE = 0.05      # ink-map distance below which two frames share one composition (re-skin control measured 0.023; unrelated >= 0.15)
 STATIC_WARN_SEC, STATIC_NOTE_SEC = 2.0, 1.2
+HOLD_ALIVE, HOLD_FROZEN = 0.8, 0.3   # lag-0.5s energy: frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9
+LOCAL_CHANGE_NOTE = 0.02   # share of the frame that changes: a counter or a few lit tiles (Korea's grid: 4-11%); uncalibrated
+LANE_DEPTH = 0.15          # height of a caption lane band, fraction of the frame; uncalibrated
+ECHO_SHARE = 0.7           # on-screen words also spoken, above which text-echoes-narration fires
 CORNER = (0.2, 0.14)       # x fraction, y fraction defining corner zones (HUD-label heuristic)
+STYLE_TEMPLATES = ROOT / "catalogue" / "data" / "style-templates"
+CAPTION_LANES = json.loads((ROOT / "specs" / "caption-presets.json").read_text(encoding="utf-8")).get("lanes", {})
 
 
 def load_json(p: Path) -> Any:
@@ -122,10 +128,13 @@ class Context:
         self.intent: Dict[str, str] = {}
         self.narr: List[Tuple[float, float, str, str]] = []
         self.project: Dict[str, Any] = {}
+        self.rules: Dict[str, Any] = {}
+        self.template_id: Optional[str] = None
         if not pdir:
             return
         if (pdir / "project.json").exists():
             self.project = load_json(pdir / "project.json")
+            self.template_id, self.rules = template_rules(self.project)
         if (pdir / "storyboard.json").exists():
             self.scenes = load_json(pdir / "storyboard.json")["scenes"]
             for s in self.scenes:
@@ -152,6 +161,81 @@ class Context:
             if f["id"] == fmt or (fmt is None and f.get("primary")):
                 return f["width"], f["height"]
         return PRESETS["formats"].get(fmt or "landscape", PRESETS["formats"]["landscape"])["sizes"]["720p"]
+
+
+def template_rules(project: Dict[str, Any]) -> Tuple[Optional[str], Dict[str, Any]]:
+    """(template id, its `rules`) for the style template project.json pins; ({} when none is pinned or found)."""
+    tid = (project.get("style_template") or {}).get("id")
+    path = STYLE_TEMPLATES / f"{tid}.json" if tid else None
+    if not path or not path.exists():
+        return tid, {}
+    try:
+        return tid, load_json(path).get("rules", {})
+    except ValueError:
+        return tid, {}
+
+
+def static_limit(ctx: "Context") -> float:
+    """Seconds a narrated hold may last before it is a warning: the template's static_hold_sec, else its max_beat_gap_sec."""
+    r = ctx.rules
+    return float(r.get("static_hold_sec") or r.get("max_beat_gap_sec") or STATIC_WARN_SEC)
+
+
+def label_floor_fraction(ctx: "Context") -> float:
+    """Smallest text as a fraction of the short side: the template's label_floor_fraction, else the preset floor."""
+    return float(ctx.rules.get("label_floor_fraction") or PRESETS["text_floor_fraction"])
+
+
+def caption_bands(ctx: "Context", fmt: Optional[str], scene_ids: List[str]) -> List[Tuple[float, float, str]]:
+    """Declared caption bands as (top, bottom, source) fractions of the frame height.
+
+    The template's rules.caption_band[format] declares where a film draws its own band. A scene whose storyboard
+    declares the caption-band capability gets the format's caption lanes (specs/caption-presets.json), each taken
+    as LANE_DEPTH of the frame height above a bottom edge or below a top edge. Runtime captions
+    (Studio.comp.captions, class st-caption) are recognised by class and need no band."""
+    bands: List[Tuple[float, float, str]] = []
+    declared = (ctx.rules.get("caption_band") or {}).get(fmt or "landscape")
+    if declared:
+        bands.append((float(declared["top"]), float(declared["bottom"]), "style-template"))
+    scene_caps = set().union(*[ctx.caps.get(s, set()) for s in scene_ids]) if scene_ids else set()
+    if "caption-band" in scene_caps:
+        for lane in CAPTION_LANES.get(fmt or "landscape", {}).values():
+            if not isinstance(lane, dict):
+                continue
+            if "bottom_edge" in lane:
+                bands.append((lane["bottom_edge"] - LANE_DEPTH, lane["bottom_edge"], "storyboard"))
+            elif "top_edge" in lane:
+                bands.append((lane["top_edge"], lane["top_edge"] + LANE_DEPTH, "storyboard"))
+    return bands
+
+
+def caption_source(it: Dict[str, Any], bands: List[Tuple[float, float, str]], H: float) -> Optional[str]:
+    """Where a text item is declared caption text ('runtime', 'style-template', 'storyboard'), or None."""
+    if "st-caption" in (it.get("cls") or ""):
+        return "runtime"
+    cy = (it["y"] + it["h"] / 2) / H if H else 0.0
+    return next((src for top, bottom, src in bands if top <= cy <= bottom), None)
+
+
+def hold_verdict(length: float, lag_e: float, changed: float, narr: bool, end_hold: bool, limit: float) -> Tuple[str, str, str]:
+    """(finding id, severity, kind) for a low-change stretch of `length` seconds. Pure, so it is tested without a video.
+
+    A slow drift (lag energy above HOLD_ALIVE) is alive. A stretch where only part of the frame changes (a counter, a
+    lit tile: changed share at or above LOCAL_CHANGE_NOTE) is a note, never a warning: the picture moves, the whole
+    frame does not. Otherwise a narrated hold of `limit` seconds or more (not at the film's end) is a warning."""
+    if lag_e >= HOLD_ALIVE:
+        return "slow-drift", "note", "drift"
+    if changed >= LOCAL_CHANGE_NOTE:
+        return "static-hold", "note", "localized"
+    sev = "warn" if (length >= limit and narr and not end_hold) else "note"
+    return "static-hold", sev, ("frozen" if lag_e < HOLD_FROZEN else "low-energy")
+
+
+def echo_share(texts: List[str], narration: str) -> Optional[float]:
+    """Share of the on-screen words (4+ letters) that the scene's narration also says; None below six words."""
+    ta = set(re.findall(r"[a-z]{4,}", " ".join(texts).lower()))
+    tb = set(re.findall(r"[a-z]{4,}", (narration or "").lower()))
+    return len(ta & tb) / len(ta) if len(ta) >= 6 and tb else None
 
 
 def waiver_map(ctx: Context, scene_ids: List[str]) -> Dict[str, str]:
@@ -226,29 +310,32 @@ def video_checks(rep: Report, ctx: Context, path: Path, a: argparse.Namespace) -
     # --- static holds: low per-frame change AND low accumulated change (a slow drift is alive, not frozen)
     motion = vs.motion_summary(frames, fps)
     LAG = max(2, int(0.5 * fps))
-    ALIVE, FROZEN = 0.8, 0.3
+    limit = static_limit(ctx)
     for s, e in vs.runs_below(diff, 0.35, int(1.2 * fps)):
         a_, b_ = s / fps, (e + 1) / fps
         length = b_ - a_
         if length < STATIC_NOTE_SEC:
             continue
         lag_e = vs.lag_energy(frames, s, e, LAG)
+        changed = vs.changed_fraction(frames, s, e, LAG)
         sc = ctx.scene_at((a_ + b_) / 2)
         narr_known = bool(ctx.narr)
         narr = ctx.narrating(a_, b_) if narr_known else bool(info["has_audio"])  # unknown narration + an audio track: assume it may be speaking
         end_hold = e >= n - 2
-        ev = {"mean_diff_max": 0.35, "lag_0.5s_energy": round(lag_e, 3), "alive_above": ALIVE, "frozen_below": FROZEN, "narration_overlap": narr, "narration_known": narr_known,
+        ev = {"mean_diff_max": 0.35, "lag_0.5s_energy": round(lag_e, 3), "alive_above": HOLD_ALIVE, "frozen_below": HOLD_FROZEN,
+              "changed_share": round(changed, 3), "localized_at": LOCAL_CHANGE_NOTE, "limit_sec": limit,
+              "limit_from": f"style template {ctx.template_id}" if ctx.rules else "default", "narration_overlap": narr, "narration_known": narr_known,
               "calibration": "frozen stretches measured 0.06-0.10, slow drifts 0.9-1.9"}
-        if lag_e >= ALIVE:
+        fid, sev, kind = hold_verdict(length, lag_e, changed, narr, end_hold, limit)
+        if fid == "slow-drift":
             if length >= STATIC_WARN_SEC:
                 rep.add("slow-drift", "measured", "note", f"{length:.1f}s of slow drift (per-frame change tiny, but the picture moves: lag energy {lag_e:.2f})", ev, rng=(a_, b_), beat=sc["id"] if sc else None)
             continue
-        sev = "warn" if (length >= STATIC_WARN_SEC and narr and not end_hold) else "note"
-        kind = "frozen" if lag_e < FROZEN else "low-energy"
         w = {}
         if sc and ctx.intent.get(sc["id"]) in ("still", "minimal"):
             w["static-hold"] = f"intent:{ctx.intent[sc['id']]}@storyboard"
-        rep.add("static-hold", "measured", sev, f"picture {kind} for {length:.2f}s" + ((" while narration speaks" if narr_known else " with an audio track playing (narration map unknown)") if narr else "") + (" at the end of the film" if end_hold else ""),
+        what = f"only {changed * 100:.0f}% of the frame changes" if kind == "localized" else f"picture {kind}"
+        rep.add("static-hold", "measured", sev, f"{what} for {length:.2f}s" + ((" while narration speaks" if narr_known else " with an audio track playing (narration map unknown)") if narr else "") + (" at the end of the film" if end_hold else ""),
                 ev, rng=(a_, b_), beat=sc["id"] if sc else None,
                 suggestion="keep one living element (drift, light, a counter) or declare intent: still", waivers=w)
     rep.check("static-holds", "ran")
@@ -396,6 +483,18 @@ def tween_checks(rep: Report, ctx: Context, index: Path, fmt: str) -> None:
         ev = dict(f.get("evidence") or {})
         rep.add(f["id"], "measured", f["severity"], f["message"], ev or None,
                 suggestion="thresholds are adopted from HyperFrames motion-principles and calibrated on three films only; read the timeline before acting")
+    if ctx.pdir:
+        import scriptlint
+        scriptlint.write_tween_dump(ctx.pdir, res)  # `studio.py script` and `validate` run the gap audit from it
+    if ctx.narr:
+        for g in tw.narration_gaps(res["tweens"], [(a, b, i) for a, b, i, _ in ctx.narr], film_end=res.get("duration")):
+            rep.add("narration-gap", "measured", "warn" if g["ambient_share"] < 0.5 else "note",
+                    f"{g['sec']:.1f}s of narration in {g['scene']} with no visual event in the timeline" + (" (only a drift or pulse layer moves)" if g["ambient_share"] >= 0.5 else ""),
+                    {"ambient_share": g["ambient_share"], "limit_sec": tw.GAP_WARN_SEC}, rng=(g["start"], g["end"]), beat=g["scene"],
+                    suggestion="snap a reveal, highlight or counter to a spoken word (`studio.py words`)")
+        rep.check("narration-gaps", "ran")
+    else:
+        rep.check("narration-gaps", "skipped", "no audio/timeline.json narration map")
     rep.check("tween-summary", "ran", json.dumps(tw.summarise(res["tweens"])))
 
 
@@ -455,7 +554,8 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
         rep.add("page-errors", "objective", "fail", f"{len(res['errors'])} JavaScript error(s) while loading: {res['errors'][0]}")
     W, H = res["size"]
     short = min(W, H)
-    floor = PRESETS["text_floor_fraction"] * short
+    floor_frac = label_floor_fraction(ctx)
+    floor = floor_frac * short
     safe = PRESETS["formats"].get(fmt, PRESETS["formats"]["landscape"])["safe_area"]
     ui = PRESETS["formats"].get(fmt, {}).get("platform_ui_reference")
     seen_ui: set = set()
@@ -471,11 +571,13 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
         texts = [i for i in smp["items"] if i["k"] == "text"]
         shapes = [i for i in smp["items"] if i["k"] != "text"]
         sc_w = waiver_map(ctx, [lab] if lab else [])
+        bands = caption_bands(ctx, fmt, [lab] if lab else [])
         for it in texts:
             key = it["text"][:40]
             if it["fs"] < floor - 0.01 and key not in seen_small:
                 seen_small.add(key)
-                rep.add("text-size-floor", "measured", "warn", f"text '{key}' is {it['fs']:.1f}px = {it['fs'] / short * 100:.1f}% of the short side (floor {PRESETS['text_floor_fraction'] * 100:.1f}%)",
+                rep.add("text-size-floor", "measured", "warn", f"text '{key}' is {it['fs']:.1f}px = {it['fs'] / short * 100:.1f}% of the short side (floor {floor_frac * 100:.1f}%"
+                        + (f", from style template {ctx.template_id})" if ctx.rules.get("label_floor_fraction") else ")"),
                         {"font_px": round(it["fs"], 1), "floor_px": round(floor, 1)}, t=smp["t"], beat=lab, waivers=sc_w)
             if (it["x"] < -2 or it["y"] < -2 or it["x"] + it["w"] > W + 2 or it["y"] + it["h"] > H + 2) and key not in seen_out:
                 seen_out.add(key)
@@ -526,7 +628,9 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
                 key = it["text"][:40]
                 if ratio < need and key not in seen_contrast:
                     seen_contrast.add(key)
-                    rep.add("low-contrast", "measured", "warn", f"'{key}' contrast {ratio:.1f}:1 (needs {need}:1 at this size); estimated against the nearest flat background shape", {"ratio": round(ratio, 2), "estimated": True}, t=smp["t"], beat=lab, waivers=sc_w)
+                    src = caption_source(it, bands, H)
+                    cw = {**sc_w, "low-contrast": f"capability:caption-band@{src}"} if src else sc_w
+                    rep.add("low-contrast", "measured", "warn", f"'{key}' contrast {ratio:.1f}:1 (needs {need}:1 at this size); estimated against the nearest flat background shape", {"ratio": round(ratio, 2), "estimated": True}, t=smp["t"], beat=lab, waivers=cw)
     # reel-app interface bands: one note per band with the deepest reach, not one per caption line
     for zone, hits in ui_hits.items():
         limit = {"top": ui["top"], "bottom": 1 - ui["bottom"], "right rail": 1 - ui["right"]}[zone]
@@ -586,16 +690,24 @@ def composition_checks(rep: Report, ctx: Context, index: Path, fmt: str, narr_sc
                 seen.update(g)
                 rep.add("repeat-layout-dom", "measured", "warn" if len(g) / len(labs) >= 0.5 else "note", f"{len(g)} of {len(labs)} scenes occupy nearly the same regions of the frame ({', '.join(labs[j] for j in g)})",
                         {"coverage_distance_below": 0.05, "grid": "32x18", "calibration": "same threshold as the rendered-frame check"})
-    # text that merely repeats the narration
+    # text that merely repeats the narration; declared caption text is a legitimate repeat and is left out
     if ctx.narr:
         nar = {i: txt for _, _, i, txt in ctx.narr}
         for lab, smps in per_scene.items():
             if lab in nar:
-                on = " ".join(i["text"] for i in smps[-1]["items"] if i["k"] == "text")
-                ta = set(re.findall(r"[a-z]{4,}", on.lower())); tb = set(re.findall(r"[a-z]{4,}", nar[lab].lower()))
-                if len(ta) >= 6 and ta and tb and len(ta & tb) / len(ta) > 0.7:
-                    rep.add("text-echoes-narration", "measured", "warn", f"on-screen text in {lab} repeats {len(ta & tb) / len(ta) * 100:.0f}% of its own words from the narration", {"scene": lab},
-                            beat=lab, suggestion="show what is said instead of captioning it, unless this is a caption band", waivers=wv)
+                texts = [i for i in smps[-1]["items"] if i["k"] == "text"]
+                bands = caption_bands(ctx, fmt, [lab])
+                srcs = [caption_source(i, bands, H) for i in texts]
+                share_all = echo_share([i["text"] for i in texts], nar[lab])
+                share_plain = echo_share([i["text"] for i, s in zip(texts, srcs) if not s], nar[lab])
+                plain_echo = share_plain is not None and share_plain > ECHO_SHARE
+                if not plain_echo and not (share_all is not None and share_all > ECHO_SHARE):
+                    continue
+                share = share_plain if plain_echo else share_all
+                cap_src = next((s for s in srcs if s), None)
+                ew = wv if plain_echo else {**wv, "text-echoes-narration": f"capability:caption-band@{cap_src}"}
+                rep.add("text-echoes-narration", "measured", "warn", f"on-screen text in {lab} repeats {share * 100:.0f}% of its own words from the narration", {"scene": lab},
+                        beat=lab, suggestion="show what is said instead of captioning it, unless this is a caption band", waivers=ew)
     rep.check("composition-lint", "ran")
 
 

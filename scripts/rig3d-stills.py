@@ -2,38 +2,30 @@
 """rig3d-stills.py: contact sheet of the 3D Tibi from several camera angles and moments, in seconds.
 
     .venv/bin/python scripts/rig3d-stills.py curl --shots front,three,side,back --times 0,1.0 [--gender m|f]
-                     [--size 360x480] [--out qa/rig3d/curl.png] [--extra "az=70&el=40"]
+                     [--size 360x480] [--out qa/rig3d/curl.png] [--extra "az=70&el=40"] [--fit 0.05]
 
 Rows are moments (film seconds inside the exercise's own timeline), columns are camera shots (the exercise's `shots`
-table in kits/fitness/exercises3d.js, or raw az/el through --extra). Renders with the headless Chrome HyperFrames
+table in kits/fitness/exercises3d.js, or raw az/el through --extra). --fit solves each shot's distance and target so the
+body and equipment stay inside the frame through the whole set (T3.fitScene) instead of the exercise's fixed camera.
+Renders with the headless Chrome HyperFrames
 installed (SwiftShader WebGL, a few seconds per cell) via assets/fitness/lab3d/still.html, under the host render lock.
 Look at the sheet: posture, contact, equipment and activation are judged by eye; scripts/rig3d-check.js judges the numbers.
+Two lab sequences that are not exercises also render: `_hair` (the ponytail follow-through: a head turn at 0.5-0.8 s, a nod at
+2.2-2.5 s) and `_foot` (a static foot roll: --extra "hl=36&tf=0"); give them a camera through --extra (az, el, tx, ty, tz, dist).
 """
 import argparse
-import glob
-import os
-import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src" / "pipeline"))
 
-
-def chrome() -> str:
-    hits = sorted(glob.glob(os.path.expanduser("~/.cache/puppeteer/chrome-headless-shell/*/*/chrome-headless-shell")))
-    if not hits:
-        sys.exit("no headless Chrome found under ~/.cache/puppeteer (install HyperFrames first)")
-    return hits[-1]
+from browser_stills import capture, chrome  # noqa: E402
 
 
 def cell(ch: str, query: str, out: str, w: int, h: int) -> None:
-    url = f"file://{ROOT}/assets/fitness/lab3d/still.html?w={w}&h={h}&{query}"
-    r = subprocess.run([ch, "--no-sandbox", "--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader",
-                        f"--screenshot={out}", f"--window-size={w},{h}", "--virtual-time-budget=3000", "--hide-scrollbars", url],
-                       capture_output=True, text=True, stdin=subprocess.DEVNULL)
-    if "written" not in r.stderr:
-        print(r.stderr[-400:])
+    capture(ch, ROOT / "assets" / "fitness" / "lab3d" / "still.html",
+            query, Path(out), w, h, budget_ms=3000)
 
 
 def main() -> int:
@@ -44,6 +36,7 @@ def main() -> int:
     ap.add_argument("--gender", default="m")
     ap.add_argument("--size", default="360x480")
     ap.add_argument("--extra", default="")
+    ap.add_argument("--fit", type=float, help="fit each shot to the whole set with this margin (fraction of the frame)")
     ap.add_argument("--out")
     a = ap.parse_args()
     from hostlock import heavy_lock
@@ -58,10 +51,11 @@ def main() -> int:
     with heavy_lock("render", slug="rig3d-stills"):
         for r, t in enumerate(times):
             for c, s in enumerate(shots):
-                q = f"ex={a.exercise}&g={a.gender}&t={t}&shot={s}" + (("&" + a.extra) if a.extra else "")
+                q = f"ex={a.exercise}&g={a.gender}&t={t}&shot={s}" + ("&fit=%g" % a.fit if a.fit is not None else "") \
+                    + (("&" + a.extra) if a.extra else "")
                 cell(ch, q, str(tmp), w, h)
-                if tmp.exists():
-                    sheet.paste(Image.open(tmp).convert("RGB"), (c * w, r * h))
+                with Image.open(tmp) as image:
+                    sheet.paste(image.convert("RGB"), (c * w, r * h))
     tmp.unlink(missing_ok=True)
     sheet.save(out)
     print(out)

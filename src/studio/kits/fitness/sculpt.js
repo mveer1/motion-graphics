@@ -18,7 +18,9 @@
  *
  * Shading: each crescent is a mask (the shape minus itself nudged toward the light). The nudge is
  * counter-rotated against the segment's world angle through the rig's derive hook, so the light
- * stays top-left while a limb swings; every move is sampled so it follows the arc.
+ * stays top-left while a limb swings. Moves (to, sequence, cycle) are continuous since sculpt kit
+ * 2.2.0: one tween per move drives a setter that solves the exact pose for each frame, and arm art
+ * variants blend across their thresholds instead of switching (see armWeights).
  */
 (function (global) {
   'use strict';
@@ -330,6 +332,49 @@
     if (ab < 50) return 'down';
     return el >= 60 ? 'flex' : 'raised';
   }
+  // While a joint passes a threshold the two drawings blend over an angle window (sculpt kit 2.2.0):
+  // the drawing on top fades in over the first half of the window and the one underneath fades out
+  // over the second half, so the arm is never see-through. Outside the windows the opacities are
+  // exactly the old 0/1 switch. The windows are per view and as wide as the named poses and exercise
+  // end poses allow: every one of them sits outside its view's window, so none changes (audit in
+  // prompts/state/p05/2d-report.md; tests/test-fitness.py checks the named poses). Binding poses:
+  // front 14 / 80, back 16 / 61 (pull-up top), top 48 (push-up bottom) / 72, above - / 74; elbows
+  // 18 / 92 (press bottom). A new static pose inside a window would show both drawings blended.
+  var RAISE_WIN = { front: [25, 75], back: [24, 58], top: [50, 70], above: [30, 70] }, BEND_WIN = [35, 85];
+  function ramp(v, w) { var x = (v - w[0]) / (w[1] - w[0]); x = x < 0 ? 0 : (x > 1 ? 1 : x); return x * x * (3 - 2 * x); }
+  function armWeights(pose, x, view) {
+    var r = ramp(pose.j['shoulder' + x] || 0, RAISE_WIN[view]);
+    return { raised: r, flex: r * ramp(pose.j['elbow' + x] || 0, BEND_WIN) };
+  }
+  function fadeIn(k) { return Math.min(1, 2 * k); }
+  function fadeOut(k) { return 1 - Math.max(0, 2 * k - 1); }
+  // a short ramp inside the window: a drawing laid over a similar opaque one (the flexed arm over the
+  // raised arm, the fist over the open hand) shows a pale ghost wherever it is partly transparent, so it
+  // fades in over a fifth of the window only
+  function quick(k, lo) { var x = (k - lo) / 0.2; return x < 0 ? 0 : (x > 1 ? 1 : x); }
+  // opacity of one art variant; w = armWeights (side view: no arm swaps), grip = the grip channel 0..1
+  function blendOpacity(tag, w, grip) {
+    var closed = Math.max(grip, w.flex);
+    if (tag === 'down') return fadeOut(w.raised);
+    if (tag === 'raised') return fadeIn(w.raised);
+    if (tag === 'flexArm') return quick(w.flex, 0.4);       // over the no-deltoid arm, which stays opaque
+    if (tag === 'open') return 1 - quick(closed, 0.6);
+    if (tag === 'fist') return quick(closed, 0.4);
+    if (tag === 'grip') return quick(grip, 0.4);
+    return 1;
+  }
+  function gripValue(pose) { var v = pose.ch && pose.ch.grip !== undefined ? pose.ch.grip : 0; return v < 0 ? 0 : (v > 1 ? 1 : v); }
+  // Inside the abduction window the lat wing grows out from behind the torso (scaled from its inner
+  // edge, fully opaque: the torso hides the part not yet grown) and the deltoid cap swells from 40 %
+  // on the top of the arm, opaque after the first tenth of the window, so it grows inside the body's
+  // silhouette instead of showing a pale, half-transparent dome. Art-local units; side R is mirrored.
+  function growT(l, r) {
+    if (r <= 0 || r >= 1) return '';
+    var m = l.dside === 'L' ? 1 : -1;
+    if (l.key === 'flare') return ' translate(' + num(40 * m) + ' 0) scale(' + num(r) + ' 1) translate(' + num(-40 * m) + ' 0)';
+    var s = 0.4 + 0.6 * r;
+    return ' translate(' + num(10 * m) + ' 10) scale(' + num(s) + ') translate(' + num(-10 * m) + ' -10)';
+  }
   // hands: 'open' unless flexing or gripping; 'fist' (front/back/top) and 'grip' (side) when holding
   // something (pose channel ch.grip = 1) or, for the fist, in a double-biceps flex
   function shows(tag, state, grip) {
@@ -408,7 +453,7 @@
           return fj === 1 ? t : t + ' scale(1 ' + num(fj) + ')';
         };
         var art = svg('g', { 'class': 'tsc-seg tsc-' + l.key, transform: artT(1) }, gEl);
-        fig.data.arts.push({ el: art, joint: l.joint, make: artT });     // tweened only when a pose changes the joint's f
+        fig.data.arts.push({ el: art, joint: l.joint, make: artT, grow: l.show ? l : null });     // tweened only when a pose changes the joint's f
         if (l.pony) {
           var pw = svg('g', {}, art);
           var ps = addSeg(fig, l, l.key, pw);
@@ -429,7 +474,7 @@
           return;
         }
         var s = addSeg(fig, l, l.key, art);
-        if (l.show) { s.variant = l.show; fig.data.variants.push({ el: art, arm: l.arm, tag: l.show }); }
+        if (l.show) { s.variant = l.show; fig.data.variants.push({ el: art, arm: l.arm, tag: l.show, key: l.key }); }
       },
       derive: function (fig, pose) {
         var out = [];
@@ -454,12 +499,16 @@
             out.push({ el: seg.inner, attr: { transform: 'rotate(' + num(a) + ')' } });
           }
         });
-        var grip = gripOn(pose);
+        var grip = gripValue(pose), still = { raised: 0, flex: 0 };
         fig.data.variants.forEach(function (v) {
-          out.push({ el: v.el, attr: { opacity: shows(v.tag, view === 'side' ? 'down' : armState(pose, v.arm), grip) ? 1 : 0 } });
+          var w = view === 'side' ? still : armWeights(pose, v.arm, view);
+          var op = v.key === 'flare' ? (w.raised > 0 ? 1 : 0) : (v.key === 'cap' ? Math.min(1, 10 * w.raised) : blendOpacity(v.tag, w, grip));
+          out.push({ el: v.el, attr: { opacity: num(op) } });
         });
         fig.data.arts.forEach(function (a2) {
-          out.push({ el: a2.el, attr: { transform: a2.make(pose.f && pose.f[a2.joint] !== undefined ? pose.f[a2.joint] : 1) } });
+          var tf = a2.make(pose.f && pose.f[a2.joint] !== undefined ? pose.f[a2.joint] : 1);
+          if (a2.grow && view !== 'side') tf += growT(a2.grow, armWeights(pose, a2.grow.arm, view).raised);
+          out.push({ el: a2.el, attr: { transform: tf } });
         });
         return out;
       }
@@ -494,6 +543,129 @@
       out[k] = pose;
     }
     return out;
+  }
+
+  // ------------------------------------------------------------------ continuous moves (sculpt kit 2.2.0)
+  // RIG.to bakes a contact-solved move into short linear tweens (6-10 samples a second), so the
+  // speed steps at every sample edge and the derived shading and art opacities move in straight
+  // chords. Here one tween drives a setter that solves and writes the exact pose for each seeked
+  // instant (the 3D kit's T3.bind pattern). The pose depends only on the tween's progress, so a seek
+  // to any frame is exact and nothing depends on playback order. op.sampled = true keeps RIG.to.
+  function mixPose(a, b, t) {
+    var p = { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, rot: a.rot + (b.rot - a.rot) * t, j: {}, ch: {}, f: {} };
+    for (var k in a.j) if (own(a.j, k)) p.j[k] = a.j[k] + (b.j[k] - a.j[k]) * t;
+    for (var fk in a.f || {}) if (own(a.f, fk)) { var fb = (b.f || {})[fk] === undefined ? 1 : b.f[fk]; p.f[fk] = a.f[fk] + (fb - a.f[fk]) * t; }
+    for (var c in a.ch) if (own(a.ch, c)) p.ch[c] = a.ch[c] + (b.ch[c] - a.ch[c]) * t;
+    return p;
+  }
+  // p + (a - b) * k, field by field: carries a start mismatch that fades out over the move
+  function offsetPose(p, a, b, k) {
+    if (k === 0) return p;
+    var q = { x: p.x + (a.x - b.x) * k, y: p.y + (a.y - b.y) * k, rot: p.rot + (a.rot - b.rot) * k, j: {}, ch: {}, f: {} };
+    for (var j in p.j) if (own(p.j, j)) q.j[j] = p.j[j] + (a.j[j] - b.j[j]) * k;
+    for (var f in p.f) if (own(p.f, f)) q.f[f] = p.f[f] + ((a.f[f] === undefined ? 1 : a.f[f]) - (b.f[f] === undefined ? 1 : b.f[f])) * k;
+    for (var c in p.ch) if (own(p.ch, c)) q.ch[c] = p.ch[c] + (a.ch[c] - b.ch[c]) * k;
+    return q;
+  }
+  function samePose(a, b) {
+    return Math.abs(a.x - b.x) < 1e-6 && Math.abs(a.y - b.y) < 1e-6 && Math.abs(a.rot - b.rot) < 1e-6 &&
+      JSON.stringify(a.j) === JSON.stringify(b.j) && JSON.stringify(a.f) === JSON.stringify(b.f) && JSON.stringify(a.ch) === JSON.stringify(b.ch);
+  }
+  function guard(fig, at) {
+    if (at < fig.cursor - 1e-4) throw new Error('Studio.rig: tween at ' + at.toFixed(3) + 's overlaps the previous one (ends ' + fig.cursor.toFixed(3) + 's); add rig moves in time order.');
+  }
+  function drive(fig, tl, at, dur, poseAt) {
+    var d = {}, u = -1;
+    Object.defineProperty(d, 'u', { get: function () { return u; }, set: function (v) { u = v; RIG.setPose(fig, poseAt(v)); } });
+    tl.fromTo(d, { u: 0 }, { u: 1, duration: dur, ease: 'none', immediateRender: false }, at);
+  }
+  // the pose at progress u (0..1) of a move from full pose `a` to `pose`, eased; returns {at(u), end}
+  function solver(fig, a, pose, easeName) {
+    var raw = RIG.lookup(fig, pose), b = RIG.normalise(fig, raw, a);
+    var ease = global.gsap.parseEase(easeName || 'power2.inOut');
+    // 'keep' contacts are pinned where they are at the start of the move, as RIG.to does; an explicit
+    // target travels from where the contact is now to the target (RIG.to solved every sample against
+    // the final target, so the body or limb jumped to it on the first sample)
+    function lerp2(p, q, s) { return [p[0] + (q[0] - p[0]) * s, p[1] + (q[1] - p[1]) * s]; }
+    var anchor = raw.anchor ? Object.assign({}, raw.anchor) : null, aFrom = null, aTo = null;
+    if (anchor) {
+      var here = RIG.point(fig, anchor.joint, anchor.point, a);
+      if (anchor.to === 'keep' || anchor.to === undefined) anchor.to = here; else { aFrom = here; aTo = anchor.to; }
+    }
+    var ik = raw.ik ? raw.ik.map(function (k) {
+      var at0 = RIG.point(fig, k.chain[2], [0, 0], a);
+      return (k.to === 'keep' || k.to === undefined) ? Object.assign({}, k, { to: at0 }) : Object.assign({}, k, { from: at0, goal: k.to });
+    }) : null;
+    function solve(s) {
+      var m = mixPose(a, b, s);
+      if (anchor) { if (aTo) anchor.to = lerp2(aFrom, aTo, s); m = RIG.solveAnchor(fig, m, anchor, a); }
+      if (ik) {
+        ik.forEach(function (k) { if (k.goal) k.to = lerp2(k.from, k.goal, s); });
+        m = RIG.solveIK(fig, m, ik, a);
+      }
+      return m;
+    }
+    var s0 = solve(0), end = solve(1);
+    return {
+      end: end,
+      at: function (u) {
+        if (u <= 0) return a;
+        if (u >= 1) return end;
+        var s = ease(u);
+        return offsetPose(solve(s), a, s0, 1 - s);
+      }
+    };
+  }
+  function move(fig, tl, pose, at, dur, op) {
+    var o = op || {};
+    if (!(dur > 0) || o.sampled) return fig.to(tl, pose, at, dur, op);
+    guard(fig, at);
+    var sv = solver(fig, fig.state, pose, o.ease);
+    drive(fig, tl, at, dur, sv.at);
+    fig.state = sv.end;
+    fig.cursor = at + dur;
+    return fig.cursor;
+  }
+  // a finite cycle through evenly spaced keys (gait): a periodic Catmull-Rom spline through the keys,
+  // so joint speeds are continuous at the keys; the floor rule (lowest contact on the floor line) is
+  // solved at every instant. Same options and end state as RIG.cycle.
+  function cycle(fig, tl, poses, at, period, count, op) {
+    var o = op || {};
+    if (o.sampled || !(period > 0) || !(count > 0)) return fig.cycle(tl, poses, at, period, count, op);
+    guard(fig, at);
+    var n = poses.length, step = period / n, total = period * count;
+    var keys = [], prev = fig.state;
+    poses.forEach(function (p) { var k = RIG.normalise(fig, RIG.lookup(fig, p), prev); keys.push(k); prev = k; });
+    function ground(p) {
+      if (!o.floor) return p;
+      p.y = 0;
+      var low = -Infinity;
+      o.floor.points.forEach(function (c) { var w = RIG.point(fig, c.joint, c.point, p); if (w[1] > low) low = w[1]; });
+      p.y += o.floor.y - low;
+      return p;
+    }
+    function cr(p0, p1, p2, p3, t) { return 0.5 * (2 * p1 + (p2 - p0) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t * t + (3 * p1 - p0 - 3 * p2 + p3) * t * t * t); }
+    function spline(k0, k1, k2, k3, t) {
+      var p = { x: cr(k0.x, k1.x, k2.x, k3.x, t), y: cr(k0.y, k1.y, k2.y, k3.y, t), rot: cr(k0.rot, k1.rot, k2.rot, k3.rot, t), j: {}, ch: {}, f: {} };
+      for (var j in k1.j) if (own(k1.j, j)) p.j[j] = cr(k0.j[j], k1.j[j], k2.j[j], k3.j[j], t);
+      for (var f in k1.f) if (own(k1.f, f)) p.f[f] = cr(k0.f[f], k1.f[f], k2.f[f], k3.f[f], t);
+      for (var c in k1.ch) if (own(k1.ch, c)) p.ch[c] = cr(k0.ch[c], k1.ch[c], k2.ch[c], k3.ch[c], t);
+      return p;
+    }
+    var start = fig.state, first = ground(JSON.parse(JSON.stringify(keys[0])));
+    var lead = samePose(start, first) ? 0 : Math.min(0.25, step);     // ease in from where Tibi stands
+    function poseAt(u) {
+      var tau = Math.max(0, Math.min(1, u)) * total, ph = tau / step, k = Math.floor(ph), fr = ph - k;
+      if (k >= n * count) { k = n * count - 1; fr = 1; }
+      var i1 = k % n;
+      var p = ground(spline(keys[(i1 + n - 1) % n], keys[i1], keys[(i1 + 1) % n], keys[(i1 + 2) % n], fr));
+      if (lead && tau < lead) { var s = tau / lead; s = s * s * (3 - 2 * s); p = ground(mixPose(start, p, s)); }
+      return p;
+    }
+    drive(fig, tl, at, total, poseAt);
+    fig.state = poseAt(1);
+    fig.cursor = at + total;
+    return fig.cursor;
   }
 
   function levelsOf(levels) {
@@ -567,9 +739,16 @@
     var T = { fig: fig, view: view, gender: g === 'f' ? 'female' : 'male', face: face, el: holder, shadow: shadow, floor: floor, scale: s, x0: o.x || 0, sculpt: true };
     var cursors = { act: 0, markers: 0, spark: 0 };
 
-    T.to = function (tl, pose, at, dur, op) { return fig.to(tl, pose, at, dur, op); };
-    T.sequence = function (tl, steps, at, op) { return fig.sequence(tl, steps, at, op); };
-    T.cycle = function (tl, poses2, at, period, count, op) { return fig.cycle(tl, poses2, at, period, count, op); };
+    T.to = function (tl, pose, at, dur, op) { return move(fig, tl, pose, at, dur, op); };
+    T.sequence = function (tl, steps, at, op) {
+      var t = at;
+      steps.forEach(function (st) {
+        t = move(fig, tl, st.pose, t, st.dur, { ease: st.ease || (op && op.ease), sampled: op && op.sampled });
+        if (st.hold) { t += st.hold; fig.cursor = t; }
+      });
+      return t;
+    };
+    T.cycle = function (tl, poses2, at, period, count, op) { return cycle(fig, tl, poses2, at, period, count, op); };
     T.set = function (pose) { fig.set(pose); return T; };
     T.point = function (joint, local, pose) { return fig.point(joint, local, pose); };
     T.attach = function (joint, layer) { return fig.attach(joint, layer || 'props'); };
@@ -695,4 +874,12 @@
   F.sculpt.names = D.names;
   F.sculpt.poses = function (gender, view) { return Object.keys(D.poses[/^f/.test(gender || 'male') ? 'f' : 'm'][view || 'side']); };
   F.sculpt.aliases = ALIAS;
+  /**
+   * The continuous solve a sculpt move uses: s = F.sculpt.solver(fig, fromPose|null, toPose, ease);
+   * s.at(u) is the full pose at progress u (0..1), s.end the final pose. Overlays that follow a move
+   * (G.bio.angle.track) use it so they sit on the figure at every frame, not only at sample points.
+   */
+  F.sculpt.solver = function (fig, fromPose, toPose, ease) {
+    return solver(fig, fromPose ? RIG.resolve(fig, fromPose, fig.state) : fig.state, toPose, ease);
+  };
 })(typeof window !== 'undefined' ? window : this);

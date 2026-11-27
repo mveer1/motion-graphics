@@ -1,0 +1,31 @@
+{
+  "id": "chromatic-punch-word",
+  "name": "Chromatic punch word",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected kinetic-type piece (batch 1, 2026-11-26) lands each single word on the beat with an oversized entrance and a red/cyan channel split that settles in a few frames.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "A single word enters about 20% oversized with red and cyan copies offset sideways, and in 2-4 frames scales to size while the copies collapse into one clean word. The split reads as impact and speed without a camera shake.",
+  "purpose": "Give one-word beats weight in a fast, music-led sequence.",
+  "visual_behaviour": "Frame 1: word large, fringed red on one side and cyan on the other; frames 2-4: fringes close and size settles; then the word holds clean.",
+  "mechanics": "Three stacked copies (or text-shadow): red at -dx, cyan at +dx, white on top with mix-blend-mode screen on dark; dx 8-14 px -> 0 and scale 1.2 -> 1.0 over 0.10-0.15 s with power4.out, placed on the beat. Optional 1-frame opacity flicker on the fringes.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["beat-pulse"], "timing": "Settle 0.10-0.15 s; one word per beat (0.5-1.0 s)." },
+  "parameters": [
+    { "name": "offset", "description": "Starting channel offset in --u units", "default": 1.2 },
+    { "name": "overshoot_scale", "description": "Entrance scale", "default": 1.2 },
+    { "name": "settle", "description": "Seconds to clean", "default": 0.12 }
+  ],
+  "use_cases": ["one-word-per-beat sequences", "stat or claim slams in a promo", "hook lines in a short-form film"],
+  "failure_modes": ["Red/cyan fringes on a light canvas look like misregistration; use on dark sections or swap to the accent pair", "A split that never settles hurts legibility", "Every word punched equally flattens the hierarchy; punch only the beat words"],
+  "implementation_state": "documented",
+  "implemented_by": [],
+  "implementation": { "approach": "text-shadow: calc(var(--dx) * -1) 0 #ff2a4a, var(--dx) 0 #2ad4ff; tween --dx and scale with fromTo(immediateRender) on the beat from Studio.rhythm.grid; deterministic." },
+  "capability": { "support": "native", "requirements": ["text-shadow or stacked text", "mix-blend-mode (optional)"], "compatible_components": ["beat-pulse"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-81650adf49", "timestamps": [10.52, 11.52, 18.52], "observed": "Each new word ('DETOURS', 'MILLION', 'YOU BLINKED.') enters about 120% oversized with red and cyan copies offset sideways and settles to one clean word within about 2-3 frames." },
+    { "source_id": "ref-dc626241e6", "timestamps": [1.55, 2.05], "observed": "The opening statement lands with red-cyan split copies (1.55 s) and the next word swaps in with a one-frame split (2.05 s)." }
+  ],
+  "related": { "techniques": ["word-per-beat-sequence", "glitch-type", "flash-frame-cut"], "effects": ["beat-pulse"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "rgb-split", "chromatic-aberration", "beat", "impact", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-27" }
+}

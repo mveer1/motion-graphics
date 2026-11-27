@@ -1,0 +1,43 @@
+{
+  "id": "shared-visual-engines",
+  "name": "Visual Engine Registry",
+  "component_type": "shared_asset",
+  "purpose": "specs/visual-engines.json: the engines a scene can route to, their roles and costs, routing signals (treatment, subject and form terms), composition modes, plate defaults, the pinned Blender builds with SHA-256, and the engines not adopted.",
+  "location": "specs/visual-engines.json",
+  "version": "1.0.0",
+  "installation": {
+    "required": false,
+    "instructions": "Read by scripts/visual-director.py."
+  },
+  "compatibility": {
+    "apple_silicon_tested": false,
+    "runtime": "json",
+    "notes": "Edit routing terms here, not in code."
+  },
+  "documentation_urls": [
+    "docs/visual-engines.md"
+  ],
+  "licensing": {
+    "spdx_identifier": "Proprietary-Workspace",
+    "status": "verified",
+    "commercial_use": true,
+    "notes": "Internal workspace specification."
+  },
+  "security": {
+    "requires_filesystem_write": false,
+    "requires_network": false,
+    "requires_execution": false,
+    "sensitive_data_exposure": false,
+    "notes": "Static data; download URLs point at download.blender.org with pinned hashes."
+  },
+  "owner": "video-production",
+  "status": "experimental",
+  "approval_evidence": "Introduced 2026-11-24 with the visual director.",
+  "architecture_ref": "ARCHITECTURE.md#visual-engines",
+  "last_verified": "2026-11-24",
+  "tags": [
+    "spec",
+    "engines",
+    "routing"
+  ]
+}

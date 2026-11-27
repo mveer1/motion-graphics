@@ -1,0 +1,69 @@
+{
+  "id": "equation-build",
+  "name": "Equation term build",
+  "purpose": "Build a formula term by term while a figure shows each part; the whole equation is laid out first so nothing reflows, and the result is ringed.",
+  "status": "experimental",
+  "uses": {
+    "primitives": [
+      "styled-text",
+      "hand-drawn-line"
+    ],
+    "effects": [],
+    "recipes": []
+  },
+  "formats_supported": [
+    "landscape",
+    "portrait",
+    "square"
+  ],
+  "inputs": [
+    {
+      "name": "terms",
+      "type": "array",
+      "description": "strings or {text, tone: accent|accent-2|muted}"
+    },
+    {
+      "name": "rise",
+      "type": "number (u)",
+      "description": "rise of each term on reveal",
+      "default": 0.8
+    }
+  ],
+  "implementation": {
+    "location": "src/studio/studio-explain.js",
+    "api": "Studio.comp.equation(parent, {terms}, {rise, ringColor}) -> {show, reveal(tl, i, at), build(tl, times[] | {at, gap}), ring(tl, i, at, {duration 0.4}), exit}"
+  },
+  "layout_notes": "Inline-flex row in the display face at 7u; place it under or beside the figure it explains.",
+  "styles_tested": [
+    "editorial-light"
+  ],
+  "examples": [
+    "tests/reference-derived/explain-equation-trace/index.html",
+    "tests/studio-runtime/explain-devices.html"
+  ],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (test_explanation_device_checks)",
+    "python tests/test-explanation-devices.py"
+  ],
+  "validation": {
+    "evidence": "Runtime checks tests/studio-runtime/explain-devices.html (63 checks incl. seek-order independence) in Playwright Chromium on Windows, 2026-11-28; golden scene tests/reference-derived/explain-equation-trace/index.html frame review 0 errors 0 warnings and contact sheet inspected. Not rendered through HyperFrames on the M2, so not approved.",
+    "last_verified": "2026-11-28"
+  },
+  "related": [
+    "trace-pair",
+    "animated-chart"
+  ],
+  "tags": [
+    "composition",
+    "explanation-device",
+    "reference-derived",
+    "math",
+    "formula",
+    "build-up"
+  ],
+  "metadata": {
+    "author": "MotionLab",
+    "created_at": "2026-11-28",
+    "updated_at": "2026-11-28"
+  }
+}

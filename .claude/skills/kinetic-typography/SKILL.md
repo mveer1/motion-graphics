@@ -154,3 +154,4 @@ Animate the `startOffset` attribute (`0%` -> `100%`) to scroll text along the pa
 ## Reference files
 
 - `references/reveal-recipes.md` — copy-paste reveal cookbook: mask/blur/clip/char-stagger in CSS, GSAP SplitText timelines, Framer Motion staggered variants, Remotion per-character interpolation, variable-font keyframes, and a screen-reader-safe split helper.
+- `docs/reference-playbook.md` (section "Kinetic typography") — typography techniques learned from the studio's reference videos, with mechanics, timings and precedent moments: `word-per-beat-sequence`, `chromatic-punch-word`, `text-scramble-decode` (seeded, never `Math.random`), `strike-and-correct`, `typographic-architecture`, `word-slot-roll`, `centred-word-build`, `self-describing-kinetic-words`.

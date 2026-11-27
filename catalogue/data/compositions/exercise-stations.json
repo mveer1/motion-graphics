@@ -1,0 +1,39 @@
+{
+  "id": "exercise-stations",
+  "name": "Exercise stations (Sinew fitness layout, exercise card and per-station Tibi)",
+  "purpose": "The per-exercise pattern of a Sinew workout or technique film: one station per exercise, each with its own Tibi doing reps that fill the station window in the stage band and its exercise card in the header band (number, name, prime and secondary muscle chips, numbered cues, a tip with its evidence grade and source line, easier and harder swaps), cross-faded into the next station. Card parts are revealed on the words that name them (Studio.cues.fromWords).",
+  "status": "experimental",
+  "uses": {
+    "primitives": ["articulated-rig", "styled-text", "scene-container"],
+    "effects": ["crossfade-dissolve", "text-mask-rise", "paper-pop"],
+    "recipes": []
+  },
+  "formats_supported": ["landscape", "portrait", "square"],
+  "inputs": [
+    { "name": "host", "type": "element | [artHost, cardHost]", "description": "A full-frame layer, or two (Tibi art inside a drifting camera layer, cards outside it); each station gets one layer in each host" },
+    { "name": "list", "type": "array", "description": "[{exercise (2D id) | mode: '3d' + exercise3d, start, end, gender, view, reps (default: fill the window), lead, acts, card: data | false, cardAt, beats: {muscles, cues: [t...], tip, swaps} | 'auto', build(ctx, tl)}]" },
+    { "name": "layout", "type": "object", "default": "Studio.kit.fitness.layout()", "description": "The fitness bands per format: portrait header to y 440, stage 440-850, captions 850 to the safe bottom (fractions of 1280); landscape and square put the card column left of the stage, captions below both" },
+    { "name": "fade", "type": "number", "default": 0.5, "description": "Cross-fade length at each station boundary (zero-dip, centred on the boundary)" },
+    { "name": "card.tip.source", "type": "string", "description": "Required whenever a tip is given: the card refuses a claim without its source line (fitness research protocol)" }
+  ],
+  "implementation": {
+    "location": "src/studio/kits/fitness/stations.js",
+    "api": "Studio.kit.fitness.layout(opts) -> {header, stage, captions, floor, captionBand, mode}; .cardData(id, extra); .exerciseCard(parent, data, {mode}) -> {enter, reveal(tl, part, at), show(tl, beats), exit}; .stations(host, list, {layout, fade, gender, hold}).schedule(tl) -> end time"
+  },
+  "layout_notes": "Portrait (slot mode): the card sits in the header band and its cues, tip and swaps take turns in one slot so the card never grows into the stage; Tibi is scaled to 80% of the stage band height (lying views by length). Landscape and square (stack mode): a card column left of the stage (42% / 46% of the width) that ends above the floor line, cues stacked, tip and swaps taking turns. Rect sizes are fractions of the frame and the safe insets, read from Studio.format at build time; type sizes are in --u.",
+  "styles_tested": ["sinew-lab"],
+  "examples": ["templates/projects/fitness-explainer/src/index.html", "tests/studio-runtime/film-helpers.html"],
+  "validation_steps": [
+    "python tests/test-studio-runtime.py (film-helpers.html: bands, cards, slot hand-over, cross-fades, backward seeks)",
+    "python tests/test-fitness.py (template loads the kit and builds Tibi through the stations)",
+    "python scripts/frame-review.py <slug> --fonts google on a project made from fitness-explainer, portrait and landscape",
+    "A HyperFrames render on the render host before approval"
+  ],
+  "validation": {
+    "evidence": "Runtime self-test (tests/studio-runtime/film-helpers.html) and frame review of scratch projects made from the fitness-explainer template (portrait short, landscape mid) in headless Chromium on Windows, 2026-11-24. Not rendered through HyperFrames.",
+    "last_verified": "2026-11-24"
+  },
+  "related": ["station-sequence", "caption-band", "title-card", "end-card"],
+  "tags": ["composition", "fitness", "sinew", "tibi", "exercise-card", "stations", "word-snapped"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-24", "updated_at": "2026-11-24" }
+}

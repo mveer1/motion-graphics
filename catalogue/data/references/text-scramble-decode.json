@@ -1,0 +1,32 @@
+{
+  "id": "text-scramble-decode",
+  "name": "Text scramble decode",
+  "family": "kinetic-typography",
+  "status": "proposed",
+  "source": { "type": "user-provided-reference", "description": "An inspected brand reel (batch 1, 2026-11-26) resolves a bracketed word out of random cycling glyphs.", "inspected": true, "inspected_on": "2026-11-26" },
+  "technique": "Each character slot cycles through random glyphs and locks to its final letter, slot by slot (usually left to right), so the word 'decodes' into place.",
+  "purpose": "Signal computation, discovery or 'making sense'; a lively entrance for short technical words.",
+  "visual_behaviour": "Bracketed slots flicker with symbols and letters in the accent colour; within about 0.4 s they lock into the word, which turns to the body colour.",
+  "mechanics": "Split the word into character slots of fixed width (monospace avoids reflow); for each frame before a slot's lock time, pick a glyph from a charset with a seeded PRNG keyed by (slot, frame index), so any seek shows the same glyph; lock times staggered 30-60 ms per slot; colour accent -> body on lock.",
+  "decomposition": { "primitives": ["styled-text"], "effects": ["typewriter-reveal", "char-cascade"], "timing": "0.3-0.6 s total; 30-60 ms stagger per character; glyph change every 1-2 frames." },
+  "parameters": [
+    { "name": "charset", "description": "Glyph pool", "default": "A-Z0-9<>/[]#" },
+    { "name": "stagger", "description": "Seconds between slot locks", "default": 0.04 },
+    { "name": "seed", "description": "PRNG seed (never Math.random)", "default": 1 }
+  ],
+  "use_cases": ["technology and data explainers", "a term that 'clicks'", "codename or label reveals"],
+  "failure_modes": ["Math.random or time-based glyph picks break deterministic renders", "Proportional fonts make the word jitter in width", "Long scrambles on long words read as noise; keep words short"],
+  "implementation_state": "implemented",
+  "implemented_by": ["scramble-decode"],
+  "implementation": {"approach": "Studio.type.scramble(tl, el, at, {charset, lead, stagger, step, seed, settle}) (runtime 1.17.0): each character becomes a slot holding its final letter and prebuilt glyph spans picked by Studio.rng(seed, text); the timeline switches one glyph per `step` (2 frames) until the slot's lock time (lead + slot * stagger), then shows the letter in the accent and settles it to the text colour. No callbacks, so every seek shows the same glyphs; aria-label keeps the word.", "runtime_api": ["Studio.type.scramble"]},
+  "validation": {"state": "preview", "evidence": [{"kind": "runtime-test", "path": "tests/studio-runtime/backlog-techniques.html", "result": "pass", "date": "2026-11-28"}, {"kind": "frame-review", "path": "tests/reference-derived/scramble-strike-caption/qa/report.json", "result": "pass", "date": "2026-11-28", "notes": "Contact sheet inspected: accent glyphs cycle (0.33-0.60 s), lock left to right (DECODL at 0.73 s), settle to ink by 1.0 s. 0 errors, 0 warnings."}]},
+  "capability": { "support": "native", "requirements": ["seeded PRNG", "monospace or fixed-width slots"], "compatible_components": ["typewriter-reveal", "char-cascade"], "complexity": "low", "resources": { "basis": "estimated", "cpu": "low" }, "additional_tooling": { "needed": "no" }, "priority": { "creative_value": 3, "cost": 1 } },
+  "provenance": [
+    { "source_id": "ref-aff23e662b", "timestamps": [1.89, 2.02], "observed": "Random glyphs in the violet accent flicker inside brackets (R, 9K, s<V, sBD) and resolve into the word within about 0.4 s." },
+    { "source_id": "ref-99713f6e72", "timestamps": [5.2, 5.9], "observed": "Reverse use: the struck word's letters cycle through random glyphs for 0.7 s (5.20-5.90 s) and decay to nothing instead of locking to a word." }
+  ],
+  "related": { "techniques": ["word-slot-roll", "glitch-type"], "effects": ["typewriter-reveal", "char-cascade"] },
+  "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown).",
+  "tags": ["kinetic-typography", "scramble", "decode", "text-reveal", "reference-derived"],
+  "metadata": { "author": "MotionLab", "created_at": "2026-11-26", "updated_at": "2026-11-28" }
+}

@@ -1,6 +1,7 @@
 {
   "id": "directional-smear",
   "name": "Directional smear (motion-blur approximation)",
+  "family": "motion-character",
   "status": "experimental",
   "source": { "type": "user-provided-reference", "description": "Four inspected references show words or objects arriving with streaks: stretched along the motion and blurred in one direction only.", "inspected": true, "inspected_on": "2026-10-30" },
   "technique": "Fast entrances and exits are drawn smeared: the shape is stretched and blurred along its direction of travel on the fast frames and snaps crisp at rest. It reads as speed and impact, the way camera motion blur or hand-drawn smear frames do.",
@@ -39,7 +40,13 @@
     { "source_id": "ref-92c22222a2", "timestamps": [11.25, 13.07], "observed": "Condensed caps word arrives as a horizontal streak and settles; a later word leaves as a streak to the left." },
     { "source_id": "ref-0bf0254a3d", "timestamps": [10.52], "observed": "One-word card enters from the left heavily smeared across a diagonal colour wipe." },
     { "source_id": "ref-392ee4d0f9", "timestamps": [3.77], "observed": "A heavy word drops in with vertical motion blur." },
-    { "source_id": "ref-ce769bc33e", "timestamps": [6.5], "observed": "Cards on a spinning carousel blur horizontally at peak speed (approx., from overview spacing)." }
+    { "source_id": "ref-ce769bc33e", "timestamps": [6.5], "observed": "Cards on a spinning carousel blur horizontally at peak speed (approx., from overview spacing)." },
+    { "source_id": "ref-b4e79aa0a4", "timestamps": [1.0, 1.99, 4.99, 7.99, 9.0], "observed": "Each verb enters with a two-frame horizontal smear (for example 1.00-1.03 s) and a short slide to rest by about 1.17 s." },
+    { "source_id": "ref-70c57c2adf", "timestamps": [3.32], "observed": "A word enters with a horizontal smear and ghosted echo copies (3.32-3.42 s)." },
+    { "source_id": "ref-7a185cb08d", "timestamps": [0.77, 1.23], "observed": "The wordmark smears right as it collapses into the dot (0.70-0.87 s) and the dot smears into a pill (1.17-1.40 s)." },
+    { "source_id": "ref-19cee08f9c", "timestamps": [7.7, 7.76], "observed": "A word smears with rotational blur as it twists into a vortex (7.67-7.86 s)." },
+    { "source_id": "ref-b8cf9a12b0", "timestamps": [2.74, 13.06], "observed": "Headlines smear sideways as they leave (2.71-2.81 s; 13.06 s)." },
+    { "source_id": "ref-c324a3d516", "timestamps": [9.1], "observed": "The Truchet pattern exits left in smeared pixel streaks to black (9.04-9.24 s)." }
   ],
   "validation": { "state": "preview", "evidence": [
     { "kind": "runtime-test", "path": "tests/studio-runtime/reference-techniques.html", "result": "pass", "date": "2026-10-30", "notes": "Blur active and stretched mid-move; filter none, x 0, scaleX 1 at rest; hidden before entrance." },
@@ -51,5 +58,5 @@
   "combines_with": [ { "id": "word-per-beat-sequence", "why": "A smeared arrival gives one card in a run of cuts extra punch." } ],
   "licensing_notes": "Technique only, learned from user-supplied references (inspiration-only, rights unknown). Implementation and copy are original.",
   "tags": ["motion-blur", "smear", "kinetic-typography", "speed", "approximation", "reference-derived"],
-  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-10-30" }
+  "metadata": { "author": "MotionLab", "created_at": "2026-10-30", "updated_at": "2026-11-27" }
 }
